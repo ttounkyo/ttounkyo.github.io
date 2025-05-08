@@ -7,6 +7,8 @@
     <title>Elementos de texto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Prism.js para resaltado de sintaxis -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
@@ -88,7 +90,66 @@
             </table>
         </div>
     </div>
+    <div class="container my-5">
+        <h2 class="mb-4 text-primary">Ejemplo del uso de etiquetas de texto</h2>
+        <div class="code-container">
+            <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Etiquetas de texto en HTML&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Encabezado de nivel 1&lt;/h1&gt;
+    &lt;h2&gt;Encabezado de nivel 2&lt;/h2&gt;
+    &lt;h3&gt;Encabezado de nivel 3&lt;/h3&gt;
+    &lt;h4&gt;Encabezado de nivel 4&lt;/h4&gt;
+    &lt;h5&gt;Encabezado de nivel 5&lt;/h5&gt;
+    &lt;h6&gt;Encabezado de nivel 6&lt;/h6&gt;
 
+    &lt;p&gt;Este es un párrafo normal. Puede contener texto &lt;strong&gt;en negrita&lt;/strong&gt; y texto &lt;em&gt;en cursiva&lt;/em&gt;.&lt;/p&gt;
+
+    &lt;p&gt;También puedes usar &lt;b&gt;negrita&lt;/b&gt; con la etiqueta b y &lt;i&gt;cursiva&lt;/i&gt; con la etiqueta i.&lt;/p&gt;
+
+    &lt;p&gt;Texto &lt;mark&gt;resaltado&lt;/mark&gt; con la etiqueta mark.&lt;/p&gt;
+
+    &lt;p&gt;Un texto &lt;small&gt;más pequeño&lt;/small&gt; con la etiqueta small.&lt;/p&gt;
+
+    &lt;p&gt;Texto &lt;del&gt;tachado&lt;/del&gt; con la etiqueta del.&lt;/p&gt;
+
+    &lt;p&gt;Texto &lt;ins&gt;subrayado&lt;/ins&gt; con la etiqueta ins.&lt;/p&gt;
+
+    &lt;p&gt;Texto &lt;sub&gt;subíndice&lt;/sub&gt; y texto &lt;sup&gt;superíndice&lt;/sup&gt;.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+        Esta es una cita de bloque con la etiqueta blockquote. Se utiliza para citar contenido de otras fuentes.
+    &lt;/blockquote&gt;
+
+    &lt;p&gt;También puedes usar &lt;q&gt;citas cortas en línea&lt;/q&gt; con la etiqueta q.&lt;/p&gt;
+
+    &lt;pre&gt;
+        Este es texto preformateado.
+        Conserva    los espacios    y
+        saltos de línea.
+    &lt;/pre&gt;
+
+    &lt;code&gt;Este es un fragmento de código&lt;/code&gt;
+
+    &lt;p&gt;Definición de &lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt; usando la etiqueta abbr.&lt;/p&gt;
+
+    &lt;address&gt;
+        Escrito por: Juan Pérez&lt;br&gt;
+        Contacto: &lt;a href="mailto:juan@ejemplo.com"&gt;juan@ejemplo.com&lt;/a&gt;
+    &lt;/address&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+
+        <div class="explanation">
+            <p>En la imagen de arriba se muestra la estructura de un documento HTML correctamente formateado.</p>
+        </div>
+    </div>
     <script>
         fetch("../nav/menu.html")
             .then((res) => res.text())
@@ -98,6 +159,12 @@
     </script>
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+
 </body>
 
 </html>
