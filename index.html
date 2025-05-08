@@ -2,670 +2,80 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Guía de referencia HTML y CSS3</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <h1>HTML y CSS3: Elementos y Propiedades</h1>
+    <!-- Menú de navegación -->
+    <div id="menu-container" class="col-md-12"></div>
+    <div class="col-md-12">
+        <h1>Resumen de HTML Básico</h1>
 
-    <div class="container">
+        <h2>¿Qué es HTML?</h2>
+        <p><strong>HTML</strong> (HyperText Markup Language) es el lenguaje de marcado que se utiliza para crear y
+            estructurar páginas web. Organiza el contenido como títulos, párrafos, imágenes, enlaces y más.</p>
 
-        <!-- SECCIÓN 2: ELEMENTOS DE TEXTO HTML -->
-        <div class="section">
-            <div class="section-header">Elementos de Texto HTML</div>
-            <table>
-                <tr>
-                    <th>Elemento</th>
-                    <th>Descripción</th>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;h1&gt; a &lt;h6&gt;</td>
-                    <td>Encabezados de diferentes niveles.
-                        <div class="example">&lt;h1&gt;Título principal&lt;/h1&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;p&gt;</td>
-                    <td>Define un párrafo.
-                        <div class="example">&lt;p&gt;Este es un párrafo.&lt;/p&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;span&gt;</td>
-                    <td>Contenedor en línea para texto.
-                        <div class="example">&lt;span class="highlight"&gt;texto destacado&lt;/span&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;strong&gt;</td>
-                    <td>Texto importante con énfasis fuerte.
-                        <div class="example">&lt;strong&gt;Texto importante&lt;/strong&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;em&gt;</td>
-                    <td>Texto enfatizado.
-                        <div class="example">&lt;em&gt;Texto enfatizado&lt;/em&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;mark&gt;</td>
-                    <td>Texto resaltado o marcado.
-                        <div class="example">&lt;mark&gt;Texto marcado&lt;/mark&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;code&gt;</td>
-                    <td>Fragmento de código.
-                        <div class="example">&lt;code&gt;var x = 5;&lt;/code&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;pre&gt;</td>
-                    <td>Texto preformateado (mantiene espacios y saltos).
-                        <div class="example">&lt;pre&gt; Texto con formato &lt;/pre&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;blockquote&gt;</td>
-                    <td>Cita en bloque.
-                        <div class="example">&lt;blockquote&gt;Cita extensa...&lt;/blockquote&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;q&gt;</td>
-                    <td>Cita corta en línea.
-                        <div class="example">&lt;q&gt;Cita corta&lt;/q&gt;</div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <h2>Ejemplo básico de HTML</h2>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Mi primera página&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;¡Hola, mundo!&lt;/h1&gt;
+  &lt;p&gt;Esta es mi primera página web en HTML.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
 
-        <!-- SECCIÓN 3: ENLACES E IMÁGENES HTML -->
-        <div class="section">
-            <div class="section-header">Enlaces e Imágenes HTML</div>
-            <table>
-                <tr>
-                    <th>Elemento</th>
-                    <th>Descripción</th>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;a&gt;</td>
-                    <td>Define un hipervínculo.
-                        <div class="example">&lt;a href="https://ejemplo.com" target="_blank"&gt;Enlace&lt;/a&gt;</div>
-                        <div class="notes">Atributos comunes: href, target, rel, download</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;img&gt;</td>
-                    <td>Inserta una imagen.
-                        <div class="example">&lt;img src="imagen.jpg" alt="Descripción" width="300" height="200"&gt;
-                        </div>
-                        <div class="notes">Atributos comunes: src, alt, width, height, loading</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;figure&gt;</td>
-                    <td>Contenedor para imágenes con leyenda.
-                        <div class="example">&lt;figure&gt;
-                            &lt;img src="imagen.jpg" alt="Descripción"&gt;
-                            &lt;figcaption&gt;Leyenda de la imagen&lt;/figcaption&gt;
-                            &lt;/figure&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;picture&gt;</td>
-                    <td>Contenedor para múltiples recursos de imagen.
-                        <div class="example">&lt;picture&gt;
-                            &lt;source media="(min-width: 800px)" srcset="imagen-grande.jpg"&gt;
-                            &lt;img src="imagen-pequeña.jpg" alt="Descripción"&gt;
-                            &lt;/picture&gt;</div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <h3>Explicación del ejemplo:</h3>
+        <ul>
+            <li><code>&lt;!DOCTYPE html&gt;</code> define que el documento es HTML5</li>
+            <li><code>&lt;html&gt;</code> es el elemento raíz de la página</li>
+            <li><code>&lt;head&gt;</code> contiene información sobre el documento</li>
+            <li><code>&lt;title&gt;</code> establece el título del documento</li>
+            <li><code>&lt;body&gt;</code> contiene los elementos visibles</li>
+            <li><code>&lt;h1&gt;</code> define el titular de la página</li>
+            <li><code>&lt;p&gt;</code> define un párrafo</li>
+        </ul>
 
-        <!-- SECCIÓN 4: LISTAS HTML -->
-        <div class="section">
-            <div class="section-header">Listas HTML</div>
-            <table>
-                <tr>
-                    <th>Elemento</th>
-                    <th>Descripción</th>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;ul&gt;</td>
-                    <td>Lista no ordenada.
-                        <div class="example">&lt;ul&gt;
-                            &lt;li&gt;Elemento 1&lt;/li&gt;
-                            &lt;li&gt;Elemento 2&lt;/li&gt;
-                            &lt;/ul&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;ol&gt;</td>
-                    <td>Lista ordenada.
-                        <div class="example">&lt;ol type="1" start="3"&gt;
-                            &lt;li&gt;Elemento 3&lt;/li&gt;
-                            &lt;li&gt;Elemento 4&lt;/li&gt;
-                            &lt;/ol&gt;</div>
-                        <div class="notes">Tipos: 1, A, a, I, i</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;li&gt;</td>
-                    <td>Elemento de lista.
-                        <div class="example">&lt;li&gt;Elemento de lista&lt;/li&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;dl&gt;</td>
-                    <td>Lista de definiciones.
-                        <div class="example">&lt;dl&gt;
-                            &lt;dt&gt;Término&lt;/dt&gt;
-                            &lt;dd&gt;Definición&lt;/dd&gt;
-                            &lt;/dl&gt;</div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <h2>HTML Tags (Etiquetas HTML)</h2>
+        <p>Las etiquetas HTML se escriben entre corchetes angulares y definen los distintos elementos de una página.</p>
+        <pre><code>&lt;etiqueta&gt;Contenido&lt;/etiqueta&gt;</code></pre>
 
-        <!-- SECCIÓN 5: FORMULARIOS HTML -->
-        <div class="section">
-            <div class="section-header">Formularios HTML</div>
-            <table>
-                <tr>
-                    <th>Elemento</th>
-                    <th>Descripción</th>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;form&gt;</td>
-                    <td>Contenedor de formulario.
-                        <div class="example">&lt;form action="/enviar" method="post"&gt;...&lt;/form&gt;</div>
-                        <div class="notes">Métodos: get, post</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;input&gt;</td>
-                    <td>Campo de entrada.
-                        <div class="example">&lt;input type="text" name="nombre" placeholder="Nombre" required&gt;</div>
-                        <div class="notes">Tipos: text, password, email, number, checkbox, radio, file, date, color,
-                            range...</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;textarea&gt;</td>
-                    <td>Área de texto multilínea.
-                        <div class="example">&lt;textarea name="mensaje" rows="4" cols="50"&gt;&lt;/textarea&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;select&gt;</td>
-                    <td>Lista desplegable.
-                        <div class="example">&lt;select name="opciones"&gt;
-                            &lt;option value="1"&gt;Opción 1&lt;/option&gt;
-                            &lt;option value="2"&gt;Opción 2&lt;/option&gt;
-                            &lt;/select&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;button&gt;</td>
-                    <td>Botón.
-                        <div class="example">&lt;button type="submit"&gt;Enviar&lt;/button&gt;</div>
-                        <div class="notes">Tipos: submit, reset, button</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;label&gt;</td>
-                    <td>Etiqueta para campos de formulario.
-                        <div class="example">&lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
-                            &lt;input id="nombre" type="text"&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;fieldset&gt;</td>
-                    <td>Agrupa elementos relacionados en un formulario.
-                        <div class="example">&lt;fieldset&gt;
-                            &lt;legend&gt;Datos personales&lt;/legend&gt;
-                            ...
-                            &lt;/fieldset&gt;</div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <ul>
+            <li>Las etiquetas vienen en pares: <code>&lt;p&gt;</code> y <code>&lt;/p&gt;</code></li>
+            <li>La etiqueta de cierre incluye una barra: <code>&lt;/nombre&gt;</code></li>
+        </ul>
 
-        <!-- SECCIÓN 6: TABLAS HTML -->
-        <div class="section">
-            <div class="section-header">Tablas HTML</div>
-            <table>
-                <tr>
-                    <th>Elemento</th>
-                    <th>Descripción</th>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;table&gt;</td>
-                    <td>Define una tabla.
-                        <div class="example">&lt;table&gt;...&lt;/table&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;tr&gt;</td>
-                    <td>Fila de tabla.
-                        <div class="example">&lt;tr&gt;...&lt;/tr&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;th&gt;</td>
-                    <td>Celda de encabezado.
-                        <div class="example">&lt;th scope="col"&gt;Nombre&lt;/th&gt;</div>
-                        <div class="notes">Scope: col, row</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;td&gt;</td>
-                    <td>Celda de datos.
-                        <div class="example">&lt;td colspan="2"&gt;Datos&lt;/td&gt;</div>
-                        <div class="notes">Atributos: colspan, rowspan</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;thead&gt;</td>
-                    <td>Sección de encabezado de tabla.
-                        <div class="example">&lt;thead&gt;...&lt;/thead&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;tbody&gt;</td>
-                    <td>Cuerpo de la tabla.
-                        <div class="example">&lt;tbody&gt;...&lt;/tbody&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;tfoot&gt;</td>
-                    <td>Pie de tabla.
-                        <div class="example">&lt;tfoot&gt;...&lt;/tfoot&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">&lt;caption&gt;</td>
-                    <td>Título de la tabla.
-                        <div class="example">&lt;caption&gt;Título de la tabla&lt;/caption&gt;</div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <h2>Navegadores</h2>
+        <p>Los navegadores como <strong>Chrome, Firefox, Edge</strong> o <strong>Safari</strong> leen documentos HTML y
+            los muestran en pantalla.</p>
+        <ul>
+            <li>No muestran las etiquetas, pero las usan para estructurar el contenido.</li>
+        </ul>
 
-        <!-- SECCIÓN 7: PROPIEDADES CSS3 DE DISEÑO FLEXBOX -->
-        <div class="section">
-            <div class="section-header">CSS3: Flexbox</div>
-            <table>
-                <tr>
-                    <th>Propiedad</th>
-                    <th>Descripción y Valores</th>
-                </tr>
-                <tr>
-                    <td class="tag-name">display</td>
-                    <td>Activa el modelo flexbox.
-                        <div class="example">display: flex; /* o inline-flex */</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">flex-direction</td>
-                    <td>Dirección del eje principal.
-                        <div class="example">flex-direction: row | row-reverse | column | column-reverse;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">flex-wrap</td>
-                    <td>Control del desbordamiento de los elementos.
-                        <div class="example">flex-wrap: nowrap | wrap | wrap-reverse;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">flex-flow</td>
-                    <td>Abreviatura para flex-direction y flex-wrap.
-                        <div class="example">flex-flow: row wrap;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">justify-content</td>
-                    <td>Alineación en el eje principal.
-                        <div class="example">justify-content: flex-start | flex-end | center | space-between |
-                            space-around | space-evenly;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">align-items</td>
-                    <td>Alineación en el eje transversal.
-                        <div class="example">align-items: stretch | flex-start | flex-end | center | baseline;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">align-content</td>
-                    <td>Distribución de líneas en el eje transversal.
-                        <div class="example">align-content: flex-start | flex-end | center | space-between |
-                            space-around | stretch;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">flex</td>
-                    <td>Abreviatura para flex-grow, flex-shrink y flex-basis.
-                        <div class="example">flex: 1 0 auto; /* grow shrink basis */</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">order</td>
-                    <td>Controla el orden de los elementos.
-                        <div class="example">order: 2; /* por defecto es 0 */</div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- SECCIÓN 8: PROPIEDADES CSS3 GRID -->
-        <div class="section">
-            <div class="section-header">CSS3: Grid Layout</div>
-            <table>
-                <tr>
-                    <th>Propiedad</th>
-                    <th>Descripción y Valores</th>
-                </tr>
-                <tr>
-                    <td class="tag-name">display</td>
-                    <td>Activa el modelo grid.
-                        <div class="example">display: grid | inline-grid;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">grid-template-columns</td>
-                    <td>Define las columnas de la cuadrícula.
-                        <div class="example">grid-template-columns: 100px 1fr 2fr;</div>
-                        <div class="example">grid-template-columns: repeat(3, 1fr);</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">grid-template-rows</td>
-                    <td>Define las filas de la cuadrícula.
-                        <div class="example">grid-template-rows: auto 200px 1fr;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">grid-template-areas</td>
-                    <td>Define áreas con nombre.
-                        <div class="example">grid-template-areas:
-                            "header header"
-                            "sidebar content"
-                            "footer footer";</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">grid-column-gap</td>
-                    <td>Espacio entre columnas (obsoleto, usar column-gap).
-                        <div class="example">column-gap: 20px;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">grid-row-gap</td>
-                    <td>Espacio entre filas (obsoleto, usar row-gap).
-                        <div class="example">row-gap: 20px;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">gap</td>
-                    <td>Abreviatura para row-gap y column-gap.
-                        <div class="example">gap: 10px 20px; /* fila columna */</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">grid-column</td>
-                    <td>Especifica posición en columnas.
-                        <div class="example">grid-column: 1 / 3; /* inicio / final */</div>
-                        <div class="example">grid-column: 1 / span 2; /* inicio / extensión */</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">grid-row</td>
-                    <td>Especifica posición en filas.
-                        <div class="example">grid-row: 2 / 4;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">grid-area</td>
-                    <td>Nombre del área o abreviatura para posicionamiento.
-                        <div class="example">grid-area: header;</div>
-                        <div class="example">grid-area: 1 / 1 / 2 / 3; /* fila-inicio / col-inicio / fila-fin / col-fin
-                            */</div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- SECCIÓN 9: PROPIEDADES CSS3 TRANSFORMACIONES Y ANIMACIONES -->
-        <div class="section">
-            <div class="section-header">CSS3: Transformaciones y Animaciones</div>
-            <table>
-                <tr>
-                    <th>Propiedad</th>
-                    <th>Descripción y Valores</th>
-                </tr>
-                <tr>
-                    <td class="tag-name">transform</td>
-                    <td>Aplica transformaciones 2D o 3D.
-                        <div class="example">transform: translate(50px, 20px);</div>
-                        <div class="example">transform: rotate(45deg);</div>
-                        <div class="example">transform: scale(1.5);</div>
-                        <div class="example">transform: skew(10deg, 5deg);</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">transition</td>
-                    <td>Define transiciones entre estados.
-                        <div class="example">transition: property duration timing-function delay;</div>
-                        <div class="example">transition: all 0.3s ease-in-out;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">animation</td>
-                    <td>Configura animaciones.
-                        <div class="example">animation: name duration timing-function delay iteration-count direction
-                            fill-mode;</div>
-                        <div class="example">animation: slideIn 2s ease-in-out infinite;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">@keyframes</td>
-                    <td>Define los estados de una animación.
-                        <div class="example">@keyframes slideIn {
-                            0% { transform: translateX(-100%); }
-                            100% { transform: translateX(0); }
-                            }</div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- SECCIÓN 10: SELECTORES CSS3 AVANZADOS -->
-        <div class="section">
-            <div class="section-header">CSS3: Selectores Avanzados</div>
-            <table>
-                <tr>
-                    <th>Selector</th>
-                    <th>Descripción y Ejemplo</th>
-                </tr>
-                <tr>
-                    <td class="tag-name">Elemento</td>
-                    <td>Selecciona todos los elementos del tipo especificado.
-                        <div class="example">p { color: blue; }</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">Clase</td>
-                    <td>Selecciona elementos con clase específica.
-                        <div class="example">.nota { font-style: italic; }</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">ID</td>
-                    <td>Selecciona un elemento con ID específico.
-                        <div class="example">#cabecera { background-color: black; }</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">Atributo</td>
-                    <td>Selecciona elementos con atributo específico.
-                        <div class="example">input[type="text"] { border: 1px solid gray; }</div>
-                        <div class="example">a[href^="https"] { color: green; } /* Comienza con */</div>
-                        <div class="example">a[href$=".pdf"] { font-weight: bold; } /* Termina con */</div>
-                        <div class="example">a[href*="ejemplo"] { text-decoration: underline; } /* Contiene */</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">Descendiente</td>
-                    <td>Selecciona elementos descendientes.
-                        <div class="example">article p { line-height: 1.6; }</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">Hijo directo</td>
-                    <td>Selecciona elementos hijo directo.
-                        <div class="example">ul > li { list-style-type: square; }</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">Adyacente</td>
-                    <td>Selecciona elemento adyacente.
-                        <div class="example">h2 + p { margin-top: 0; }</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">Hermano general</td>
-                    <td>Selecciona elementos hermanos.
-                        <div class="example">h2 ~ p { color: gray; }</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">Pseudo-clases</td>
-                    <td>Selecciona elementos en estados específicos.
-                        <div class="example">a:hover { text-decoration: underline; }</div>
-                        <div class="example">input:focus { border-color: blue; }</div>
-                        <div class="example">li:first-child { font-weight: bold; }</div>
-                        <div class="example">p:nth-child(odd) { background: #f5f5f5; }</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">Pseudo-elementos</td>
-                    <td>Selecciona partes específicas de un elemento.
-                        <div class="example">p::first-line { font-variant: small-caps; }</div>
-                        <div class="example">p::first-letter { font-size: 2em; }</div>
-                        <div class="example">p::before { content: "→ "; }</div>
-                        <div class="example">p::after { content: " ←"; }</div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- SECCIÓN 11: PROPIEDADES CSS3 - MULTIMEDIA Y RESPONSIVE -->
-        <div class="section">
-            <div class="section-header">CSS3: Media Queries y Responsive Design</div>
-            <table>
-                <tr>
-                    <th>Propiedad/Regla</th>
-                    <th>Descripción y Valores</th>
-                </tr>
-                <tr>
-                    <td class="tag-name">@media</td>
-                    <td>Define reglas según características del dispositivo.
-                        <div class="example">@media screen and (max-width: 768px) {
-                            /* Estilos para dispositivos con ancho máximo de 768px */
-                            body { font-size: 14px; }
-                            }</div>
-                        <div class="example">@media print {
-                            /* Estilos para impresión */
-                            .no-print { display: none; }
-                            }</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">viewport</td>
-                    <td>Meta etiqueta para control de visualización en dispositivos móviles.
-                        <div class="example">&lt;meta name="viewport" content="width=device-width,
-                            initial-scale=1.0"&gt;</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">min-width, max-width</td>
-                    <td>Media features para consultas basadas en ancho.
-                        <div class="example">@media (min-width: 576px) and (max-width: 992px) { ... }</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">orientation</td>
-                    <td>Media feature para orientación del dispositivo.
-                        <div class="example">@media (orientation: landscape) { ... }</div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-
-        <!-- SECCIÓN 12: VARIABLES Y UNIDADES CSS3 -->
-        <div class="section">
-            <div class="section-header">CSS3: Variables y Unidades</div>
-            <table>
-                <tr>
-                    <th>Propiedad/Característica</th>
-                    <th>Descripción y Valores</th>
-                </tr>
-                <tr>
-                    <td class="tag-name">Variables CSS (Custom Properties)</td>
-                    <td>Almacena valores reutilizables.
-                        <div class="example">:root {
-                            --color-primario: #e67e22;
-                            --fuente-principal: 'Arial', sans-serif;
-                            }</div>
-                        <div class="example">h1 {
-                            color: var(--color-primario);
-                            font-family: var(--fuente-principal);
-                            }</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">Unidades relativas</td>
-                    <td>Unidades que dependen de otros valores.
-                        <div class="example">em: relativa al tamaño de fuente del elemento padre</div>
-                        <div class="example">rem: relativa al tamaño de fuente del elemento raíz</div>
-                        <div class="example">%: porcentaje relativo al elemento padre</div>
-                        <div class="example">vw: 1% del ancho de la ventana</div>
-                        <div class="example">vh: 1% del alto de la ventana</div>
-                        <div class="example">vmin: 1% de la dimensión más pequeña</div>
-                        <div class="example">vmax: 1% de la dimensión más grande</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">Unidades absolutas</td>
-                    <td>Unidades con tamaño fijo.
-                        <div class="example">px: píxeles</div>
-                        <div class="example">pt: puntos (1/72 de pulgada)</div>
-                        <div class="example">in: pulgadas</div>
-                        <div class="example">cm: centímetros</div>
-                        <div class="example">mm: milímetros</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="tag-name">Funciones CSS</td>
-                    <td>Funciones para valores dinámicos.
-                        <div class="example">calc(): cálculos matemáticos</div>
-                        <div class="example">calc(100% - 40px)</div>
-                        <div class="example">rgb(), rgba(): colores RGB/RGBA</div>
-                        <div class="example">hsl(), hsla(): colores HSL/HSLA</div>
-                        <div class="example">url(): ruta a recurso</div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+        <h2>La declaración <code>&lt;!DOCTYPE&gt;</code></h2>
+        <p>Esta declaración indica al navegador que se está utilizando HTML5 y debe colocarse al principio del archivo
+            HTML.</p>
+        <ul>
+            <li>Aparece una sola vez, antes de la etiqueta <code>&lt;html&gt;</code></li>
+            <li>No distingue entre mayúsculas y minúsculas</li>
+            <li>Versión HTML5: <code>&lt;!DOCTYPE html&gt;</code></li>
+        </ul>
     </div>
+    <script>
+        fetch("nav/menu.html")
+            .then((res) => res.text())
+            .then((data) => {
+                document.getElementById("menu-container").innerHTML = data;
+            });
+    </script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

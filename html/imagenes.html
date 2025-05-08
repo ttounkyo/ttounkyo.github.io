@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elementos de Imágenes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div id="menu-container" class="col-md-12"></div>
+    <div class="container my-5">
+        <h2 class="mb-4 text-primary">Elementos de Imágenes en HTML</h2>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Elemento</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="tag-name">&lt;a&gt;</td>
+                        <td>Define un hipervínculo.
+                            <div class="example">&lt;a href="https://ejemplo.com" target="_blank"&gt;Enlace&lt;/a&gt;
+                            </div>
+                            <div class="notes">Atributos comunes: href, target, rel, download</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tag-name">&lt;img&gt;</td>
+                        <td>Inserta una imagen.
+                            <div class="example">&lt;img src="imagen.jpg" alt="Descripción" width="300" height="200"&gt;
+                            </div>
+                            <div class="notes">Atributos comunes: src, alt, width, height, loading</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tag-name">&lt;figure&gt;</td>
+                        <td>Contenedor para imágenes con leyenda.
+                            <div class="example">&lt;figure&gt;
+                                &lt;img src="imagen.jpg" alt="Descripción"&gt;
+                                &lt;figcaption&gt;Leyenda de la imagen&lt;/figcaption&gt;
+                                &lt;/figure&gt;</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tag-name">&lt;picture&gt;</td>
+                        <td>Contenedor para múltiples recursos de imagen.
+                            <div class="example">&lt;picture&gt;
+                                &lt;source media="(min-width: 800px)" srcset="imagen-grande.jpg"&gt;
+                                &lt;img src="imagen-pequeña.jpg" alt="Descripción"&gt;
+                                &lt;/picture&gt;</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        fetch("../nav/menu.html")
+            .then((res) => res.text())
+            .then((data) => {
+                document.getElementById("menu-container").innerHTML = data;
+            });
+    </script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elementos de Tablas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div id="menu-container" class="col-md-12"></div>
+    <div class="container my-5">
+        <h2 class="mb-4 text-primary">Elementos de Tablas en HTML</h2>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Elemento</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="tag-name">&lt;table&gt;</td>
+                        <td>Define una tabla.
+                            <div class="example">&lt;table&gt;...&lt;/table&gt;</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tag-name">&lt;tr&gt;</td>
+                        <td>Fila de tabla.
+                            <div class="example">&lt;tr&gt;...&lt;/tr&gt;</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tag-name">&lt;th&gt;</td>
+                        <td>Celda de encabezado.
+                            <div class="example">&lt;th scope="col"&gt;Nombre&lt;/th&gt;</div>
+                            <div class="notes">Scope: col, row</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tag-name">&lt;td&gt;</td>
+                        <td>Celda de datos.
+                            <div class="example">&lt;td colspan="2"&gt;Datos&lt;/td&gt;</div>
+                            <div class="notes">Atributos: colspan, rowspan</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tag-name">&lt;thead&gt;</td>
+                        <td>Sección de encabezado de tabla.
+                            <div class="example">&lt;thead&gt;...&lt;/thead&gt;</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tag-name">&lt;tbody&gt;</td>
+                        <td>Cuerpo de la tabla.
+                            <div class="example">&lt;tbody&gt;...&lt;/tbody&gt;</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tag-name">&lt;tfoot&gt;</td>
+                        <td>Pie de tabla.
+                            <div class="example">&lt;tfoot&gt;...&lt;/tfoot&gt;</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tag-name">&lt;caption&gt;</td>
+                        <td>Título de la tabla.
+                            <div class="example">&lt;caption&gt;Título de la tabla&lt;/caption&gt;</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        fetch("../nav/menu.html")
+            .then((res) => res.text())
+            .then((data) => {
+                document.getElementById("menu-container").innerHTML = data;
+            });
+    </script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
