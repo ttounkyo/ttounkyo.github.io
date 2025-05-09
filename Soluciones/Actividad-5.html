@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablas</title>
+    <style>
+        td {
+            border: 1px solid black;
+            text-align: center;
+            width: 33%;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        .peliculas {
+            background-color: yellow;
+        }
+
+        .directores {
+            background-color: dimgray;
+        }
+
+        .guionistas {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Para poner titulo a la tabla se utiliza la función Caption-->
+    <table>
+        <caption>Tabla de películas, directores y guionistas</caption>
+        <thead>
+            <tr>
+                <th class="peliculas">Películas</th>
+                <th class="directores">Directores</th>
+                <th class="guionistas">Guionistas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="peliculas">
+                    Los otros
+                    <a href="https://www.filmaffinity.com/es/film370368.html" target="_blank">
+                        <img src="https://pics.filmaffinity.com/los_otros_the_others-255113377-mmed.jpg" alt="Los otros"
+                            width="25">
+                    </a>
+                </td>
+                <td colspan="2" class="directores">Alejandro Amenábar</td>
+            </tr>
+            <tr>
+                <td class="peliculas">
+                    Abre los ojos
+                    <a href="https://www.filmaffinity.com/es/film581441.html" target="_blank">
+                        <img src="https://pics.filmaffinity.com/abre_los_ojos-562220135-mmed.jpg" alt="Abre los ojos"
+                            width="25">
+                    </a>
+                </td>
+                <td class="directores">Alejandro Amenábar</td>
+                <td class="guionistas">Mateo Gil</td>
+            </tr>
+            <tr>
+                <td class="peliculas">
+                    Los pájaros
+                    <a href="https://www.filmaffinity.com/es/film347306.html" target="_blank">
+                        <img src="https://pics.filmaffinity.com/alfred_hitchcock_s_the_birds-851609530-mmed.jpg"
+                            alt="Los pájaros" width="25">
+                    </a>
+                </td>
+                <td class="directores">Alfred Hitchcock</td>
+                <td class="guionistas">Evan Hunter</td>
+            </tr>
+        </tbody>
+    </table>
+    <table>
+        <caption>Tabla de películas, directores y guionistas</caption>
+        <thead>
+            <tr>
+                <th class="peliculas">Películas</th>
+                <th class="directores">Directores</th>
+                <th class="guionistas">Guionistas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="peliculas">
+                    Los otros
+                    <a href="https://www.filmaffinity.com/es/film370368.html" target="_blank">
+                        <img src="https://pics.filmaffinity.com/los_otros_the_others-255113377-mmed.jpg" alt="Los otros"
+                            width="25">
+                    </a>
+                </td>
+                <td class="directores">Alejandro Amenábar</td>
+                <td class="guionistas">Alejandro Amenábar</td>
+            </tr>
+            <tr>
+                <td class="peliculas">
+                    Abre los ojos
+                    <a href="https://www.filmaffinity.com/es/film581441.html" target="_blank">
+                        <img src="https://pics.filmaffinity.com/abre_los_ojos-562220135-mmed.jpg" alt="Abre los ojos"
+                            width="25">
+                    </a>
+                </td>
+                <td class="directores">Alejandro Amenábar</td>
+                <td class="guionistas">Mateo Gil</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>
