@@ -1,0 +1,108 @@
+<div class="container my-5">
+    <h2 class="mb-4 text-primary">Elementos más importantes de CSS</h2>
+
+    <p>CSS se compone de reglas que se aplican a elementos HTML para definir su estilo visual. Cada regla tiene uno o
+        más <strong>selectores</strong> y un conjunto de <strong>declaraciones</strong> formadas por propiedades y
+        valores.</p>
+
+    <div class="mb-4">
+        <h3>Estructura de una regla CSS</h3>
+        <pre><code class="language-css">selector {
+    propiedad: valor;
+}</code></pre>
+        <h4>Ejemplo:</h4>
+        <pre><code class="language-css">p { color: red; } /* &rarr; Aplica el color rojo a todos los párrafos. */</code></pre>
+    </div>
+</div>
+</div>
+
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">Propiedades fundamentales de CSS</h3>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-primary">
+                <tr>
+                    <th>Propiedad</th>
+                    <th>Descripción</th>
+                    <th>Ejemplo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>color</code></td>
+                    <td>Define el color del texto.</td>
+                    <td><code>color: blue;</code></td>
+                </tr>
+                <tr>
+                    <td><code>background-color</code></td>
+                    <td>Color de fondo del elemento.</td>
+                    <td><code>background-color: yellow;</code></td>
+                </tr>
+                <tr>
+                    <td><code>font-size</code></td>
+                    <td>Tamaño del texto.</td>
+                    <td><code>font-size: 16px;</code></td>
+                </tr>
+                <tr>
+                    <td><code>margin</code></td>
+                    <td>Espacio exterior del elemento.</td>
+                    <td><code>margin: 10px;</code></td>
+                </tr>
+                <tr>
+                    <td><code>padding</code></td>
+                    <td>Espacio interior (entre el contenido y el borde).</td>
+                    <td><code>padding: 15px;</code></td>
+                </tr>
+                <tr>
+                    <td><code>border</code></td>
+                    <td>Define el borde del elemento.</td>
+                    <td><code>border: 1px solid black;</code></td>
+                </tr>
+                <tr>
+                    <td><code>text-align</code></td>
+                    <td>Alineación del texto.</td>
+                    <td><code>text-align: center;</code></td>
+                </tr>
+                <tr>
+                    <td><code>display</code></td>
+                    <td>Tipo de visualización del elemento.</td>
+                    <td><code>display: block;</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">Ejemplo práctico con varias propiedades</h3>
+    <div class="code-container">
+        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Estilos CSS básicos&lt;/title&gt;
+    &lt;style&gt;
+        .caja {
+            background-color: #e0f7fa;
+            color: #006064;
+            font-size: 18px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px dashed #0097a7;
+            text-align: center;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="caja"&gt;
+        ¡Hola! Soy una caja estilizada con CSS 😊
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+    <div class="explanation">
+        <p>Este ejemplo utiliza varias propiedades básicas de CSS para dar estilo a un <code>&lt;div&gt;</code>,
+            incluyendo color, fondo, bordes y espaciado.</p>
+    </div>
+</div>

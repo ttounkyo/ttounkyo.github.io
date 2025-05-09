@@ -1,148 +1,143 @@
-<div id="menu-container" class="col-md-12"></div>
 <div class="container my-5">
     <h2 class="mb-4 text-primary">Elementos de enlaces en HTML</h2>
 
     <div class="table-responsive">
         <table class="table table-bordered table-hover align-middle">
-            <thead class="table-primary">
+            <thead class="table-primary text-center">
                 <tr>
-                    <th>Elemento</th>
-                    <th>Descripción</th>
+                    <th style="width: 15%;">Elemento/Atributo</th>
+                    <th style="width: 45%;">Descripción</th>
+                    <th style="width: 40%;">Ejemplo</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td class="tag-name">&lt;a&gt;</td>
-                    <td>Define un hipervínculo básico.
-                        <div class="example">&lt;a href="https://ejemplo.com"&gt;Enlace a ejemplo.com&lt;/a&gt;
+                    <td>Define un hipervínculo básico. <div class="notes">Atributos comunes: href, target, rel, download
                         </div>
-                        <div class="notes">Atributos comunes: href, target, rel, download</div>
                     </td>
+                    <td>&lt;a href="https://ejemplo.com"&gt;Enlace a ejemplo.com&lt;/a&gt;</td>
                 </tr>
                 <tr>
                     <td class="tag-name">&lt;a target="_blank"&gt;</td>
-                    <td>Abre el enlace en una nueva pestaña o ventana.
-                        <div class="example">&lt;a href="https://ejemplo.com" target="_blank"&gt;Abrir en nueva
-                            pestaña&lt;/a&gt;</div>
-                        <div class="notes">Considera añadir rel="noopener noreferrer" por seguridad</div>
+                    <td>Abre el enlace en una nueva pestaña o ventana. <div class="notes">Considera añadir rel="noopener
+                            noreferrer" por seguridad</div>
                     </td>
+                    <td>&lt;a href="https://ejemplo.com" target="_blank"&gt;Abrir en nueva pestaña&lt;/a&gt;</td>
                 </tr>
                 <tr>
                     <td class="tag-name">&lt;a download&gt;</td>
-                    <td>Crea un enlace para descargar un archivo.
-                        <div class="example">&lt;a href="documento.pdf" download="nombre-archivo.pdf"&gt;Descargar
-                            PDF&lt;/a&gt;</div>
-                        <div class="notes">El atributo download puede especificar un nombre de archivo personalizado
-                        </div>
+                    <td>Crea un enlace para descargar un archivo. <div class="notes">El atributo download puede
+                            especificar un nombre de archivo personalizado</div>
                     </td>
+                    <td>&lt;a href="documento.pdf" download="nombre-archivo.pdf"&gt;Descargar PDF&lt;/a&gt;</td>
                 </tr>
                 <tr>
                     <td class="tag-name">&lt;a&gt; con #id</td>
-                    <td>Enlace de anclaje hacia una sección de la misma página.
-                        <div class="example">&lt;a href="#seccion1"&gt;Ir a la sección 1&lt;/a&gt;
-
-                            &lt;h2 id="seccion1"&gt;Sección 1&lt;/h2&gt;</div>
-                        <div class="notes">El elemento destino debe tener un atributo id que coincida con el valor
-                            después de #</div>
+                    <td>Enlace de anclaje hacia una sección de la misma página. <div class="notes">El destino debe tener
+                            un id coincidente</div>
+                    </td>
+                    <td>
+                        &lt;a href="#seccion1"&gt;Ir a la sección 1&lt;/a&gt;<br>
+                        &lt;h2 id="seccion1"&gt;Sección 1&lt;/h2&gt;
                     </td>
                 </tr>
                 <tr>
                     <td class="tag-name">&lt;a mailto:&gt;</td>
-                    <td>Crea un enlace para enviar un correo electrónico.
-                        <div class="example">&lt;a href="mailto:correo@ejemplo.com"&gt;Enviar email&lt;/a&gt;
-
-                            &lt;a href="mailto:correo@ejemplo.com?subject=Asunto&body=Contenido"&gt;Email con
-                            asunto&lt;/a&gt;</div>
-                        <div class="notes">Se pueden añadir parámetros como subject, cc, bcc y body</div>
+                    <td>Crea un enlace para enviar un correo electrónico. <div class="notes">Parámetros: subject, cc,
+                            bcc, body</div>
+                    </td>
+                    <td>
+                        &lt;a href="mailto:correo@ejemplo.com"&gt;Enviar email&lt;/a&gt;<br>
+                        &lt;a href="mailto:correo@ejemplo.com?subject=Asunto&amp;body=Contenido"&gt;Email con
+                        asunto&lt;/a&gt;
                     </td>
                 </tr>
                 <tr>
                     <td class="tag-name">&lt;a tel:&gt;</td>
-                    <td>Crea un enlace para llamar a un número de teléfono.
-                        <div class="example">&lt;a href="tel:+34123456789"&gt;Llamar ahora&lt;/a&gt;</div>
-                        <div class="notes">Funciona principalmente en dispositivos móviles</div>
+                    <td>Crea un enlace para llamar a un número de teléfono. <div class="notes">Funciona principalmente
+                            en móviles</div>
                     </td>
+                    <td>&lt;a href="tel:+34123456789"&gt;Llamar ahora&lt;/a&gt;</td>
                 </tr>
                 <tr>
-                    <td class="tag-name">&lt;a&gt; con imágenes</td>
-                    <td>Utiliza una imagen como enlace clickeable.
-                        <div class="example">&lt;a href="https://ejemplo.com"&gt;
-                            &lt;img src="logo.png" alt="Logo de Ejemplo"&gt;
-                            &lt;/a&gt;</div>
-                        <div class="notes">Cualquier elemento puede ser clickeable dentro de una etiqueta de enlace
-                        </div>
+                    <td class="tag-name">&lt;a&gt; con imagen</td>
+                    <td>Utiliza una imagen como enlace clickeable. <div class="notes">Cualquier contenido puede estar
+                            dentro de un enlace</div>
+                    </td>
+                    <td>
+                        &lt;a href="https://ejemplo.com"&gt;<br>
+                        &nbsp;&nbsp;&lt;img src="logo.png" alt="Logo de Ejemplo"&gt;<br>
+                        &lt;/a&gt;
                     </td>
                 </tr>
                 <tr>
                     <td class="tag-name">&lt;nav&gt; con &lt;a&gt;</td>
-                    <td>Grupo de enlaces de navegación semánticos.
-                        <div class="example">&lt;nav&gt;
-                            &lt;a href="index.html"&gt;Inicio&lt;/a&gt;
-                            &lt;a href="servicios.html"&gt;Servicios&lt;/a&gt;
-                            &lt;a href="contacto.html"&gt;Contacto&lt;/a&gt;
-                            &lt;/nav&gt;</div>
-                        <div class="notes">La etiqueta nav es semántica y ayuda a los lectores de pantalla</div>
+                    <td>Grupo de enlaces semánticos para navegación. <div class="notes">Ayuda a los lectores de pantalla
+                        </div>
+                    </td>
+                    <td>
+                        &lt;nav&gt;<br>
+                        &nbsp;&nbsp;&lt;a href="index.html"&gt;Inicio&lt;/a&gt;<br>
+                        &nbsp;&nbsp;&lt;a href="servicios.html"&gt;Servicios&lt;/a&gt;<br>
+                        &nbsp;&nbsp;&lt;a href="contacto.html"&gt;Contacto&lt;/a&gt;<br>
+                        &lt;/nav&gt;
                     </td>
                 </tr>
                 <tr>
                     <td class="tag-name">&lt;button&gt; vs &lt;a&gt;</td>
-                    <td>Diferencia entre botones y enlaces.
-                        <div class="example">&lt;button type="button"&gt;Acción en la página&lt;/button&gt;
-
-                            &lt;a href="otra-pagina.html"&gt;Ir a otra página&lt;/a&gt;</div>
-                        <div class="notes">Use &lt;button&gt; para acciones y &lt;a&gt; para navegación</div>
+                    <td>Diferencia entre botones y enlaces. <div class="notes">Usa &lt;button&gt; para acciones,
+                            &lt;a&gt; para navegación</div>
+                    </td>
+                    <td>
+                        &lt;button type="button"&gt;Acción en la página&lt;/button&gt;<br>
+                        &lt;a href="otra-pagina.html"&gt;Ir a otra página&lt;/a&gt;
                     </td>
                 </tr>
-            </tbody>
-        </table>
-
-        <table class="table table-bordered table-hover align-middle">
-            <thead class="table-primary">
-                <tr>
-                    <th>Atributo</th>
-                    <th>Descripción</th>
-                </tr>
-            </thead>
-            <tbody>
                 <tr>
                     <td class="tag-name">href</td>
-                    <td>Especifica la URL de destino del enlace.
-                        <div class="example">&lt;a href="https://ejemplo.com"&gt;Enlace&lt;/a&gt;
-                            &lt;a href="pagina.html"&gt;Enlace relativo&lt;/a&gt;
-                            &lt;a href="#seccion"&gt;Enlace de anclaje&lt;/a&gt;</div>
-                        <div class="notes">Puede ser URL absoluta, relativa o anclaje</div>
+                    <td>Especifica la URL de destino del enlace. <div class="notes">Puede ser absoluta, relativa o
+                            anclaje</div>
+                    </td>
+                    <td>
+                        &lt;a href="https://ejemplo.com"&gt;Enlace&lt;/a&gt;<br>
+                        &lt;a href="pagina.html"&gt;Relativo&lt;/a&gt;<br>
+                        &lt;a href="#seccion"&gt;Anclaje&lt;/a&gt;
                     </td>
                 </tr>
                 <tr>
                     <td class="tag-name">target</td>
-                    <td>Define dónde se abrirá el documento enlazado.
-                        <div class="example">&lt;a href="url" target="_blank"&gt;Nueva ventana/pestaña&lt;/a&gt;
-                            &lt;a href="url" target="_self"&gt;Misma ventana (predeterminado)&lt;/a&gt;
-                            &lt;a href="url" target="_parent"&gt;Marco padre&lt;/a&gt;
-                            &lt;a href="url" target="_top"&gt;Ventana completa&lt;/a&gt;</div>
+                    <td>Define dónde se abre el enlace. <div class="notes">Valores: _blank, _self, _parent, _top</div>
+                    </td>
+                    <td>
+                        &lt;a href="url" target="_blank"&gt;Nueva pestaña&lt;/a&gt;<br>
+                        &lt;a href="url" target="_self"&gt;Misma ventana&lt;/a&gt;
                     </td>
                 </tr>
                 <tr>
                     <td class="tag-name">rel</td>
-                    <td>Especifica la relación entre la página actual y la enlazada.
-                        <div class="example">&lt;a href="url" rel="nofollow"&gt;No seguir para SEO&lt;/a&gt;
-                            &lt;a href="url" rel="noopener noreferrer" target="_blank"&gt;Seguro&lt;/a&gt;</div>
-                        <div class="notes">Valores comunes: nofollow, noopener, noreferrer, external, help, license
-                        </div>
+                    <td>Define la relación entre páginas. <div class="notes">Valores: nofollow, noopener, noreferrer,
+                            etc.</div>
+                    </td>
+                    <td>
+                        &lt;a href="url" rel="nofollow"&gt;SEO&lt;/a&gt;<br>
+                        &lt;a href="url" rel="noopener noreferrer" target="_blank"&gt;Seguro&lt;/a&gt;
                     </td>
                 </tr>
                 <tr>
                     <td class="tag-name">download</td>
-                    <td>Indica que el enlace es para descargar un archivo.
-                        <div class="example">&lt;a href="archivo.pdf" download&gt;Descargar&lt;/a&gt;
-                            &lt;a href="archivo.pdf" download="nuevo-nombre.pdf"&gt;Renombrar al descargar&lt;/a&gt;
+                    <td>Indica que el enlace es para descargar. <div class="notes">Puede cambiar el nombre del archivo
                         </div>
-                        <div class="notes">Solo funciona para mismos orígenes por seguridad</div>
+                    </td>
+                    <td>
+                        &lt;a href="archivo.pdf" download&gt;Descargar&lt;/a&gt;<br>
+                        &lt;a href="archivo.pdf" download="nuevo-nombre.pdf"&gt;Renombrado&lt;/a&gt;
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+
 </div>
 <div class="container my-5">
     <h2 class="mb-4 text-primary">Etiqueta &lt;a&gt;</h2>

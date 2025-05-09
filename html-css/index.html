@@ -1,0 +1,79 @@
+<div class="container my-5">
+    <h2 class="mb-4 text-primary">Introducción a CSS</h2>
+
+    <p>CSS (<strong>Cascading Style Sheets</strong> o Hojas de Estilo en Cascada) es un lenguaje utilizado para describir la presentación y estilo de un documento HTML. Permite modificar colores, fuentes, márgenes, posiciones, tamaños y mucho más.</p>
+
+    <p>Gracias a CSS podemos separar el contenido (HTML) de la presentación (diseño), logrando sitios web más limpios, reutilizables y fáciles de mantener.</p>
+</div>
+
+<div class="container my-5">
+    <h2 class="mb-4 text-primary">Formas de incluir CSS en un documento HTML</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-primary">
+                <tr>
+                    <th>Método</th>
+                    <th>Descripción</th>
+                    <th>Ejemplo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>CSS en línea</td>
+                    <td>Se aplica directamente dentro del atributo <code>style</code> de un elemento HTML.</td>
+                    <td>
+                        <div class="example">&lt;p style="color: red;"&gt;Texto rojo&lt;/p&gt;</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>CSS interno</td>
+                    <td>Se escribe dentro de una etiqueta <code>&lt;style&gt;</code> en el <code>&lt;head&gt;</code>.</td>
+                    <td>
+                        <div class="example">
+                            &lt;style&gt;<br>
+                            &nbsp;&nbsp;p { color: green; }<br>
+                            &lt;/style&gt;
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>CSS externo</td>
+                    <td>Se enlaza un archivo <code>.css</code> desde el <code>&lt;head&gt;</code> del documento.</td>
+                    <td>
+                        <div class="example">&lt;link rel="stylesheet" href="estilos.css"&gt;</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h2 class="mb-4 text-primary">Ejemplo con CSS interno</h2>
+    <div class="code-container">
+        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Ejemplo CSS&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: navy;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hola, mundo CSS&lt;/h1&gt;
+    &lt;p&gt;Este es un párrafo con estilo.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+    <div class="explanation">
+        <p>Este ejemplo demuestra cómo aplicar estilos directamente dentro del archivo HTML usando la etiqueta <code>&lt;style&gt;</code>.</p>
+    </div>
+</div>
