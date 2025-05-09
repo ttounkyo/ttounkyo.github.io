@@ -6,13 +6,15 @@
     <title>Guía de referencia HTML y CSS3</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Prism.js para resaltado de sintaxis -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <!-- Menú de navegación -->
     <div id="menu-container" class="col-md-12"></div>
-    <div class="col-md-12">
+    <div id="contenido" class="container">
         <h1>Resumen de HTML Básico</h1>
 
         <h2>¿Qué es HTML?</h2>
@@ -20,7 +22,7 @@
             estructurar páginas web. Organiza el contenido como títulos, párrafos, imágenes, enlaces y más.</p>
 
         <h2>Ejemplo básico de HTML</h2>
-        <pre><code>&lt;!DOCTYPE html&gt;
+        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
   &lt;title&gt;Mi primera página&lt;/title&gt;
@@ -44,7 +46,7 @@
 
         <h2>HTML Tags (Etiquetas HTML)</h2>
         <p>Las etiquetas HTML se escriben entre corchetes angulares y definen los distintos elementos de una página.</p>
-        <pre><code>&lt;etiqueta&gt;Contenido&lt;/etiqueta&gt;</code></pre>
+        <pre><code class="language-html">&lt;etiqueta&gt;Contenido&lt;/etiqueta&gt;</code></pre>
 
         <ul>
             <li>Las etiquetas vienen en pares: <code>&lt;p&gt;</code> y <code>&lt;/p&gt;</code></li>
@@ -68,14 +70,43 @@
         </ul>
     </div>
     <script>
+        // Cargar el menú
         fetch("nav/menu.html")
             .then((res) => res.text())
             .then((data) => {
                 document.getElementById("menu-container").innerHTML = data;
+
+                // Una vez cargado el menú, añadir listeners a los enlaces
+                const links = document.querySelectorAll("#menu-container a[data-page]");
+                links.forEach(link => {
+                    link.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        const page = this.getAttribute("data-page");
+
+                        // Cargar el contenido correspondiente
+                        fetch(page)
+                            .then(res => res.text())
+                            .then(html => {
+                                document.getElementById("contenido").innerHTML = html;
+
+                                // Reaplicar Prism.js al nuevo contenido
+                                if (window.Prism) {
+                                    Prism.highlightAll();
+                                }
+                            });
+                    });
+                });
             });
     </script>
+
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+
 </body>
 
 </html>

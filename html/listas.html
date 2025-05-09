@@ -1,141 +1,133 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="container my-5">
+    <h2 class="mb-4 text-primary">Elementos de Listas en HTML</h2>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Elementos de Lista</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- Prism.js para resaltado de sintaxis -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../css/style.css">
-</head>
-
-<body>
-    <div id="menu-container" class="col-md-12"></div>
-    <div class="container my-5">
-        <h2 class="mb-4 text-primary">Elementos de Listas en HTML</h2>
-
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover align-middle">
-                <thead class="table-primary">
-                    <tr>
-                        <th>Elemento</th>
-                        <th>Descripción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="tag-name">&lt;ul&gt;</td>
-                        <td>Lista no ordenada.
-                            <div class="example">&lt;ul&gt;
-                                &lt;li&gt;Elemento 1&lt;/li&gt;
-                                &lt;li&gt;Elemento 2&lt;/li&gt;
-                                &lt;/ul&gt;</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tag-name">&lt;ol&gt;</td>
-                        <td>Lista ordenada.
-                            <div class="example">&lt;ol type="1" start="3"&gt;
-                                &lt;li&gt;Elemento 3&lt;/li&gt;
-                                &lt;li&gt;Elemento 4&lt;/li&gt;
-                                &lt;/ol&gt;</div>
-                            <div class="notes">Tipos: 1, A, a, I, i</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tag-name">&lt;li&gt;</td>
-                        <td>Elemento de lista.
-                            <div class="example">&lt;li&gt;Elemento de lista&lt;/li&gt;</div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tag-name">&lt;dl&gt;</td>
-                        <td>Lista de definiciones.
-                            <div class="example">&lt;dl&gt;
-                                &lt;dt&gt;Término&lt;/dt&gt;
-                                &lt;dd&gt;Definición&lt;/dd&gt;
-                                &lt;/dl&gt;</div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-primary">
+                <tr>
+                    <th>Elemento</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="tag-name">&lt;ul&gt;</td>
+                    <td>Lista no ordenada.
+                        <div class="example">&lt;ul&gt;
+                            &lt;li&gt;Elemento 1&lt;/li&gt;
+                            &lt;li&gt;Elemento 2&lt;/li&gt;
+                            &lt;/ul&gt;</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;ol&gt;</td>
+                    <td>Lista ordenada.
+                        <div class="example">&lt;ol type="1" start="3"&gt;
+                            &lt;li&gt;Elemento 3&lt;/li&gt;
+                            &lt;li&gt;Elemento 4&lt;/li&gt;
+                            &lt;/ol&gt;</div>
+                        <div class="notes">Tipos: 1, A, a, I, i</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;li&gt;</td>
+                    <td>Elemento de lista.
+                        <div class="example">&lt;li&gt;Elemento de lista&lt;/li&gt;</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;dl&gt;</td>
+                    <td>Lista de definiciones.
+                        <div class="example">&lt;dl&gt;
+                            &lt;dt&gt;Término&lt;/dt&gt;
+                            &lt;dd&gt;Definición&lt;/dd&gt;
+                            &lt;/dl&gt;
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;dt&gt;</td>
+                    <td>Elemento que representa un término dentro de una lista de definiciones.
+                        <div class="example">&lt;dl&gt;&lt;dt&gt;HTML&lt;/dt&gt;
+                            &lt;dd&gt;Lenguaje de marcado para la web.&lt;/dd&gt;
+                            &lt;/dl&gt;
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;dd&gt;</td>
+                    <td>Descripción o definición del término anterior.
+                        <div class="example">&lt;dl&gt;
+                            &lt;dt&gt;CSS&lt;/dt&gt;
+                            &lt;dd&gt;Lenguaje para estilizar páginas web.&lt;/dd&gt;
+                            &lt;/dl&gt;
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <div class="container my-5">
-        <h2 class="mb-4 text-primary">Elementos de Listas</h2>
+</div>
+<div class="container my-5">
+    <h2 class="mb-4 text-primary">Elementos de Listas</h2>
 
-        <h2 class="mb-4 text-primary">Listas no ordenadas (&lt;ul&gt;)</h2>
-        <p>La etiqueta <code>&lt;ul&gt;</code> (Unordered List) se utiliza para crear listas sin un orden específico,
-            donde cada elemento está marcado con un punto o viñeta.</p>
-        <pre><code class="language-html">&lt;ul&gt;
+    <h2 class="mb-4 text-primary">Listas no ordenadas (&lt;ul&gt;)</h2>
+    <p>La etiqueta <code>&lt;ul&gt;</code> (Unordered List) se utiliza para crear listas sin un orden específico,
+        donde cada elemento está marcado con un punto o viñeta.</p>
+    <pre><code class="language-html">&lt;ul&gt;
     &lt;li&gt;Elemento 1&lt;/li&gt;
     &lt;li&gt;Elemento 2&lt;/li&gt;
     &lt;li&gt;Elemento 3&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
 
-        <h2 class="mb-4 text-primary">Listas ordenadas (&lt;ol&gt;)</h2>
-        <p>La etiqueta <code>&lt;ol&gt;</code> (Ordered List) crea listas numeradas o con otro tipo de ordenación.
-            Puedes personalizar el tipo y el número de inicio:</p>
-        <pre><code class="language-html">&lt;ol type="1" start="3"&gt;
+    <h2 class="mb-4 text-primary">Listas ordenadas (&lt;ol&gt;)</h2>
+    <p>La etiqueta <code>&lt;ol&gt;</code> (Ordered List) crea listas numeradas o con otro tipo de ordenación.
+        Puedes personalizar el tipo y el número de inicio:</p>
+    <pre><code class="language-html">&lt;ol type="1" start="3"&gt;
     &lt;li&gt;Elemento 3&lt;/li&gt;
     &lt;li&gt;Elemento 4&lt;/li&gt;
 &lt;/ol&gt;</code></pre>
 
-        <h3>Tipos de numeración en listas ordenadas:</h3>
-        <ul>
-            <li><code>type="1"</code>: Números (1, 2, 3...)</li>
-            <li><code>type="A"</code>: Letras mayúsculas (A, B, C...)</li>
-            <li><code>type="a"</code>: Letras minúsculas (a, b, c...)</li>
-            <li><code>type="I"</code>: Números romanos mayúsculos (I, II, III...)</li>
-            <li><code>type="i"</code>: Números romanos minúsculos (i, ii, iii...)</li>
-        </ul>
+    <h3>Tipos de numeración en listas ordenadas:</h3>
+    <ul>
+        <li><code>type="1"</code>: Números (1, 2, 3...)</li>
+        <li><code>type="A"</code>: Letras mayúsculas (A, B, C...)</li>
+        <li><code>type="a"</code>: Letras minúsculas (a, b, c...)</li>
+        <li><code>type="I"</code>: Números romanos mayúsculos (I, II, III...)</li>
+        <li><code>type="i"</code>: Números romanos minúsculos (i, ii, iii...)</li>
+    </ul>
 
-        <h2 class="mb-4 text-primary">Elementos de lista (&lt;li&gt;)</h2>
-        <p>La etiqueta <code>&lt;li&gt;</code> (List Item) se usa para definir cada elemento dentro de una lista.
-            Siempre debe estar dentro de un elemento padre <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> o
-            <code>&lt;menu&gt;</code>.
-        </p>
-        <pre><code class="language-html">&lt;li&gt;Elemento de lista&lt;/li&gt;</code></pre>
+    <h2 class="mb-4 text-primary">Elementos de lista (&lt;li&gt;)</h2>
+    <p>La etiqueta <code>&lt;li&gt;</code> (List Item) se usa para definir cada elemento dentro de una lista.
+        Siempre debe estar dentro de un elemento padre <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> o
+        <code>&lt;menu&gt;</code>.
+    </p>
+    <pre><code class="language-html">&lt;li&gt;Elemento de lista&lt;/li&gt;</code></pre>
 
-        <h2 class="mb-4 text-primary">Listas de definiciones (&lt;dl&gt;)</h2>
-        <p>La etiqueta <code>&lt;dl&gt;</code> (Definition List) se utiliza para crear listas de términos y sus
-            definiciones:</p>
-        <pre><code class="language-html">&lt;dl&gt;
+    <h2 class="mb-4 text-primary">Listas de definiciones (&lt;dl&gt;)</h2>
+    <p>La etiqueta <code>&lt;dl&gt;</code> (Definition List) se utiliza para crear listas de términos y sus
+        definiciones:</p>
+    <pre><code class="language-html">&lt;dl&gt;
     &lt;dt&gt;Término&lt;/dt&gt;
     &lt;dd&gt;Definición&lt;/dd&gt;
     &lt;dt&gt;Otro término&lt;/dt&gt;
     &lt;dd&gt;Otra definición&lt;/dd&gt;
 &lt;/dl&gt;</code></pre>
 
-        <h2 class="mb-4 text-primary">Mostrando código HTML con &lt;pre&gt; y &lt;code&gt;</h2>
-        <p>Para mostrar código HTML (como en tu ejemplo), es necesario escapar los caracteres especiales como
-            <code>&lt;</code> y <code>&gt;</code>.
-        </p>
-        <p>La estructura correcta para mostrar código es:</p>
-        <pre><code class="language-html">&lt;pre&gt;&lt;code class="language-html"&gt;
-&lt;!DOCTYPE html&gt;
-&lt;html lang="es"&gt;
-...
-&lt;/html&gt;
-&lt;/code&gt;&lt;/pre&gt;</code></pre>
-
-        <h3>Importante al formatear listas:</h3>
-        <ul>
-            <li>Siempre cierra cada etiqueta <code>&lt;li&gt;</code> con <code>&lt;/li&gt;</code></li>
-            <li>Asegúrate de que los elementos <code>&lt;li&gt;</code> estén siempre dentro de un elemento contenedor
-                (<code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> o <code>&lt;menu&gt;</code>)</li>
-            <li>Para las listas de definición, usa siempre <code>&lt;dt&gt;</code> para el término y
-                <code>&lt;dd&gt;</code> para la definición
-            </li>
-        </ul>
-    </div>
-    <div class="container my-5">
-        <h2 class="mb-4 text-primary">Ejemplo del uso de listas en HTML</h2>
-        <div class="code-container">
-            <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+    <h3>Importante al formatear listas:</h3>
+    <ul>
+        <li>Siempre cierra cada etiqueta <code>&lt;li&gt;</code> con <code>&lt;/li&gt;</code></li>
+        <li>Asegúrate de que los elementos <code>&lt;li&gt;</code> estén siempre dentro de un elemento contenedor
+            (<code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> o <code>&lt;menu&gt;</code>)</li>
+        <li>Para las listas de definición, usa siempre <code>&lt;dt&gt;</code> para el término y
+            <code>&lt;dd&gt;</code> para la definición
+        </li>
+    </ul>
+</div>
+<div class="container my-5">
+    <h2 class="mb-4 text-primary">Ejemplo del uso de listas en HTML</h2>
+    <div class="code-container">
+        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="es"&gt;
 &lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
@@ -171,31 +163,12 @@
 
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-        </div>
-
-        <div class="explanation">
-            <p>En el bloque anterior se muestran ejemplos prácticos de los tres tipos de listas en HTML:
-                <strong>&lt;ul&gt;</strong> para listas no ordenadas, <strong>&lt;ol&gt;</strong> para listas ordenadas,
-                y <strong>&lt;dl&gt;</strong> para listas de definiciones.
-            </p>
-        </div>
     </div>
 
-    <script>
-        fetch("../nav/menu.html")
-            .then((res) => res.text())
-            .then((data) => {
-                document.getElementById("menu-container").innerHTML = data;
-            });
-    </script>
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Prism.js para resaltado de sintaxis -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
-
-</body>
-
-</html>
+    <div class="explanation">
+        <p>En el bloque anterior se muestran ejemplos prácticos de los tres tipos de listas en HTML:
+            <strong>&lt;ul&gt;</strong> para listas no ordenadas, <strong>&lt;ol&gt;</strong> para listas ordenadas,
+            y <strong>&lt;dl&gt;</strong> para listas de definiciones.
+        </p>
+    </div>
+</div>
