@@ -82,13 +82,16 @@
                     link.addEventListener("click", function (e) {
                         e.preventDefault();
                         const page = this.getAttribute("data-page");
+                        const title = this.getAttribute("data-title") || "Mi sitio";
+
 
                         // Cargar el contenido correspondiente
                         fetch(page)
                             .then(res => res.text())
                             .then(html => {
                                 document.getElementById("contenido").innerHTML = html;
-
+                                // Cambiar título de la pestaña
+                                document.title = title;
                                 // Reaplicar Prism.js al nuevo contenido
                                 if (window.Prism) {
                                     Prism.highlightAll();
