@@ -25,15 +25,15 @@
 
             <h2>Ejemplo básico de HTML</h2>
             <pre><code class="language-html">&lt;!DOCTYPE html&gt;
-        &lt;html&gt;
-        &lt;head&gt;
+&lt;html&gt;
+    &lt;head&gt;
         &lt;title&gt;Mi primera página&lt;/title&gt;
-        &lt;/head&gt;
-        &lt;body&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
         &lt;h1&gt;¡Hola, mundo!&lt;/h1&gt;
         &lt;p&gt;Esta es mi primera página web en HTML.&lt;/p&gt;
-        &lt;/body&gt;
-        &lt;/html&gt;</code></pre>
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 
             <h3>Explicación del ejemplo:</h3>
             <ul>
@@ -140,14 +140,10 @@
                     y se pueden modificar los estilos de forma automática.
                 </p>
                 <p>Ejemplo de código HTML incluyendo un fichero CSS:</p>
-                <div class="language-html">
-                    <div>
-                        <pre><code>&lt;head&gt;
-        &lt;link rel='stylesheet' href='estilos.css'&gt;
-        &lt;/head&gt;
-        </code></pre>
-                    </div>
-                </div>
+                <pre><code class="language-html">&lt;head&gt;
+    &lt;link rel='stylesheet' href='estilos.css'&gt;
+&lt;/head&gt;
+</code></pre>
                 <p>
                     Si ahora, por ejemplo, se quiere indicar que los encabezados (elemento
                     <code>&lt;h1&gt;</code>) deben estar
@@ -156,17 +152,13 @@
                     archivo <code>estilos.css</code> se introducirá
                     el siguiente código:
                 </p>
-                <div class="language-css">
-                    <div>
-                        <pre><code>h1 {
-        color: >blue;
-        }
-        p {
-        color: >red;
-        }
+                <pre><code class="language-css">h1 {
+    color: >blue;
+}
+p {
+    color: >red;
+}
         </code></pre>
-                    </div>
-                </div>
                 <p>
                     Definir así la apariencia de los elementos HTML ahorra mucho trabajo a los
                     diseñadores web, y evita la edición masiva de documentos HTML. Con los «selectores» se puede apuntar
@@ -177,14 +169,10 @@
                     <strong>La sintaxis del CSS es fácil de
                         aprender</strong>.
                 </p>
-                <div>
-                    <div>
-                        <pre><code class="language-css">selector {
-        propiedad: valor;
-        }
-        </code></pre>
-                    </div>
-                </div>
+                <pre><code class="language-css">selector {
+    propiedad: valor;
+}
+</code></pre>
                 <p>
                     CSS tiene varios tipos de selectores: los <strong>genéricos</strong>, que
                     corresponden al nombre de la etiqueta HTML; los
