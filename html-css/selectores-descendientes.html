@@ -1,0 +1,95 @@
+<div class="container my-5">
+    <h2 class="mb-4 text-primary">Selectores descendientes y combinadores en CSS</h2>
+
+    <p>Los combinadores en CSS permiten definir relaciones entre elementos HTML. Son esenciales para aplicar estilos
+        específicos según la posición de los elementos en el DOM.</p>
+
+    <div class="table-responsive mb-5">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-primary">
+                <tr>
+                    <th>Selector</th>
+                    <th>Nombre</th>
+                    <th>Relación</th>
+                    <th>Ejemplo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>elemento1 elemento2</code></td>
+                    <td>Descendiente</td>
+                    <td>Selecciona todos los <code>elemento2</code> dentro de <code>elemento1</code> (a cualquier nivel)
+                    </td>
+                    <td><code>div p</code> → Todos los <code>&lt;p&gt;</code> dentro de <code>&lt;div&gt;</code></td>
+                </tr>
+                <tr>
+                    <td><code>elemento1 &gt; elemento2</code></td>
+                    <td>Hijo directo</td>
+                    <td>Solo los hijos directos de <code>elemento1</code></td>
+                    <td><code>ul &gt; li</code> → Solo <code>&lt;li&gt;</code> hijos directos de <code>&lt;ul&gt;</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>elemento1 + elemento2</code></td>
+                    <td>Hermano adyacente</td>
+                    <td>Selecciona el <code>elemento2</code> que esté justo después de <code>elemento1</code></td>
+                    <td><code>h1 + p</code> → El primer <code>&lt;p&gt;</code> tras un <code>&lt;h1&gt;</code></td>
+                </tr>
+                <tr>
+                    <td><code>elemento1 ~ elemento2</code></td>
+                    <td>Hermanos generales</td>
+                    <td>Selecciona todos los <code>elemento2</code> que estén después de <code>elemento1</code>, como
+                        hermanos</td>
+                    <td><code>h2 ~ p</code> → Todos los <code>&lt;p&gt;</code> tras un <code>&lt;h2&gt;</code></td>
+                </tr>
+                <tr>
+                    <td><code>*</code></td>
+                    <td>Universal</td>
+                    <td>Selecciona todos los elementos</td>
+                    <td><code>* { margin: 0; }</code> → Reinicia márgenes de todos los elementos</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mb-4">
+        <h3 class="text-secondary">Ejemplo práctico combinado</h3>
+        <pre><code class="language-html">&lt;style&gt;
+    div p {
+        color: blue;
+    }
+
+    div &gt; p {
+        font-weight: bold;
+    }
+
+    h2 + p {
+        background-color: yellow;
+    }
+
+    h2 ~ p {
+        font-style: italic;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+&lt;/style&gt;
+
+&lt;div&gt;
+    &lt;p&gt;Soy hijo directo y descendiente de un div.&lt;/p&gt;
+    &lt;section&gt;
+        &lt;p&gt;Soy un descendiente, pero no hijo directo.&lt;/p&gt;
+    &lt;/section&gt;
+&lt;/div&gt;
+
+&lt;h2&gt;Título&lt;/h2&gt;
+&lt;p&gt;Soy hermano adyacente del h2.&lt;/p&gt;
+&lt;p&gt;Soy hermano general del h2.&lt;/p&gt;</code></pre>
+    </div>
+
+    <div class="explanation">
+        <p>Este ejemplo muestra cómo aplicar distintos estilos según la relación estructural entre elementos. Puedes
+            visualizar cómo se comporta cada selector en un navegador para entenderlo mejor.</p>
+    </div>
+</div>

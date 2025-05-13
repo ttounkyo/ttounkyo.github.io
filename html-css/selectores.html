@@ -1,0 +1,68 @@
+<div class="container my-5">
+    <h2 class="mb-4 text-primary">Selectores en CSS</h2>
+
+    <p>Los <strong>selectores</strong> en CSS indican a qué elementos HTML se aplicarán las reglas de estilo. A
+        continuación se muestran los selectores más comunes con ejemplos.</p>
+
+    <div class="mb-5">
+        <h3 class="text-secondary">1. Selector de tipo o etiqueta</h3>
+        <p>Selecciona todos los elementos de un tipo determinado.</p>
+        <pre><code class="language-css">p {
+    color: red;
+}</code></pre>
+        <p><strong>Ejemplo:</strong> Aplica color rojo a todos los párrafos <code>&lt;p&gt;</code>.</p>
+    </div>
+
+    <div class="mb-5">
+        <h3 class="text-secondary">2. Selector de clase</h3>
+        <p>Selecciona elementos que tienen un atributo <code>class</code> específico. Se indica con un punto
+            (<code>.</code>).</p>
+        <pre><code class="language-css">.destacado {
+    background-color: yellow;
+}</code></pre>
+        <pre><code class="language-html">&lt;p class="destacado"&gt;Texto importante&lt;/p&gt;</code></pre>
+    </div>
+
+    <div class="mb-5">
+        <h3 class="text-secondary">3. Selector de ID</h3>
+        <p>Selecciona un único elemento con un <code>id</code> específico. Se indica con una almohadilla
+            (<code>#</code>).</p>
+        <pre><code class="language-css">#titulo {
+    font-size: 24px;
+}</code></pre>
+        <pre><code class="language-html">&lt;h1 id="titulo"&gt;Bienvenidos&lt;/h1&gt;</code></pre>
+    </div>
+
+    <div class="mb-5">
+        <h3 class="text-secondary">4. Selector universal</h3>
+        <p>Selecciona todos los elementos del documento.</p>
+        <pre><code class="language-css">* {
+    margin: 0;
+    padding: 0;
+}</code></pre>
+        <p><strong>Ejemplo:</strong> Se usa para eliminar márgenes y rellenos por defecto.</p>
+    </div>
+
+    <div class="mb-5">
+        <h3 class="text-secondary">5. Selector de descendiente</h3>
+        <p>Selecciona elementos que estén dentro de otro elemento específico.</p>
+        <pre><code class="language-css">article p {
+    color: green;
+}</code></pre>
+        <p><strong>Ejemplo:</strong> Aplica color verde a los <code>&lt;p&gt;</code> que estén dentro de un
+            <code>&lt;article&gt;</code>.</p>
+    </div>
+
+    <div class="mb-5">
+        <h3 class="text-secondary">6. Selectores combinados y avanzados</h3>
+        <ul>
+            <li><code>h1, h2</code>: selecciona varios elementos a la vez.</li>
+            <li><code>a:hover</code>: selecciona cuando el usuario pasa el ratón por encima.</li>
+            <li><code>ul &gt; li</code>: selecciona solo los elementos hijos directos.</li>
+        </ul>
+        <pre><code class="language-css">a:hover {
+    text-decoration: underline;
+}</code></pre>
+        <p><strong>Ejemplo:</strong> Subraya los enlaces al pasar el ratón.</p>
+    </div>
+</div>

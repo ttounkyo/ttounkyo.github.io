@@ -1,0 +1,53 @@
+<div class="container my-5">
+    <h2 class="mb-4 text-primary">Selectores de etiqueta (o de tipo)</h2>
+
+    <p>Los <strong>selectores de etiqueta</strong> aplican estilos a todos los elementos HTML de un tipo específico,
+        como <code>p</code>, <code>h1</code> o <code>a</code>.</p>
+
+    <div class="mb-4">
+        <h3 class="text-secondary">Ventajas</h3>
+        <ul>
+            <li>Fáciles de usar.</li>
+            <li>Permiten aplicar estilos generales rápidamente.</li>
+            <li>Útiles para mantener un estilo uniforme.</li>
+        </ul>
+    </div>
+
+    <div class="mb-4">
+        <h3 class="text-secondary">Limitaciones</h3>
+        <ul>
+            <li>Demasiado generales en algunos casos.</li>
+            <li>No sirven para personalizaciones específicas.</li>
+        </ul>
+    </div>
+
+    <div class="mb-4">
+        <h3 class="text-secondary">Ejemplo de uso</h3>
+        <pre><code class="language-css">h1 {
+    color: navy;
+    font-family: Arial, sans-serif;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+a {
+    color: green;
+    text-decoration: none;
+}</code></pre>
+        <pre><code class="language-html">&lt;h1&gt;Título principal&lt;/h1&gt;
+&lt;p&gt;Este es un párrafo de texto normal.&lt;/p&gt;
+&lt;a href="#"&gt;Enlace sin subrayado&lt;/a&gt;</code></pre>
+    </div>
+
+    <div class="mb-4">
+        <h3 class="text-secondary">Selector combinado</h3>
+        <p>Puedes combinar una etiqueta con una clase para mayor precisión:</p>
+        <pre><code class="language-css">p.intro {
+    font-weight: bold;
+}</code></pre>
+        <pre><code class="language-html">&lt;p class="intro"&gt;Este párrafo es introductorio.&lt;/p&gt;</code></pre>
+    </div>
+</div>

@@ -213,7 +213,7 @@ p {
                 document.getElementById("menu-container").innerHTML = data;
 
                 // Una vez cargado el menú, añadir listeners a los enlaces
-                const links = document.querySelectorAll("#menu-container a[data-page]");
+                const links = document.querySelectorAll("a[data-page]");
                 links.forEach(link => {
                     link.addEventListener("click", function (e) {
                         e.preventDefault();
@@ -245,7 +245,17 @@ p {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
-
+    <!-- Script para copiar al portapapeles -->
+    <script>
+        function copiarCodigo(boton) {
+            const codigo = boton.nextElementSibling.querySelector("code");
+            const texto = codigo.innerText;
+            navigator.clipboard.writeText(texto).then(() => {
+                boton.innerText = "¡Copiado!";
+                setTimeout(() => boton.innerText = "Copiar", 2000);
+            });
+        }
+    </script>
 </body>
 
 </html>

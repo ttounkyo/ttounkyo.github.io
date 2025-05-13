@@ -8,10 +8,13 @@
     <div class="mb-4">
         <h3>Estructura de una regla CSS</h3>
         <pre><code class="language-css">selector {
-    propiedad: valor;
+    propiedad: valor; /* Declaración */
+    propiedad: valor; /* Declaración */
 }</code></pre>
         <h4>Ejemplo:</h4>
-        <pre><code class="language-css">p { color: red; } /* &rarr; Aplica el color rojo a todos los párrafos. */</code></pre>
+        <pre><code class="language-css">p {
+    color: red;
+} /* &rarr; Aplica el color rojo a todos los párrafos. */</code></pre>
     </div>
 </div>
 </div>
@@ -45,6 +48,26 @@
                     <td><code>font-size: 16px;</code></td>
                 </tr>
                 <tr>
+                    <td><code>font-family</code></td>
+                    <td>Define la fuente del texto.</td>
+                    <td><code>font-family: Arial, sans-serif;</code></td>
+                </tr>
+                <tr>
+                    <td><code>font-weight</code></td>
+                    <td>Grosor de la fuente.</td>
+                    <td><code>font-weight: bold;</code></td>
+                </tr>
+                <tr>
+                    <td><code>font-style</code></td>
+                    <td>Estilo de la fuente.</td>
+                    <td><code>font-style: italic;</code></td>
+                </tr>
+                <tr>
+                    <td><code>text-decoration</code></td>
+                    <td>Decoración del texto (subrayado, tachado, etc.).</td>
+                    <td><code>text-decoration: underline;</code></td>
+                </tr>
+                <tr>
                     <td><code>margin</code></td>
                     <td>Espacio exterior del elemento.</td>
                     <td><code>margin: 10px;</code></td>
@@ -60,20 +83,109 @@
                     <td><code>border: 1px solid black;</code></td>
                 </tr>
                 <tr>
-                    <td><code>text-align</code></td>
-                    <td>Alineación del texto.</td>
-                    <td><code>text-align: center;</code></td>
+                    <td><code>width</code></td>
+                    <td>Ancho del elemento.</td>
+                    <td><code>width: 200px;</code></td>
+                </tr>
+                <tr>
+                    <td><code>height</code></td>
+                    <td>Alto del elemento.</td>
+                    <td><code>height: 100px;</code></td>
                 </tr>
                 <tr>
                     <td><code>display</code></td>
-                    <td>Tipo de visualización del elemento.</td>
+                    <td>Tipo de visualización del elemento (block, inline, inline-block, flex, grid, etc.).</td>
                     <td><code>display: block;</code></td>
+                </tr>
+                <tr>
+                    <td><code>float</code></td>
+                    <td>Posiciona un elemento a la izquierda o derecha de su contenedor, permitiendo que otros elementos
+                        floten a su alrededor.</td>
+                    <td><code>float: left;</code></td>
+                </tr>
+                <tr>
+                    <td><code>position</code></td>
+                    <td>Método de posicionamiento de un elemento (static, relative, absolute, fixed, sticky).</td>
+                    <td><code>position: relative;</code></td>
+                </tr>
+                <tr>
+                    <td><code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code></td>
+                    <td>Se utilizan con <code>position</code> para especificar el desplazamiento del elemento.</td>
+                    <td><code>top: 20px;</code></td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">Unidades de Medida en CSS</h3>
+    <p>En CSS, las unidades de medida se utilizan para especificar la longitud, el tamaño y otras dimensiones de los
+        elementos. Es importante comprender las diferentes unidades disponibles para lograr el diseño deseado y
+        adaptabilidad.</p>
 
+    <h4>Unidades Absolutas</h4>
+    <p>Las unidades absolutas representan un valor fijo y no varían según el entorno. Sin embargo, en el contexto web,
+        la más común es el <strong>píxel (px)</strong>, aunque las otras son estándares físicos.</p>
+    <ul>
+        <li><strong>px (píxel):</strong> Es la unidad más común en la web. Representa un punto en la pantalla del
+            dispositivo.
+            <pre><code class="language-css">font-size: 16px;</code></pre>
+        </li>
+        <li><strong>pt (punto):</strong> Tradicionalmente usado en imprenta (1 punto = 1/72 de pulgada). No es tan común
+            en la web para la visualización en pantalla.
+            <pre><code class="language-css">font-size: 12pt;</code></pre>
+        </li>
+        <li><strong>cm (centímetro), mm (milímetro), in (pulgada):</strong> Unidades físicas. Raramente se usan para
+            diseño web, ya que el tamaño de la pantalla varía.
+            <pre><code class="language-css">width: 10cm;</code></pre>
+        </li>
+    </ul>
+
+    <h4>Unidades Relativas</h4>
+    <p>Las unidades relativas basan su valor en otro valor, lo que las hace muy útiles para crear diseños flexibles y
+        adaptables.</p>
+    <ul>
+        <li><strong>em:</strong> Relativo al tamaño de la fuente del elemento padre. Si el padre tiene un
+            <code>font-size</code> de 16px, entonces <code>1em</code> será 16px en el hijo (a menos que el hijo también
+            defina su propio <code>font-size</code>).
+            <pre><code class="language-css">.padre { font-size: 16px; }
+.hijo { font-size: 1.5em; /* &rarr; 24px (1.5 * 16) */ }</code></pre>
+        </li>
+        <li><strong>rem (root em):</strong> Relativo al tamaño de la fuente del elemento raíz
+            (<code>&lt;html&gt;</code>). Esto ayuda a mantener una escala de fuente consistente en toda la página.
+            <pre><code class="language-css">html { font-size: 10px; }
+body { font-size: 1.6rem; /* &rarr; 16px (1.6 * 10) */ }</code></pre>
+        </li>
+        <li><strong>%:</strong> Porcentaje. A menudo relativo al tamaño del elemento padre. Por ejemplo, el
+            <code>width: 50%;</code> hará que un elemento ocupe la mitad del ancho de su contenedor padre.
+            <pre><code class="language-css">.contenedor { width: 400px; }
+.elemento { width: 50%; /* &rarr; 200px */ }</code></pre>
+        </li>
+        <li><strong>vw (viewport width):</strong> Relativo al 1% del ancho de la ventana del navegador.
+            <code>100vw</code> es el ancho completo de la ventana.
+            <pre><code class="language-css">.ancho-completo { width: 100vw; }</code></pre>
+        </li>
+        <li><strong>vh (viewport height):</strong> Relativo al 1% de la altura de la ventana del navegador.
+            <code>100vh</code> es la altura completa de la ventana.
+            <pre><code class="language-css">.alto-completo { height: 100vh; }</code></pre>
+        </li>
+        <li><strong>vmin (viewport minimum):</strong> Relativo al 1% de la dimensión más pequeña de la ventana (ancho o
+            alto).
+            <pre><code class="language-css">.cuadrado-minimo { width: 50vmin; height: 50vmin; /* Siempre será un cuadrado basado en la dimensión más pequeña */ }</code></pre>
+        </li>
+        <li><strong>vmax (viewport maximum):</strong> Relativo al 1% de la dimensión más grande de la ventana (ancho o
+            alto).
+            <pre><code class="language-css">.elemento-maximo { font-size: 10vmax; /* La fuente crecerá según la dimensión más grande */ }</code></pre>
+        </li>
+    </ul>
+
+    <h4>Consideraciones</h4>
+    <p>La elección de la unidad de medida depende del contexto y del efecto que se quiera lograr. Las unidades relativas
+        son generalmente preferibles para crear diseños adaptables que funcionen bien en diferentes dispositivos y
+        tamaños de pantalla. Los <code>rem</code> son especialmente útiles para mantener una escala de texto
+        consistente, mientras que las unidades de viewport (<code>vw</code>, <code>vh</code>, <code>vmin</code>,
+        <code>vmax</code>) son ideales para diseños que ocupan toda la ventana del navegador.</p>
+</div>
 <div class="container my-5">
     <h3 class="mb-4 text-primary">Ejemplo práctico con varias propiedades</h3>
     <div class="code-container">
@@ -104,5 +216,60 @@
     <div class="explanation">
         <p>Este ejemplo utiliza varias propiedades básicas de CSS para dar estilo a un <code>&lt;div&gt;</code>,
             incluyendo color, fondo, bordes y espaciado.</p>
+    </div>
+</div>
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">La Jerarquía (Especificidad) en CSS</h3>
+    <p>Cuando varios estilos intentan aplicarse al mismo elemento, el navegador sigue una jerarquía para determinar cuál
+        prevalece. Esta jerarquía se basa en la especificidad de los selectores.</p>
+    <p>De manera general, los estilos se aplican en el siguiente orden de menor a mayor prioridad:</p>
+    <ol>
+        <li><strong>Estilos por defecto del navegador:</strong> Son los estilos básicos que el navegador aplica a los
+            elementos si no se especifica ningún otro.</li>
+        <li><strong>Estilos en archivos CSS externos (enlazados):</strong> Los estilos definidos en archivos
+            <code>.css</code> enlazados en la sección <code>&lt;head&gt;</code> del HTML.
+        </li>
+        <li><strong>Estilos internos (en la etiqueta <code>&lt;style&gt;</code>):</strong> Los estilos definidos
+            directamente dentro de la etiqueta <code>&lt;style&gt;</code> en el documento HTML.</li>
+        <li><strong>Estilos en línea:</strong> Los estilos aplicados directamente a un elemento HTML usando el atributo
+            <code>style</code>. Estos tienen la mayor prioridad.
+        </li>
+    </ol>
+
+    <h4>Selectores y Especificidad:</h4>
+    <p>Dentro de los estilos en archivos CSS o internos, la especificidad de los selectores también juega un papel
+        importante. Aquí tienes una idea general de la prioridad:</p>
+    <ol>
+        <li><strong>Selectores de tipo (elementos):</strong> Como <code>p</code>, <code>h1</code>, <code>div</code>. Son
+            los menos específicos.</li>
+        <li><strong>Selectores de clase:</strong> Como <code>.container</code>, <code>.text-primary</code>. Son más
+            específicos que los selectores de tipo.</li>
+        <li><strong>Selectores de ID:</strong> Como <code>#mi-elemento</code>. Son aún más específicos que los
+            selectores de clase.</li>
+        <li><strong>Estilos en línea:</strong> (Mencionados anteriormente) Tienen la mayor especificidad.</li>
+    </ol>
+
+    <h5>Ejemplo para ilustrar la especificidad:</h5>
+    <pre><code class="language-html">&lt;div id="miDiv" class="contenedor texto-rojo" style="color: green;"&gt;Este texto tiene varios estilos.&lt;/div&gt;</code></pre>
+    <pre><code class="language-css">/* Estilo para todos los div */
+div {
+    color: blue;
+}
+
+/* Estilo para la clase texto-rojo */
+.texto-rojo {
+    color: red;
+}
+
+/* Estilo para el ID miDiv */
+#miDiv {
+    color: orange;
+}</code></pre>
+    <div class="explanation">
+        <p>En este ejemplo, el texto dentro del <code>&lt;div&gt;</code> aparecerá en <strong>verde</strong>. Esto se
+            debe a que el estilo en línea (<code>style="color: green;"</code>) tiene la mayor prioridad. Si elimináramos
+            el estilo en línea, el texto sería <strong>naranja</strong>, ya que el selector de ID (<code>#miDiv</code>)
+            es más específico que el selector de clase (<code>.texto-rojo</code>), que a su vez es más específico que el
+            selector de tipo (<code>div</code>).</p>
     </div>
 </div>
