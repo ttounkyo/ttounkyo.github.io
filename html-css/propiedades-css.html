@@ -1,0 +1,625 @@
+<div class="container my-5">
+    <h2 class="mb-4 text-primary">Propiedades Fundamentales de CSS</h2>
+
+    <p>En CSS, podemos definir diversas <strong>propiedades</strong> para los elementos HTML, y a cada propiedad
+        asignarle un <strong>valor</strong> específico. Por ejemplo, la propiedad <code>color</code> (color del texto)
+        puede tener valores como <code>red</code>, <code>blue</code>, <code>#FF0000</code>, etc.</p>
+
+    <p>A continuación, exploraremos algunas de las propiedades más importantes de CSS, cómo se utilizan y los valores
+        que pueden tomar. El objetivo es demostrar cómo puedes controlar el aspecto visual de tus elementos web
+        principalmente a través de estilos CSS, manteniendo tu HTML más enfocado en la estructura.</p>
+
+    <p>Cubriremos las siguientes propiedades:</p>
+    <ul>
+        <li>Fuentes y Texto</li>
+        <li>Color</li>
+        <li>Fondo (Background)</li>
+        <li>Espaciado (Margin y Padding)</li>
+        <li>Dimensiones (Ancho)</li>
+        <li>Borde (Border)</li>
+        <li>Posicionamiento y Visualización de Elementos</li>
+    </ul>
+</div>
+
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">Fuentes y Texto</h3>
+    <p>Estas propiedades permiten controlar la apariencia visual del texto dentro de los elementos HTML, incluyendo
+        párrafos, encabezados y enlaces. Las propiedades más comunes son:</p>
+
+    <div class="mb-4">
+        <h4><code>font-family</code></h4>
+        <p>Define la fuente tipográfica para el texto. Se recomienda especificar una lista de fuentes, separadas por
+            comas, para que el navegador pueda usar una fuente alternativa si la primera no está disponible en el
+            sistema del usuario. La lista debe terminar con una familia genérica (<code>serif</code>,
+            <code>sans-serif</code>, <code>monospace</code>, <code>cursive</code>, <code>fantasy</code>).
+        </p>
+        <pre><code class="language-css">.ejemplo-fuente {
+    font-family: "Arial", "Verdana", sans-serif;
+}</code></pre>
+        <div class="explanation">
+            <p>Si el usuario no tiene Arial o Verdana, se usará cualquier fuente sans-serif disponible en su sistema.
+            </p>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <h4><code>font-style</code></h4>
+        <p>Especifica si el texto debe mostrarse en cursiva. Los valores comunes son <code>normal</code> y
+            <code>italic</code>.
+        </p>
+        <pre><code class="language-css">.ejemplo-cursiva {
+    font-style: italic;
+}</code></pre>
+    </div>
+
+    <div class="mb-4">
+        <h4><code>font-weight</code></h4>
+        <p>Define el grosor o "negrita" de la fuente. Los valores comunes incluyen <code>normal</code>,
+            <code>bold</code>, y valores numéricos de <code>100</code> a <code>900</code> (en múltiplos de 100).
+            <code>bold</code> es equivalente a <code>700</code>.
+        </p>
+        <pre><code class="language-css">.ejemplo-negrita {
+    font-weight: bold;
+}
+
+.ejemplo-fino {
+    font-weight: 300; /* Requiere que la fuente soporte este grosor */
+}</code></pre>
+    </div>
+
+    <div class="mb-4">
+        <h4><code>font-size</code></h4>
+        <p>Establece el tamaño de la fuente. Es crucial elegir unidades adecuadas para la web, como <code>px</code>,
+            <code>em</code>, <code>rem</code>, o <code>%</code>, que permitan adaptabilidad. Las unidades absolutas como
+            <code>pt</code>, <code>cm</code>, etc., no son ideales para la visualización en pantalla ya que no se
+            escalan con la configuración del usuario o el zoom del navegador de forma predecible (Ver sección "Unidades
+            de Medida" del ejemplo anterior para más detalle).
+        </p>
+        <pre><code class="language-css">.ejemplo-tamano {
+    font-size: 16px; /* Tamaño fijo en píxeles */
+}
+
+.ejemplo-relativo {
+    font-size: 1.2rem; /* 1.2 veces el tamaño de fuente del elemento raíz */
+}</code></pre>
+    </div>
+
+    <div class="mb-4">
+        <h4>Propiedad abreviada <code>font</code></h4>
+        <p>Esta es una propiedad abreviada que permite establecer varias propiedades de fuente en una sola declaración.
+            El orden es importante y generalmente sigue este patrón (los valores entre corchetes son opcionales):
+            <code>[font-style] [font-weight] font-size font-family</code>.
+        </p>
+        <pre><code class="language-css">.ejemplo-font-shorthand {
+    font: italic bold 16px "Arial", sans-serif;
+}
+
+.ejemplo-font-shorthand2 {
+    font: 1em sans-serif; /* Solo tamaño y familia, el resto por defecto */
+}</code></pre>
+    </div>
+
+    <div class="mb-4">
+        <h4><code>text-decoration</code></h4>
+        <p>Se usa para añadir decoraciones al texto, comúnmente para eliminar el subrayado de los enlaces o añadirlo a
+            otros elementos. Los valores incluyen <code>none</code> (sin decoración), <code>underline</code>
+            (subrayado), <code>overline</code> (línea por encima) y <code>line-through</code> (tachado). El valor
+            <code>blink</code> está obsoleto y no se recomienda usar.
+        </p>
+        <pre><code class="language-css">a {
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+}
+
+.ejemplo-tachado {
+    text-decoration: line-through;
+    color: red; /* Se pueden combinar propiedades */
+}</code></pre>
+    </div>
+
+    <div class="mb-4">
+        <h4><code>text-align</code></h4>
+        <p>Define la alineación horizontal del contenido en línea (como texto e imágenes) dentro de un elemento de
+            bloque. Los valores posibles son <code>left</code>, <code>right</code>, <code>center</code> y
+            <code>justify</code>.
+        </p>
+        <pre><code class="language-css">.parrafo-centrado {
+    text-align: center;
+}
+
+.parrafo-justificado {
+    text-align: justify;
+}</code></pre>
+    </div>
+
+    <div class="mb-4">
+        <h4><code>text-indent</code></h4>
+        <p>Especifica la sangría de la primera línea de un bloque de texto. Su valor se define con una unidad de medida
+            (como <code>px</code>, <code>em</code>, <code>%</code>) o un valor relativo.</p>
+        <pre><code class="language-css">p {
+    text-indent: 30px; /* La primera línea del párrafo tendrá una sangría de 30px */
+}</code></pre>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">Color</h3>
+
+    <p>La propiedad <code>color</code> establece el color del texto de un elemento.</p>
+    <p>Los colores pueden especificarse de varias formas:</p>
+    <ul>
+        <li><strong>Nombres de color:</strong> Usando nombres predefinidos como <code>red</code>, <code>blue</code>,
+            <code>black</code>, <code>white</code>, etc. Hay una amplia lista de nombres de color estándar.
+        </li>
+        <li><strong>Valores Hexadecimales:</strong> Usando el formato <code>#RRGGBB</code> o <code>#RGB</code>, donde
+            RR, GG, BB son valores hexadecimales para Rojo, Verde y Azul (00 a FF).</li>
+        <li><strong>Valores RGB/RGBA:</strong> Usando el formato <code>rgb(rojo, verde, azul)</code> o
+            <code>rgba(rojo, verde, azul, alfa)</code>, donde rojo, verde, azul son valores numéricos (0-255 o 0%-100%)
+            y alfa es la opacidad (0 a 1).
+        </li>
+        <li><strong>Valores HSL/HSLA:</strong> Usando el formato <code>hsl(tono, saturacion, luminosidad)</code> o
+            <code>hsla(tono, saturacion, luminosidad, alfa)</code>.
+        </li>
+    </ul>
+
+    <div class="mb-4">
+        <h4>Ejemplos de Propiedad <code>color</code></h4>
+        <pre><code class="language-css">.texto-rojo-nombre {
+    color: red; /* Usando nombre de color */
+}
+
+.texto-rojo-hex {
+    color: #FF0000; /* Usando valor hexadecimal */
+}
+
+.texto-rojo-rgb {
+    color: rgb(255, 0, 0); /* Usando valor RGB */
+}
+
+.texto-semitransparente {
+    color: rgba(0, 0, 0, 0.5); /* Texto negro con 50% de opacidad */
+}</code></pre>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">Fondo (Background)</h3>
+
+    <p>Las propiedades de fondo controlan el color o la imagen que aparece detrás del contenido de un elemento.</p>
+
+    <div class="mb-4">
+        <h4><code>background-color</code></h4>
+        <p>Establece el color de fondo de un elemento. El valor se especifica de la misma manera que el color de texto
+            (nombres, hex, RGB, etc.).</p>
+        <pre><code class="language-css">body {
+    background-color: #f0f0f0; /* Color de fondo para toda la página */
+}
+
+.caja-con-fondo {
+    background-color: lightblue;
+}</code></pre>
+    </div>
+
+    <div class="mb-4">
+        <h4><code>background-image</code></h4>
+        <p>Establece una imagen como fondo de un elemento. Se utiliza la función <code>url()</code> para especificar la
+            ruta de la imagen.</p>
+        <pre><code class="language-css">body {
+    background-image: url("imagenes/fondo-pagina.jpg");
+}
+
+.elemento-con-icono {
+    background-image: url("../iconos/check.png");
+}</code></pre>
+        <div class="explanation">
+            <p>La ruta puede ser absoluta (<code>/imagenes/fondo.jpg</code>) o relativa
+                (<code>../iconos/check.png</code>).</p>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <h4>Propiedad abreviada <code>background</code></h4>
+        <p>Esta propiedad es una abreviatura para varias propiedades de fondo (<code>background-color</code>,
+            <code>background-image</code>, <code>background-repeat</code>, <code>background-position</code>,
+            <code>background-size</code>, etc.). El orden no es estrictamente fijo para todos los valores, pero es común
+            especificar primero la imagen y luego el color de fondo.
+        </p>
+        <pre><code class="language-css">body {
+    /* Imagen de fondo (sin repetir), centrada, con color de fondo sólido */
+    background: url("imagenes/fondo-pagina.jpg") no-repeat center center / cover, #f0f0f0;
+}
+
+.caja-resumida {
+    /* Imagen y color de fondo */
+    background: url("graficos/patron.png") white;
+}</code></pre>
+        <div class="explanation">
+            <p>Es recomendable definir un <code>background-color</code> junto con un <code>background-image</code> para
+                asegurar que haya un fondo visible si la imagen no se carga.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">Espaciado (Margin y Padding)</h3>
+
+    <p>Estas propiedades controlan el espacio alrededor del contenido de un elemento.</p>
+    <ul>
+        <li><strong><code>padding</code>:</strong> Crea espacio *dentro* del borde del elemento, entre el contenido y el
+            borde.</li>
+        <li><strong><code>margin</code>:</strong> Crea espacio *fuera* del borde del elemento, separándolo de otros
+            elementos adyacentes.</li>
+    </ul>
+
+    <div class="mb-4">
+        <h4><code>padding</code> (Relleno Interior)</h4>
+        <p>Controla el espacio entre el contenido y el borde de un elemento. Puede definirse para los cuatro lados
+            (arriba, derecha, abajo, izquierda) individualmente o usando la propiedad abreviada.</p>
+        <pre><code class="language-css">/* Propiedades individuales */
+.caja-padding {
+    padding-top: 10px;
+    padding-right: 15px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+}
+
+/* Propiedad abreviada */
+.caja-padding-shorthand {
+    padding: 10px 15px; /* Arriba/Abajo: 10px, Izquierda/Derecha: 15px */
+}
+
+.caja-padding-todos-lados {
+    padding: 20px; /* 20px en los 4 lados */
+}</code></pre>
+        <div class="explanation">
+            <p>Con la abreviada, si se dan 4 valores: Arriba Derecha Abajo Izquierda. Si se dan 2 valores: Arriba/Abajo
+                Izquierda/Derecha. Si se da 1 valor: Los 4 lados.</p>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <h4><code>margin</code> (Margen Exterior)</h4>
+        <p>Controla el espacio alrededor de un elemento, separándolo de otros. Se define de manera similar al
+            <code>padding</code>, individualmente o usando la propiedad abreviada.
+        </p>
+        <pre><code class="language-css">/* Propiedades individuales */
+.elemento-margin {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto; /* Centra el elemento si tiene un ancho definido */
+    margin-right: auto;
+}
+
+/* Propiedad abreviada */
+.elemento-margin-shorthand {
+    margin: 1em 0; /* Arriba/Abajo: 1em, Izquierda/Derecha: 0 */
+}</code></pre>
+        <div class="explanation">
+            <p>Los márgenes verticales de elementos adyacentes pueden colapsar. Usar <code>margin: auto;</code> en los
+                lados izquierdo y derecho es una técnica común para centrar un elemento de bloque dentro de su
+                contenedor, siempre que el elemento tenga un <code>width</code> definido.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">Dimensiones</h3>
+
+    <div class="mb-4">
+        <h4><code>width</code> (Ancho)</h4>
+        <p>Define el ancho del área de contenido de un elemento. Se puede especificar con unidades de longitud
+            (<code>px</code>, <code>em</code>, <code>rem</code>, <code>vw</code>, etc.) o con porcentajes
+            (<code>%</code>), que son relativos al ancho del contenedor padre. El valor <code>auto</code> (por defecto)
+            permite que el navegador calcule el ancho.</p>
+        <pre><code class="language-css">.caja-ancho-fijo {
+    width: 300px;
+}
+
+.caja-ancho-relativo {
+    width: 80%; /* Ocupa el 80% del ancho del contenedor padre */
+}
+
+.imagen-ancho-maximo {
+    max-width: 100%; /* La imagen nunca será más ancha que su contenedor */
+    height: auto; /* Mantiene la proporción original */
+}</code></pre>
+        <div class="explanation">
+            <p>También existen las propiedades <code>min-width</code> y <code>max-width</code> para controlar el rango
+                de anchos posibles, lo cual es fundamental para el diseño web responsivo.</p>
+        </div>
+    </div>
+    <div class="mb-4">
+        <h4><code>height</code> (Alto)</h4>
+        <p>Define el alto del área de contenido de un elemento. Se especifica de forma similar a <code>width</code>,
+            usando unidades de longitud (<code>px</code>, <code>em</code>, <code>rem</code>, <code>vh</code>, etc.) o
+            porcentajes (<code>%</code>). El valor <code>auto</code> (por defecto) permite que el navegador calcule el
+            alto basado en el contenido.</p>
+        <pre><code class="language-css">.caja-alto-fijo {
+    height: 150px;
+}
+
+.seccion-pantalla-completa {
+    height: 100vh; /* Ocupa el 100% del alto de la ventana (viewport) */
+}</code></pre>
+        <div class="explanation">
+            <p>De manera similar a <code>width</code>, existen <code>min-height</code> y <code>max-height</code> para
+                controlar el rango de alturas posibles.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">Borde (Border)</h3>
+    <p>Las propiedades de borde permiten definir el grosor, estilo y color del borde alrededor de un elemento.</p>
+
+    <div class="mb-4">
+        <h4><code>border-width</code> (Grosor del Borde)</h4>
+        <p>Define el grosor del borde. Se puede especificar con unidades de longitud (<code>px</code>, <code>em</code>,
+            etc.) o con palabras clave predefinidas como <code>thin</code>, <code>medium</code>, <code>thick</code>.</p>
+        <pre><code class="language-css">/* Aplicar el mismo grosor a los 4 lados */
+.caja-borde-ancho {
+    border-width: 2px;
+}
+
+/* Grosor diferente para cada lado (Arriba Derecha Abajo Izquierda) */
+.caja-bordes-varios {
+    border-width: 1px 2px 3px 4px;
+}
+
+/* Grosor solo para un lado */
+.caja-borde-superior {
+    border-top-width: 5px;
+}</code></pre>
+    </div>
+
+    <div class="mb-4">
+        <h4><code>border-style</code> (Estilo del Borde)</h4>
+        <p>Define el estilo de la línea del borde. Esta propiedad es fundamental; un borde no será visible a menos que
+            se defina un estilo (incluso si se definen grosor y color). Valores comunes incluyen:</p>
+        <ul>
+            <li><code>none</code>: Sin borde (valor por defecto).</li>
+            <li><code>solid</code>: Una línea recta sólida.</li>
+            <li><code>dashed</code>: Una línea de guiones.</li>
+            <li><code>dotted</code>: Una línea de puntos.</li>
+            <li><code>double</code>: Un borde doble.</li>
+            <li><code>groove</code>, <code>ridge</code>, <code>inset</code>, <code>outset</code>: Efectos 3D (dependen
+                del color).</li>
+        </ul>
+        <pre><code class="language-css">.caja-borde-solido {
+    border-style: solid;
+}
+
+.caja-borde-punteado {
+    border-style: dotted;
+}</code></pre>
+        <div class="explanation">
+            <p>Al igual que con <code>border-width</code>, existen propiedades para estilos individuales por lado:
+                <code>border-top-style</code>, <code>border-right-style</code>, etc.
+            </p>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <h4><code>border-color</code> (Color del Borde)</h4>
+        <p>Define el color del borde. Los valores se especifican de la misma manera que el color de texto o fondo
+            (nombres, hex, RGB, etc.).</p>
+        <pre><code class="language-css">.caja-borde-azul {
+    border-color: blue;
+}
+
+.caja-bordes-colores {
+     /* Color diferente para cada lado (Arriba Derecha Abajo Izquierda) */
+    border-color: red green blue yellow;
+}</code></pre>
+        <div class="explanation">
+            <p>Propiedades individuales por lado: <code>border-top-color</code>, <code>border-right-color</code>, etc.
+            </p>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <h4>Propiedad abreviada <code>border</code></h4>
+        <p>La propiedad abreviada <code>border</code> es la forma más común y concisa de definir un borde. Combina
+            <code>border-width</code>, <code>border-style</code> y <code>border-color</code> en una sola declaración. El
+            orden recomendado es: <code>[border-width] [border-style] [border-color]</code>.
+        </p>
+        <pre><code class="language-css">.caja-borde-completo {
+    border: 1px solid black; /* Grosor, Estilo, Color */
+    padding: 10px; /* Añadimos padding para separar el contenido del borde */
+}
+
+.caja-sin-borde-abajo {
+    border: 2px solid red; /* Borde en todos los lados por defecto */
+    border-bottom: none; /* Sobrescribimos el borde inferior */
+}</code></pre>
+        <div class="explanation">
+            <p>Usar la abreviada es más eficiente. Recuerda que el <code>border-style</code> es obligatorio para que el
+                borde sea visible.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">Posicionamiento y Visualización de Elementos</h3>
+
+    <p>Además de controlar el aspecto de los elementos (color, tamaño, texto), CSS es fundamental para definir cómo se
+        muestran y dónde se colocan en la página. Las propiedades <code>display</code>, <code>float</code> y
+        <code>position</code>, junto con las propiedades de desplazamiento, son clave para controlar el layout y la
+        disposición de los elementos.
+    </p>
+
+    <div class="mb-4">
+        <h4><code>display</code></h4>
+        <p>Esta propiedad fundamental define el tipo de caja de renderizado que genera un elemento. Controla cómo el
+            elemento se comporta en el flujo normal del documento y cómo interactúa con otros elementos.</p>
+        <p>Los valores más comunes son:</p>
+        <ul>
+            <li><strong><code>block</code>:</strong> El elemento genera una caja de bloque. Ocupa todo el ancho
+                disponible y siempre comienza en una nueva línea. Ejemplos: <code>&lt;div&gt;</code>,
+                <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>.
+            </li>
+            <li><strong><code>inline</code>:</strong> El elemento genera una o más cajas en línea. No comienza en una
+                nueva línea y solo ocupa el ancho necesario para su contenido. No se pueden controlar
+                <code>width</code>, <code>height</code>, <code>margin-top</code>, ni <code>margin-bottom</code>.
+                Ejemplos: <code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;strong&gt;</code>.
+            </li>
+            <li><strong><code>inline-block</code>:</strong> El elemento se comporta como un elemento en línea en
+                relación con sus elementos hermanos (no comienza en una nueva línea), pero dentro de sí mismo se
+                comporta como un bloque, permitiendo controlar <code>width</code>, <code>height</code> y los márgenes
+                verticales/horizontales.</li>
+            <li><strong><code>none</code>:</strong> El elemento y su contenido no se muestran en absoluto y no ocupan
+                espacio en el layout.</li>
+            <li><strong><code>flex</code>, <code>grid</code>:</strong> Valores que convierten el contenedor en un Flex
+                Container o Grid Container, respectivamente, habilitando potentes modelos de layout modernos.</li>
+        </ul>
+        <pre><code class="language-css">.elemento-bloque {
+    display: block;
+}
+
+.elemento-inline {
+    display: inline;
+}
+
+.elemento-inline-bloque {
+    display: inline-block;
+    width: 150px;
+    height: 100px;
+    margin: 10px;
+}
+
+.elemento-oculto {
+    display: none;
+}</code></pre>
+    </div>
+
+    <div class="mb-4">
+        <h4><code>float</code></h4>
+        <p>La propiedad <code>float</code> posiciona un elemento (generalmente una imagen o un bloque de texto) a la
+            izquierda o derecha dentro de su contenedor, permitiendo que el contenido en línea (como texto) fluya
+            alrededor de él. Originalmente usado para maquetación básica, hoy en día Flexbox y Grid son a menudo
+            preferidos para layouts complejos.</p>
+        <ul>
+            <li><strong><code>left</code>:</strong> Flota el elemento a la izquierda.</li>
+            <li><strong><code>right</code>:</strong> Flota el elemento a la derecha.</li>
+            <li><strong><code>none</code>:</strong> El elemento no flota (valor por defecto).</li>
+        </ul>
+        <pre><code class="language-css">.imagen-flotante {
+    float: right; /* La imagen se moverá a la derecha */
+    margin-left: 15px; /* Añadir espacio a su izquierda */
+}</code></pre>
+        <div class="explanation">
+            <p>Si utilizas <code>float</code>, a menudo necesitarás usar la propiedad <code>clear</code> en un elemento
+                posterior para detener el flujo de contenido y evitar que se solape con el elemento flotante.</p>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <h4><code>position</code></h4>
+        <p>Esta propiedad define el método de posicionamiento de un elemento en el documento. Funciona conjuntamente con
+            las propiedades <code>top</code>, <code>right</code>, <code>bottom</code> y <code>left</code>.</p>
+        <ul>
+            <li><strong><code>static</code>:</strong> Es el valor por defecto. El elemento se posiciona según el flujo
+                normal del documento. Las propiedades <code>top</code>, <code>right</code>, <code>bottom</code>,
+                <code>left</code> y <code>z-index</code> no tienen efecto.
+            </li>
+            <li><strong><code>relative</code>:</strong> El elemento se posiciona según el flujo normal, pero su posición
+                final puede ser ajustada *relativa a su posición original* utilizando <code>top</code>,
+                <code>right</code>, <code>bottom</code>, <code>left</code>. El espacio que ocupaba en el flujo normal se
+                mantiene.
+            </li>
+            <li><strong><code>absolute</code>:</strong> El elemento se retira del flujo normal del documento y se
+                posiciona *relativo a su ancestro posicionado más cercano* (un ancestro con <code>position</code>
+                distinto de <code>static</code>). Si no tiene ancestros posicionados, se posiciona relativo al viewport
+                inicial. Las propiedades <code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code>
+                definen su desplazamiento desde los bordes de referencia.</li>
+            <li><strong><code>fixed</code>:</strong> El elemento se retira del flujo normal y se posiciona *relativo al
+                viewport*. Permanece en su posición incluso cuando la página se desplaza. Es útil para crear encabezados
+                o pies de página fijos. Las propiedades <code>top</code>, <code>right</code>, <code>bottom</code>,
+                <code>left</code> definen su desplazamiento desde los bordes del viewport.
+            </li>
+            <li><strong><code>sticky</code>:</strong> El elemento se posiciona según el flujo normal hasta que su
+                contenedor se desplaza hasta un umbral especificado (usando <code>top</code>, <code>right</code>,
+                <code>bottom</code>, o <code>left</code>), momento en el que se "pega" al viewport o a su contenedor,
+                comportándose de forma similar a <code>fixed</code>.
+            </li>
+        </ul>
+        <pre><code class="language-css">/* Un contenedor para demostrar position: absolute */
+.contenedor-relativo {
+    position: relative; /* Este es el ancestro posicionado */
+    width: 300px;
+    height: 200px;
+    border: 1px solid blue;
+    padding: 10px;
+}
+
+/* Elementos con distintos tipos de posicionamiento */
+.elemento-estatico {
+    /* position: static; es el valor por defecto, no suele declararse explícitamente */
+    background-color: lightgray;
+}
+
+.elemento-relativo {
+    position: relative;
+    top: 10px; /* Se mueve 10px hacia abajo desde su posición normal */
+    left: 10px; /* Se mueve 10px hacia la derecha desde su posición normal */
+    background-color: lightgreen;
+}
+
+.elemento-absoluto {
+    position: absolute;
+    top: 20px; /* 20px desde el borde superior del contenedor relativo */
+    right: 20px; /* 20px desde el borde derecho del contenedor relativo */
+    background-color: lightcoral;
+}
+
+.elemento-fijo {
+    position: fixed;
+    bottom: 10px; /* 10px desde el borde inferior del viewport */
+    right: 10px; /* 10px desde el borde derecho del viewport */
+    background-color: yellow;
+    padding: 5px;
+}
+
+/* Ejemplo conceptual de sticky (requiere scroll para verse el efecto completo) */
+.elemento-sticky {
+    position: sticky;
+    top: 0; /* Se pegará en la parte superior del viewport cuando se desplace */
+    background-color: lightblue;
+    padding: 10px;
+    margin-bottom: 15px;
+}</code></pre>
+        <div class="explanation">
+            <p>La propiedad <code>z-index</code> (no cubierta aquí) se utiliza para controlar el orden de apilamiento de
+                los elementos posicionados (quién aparece encima de quién).</p>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <h4><code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code></h4>
+        <p>Estas cuatro propiedades se utilizan para especificar el desplazamiento final de un elemento que tiene una
+            propiedad <code>position</code> con valor <code>relative</code>, <code>absolute</code>, <code>fixed</code>,
+            o <code>sticky</code>.</p>
+        <ul>
+            <li><code>top</code>: Desplaza desde el borde superior de referencia.</li>
+            <li><code>right</code>: Desplaza desde el borde derecho de referencia.</li>
+            <li><code>bottom</code>: Desplaza desde el borde inferior de referencia.</li>
+            <li><code>left</code>: Desplaza desde el borde izquierdo de referencia.</li>
+        </ul>
+        <p>El "borde de referencia" depende del valor de <code>position</code>:</p>
+        <ul>
+            <li>Para <code>position: relative;</code>, el borde de referencia es la posición original del elemento.</li>
+            <li>Para <code>position: absolute;</code>, el borde de referencia es el padding edge del ancestro
+                posicionado más cercano (o del viewport inicial).</li>
+            <li>Para <code>position: fixed;</code>, el borde de referencia es el viewport.</li>
+            <li>Para <code>position: sticky;</code>, actúan como umbral de desplazamiento dentro del contenedor o
+                viewport.</li>
+        </ul>
+        <pre><code class="language-css">.caja-posicionada {
+    position: absolute; /* O relative, fixed, sticky */
+    top: 50px; /* Desplazado 50px desde arriba */
+    left: 100px; /* Desplazado 100px desde la izquierda */
+    width: 100px;
+    height: 100px;
+    background-color: plum;
+}</code></pre>
+    </div>
+</div>
