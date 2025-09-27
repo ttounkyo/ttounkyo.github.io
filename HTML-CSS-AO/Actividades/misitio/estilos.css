@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
-    background-color: #f0f0f0;
+    background-color: lightgrey;
 }
 
 .menu {
@@ -24,6 +24,10 @@ h1 {
     background-color: #ffffff;
     padding: 10px;
     border: 1px solid #ccc;
+}
+
+.contenido a {
+    color: aqua;
 }
 
 .galeria img {
