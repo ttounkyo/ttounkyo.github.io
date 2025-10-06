@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Guía de referencia HTML y CSS3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Prism.js para resaltado de sintaxis -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Tu archivo CSS personalizado -->
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar se carga aquí -->
+        <div id="sidebar-wrapper"></div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="container-fluid">
+                    <button class="btn btn-primary d-md-none" id="sidebarToggle"><i class="bi bi-list"></i></button>
+                    <h5 class="ms-3 d-none d-md-block">Aplicaciones Ofimáticas</h5>
+                </div>
+            </nav>
+
+            <div id="contenido" class="container-fluid mt-4">
+                <h1>Bienvenido a tus Unidades</h1>
+                <p>Selecciona una unidad del menú de la izquierda para ver su contenido.</p>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <script>
+        // Cargar el menú
+        fetch("./nav/menu.html")
+            .then((res) => res.text())
+            .then((data) => {
+                document.getElementById("sidebar-wrapper").innerHTML = data; // Carga el nav en el #sidebar-wrapper
+
+                // Una vez cargado el menú, añadir listeners a los enlaces
+                const links = document.querySelectorAll("a[data-page]");
+                links.forEach(link => {
+                    link.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        const page = this.getAttribute("data-page");
+                        const title = this.getAttribute("data-title") || "APLICACIONES OFIMÁTICAS"; // Título por defecto
+
+                        // Cargar el contenido correspondiente
+                        fetch(page)
+                            .then(res => res.text())
+                            .then(html => {
+                                document.getElementById("contenido").innerHTML = html;
+                                // Cambiar título de la pestaña
+                                document.title = title;
+                                // Reaplicar Prism.js al nuevo contenido
+                                if (window.Prism) {
+                                    Prism.highlightAll();
+                                }
+                                // En móvil, después de cargar, oculta el sidebar
+                                if (window.innerWidth < 768 && document.getElementById("wrapper").classList.contains("toggled")) {
+                                    document.getElementById("wrapper").classList.remove("toggled");
+                                }
+                            });
+                    });
+                });
+
+                // Lógica para el toggle del sidebar (visible en móvil, fijo en desktop)
+                var sidebarToggle = document.getElementById("sidebarToggle");
+                if (sidebarToggle) {
+                    sidebarToggle.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        document.getElementById("wrapper").classList.toggle("toggled");
+                    });
+                }
+
+                // Asegurar que el sidebar se muestra correctamente en desktop si se refresca la página
+                if (window.innerWidth >= 768) {
+                    document.getElementById("wrapper").classList.remove("toggled"); // Asegura que no esté 'toggled' en desktop
+                }
+            });
+    </script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Prism.js para resaltado de sintaxis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <!-- Script para copiar al portapapeles -->
+    <script>
+        function copiarCodigo(boton) {
+            const codigo = boton.nextElementSibling.querySelector("code");
+            const texto = codigo.innerText;
+            navigator.clipboard.writeText(texto).then(() => {
+                boton.innerText = "¡Copiado!";
+                setTimeout(() => boton.innerText = "Copiar", 2000);
+            });
+        }
+    </script>
+</body>
+
+</html>

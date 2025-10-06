@@ -1,0 +1,191 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Resumen de HTML Básico</h1>
+
+    <h2 class="mb-4 text-primary">¿Qué es HTML?</h2>
+    <p><strong>HTML</strong> (HyperText Markup Language) es el lenguaje de marcado que se utiliza para
+        crear y
+        estructurar páginas web. Organiza el contenido como títulos, párrafos, imágenes, enlaces y más.
+    </p>
+
+    <h2 class="mb-4 text-primary">Ejemplo básico de HTML</h2>
+    <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Mi primera página&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;¡Hola, mundo!&lt;/h1&gt;
+        &lt;p&gt;Esta es mi primera página web en HTML.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <h3 class="mb-4 text-primary">Explicación del ejemplo:</h3>
+    <ul>
+        <li><code>&lt;!DOCTYPE html&gt;</code> define que el documento es HTML5</li>
+        <li><code>&lt;html&gt;</code> es el elemento raíz de la página</li>
+        <li><code>&lt;head&gt;</code> contiene información sobre el documento</li>
+        <li><code>&lt;title&gt;</code> establece el título del documento</li>
+        <li><code>&lt;body&gt;</code> contiene los elementos visibles</li>
+        <li><code>&lt;h1&gt;</code> define el titular de la página</li>
+        <li><code>&lt;p&gt;</code> define un párrafo</li>
+    </ul>
+
+    <h2 class="mb-4 text-primary">HTML Tags (Etiquetas HTML)</h2>
+    <p>Las etiquetas HTML se escriben entre corchetes angulares y definen los distintos elementos de una
+        página.
+    </p>
+    <pre><code class="language-html">&lt;etiqueta&gt;Contenido&lt;/etiqueta&gt;</code></pre>
+
+    <ul>
+        <li>Las etiquetas vienen en pares: <code>&lt;p&gt;</code> y <code>&lt;/p&gt;</code></li>
+        <li>La etiqueta de cierre incluye una barra: <code>&lt;/nombre&gt;</code></li>
+    </ul>
+
+    <h2 class="mb-4 text-primary">Navegadores</h2>
+    <p>Los navegadores como <strong>Chrome, Firefox, Edge</strong> o <strong>Safari</strong> leen
+        documentos
+        HTML y
+        los muestran en pantalla.</p>
+    <ul>
+        <li>No muestran las etiquetas, pero las usan para estructurar el contenido.</li>
+    </ul>
+
+    <h2 class="mb-4 text-primary">La declaración <code>&lt;!DOCTYPE&gt;</code></h2>
+    <p>Esta declaración indica al navegador que se está utilizando HTML5 y debe colocarse al principio
+        del
+        archivo
+        HTML.</p>
+    <ul>
+        <li>Aparece una sola vez, antes de la etiqueta <code>&lt;html&gt;</code></li>
+        <li>No distingue entre mayúsculas y minúsculas</li>
+        <li>Versión HTML5: <code>&lt;!DOCTYPE html&gt;</code></li>
+    </ul>
+</div>
+<div class="container my-5">
+    <h2 class="mb-4 text-primary">CSS: Introducción</h2>
+    <div>
+        <p>
+            <strong>CSS</strong> es un lenguaje creado para definir la
+            <strong>apariencia</strong> de los documentos escritos en un lenguaje de
+            marcado, como sería el caso del HTML o el XML. Por tanto, este lenguaje
+            permite cambiar el aspecto de los elementos HTML, ya sea su color, su
+            forma, su posición o cualquier otra característica de índole visual.
+        </p>
+        <p>
+            Este lenguaje es desarrollado y mantenido por el
+            <strong>W3C</strong> (Consorcio WWW), por lo que cumple con las
+            especificaciones de estandarización necesarias para ser compatible con los
+            navegadores web. Las siglas CSS son un acrónimo inglés de
+            <em>Cascading Style Sheets</em> (<strong>hojas de estilo en cascada</strong>).
+        </p>
+
+        <p>
+            Para comprobar la compatibilidad de una propiedad CSS o de un elemento
+            HTML se puede usar la herramienta
+            <a href="https://caniuse.com/" rel="noopener noreferrer" target="_blank">CanIUse</a>. A
+            través de
+            esta
+            herramienta también se puede saber el porcentaje de
+            usuarios que usan un navegador y, por tanto, la cobertura de
+            compatibilidad que tiene el elemento consultado.
+        </p>
+        <h2 class="mb-4 text-primary">Niveles de CSS</h2>
+        <p>
+            El W3C (Consorcio WWW) es una comunidad internacional que desarrolla las
+            <strong>especificaciones o normas oficiales del lenguaje CSS</strong>. Su
+            objetivo es asegurar el crecimiento y mejora de forma neutral de este
+            lenguaje, así lo independiza de tecnologías propietarias y le añade
+            características de interés.
+        </p>
+        <p>
+            El W3C lleva años trabajando en la versión CSS3, que tiene como novedad la
+            separación de las nuevas funcionalidades en pequeños módulos para
+            facilitar su implementación en los navegadores web. Esta versión aporta
+            muchos cambios relevantes para todos los niveles de CSS.
+        </p>
+        <h2 class="mb-4 text-primary">Funcionamiento básico del lenguaje CSS</h2>
+        <p>
+            <strong>CSS es un lenguaje de hojas de estilos en cascada</strong>. Esto
+            quiere decir que permite aplicar estilos a varios elementos HTML y en
+            múltiples documentos de forma masiva. Antes de que el CSS se popularizase,
+            los estilos se aplicaban uno por uno sobre los elementos HTML mediante el
+            uso de atributos.
+        </p>
+        <p>
+            ¿Te imaginas tener 100.000 documentos HTML, cada uno con cinco párrafos, y
+            tener que cambiar el color de cada uno de ellos? Antes de la llegada del
+            CSS, un diseñador web habría tenido que realizar 500.000 modificaciones,
+            seguramente usando algún programa de sustitución de texto; era engorroso.
+        </p>
+        <p>
+            La gran ventaja del lenguaje CSS es que permite
+            <strong>separar el contenido del diseño</strong>. Hay varias formas de
+            vincular un diseño CSS a un documento. La
+            más recomendada es utilizando el elemento
+            <code>&lt;link&gt;</code> dentro del
+            <code>&lt;head&gt;</code> del documento. Así,
+            todos los documentos de un sitio web llevarán incrustado el mismo diseño,
+            y se pueden modificar los estilos de forma automática.
+        </p>
+        <p>Ejemplo de código HTML incluyendo un fichero CSS:</p>
+        <pre><code class="language-html">&lt;head&gt;
+    &lt;link rel='stylesheet' href='estilos.css'&gt;
+&lt;/head&gt;
+</code></pre>
+        <p>
+            Si ahora, por ejemplo, se quiere indicar que los encabezados (elemento
+            <code>&lt;h1&gt;</code>) deben estar
+            representados de color rojo y los párrafos (elemento
+            <code>&lt;p&gt;</code>) de color azul, en el
+            archivo <code>estilos.css</code> se introducirá
+            el siguiente código:
+        </p>
+        <pre><code class="language-css">h1 {
+    color: >blue;
+}
+p {
+    color: >red;
+}
+        </code></pre>
+        <p>
+            Definir así la apariencia de los elementos HTML ahorra mucho trabajo a los
+            diseñadores web, y evita la edición masiva de documentos HTML. Con los «selectores» se puede
+            apuntar
+            a cualquier elemento y aplicarle
+            estilos
+            mediante
+            propiedades.
+            <strong>La sintaxis del CSS es fácil de
+                aprender</strong>.
+        </p>
+        <pre><code class="language-css">selector {
+    propiedad: valor;
+}
+</code></pre>
+        <p>
+            CSS tiene varios tipos de selectores: los <strong>genéricos</strong>, que
+            corresponden al nombre de la etiqueta HTML; los
+            <strong>identificadores</strong>, mediante el atributo
+            <code>id</code>; y las <strong>clases</strong>,
+            a través del atributo <code>class</code>.
+            Existen también selectores avanzados,
+            pseudoclases y
+            pseudoelementos que son de gran
+            utilidad.
+        </p>
+        <p>
+            En CSS es importante dominar el uso de selectores. Sin embargo, existen
+            otros dos conceptos que también conviene comprender para hacer un uso
+            correcto del lenguaje CSS: se trata de la
+            herencia y la
+            cascada, dos conceptos que a pesar de ser
+            diferentes, están estrechamente relacionados.
+        </p>
+        <p>
+            La herencia tiene que ver en cómo los elementos HTML anidados (hijos)
+            heredan algunas propiedades de sus elementos contenedores (padres). En
+            cambio, la cascada es el algoritmo que controla el resultado final cuando
+            se aplican declaraciones CSS contradictorias sobre el mismo elemento HTML.
+        </p>
+    </div>
+</div>
