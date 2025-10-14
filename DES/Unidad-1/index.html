@@ -1,0 +1,123 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Unidad 1. Simulación de Entornos Remotos con VPS y SSH</h1>
+
+    <h2 class="mb-4 text-primary">Introducción</h2>
+    <p>En este módulo vamos a simular escenarios reales donde apenas trabajaremos en local, en nuestro propio
+        ordenador. Simularemos, mediante una máquina virtual que es en la que realmente trabajaremos, que todos nuestros
+        despliegues ocurren en una máquina remota, tal y como ocurre en la realidad.</p>
+    <p>De hecho, se simulará un escenario donde tengamos contratado un VPS (Virtual Private Server) y debamos
+        conectarnos de forma remota al mismo para poder trabajar. Un escenario muy común en el mundo real.</p>
+
+    <h2 class="mb-4 text-primary">¿Qué es un VPS?</h2>
+    <p>Un servidor es un ordenador en la que tu proveedor de alojamiento web almacena los archivos y las bases de
+        datos necesarios para tu sitio web. Cada vez que un visitante en línea quiere acceder a tu sitio web, su
+        navegador le envía una solicitud a tu servidor y transfiere los archivos necesarios a través de Internet. El
+        alojamiento VPS te proporciona un servidor en la nube que simula un servidor físico; sin embargo, en realidad,
+        la máquina se comparte entre varios usuarios.</p>
+    <p>Al usar la tecnología de virtualización, tu proveedor de alojamiento web instala una capa virtual sobre el
+        sistema operativo del servidor. Esta capa divide el servidor en particiones y le permite a cada usuario instalar
+        su propio sistema operativo y software.</p>
+    <p>Por lo tanto, un servidor privado virtual (VPS) es tanto virtual como privado porque tienes control absoluto.
+        Está separado de otros usuarios del servidor a nivel del sistema operativo. De hecho, la tecnología VPS es
+        similar a la creación de particiones en tu ordenador cuando quieres ejecutar más de un sistema operativo (por
+        ejemplo, Windows y Linux) sin tener que reiniciar.</p>
+    <p>Un VPS te permite configurar tu sitio web dentro de un contenedor seguro con recursos garantizados (memoria,
+        espacio en disco, núcleos de CPU, etc.) que no tienes que compartir con otros usuarios. Con el hosting VPS,
+        tienes el mismo acceso de nivel raíz que si alquilaras un servidor dedicado, pero a un costo mucho más bajo.</p>
+    <p>El VPS es una solución más segura y estable que el hosting compartido, con el que no obtienes espacio de servidor
+        dedicado. Sin embargo, es de menor escala y más barato que alquilar un servidor completo.</p>
+    <p>El hosting VPS generalmente es elegido por los propietarios de sitios web que tienen un tráfico de nivel medio
+        que excede los límites de los planes de hosting compartido pero que aún no necesitan los recursos de un servidor
+        dedicado.</p>
+
+    <h2 class="mb-4 text-primary">Conexión mediante SSH</h2>
+    <p>Aunque nuestra máquina virtual esté en nuestro ordenador, ya hemos dicho que estamos simulando un VPS remoto.
+        Para conectarnos a una máquina de forma remota y segura, la opción más recomendable es SSH.</p>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/ssh-diagrama.png" alt="Diagrama de conexión SSH Cliente-Servidor" class="w-75">
+    </div>
+    <p class="text-muted small text-center"><em>Diagrama simplificado de una conexión SSH.</em></p>
+    <p>SSH o Secure Shell es un protocolo de red criptográfico para operar servicios de red de forma segura a través de
+        una red no protegida. Las aplicaciones típicas incluyen línea de comandos remota, inicio de sesión y ejecución
+        de comandos remota, pero cualquier servicio de red puede protegerse con SSH.</p>
+    <p>SSH proporciona un canal seguro a través de una red no segura mediante el uso de una arquitectura
+        cliente-servidor , conectando una aplicación cliente SSH con un servidor SSH. El puerto TCP estándar para SSH es
+        22 y se usa generalmente para acceder a sistemas operativos similares a Unix, pero también se puede usar en
+        Microsoft Windows.</p>
+    <p>Proporciona un mecanismo para autenticar un usuario remoto, transferir entradas desde el cliente al host y
+        retransmitir la salida de vuelta al cliente.</p>
+    <p>SSH tiene muchas aplicaciones diferentes:</p>
+    <ul>
+        <li>Gestión de servidores a los que no se puede acceder localmente</li>
+        <li>Transferencia segura de archivos</li>
+        <li>Creación de copias de seguridad</li>
+        <li>Conexión entre dos ordenadores con encriptación de extremo a extremo</li>
+        <li>Mantenimiento remoto desde otros ordenadores</li>
+    </ul>
+
+    <h3 class="mb-4 text-primary">Autenticación</h3>
+    <p>Los dos métodos de autenticación de usuario SSH más comunes que se utilizan son las contraseñas (cifrado
+        simétrico) y las claves SSH (cifrado asimétrico o de clave pública). Los clientes envían contraseñas cifradas al
+        servidor de forma segura. Sin embargo, las contraseñas son un método de autenticación arriesgado porque su
+        solidez depende de que el usuario sepa qué hace que una contraseña sea segura.</p>
+    <p>Los pares de claves pública-privada SSH encriptados asimétricamente son una mejor opción. Una vez que el cliente
+        descifra el mensaje, el servidor le otorga acceso al sistema.</p>
+    <p>Es decir, SSH opta por el cifrado híbrido, donde se utiliza el cifrado asimétrico para intercambiar unas claves
+        que serán las que se utilizarán posteriormente en el intercambio de información.</p>
+
+    <h4 class="mb-4 text-primary">Cifrados simétricos o de clave privada</h4>
+    <p>Este tipo de cifrado utiliza la misma clave para cifrar y para descifrar la información. Por este motivo, la
+        clave debe ser secreta y sólo conocida por el emisor y el receptor del mensaje.</p>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/cifrado-simetrico.png" alt="Diagrama de cifrado simétrico" class="w-75">
+    </div>
+    <p class="text-muted small text-center"><em>Esquema del cifrado simétrico: una única clave secreta para cifrar y
+            descifrar.</em></p>
+
+    <p><strong>Ventajas</strong></p>
+    <ul>
+        <li>Muy rápidos → cifrar y descifrar un mensaje cada vez requiere un cierto tiempo, que si el algoritmo es
+            complejo, puede ser elevado.</li>
+    </ul>
+
+    <p><strong>Inconvenientes</strong></p>
+    <ul>
+        <li>Si alguien no autorizado consigue la clave, podrá espiar la comunicación sin problemas.</li>
+        <li>¿Cómo hacemos para que emisor y receptor conozcan la clave en un primer momento? → no se puede transmitir
+            por el canal inseguro → hay que transmitirla por otro canal seguro. Ejemplos: PIN de la tarjeta del banco o
+            archivo comprimido con contraseña.</li>
+    </ul>
+
+    <h4 class="mb-4 text-primary">Cifrados asimétricos o de clave pública</h4>
+    <p>En este tipo de cifrados cada usuario utiliza un par de claves: una clave pública y una clave privada. Un mensaje
+        cifrado con la clave pública sólo se puede descifrar con su correspondiente clave privada y viceversa.</p>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/cifrado-asimetrico.png" alt="Diagrama de cifrado asimétrico" class="w-75">
+    </div>
+    <p class="text-muted small text-center"><em>Esquema del cifrado asimétrico: clave pública para cifrar, clave privada
+            para descifrar.</em></p>
+    <p>La clave pública es accesible a cualquier persona que quiera consultarla, no hace falta que sea transmitida por
+        un canal seguro como en el caso anterior.</p>
+    <p>La clave privada sólo la debe conocer su dueño.</p>
+
+    <p><strong>Funcionamiento:</strong></p>
+    <ul>
+        <li>El emisor cifra un mensaje con la clave pública del receptor.</li>
+        <li>El receptor recibe el mensaje y es el único que podrá descifrarlo porque es el único que posee la clave
+            privada asociada.</li>
+    </ul>
+
+    <p><strong>Ventajas</strong></p>
+    <ul>
+        <li>No se necesita un nuevo canal independiente y seguro para transmitir la clave.</li>
+    </ul>
+
+    <p><strong>Inconvenientes</strong></p>
+    <ul>
+        <li>Son más lentos que los cifrados simétricos.</li>
+        <li>Hay que proteger muy bien la clave privada y tenerla siempre disponible para poder descifrar los mensajes
+            (no es una contraseña).</li>
+        <li>Hay que asegurarse de que la clave pública es de quién dice ser y no de un impostor que se esté haciendo
+            pasar por él.</li>
+    </ul>
+</div>
