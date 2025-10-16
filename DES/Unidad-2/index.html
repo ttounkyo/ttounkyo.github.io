@@ -1,0 +1,177 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Arquitectura Web. Implantación y administración de servidores web</h1>
+
+    <h2 class="mb-4 text-primary">Introducción</h2>
+    <p>Con la evolución y el acceso libre a Internet, uno de los principales alicientes que han surgido es la
+        publicación de páginas web donde se pueden almacenar unos contenidos bastante atractivos para nosotros y que, al
+        mismo tiempo, pueden ser consultados desde cualquier parte del mundo para todos.</p>
+    <p>Las páginas web, en su mayoría en formato HTML, requieren ser alojadas en máquinas que dispongan de espacio en
+        disco para almacenar archivos HTML, imágenes, bloques de código o archivos de vídeo en directorios específicos
+        y, al mismo tiempo, deben ser capaces de entender todo tipo de extensión de los archivos que son enviados en
+        ambos sentidos de la comunicación.</p>
+    <div class="img-responsive text-center p-3">
+        <img src="../img/Unidad-2/web-server-intro.png" alt="Esquema de un usuario accediendo a una página web"
+            class="w-75">
+    </div>
+    <p>Paralelamente, no podemos dejar de lado la importancia de las medidas de seguridad ante los peligros existentes
+        en Internet. Para ello, las páginas deberán estar diseñadas considerando la incorporación de protocolos de
+        comunicación seguros como HTTPS, que utilizan cifrado para proteger la información.</p>
+
+    <h2 class="mb-4 text-primary">¿Qué es un servidor web?</h2>
+    <p>Un servidor web es un software y hardware que utiliza el protocolo HTTP (Hypertext Transfer Protocol) y otros
+        protocolos para responder a las solicitudes de los clientes a través de la World Wide Web. Su principal función
+        es mostrar el contenido de un sitio web almacenando, procesando y entregando las páginas web a los usuarios.
+    </p>
+    <div class="img-responsive text-center p-3">
+        <img src="../img/Unidad-2/server-client-model.png"
+            alt="Modelo cliente-servidor con multiples clientes y un servidor" class="w-75">
+    </div>
+    <p>Además de HTTP, los servidores web también soportan SMTP (Simple Mail Transfer Protocol) y FTP (File Transfer
+        Protocol), utilizados para el correo electrónico, la transferencia de archivos y el almacenamiento.</p>
+
+    <!-- NUEVA SECCIÓN: VIRTUAL HOSTS -->
+    <h2 class="mb-4 text-primary">Alojamiento de Múltiples Sitios: Virtual Hosts y Server Blocks</h2>
+    <p>Una de las capacidades más importantes de un servidor web moderno es la de alojar múltiples sitios web en una
+        sola máquina con una única dirección IP. Esta técnica se conoce como <strong>Virtual Hosting</strong>.</p>
+    <ul>
+        <li>En <strong>Apache</strong>, se les llama <strong>Virtual Hosts</strong>.</li>
+        <li>En <strong>Nginx</strong>, se les conoce como <strong>Server Blocks</strong>.</li>
+    </ul>
+    <p>El funcionamiento se basa en el encabezado <code>Host</code> de la petición HTTP. Cuando un navegador solicita
+        un sitio (ej. `www.misitio1.com`), envía este dominio en la cabecera. El servidor web lee esta cabecera y la
+        utiliza para determinar qué sitio web debe servir, buscando el archivo de configuración del Virtual Host o
+        Server Block correspondiente a ese dominio.</p>
+    <div class="img-responsive text-center p-3">
+        <img src="../img/Unidad-X/virtual-hosts.png"
+            alt="Diagrama de Virtual Hosts: una IP, múltiples dominios apuntando a diferentes directorios"
+            class="w-100">
+    </div>
+    <p class="text-muted small text-center"><em>Un único servidor responde a peticiones para `sitio1.com` y `sitio2.com`
+            sirviendo el contenido de sus respectivos directorios.</em></p>
+
+
+    <h2 class="mb-4 text-primary">El protocolo HTTP</h2>
+
+    <h3 class="mb-4 text-primary">Historia y Versiones</h3>
+    <ul>
+        <li><strong>HTTP/1.1:</strong> El primer estándar oficial. Introdujo mejoras clave como la reutilización de
+            conexiones y la cabecera <code>Host</code>, que hizo posible el Virtual Hosting.</li>
+        <li><strong>HTTP/2:</strong> Publicado en 2015, se enfoca en el rendimiento, permitiendo múltiples solicitudes
+            en paralelo sobre una única conexión (multiplexación), reduciendo la latencia.</li>
+        <li><strong>HTTP/3:</strong> La futura versión, que utiliza el protocolo QUIC (basado en UDP) para solucionar
+            problemas de rendimiento de TCP, como el "head-of-line blocking".</li>
+    </ul>
+
+    <h3 class="mb-4 text-primary">Funcionamiento del protocolo HTTP</h3>
+    <p>La comunicación HTTP sigue un modelo de petición-respuesta. El cliente (navegador) envía una petición a un
+        servidor, y este le devuelve una respuesta con el recurso solicitado (HTML, imágenes, etc.).</p>
+    <div class="img-responsive text-center p-3">
+        <img src="../img/Unidad-X/http-request-response.png" alt="Diagrama de petición y respuesta HTTP" class="w-75">
+    </div>
+
+    <h3 class="mb-4 text-primary">Comandos o métodos HTTP</h3>
+    <p>Los métodos HTTP definen la acción que se desea realizar sobre un recurso.</p>
+    <ul>
+        <li><strong>GET:</strong> Solicita un recurso.</li>
+        <li><strong>POST:</strong> Envía datos para crear un nuevo recurso.</li>
+        <li><strong>PUT:</strong> Actualiza un recurso existente.</li>
+        <li><strong>DELETE:</strong> Elimina un recurso.</li>
+        <li><strong>HEAD:</strong> Pide las cabeceras de un recurso, pero no el cuerpo.</li>
+    </ul>
+
+    <!-- SECCIÓN DE HTTPS MEJORADA -->
+    <h2 class="mb-4 text-primary">HTTPS: La capa de seguridad de la Web</h2>
+    <p>El Protocolo seguro de transferencia de hipertexto (HTTPS) es la versión segura de HTTP. Añade una capa de
+        cifrado a la comunicación para proteger la integridad y la confidencialidad de los datos intercambiados entre el
+        usuario y el sitio web.</p>
+    <div class="img-responsive text-center p-3">
+        <img src="../img/Unidad-X/https-lock.png" alt="Icono de candado de HTTPS en el navegador" class="w-50">
+    </div>
+
+    <h3 class="mb-4 text-primary">¿Cómo funciona?: Certificados SSL/TLS y Let's Encrypt</h3>
+    <p>La seguridad de HTTPS se basa en el protocolo <strong>TLS (Transport Layer Security)</strong>, que utiliza un
+        sistema de certificados digitales para funcionar.</p>
+    <ol>
+        <li><strong>Certificado SSL/TLS:</strong> Es un archivo de datos instalado en el servidor que lo identifica y
+            contiene su clave pública. Permite cifrar los datos que se transmiten.</li>
+        <li><strong>Entidad Certificadora (CA):</strong> Para que un navegador confíe en un certificado, este debe estar
+            firmado por una Entidad Certificadora de confianza (como DigiCert, GlobalSign, etc.). La CA verifica la
+            identidad del propietario del dominio antes de emitir el certificado.</li>
+        <li><strong>Let's Encrypt:</strong> Es una CA gratuita, automatizada y abierta que ha revolucionado la web,
+            haciendo que la obtención de certificados TLS sea accesible para todos. Herramientas como
+            <strong>Certbot</strong>
+            automatizan el proceso de obtención e instalación de estos certificados en servidores como Apache y Nginx.
+        </li>
+    </ol>
+    <div class="img-responsive text-center p-3">
+        <img src="../img/Unidad-X/lets-encrypt-flow.png"
+            alt="Flujo de obtención de un certificado con Let's Encrypt y Certbot" class="w-100">
+    </div>
+    <p class="text-muted small text-center"><em>El servidor, usando Certbot, solicita y renueva automáticamente los
+            certificados de Let's Encrypt para habilitar HTTPS.</em></p>
+
+
+    <h2 class="mb-4 text-primary">Servidores web: Apache vs Nginx</h2>
+    <p>Apache y Nginx son los dos servidores web de código abierto más populares del mundo. Aunque ambos realizan la
+        misma función básica, tienen arquitecturas y fortalezas diferentes.</p>
+    <div class="img-responsive text-center p-3">
+        <img src="../img/Unidad-X/apache-vs-nginx.png" alt="Logos de Apache y Nginx enfrentados" class="w-75">
+    </div>
+
+    <h3 class="mb-4 text-primary">Apache HTTP Server</h3>
+    <p>Es el "veterano" de los servidores web, conocido por su flexibilidad y su enorme ecosistema de módulos. Su
+        arquitectura basada en procesos o hilos lo hace muy potente, pero puede consumir más memoria bajo altas cargas.
+    </p>
+
+    <h3 class="mb-4 text-primary">Nginx</h3>
+    <p>Nginx (pronunciado "engine-ex") fue diseñado para el alto rendimiento. Utiliza una arquitectura asíncrona y
+        basada en eventos, lo que le permite manejar miles de conexiones simultáneas con un consumo de memoria muy bajo.
+        Es especialmente eficiente sirviendo contenido estático.</p>
+
+    <!-- SECCIÓN DE NGINX MEJORADA CON PROXY INVERSO -->
+    <h3 class="mb-4 text-primary">Nginx como Proxy Inverso y Balanceador de Carga</h3>
+    <p>Uno de los usos más potentes y comunes de Nginx es actuar como <strong>proxy inverso</strong>. En esta
+        configuración, Nginx no aloja la aplicación directamente, sino que se sitúa delante de otros servidores de
+        aplicaciones (hechos en Node.js, Python, Java, etc.).</p>
+    <p>Las ventajas de este enfoque son enormes:</p>
+    <ul>
+        <li><strong>Balanceo de Carga:</strong> Distribuye el tráfico entrante entre varios servidores de aplicación,
+            mejorando la escalabilidad y la disponibilidad.</li>
+        <li><strong>Terminación SSL:</strong> Nginx gestiona todo el cifrado HTTPS, liberando a los servidores de
+            aplicación de esta tarea.</li>
+        <li><strong>Servir Contenido Estático:</strong> Nginx puede servir archivos estáticos (imágenes, CSS, JS)
+            directamente y de forma muy eficiente, mientras que solo pasa las peticiones dinámicas a la aplicación.
+        </li>
+        <li><strong>Seguridad y Caché:</strong> Actúa como una capa de protección y puede cachear respuestas para
+            acelerar las peticiones futuras.</li>
+    </ul>
+    <div class="img-responsive text-center p-3">
+        <img src="../img/Unidad-X/reverse-proxy-flow.png"
+            alt="Diagrama de Nginx como Proxy Inverso y Balanceador de Carga" class="w-100">
+    </div>
+    <p class="text-muted small text-center"><em>Nginx recibe todas las peticiones, sirve los archivos estáticos y
+            distribuye las peticiones dinámicas entre los servidores de aplicación.</em></p>
+
+    <!-- NUEVA SECCIÓN: ARCHIVOS DE CONFIGURACIÓN -->
+    <h2 class="mb-4 text-primary">Archivos de Configuración Clave</h2>
+    <p>Para trabajar con estos servidores, es fundamental conocer dónde se encuentra su configuración.</p>
+
+    <h3 class="mb-4 text-primary">Apache</h3>
+    <ul>
+        <li><code>apache2.conf</code> o <code>httpd.conf</code>: El archivo de configuración principal.</li>
+        <li><code>ports.conf</code>: Define los puertos en los que escucha el servidor.</li>
+        <li>Directorio <code>sites-available/</code> y <code>sites-enabled/</code>: En sistemas Debian/Ubuntu, aquí se
+            gestionan los archivos de configuración de los Virtual Hosts.</li>
+        <li><code>.htaccess</code>: Archivos que permiten anular la configuración del servidor a nivel de directorio.
+            Son muy flexibles pero pueden afectar al rendimiento.</li>
+    </ul>
+
+    <h3 class="mb-4 text-primary">Nginx</h3>
+    <ul>
+        <li><code>nginx.conf</code>: El archivo de configuración principal.</li>
+        <li>Directorio <code>sites-available/</code> y <code>sites-enabled/</code>: Al igual que en Apache, es la forma
+            estándar de gestionar los Server Blocks.</li>
+        <li>A diferencia de Apache, Nginx no tiene un sistema equivalente a los archivos <code>.htaccess</code>. Toda la
+            configuración se centraliza en los archivos principales por razones de rendimiento.</li>
+    </ul>
+</div>

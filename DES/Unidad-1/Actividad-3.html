@@ -1,0 +1,74 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Guía de Configuración para nuevo Usuario - Despliegue</h1>
+
+    <h2 class="mb-4 text-primary">1. Crear el nuevo usuario</h2>
+    <p>Esto lo haces desde <code class="language-bash">root</code> o desde el usuario con permisos administrativos
+        actuales:</p>
+    <pre class="p-3 rounded"><code class="language-bash">adduser despliegue</code></pre>
+    <p>A continuación, introduce una contraseña segura y completa los datos que te pida el sistema.</p>
+    <p>Luego, concede permisos administrativos al nuevo usuario para que pueda utilizar <code
+            class="language-bash">sudo</code>:</p>
+    <pre class="p-3 rounded"><code class="language-bash">usermod -aG sudo despliegue</code></pre>
+    <p class="alert alert-info">Con este paso, el usuario <code class="language-bash">despliegue</code> ya podrá usar el
+        comando
+        <code class="language-bash">sudo</code> para ejecutar acciones como administrador.
+    </p>
+
+    <h2 class="mb-4 text-primary">2. Configurar SSH para el nuevo usuario</h2>
+    <p>Ahora tienes dos opciones para configurar el acceso por SSH, según cómo prefieras gestionar tus claves.</p>
+
+    <h4 class="mb-2 text-primary">🔹 Opción A: Seguir usando la misma clave SSH</h4>
+    <p>Puedes usar la misma clave SSH que ya tienes. Solo necesitas copiar la clave pública autorizada al nuevo usuario.
+    </p>
+    <ol>
+        <li>Conéctate por SSH como <code class="language-bash">root</code> (o tu usuario administrativo actual).</li>
+        <li>Copia tu clave pública a la carpeta del nuevo usuario y ajusta los permisos:</li>
+    </ol>
+    <pre class="p-3 rounded"><code class="language-bash"># Crear el directorio .ssh para el nuevo usuario
+mkdir /home/despliegue/.ssh
+
+# Copiar la clave pública autorizada
+cp /root/.ssh/authorized_keys /home/despliegue/.ssh/
+
+# Asignar propietario y grupo correctos
+chown -R despliegue:despliegue /home/despliegue/.ssh
+
+# Establecer los permisos de seguridad adecuados
+chmod 700 /home/despliegue/.ssh
+chmod 600 /home/despliegue/.ssh/authorized_keys</code></pre>
+    <p class="alert alert-success">¡Listo! Con esto, podrás entrar con tu misma clave SSH, pero ahora como el usuario
+        <code class="language-bash">despliegue</code>.
+    </p>
+    <p>Para probar la conexión, ejecuta:</p>
+    <pre class="p-3 rounded"><code class="language-bash">ssh despliegue@IP_DEL_SERVIDOR</code></pre>
+
+    <h4 class="mb-2 mt-4 text-primary">🔹 Opción B: Generar una nueva clave SSH específica para el usuario</h4>
+    <p>Esta opción es más segura y realista, ya que cada usuario tiene su propia clave de acceso única. Tal y como hemos
+        realizado en clases o de la actividad anterior.</p>
+    <ol>
+        <li>En tu ordenador local (cliente), genera una nueva clave SSH. Guárdala con un nombre diferente si ya tienes
+            una (por ejemplo, <code class="language-bash">id_despliegue</code>).</li>
+    </ol>
+    <ol start="2">
+        <li>Copia la nueva clave pública al servidor.</li>
+    </ol>
+    <ol start="3">
+        <li>Ahora puedes conectarte configurando la conexión en Putty:</li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">3. Desactivar el acceso SSH de root</h2>
+    <p>Como medida de seguridad fundamental, es crucial desactivar el inicio de sesión directo como <code
+            class="language-bash">root</code>.
+    </p>
+    <p>Edita el archivo de configuración del servicio SSH:</p>
+    <pre class="p-3 rounded"><code class="language-bash">sudo nano /etc/ssh/sshd_config</code></pre>
+    <p>Busca, descomenta (si es necesario) y modifica la siguiente línea para que quede así:</p>
+    <pre class="p-3 rounded"><code class="language-bash">PermitRootLogin no</code></pre>
+    <p>Guarda el archivo y recarga el servicio SSH para que los cambios surtan efecto:</p>
+    <pre class="p-3 rounded"><code class="language-bash">sudo systemctl restart ssh</code></pre>
+    <p class="alert alert-warning">🔒 Esto asegura que solo los usuarios autorizados (como <code
+            class="language-bash">despliegue</code>)
+        podrán entrar por SSH, bloqueando los intentos de acceso directo como <code class="language-bash">root</code> y
+        aumentando la
+        seguridad del servidor.</p>
+</div>

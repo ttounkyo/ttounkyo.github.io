@@ -1,0 +1,239 @@
+<div class="container my-5">
+    <h2 class="mb-4 text-primary">Conexión SSH con PuTTY - Guía Completa</h2>
+
+    <h3 class="mb-4 text-primary">1. Configuración SSH del Servidor</h3>
+
+    <p>Antes de conectarte remotamente, asegúrate de que el servidor tiene SSH configurado correctamente.</p> En tu
+    servidor
+    Debian, el archivo de configuración está en <code class="language-bash">/etc/ssh/sshd_config</code>.</p>
+
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/30.1.png" alt="Configuración SSH en Debian" class="w-75">
+    </div>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/30.2.png" alt="Configuración SSH en Debian" class="w-75">
+    </div>
+    <p class="text-muted small text-center"><em>El archivo sshd_config contiene la configuración del servidor SSH.
+            Elementos
+            importantes: PermitRootLogin prohibit-password (deshabilita acceso directo como root), PubkeyAuthentication
+            yes
+            (habilita autenticación por clave pública), HostbasedAuthentication no (desactiva autenticación basada en
+            host),
+            y MaxAuthTries 6 (límite de intentos).</em></p>
+
+    <hr>
+
+    <h3 class="mb-4 text-primary">2. Instalación de PuTTY</h3>
+
+    <p>PuTTY es un cliente SSH para Windows que permite conexiones remotas seguras. A continuación se muestra el proceso
+        de
+        instalación paso a paso.</p>
+
+    <h4 class="mb-2 text-secondary">Paso 1: Iniciar el Instalador</h4>
+
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/24.png" alt="Pantalla de bienvenida de PuTTY" class="w-75">
+    </div>
+
+    <p class="text-muted small text-center"><em>Pantalla de bienvenida del asistente de instalación de PuTTY 0.83
+            (64-bit).
+            El instalador guiará el proceso de configuración.</em></p>
+
+    <h4 class="mb-2 text-secondary">Paso 2: Seleccionar Carpeta de Destino</h4>
+
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/25.png" alt="Selección de carpeta de destino" class="w-75">
+    </div>
+
+    <p class="text-muted small text-center"><em>Se puede elegir la ubicación de instalación. Por defecto, PuTTY se
+            instala
+            en C:\Program Files\PuTTY\. Esta es la ruta estándar recomendada.</em></p>
+
+    <h4 class="mb-2 text-secondary">Paso 3: Seleccionar Características a Instalar</h4>
+
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/26.png" alt="Selección de características" class="w-75">
+    </div>
+
+    <p class="text-muted small text-center"><em>Se presentan las opciones de instalación: Install PuTTY files (archivos
+            principales), Add shortcut to PuTTY on the Desktop, Put install directory in the PATH, y Associate .PPK
+            files.
+            Se recomienda mantener las opciones predeterminadas.</em></p>
+
+    <h4 class="mb-2 text-secondary">Paso 4: Completar la Instalación</h4>
+
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/27.png" alt="Instalación completada" class="w-75">
+    </div>
+
+    <p class="text-muted small text-center"><em>Mensaje de confirmación indicando que la instalación de PuTTY 0.83 se ha
+            completado correctamente.</em></p>
+
+    <hr>
+
+    <h3 class="mb-4 text-primary">3. Generación de Claves SSH con PuTTYgen</h3>
+
+    <p>Las claves SSH proporcionan un método de autenticación seguro sin necesidad de contraseña. Constan de dos partes:
+        la
+        clave privada (guardada en tu equipo local) y la clave pública (instalada en el servidor remoto).</p>
+
+    <h4 class="mb-2 text-secondary">Paso 1: Abrir PuTTYgen</h4>
+
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/28.png" alt="PuTTYgen - Estado inicial" class="w-75">
+    </div>
+
+    <p class="text-muted small text-center"><em>Interfaz principal de PuTTY Key Generator. Muestra "No key" al inicio.
+            Aquí
+            se pueden generar y gestionar las claves SSH.</em></p>
+
+    <h4 class="mb-2 text-secondary">Paso 2: Generar la Clave</h4>
+
+    <p>Haz clic en el botón "Generate" para crear una nueva clave RSA. La aplicación te pedirá que muevas el ratón sobre
+        el
+        área en blanco para generar suficiente aleatoriedad, que es crucial para la seguridad.</p>
+
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/29.png" alt="Generando aleatoriedad" class="w-75">
+    </div>
+
+    <p class="text-muted small text-center"><em>Durante la generación, PuTTYgen muestra una barra de progreso verde. Se
+            requiere generar aleatoriedad moviendo el ratón para garantizar una clave criptográficamente segura.</em>
+    </p>
+
+    <h4 class="mb-2 text-secondary">Paso 3: Clave Generada Exitosamente</h4>
+
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/30.0.png" alt="Clave SSH generada" class="w-75">
+    </div>
+
+    <p class="text-muted small text-center"><em>Una vez completada la generación, PuTTYgen muestra la clave pública en
+            formato OpenSSH>. Se puede ver el fingerprint de la clave
+            (identificador único), el comentario asociado
+            (rsa-key-20251014), y opciones para <strong>guardar las claves privada y pública por separado</strong>.</em>
+    </p>
+
+    <hr>
+    <h3 class="mb-4 text-primary">4. Instalación Manual de la Clave Pública en el Servidor</h3>
+
+    <p>Después de generar las claves, es necesario instalar la clave pública en el servidor para habilitar la
+        autenticación por clave pública. Este proceso se realiza de forma manual.</p>
+
+    <h4 class="mb-2 text-secondary">Paso 1: Copiar la Clave Pública</h4>
+
+    <p>En tu ordenador local, abre el archivo de clave pública (id_rsa.pub) que generaste con cualquier editor de texto
+        y copia su contenido completo desde <strong>rsa</strong> hasta antes del comentario.</p>
+
+    <h4 class="mb-2 text-secondary">Paso 2: Conectarse al Servidor</h4>
+
+    <p>Conéctate a tu servidor utilizando PuTTY con las credenciales de usuario y contraseña habituales.</p>
+
+    <h4 class="mb-2 text-secondary">Paso 3: Crear la Carpeta .ssh y el Archivo authorized_keys</h4>
+
+    <p>Si la carpeta .ssh no existe en tu servidor, créala junto con el archivo authorized_keys ejecutando el siguiente
+        comando:</p>
+    <pre><code class="language-bash">mkdir ~/.ssh
+touch ~/.ssh/authorized_keys</code></pre>
+
+
+
+    <h4 class="mb-2 text-secondary">Paso 4: Asegurar los Permisos del Archivo</h4>
+
+    <p>Es crítico establecer los permisos correctos en los archivos SSH. Ejecuta los siguientes comandos para garantizar
+        la seguridad:
+    </p>
+    <pre><code class="language-bash">chmod 700 ~/.ssh
+chmod 644 ~/.ssh/authorized_keys</code></pre>
+
+
+
+    <h4 class="mb-2 text-secondary">Paso 5: Editar el Archivo authorized_keys</h4>
+
+    <p>Abre el archivo authorized_keys con el editor de texto nano: <code class="language-bash">
+        nano ~/.ssh/authorized_keys
+    </code></p>
+
+
+
+    <h4 class="mb-2 text-secondary">Paso 6: Pegar la Clave Pública</h4>
+
+    <p>Aquí puede variar, dependiendo si estás conectado a la maquina mediante Putty, o en el VirtualBox, si haces
+        <em>Clic
+            Derecho</em> se mostrará la clave pública que copiaste anteriormente.
+    </p>
+    <h4 class="mb-2 text-secondary">Paso 7: Guardar los Cambios</h4>
+
+    <p>Pulsa la tecla <strong>Ctrl + O</strong> para guardar, luego te pedirá el nombre del archivo, lo dejamos por
+        defecto y hacemos <strong>INTRO</strong>. Ahora hacemos <strong>Ctrl + X</strong> para cerrará el editor.
+    </p>
+
+    <hr>
+
+    <h3 class="mb-4 text-primary">5. Configurar PuTTY con la Clave Privada</h3>
+
+    <h4 class="mb-2 text-secondary">Configuración de Conexión</h4>
+
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/36.png" alt="Configuración de PuTTY" class="w-75">
+    </div>
+
+    <p class="text-muted small text-center"><em>Ponemos los datos para hacer la conexión con nuestro servidor, en este
+            caso <strong>usuario@ip-servidor</strong> cuando hayamos realizado las configuraciones adicionales podemos
+            guardar la conexión para no tener que volver a completarla</em></p>
+    <h4 class="mb-2 text-secondary">Configuración de Autenticación</h4>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/34.png" alt="Configuración de PuTTY" class="w-75">
+    </div>
+
+    <p class="text-muted small text-center"><em>Ventana de configuración de PuTTY. En la sección SSH > Auth >
+            Credentials se
+            especifica la ruta al archivo de clave privada (.ppk) generado anteriormente. En este caso, se ha guardado
+            en
+            C:\Users\Antonio\Desktop\DES\id_rsa.i.</em></p>
+
+    <hr>
+
+    <h3 class="mb-4 text-primary">6. Conexión SSH Remota</h3>
+
+    <h4 class="mb-2 text-secondary">Primer Intento: Aceptar la Huella Digital del Host</h4>
+
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/31.png" alt="Advertencia de seguridad SSH" class="w-75">
+    </div>
+
+    <p class="text-muted small text-center"><em>Alerta de seguridad de PuTTY indicando que la huella digital del host
+            (192.168.1.28 puerto 22) no está almacenada en caché. Se muestra el fingerprint de la clave SSH del
+            servidor:
+            ssh-ed25519 255 SHA256:7qSFhqEiJ3LueN5FLq 1lcwkHGSzQj4P/MbU7zcM. Es importante verificar que coincida con la
+            proporcionada por el administrador del servidor antes de aceptar.</em></p>
+
+    <h4 class="mb-2 text-secondary">Segundo Intento: Autenticación con Clave Pública</h4>
+
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/35.png" alt="Autenticación con clave pública" class="w-75">
+    </div>
+
+    <p class="text-muted small text-center"><em>Se muestra el proceso de autenticación. La terminal indica que se está
+            usando el nombre de usuario "antonio" y autenticando con la clave pública "rsa-key-20251014". El login se
+            realiza desde la dirección IP 192.168.1.27.</em></p>
+
+    <h4 class="mb-2 text-secondary">Conexión Exitosa</h4>
+
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-1/32.png" alt="Conexión SSH exitosa" class="w-75">
+    </div>
+
+    <p class="text-muted small text-center"><em>Finalmente, la conexión SSH se establece correctamente. Se muestran los
+            mensajes de bienvenida de Debian, incluyendo información del sistema (Linux Debian13 6.12.48-debi3-amd64).
+            El
+            prompt "antonio@Debian13:~$" confirma que estamos conectados remotamente a la máquina virtual Debian 13 con
+            acceso remoto seguro.</em></p>
+
+    <hr>
+
+    <h3 class="mb-4 text-primary">Conclusión</h3>
+
+    <p>El proceso completo de conexión SSH segura con PuTTY involucra: la configuración del servidor, la instalación del
+        cliente, la generación de claves, la configuración del cliente con la clave privada, y finalmente la conexión
+        remota. Este método proporciona un acceso remoto seguro y encriptado a tu máquina virtual.</p>
+</div>
