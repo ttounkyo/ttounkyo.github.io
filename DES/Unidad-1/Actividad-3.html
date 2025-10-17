@@ -1,5 +1,5 @@
 <div class="container my-5">
-    <h1 class="mb-4 text-primary">Guía de Configuración para nuevo Usuario - Despliegue</h1>
+    <h1 class="mb-4 text-primary">Actividad 1.3. - Guía de Configuración para nuevo Usuario - Despliegue</h1>
 
     <h2 class="mb-4 text-primary">1. Crear el nuevo usuario</h2>
     <p>Esto lo haces desde <code class="language-bash">root</code> o desde el usuario con permisos administrativos
@@ -67,8 +67,6 @@ chmod 600 /home/despliegue/.ssh/authorized_keys</code></pre>
     <p>Guarda el archivo y recarga el servicio SSH para que los cambios surtan efecto:</p>
     <pre class="p-3 rounded"><code class="language-bash">sudo systemctl restart ssh</code></pre>
     <p class="alert alert-warning">🔒 Esto asegura que solo los usuarios autorizados (como <code
-            class="language-bash">despliegue</code>)
-        podrán entrar por SSH, bloqueando los intentos de acceso directo como <code class="language-bash">root</code> y
-        aumentando la
-        seguridad del servidor.</p>
+            class="language-bash">despliegue</code>) podrán entrar por SSH, bloqueando los intentos de acceso directo
+        como <code class="language-bash">root</code> y aumentando la seguridad del servidor.</p>
 </div>
