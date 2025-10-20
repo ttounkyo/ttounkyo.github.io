@@ -10,8 +10,8 @@
         y, al mismo tiempo, deben ser capaces de entender todo tipo de extensión de los archivos que son enviados en
         ambos sentidos de la comunicación.</p>
     <div class="img-responsive text-center p-3">
-        <img src="../img/Unidad-2/web-server-intro.png" alt="Esquema de un usuario accediendo a una página web"
-            class="w-75">
+        <img src="../DES/img/Unidad-2/web-server-intro.png" alt="Esquema de un usuario accediendo a una página web"
+            class="w-50">
     </div>
     <p>Paralelamente, no podemos dejar de lado la importancia de las medidas de seguridad ante los peligros existentes
         en Internet. Para ello, las páginas deberán estar diseñadas considerando la incorporación de protocolos de
@@ -23,8 +23,8 @@
         es mostrar el contenido de un sitio web almacenando, procesando y entregando las páginas web a los usuarios.
     </p>
     <div class="img-responsive text-center p-3">
-        <img src="../img/Unidad-2/server-client-model.png"
-            alt="Modelo cliente-servidor con multiples clientes y un servidor" class="w-75">
+        <img src="../DES/img/Unidad-2/server.png" alt="Modelo cliente-servidor con multiples clientes y un servidor"
+            class="w-50">
     </div>
     <p>Además de HTTP, los servidores web también soportan SMTP (Simple Mail Transfer Protocol) y FTP (File Transfer
         Protocol), utilizados para el correo electrónico, la transferencia de archivos y el almacenamiento.</p>
@@ -42,9 +42,8 @@
         utiliza para determinar qué sitio web debe servir, buscando el archivo de configuración del Virtual Host o
         Server Block correspondiente a ese dominio.</p>
     <div class="img-responsive text-center p-3">
-        <img src="../img/Unidad-X/virtual-hosts.png"
-            alt="Diagrama de Virtual Hosts: una IP, múltiples dominios apuntando a diferentes directorios"
-            class="w-100">
+        <img src="../DES/img/Unidad-2/server-client-model.png"
+            alt="Diagrama de Virtual Hosts: una IP, múltiples dominios apuntando a diferentes directorios" class="w-50">
     </div>
     <p class="text-muted small text-center"><em>Un único servidor responde a peticiones para `sitio1.com` y `sitio2.com`
             sirviendo el contenido de sus respectivos directorios.</em></p>
@@ -66,7 +65,8 @@
     <p>La comunicación HTTP sigue un modelo de petición-respuesta. El cliente (navegador) envía una petición a un
         servidor, y este le devuelve una respuesta con el recurso solicitado (HTML, imágenes, etc.).</p>
     <div class="img-responsive text-center p-3">
-        <img src="../img/Unidad-X/http-request-response.png" alt="Diagrama de petición y respuesta HTTP" class="w-75">
+        <img src="../DES/img/Unidad-2/http-request-response.png" alt="Diagrama de petición y respuesta HTTP"
+            class="w-50">
     </div>
 
     <h3 class="mb-4 text-primary">Comandos o métodos HTTP</h3>
@@ -85,7 +85,7 @@
         cifrado a la comunicación para proteger la integridad y la confidencialidad de los datos intercambiados entre el
         usuario y el sitio web.</p>
     <div class="img-responsive text-center p-3">
-        <img src="../img/Unidad-X/https-lock.png" alt="Icono de candado de HTTPS en el navegador" class="w-50">
+        <img src="../DES/img/Unidad-2/https-lock.png" alt="Icono de candado de HTTPS en el navegador" class="w-50">
     </div>
 
     <h3 class="mb-4 text-primary">¿Cómo funciona?: Certificados SSL/TLS y Let's Encrypt</h3>
@@ -104,8 +104,8 @@
         </li>
     </ol>
     <div class="img-responsive text-center p-3">
-        <img src="../img/Unidad-X/lets-encrypt-flow.png"
-            alt="Flujo de obtención de un certificado con Let's Encrypt y Certbot" class="w-100">
+        <img src="../DES/img/Unidad-2/lets-encrypt-flow.png"
+            alt="Flujo de obtención de un certificado con Let's Encrypt y Certbot" class="w-50">
     </div>
     <p class="text-muted small text-center"><em>El servidor, usando Certbot, solicita y renueva automáticamente los
             certificados de Let's Encrypt para habilitar HTTPS.</em></p>
@@ -115,7 +115,7 @@
     <p>Apache y Nginx son los dos servidores web de código abierto más populares del mundo. Aunque ambos realizan la
         misma función básica, tienen arquitecturas y fortalezas diferentes.</p>
     <div class="img-responsive text-center p-3">
-        <img src="../img/Unidad-X/apache-vs-nginx.png" alt="Logos de Apache y Nginx enfrentados" class="w-75">
+        <img src="../DES/img/Unidad-2/apache-vs-nginx.png" alt="Logos de Apache y Nginx enfrentados" class="w-50">
     </div>
 
     <h3 class="mb-4 text-primary">Apache HTTP Server</h3>
@@ -146,8 +146,8 @@
             acelerar las peticiones futuras.</li>
     </ul>
     <div class="img-responsive text-center p-3">
-        <img src="../img/Unidad-X/reverse-proxy-flow.png"
-            alt="Diagrama de Nginx como Proxy Inverso y Balanceador de Carga" class="w-100">
+        <img src="../DES/img/Unidad-2/reverse-proxy-flow.png"
+            alt="Diagrama de Nginx como Proxy Inverso y Balanceador de Carga" class="w-50">
     </div>
     <p class="text-muted small text-center"><em>Nginx recibe todas las peticiones, sirve los archivos estáticos y
             distribuye las peticiones dinámicas entre los servidores de aplicación.</em></p>

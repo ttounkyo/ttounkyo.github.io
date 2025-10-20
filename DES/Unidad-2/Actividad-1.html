@@ -1,0 +1,141 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Actividad 2.1: Instalación y Configuración de Nginx</h1>
+
+    <h2 class="mb-4 text-primary">1. Instalación del servidor web Nginx</h2>
+    <p>Para instalar Nginx en Debian, primero actualizamos los repositorios y después instalamos el paquete
+        correspondiente:</p>
+    <pre><code class="language-bash">sudo apt update
+sudo apt install nginx</code></pre>
+    <p>A continuación, comprobamos que Nginx se ha instalado y que está funcionando correctamente:</p>
+    <pre><code class="language-bash">systemctl status nginx</code></pre>
+    <div class="alert alert-info">
+        <strong>Info:</strong> Esta actividad se ha realizado con la versión Nginx 1.18.0.
+    </div>
+
+    <h2 class="mb-4 text-primary">2. Creación de la estructura de directorios del sitio web</h2>
+    <p>Al igual que en Apache, los archivos de un sitio web se organizan en directorios, típicamente dentro de
+        <code>/var/www</code>. Crearemos la carpeta para nuestro sitio web:
+    </p>
+    <pre><code class="language-bash">sudo mkdir -p /var/www/nombre_web/html</code></pre>
+    <p>Dentro de este nuevo directorio <code>html</code>, debéis clonar el siguiente repositorio de ejemplo:</p>
+    <pre><code class="language-bash">git clone https://github.com/cloudacademy/static-website-example.git /var/www/nombre_web/html</code></pre>
+    <p>Después, asignamos la propiedad de estos directorios al usuario <code>www-data</code>, que es el usuario con el
+        que se ejecuta el servicio web:</p>
+    <pre><code class="language-bash">sudo chown -R www-data:www-data /var/www/nombre_web/html</code></pre>
+    <p>Finalmente, ajustamos los permisos para evitar errores de acceso:</p>
+    <pre><code class="language-bash">sudo chmod -R 755 /var/www/nombre_web</code></pre>
+
+    <h2 class="mb-4 text-primary">3. Configuración del Server Block en Nginx</h2>
+    <p>En Nginx, las configuraciones de cada sitio se gestionan en los directorios <code>sites-available</code> (donde
+        se
+        guardan todas las configuraciones posibles) y <code>sites-enabled</code> (donde se activan mediante enlaces
+        simbólicos).</p>
+    <p>Vamos a crear un nuevo archivo de configuración (llamado "Server Block") para nuestro sitio en
+        <code>/etc/nginx/sites-available/</code>:
+    </p>
+    <pre><code class="language-bash">sudo nano /etc/nginx/sites-available/nombre_web</code></pre>
+    <p>Pega el siguiente contenido en el archivo. Este bloque le dice a Nginx cómo servir nuestro sitio:</p>
+    <pre><code class="language-js">server {
+    listen 80;
+    listen [::]:80;
+
+    root /var/www/nombre_web/html;
+    index index.html index.htm;
+
+    server_name nombre_web www.nombre_web;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}</code></pre>
+    <p>Ahora, habilitamos el sitio creando un enlace simbólico desde <code>sites-available</code> a
+        <code>sites-enabled</code>:
+    </p>
+    <pre><code class="language-bash">sudo ln -s /etc/nginx/sites-available/nombre_web /etc/nginx/sites-enabled/</code></pre>
+    <p>Por último, reiniciamos Nginx para que los cambios se apliquen:</p>
+    <pre><code class="language-bash">sudo systemctl restart nginx</code></pre>
+
+    <h2 class="mb-4 text-primary">4. Comprobaciones</h2>
+    <h3 class="mb-4 text-primary">4.1. Comprobación del correcto funcionamiento</h3>
+    <p>Como aún no tenemos un servidor DNS, debemos modificar el archivo <code>hosts</code> de nuestra máquina
+        <strong>local (anfitriona)</strong> para asociar el nombre de dominio a la IP de la máquina virtual.
+    </p>
+    <ul>
+        <li>En Linux o macOS, el archivo es: <code>/etc/hosts</code></li>
+        <li>En Windows, el archivo es: <code>C:\Windows\System32\drivers\etc\hosts</code></li>
+    </ul>
+    <p>Añade la siguiente línea al final del archivo:</p>
+    <pre><code class="language-bash">192.168.X.X   nombre_web</code></pre>
+    <div class="alert alert-warning">
+        <strong>¡Atención!</strong> Recuerda sustituir la IP por la de tu máquina virtual. Si usas un proveedor en la
+        nube, esta IP puede cambiar cada vez que reinicies la instancia.
+    </div>
+    <p>Ahora, abre un navegador en tu máquina local y accede a <code>http://nombre_web</code>. Deberías ver el sitio web
+        del repositorio clonado.</p>
+    <div class="img-responsive text-center p-3">
+        <img src="../img/Unidad-X/nginx-custom-site.png" alt="Página web de ejemplo servida por Nginx" class="w-100">
+    </div>
+
+    <h3 class="mb-4 text-primary">4.2. Comprobar registros del servidor</h3>
+    <p>Verifica que las peticiones se registran correctamente en los archivos de logs de Nginx:</p>
+    <ul>
+        <li><code><strong>/var/log/nginx/access.log</strong></code>: Registra todas las solicitudes correctas al
+            servidor.</li>
+        <li><code><strong>/var/log/nginx/error.log</strong></code>: Registra cualquier error que Nginx encuentre.</li>
+    </ul>
+    <div class="alert alert-info">
+        Si no ves actividad en los logs, puede ser que el navegador haya cacheado la página. Usa el modo privado o de
+        incógnito para forzar una nueva petición al servidor.
+    </div>
+
+    <h2 class="mb-4 text-primary">5. Transferencia de archivos con SFTP</h2>
+    <p>Aunque usar Git es un método moderno para desplegar código, es importante conocer métodos tradicionales como
+        SFTP (SSH File Transfer Protocol). SFTP utiliza el protocolo SSH para transferir archivos de forma segura y
+        cifrada.</p>
+    <p>No necesitas instalar un servidor FTP, ya que SFTP funciona sobre el servidor OpenSSH que ya tenemos instalado.
+        Solo necesitas un cliente gráfico como <a href="https://filezilla-project.org/" target="_blank">Filezilla</a> en
+        tu máquina local.</p>
+
+    <div class="alert alert-primary" role="alert">
+        <h4 class="alert-heading">Tarea: Desplegar un nuevo sitio web mediante SFTP</h4>
+        Configura un nuevo dominio (ej. <code>otro_sitio</code>) repitiendo los pasos anteriores, pero esta vez
+        transfiere los archivos del nuevo sitio web mediante SFTP.
+    </div>
+    <p>En Filezilla, para conectar a tu servidor:</p>
+    <ol>
+        <li>En <strong>Servidor</strong>, introduce <code>sftp://IP_DEL_SERVIDOR</code>.</li>
+        <li>Introduce tu <strong>nombre de usuario</strong>.</li>
+        <li>Como usas autenticación por clave, ve a <strong>Edición > Opciones > SFTP</strong> y añade tu archivo de
+            clave privada (<code>.pem</code> o <code>id_rsa</code>).</li>
+    </ol>
+    <div class="img-responsive text-center p-3">
+        <img src="../img/Unidad-X/filezilla-connection.png"
+            alt="Ventana de conexión de Filezilla mostrando los campos para SFTP" class="w-100">
+    </div>
+    <p>Una vez conectado, sube los archivos al directorio <code>/var/www/otro_sitio/html</code> y configura el nuevo
+        Server Block.</p>
+
+
+    <h2 class="mb-4 text-primary">6. Tareas Adicionales: Asegurando el Servidor</h2>
+    <h3 class="mb-4 text-primary">6.1. Habilitar HTTPS con Certificados Autofirmados</h3>
+    <p>Como práctica, genera un certificado SSL autofirmado y modifica el Server Block de tu sitio para que escuche en
+        el puerto 443 (HTTPS). Esto te permitirá acceder a tu web de forma cifrada. Investiga los comandos necesarios
+        para generar el certificado y las directivas de Nginx para usarlo (<code>listen 443 ssl;</code>,
+        <code>ssl_certificate;</code>, <code>ssl_certificate_key;</code>).
+    </p>
+
+    <h3 class="mb-4 text-primary">6.2. Redirección de HTTP a HTTPS</h3>
+    <p>Una vez que HTTPS funcione, el sitio será accesible tanto por HTTP como por HTTPS. La configuración correcta es
+        forzar a todos los usuarios a usar la conexión segura. Modifica tu Server Block para que cualquier petición que
+        llegue por el puerto 80 (HTTP) sea redirigida automáticamente al puerto 443 (HTTPS).</p>
+
+
+    <h2 class="mb-4 text-primary">Cuestiones Finales</h2>
+    <ol>
+        <li>¿Qué pasa si no hago el enlace simbólico entre <code>sites-available</code> y <code>sites-enabled</code> de
+            mi sitio web?</li>
+        <li>¿Qué pasa si no le doy los permisos adecuados (<code>chown</code> y <code>chmod</code>) a la carpeta
+            <code>/var/www/nombre_web</code>?
+        </li>
+    </ol>
+</div>
