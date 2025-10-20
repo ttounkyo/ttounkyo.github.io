@@ -21,14 +21,15 @@
     <p>Puedes usar la misma clave SSH que ya tienes. Solo necesitas copiar la clave pública autorizada al nuevo usuario.
     </p>
     <ol>
-        <li>Conéctate por SSH como <code class="language-bash">root</code> (o tu usuario administrativo actual).</li>
+        <li>Conéctate por SSH como <code class="language-bash">el usuario que tiene el SSH</code> (o tu usuario
+            administrativo actual).</li>
         <li>Copia tu clave pública a la carpeta del nuevo usuario y ajusta los permisos:</li>
     </ol>
     <pre class="p-3 rounded"><code class="language-bash"># Crear el directorio .ssh para el nuevo usuario
 mkdir /home/despliegue/.ssh
 
 # Copiar la clave pública autorizada
-cp /root/.ssh/authorized_keys /home/despliegue/.ssh/
+cp /home/tuusuario/.ssh/authorized_keys /home/despliegue/.ssh/
 
 # Asignar propietario y grupo correctos
 chown -R despliegue:despliegue /home/despliegue/.ssh
