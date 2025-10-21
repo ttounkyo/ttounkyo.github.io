@@ -4,12 +4,14 @@
     <h2 class="mb-4 text-primary">1. Instalación del servidor web Nginx</h2>
     <p>Para instalar Nginx en Debian, primero actualizamos los repositorios y después instalamos el paquete
         correspondiente:</p>
-    <pre><code class="language-bash">sudo apt update
+    <pre><code class="language-bash">#Actualizar los repositorios
+sudo apt update
+#sudo apt install (nombre)
 sudo apt install nginx</code></pre>
     <p>A continuación, comprobamos que Nginx se ha instalado y que está funcionando correctamente:</p>
     <pre><code class="language-bash">systemctl status nginx</code></pre>
     <div class="alert alert-info">
-        <strong>Info:</strong> Esta actividad se ha realizado con la versión Nginx 1.18.0.
+        <strong>Info:</strong> Esta actividad se ha realizado con la versión Nginx 1.22.0.
     </div>
 
     <h2 class="mb-4 text-primary">2. Creación de la estructura de directorios del sitio web</h2>
@@ -18,7 +20,7 @@ sudo apt install nginx</code></pre>
     </p>
     <pre><code class="language-bash">sudo mkdir -p /var/www/nombre_web/html</code></pre>
     <p>Dentro de este nuevo directorio <code>html</code>, debéis clonar el siguiente repositorio de ejemplo:</p>
-    <pre><code class="language-bash">git clone https://github.com/cloudacademy/static-website-example.git /var/www/nombre_web/html</code></pre>
+    <pre><code class="language-bash">sudo git clone https://github.com/cloudacademy/static-website-example.git /var/www/nombre_web/html</code></pre>
     <p>Después, asignamos la propiedad de estos directorios al usuario <code>www-data</code>, que es el usuario con el
         que se ejecuta el servicio web:</p>
     <pre><code class="language-bash">sudo chown -R www-data:www-data /var/www/nombre_web/html</code></pre>
@@ -27,8 +29,7 @@ sudo apt install nginx</code></pre>
 
     <h2 class="mb-4 text-primary">3. Configuración del Server Block en Nginx</h2>
     <p>En Nginx, las configuraciones de cada sitio se gestionan en los directorios <code>sites-available</code> (donde
-        se
-        guardan todas las configuraciones posibles) y <code>sites-enabled</code> (donde se activan mediante enlaces
+        se guardan todas las configuraciones posibles) y <code>sites-enabled</code> (donde se activan mediante enlaces
         simbólicos).</p>
     <p>Vamos a crear un nuevo archivo de configuración (llamado "Server Block") para nuestro sitio en
         <code>/etc/nginx/sites-available/</code>:
@@ -65,7 +66,10 @@ sudo apt install nginx</code></pre>
         <li>En Windows, el archivo es: <code>C:\Windows\System32\drivers\etc\hosts</code></li>
     </ul>
     <p>Añade la siguiente línea al final del archivo:</p>
-    <pre><code class="language-bash">192.168.X.X   nombre_web</code></pre>
+    <pre><code class="language-bash">#Recuera que si estás utilizando tu ordenador tendrás que comprobar la IP de tu servidor diariamente.
+192.168.X.X   nombre_web
+#Servidor
+172.17.103.33 nombre_web</code></pre>
     <div class="alert alert-warning">
         <strong>¡Atención!</strong> Recuerda sustituir la IP por la de tu máquina virtual. Si usas un proveedor en la
         nube, esta IP puede cambiar cada vez que reinicies la instancia.

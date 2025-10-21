@@ -1,177 +1,975 @@
 <div class="container my-5">
-    <h1 class="mb-4 text-primary">Arquitectura Web. Implantación y administración de servidores web</h1>
+    <h1 class="mb-4 text-primary">Unidad 2. Arquitectura Web. Implantación y administración de servidores web</h1>
 
     <h2 class="mb-4 text-primary">Introducción</h2>
     <p>Con la evolución y el acceso libre a Internet, uno de los principales alicientes que han surgido es la
         publicación de páginas web donde se pueden almacenar unos contenidos bastante atractivos para nosotros y que, al
-        mismo tiempo, pueden ser consultados desde cualquier parte del mundo para todos.</p>
+        mismo tiempo, pueden ser consultados desde cualquier del mundo para todos.</p>
+    <p>Cabe decir que, con la popularización de Internet, tanto empresas como usuarios han visto la necesidad de
+        establecer un punto desde donde anunciar sus productos, o bien, a título particular, dar publicidad a las
+        aficiones o capacidades personales mediante la publicación de páginas web.</p>
     <p>Las páginas web, en su mayoría en formato HTML, requieren ser alojadas en máquinas que dispongan de espacio en
         disco para almacenar archivos HTML, imágenes, bloques de código o archivos de vídeo en directorios específicos
         y, al mismo tiempo, deben ser capaces de entender todo tipo de extensión de los archivos que son enviados en
         ambos sentidos de la comunicación.</p>
     <div class="img-responsive text-center p-3">
         <img src="../DES/img/Unidad-2/web-server-intro.png" alt="Esquema de un usuario accediendo a una página web"
-            class="w-50">
+            class="w-75">
     </div>
     <p>Paralelamente, no podemos dejar de lado la importancia de las medidas de seguridad ante los peligros existentes
         en Internet. Para ello, las páginas deberán estar diseñadas considerando la incorporación de protocolos de
-        comunicación seguros como HTTPS, que utilizan cifrado para proteger la información.</p>
+        comunicación seguros como, por ejemplo, los desarrollados con el protocolo seguro de transferencia de hipertexto
+        (HTTPS).</p>
+    <p>Las máquinas que alojan las páginas web reciben la categoría de servidores web. Desde el punto de vista de los
+        servidores, los requerimientos más relevantes son el espacio de disco necesario para poder almacenar la
+        estructura de la página web y una buena conexión de red para que el consumo de la unidad de procesamiento
+        central (CPU) sea bastante bajo.</p>
+    <p>El funcionamiento de los servidores web es especial ya que, como si se tratara de un diente de sierra, tienen
+        consumos de recursos puntuales. Podemos estar un tiempo sin peticiones y, de repente, tener una avalancha de
+        ellas. Esto hace que los servidores web suelan tener un número bajo de procesos en espera que se van arrancando
+        a medida que resultan necesarios.</p>
 
     <h2 class="mb-4 text-primary">¿Qué es un servidor web?</h2>
-    <p>Un servidor web es un software y hardware que utiliza el protocolo HTTP (Hypertext Transfer Protocol) y otros
-        protocolos para responder a las solicitudes de los clientes a través de la World Wide Web. Su principal función
-        es mostrar el contenido de un sitio web almacenando, procesando y entregando las páginas web a los usuarios.
-    </p>
-    <div class="img-responsive text-center p-3">
-        <img src="../DES/img/Unidad-2/server.png" alt="Modelo cliente-servidor con multiples clientes y un servidor"
-            class="w-50">
-    </div>
-    <p>Además de HTTP, los servidores web también soportan SMTP (Simple Mail Transfer Protocol) y FTP (File Transfer
-        Protocol), utilizados para el correo electrónico, la transferencia de archivos y el almacenamiento.</p>
-
-    <!-- NUEVA SECCIÓN: VIRTUAL HOSTS -->
-    <h2 class="mb-4 text-primary">Alojamiento de Múltiples Sitios: Virtual Hosts y Server Blocks</h2>
-    <p>Una de las capacidades más importantes de un servidor web moderno es la de alojar múltiples sitios web en una
-        sola máquina con una única dirección IP. Esta técnica se conoce como <strong>Virtual Hosting</strong>.</p>
-    <ul>
-        <li>En <strong>Apache</strong>, se les llama <strong>Virtual Hosts</strong>.</li>
-        <li>En <strong>Nginx</strong>, se les conoce como <strong>Server Blocks</strong>.</li>
-    </ul>
-    <p>El funcionamiento se basa en el encabezado <code>Host</code> de la petición HTTP. Cuando un navegador solicita
-        un sitio (ej. `www.misitio1.com`), envía este dominio en la cabecera. El servidor web lee esta cabecera y la
-        utiliza para determinar qué sitio web debe servir, buscando el archivo de configuración del Virtual Host o
-        Server Block correspondiente a ese dominio.</p>
+    <p>Los servidores web sirven para almacenar contenidos de Internet y facilitar su disponibilidad de forma constante
+        y segura. Cuando visitas una página web desde tu navegador, es en realidad un servidor web el que envía los
+        componentes individuales de dicha página directamente a tu ordenador. Esto quiere decir que para que una página
+        web sea accesible en cualquier momento, el servidor web debe estar permanentemente online.</p>
     <div class="img-responsive text-center p-3">
         <img src="../DES/img/Unidad-2/server-client-model.png"
-            alt="Diagrama de Virtual Hosts: una IP, múltiples dominios apuntando a diferentes directorios" class="w-50">
+            alt="Modelo cliente-servidor con multiples clientes y un servidor" class="w-75">
     </div>
-    <p class="text-muted small text-center"><em>Un único servidor responde a peticiones para `sitio1.com` y `sitio2.com`
-            sirviendo el contenido de sus respectivos directorios.</em></p>
+    <p>Toda página accesible en Internet necesita un servidor especial para sus contenidos web. A menudo, las grandes
+        empresas y organizaciones cuentan con un servidor web propio. Sin embargo, la mayoría de administradores
+        recurren a los centros de datos de proveedores de alojamiento web para sus proyectos.</p>
 
+    <h3 class="mb-4 text-primary">Tecnología de servidores web</h3>
+    <p>Principalmente, el software de un servidor HTTP es el encargado de proporcionar los datos para la visualización
+        del contenido web.</p>
+    <p>Para abrir una página web, el usuario solo tiene que escribir el URL correspondiente en su navegador. El
+        navegador envía una solicitud al servidor web, quien responde entregando una página HTML. Esta puede ser un
+        documento estático o ser generada de forma dinámica, lo que implica que el servidor web ejecuta un código (p.
+        ej., PHP) antes de responder.</p>
+    <p>El navegador interpreta la respuesta, lo que suele generar automáticamente más solicitudes para obtener recursos
+        adicionales como imágenes o archivos CSS.</p>
+    <div class="img-responsive text-center p-3">
+        <img src="https://www.aprenderaprogramar.com/images/stories/Cursos/CU012/CU01208F_2_ajax_tutorial.jpg"
+            alt="Diagrama de petición y respuesta HTTP" class="w-75">
+    </div>
+    <p>El protocolo utilizado es HTTP (o su variante cifrada HTTPS), que se basa en los protocolos de red IP y TCP. Un
+        servidor web puede entregar los contenidos simultáneamente a varios ordenadores. La cantidad de solicitudes y la
+        velocidad de procesamiento dependen del hardware, la carga del host y la complejidad del contenido.</p>
+    <p>La selección del equipo adecuado para el servidor y la decisión de si este debe ser dedicado, virtual o en la
+        nube, se debe hacer pensando siempre en evitar sobrecargas en el servidor. Aunque se haya encontrado un servidor
+        web que se adapta perfectamente a las necesidades del proyecto, siempre se corre el riesgo de que se presenten
+        fallos en él como consecuencia de imprecisiones técnicas o cortes de energía en el centro de datos del host.
+        Aunque no es muy frecuente, durante un período de inactividad de este tipo (downtime), la web no estará
+        disponible.</p>
 
+    <h3 class="mb-4 text-primary">Otras funciones de los servidores web</h3>
+    <p>Aunque su principal función es la transferencia de contenido web, los servidores web ofrecen características
+        adicionales:</p>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Función</th>
+                <th scope="col">Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Seguridad</strong></td>
+                <td>Cifrado de la comunicación entre el servidor y el cliente vía HTTPS.</td>
+            </tr>
+            <tr>
+                <td><strong>Autenticación</strong></td>
+                <td>Autenticación HTTP para proteger áreas específicas de una aplicación web.</td>
+            </tr>
+            <tr>
+                <td><strong>Redirección</strong></td>
+                <td>Redirección de solicitudes mediante un Rewrite Engine.</td>
+            </tr>
+            <tr>
+                <td><strong>Caché</strong></td>
+                <td>Almacenamiento de respuestas para mejorar el rendimiento y evitar sobrecargas.</td>
+            </tr>
+            <tr>
+                <td><strong>Cookies</strong></td>
+                <td>Envío y procesamiento de cookies HTTP para gestionar sesiones.</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>Además del software del servidor, un host puede contener otro tipo de programas, como por ejemplo un servidor FTP
+        para la carga de archivos o un servidor de base de datos para contenidos dinámicos. En general, existen
+        diferentes tipos de servidores web que pueden ser utilizados para numerosos propósitos, por ejemplo, los
+        servidores de correo, los servidores de juegos o los servidores proxy.</p>
+</div>
+<div class="container my-5">
     <h2 class="mb-4 text-primary">El protocolo HTTP</h2>
 
-    <h3 class="mb-4 text-primary">Historia y Versiones</h3>
-    <ul>
-        <li><strong>HTTP/1.1:</strong> El primer estándar oficial. Introdujo mejoras clave como la reutilización de
-            conexiones y la cabecera <code>Host</code>, que hizo posible el Virtual Hosting.</li>
-        <li><strong>HTTP/2:</strong> Publicado en 2015, se enfoca en el rendimiento, permitiendo múltiples solicitudes
-            en paralelo sobre una única conexión (multiplexación), reduciendo la latencia.</li>
-        <li><strong>HTTP/3:</strong> La futura versión, que utiliza el protocolo QUIC (basado en UDP) para solucionar
-            problemas de rendimiento de TCP, como el "head-of-line blocking".</li>
-    </ul>
-
-    <h3 class="mb-4 text-primary">Funcionamiento del protocolo HTTP</h3>
-    <p>La comunicación HTTP sigue un modelo de petición-respuesta. El cliente (navegador) envía una petición a un
-        servidor, y este le devuelve una respuesta con el recurso solicitado (HTML, imágenes, etc.).</p>
+    <h3 class="mb-4 text-primary">Historia: El Origen en el CERN</h3>
+    <p>El protocolo de transferencia de hipertexto (HTTP, Hypertext Transfer Protocol) es el motor que da vida a
+        Internet, ya que es la base para la World Wide Web (WWW).</p>
+    <p>Desde un punto de vista histórico, la web fue creada en 1989 en el Consejo Europeo para la Investigación
+        Nuclear
+        (CERN), con sede en Ginebra. Este organismo disponía (y dispone) de una amplia plantilla de científicos de
+        diferentes países de Europa. En consecuencia, muchos equipos de trabajadores están integrados por miembros
+        de
+        nacionalidades diferentes y los complejos experimentos que realizan requieren años de planificación y
+        colaboración.</p>
+    <p>Fue a raíz de la necesidad de que múltiples grupos de científicos, repartidos por el mundo, pudieran
+        colaborar
+        eficazmente —enviándose informes, dibujos, esquemas, fotos y todo tipo de documentos de forma enlazada y
+        accesible— que el científico británico <strong>Tim Berners-Lee</strong> propuso un sistema de gestión de la
+        información que acabaría convirtiéndose en la web.</p>
     <div class="img-responsive text-center p-3">
-        <img src="../DES/img/Unidad-2/http-request-response.png" alt="Diagrama de petición y respuesta HTTP"
-            class="w-50">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiiPZ9O7Aa3KwT3JculOzcjcQ9Af9fVgfjfWGQ8znZGdPreQ4Rus3Tq0Ii-_k2Sgh9EjjK3vMZmucZrn5xDBHchD7hGjCNwjb81MZusCr7Is7LvVYn5E_Kf1azCk2ANgQ0m8Z3biJJngYfW/s400/08-06+First_Web_Server.jpg"
+            alt="Fotografía del primer servidor web, un ordenador NeXT en el CERN" class="w-75">
+        <p class="text-muted small text-center"><em>El primer servidor web del mundo. La nota manuscrita advierte:
+                "Esta
+                máquina es un servidor. ¡NO APAGAR!".</em></p>
     </div>
+    <p>En los inicios del protocolo HTTP, a mediados del año 1990, encontramos la versión <strong>0.9</strong>. Esta
+        versión era extremadamente simple y tenía como única finalidad transferir datos en forma de páginas web
+        escritas
+        en HTML. A partir de la versión <strong>1.0</strong> del protocolo surgió la posibilidad de transferir
+        mensajes
+        con encabezados (headers) que describían el contenido de los mensajes, abriendo la puerta a un contenido
+        mucho
+        más rico y variado.</p>
 
-    <h3 class="mb-4 text-primary">Comandos o métodos HTTP</h3>
-    <p>Los métodos HTTP definen la acción que se desea realizar sobre un recurso.</p>
+    <h3 class="mb-4 text-primary">Evolución de las Versiones del Protocolo</h3>
+
+    <h4 class="mb-4 text-primary">HTTP/1.0 y HTTP/1.1: La Estandarización de la Web</h4>
+    <p>La historia de HTTP empezó formalmente con <strong>HTTP/1.0</strong> en 1996, que estandarizó el uso de
+        cabeceras para que el cliente y el servidor pudieran intercambiar metadatos, permitiendo así el uso de
+        diferentes tipos de contenido, no solo HTML. Sin embargo, tenía una gran limitación: abría una nueva
+        conexión
+        TCP para cada recurso (cada imagen, cada archivo CSS, etc.), lo cual era muy ineficiente.</p>
+    <p>Para solucionar esto, en 1997 se publicó <strong>HTTP/1.1</strong>, la versión que se convirtió en el
+        estándar de
+        Internet durante casi dos décadas. Aclaró ambigüedades y añadió numerosas mejoras cruciales:</p>
     <ul>
-        <li><strong>GET:</strong> Solicita un recurso.</li>
-        <li><strong>POST:</strong> Envía datos para crear un nuevo recurso.</li>
-        <li><strong>PUT:</strong> Actualiza un recurso existente.</li>
-        <li><strong>DELETE:</strong> Elimina un recurso.</li>
-        <li><strong>HEAD:</strong> Pide las cabeceras de un recurso, pero no el cuerpo.</li>
-    </ul>
-
-    <!-- SECCIÓN DE HTTPS MEJORADA -->
-    <h2 class="mb-4 text-primary">HTTPS: La capa de seguridad de la Web</h2>
-    <p>El Protocolo seguro de transferencia de hipertexto (HTTPS) es la versión segura de HTTP. Añade una capa de
-        cifrado a la comunicación para proteger la integridad y la confidencialidad de los datos intercambiados entre el
-        usuario y el sitio web.</p>
-    <div class="img-responsive text-center p-3">
-        <img src="../DES/img/Unidad-2/https-lock.png" alt="Icono de candado de HTTPS en el navegador" class="w-50">
-    </div>
-
-    <h3 class="mb-4 text-primary">¿Cómo funciona?: Certificados SSL/TLS y Let's Encrypt</h3>
-    <p>La seguridad de HTTPS se basa en el protocolo <strong>TLS (Transport Layer Security)</strong>, que utiliza un
-        sistema de certificados digitales para funcionar.</p>
-    <ol>
-        <li><strong>Certificado SSL/TLS:</strong> Es un archivo de datos instalado en el servidor que lo identifica y
-            contiene su clave pública. Permite cifrar los datos que se transmiten.</li>
-        <li><strong>Entidad Certificadora (CA):</strong> Para que un navegador confíe en un certificado, este debe estar
-            firmado por una Entidad Certificadora de confianza (como DigiCert, GlobalSign, etc.). La CA verifica la
-            identidad del propietario del dominio antes de emitir el certificado.</li>
-        <li><strong>Let's Encrypt:</strong> Es una CA gratuita, automatizada y abierta que ha revolucionado la web,
-            haciendo que la obtención de certificados TLS sea accesible para todos. Herramientas como
-            <strong>Certbot</strong>
-            automatizan el proceso de obtención e instalación de estos certificados en servidores como Apache y Nginx.
+        <li><strong>Conexiones persistentes (Keep-Alive):</strong> Una conexión TCP podía ser reutilizada para
+            múltiples peticiones, ahorrando así el tiempo y los recursos de reabrirla repetidamente.</li>
+        <li><strong>Pipelining:</strong> Se añadió a la especificación la capacidad de enviar una segunda petición
+            antes de que la respuesta de la primera hubiera llegado. Aunque en teoría reducía la latencia, en la
+            práctica fue muy problemático de implementar y muchos proxies y servidores no lo soportaban bien, por lo
+            que
+            no fue la solución definitiva al rendimiento.</li>
+        <li><strong>Respuestas por partes (Chunked Transfer):</strong> Se permitió que las respuestas a peticiones
+            pudieran ser divididas en sub-partes, permitiendo enviar contenido de tamaño dinámico sin saber la
+            longitud
+            total de antemano.</li>
+        <li><strong>Negociación de contenido:</strong> Se añadieron cabeceras (como <code>Accept-Language</code> o
+            <code>Accept-Encoding</code>) que permitían al cliente y al servidor acordar el contenido más adecuado a
+            intercambiar (ej. versión en español o inglés, contenido comprimido o no).
         </li>
-    </ol>
+        <li><strong>Cabecera <code>Host</code>:</strong> Esta fue una de las adiciones más importantes, ya que
+            permitió
+            alojar varios dominios (varios sitios web) en la misma dirección IP. Sin esta cabecera, el alojamiento
+            web
+            compartido (Virtual Hosting) como lo conocemos no sería posible.</li>
+    </ul>
+
+    <h4 class="mb-4 text-primary">HTTP/2: Una Necesidad de Mayor Rendimiento</h4>
+    <p>Según pasaban los años, las páginas web se volvían cada vez más complejas. Para cargar una web moderna, el
+        navegador tiene que solicitar muchos megabytes de datos y enviar a veces hasta cien solicitudes HTTP.
+        HTTP/1.1
+        procesa estas solicitudes de forma secuencial en una misma conexión, creando un "cuello de botella" conocido
+        como <strong>Head-of-Line Blocking (HOL Blocking)</strong>. Esto hacía que la carga de páginas complejas
+        fuera
+        lenta.</p>
+    <p>Por esta razón, Google desarrolló un protocolo experimental llamado SPDY (pronunciado "Speedy"), que sentó
+        las
+        bases para que en 2015 se publicara el estándar oficial <strong>HTTP/2</strong>. Su objetivo principal era
+        acelerar la carga de las páginas web sin cambiar la semántica de HTTP (los métodos, códigos de estado y
+        cabeceras siguen siendo los mismos).</p>
+    <p>Las mejoras clave de HTTP/2 incluyen:</p>
+    <ul>
+        <li><strong>Multiplexación:</strong> Es la característica estrella. Permite enviar múltiples peticiones y
+            respuestas de forma simultánea y desordenada sobre una única conexión TCP. Esto elimina el problema de
+            HOL
+            Blocking a nivel de HTTP.</li>
+        <li><strong>Compresión de cabeceras (HPACK):</strong> Las cabeceras HTTP, que a menudo son repetitivas entre
+            peticiones, se comprimen para reducir la cantidad de datos transferidos.</li>
+        <li><strong>Flujos (Streams) con prioridad:</strong> El cliente puede indicar al servidor qué recursos son
+            más
+            importantes (ej. el CSS antes que las imágenes del pie de página) para que se envíen primero.</li>
+        <li><strong>Server Push:</strong> El servidor puede enviar recursos al cliente antes de que este los
+            solicite,
+            anticipándose a sus necesidades (ej. enviar el archivo CSS junto con el HTML).</li>
+    </ul>
+    <p>La versión HTTP/2 se extendió rápidamente. Actualmente, más del 60% de los sitios web más importantes del
+        mundo
+        utilizan HTTP/2, y es soportado por todos los navegadores modernos.</p>
+
+    <h4 class="mb-4 text-primary">HTTP/3: El Futuro sobre QUIC</h4>
+    <p>Un punto débil de HTTP/1.1 y HTTP/2 es que ambos se basan en el protocolo TCP. TCP garantiza la entrega
+        ordenada
+        de los paquetes, pero si un paquete se pierde en el camino, todo el flujo se detiene hasta que ese paquete
+        es
+        retransmitido. Esto provoca de nuevo un problema de <strong>Head-of-Line Blocking, pero esta vez a nivel de
+            TCP</strong>, afectando a todas las peticiones que viajan por esa conexión.</p>
+    <p>Para solucionar esto, la nueva versión <strong>HTTP/3</strong> no funcionará sobre TCP, sino sobre un nuevo
+        protocolo de transporte llamado <strong>QUIC (Quick UDP Internet Connections)</strong>, que a su vez se
+        ejecuta
+        sobre UDP. QUIC reimplementa las garantías de fiabilidad de TCP (como la retransmisión de paquetes
+        perdidos),
+        pero lo hace a nivel de "flujos" (streams) individuales. De esta manera, si un paquete de un recurso (ej.
+        una
+        imagen grande) se pierde, solo se detiene la entrega de ese recurso, pero los demás (el CSS, el texto, etc.)
+        pueden seguir transfiriéndose sin interrupción.</p>
+
     <div class="img-responsive text-center p-3">
-        <img src="../DES/img/Unidad-2/lets-encrypt-flow.png"
-            alt="Flujo de obtención de un certificado con Let's Encrypt y Certbot" class="w-50">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/a-sBfyiXysI?si=HnJVpABcb3titrt3"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
-    <p class="text-muted small text-center"><em>El servidor, usando Certbot, solicita y renueva automáticamente los
-            certificados de Let's Encrypt para habilitar HTTPS.</em></p>
-
-
-    <h2 class="mb-4 text-primary">Servidores web: Apache vs Nginx</h2>
-    <p>Apache y Nginx son los dos servidores web de código abierto más populares del mundo. Aunque ambos realizan la
-        misma función básica, tienen arquitecturas y fortalezas diferentes.</p>
-    <div class="img-responsive text-center p-3">
-        <img src="../DES/img/Unidad-2/apache-vs-nginx.png" alt="Logos de Apache y Nginx enfrentados" class="w-50">
-    </div>
-
-    <h3 class="mb-4 text-primary">Apache HTTP Server</h3>
-    <p>Es el "veterano" de los servidores web, conocido por su flexibilidad y su enorme ecosistema de módulos. Su
-        arquitectura basada en procesos o hilos lo hace muy potente, pero puede consumir más memoria bajo altas cargas.
+</div>
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">Funcionamiento del Protocolo HTTP: Un Diálogo Cliente-Servidor</h3>
+    <p>El protocolo HTTP tiene un funcionamiento bastante sencillo basado en el envío de mensajes de texto plano
+        entre un
+        <strong>cliente</strong> (normalmente un navegador web) y un <strong>servidor</strong> (donde se aloja el
+        sitio
+        web). Este proceso se puede entender como un diálogo estructurado con unas reglas muy definidas.
     </p>
 
-    <h3 class="mb-4 text-primary">Nginx</h3>
-    <p>Nginx (pronunciado "engine-ex") fue diseñado para el alto rendimiento. Utiliza una arquitectura asíncrona y
-        basada en eventos, lo que le permite manejar miles de conexiones simultáneas con un consumo de memoria muy bajo.
-        Es especialmente eficiente sirviendo contenido estático.</p>
 
-    <!-- SECCIÓN DE NGINX MEJORADA CON PROXY INVERSO -->
-    <h3 class="mb-4 text-primary">Nginx como Proxy Inverso y Balanceador de Carga</h3>
-    <p>Uno de los usos más potentes y comunes de Nginx es actuar como <strong>proxy inverso</strong>. En esta
-        configuración, Nginx no aloja la aplicación directamente, sino que se sitúa delante de otros servidores de
-        aplicaciones (hechos en Node.js, Python, Java, etc.).</p>
-    <p>Las ventajas de este enfoque son enormes:</p>
-    <ul>
-        <li><strong>Balanceo de Carga:</strong> Distribuye el tráfico entrante entre varios servidores de aplicación,
-            mejorando la escalabilidad y la disponibilidad.</li>
-        <li><strong>Terminación SSL:</strong> Nginx gestiona todo el cifrado HTTPS, liberando a los servidores de
-            aplicación de esta tarea.</li>
-        <li><strong>Servir Contenido Estático:</strong> Nginx puede servir archivos estáticos (imágenes, CSS, JS)
-            directamente y de forma muy eficiente, mientras que solo pasa las peticiones dinámicas a la aplicación.
+    <p>Gráficamente, podemos desglosar el proceso de comunicación HTTP en los siguientes pasos:</p>
+
+    <ol>
+        <li>
+            <strong>El Usuario Inicia la Petición:</strong><br>
+            Todo comienza cuando un usuario accede a una URL, ya sea seleccionando un enlace de un documento HTML,
+            escribiéndola directamente en la barra de direcciones del navegador o a través de cualquier otra acción
+            en
+            una aplicación web.
         </li>
-        <li><strong>Seguridad y Caché:</strong> Actúa como una capa de protección y puede cachear respuestas para
-            acelerar las peticiones futuras.</li>
-    </ul>
+        <li>
+            <strong>El Navegador Descodifica la URL y Resuelve el Dominio (DNS):</strong><br>
+            El cliente web (navegador) analiza la URL para separar sus diferentes partes:
+            <ul>
+                <li><strong>Protocolo o esquema:</strong> <code>http://</code> o <code>https://</code></li>
+                <li><strong>Dominio o Host:</strong> <code>www.miweb.com</code></li>
+                <li><strong>Puerto (opcional):</strong> <code>:80</code> (el valor por defecto para HTTP) o
+                    <code>:443</code> (para HTTPS). Si no se especifica, se usa el puerto por defecto.
+                </li>
+                <li><strong>Ruta del Recurso (Path):</strong> <code>/documento.html</code></li>
+            </ul>
+            Antes de poder hablar con el servidor, el navegador necesita su dirección IP. Para ello, realiza una
+            <strong>consulta DNS</strong> (Domain Name System) para traducir el nombre de dominio
+            (<code>www.miweb.com</code>) a su dirección IP correspondiente (ej. <code>93.184.216.34</code>).
+        </li>
+        <li>
+            <strong>Se Establece una Conexión TCP/IP:</strong><br>
+            Una vez obtenida la IP, el navegador establece una conexión de red con el servidor a través del
+            protocolo
+            TCP. Este proceso, conocido como el <strong>"saludo de tres vías" (Three-Way Handshake)</strong>,
+            asegura
+            que ambos extremos están listos para comunicarse de forma fiable. Esta conexión se establece en el
+            puerto
+            correspondiente (normalmente el 80 para HTTP).
+        </li>
+        <li>
+            <strong>El Cliente Envía la Petición HTTP:</strong><br>
+            A través de la conexión TCP ya establecida, el navegador envía un mensaje de petición HTTP al servidor.
+            Este
+            mensaje de texto tiene una estructura muy específica:
+            <ul>
+                <li><strong>Línea de Inicio (Start-Line):</strong> Contiene el método HTTP (<code>GET</code>,
+                    <code>POST</code>, etc.), la ruta del recurso solicitado (<code>/documento.html</code>) y la
+                    versión
+                    del protocolo (<code>HTTP/1.1</code>). Ejemplo: <code>GET /documento.html HTTP/1.1</code>.
+                </li>
+                <li><strong>Cabeceras (Headers):</strong> Un conjunto de líneas que proporcionan información
+                    adicional,
+                    como el dominio al que se dirige la petición (<code>Host: www.miweb.com</code>), el tipo de
+                    navegador (<code>User-Agent</code>), los formatos que acepta (<code>Accept</code>), etc.</li>
+                <li><strong>Cuerpo (Body):</strong> Un bloque de datos opcional. Es vacío en las peticiones
+                    <code>GET</code>, pero en las <code>POST</code> contiene los datos que se envían al servidor
+                    (ej. la
+                    información de un formulario).
+                </li>
+            </ul>
+        </li>
+        <li>
+            <strong>El Servidor Procesa la Petición y Devuelve una Respuesta HTTP:</strong><br>
+            El servidor web recibe y procesa el mensaje de petición. Localiza el recurso solicitado (o ejecuta la
+            lógica de negocio necesaria) y envía de vuelta un mensaje de respuesta HTTP, que también tiene una
+            estructura definida:
+            <ul>
+                <li><strong>Línea de Estado (Status-Line):</strong> Contiene la versión del protocolo, un
+                    <strong>código de estado</strong> numérico que indica el resultado de la petición (ej.
+                    <code>200 OK</code> para éxito, <code>404 Not Found</code> para un recurso no encontrado) y un
+                    texto
+                    descriptivo. Ejemplo: <code>HTTP/1.1 200 OK</code>.
+                </li>
+                <li><strong>Cabeceras (Headers):</strong> Líneas con información sobre la respuesta, como el tipo de
+                    contenido que se envía (<code>Content-Type: text/html</code>), el tamaño del contenido
+                    (<code>Content-Length</code>), información de caché, etc.</li>
+                <li><strong>Cuerpo (Body):</strong> Contiene el recurso solicitado en sí (el código HTML, la imagen,
+                    el
+                    JSON, etc.).</li>
+            </ul>
+        </li>
+        <li>
+            <strong>El Navegador Renderiza la Respuesta y se Gestiona la Conexión TCP:</strong><br>
+            El navegador recibe la respuesta, la interpreta (si es HTML, empieza a construir el DOM) y muestra el
+            resultado al usuario. La gestión de la conexión TCP depende de la versión del protocolo:
+            <ul>
+                <li>En <strong>HTTP/1.0</strong>, la conexión TCP se cerraba por defecto después de cada respuesta.
+                </li>
+                <li>En <strong>HTTP/1.1</strong>, la conexión se mantiene abierta (Keep-Alive) para poder
+                    reutilizarla y
+                    solicitar otros recursos (imágenes, CSS, etc.) sin tener que repetir el costoso proceso de
+                    establecer una nueva conexión cada vez.</li>
+                <li>En <strong>HTTP/2</strong>, se va un paso más allá y se reutiliza una única conexión para
+                    descargar
+                    múltiples recursos de forma simultánea (multiplexación).</li>
+            </ul>
+            <p>Por ejemplo, si se recoge un documento HTML que en su interior contiene referencias a 2 imágenes y 1
+                vídeo, el proceso de petición-respuesta se repite para cada uno de esos recursos, idealmente
+                reutilizando la misma conexión TCP si se usa HTTP/1.1 o superior.</p>
+        </li>
+    </ol>
+</div>
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">Comandos o Métodos HTTP: Los Verbos de la Web</h3>
+    <p>HTTP define un conjunto de <strong>métodos de petición</strong> para indicar la acción que se desea realizar
+        sobre
+        un recurso determinado. A menudo se les llama "los verbos de HTTP", ya que describen la intención de la
+        petición del cliente.</p>
     <div class="img-responsive text-center p-3">
-        <img src="../DES/img/Unidad-2/reverse-proxy-flow.png"
-            alt="Diagrama de Nginx como Proxy Inverso y Balanceador de Carga" class="w-50">
+        <img src="../DES/img/Unidad-2/http-methods.png"
+            alt="Diagrama de los métodos HTTP comunes interactuando con un servidor" class="w-75">
     </div>
-    <p class="text-muted small text-center"><em>Nginx recibe todas las peticiones, sirve los archivos estáticos y
-            distribuye las peticiones dinámicas entre los servidores de aplicación.</em></p>
 
-    <!-- NUEVA SECCIÓN: ARCHIVOS DE CONFIGURACIÓN -->
-    <h2 class="mb-4 text-primary">Archivos de Configuración Clave</h2>
-    <p>Para trabajar con estos servidores, es fundamental conocer dónde se encuentra su configuración.</p>
-
-    <h3 class="mb-4 text-primary">Apache</h3>
+    <h4 class="mb-4 text-primary">Métodos Principales (Operaciones CRUD)</h4>
+    <p>Estos son los métodos más comunes y se corresponden directamente con las operaciones CRUD (Create, Read,
+        Update,
+        Delete) de las bases de datos.</p>
     <ul>
-        <li><code>apache2.conf</code> o <code>httpd.conf</code>: El archivo de configuración principal.</li>
-        <li><code>ports.conf</code>: Define los puertos en los que escucha el servidor.</li>
-        <li>Directorio <code>sites-available/</code> y <code>sites-enabled/</code>: En sistemas Debian/Ubuntu, aquí se
-            gestionan los archivos de configuración de los Virtual Hosts.</li>
-        <li><code>.htaccess</code>: Archivos que permiten anular la configuración del servidor a nivel de directorio.
-            Son muy flexibles pero pueden afectar al rendimiento.</li>
+        <li><strong>GET:</strong>
+            <p>Se utiliza para solicitar y recuperar cualquier tipo de información o recurso del servidor. Cada vez
+                que
+                pulsas sobre un enlace o tecleas directamente una URL en el navegador, se está usando este comando.
+                Como resultado, el servidor HTTP enviará el recurso correspondiente.</p>
+            <ul>
+                <li><strong>Operación CRUD:</strong> Read (Leer).</li>
+                <li><strong>Idempotente:</strong> Sí. Realizar la misma petición GET múltiples veces produce el
+                    mismo
+                    resultado.</li>
+                <li><strong>Cuerpo (Body):</strong> No tiene. Los datos se envían en la propia URL (query string).
+                </li>
+            </ul>
+        </li>
+        <li><strong>POST:</strong>
+            <p>Sirve para enviar datos a un servidor para que sean procesados, lo que generalmente resulta en la
+                <strong>creación de un nuevo recurso</strong>. Es el método utilizado para enviar los datos de un
+                formulario. El servidor pasará esta información a un proceso encargado de su tratamiento (ej.
+                insertar
+                una nueva fila en una base de datos).
+            </p>
+            <ul>
+                <li><strong>Operación CRUD:</strong> Create (Crear).</li>
+                <li><strong>Idempotente:</strong> No. Realizar la misma petición POST múltiples veces puede crear
+                    múltiples recursos.</li>
+                <li><strong>Cuerpo (Body):</strong> Sí, contiene los datos a enviar.</li>
+            </ul>
+        </li>
+        <li><strong>PUT:</strong>
+            <p>Puede verse como el comando inverso a GET. Nos permite enviar datos a un servidor para
+                <strong>actualizar un recurso existente</strong> o crearlo si no existe en una URL específica. La
+                petición debe contener la representación completa del recurso que se va a actualizar.
+            </p>
+            <ul>
+                <li><strong>Operación CRUD:</strong> Update (Actualizar).</li>
+                <li><strong>Idempotente:</strong> Sí. Si envías la misma petición PUT 10 veces, el estado final del
+                    recurso será el mismo que si la enviaras una sola vez.</li>
+                <li><strong>Cuerpo (Body):</strong> Sí, contiene la representación completa del recurso.</li>
+            </ul>
+        </li>
+        <li><strong>DELETE:</strong>
+            <p>Sirve para eliminar un recurso específico identificado por su URL. Aunque la especificación lo
+                permite,
+                muchos servidores web restringen este método por seguridad, requiriendo autenticación y
+                autorización.
+            </p>
+            <ul>
+                <li><strong>Operación CRUD:</strong> Delete (Eliminar).</li>
+                <li><strong>Idempotente:</strong> Sí. Eliminar un recurso que ya ha sido eliminado no produce un
+                    nuevo
+                    cambio.</li>
+                <li><strong>Cuerpo (Body):</strong> Puede tenerlo, pero no es común.</li>
+            </ul>
+        </li>
     </ul>
 
-    <h3 class="mb-4 text-primary">Nginx</h3>
+    <div class="alert alert-info">
+        <h4 class="alert-heading">Diferencia Clave: POST vs. PUT</h4>
+        <p>Esta es una de las confusiones más habituales:</p>
+        <ul>
+            <li>Usa <strong>POST</strong> cuando no sabes cuál será la URL del recurso que vas a crear. Por ejemplo,
+                al
+                crear un nuevo usuario, envías los datos a <code>/users</code> y el servidor decide la URL final
+                (ej.
+                <code>/users/123</code>).
+            </li>
+            <li>Usa <strong>PUT</strong> cuando ya conoces la URL exacta del recurso que quieres crear o actualizar.
+                Por
+                ejemplo, para actualizar los datos del usuario 123, envías la información a
+                <code>/users/123</code>.
+            </li>
+        </ul>
+    </div>
+
+    <h4 class="mb-4 text-primary">Otros Métodos Útiles</h4>
     <ul>
-        <li><code>nginx.conf</code>: El archivo de configuración principal.</li>
-        <li>Directorio <code>sites-available/</code> y <code>sites-enabled/</code>: Al igual que en Apache, es la forma
-            estándar de gestionar los Server Blocks.</li>
-        <li>A diferencia de Apache, Nginx no tiene un sistema equivalente a los archivos <code>.htaccess</code>. Toda la
-            configuración se centraliza en los archivos principales por razones de rendimiento.</li>
+        <li><strong>HEAD:</strong>
+            <p>Es idéntico a GET, pero el servidor <strong>no devuelve el cuerpo (body)</strong> de la respuesta,
+                solo
+                las cabeceras. Se utiliza para solicitar metadatos sobre un recurso (su tamaño, su tipo, su fecha de
+                modificación) sin tener que descargar el contenido completo. Es muy usado por cachés y crawlers.</p>
+        </li>
+        <li><strong>PATCH:</strong>
+            <p>Similar a PUT, pero se utiliza para aplicar una <strong>modificación parcial</strong> a un recurso.
+                En
+                lugar de enviar la representación completa del objeto, solo se envía la parte que se quiere cambiar.
+                Por ejemplo, para cambiar solo el email de un usuario sin tener que enviar su nombre, apellidos,
+                etc.
+            </p>
+        </li>
+        <li><strong>OPTIONS:</strong>
+            <p>Devuelve los métodos HTTP que el servidor soporta para una URL específica. También se utiliza en las
+                peticiones <strong>"pre-flight" de CORS</strong>, donde el navegador pregunta al servidor si es
+                seguro
+                enviar la petición real desde un origen diferente.</p>
+        </li>
     </ul>
+
+    <h4 class="mb-4 text-primary">Métodos de Diagnóstico y Menos Comunes</h4>
+    <ul>
+        <li><strong>TRACE:</strong>
+            <p>Permite hacer un sondeo para ver cómo se modifica una petición al pasar por los diferentes nodos de
+                la
+                red (proxies, gateways) antes de llegar al servidor final. Se usa para depuración.</p>
+        </li>
+        <li><strong>CONNECT:</strong>
+            <p>Se utiliza para establecer un túnel de red. Su uso más común es para crear una conexión HTTPS a
+                través de
+                un proxy HTTP.</p>
+        </li>
+    </ul>
+    <p class="alert alert-success"><strong>Nota importante:</strong> El estándar <strong>HTTP/2</strong>, a pesar de
+        sus
+        grandes mejoras en rendimiento, <strong>no incluyó ningún método nuevo</strong>. La semántica de los verbos
+        HTTP sigue siendo la misma.</p>
+</div>
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">Ejemplo de Petición y Respuesta HTTP</h3>
+    <p>Toda la comunicación en la web se basa en un intercambio de mensajes de texto plano entre el cliente y el
+        servidor. Comprender la estructura de estos mensajes es fundamental.</p>
+
+    <h4 class="mb-4 text-primary">Estructura de una Solicitud (Request) HTTP</h4>
+    <p>Una solicitud HTTP es un conjunto de líneas que el navegador envía al servidor. Se compone de tres partes:
+    </p>
+    <ul>
+        <li><strong>Línea de Inicio (Start-Line):</strong> Es la primera línea y contiene tres elementos: el método
+            HTTP
+            (<code>GET</code>, <code>POST</code>, etc.), la ruta del recurso solicitado y la versión del protocolo
+            (<code>HTTP/1.1</code>).</li>
+        <li><strong>Cabeceras (Headers):</strong> Un conjunto de líneas opcionales que aportan información adicional
+            sobre la solicitud y/o el cliente (navegador, sistema operativo, etc.). Cada una de estas líneas está
+            formada por un nombre que describe el tipo de cabecera, seguido de dos puntos (:) y el valor de la
+            cabecera.</li>
+        <li><strong>Cuerpo (Body):</strong> Un bloque de datos opcional que debe estar separado de las cabeceras por
+            una
+            línea en blanco. Se utiliza para enviar datos al servidor, por ejemplo, la información de un formulario
+            a
+            través del método POST.</li>
+    </ul>
+
+    <p><strong>Ejemplo de una petición <code>POST</code> para crear un nuevo usuario:</strong></p>
+    <pre><code class="language-http"># --- Línea de Inicio ---
+POST /api/users HTTP/1.1
+
+# --- Cabeceras (Headers) ---
+Host: api.miweb.com
+Content-Type: application/json
+Content-Length: 53
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
+
+# --- Línea en blanco (separa cabeceras del cuerpo) ---
+
+# --- Cuerpo (Body) ---
+{
+  "name": "Juan Pérez",
+  "email": "juan.perez@example.com"
+}</code></pre>
+
+    <h4 class="mb-4 text-primary">Estructura de una Respuesta (Response) HTTP</h4>
+    <p>La sintaxis de una respuesta HTTP es un conjunto de líneas que el servidor envía de vuelta al navegador.
+        También
+        se compone de tres partes:</p>
+    <ul>
+        <li><strong>Línea de Estado (Status-Line):</strong> Es la primera línea y contiene la versión del protocolo
+            usada, un <strong>código de estado</strong> numérico que indica el resultado de la petición, y un texto
+            con
+            el significado de dicho código.</li>
+        <li><strong>Cabeceras (Headers):</strong> Un conjunto de líneas opcionales que aportan información adicional
+            sobre la respuesta y/o el servidor.</li>
+        <li><strong>Cuerpo (Body):</strong> Contiene el recurso solicitado en sí (el código HTML de la página, una
+            imagen, datos en formato JSON, etc.).</li>
+    </ul>
+    <p>Los posibles <a href="https://developer.mozilla.org/es/docs/Web/HTTP/Status" target="_blank"
+            rel="noopener noreferrer">códigos de estado</a> se identifican con números de tres cifras y se
+        clasifican en
+        cinco grupos:</p>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Rango</th>
+                <th>Clase</th>
+                <th>Significado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>1xx</strong></td>
+                <td>Respuestas informativas</td>
+                <td>La petición fue recibida y el proceso continúa.</td>
+            </tr>
+            <tr>
+                <td><strong>2xx</strong></td>
+                <td>Peticiones correctas</td>
+                <td>La petición fue recibida, entendida y aceptada con éxito. (Ej: <code>200 OK</code>)</td>
+            </tr>
+            <tr>
+                <td><strong>3xx</strong></td>
+                <td>Redirecciones</td>
+                <td>Es necesario tomar acciones adicionales para completar la petición. (Ej: <code>301 Moved
+                        Permanently</code>)</td>
+            </tr>
+            <tr>
+                <td><strong>4xx</strong></td>
+                <td>Errores del cliente</td>
+                <td>La petición tiene una sintaxis incorrecta o no puede ser procesada. (Ej: <code>404 Not
+                        Found</code>)</td>
+            </tr>
+            <tr>
+                <td><strong>5xx</strong></td>
+                <td>Errores del servidor</td>
+                <td>El servidor falló al intentar cumplir una petición aparentemente válida. (Ej: <code>500 Internal
+                        Server Error</code>)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><strong>Ejemplo de una respuesta <code>201 Created</code> a la petición anterior:</strong></p>
+    <pre><code class="language-http"># --- Línea de Estado ---
+HTTP/1.1 201 Created
+
+# --- Cabeceras (Headers) ---
+Date: Mon, 21 Oct 2025 10:30:00 GMT
+Content-Type: application/json
+Content-Length: 68
+Location: /api/users/123
+Server: nginx/1.18.0
+
+# --- Línea en blanco ---
+
+# --- Cuerpo (Body) ---
+{
+  "id": 123,
+  "name": "Juan Pérez",
+  "email": "juan.perez@example.com"
+}</code></pre>
+
+    <h3 class="mb-4 text-primary">Cabeceras HTTP</h3>
+    <p>Las <a href="https://developer.mozilla.org/es/docs/Web/HTTP/Headers" target="_blank"
+            rel="noopener noreferrer">cabeceras HTTP</a> son los parámetros que se envían en una petición o
+        respuesta
+        HTTP para proporcionar información esencial sobre la transacción en curso. Proporcionan información mediante
+        la
+        sintaxis <code>'Cabecera: Valor'</code> y son enviadas automáticamente por el navegador o el servidor web.
+    </p>
+    <p>Algunas de las cabeceras más comunes son:</p>
+    <ul>
+        <li><code><strong>Host</strong></code>: El dominio al que se dirige la petición.</li>
+        <li><code><strong>User-Agent</strong></code>: Información sobre el navegador y sistema operativo del
+            cliente.
+        </li>
+        <li><code><strong>Accept</strong></code>: Los tipos de contenido que el cliente puede entender.</li>
+        <li><code><strong>Content-Type</strong></code>: El tipo MIME del contenido en el cuerpo del mensaje.</li>
+        <li><code><strong>Content-Length</strong></code>: El tamaño del cuerpo del mensaje en bytes.</li>
+        <li><code><strong>Authorization</strong></code>: Contiene las credenciales para autenticar al cliente.</li>
+        <li><code><strong>Server</strong></code>: Información sobre el software del servidor que generó la
+            respuesta.
+        </li>
+    </ul>
+</div>
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">Tipos MIME: El "DNI" de los Ficheros en la Web</h3>
+
+    <h4 class="mb-4 text-primary">El Problema: Más Allá del Texto Plano</h4>
+    <p>El protocolo HTTP, en sus orígenes, fue diseñado para transportar por red ficheros en formato ASCII, formados
+        por
+        texto plano. Con el paso del tiempo, surgió la necesidad de incluir diferentes tipos de ficheros no ASCII en
+        las
+        aplicaciones por Internet (imágenes, vídeos, sonidos, documentos PDF, etc.). Como consecuencia de ello, fue
+        necesario buscar una solución: había que encontrar una manera de "etiquetar" estos formatos para que el
+        navegador web del cliente supiera cómo interpretarlos correctamente.</p>
+    <p>Este problema ya había surgido años antes en las aplicaciones de correo electrónico, cuando se necesitó
+        enviar
+        ficheros adjuntos que no eran texto plano.</p>
+
+    <h4 class="mb-4 text-primary">La Solución: MIME (Multipurpose Internet Mail Extensions)</h4>
+    <p>Para solucionar este problema se crearon los <strong>tipos MIME</strong>, unas especificaciones que nacieron
+        para dar formato a mensajes no-ASCII en el correo electrónico, de forma que pudieran ser enviados por
+        Internet e
+        interpretados correctamente. Su utilidad era tan grande que rápidamente fueron adoptados por otros
+        protocolos,
+        siendo el protocolo HTTP el más importante.</p>
+    <p>Un tipo MIME, también conocido como "tipo de medio" o "tipo de contenido", es un estándar diseñado para
+        indicar
+        la naturaleza y el formato de un documento, archivo o conjunto de datos. Esta "etiqueta" le dice al
+        navegador
+        si lo que está recibiendo es un documento HTML para renderizar, una imagen para mostrar, un fichero JSON
+        para
+        procesar con JavaScript, o un archivo para descargar.</p>
+
+    <h4 class="mb-4 text-primary">La Estructura: <code>tipo/subtipo</code></h4>
+    <p>Todo identificador de tipo de medio de Internet debe ajustarse al siguiente formato estándar, compuesto por
+        dos
+        partes:</p>
+    <pre><code class="language-bash">tipo/subtipo
+
+# Ejemplo: text/html
+# - Tipo: text (indica que es un fichero de texto legible)
+# - Subtipo: html (especifica que el formato es HyperText Markup Language)</code></pre>
+    <ul>
+        <li><strong>Tipo:</strong> Representa la categoría general del contenido (ej. <code>text</code>,
+            <code>image</code>, <code>audio</code>, <code>video</code>, <code>application</code>).
+        </li>
+        <li><strong>Subtipo:</strong> Identifica el formato exacto del contenido dentro de esa categoría (ej.
+            <code>html</code>, <code>jpeg</code>, <code>mp3</code>, <code>mp4</code>, <code>json</code>).
+        </li>
+    </ul>
+
+    <h4 class="mb-4 text-primary">Ejemplos de Tipos MIME Comunes</h4>
+    <p>A continuación se muestra una tabla con algunos de los tipos MIME más frecuentes en el desarrollo web:</p>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Tipo MIME</th>
+                <th>Descripción</th>
+                <th>Ejemplo de Fichero</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>text/html</code></td>
+                <td>Documento de HyperText Markup Language.</td>
+                <td><code>index.html</code></td>
+            </tr>
+            <tr>
+                <td><code>text/css</code></td>
+                <td>Hojas de Estilo en Cascada (Cascading Style Sheets).</td>
+                <td><code>style.css</code></td>
+            </tr>
+            <tr>
+                <td><code>application/javascript</code></td>
+                <td>Código JavaScript. Es el tipo MIME oficial y recomendado.</td>
+                <td><code>script.js</code></td>
+            </tr>
+            <tr>
+                <td><code>application/json</code></td>
+                <td>Formato de Notación de Objetos de JavaScript (JavaScript Object Notation).</td>
+                <td><code>data.json</code></td>
+            </tr>
+            <tr>
+                <td><code>image/jpeg</code></td>
+                <td>Imagen en formato JPEG.</td>
+                <td><code>foto.jpg</code></td>
+            </tr>
+            <tr>
+                <td><code>image/png</code></td>
+                <td>Imagen en formato Portable Network Graphics.</td>
+                <td><code>logo.png</code></td>
+            </tr>
+            <tr>
+                <td><code>image/svg+xml</code></td>
+                <td>Imagen en formato Scalable Vector Graphics (como XML).</td>
+                <td><code>icono.svg</code></td>
+            </tr>
+            <tr>
+                <td><code>application/pdf</code></td>
+                <td>Documento en formato Portable Document Format.</td>
+                <td><code>documento.pdf</code></td>
+            </tr>
+            <tr>
+                <td><code>multipart/form-data</code></td>
+                <td>Usado en formularios HTML para subir archivos.</td>
+                <td>N/A (formato de envío)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4 class="mb-4 text-primary">¿Cómo se Usan en la Práctica Web?</h4>
+    <ol>
+        <li><strong>En la cabecera HTTP <code>Content-Type</code>:</strong><br>
+            Esta es la forma principal. Cuando un servidor envía una respuesta, incluye la cabecera
+            <code>Content-Type</code> para decirle al navegador qué tipo de dato está enviando. Del mismo modo,
+            cuando
+            un cliente envía datos al servidor (ej. con POST), usa esta cabecera para indicar el formato de los
+            datos
+            en el cuerpo de la petición.
+        </li>
+        <li><strong>Directamente en el código HTML:</strong><br>
+            Es una buena práctica proveer información de tipos de medios siempre que sea posible en los atributos de
+            ciertas etiquetas HTML:
+            <ul>
+                <li><strong>En etiquetas <code>&lt;script&gt;</code> y <code>&lt;link&gt;</code>:</strong> Aunque en
+                    HTML5 a menudo se omite por los valores por defecto, es una buena práctica especificar el tipo
+                    de
+                    contenido.
+                    <pre><code class="language-html">&lt;!-- Enlazar una hoja de estilos --&gt;
+&lt;link rel="stylesheet" href="/css/style.css" type="text/css"&gt;
+
+&lt;!-- Incluir un script --&gt;
+&lt;script src="/js/main.js" type="application/javascript"&gt;&lt;/script&gt;</code></pre>
+                </li>
+                <li><strong>En formularios al subir archivos:</strong> El atributo <code>enctype</code> (encoding
+                    type)
+                    usa un tipo MIME para especificar cómo se deben codificar los datos del formulario.
+                    <code>multipart/form-data</code> es necesario para poder enviar archivos.
+                    <pre><code class="language-html">&lt;form action="/upload" method="post" enctype="multipart/form-data"&gt;
+  &lt;input type="file" name="archivo"&gt;
+  &lt;button type="submit"&gt;Subir Archivo&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                </li>
+            </ul>
+        </li>
+    </ol>
+</div>
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">HTTPS: La Capa de Seguridad de la Web</h3>
+    <p>El <strong>Protocolo seguro de transferencia de hipertexto</strong> (en inglés, Hypertext Transfer Protocol
+        Secure o <strong>HTTPS</strong>) es un protocolo de aplicación basado en HTTP, destinado a la transferencia
+        segura de datos de hipertexto. En resumen, es la versión segura de HTTP.</p>
+
+    <h4 class="mb-4 text-primary">La Necesidad de una Web Segura: De SSL a TLS</h4>
+    <p>La web es insegura por naturaleza. Cuando se diseñaron los protocolos en los que está basada (como TCP/IP y
+        el
+        propio HTTP), la prioridad era la interconexión, no la seguridad. Esto significa que, por defecto, toda la
+        información enviada a través de HTTP viaja como texto plano, pudiendo ser interceptada y leída por
+        cualquiera en
+        la red (un ataque conocido como "Man-in-the-Middle").</p>
+    <p>Para solucionar este grave problema, en 1994 la empresa Netscape (creadora del primer navegador web
+        comercial)
+        introdujo el protocolo <strong>HTTPS</strong>. La "S" final significa "Seguro" (Secure) y se consigue
+        añadiendo
+        una capa de cifrado entre HTTP y TCP. El protocolo original que proporcionaba esta seguridad se llamaba
+        <strong>SSL (Secure Sockets Layer)</strong>.
+    </p>
+    <p>Con el tiempo, se descubrieron vulnerabilidades en SSL, por lo que fue reemplazado por un estándar más
+        moderno y
+        seguro llamado <strong>TLS (Transport Layer Security)</strong>. Aunque hoy en día el protocolo que se
+        utiliza es
+        TLS (que actualmente va por su versión 1.3), es muy común que la gente siga refiriéndose a él como "SSL" por
+        costumbre.</p>
+    <div class="alert alert-warning">
+        <strong>Importante:</strong> Todas las versiones de SSL están obsoletas y se consideran inseguras. El
+        término
+        técnicamente correcto hoy en día es <strong>TLS</strong>, aunque a menudo se hable de "certificados SSL".
+    </div>
+
+    <h4 class="mb-4 text-primary">Los Tres Pilares de la Seguridad de HTTPS</h4>
+    <p>HTTPS no solo añade "seguridad", sino que proporciona tres garantías fundamentales:</p>
+    <ol>
+        <li><strong>Cifrado (Confidencialidad):</strong> La comunicación entre el cliente y el servidor está
+            cifrada.
+            Esto significa que si un atacante intercepta los datos, solo verá un conjunto de caracteres ilegibles,
+            protegiendo información sensible como contraseñas, datos personales o tarjetas de crédito.</li>
+        <li><strong>Integridad:</strong> Los datos no pueden ser modificados durante la transferencia sin que se
+            detecte. HTTPS asegura que la información que envía el usuario llega al servidor exactamente como se
+            envió,
+            y viceversa, sin alteraciones maliciosas.</li>
+        <li><strong>Autenticación:</strong> HTTPS verifica que te estás comunicando con el servidor web correcto y
+            no
+            con un impostor. Esto se logra mediante el uso de <strong>certificados digitales</strong>, que actúan
+            como
+            el "DNI" del sitio web.</li>
+    </ol>
+
+    <h4 class="mb-4 text-primary">De Excepción a Estándar: Cómo lo Ven los Navegadores</h4>
+    <p>Tradicionalmente, los navegadores le han indicado a sus usuarios que se estaban conectando a un sitio seguro
+        utilizando un icono, generalmente un candado. Según el navegador, el aspecto cambia un poco, pero todos
+        muestran
+        el proverbial "candadito" al lado de la dirección:</p>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-2/https-lock.png"
+            alt="Icono de un candado cerrado en la barra de direcciones del navegador" class="w-50">
+    </div>
+    <p>Lo importante aquí es que esta percepción ha cambiado. Si antes los navegadores consideraban HTTP como la
+        norma y
+        HTTPS como la excepción, hoy en día la situación es la contraria. Los navegadores modernos como Chrome,
+        Firefox
+        y Edge ahora marcan explícitamente los sitios que usan HTTP como <strong>"No seguro"</strong>, incentivando
+        a
+        que toda la web migre a HTTPS para proteger a los usuarios.</p>
+
+    <h3 class="mb-4 text-primary">Funcionamiento de HTTPS: El Handshake de TLS</h3>
+    <p>Para establecer un canal de comunicación seguro, el cliente (navegador) y el servidor realizan un proceso de
+        negociación llamado <strong>"TLS Handshake"</strong> (apretón de manos TLS) antes de que se transfiera
+        cualquier dato de la página web. Aunque es un proceso complejo, se puede resumir en los siguientes pasos:
+    </p>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-2/https-handshake.png" alt="Diagrama simplificado del proceso de TLS Handshake"
+            class="w-75">
+    </div>
+    <ol>
+        <li><strong>El Cliente Saluda (Client Hello):</strong> El navegador se pone en contacto con el servidor y le
+            envía un mensaje que incluye la versión de TLS que soporta y una lista de algoritmos de cifrado que
+            puede
+            utilizar.</li>
+        <li><strong>El Servidor Responde (Server Hello):</strong> El servidor elige la versión de TLS y el algoritmo
+            de
+            cifrado más seguro que ambos soporten. Luego, le envía al cliente su <strong>Certificado
+                Digital</strong>.
+            Este certificado contiene, entre otras cosas, el nombre de dominio del sitio y su <strong>clave
+                pública</strong>.</li>
+        <li><strong>El Cliente Verifica el Certificado:</strong> El navegador comprueba que el certificado sea
+            válido:
+            que no haya expirado, que corresponda al dominio que se está visitando y que esté firmado por una
+            <strong>Entidad Certificadora (CA)</strong> de confianza (que el navegador tiene preinstalada en su
+            lista
+            de confianza).
+        </li>
+        <li><strong>El Cliente Genera una Clave de Sesión:</strong> Si el certificado es válido, el navegador genera
+            una nueva <strong>clave simétrica</strong> (una clave secreta que se usará para cifrar toda la
+            comunicación
+            posterior). Cifra esta clave secreta usando la <strong>clave pública</strong> del servidor (que obtuvo
+            del
+            certificado) y se la envía.</li>
+        <li><strong>El Servidor Descifra la Clave de Sesión:</strong> El servidor utiliza su <strong>clave
+                privada</strong> (que es la única que puede descifrar mensajes cifrados con su clave pública) para
+            obtener la clave de sesión secreta.</li>
+        <li><strong>Comunicación Cifrada:</strong> ¡Listo! A partir de este momento, tanto el cliente como el
+            servidor
+            poseen la misma clave de sesión secreta. Toda la comunicación HTTP (peticiones y respuestas) se cifra y
+            descifra usando esta clave, garantizando una conexión segura.</li>
+    </ol>
+</div>
+<div class="container my-5">
+    <h3 class="mb-4 text-primary">Servidores web: Apache vs Nginx</h3>
+
+    <h4 class="mb-4 text-primary">El Ecosistema de un Servidor Web: El "Stack"</h4>
+    <p>Cuando vamos a poner en marcha un servidor web, lo primero que necesitamos es un sistema operativo sobre el
+        cual
+        vamos a ejecutar los diferentes servicios. En más del 95% de las ocasiones suele ser un sistema Linux. Junto
+        a
+        él, se necesita un software que se encargue de la gestión de las bases de datos (como MariaDB o MySQL) y un
+        intérprete para ejecutar el contenido dinámico de las webs (como PHP, Python o Node.js). A este conjunto de
+        tecnologías se le conoce como el <strong>"stack"</strong>.</p>
+    <p>Además de este software esencial, una de las partes más importantes del servidor es la elección del propio
+        software de servidor web. Aquí es donde entran las dudas.</p>
+    <p>Cuando buscamos montar una web podemos elegir una gran cantidad de servidores web diferentes, desde Apache y
+        Nginx, los más conocidos y utilizados con más de un 85% de uso entre ambos, hasta otros como Microsoft IIS
+        (si
+        usamos un servidor Windows), LiteSpeed, etc.</p>
+    <p>Los dos servidores más utilizados para montar páginas web hoy en día son Apache y Nginx. Sin embargo, es
+        imposible decir que uno es mejor que otro, ya que cada uno de ellos tiene sus propias fortalezas y
+        debilidades
+        y puede ser más adecuado bajo ciertas circunstancias.</p>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-2/apache-vs-nginx.png" alt="Logos de Apache y Nginx enfrentados" class="w-75">
+    </div>
+
+    <h4 class="mb-4 text-primary">La Diferencia Fundamental: El Modelo de Conexiones</h4>
+    <p>Para entender por qué Nginx es famoso por su rendimiento, hay que comprender su arquitectura. Nginx fue
+        diseñado
+        explícitamente para resolver el <strong>Problema C10K</strong>, un desafío que consiste en manejar diez mil
+        conexiones de clientes simultáneas en un solo servidor.</p>
+    <ul>
+        <li><strong>Apache HTTP Server:</strong> Tradicionalmente, Apache utiliza un modelo basado en procesos o
+            hilos.
+            En su configuración más clásica (módulo `prefork`), crea un <strong>proceso nuevo por cada
+                conexión</strong>. Esto simplifica el desarrollo de módulos, pero consume una cantidad significativa
+            de
+            memoria RAM por cada usuario conectado. Con muchas conexiones simultáneas, el consumo de recursos se
+            dispara.</li>
+        <li><strong>Nginx (Engine-X):</strong> Nginx utiliza una arquitectura <strong>asíncrona y dirigida por
+                eventos</strong>. En lugar de crear un proceso por cada conexión, tiene un proceso maestro que
+            gestiona
+            varios procesos "worker". Cada worker puede manejar miles de conexiones simultáneas en un único hilo, ya
+            que espera a que ocurra un evento (como una nueva petición) en lugar de bloquearse esperando a que una
+            conexión termine. Este modelo es increíblemente eficiente en el uso de CPU y memoria.</li>
+    </ul>
+
+    <h4 class="mb-4 text-primary">Evolución y Casos de Uso</h4>
+    <p>Nginx está orientado a mejorar el rendimiento, soportando mayores cargas de tráfico y usuarios que Apache. En
+        sus orígenes, era especialmente eficiente ofreciendo <strong>contenido estático</strong> (HTML, CSS,
+        imágenes).
+    </p>
+    <p>Por esta razón, después de ser lanzado, Nginx fue usado principalmente para servir archivos estáticos y como
+        un
+        <strong>balanceador de carga o proxy inverso</strong> en frente de instalaciones Apache. En esta
+        configuración
+        híbrida, Nginx gestionaba todas las peticiones entrantes, servía los archivos estáticos a gran velocidad y
+        solo
+        pasaba las peticiones de contenido dinámico (ej. PHP) al servidor Apache, aprovechando lo mejor de ambos
+        mundos.
+    </p>
+    <p>Mientras evolucionaba la red y la necesidad de exprimir hasta la última gota de la velocidad y eficiencia,
+        más
+        sitios empezaron a reemplazar Apache con Nginx por completo, gracias a un software mucho más maduro y a la
+        aparición de herramientas como PHP-FPM, que permiten a Nginx gestionar contenido dinámico de forma muy
+        eficiente.</p>
+    <div class="alert alert-info">
+        <strong>Nota sobre los servicios de despliegue estático:</strong> Servicios modernos como Netlify, Vercel,
+        GitHub Pages o Firebase se especializan en servir sitios estáticos de forma global y ultrarrápida, aplicando
+        principios de eficiencia similares a los que hicieron famoso a Nginx.
+    </div>
+
+    <h4 class="mb-4 text-primary">Comparativa: Fortalezas y Debilidades</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Característica</th>
+                <th>Apache</th>
+                <th>Nginx</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Rendimiento (Estático)</strong></td>
+                <td>Bueno, pero consume más memoria.</td>
+                <td>Excelente. Muy bajo consumo de memoria y CPU.</td>
+            </tr>
+            <tr>
+                <td><strong>Rendimiento (Dinámico)</strong></td>
+                <td>Muy bueno. PHP se integra de forma nativa con <code>mod_php</code>.</td>
+                <td>Excelente. Requiere un gestor de procesos externo como PHP-FPM.</td>
+            </tr>
+            <tr>
+                <td><strong>Configuración</strong></td>
+                <td>Muy flexible. Permite configuraciones descentralizadas por directorio a través de archivos
+                    <code>.htaccess</code>. Esto es ideal para hostings compartidos.
+                </td>
+                <td>Más restrictivo. No soporta archivos tipo <code>.htaccess</code>. Toda la configuración está
+                    centralizada, lo que mejora el rendimiento.</td>
+            </tr>
+            <tr>
+                <td><strong>Flexibilidad y Módulos</strong></td>
+                <td>Extremadamente flexible. Tiene un ecosistema de módulos masivo y maduro para casi cualquier
+                    necesidad.</td>
+                <td>También es modular, pero su ecosistema es más reducido y centrado en las funcionalidades clave
+                    del
+                    protocolo web.</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

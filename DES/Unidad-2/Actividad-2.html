@@ -1,0 +1,134 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Actividades Propuestas: Servidores y Arquitectura Web</h1>
+
+    <h2 class="mb-4 text-primary">Nivel 1: Cuestiones Teóricas y de Investigación 🧠</h2>
+    <p>Estas actividades están diseñadas para consolidar la comprensión de los conceptos teóricos.</p>
+    <div class="alert alert-info">
+        <strong>Herramienta clave:</strong> Para la actividad 2, utiliza las <strong>Herramientas de
+            Desarrollador</strong>
+        de tu navegador (puedes abrirlas con la tecla F12 o `Ctrl+Shift+I`), especialmente la pestaña
+        <strong>"Red" (Network)</strong>.
+    </div>
+
+    <h4 class="mb-4 text-primary">Actividad 1: La Evolución de HTTP</h4>
+    <p>En un documento de texto, crea una tabla comparativa que resuma las características y, lo más importante, el
+        <strong>problema principal que solucionó</strong> cada nueva versión del protocolo HTTP:
+    </p>
+    <ul>
+        <li>HTTP/1.0 (el problema de la conexión única por recurso).</li>
+        <li>HTTP/1.1 (el problema de la ineficiencia de crear múltiples conexiones).</li>
+        <li>HTTP/2 (el problema del "Head-of-Line Blocking" a nivel de HTTP).</li>
+        <li>HTTP/3 (el problema del "Head-of-Line Blocking" a nivel de TCP).</li>
+    </ul>
+
+    <h4 class="mb-4 text-primary">Actividad 2: Anatomía de una Petición Real</h4>
+    <ol>
+        <li>Abre la pestaña "Red" en las herramientas de desarrollador de tu navegador.</li>
+        <li>Visita una página web compleja, como <code>www.amazon.es</code> o <code>elpais.com</code>.</li>
+        <li>Selecciona la primera petición de la lista (normalmente el documento HTML principal).</li>
+        <li>Examina las cabeceras (Headers) de la petición y la respuesta. Identifica y anota en un documento:</li>
+        <ul>
+            <li>El <strong>Método</strong> de la petición y el <strong>Código de Estado</strong> de la respuesta.</li>
+            <li>La cabecera de petición <code>User-Agent</code>. ¿Qué información revela sobre tu sistema?</li>
+            <li>La cabecera de respuesta <code>Content-Type</code>. ¿Qué tipo de documento has recibido?</li>
+            <li>La cabecera de respuesta <code>Server</code>. ¿Puedes identificar si usan Apache, Nginx u otro
+                servidor?</li>
+            <li>Busca una petición a un fichero de imagen (JPG, PNG) y compara su <code>Content-Type</code> con el del
+                documento HTML.</li>
+        </ul>
+    </ol>
+
+    <h4 class="mb-4 text-primary">Actividad 3: El Gran Debate: Apache vs. Nginx</h4>
+    <p>Investiga y responde a las siguientes preguntas en un documento:</p>
+    <ol>
+        <li>¿Qué son los archivos <code>.htaccess</code> de Apache y por qué son tan populares en los servicios de
+            hosting compartido? ¿Por qué Nginx decidió no implementar un sistema similar?</li>
+        <li>Imagina que tienes que desplegar dos proyectos diferentes:
+            <ul>
+                <li><strong>Proyecto A:</strong> Un blog de WordPress con mucho tráfico y muchas imágenes.</li>
+                <li><strong>Proyecto B:</strong> Una intranet para una empresa con 10 empleados que utiliza una
+                    aplicación PHP muy específica que depende de varios módulos de Apache poco comunes.</li>
+            </ul>
+            Argumenta qué servidor web (Apache, Nginx o una configuración híbrida) elegirías para cada caso y
+            justifica tu decisión basándote en la arquitectura y características de cada uno.
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">Nivel 2: Actividades Prácticas Guiadas 🛠️</h2>
+    <p>Estas actividades requieren una máquina virtual con un sistema operativo de servidor (como Debian o Ubuntu
+        Server) para aplicar lo aprendido.</p>
+
+    <h4 class="mb-4 text-primary">Actividad 4: Instalación y Configuración de un Stack LEMP</h4>
+    <ol>
+        <li>Instala Nginx, MariaDB (MySQL) y PHP (con el paquete `php-fpm`) en tu servidor. A este conjunto se le conoce
+            como "stack LEMP".</li>
+        <li>Verifica que todos los servicios están funcionando correctamente.</li>
+        <li>Crea un archivo <code>info.php</code> en el directorio web por defecto (<code>/var/www/html</code>) con el
+            contenido <code>&lt;?php phpinfo(); ?&gt;</code>.</li>
+        <li>Modifica la configuración de Nginx para que sea capaz de procesar archivos PHP a través de PHP-FPM.</li>
+        <li>Accede desde tu navegador a la IP del servidor para ver la página de información de PHP.</li>
+    </ol>
+
+    <h4 class="mb-4 text-primary">Actividad 5: Configuración de Múltiples Sitios con Server Blocks</h4>
+    <ol>
+        <li>Crea dos directorios diferentes para dos sitios web: <code>/var/www/sitio1</code> y
+            <code>/var/www/sitio2</code>.
+        </li>
+        <li>En cada directorio, crea un archivo <code>index.html</code> simple pero distinto (ej. "Bienvenido al Sitio
+            1" y "Página Principal del Sitio 2").</li>
+        <li>Crea dos archivos de configuración de Server Block en <code>/etc/nginx/sites-available/</code>, uno para
+            cada sitio. Asigna a cada uno un nombre de servidor ficticio (ej. <code>sitio1.local</code> y
+            <code>sitio2.local</code>).
+        </li>
+        <li>Habilita ambos sitios creando los enlaces simbólicos correspondientes en
+            <code>/etc/nginx/sites-enabled/</code>.
+        </li>
+        <li>Modifica el archivo <code>hosts</code> de <strong>tu máquina local</strong> para que los dominios
+            <code>sitio1.local</code> y <code>sitio2.local</code> apunten a la IP de tu máquina virtual.
+        </li>
+        <li>Reinicia Nginx y comprueba que puedes acceder a ambos sitios usando sus respectivos dominios desde tu
+            navegador.</li>
+    </ol>
+
+    <h4 class="mb-4 text-primary">Actividad 6: Análisis de Logs para Depuración</h4>
+    <ol>
+        <li>Accede con éxito a <code>sitio1.local</code>. Luego, intenta acceder a una página que no exista, como
+            <code>sitio1.local/pagina-inventada.html</code>.
+        </li>
+        <li>Conéctate al servidor y utiliza el comando <code>tail</code> para ver los últimos registros de los archivos
+            de log de Nginx.</li>
+        <li>En <code>/var/log/nginx/access.log</code>, localiza la línea que corresponde a tu acceso correcto (debería
+            tener un código de estado 200).</li>
+        <li>En <code>/var/log/nginx/error.log</code>, localiza la línea que corresponde al intento de acceso fallido (el
+            error del fichero no encontrado que genera un 404).</li>
+        <li>Documenta ambas líneas y explica qué información te proporciona cada parte.</li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">Nivel 3: Desafíos y Prácticas Avanzadas 🚀</h2>
+    <p>Estos desafíos requieren que investigues y apliques soluciones a problemas más complejos y realistas.</p>
+
+    <h4 class="mb-4 text-primary">Desafío 7: Asegurando el Servidor con HTTPS y Let's Encrypt</h4>
+    <p>Para este desafío, necesitarás un dominio real o un subdominio que apunte a la IP pública de tu servidor (puedes
+        usar servicios de DNS dinámico si trabajas desde casa).</p>
+    <ol>
+        <li>Instala <strong>Certbot</strong>, el cliente oficial de Let's Encrypt, en tu servidor.</li>
+        <li>Utiliza Certbot para obtener e instalar automáticamente un certificado SSL/TLS para uno de tus dominios.
+        </li>
+        <li>Certbot modificará tu configuración de Nginx. Examina los cambios que ha realizado en el archivo de Server
+            Block.</li>
+        <li>Verifica que tu sitio ahora carga con HTTPS y que el navegador muestra el candado de seguridad.</li>
+        <li>Como paso final, asegúrate de que todo el tráfico que llega por HTTP (puerto 80) sea redirigido
+            automáticamente a HTTPS (puerto 443). Certbot suele ofrecer esta opción durante la instalación.</li>
+    </ol>
+
+    <h4 class="mb-4 text-primary">Desafío 8: Nginx como Proxy Inverso para una Aplicación Node.js</h4>
+    <ol>
+        <li>Instala Node.js en tu servidor.</li>
+        <li>Crea una aplicación "Hello World" muy simple con Express.js que se ejecute en el puerto 3000.</li>
+        <li>Modifica la configuración de Nginx para que actúe como <strong>proxy inverso</strong>. La idea es que
+            cuando un usuario visite tu dominio en el puerto 80, Nginx intercepte la petición y la reenvíe a la
+            aplicación Node.js que está escuchando en <code>localhost:3000</code>.</li>
+        <li>Asegúrate de que puedes ver el mensaje de tu aplicación Node.js al acceder a tu dominio desde el navegador,
+            sin necesidad de especificar el puerto :3000.</li>
+    </ol>
+</div>
