@@ -235,7 +235,13 @@
         sitio
         web). Este proceso se puede entender como un diálogo estructurado con unas reglas muy definidas.
     </p>
+    <iframe src="https://claude.site/public/artifacts/6280742b-c5b8-4dce-a136-e24b106ebd14/embed"
+        title="Claude Artifact" width="100%" height="600" frameborder="0" allow="clipboard-write"
+        allowfullscreen></iframe>
 
+    <iframe src="https://claude.site/public/artifacts/0426b973-fa9e-4aa4-a64c-642def570b81/embed"
+        title="Claude Artifact" width="100%" height="600" frameborder="0" allow="clipboard-write"
+        allowfullscreen></iframe>
 
     <p>Gráficamente, podemos desglosar el proceso de comunicación HTTP en los siguientes pasos:</p>
 
@@ -972,4 +978,132 @@ Server: nginx/1.18.0
             </tr>
         </tbody>
     </table>
+</div>
+
+
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Actividad Práctica: Anatomía de una Petición HTTP con Telnet</h1>
+    <p>Esta actividad práctica nos permitirá "hablar" directamente con un servidor web utilizando el protocolo HTTP en
+        su forma más pura. Usaremos el cliente Telnet para enviar una petición manual y analizar la respuesta del
+        servidor, desmitificando el proceso que ocurre cada vez que navegamos por internet.</p>
+
+    <h2 class="mb-4 text-primary">Preparación: Habilitando el Cliente Telnet</h2>
+    <p>En la mayoría de los sistemas operativos modernos, el cliente Telnet viene deshabilitado por defecto. A
+        continuación se indica cómo activarlo:</p>
+    <ul>
+        <li><strong>Windows:</strong>
+            <ol>
+                <li>Abra el "Panel de control".</li>
+                <li>Diríjase a "Programas" y luego a "Activar o desactivar las características de Windows".</li>
+                <li>En la lista que aparece, marque la casilla "Cliente Telnet" y haga clic en "Aceptar".</li>
+            </ol>
+        </li>
+        <li><strong>Debian, macOS y Linux:</strong>
+            <p>Por lo general, Telnet está disponible a través de la terminal. Si no es así, se puede instalar
+                utilizando el gestor de paquetes de la distribución (por ejemplo, <code>sudo apt-get install
+                    telnet</code> en sistemas basados en Debian/Ubuntu).</p>
+        </li>
+    </ul>
+
+    <h2 class="mb-4 text-primary">La Actividad: Realizando una Petición HTTP a un Servidor Web</h2>
+    <p>Una vez que el cliente Telnet esté habilitado, puede iniciar la actividad desde la línea de comandos (Símbolo del
+        sistema en Windows, o Terminal en Debian, macOS y Linux).</p>
+
+    <h3 class="mb-4 text-primary">Paso 1: Conexión al Servidor Web</h3>
+    <p>El primer paso es establecer una conexión con un servidor web en el puerto estándar para HTTP, que es el puerto
+        80. Para este ejemplo, utilizaremos un sitio web de prueba como <code>example.com</code>.</p>
+    <p>Abra su terminal y escriba el siguiente comando, seguido de la tecla Enter:</p>
+    <pre><code class="language-bash">telnet example.com 80</code></pre>
+    <p>Si la conexión es exitosa, la pantalla se quedará en blanco, esperando sus instrucciones.</p>
+
+    <h3 class="mb-4 text-primary">Paso 2: Enviando una Petición HTTP</h3>
+    <p>Ahora es el momento de escribir una petición HTTP. Comencemos con la petición más común, un <code>GET</code>.
+        Escriba las siguientes líneas exactamente como se muestran y presione Enter después de cada una. Es
+        <strong>importante presionar Enter dos veces al final</strong> para indicarle al servidor que ha terminado de
+        enviar la petición.
+    </p>
+    <pre><code class="language-http">GET / HTTP/1.1
+Host: example.com</code></pre>
+
+    <h4 class="mb-4 text-primary">Análisis de la Petición:</h4>
+    <ul>
+        <li><code><strong>GET / HTTP/1.1</strong></code>: Esta es la línea de solicitud.
+            <ul>
+                <li><code><strong>GET</strong></code>: Es el método HTTP que indica que queremos obtener un recurso.
+                </li>
+                <li><code><strong>/</strong></code>: Es la ruta del recurso que estamos solicitando. En este caso, es
+                    la página principal del sitio.</li>
+                <li><code><strong>HTTP/1.1</strong></code>: Es la versión del protocolo HTTP que estamos utilizando.
+                </li>
+            </ul>
+        </li>
+        <li><code><strong>Host: example.com</strong></code>: Esta es una cabecera obligatoria en HTTP/1.1 que
+            especifica el dominio del servidor al que nos estamos conectando.</li>
+    </ul>
+
+    <h3 class="mb-4 text-primary">Paso 3: Observando la Respuesta del Servidor</h3>
+    <p>Inmediatamente después de presionar Enter dos veces, el servidor web responderá con un mensaje HTTP. La respuesta
+        tendrá una estructura similar a la siguiente:</p>
+    <pre><code class="language-http">HTTP/1.1 200 OK
+Content-Type: text/html; charset=UTF-8
+Content-Length: 1256
+Date: Tue, 21 Oct 2025 14:30:00 GMT
+Server: ECS (dcb/7F83)
+Last-Modified: Tue, 17 Oct 2023 07:18:26 GMT
+ETag: "3147526947"
+Accept-Ranges: bytes
+Connection: close
+
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Example Domain&lt;/title&gt;
+    ... (resto del código HTML de la página)
+&lt;/html&gt;</code></pre>
+
+    <h4 class="mb-4 text-primary">Análisis de la Respuesta:</h4>
+    <p>La respuesta HTTP se divide en tres partes principales:</p>
+    <ul>
+        <li><strong>Línea de Estado:</strong> <code>HTTP/1.1 200 OK</code>.
+            <ul>
+                <li><code><strong>HTTP/1.1</strong></code>: La versión del protocolo.</li>
+                <li><code><strong>200</strong></code>: El código de estado, que en este caso indica que la petición fue
+                    exitosa ("OK").</li>
+                <li><code><strong>OK</strong></code>: Un mensaje descriptivo del código de estado.</li>
+            </ul>
+        </li>
+        <li><strong>Cabeceras de Respuesta:</strong> Estas líneas proporcionan metadatos sobre la respuesta del
+            servidor.
+            <ul>
+                <li><code><strong>Content-Type</strong></code>: Indica el tipo de contenido que se está enviando (en
+                    este caso, un documento HTML).</li>
+                <li><code><strong>Content-Length</strong></code>: El tamaño del cuerpo de la respuesta en bytes.</li>
+                <li><code><strong>Date</strong></code>: La fecha y hora en que se generó la respuesta.</li>
+                <li><code><strong>Server</strong></code>: Información sobre el software del servidor web.</li>
+            </ul>
+        </li>
+        <li><strong>Cuerpo de la Respuesta:</strong> Después de una línea en blanco, se encuentra el cuerpo del
+            mensaje, que en el caso de una petición <code>GET</code> exitosa a una página web, será el código HTML de
+            la misma.</li>
+    </ul>
+
+    <h2 class="mb-4 text-primary">Explorando Otros Métodos HTTP</h2>
+    <p>Además de <code>GET</code>, puede experimentar con otros métodos HTTP para observar diferentes comportamientos:
+    </p>
+    <ul>
+        <li><strong>HEAD:</strong> Solicita solo las cabeceras de la respuesta, sin el cuerpo del mensaje. Esto es útil
+            para verificar si un recurso existe sin necesidad de descargarlo por completo. La sintaxis es similar a
+            GET:
+            <pre><code class="language-http">HEAD / HTTP/1.1
+Host: example.com</code></pre>
+        </li>
+        <li><strong>POST:</strong> Se utiliza para enviar datos a un servidor para crear un nuevo recurso. Su estructura
+            es más compleja ya que incluye un cuerpo de mensaje con los datos a enviar.</li>
+        <li><strong>PUT:</strong> Se emplea para actualizar un recurso existente en el servidor.</li>
+        <li><strong>DELETE:</strong> Sirve para eliminar un recurso específico.</li>
+    </ul>
+
+    <p class="alert alert-success">Realizar esta actividad con Telnet proporcionará una comprensión práctica y
+        fundamental de la comunicación cliente-servidor en la web, desmitificando el proceso que ocurre cada vez que
+        navega por internet.</p>
 </div>

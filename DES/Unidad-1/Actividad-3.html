@@ -64,7 +64,7 @@ chmod 600 /home/despliegue/.ssh/authorized_keys</code></pre>
     <p>Edita el archivo de configuración del servicio SSH:</p>
     <pre class="p-3 rounded"><code class="language-bash">sudo nano /etc/ssh/sshd_config</code></pre>
     <p>Busca, descomenta (si es necesario) y modifica la siguiente línea para que quede así:</p>
-    <pre class="p-3 rounded"><code class="language-bash">PermitRootLogin no</code></pre>
+    <pre class="p-3 rounded"><code class="language-bash">PermitRootLogin prohibit-password</code></pre>
     <p>Guarda el archivo y recarga el servicio SSH para que los cambios surtan efecto:</p>
     <pre class="p-3 rounded"><code class="language-bash">sudo systemctl restart ssh</code></pre>
     <p class="alert alert-warning">🔒 Esto asegura que solo los usuarios autorizados (como <code
