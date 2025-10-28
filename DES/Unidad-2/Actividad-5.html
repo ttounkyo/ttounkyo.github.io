@@ -1,0 +1,42 @@
+<h2 class="mb-4 text-primary">Nivel 3: Desafíos y Prácticas Avanzadas</h2>
+<p>Estos desafíos requieren que investigues y apliques soluciones a problemas más complejos y realistas.</p>
+
+<h4 class="mb-4 text-primary">Desafío 7: Asegurando el Servidor con HTTPS y Let's Encrypt</h4>
+<p>Para este desafío, necesitarás un dominio real o un subdominio que apunte a la IP pública de tu servidor (puedes
+    usar servicios de DNS dinámico si trabajas desde casa).</p>
+<ol>
+    <li>Instala <strong>Certbot</strong>, el cliente oficial de Let's Encrypt, en tu servidor.</li>
+    <li>Utiliza Certbot para obtener e instalar automáticamente un certificado SSL/TLS para uno de tus dominios.
+    </li>
+    <li>Certbot modificará tu configuración de Nginx. Examina los cambios que ha realizado en el archivo de Server
+        Block.</li>
+    <li>Verifica que tu sitio ahora carga con HTTPS y que el navegador muestra el candado de seguridad.</li>
+    <li>Como paso final, asegúrate de que todo el tráfico que llega por HTTP (puerto 80) sea redirigido
+        automáticamente a HTTPS (puerto 443). Certbot suele ofrecer esta opción durante la instalación.</li>
+</ol>
+
+<h4 class="mb-4 text-primary">Desafío 8: Nginx como Proxy Inverso para una Aplicación Node.js</h4>
+<ol>
+    <li>Instala Node.js en tu servidor.</li>
+    <li>Crea una aplicación "Hello World" muy simple con Express.js que se ejecute en el puerto 3000.</li>
+    <li>Modifica la configuración de Nginx para que actúe como <strong>proxy inverso</strong>. La idea es que
+        cuando un usuario visite tu dominio en el puerto 80, Nginx intercepte la petición y la reenvíe a la
+        aplicación Node.js que está escuchando en <code>localhost:3000</code>.</li>
+    <li>Asegúrate de que puedes ver el mensaje de tu aplicación Node.js al acceder a tu dominio desde el navegador,
+        sin necesidad de especificar el puerto :3000.</li>
+</ol>
+
+
+
+<h2 class="mb-4 text-primary">6. Tareas Adicionales: Asegurando el Servidor</h2>
+<h3 class="mb-4 text-primary">6.1. Habilitar HTTPS con Certificados Autofirmados</h3>
+<p>Como práctica, genera un certificado SSL autofirmado y modifica el Server Block de tu sitio para que escuche en
+    el puerto 443 (HTTPS). Esto te permitirá acceder a tu web de forma cifrada. Investiga los comandos necesarios
+    para generar el certificado y las directivas de Nginx para usarlo (<code>listen 443 ssl;</code>,
+    <code>ssl_certificate;</code>, <code>ssl_certificate_key;</code>).
+</p>
+
+<h3 class="mb-4 text-primary">6.2. Redirección de HTTP a HTTPS</h3>
+<p>Una vez que HTTPS funcione, el sitio será accesible tanto por HTTP como por HTTPS. La configuración correcta es
+    forzar a todos los usuarios a usar la conexión segura. Modifica tu Server Block para que cualquier petición que
+    llegue por el puerto 80 (HTTP) sea redirigida automáticamente al puerto 443 (HTTPS).</p>

@@ -1,12 +1,12 @@
 <div class="container my-5">
-    <h1 class="mb-4 text-primary">Actividades Propuestas: Servidores y Arquitectura Web</h1>
+    <h1 class="mb-4 text-primary">Actividad 2.3: Servidores y Arquitectura Web</h1>
 
-    <h2 class="mb-4 text-primary">Nivel 1: Cuestiones Teóricas y de Investigación 🧠</h2>
+    <h2 class="mb-4 text-primary">Nivel 1: Cuestiones Teóricas y de Investigación</h2>
     <p>Estas actividades están diseñadas para consolidar la comprensión de los conceptos teóricos.</p>
     <div class="alert alert-info">
         <strong>Herramienta clave:</strong> Para la actividad 2, utiliza las <strong>Herramientas de
             Desarrollador</strong>
-        de tu navegador (puedes abrirlas con la tecla F12 o `Ctrl+Shift+I`), especialmente la pestaña
+        de tu navegador (puedes abrirlas con la tecla F12, `Ctrl+Shift+C` o `Ctrl+Shift+I`), especialmente la pestaña
         <strong>"Red" (Network)</strong>.
     </div>
 
@@ -38,6 +38,10 @@
         </ul>
     </ol>
 
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-2/amazon.png" alt="Vista de Anatomia de Petición Real" class="w-100">
+    </div>
+
     <h4 class="mb-4 text-primary">Actividad 3: El Gran Debate: Apache vs. Nginx</h4>
     <p>Investiga y responde a las siguientes preguntas en un documento:</p>
     <ol>
@@ -54,14 +58,19 @@
         </li>
     </ol>
 
-    <h2 class="mb-4 text-primary">Nivel 2: Actividades Prácticas Guiadas 🛠️</h2>
+    <h2 class="mb-4 text-primary">Nivel 2: Actividades Prácticas Guiadas</h2>
     <p>Estas actividades requieren una máquina virtual con un sistema operativo de servidor (como Debian o Ubuntu
-        Server) para aplicar lo aprendido.</p>
+        Server) para aplicar lo aprendido. Podéis utilizar la vuestra.</p>
 
     <h4 class="mb-4 text-primary">Actividad 4: Instalación y Configuración de un Stack LEMP</h4>
     <ol>
+        <li>Antes de empezar busca que significa <strong>"stack LEMP"</strong>.</li>
+        <li>Detalla todos los pasos con capturas de pantalla.</li>
         <li>Instala Nginx, MariaDB (MySQL) y PHP (con el paquete `php-fpm`) en tu servidor. A este conjunto se le conoce
             como "stack LEMP".</li>
+        <div class="img-responsive text-center p-3">
+            <img src="../DES/img/Unidad-2/lemp.png" alt="Stack Lemp" class="w-100">
+        </div>
         <li>Verifica que todos los servicios están funcionando correctamente.</li>
         <li>Crea un archivo <code>info.php</code> en el directorio web por defecto (<code>/var/www/html</code>) con el
             contenido <code>&lt;?php phpinfo(); ?&gt;</code>.</li>
@@ -69,13 +78,19 @@
         <li>Accede desde tu navegador a la IP del servidor para ver la página de información de PHP.</li>
     </ol>
 
+
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-2/info-php.png" alt="Información del PHP" class="w-100">
+    </div>
+
     <h4 class="mb-4 text-primary">Actividad 5: Configuración de Múltiples Sitios con Server Blocks</h4>
     <ol>
+        <li>Detalla todos los pasos con capturas de pantalla.</li>
         <li>Crea dos directorios diferentes para dos sitios web: <code>/var/www/sitio1</code> y
             <code>/var/www/sitio2</code>.
         </li>
         <li>En cada directorio, crea un archivo <code>index.html</code> simple pero distinto (ej. "Bienvenido al Sitio
-            1" y "Página Principal del Sitio 2").</li>
+            de TUNOMBRE " y "Página Principal del Sitio de TUNOMBRE").</li>
         <li>Crea dos archivos de configuración de Server Block en <code>/etc/nginx/sites-available/</code>, uno para
             cada sitio. Asigna a cada uno un nombre de servidor ficticio (ej. <code>sitio1.local</code> y
             <code>sitio2.local</code>).
@@ -89,6 +104,10 @@
         <li>Reinicia Nginx y comprueba que puedes acceder a ambos sitios usando sus respectivos dominios desde tu
             navegador.</li>
     </ol>
+    <div class="alert alert-info" role="alert">
+        <p>Podéis ayudaros de la Actividad 2.2 para seguir los pasos de creación de los sitios.
+        </p>
+    </div>
 
     <h4 class="mb-4 text-primary">Actividad 6: Análisis de Logs para Depuración</h4>
     <ol>
@@ -102,33 +121,5 @@
         <li>En <code>/var/log/nginx/error.log</code>, localiza la línea que corresponde al intento de acceso fallido (el
             error del fichero no encontrado que genera un 404).</li>
         <li>Documenta ambas líneas y explica qué información te proporciona cada parte.</li>
-    </ol>
-
-    <h2 class="mb-4 text-primary">Nivel 3: Desafíos y Prácticas Avanzadas 🚀</h2>
-    <p>Estos desafíos requieren que investigues y apliques soluciones a problemas más complejos y realistas.</p>
-
-    <h4 class="mb-4 text-primary">Desafío 7: Asegurando el Servidor con HTTPS y Let's Encrypt</h4>
-    <p>Para este desafío, necesitarás un dominio real o un subdominio que apunte a la IP pública de tu servidor (puedes
-        usar servicios de DNS dinámico si trabajas desde casa).</p>
-    <ol>
-        <li>Instala <strong>Certbot</strong>, el cliente oficial de Let's Encrypt, en tu servidor.</li>
-        <li>Utiliza Certbot para obtener e instalar automáticamente un certificado SSL/TLS para uno de tus dominios.
-        </li>
-        <li>Certbot modificará tu configuración de Nginx. Examina los cambios que ha realizado en el archivo de Server
-            Block.</li>
-        <li>Verifica que tu sitio ahora carga con HTTPS y que el navegador muestra el candado de seguridad.</li>
-        <li>Como paso final, asegúrate de que todo el tráfico que llega por HTTP (puerto 80) sea redirigido
-            automáticamente a HTTPS (puerto 443). Certbot suele ofrecer esta opción durante la instalación.</li>
-    </ol>
-
-    <h4 class="mb-4 text-primary">Desafío 8: Nginx como Proxy Inverso para una Aplicación Node.js</h4>
-    <ol>
-        <li>Instala Node.js en tu servidor.</li>
-        <li>Crea una aplicación "Hello World" muy simple con Express.js que se ejecute en el puerto 3000.</li>
-        <li>Modifica la configuración de Nginx para que actúe como <strong>proxy inverso</strong>. La idea es que
-            cuando un usuario visite tu dominio en el puerto 80, Nginx intercepte la petición y la reenvíe a la
-            aplicación Node.js que está escuchando en <code>localhost:3000</code>.</li>
-        <li>Asegúrate de que puedes ver el mensaje de tu aplicación Node.js al acceder a tu dominio desde el navegador,
-            sin necesidad de especificar el puerto :3000.</li>
     </ol>
 </div>
