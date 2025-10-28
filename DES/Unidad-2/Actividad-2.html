@@ -1,134 +1,181 @@
 <div class="container my-5">
-    <h1 class="mb-4 text-primary">Actividades Propuestas: Servidores y Arquitectura Web</h1>
+    <h1 class="mb-4 text-primary">Actividad 2.2: Instalación y Configuración de Nginx</h1>
 
-    <h2 class="mb-4 text-primary">Nivel 1: Cuestiones Teóricas y de Investigación 🧠</h2>
-    <p>Estas actividades están diseñadas para consolidar la comprensión de los conceptos teóricos.</p>
+    <h2 class="mb-4 text-primary">1. Instalación del servidor web Nginx</h2>
+    <p>Para instalar Nginx en Debian, primero actualizamos los repositorios y después instalamos el paquete
+        correspondiente:</p>
+    <pre><code class="language-bash">#Actualizar los repositorios
+sudo apt update
+#sudo apt install (nombre)
+sudo apt install nginx</code></pre>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-2/instalacion-servidor.png" alt="Instalación Servidor" class="w-100">
+    </div>
+    <p>A continuación, comprobamos que Nginx se ha instalado y que está funcionando correctamente:</p>
+    <pre><code class="language-bash">systemctl status nginx</code></pre>
     <div class="alert alert-info">
-        <strong>Herramienta clave:</strong> Para la actividad 2, utiliza las <strong>Herramientas de
-            Desarrollador</strong>
-        de tu navegador (puedes abrirlas con la tecla F12 o `Ctrl+Shift+I`), especialmente la pestaña
-        <strong>"Red" (Network)</strong>.
+        <strong>Info:</strong> Esta actividad se ha realizado con la versión Nginx 1.22.0.
+    </div>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-2/status-nginx.png" alt="Server Status" class="w-100">
+    </div>
+    <h2 class="mb-4 text-primary">2. Creación de la estructura de directorios del sitio web</h2>
+    <p>Al igual que en Apache, los archivos de un sitio web se organizan en directorios, típicamente dentro de
+        <code>/var/www</code>. Crearemos la carpeta para nuestro sitio web:
+    </p>
+    <pre><code class="language-bash">sudo mkdir -p /var/www/nombre_web/html</code></pre>
+    <p>Dentro de este nuevo directorio <code>html</code>, debéis clonar el siguiente repositorio de ejemplo:</p>
+    <pre><code class="language-bash">sudo git clone https://github.com/cloudacademy/static-website-example.git /var/www/nombre_web/html</code></pre>
+    <div class="alert alert-info" role="alert">
+        <p>Si os da error <code>sudo: git: command not found</code>, simplemente hay que instalarlo
+            <code>sudo apt install git</code>, después os recomiendo comprobar la versión <code>git --version</code>
+        </p>
     </div>
 
-    <h4 class="mb-4 text-primary">Actividad 1: La Evolución de HTTP</h4>
-    <p>En un documento de texto, crea una tabla comparativa que resuma las características y, lo más importante, el
-        <strong>problema principal que solucionó</strong> cada nueva versión del protocolo HTTP:
+    <p>Después, asignamos la propiedad de estos directorios al usuario <code>www-data</code>, que es el usuario con el
+        que se ejecuta el servicio web:</p>
+    <pre><code class="language-bash">sudo chown -R www-data:www-data /var/www/nombre_web/html</code></pre>
+    <p>Finalmente, ajustamos los permisos para evitar errores de acceso:</p>
+    <pre><code class="language-bash">sudo chmod -R 755 /var/www/nombre_web</code></pre>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-2/creacion-estructura-directorios-web.png" alt="Server Status" class="w-100">
+    </div>
+    <h2 class="mb-4 text-primary">3. Configuración del <strong>Server Block</strong> en Nginx</h2>
+    <p>En Nginx, las configuraciones de cada sitio se gestionan en los directorios <code>sites-available</code> (donde
+        se guardan todas las configuraciones posibles) y <code>sites-enabled</code> (donde se activan mediante enlaces
+        simbólicos).</p>
+    <p>Vamos a crear un nuevo archivo de configuración (llamado "<strong>Server Block</strong>") para nuestro sitio en
+        <code>/etc/nginx/sites-available/</code>:
+    </p>
+    <div class="alert alert-info" role="alert">
+        <p><strong>Server Block:</strong> Es el nombre conceptual que Nginx le da a un bloque de configuración que
+            define un sitio virtual. Es el contenido que va dentro del archivo, el código que empieza con server { y
+            termina con }. Piensa en ello como una "receta".
+        </p>
+        <p><strong>nombre_web:</strong> Es el nombre del archivo que va a contener esa "receta". Es un placeholder, un
+            ejemplo que te indica que debes reemplazarlo con el nombre real de tu sitio.</p>
+    </div>
+    <pre><code class="language-bash">sudo nano /etc/nginx/sites-available/nombre_web</code></pre>
+    <p>Pega el siguiente contenido en el archivo. Este bloque le dice a Nginx cómo servir nuestro sitio:</p>
+    <pre><code class="language-js">server {
+    listen 80;
+    listen [::]:80;
+
+    root /var/www/nombre_web/html;
+    index index.html index.htm;
+
+    server_name nombre_web www.nombre_web;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}</code></pre>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-2/server-block.png" alt="Server Status" class="w-100">
+    </div>
+
+    <p>Ahora, habilitamos el sitio creando un enlace simbólico desde <code>sites-available</code> a
+        <code>sites-enabled</code>:
+    </p>
+    <pre><code class="language-bash">sudo ln -s /etc/nginx/sites-available/nombre_web /etc/nginx/sites-enabled/</code></pre>
+    <p>Por último, reiniciamos Nginx para que los cambios se apliquen:</p>
+    <pre><code class="language-bash">sudo systemctl restart nginx</code></pre>
+
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-2/habilitar-sitio.png" alt="habilitar-sitio" class="w-100">
+    </div>
+
+    <div class="alert alert-info mt-4">
+        <p>Imaginemos que ya tienes tu primer sitio (disenyo.com) configurado y funcionando. Ahora quieres añadir un
+            segundo sitio (portfolio.com).<br>
+            El proceso sería el siguiente:</p>
+        <ol>
+            <li>Preparar los archivos del nuevo sitio:<br>
+                Primero, creas un nuevo directorio para los archivos del segundo sitio, completamente separado del
+                primero.</li>
+            <li>Crear un NUEVO archivo de configuración:<br>
+                Ahora, creas un archivo de configuración completamente nuevo en sites-available para este segundo sitio.
+            </li>
+            <li>Escribir el NUEVO Server Block:<br>
+                Dentro de este nuevo archivo, por ejemplo (portfolio.com), pegarás un nuevo server block que apunte a
+                los recursos
+                del segundo sitio. Fíjate en las directivas que cambian: server_name y root.</li>
+            <li>Activar el nuevo sitio:<br>
+                Al igual que hiciste con el primero, creas un enlace simbólico para activar este nuevo sitio y recargas
+                Nginx.</li>
+        </ol>
+    </div>
+    <h2 class="mb-4 text-primary">4. Comprobaciones</h2>
+    <h3 class="mb-4 text-primary">4.1. Comprobación del correcto funcionamiento</h3>
+    <p>Como aún no tenemos un servidor DNS, debemos modificar el archivo <code>hosts</code> de nuestra máquina
+        <strong>local (anfitriona)</strong> para asociar el nombre de dominio a la IP de la máquina virtual.
     </p>
     <ul>
-        <li>HTTP/1.0 (el problema de la conexión única por recurso).</li>
-        <li>HTTP/1.1 (el problema de la ineficiencia de crear múltiples conexiones).</li>
-        <li>HTTP/2 (el problema del "Head-of-Line Blocking" a nivel de HTTP).</li>
-        <li>HTTP/3 (el problema del "Head-of-Line Blocking" a nivel de TCP).</li>
+        <li>En Linux o macOS, el archivo es: <code>/etc/hosts</code></li>
+        <li>En Windows, el archivo es: <code>C:\Windows\System32\drivers\etc\hosts</code></li>
     </ul>
+    <p>Añade la siguiente línea al final del archivo:</p>
+    <pre><code class="language-bash">#Recuera que si estás utilizando tu ordenador tendrás que comprobar la IP de tu servidor diariamente.
+ #Ip Servidor cuando estés en casa
+    192.168.X.X   nombre_web
+    192.168.X.X   www.nombre_web
+ #Ip Servidor cuando estés en otra red
+    172.17.X.X nombre_web
+    172.17.X.X www.nombre_web</code></pre>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-2/editar-fichero-host-mac.png" alt="editar-fichero-host-mac" class="w-100">
+    </div>
+    <div class="alert alert-warning">
+        <strong>¡Atención!</strong> Recuerda sustituir la IP por la de tu máquina virtual. Si usas un proveedor en la
+        nube, esta IP puede cambiar cada vez que reinicies la instancia.
+    </div>
+    <p>Ahora, abre un navegador en tu máquina local y accede a <code>http://nombre_web</code>. Deberías ver el sitio web
+        del repositorio clonado.</p>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-2/pagina-web-ejemplo-servida-por-nginx.png"
+            alt="Página web de ejemplo servida por Nginx" class="w-100">
+    </div>
 
-    <h4 class="mb-4 text-primary">Actividad 2: Anatomía de una Petición Real</h4>
+    <h3 class="mb-4 text-primary">4.2. Comprobar registros del servidor</h3>
+    <p>Verifica que las peticiones se registran correctamente en los archivos de logs de Nginx:</p>
+    <ul>
+        <li><code><strong>/var/log/nginx/access.log</strong></code>: Registra todas las solicitudes correctas al
+            servidor.</li>
+        <li><code><strong>/var/log/nginx/error.log</strong></code>: Registra cualquier error que Nginx encuentre.</li>
+    </ul>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-2/comprobar-registros-servidor.png" alt="Página web de ejemplo servida por Nginx"
+            class="w-100">
+    </div>
+    <div class="alert alert-info">
+        Si no ves actividad en los logs, puede ser que el navegador haya cacheado la página. Usa el modo privado o de
+        incógnito para forzar una nueva petición al servidor.
+    </div>
+
+    <h2 class="mb-4 text-primary">5. ¿Cómo sabe Nginx a qué sitio dirigir al usuario?</h2>
+    <p>Cuando un visitante escribe http://portfolio.com en su navegador, ocurre lo siguiente:</p>
     <ol>
-        <li>Abre la pestaña "Red" en las herramientas de desarrollador de tu navegador.</li>
-        <li>Visita una página web compleja, como <code>www.amazon.es</code> o <code>elpais.com</code>.</li>
-        <li>Selecciona la primera petición de la lista (normalmente el documento HTML principal).</li>
-        <li>Examina las cabeceras (Headers) de la petición y la respuesta. Identifica y anota en un documento:</li>
-        <ul>
-            <li>El <strong>Método</strong> de la petición y el <strong>Código de Estado</strong> de la respuesta.</li>
-            <li>La cabecera de petición <code>User-Agent</code>. ¿Qué información revela sobre tu sistema?</li>
-            <li>La cabecera de respuesta <code>Content-Type</code>. ¿Qué tipo de documento has recibido?</li>
-            <li>La cabecera de respuesta <code>Server</code>. ¿Puedes identificar si usan Apache, Nginx u otro
-                servidor?</li>
-            <li>Busca una petición a un fichero de imagen (JPG, PNG) y compara su <code>Content-Type</code> con el del
-                documento HTML.</li>
-        </ul>
+        <li>El navegador envía una petición a la dirección IP de tu servidor.
+        </li>
+        <li>Dentro de esa petición, hay una cabecera especial llamada Host, que dice: Host: portfolio.com.
+        </li>
+        <li>Nginx recibe la petición en el puerto 80. Mira la cabecera Host.
+        </li>
+        <li>Nginx busca entre todos sus "Server Blocks" activos (los de sites-enabled) cuál de ellos tiene una
+            directiva
+            server_name que coincida con portfolio.com.
+        </li>
+        <li>Al encontrar tu segundo server block, utiliza la configuración que está dentro de él (el root
+            /var/www/portfolio.com/html) para servir el archivo correcto.</li>
     </ol>
 
-    <h4 class="mb-4 text-primary">Actividad 3: El Gran Debate: Apache vs. Nginx</h4>
-    <p>Investiga y responde a las siguientes preguntas en un documento:</p>
+    <h2 class="mb-4 text-primary">Cuestiones Finales</h2>
     <ol>
-        <li>¿Qué son los archivos <code>.htaccess</code> de Apache y por qué son tan populares en los servicios de
-            hosting compartido? ¿Por qué Nginx decidió no implementar un sistema similar?</li>
-        <li>Imagina que tienes que desplegar dos proyectos diferentes:
-            <ul>
-                <li><strong>Proyecto A:</strong> Un blog de WordPress con mucho tráfico y muchas imágenes.</li>
-                <li><strong>Proyecto B:</strong> Una intranet para una empresa con 10 empleados que utiliza una
-                    aplicación PHP muy específica que depende de varios módulos de Apache poco comunes.</li>
-            </ul>
-            Argumenta qué servidor web (Apache, Nginx o una configuración híbrida) elegirías para cada caso y
-            justifica tu decisión basándote en la arquitectura y características de cada uno.
+        <li>¿Qué pasa si no hago el enlace simbólico entre <code>sites-available</code> y <code>sites-enabled</code>
+            de
+            mi sitio web?</li>
+        <li>¿Qué pasa si no le doy los permisos adecuados (<code>chown</code> y <code>chmod</code>) a la carpeta
+            <code>/var/www/nombre_web</code>?
         </li>
-    </ol>
-
-    <h2 class="mb-4 text-primary">Nivel 2: Actividades Prácticas Guiadas 🛠️</h2>
-    <p>Estas actividades requieren una máquina virtual con un sistema operativo de servidor (como Debian o Ubuntu
-        Server) para aplicar lo aprendido.</p>
-
-    <h4 class="mb-4 text-primary">Actividad 4: Instalación y Configuración de un Stack LEMP</h4>
-    <ol>
-        <li>Instala Nginx, MariaDB (MySQL) y PHP (con el paquete `php-fpm`) en tu servidor. A este conjunto se le conoce
-            como "stack LEMP".</li>
-        <li>Verifica que todos los servicios están funcionando correctamente.</li>
-        <li>Crea un archivo <code>info.php</code> en el directorio web por defecto (<code>/var/www/html</code>) con el
-            contenido <code>&lt;?php phpinfo(); ?&gt;</code>.</li>
-        <li>Modifica la configuración de Nginx para que sea capaz de procesar archivos PHP a través de PHP-FPM.</li>
-        <li>Accede desde tu navegador a la IP del servidor para ver la página de información de PHP.</li>
-    </ol>
-
-    <h4 class="mb-4 text-primary">Actividad 5: Configuración de Múltiples Sitios con Server Blocks</h4>
-    <ol>
-        <li>Crea dos directorios diferentes para dos sitios web: <code>/var/www/sitio1</code> y
-            <code>/var/www/sitio2</code>.
-        </li>
-        <li>En cada directorio, crea un archivo <code>index.html</code> simple pero distinto (ej. "Bienvenido al Sitio
-            1" y "Página Principal del Sitio 2").</li>
-        <li>Crea dos archivos de configuración de Server Block en <code>/etc/nginx/sites-available/</code>, uno para
-            cada sitio. Asigna a cada uno un nombre de servidor ficticio (ej. <code>sitio1.local</code> y
-            <code>sitio2.local</code>).
-        </li>
-        <li>Habilita ambos sitios creando los enlaces simbólicos correspondientes en
-            <code>/etc/nginx/sites-enabled/</code>.
-        </li>
-        <li>Modifica el archivo <code>hosts</code> de <strong>tu máquina local</strong> para que los dominios
-            <code>sitio1.local</code> y <code>sitio2.local</code> apunten a la IP de tu máquina virtual.
-        </li>
-        <li>Reinicia Nginx y comprueba que puedes acceder a ambos sitios usando sus respectivos dominios desde tu
-            navegador.</li>
-    </ol>
-
-    <h4 class="mb-4 text-primary">Actividad 6: Análisis de Logs para Depuración</h4>
-    <ol>
-        <li>Accede con éxito a <code>sitio1.local</code>. Luego, intenta acceder a una página que no exista, como
-            <code>sitio1.local/pagina-inventada.html</code>.
-        </li>
-        <li>Conéctate al servidor y utiliza el comando <code>tail</code> para ver los últimos registros de los archivos
-            de log de Nginx.</li>
-        <li>En <code>/var/log/nginx/access.log</code>, localiza la línea que corresponde a tu acceso correcto (debería
-            tener un código de estado 200).</li>
-        <li>En <code>/var/log/nginx/error.log</code>, localiza la línea que corresponde al intento de acceso fallido (el
-            error del fichero no encontrado que genera un 404).</li>
-        <li>Documenta ambas líneas y explica qué información te proporciona cada parte.</li>
-    </ol>
-
-    <h2 class="mb-4 text-primary">Nivel 3: Desafíos y Prácticas Avanzadas 🚀</h2>
-    <p>Estos desafíos requieren que investigues y apliques soluciones a problemas más complejos y realistas.</p>
-
-    <h4 class="mb-4 text-primary">Desafío 7: Asegurando el Servidor con HTTPS y Let's Encrypt</h4>
-    <p>Para este desafío, necesitarás un dominio real o un subdominio que apunte a la IP pública de tu servidor (puedes
-        usar servicios de DNS dinámico si trabajas desde casa).</p>
-    <ol>
-        <li>Instala <strong>Certbot</strong>, el cliente oficial de Let's Encrypt, en tu servidor.</li>
-        <li>Utiliza Certbot para obtener e instalar automáticamente un certificado SSL/TLS para uno de tus dominios.
-        </li>
-        <li>Certbot modificará tu configuración de Nginx. Examina los cambios que ha realizado en el archivo de Server
-            Block.</li>
-        <li>Verifica que tu sitio ahora carga con HTTPS y que el navegador muestra el candado de seguridad.</li>
-        <li>Como paso final, asegúrate de que todo el tráfico que llega por HTTP (puerto 80) sea redirigido
-            automáticamente a HTTPS (puerto 443). Certbot suele ofrecer esta opción durante la instalación.</li>
-    </ol>
-
-    <h4 class="mb-4 text-primary">Desafío 8: Nginx como Proxy Inverso para una Aplicación Node.js</h4>
-    <ol>
-        <li>Instala Node.js en tu servidor.</li>
-        <li>Crea una aplicación "Hello World" muy simple con Express.js que se ejecute en el puerto 3000.</li>
-        <li>Modifica la configuración de Nginx para que actúe como <strong>proxy inverso</strong>. La idea es que
-            cuando un usuario visite tu dominio en el puerto 80, Nginx intercepte la petición y la reenvíe a la
-            aplicación Node.js que está escuchando en <code>localhost:3000</code>.</li>
-        <li>Asegúrate de que puedes ver el mensaje de tu aplicación Node.js al acceder a tu dominio desde el navegador,
-            sin necesidad de especificar el puerto :3000.</li>
     </ol>
 </div>

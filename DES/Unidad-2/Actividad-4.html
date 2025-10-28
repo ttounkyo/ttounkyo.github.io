@@ -1,0 +1,40 @@
+<h2 class="mb-4 text-primary">5. Transferencia de archivos con SFTP</h2>
+<p>Aunque usar Git es un método moderno para desplegar código, es importante conocer métodos tradicionales como
+    SFTP (SSH File Transfer Protocol). SFTP utiliza el protocolo SSH para transferir archivos de forma segura y
+    cifrada.</p>
+<p>No necesitas instalar un servidor FTP, ya que SFTP funciona sobre el servidor OpenSSH que ya tenemos instalado.
+    Solo necesitas un cliente gráfico como <a href="https://filezilla-project.org/" target="_blank">Filezilla</a> en
+    tu máquina local.</p>
+
+<div class="alert alert-primary" role="alert">
+    <h4 class="alert-heading">Tarea: Desplegar un nuevo sitio web mediante SFTP</h4>
+    Configura un nuevo dominio (ej. <code>otro_sitio</code>) repitiendo los pasos anteriores, pero esta vez
+    transfiere los archivos del nuevo sitio web mediante SFTP.
+</div>
+<p>En Filezilla, para conectar a tu servidor:</p>
+<ol>
+    <li>En <strong>Servidor</strong>, introduce <code>sftp://IP_DEL_SERVIDOR</code>.</li>
+    <li>Introduce tu <strong>nombre de usuario</strong>.</li>
+    <li>Como usas autenticación por clave, ve a <strong>Edición > Opciones > SFTP</strong> y añade tu archivo de
+        clave privada (<code>.pem</code> o <code>id_rsa</code>).</li>
+</ol>
+<div class="img-responsive text-center p-3">
+    <img src="../img/Unidad-X/filezilla-connection.png"
+        alt="Ventana de conexión de Filezilla mostrando los campos para SFTP" class="w-100">
+</div>
+<p>Una vez conectado, sube los archivos al directorio <code>/var/www/otro_sitio/html</code> y configura el nuevo
+    Server Block.</p>
+
+
+<h2 class="mb-4 text-primary">6. Tareas Adicionales: Asegurando el Servidor</h2>
+<h3 class="mb-4 text-primary">6.1. Habilitar HTTPS con Certificados Autofirmados</h3>
+<p>Como práctica, genera un certificado SSL autofirmado y modifica el Server Block de tu sitio para que escuche en
+    el puerto 443 (HTTPS). Esto te permitirá acceder a tu web de forma cifrada. Investiga los comandos necesarios
+    para generar el certificado y las directivas de Nginx para usarlo (<code>listen 443 ssl;</code>,
+    <code>ssl_certificate;</code>, <code>ssl_certificate_key;</code>).
+</p>
+
+<h3 class="mb-4 text-primary">6.2. Redirección de HTTP a HTTPS</h3>
+<p>Una vez que HTTPS funcione, el sitio será accesible tanto por HTTP como por HTTPS. La configuración correcta es
+    forzar a todos los usuarios a usar la conexión segura. Modifica tu Server Block para que cualquier petición que
+    llegue por el puerto 80 (HTTP) sea redirigida automáticamente al puerto 443 (HTTPS).</p>

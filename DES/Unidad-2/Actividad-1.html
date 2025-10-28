@@ -1,145 +1,126 @@
 <div class="container my-5">
-    <h1 class="mb-4 text-primary">Actividad 2.1: Instalación y Configuración de Nginx</h1>
+    <h1 class="mb-4 text-primary">Actividad 2.1: Anatomía de una Petición HTTP con Telnet</h1>
+    <p>Esta actividad práctica nos permitirá "hablar" directamente con un servidor web utilizando el protocolo HTTP en
+        su forma más pura. Usaremos el cliente Telnet para enviar una petición manual y analizar la respuesta del
+        servidor, desmitificando el proceso que ocurre cada vez que navegamos por internet.</p>
 
-    <h2 class="mb-4 text-primary">1. Instalación del servidor web Nginx</h2>
-    <p>Para instalar Nginx en Debian, primero actualizamos los repositorios y después instalamos el paquete
-        correspondiente:</p>
-    <pre><code class="language-bash">#Actualizar los repositorios
-sudo apt update
-#sudo apt install (nombre)
-sudo apt install nginx</code></pre>
-    <p>A continuación, comprobamos que Nginx se ha instalado y que está funcionando correctamente:</p>
-    <pre><code class="language-bash">systemctl status nginx</code></pre>
-    <div class="alert alert-info">
-        <strong>Info:</strong> Esta actividad se ha realizado con la versión Nginx 1.22.0.
-    </div>
-
-    <h2 class="mb-4 text-primary">2. Creación de la estructura de directorios del sitio web</h2>
-    <p>Al igual que en Apache, los archivos de un sitio web se organizan en directorios, típicamente dentro de
-        <code>/var/www</code>. Crearemos la carpeta para nuestro sitio web:
-    </p>
-    <pre><code class="language-bash">sudo mkdir -p /var/www/nombre_web/html</code></pre>
-    <p>Dentro de este nuevo directorio <code>html</code>, debéis clonar el siguiente repositorio de ejemplo:</p>
-    <pre><code class="language-bash">sudo git clone https://github.com/cloudacademy/static-website-example.git /var/www/nombre_web/html</code></pre>
-    <p>Después, asignamos la propiedad de estos directorios al usuario <code>www-data</code>, que es el usuario con el
-        que se ejecuta el servicio web:</p>
-    <pre><code class="language-bash">sudo chown -R www-data:www-data /var/www/nombre_web/html</code></pre>
-    <p>Finalmente, ajustamos los permisos para evitar errores de acceso:</p>
-    <pre><code class="language-bash">sudo chmod -R 755 /var/www/nombre_web</code></pre>
-
-    <h2 class="mb-4 text-primary">3. Configuración del Server Block en Nginx</h2>
-    <p>En Nginx, las configuraciones de cada sitio se gestionan en los directorios <code>sites-available</code> (donde
-        se guardan todas las configuraciones posibles) y <code>sites-enabled</code> (donde se activan mediante enlaces
-        simbólicos).</p>
-    <p>Vamos a crear un nuevo archivo de configuración (llamado "Server Block") para nuestro sitio en
-        <code>/etc/nginx/sites-available/</code>:
-    </p>
-    <pre><code class="language-bash">sudo nano /etc/nginx/sites-available/nombre_web</code></pre>
-    <p>Pega el siguiente contenido en el archivo. Este bloque le dice a Nginx cómo servir nuestro sitio:</p>
-    <pre><code class="language-js">server {
-    listen 80;
-    listen [::]:80;
-
-    root /var/www/nombre_web/html;
-    index index.html index.htm;
-
-    server_name nombre_web www.nombre_web;
-
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}</code></pre>
-    <p>Ahora, habilitamos el sitio creando un enlace simbólico desde <code>sites-available</code> a
-        <code>sites-enabled</code>:
-    </p>
-    <pre><code class="language-bash">sudo ln -s /etc/nginx/sites-available/nombre_web /etc/nginx/sites-enabled/</code></pre>
-    <p>Por último, reiniciamos Nginx para que los cambios se apliquen:</p>
-    <pre><code class="language-bash">sudo systemctl restart nginx</code></pre>
-
-    <h2 class="mb-4 text-primary">4. Comprobaciones</h2>
-    <h3 class="mb-4 text-primary">4.1. Comprobación del correcto funcionamiento</h3>
-    <p>Como aún no tenemos un servidor DNS, debemos modificar el archivo <code>hosts</code> de nuestra máquina
-        <strong>local (anfitriona)</strong> para asociar el nombre de dominio a la IP de la máquina virtual.
-    </p>
+    <h2 class="mb-4 text-primary">Preparación: Habilitando el Cliente Telnet</h2>
+    <p>En la mayoría de los sistemas operativos modernos, el cliente Telnet viene deshabilitado por defecto. A
+        continuación se indica cómo activarlo:</p>
     <ul>
-        <li>En Linux o macOS, el archivo es: <code>/etc/hosts</code></li>
-        <li>En Windows, el archivo es: <code>C:\Windows\System32\drivers\etc\hosts</code></li>
-    </ul>
-    <p>Añade la siguiente línea al final del archivo:</p>
-    <pre><code class="language-bash">#Recuera que si estás utilizando tu ordenador tendrás que comprobar la IP de tu servidor diariamente.
-192.168.X.X   nombre_web
-#Servidor
-172.17.103.33 nombre_web</code></pre>
-    <div class="alert alert-warning">
-        <strong>¡Atención!</strong> Recuerda sustituir la IP por la de tu máquina virtual. Si usas un proveedor en la
-        nube, esta IP puede cambiar cada vez que reinicies la instancia.
-    </div>
-    <p>Ahora, abre un navegador en tu máquina local y accede a <code>http://nombre_web</code>. Deberías ver el sitio web
-        del repositorio clonado.</p>
-    <div class="img-responsive text-center p-3">
-        <img src="../img/Unidad-X/nginx-custom-site.png" alt="Página web de ejemplo servida por Nginx" class="w-100">
-    </div>
-
-    <h3 class="mb-4 text-primary">4.2. Comprobar registros del servidor</h3>
-    <p>Verifica que las peticiones se registran correctamente en los archivos de logs de Nginx:</p>
-    <ul>
-        <li><code><strong>/var/log/nginx/access.log</strong></code>: Registra todas las solicitudes correctas al
-            servidor.</li>
-        <li><code><strong>/var/log/nginx/error.log</strong></code>: Registra cualquier error que Nginx encuentre.</li>
-    </ul>
-    <div class="alert alert-info">
-        Si no ves actividad en los logs, puede ser que el navegador haya cacheado la página. Usa el modo privado o de
-        incógnito para forzar una nueva petición al servidor.
-    </div>
-
-    <h2 class="mb-4 text-primary">5. Transferencia de archivos con SFTP</h2>
-    <p>Aunque usar Git es un método moderno para desplegar código, es importante conocer métodos tradicionales como
-        SFTP (SSH File Transfer Protocol). SFTP utiliza el protocolo SSH para transferir archivos de forma segura y
-        cifrada.</p>
-    <p>No necesitas instalar un servidor FTP, ya que SFTP funciona sobre el servidor OpenSSH que ya tenemos instalado.
-        Solo necesitas un cliente gráfico como <a href="https://filezilla-project.org/" target="_blank">Filezilla</a> en
-        tu máquina local.</p>
-
-    <div class="alert alert-primary" role="alert">
-        <h4 class="alert-heading">Tarea: Desplegar un nuevo sitio web mediante SFTP</h4>
-        Configura un nuevo dominio (ej. <code>otro_sitio</code>) repitiendo los pasos anteriores, pero esta vez
-        transfiere los archivos del nuevo sitio web mediante SFTP.
-    </div>
-    <p>En Filezilla, para conectar a tu servidor:</p>
-    <ol>
-        <li>En <strong>Servidor</strong>, introduce <code>sftp://IP_DEL_SERVIDOR</code>.</li>
-        <li>Introduce tu <strong>nombre de usuario</strong>.</li>
-        <li>Como usas autenticación por clave, ve a <strong>Edición > Opciones > SFTP</strong> y añade tu archivo de
-            clave privada (<code>.pem</code> o <code>id_rsa</code>).</li>
-    </ol>
-    <div class="img-responsive text-center p-3">
-        <img src="../img/Unidad-X/filezilla-connection.png"
-            alt="Ventana de conexión de Filezilla mostrando los campos para SFTP" class="w-100">
-    </div>
-    <p>Una vez conectado, sube los archivos al directorio <code>/var/www/otro_sitio/html</code> y configura el nuevo
-        Server Block.</p>
-
-
-    <h2 class="mb-4 text-primary">6. Tareas Adicionales: Asegurando el Servidor</h2>
-    <h3 class="mb-4 text-primary">6.1. Habilitar HTTPS con Certificados Autofirmados</h3>
-    <p>Como práctica, genera un certificado SSL autofirmado y modifica el Server Block de tu sitio para que escuche en
-        el puerto 443 (HTTPS). Esto te permitirá acceder a tu web de forma cifrada. Investiga los comandos necesarios
-        para generar el certificado y las directivas de Nginx para usarlo (<code>listen 443 ssl;</code>,
-        <code>ssl_certificate;</code>, <code>ssl_certificate_key;</code>).
-    </p>
-
-    <h3 class="mb-4 text-primary">6.2. Redirección de HTTP a HTTPS</h3>
-    <p>Una vez que HTTPS funcione, el sitio será accesible tanto por HTTP como por HTTPS. La configuración correcta es
-        forzar a todos los usuarios a usar la conexión segura. Modifica tu Server Block para que cualquier petición que
-        llegue por el puerto 80 (HTTP) sea redirigida automáticamente al puerto 443 (HTTPS).</p>
-
-
-    <h2 class="mb-4 text-primary">Cuestiones Finales</h2>
-    <ol>
-        <li>¿Qué pasa si no hago el enlace simbólico entre <code>sites-available</code> y <code>sites-enabled</code> de
-            mi sitio web?</li>
-        <li>¿Qué pasa si no le doy los permisos adecuados (<code>chown</code> y <code>chmod</code>) a la carpeta
-            <code>/var/www/nombre_web</code>?
+        <li><strong>Windows:</strong>
+            <ol>
+                <li>Abra el "Panel de control".</li>
+                <li>Diríjase a "Programas" y luego a "Activar o desactivar las características de Windows".</li>
+                <li>En la lista que aparece, marque la casilla "Cliente Telnet" y haga clic en "Aceptar".</li>
+            </ol>
         </li>
-    </ol>
+        <li><strong>Debian, macOS y Linux:</strong>
+            <p>Por lo general, Telnet está disponible a través de la terminal. Si no es así, se puede instalar
+                utilizando el gestor de paquetes de la distribución (por ejemplo, <code>sudo apt-get install
+                telnet</code> en sistemas basados en Debian/Ubuntu).</p>
+        </li>
+    </ul>
+
+    <h2 class="mb-4 text-primary">Actividad: Realizando una Petición HTTP a un Servidor Web</h2>
+    <p>Una vez que el cliente Telnet esté habilitado, puedes iniciar la actividad desde la línea de comandos (Símbolo
+        del sistema en Windows, o Terminal en Debian, macOS y Linux).</p>
+
+    <h3 class="mb-4 text-primary">Paso 1: Conexión al Servidor Web</h3>
+    <p>El primer paso es establecer una conexión con un servidor web en el puerto estándar para HTTP, que es el puerto
+        80. Para esto, utilizaremos un sitio web <code>example.com</code>.</p>
+    <p>Abra su terminal y escriba el siguiente comando, seguido de la tecla Enter:</p>
+    <pre><code class="language-bash">telnet example.com 80</code></pre>
+    <p>Si la conexión es exitosa, la pantalla se quedará en blanco o negro, esperando sus instrucciones.</p>
+
+    <h3 class="mb-4 text-primary">Paso 2: Enviando una Petición HTTP</h3>
+    <p>Ahora es el momento de escribir una petición HTTP. Comencemos con la petición más común, un <code>GET</code>.
+        Escribe las siguientes líneas exactamente como se muestran y presiona Enter después de cada una. Es
+        <strong>importante presionar Enter dos veces al final</strong> para indicarle al servidor que ha terminado de
+        enviar la petición.
+    </p>
+    <pre><code class="language-http">GET / HTTP/1.1
+Host: example.com</code></pre>
+
+    <h4 class="mb-4 text-primary">Análisis de la Petición:</h4>
+    <ul>
+        <li><code><strong>GET / HTTP/1.1</strong></code>: Esta es la línea de solicitud.
+            <ul>
+                <li><code><strong>GET</strong></code>: Es el método HTTP que indica que queremos obtener un recurso.
+                </li>
+                <li><code><strong>/</strong></code>: Es la ruta del recurso que estamos solicitando. En este caso, es
+                    la página principal del sitio.</li>
+                <li><code><strong>HTTP/1.1</strong></code>: Es la versión del protocolo HTTP que estamos utilizando.
+                </li>
+            </ul>
+        </li>
+        <li><code><strong>Host: example.com</strong></code>: Esta es una cabecera obligatoria en HTTP/1.1 que
+            especifica el dominio del servidor al que nos estamos conectando.</li>
+    </ul>
+
+    <h3 class="mb-4 text-primary">Paso 3: Observando la Respuesta del Servidor</h3>
+    <p>Inmediatamente después de presionar Enter dos veces, el servidor web responderá con un mensaje HTTP. La respuesta
+        tendrá una estructura similar a la siguiente:</p>
+    <pre><code class="language-http">HTTP/1.1 200 OK
+Content-Type: text/html; charset=UTF-8
+Content-Length: 1256
+Date: Tue, 21 Oct 2025 14:30:00 GMT
+Server: ECS (dcb/7F83)
+Last-Modified: Tue, 17 Oct 2023 07:18:26 GMT
+ETag: "3147526947"
+Accept-Ranges: bytes
+Connection: close
+
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Example Domain&lt;/title&gt;
+    ... (resto del código HTML de la página)
+&lt;/html&gt;</code></pre>
+
+    <h4 class="mb-4 text-primary">Análisis de la Respuesta:</h4>
+    <p>La respuesta HTTP se divide en tres partes principales:</p>
+    <ul>
+        <li><strong>Línea de Estado:</strong> <code>HTTP/1.1 200 OK</code>.
+            <ul>
+                <li><code><strong>HTTP/1.1</strong></code>: La versión del protocolo.</li>
+                <li><code><strong>200</strong></code>: El código de estado, que en este caso indica que la petición fue
+                    exitosa ("OK").</li>
+                <li><code><strong>OK</strong></code>: Un mensaje descriptivo del código de estado.</li>
+            </ul>
+        </li>
+        <li><strong>Cabeceras de Respuesta:</strong> Estas líneas proporcionan metadatos sobre la respuesta del
+            servidor.
+            <ul>
+                <li><code><strong>Content-Type</strong></code>: Indica el tipo de contenido que se está enviando (en
+                    este caso, un documento HTML).</li>
+                <li><code><strong>Content-Length</strong></code>: El tamaño del cuerpo de la respuesta en bytes.</li>
+                <li><code><strong>Date</strong></code>: La fecha y hora en que se generó la respuesta.</li>
+                <li><code><strong>Server</strong></code>: Información sobre el software del servidor web.</li>
+            </ul>
+        </li>
+        <li><strong>Cuerpo de la Respuesta:</strong> Después de una línea en blanco, se encuentra el cuerpo del
+            mensaje, que en el caso de una petición <code>GET</code> exitosa a una página web, será el código HTML de
+            la misma.</li>
+    </ul>
+
+    <h2 class="mb-4 text-primary">Explorando Otros Métodos HTTP</h2>
+    <p>Además de <code>GET</code>, puedes experimentar con otros métodos HTTP para observar diferentes comportamientos:
+    </p>
+    <ul>
+        <li><strong>HEAD:</strong> Solicita solo las cabeceras de la respuesta, sin el cuerpo del mensaje. Esto es útil
+            para verificar si un recurso existe sin necesidad de descargarlo por completo. La sintaxis es similar a
+            GET:
+            <pre><code class="language-http">HEAD / HTTP/1.1
+Host: example.com</code></pre>
+        </li>
+        <li><strong>POST:</strong> Se utiliza para enviar datos a un servidor para crear un nuevo recurso. Su estructura
+            es más compleja ya que incluye un cuerpo de mensaje con los datos a enviar.</li>
+        <li><strong>PUT:</strong> Se emplea para actualizar un recurso existente en el servidor.</li>
+        <li><strong>DELETE:</strong> Sirve para eliminar un recurso específico.</li>
+    </ul>
+
+    <p class="alert alert-success">Realizar esta actividad con Telnet proporcionará una comprensión práctica y
+        fundamental de la comunicación cliente-servidor en la web, desmitificando el proceso que ocurre cada vez que
+        navega por internet.</p>
 </div>
