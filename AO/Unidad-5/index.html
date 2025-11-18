@@ -1,519 +1,940 @@
 <div class="container my-5">
-    <h1 class="mb-4 text-primary">Unidad 5. Hoja de Cálculo Spreadsheet (Google Sheets)</h1>
+    <h1 class="mb-4 text-primary">Unidad 5. Hojas de Cálculo con Google Sheets</h1>
+    <div class="alert alert-info">
+        <h4 class="alert-heading">🎯 Objetivos de Aprendizaje</h4>
+        <p class="mb-0">Al finalizar esta unidad, serás capaz de: crear y gestionar hojas de cálculo, aplicar fórmulas y
+            funciones básicas, diseñar gráficos y trabajar colaborativamente en Google Sheets.</p>
+    </div>
 
     <h2 class="mb-4 text-primary">Introducción</h2>
-    <p>En esta unidad, exploraremos las hojas de cálculo, herramientas esenciales para la organización, análisis y
-        visualización de datos numéricos. Nos centraremos en Google Sheets, una aplicación en la nube que ofrece
-        potentes funcionalidades y capacidades de colaboración.</p>
+    <p>En esta unidad nos adentraremos en el mundo de las hojas de cálculo, herramientas fundamentales para el análisis,
+        organización y manipulación de datos numéricos y textuales. Nos centraremos en Google Sheets por su
+        accesibilidad
+        y capacidades colaborativas, aunque los conceptos aprendidos serán aplicables a otras plataformas como Microsoft
+        Excel
+        y Calc de OpenOffice.</p>
+    <p>Las hojas de cálculo son herramientas fundamentales para el análisis, organización y manipulación de datos. En
+        esta unidad nos centraremos en <strong>Google Sheets</strong>, pero los conceptos son aplicables a Excel,
+        LibreOffice Calc y otras plataformas.</p>
 
-    <h2 class="mb-4 text-primary">5.1. ¿Qué Encontramos en la Interfaz?</h2>
-    <p>Al abrir una hoja de cálculo en Google Sheets, nos encontramos con una interfaz intuitiva diseñada para facilitar
-        la gestión de datos. A continuación, detallamos las áreas clave:</p>
-    <!-- IMAGEN: Esquema general de la interfaz de Google Sheets con números y descripciones, similar a la descripción textual. -->
-    `
-    <p class="text-muted small"><em>Ejemplo: Interfaz principal de Google Sheets.</em></p>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">💡 ¿Por qué usar hojas de cálculo?</h5>
+                    <ul>
+                        <li>Automatización de cálculos</li>
+                        <li>Análisis de datos complejos</li>
+                        <li>Creación de informes y dashboards</li>
+                        <li>Trabajo colaborativo en tiempo real</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">🚀 Ventajas de Google Sheets</h5>
+                    <ul>
+                        <li>Acceso desde cualquier dispositivo</li>
+                        <li>Guardado automático en la nube</li>
+                        <li>Colaboración en tiempo real</li>
+                        <li>Integración con otras herramientas Google</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <h3>Parte Superior de la Interfaz:</h3>
+    <h2 class="mb-4 text-primary mt-5">5.1. Conociendo la Interfaz de Google Sheets</h2>
+    <p>Google Sheets presenta una interfaz organizada y intuitiva diseñada para facilitar el trabajo con datos. A
+        continuación se describen los elementos principales que encontrarás:</p>
+
+    <div class="alert alert-success">
+        <strong>Antes de continuar:</strong> Te recomiendo tener abierto Google Sheets para identificar cada
+        elemento mientras lees.
+    </div>
+
     <ul>
-        <li><strong>1. Título del Documento:</strong> "Hoja de cálculo sin título". Al hacer clic, podemos cambiar el
-            nombre de nuestra hoja de cálculo.</li>
-        <li><strong>Marcador de "Destacado":</strong> Podemos marcar el archivo que estamos editando como "destacado".
-        </li>
-        <li><strong>Mover a Carpeta:</strong> Permite mover el archivo que estamos editando a una de las carpetas que
-            tengamos creadas en Google Drive.</li>
-        <li><strong>Estado de Conexión:</strong> Indica si puedes editar el documento sin conexión a Internet. Los
-            cambios se guardarán en Drive cuando vuelvas a conectarte.</li>
-        <li><strong>2. Barra de Menús:</strong> Contiene las opciones principales (Archivo, Editar, Ver, Insertar,
-            Formato, Datos, Herramientas, Extensiones, Ayuda).</li>
-        <li><strong>Historial de Versiones:</strong> Permite ver el historial de versiones del documento.</li>
-        <li><strong>Ver Comentarios:</strong> Muestra los comentarios hechos en nuestra hoja de cálculo.</li>
-        <li><strong>Iniciar Videollamada:</strong> Permite iniciar una videollamada sin salir del documento.</li>
-        <li><strong>3. Botón "Compartir":</strong> Permite compartir nuestra hoja de cálculo para que otras personas
-            puedan verla o incluso editarla conjuntamente.</li>
-        <li><strong>4. Cuadro de Texto de Fórmulas:</strong> En este cuadro podemos escribir el texto o las fórmulas que
-            irán a una celda.</li>
-        <li><strong>5. Barra de Herramientas de Acceso Rápido:</strong>
-            <ul>
-                <li><strong>Buscar en Google Sheets:</strong> Busca en todos los apartados de Google Sheets.</li>
-                <li><strong>Deshacer:</strong> Deshace los cambios realizados.</li>
-                <li><strong>Rehacer:</strong> Rehace los cambios realizados.</li>
-                <li><strong>Imprimir:</strong> Imprime el documento.</li>
-                <li><strong>Copiar Formato:</strong> Copia el formato de una celda para aplicarlo a otras.</li>
-                <li><strong>Zoom:</strong> Modifica la visualización del documento.</li>
-            </ul>
-        </li>
-        <li><strong>6. Herramientas de Formato Numérico:</strong>
-            <ul>
-                <li><strong>Formato de Números:</strong> Contiene las herramientas de los números y los formatos
-                    adicionales (fechas, monedas, etc.).</li>
-                <li><strong>Formato Moneda:</strong> Formatea las celdas como tipo "moneda".</li>
-                <li><strong>Formato Porcentaje:</strong> Formatea las celdas como tipo "porcentaje".</li>
-                <li><strong>Reducir Decimales:</strong> Reduce el número de decimales.</li>
-                <li><strong>Aumentar Decimales:</strong> Aumenta el número de decimales.</li>
-                <li><strong>Más Formatos:</strong> Abre una lista desplegable con más formatos.</li>
-            </ul>
-        </li>
-        <li><strong>7. Herramientas de Estilo de Fuente:</strong>
-            <ul>
-                <li><strong>Estilos de Fila/Columna:</strong> Estilos predefinidos.</li>
-                <li><strong>Tipo de Letra (Fuente):</strong> Cambia el tipo de letra.</li>
-                <li><strong>Tamaño de Letra:</strong> Cambia el tamaño de la letra.</li>
-                <li><strong>Negrita:</strong> Cambia el estilo de la fuente a negrita.</li>
-                <li><strong>Cursiva:</strong> Cambia el estilo de la fuente en cursiva.</li>
-                <li><strong>Tachado:</strong> Cambia el estilo de la fuente a tachado.</li>
-                <li><strong>Color de la Fuente:</strong> Cambia el color de la fuente.</li>
-            </ul>
-        </li>
-        <li><strong>8. Herramientas de Estilo de Celdas:</strong>
-            <ul>
-                <li><strong>Color de Relleno:</strong> Cambia el color de relleno de las celdas.</li>
-                <li><strong>Bordes:</strong> Añade bordes a las celdas y aplica color a estos bordes.</li>
-                <li><strong>Combinar Celdas:</strong> Combina diferentes celdas para que formen una sola.</li>
-            </ul>
-        </li>
-        <li><strong>9. Herramientas de Alineación y Rotación:</strong>
-            <ul>
-                <li><strong>Alineación Horizontal:</strong> Alinea horizontalmente el texto (izquierda, derecha,
-                    centrado).</li>
-                <li><strong>Alineación Vertical:</strong> Alinea verticalmente el texto (arriba, abajo, centro).</li>
-                <li><strong>Ajuste de Texto:</strong> Ajusta el texto al tamaño de la celda.</li>
-                <li><strong>Rotación de Texto:</strong> Rota el texto en la dirección seleccionada.</li>
-            </ul>
-        </li>
-        <li><strong>10. Herramientas Avanzadas:</strong>
-            <ul>
-                <li><strong>Enlaces:</strong> Añade enlaces en la celda seleccionada.</li>
-                <li><strong>Comentarios:</strong> Añade un comentario a una palabra o frase de la hoja de cálculo.</li>
-                <li><strong>Insertar Gráficos:</strong> Inserta gráficos con los datos de la hoja de cálculo.</li>
-                <li><strong>Filtros:</strong> Añade filtros para ordenar los datos.</li>
-                <li><strong>Vistas con Filtros:</strong> Crea vistas con filtros personalizados.</li>
-                <li><strong>Funciones/Fórmulas:</strong> Accede a las funciones y fórmulas.</li>
-            </ul>
-        </li>
-        <li><strong>11. Estructura y Alineación del Documento (posiblemente no visible por defecto):</strong>
-            <ul>
-                <li><strong>Dirección de la Hoja de Cálculo:</strong> Mueve la hoja de cálculo de derecha a izquierda o
-                    viceversa.</li>
-                <li><strong>Dirección del Texto/Contenido:</strong> Mueve el texto o contenido de derecha a izquierda o
-                    de izquierda a derecha.</li>
-            </ul>
-        </li>
+        <li><strong>Barra de Menús:</strong> Contiene todas las opciones principales organizadas por categorías
+            (Archivo, Editar, Ver, Insertar, Formato, Datos, Herramientas, Extensiones, Ayuda).</li>
+        <li><strong>Barra de Herramientas:</strong> Situada debajo de la barra de menús, ofrece acceso rápido a
+            funciones de formato, alineación e inserción.</li>
+        <li><strong>Barra de Fórmulas:</strong> Muestra y permite editar el contenido de la celda seleccionada.</li>
+        <li><strong>Área de Trabajo:</strong> La cuadrícula principal donde se introducen y organizan los datos.</li>
+        <li><strong>Hojas o Pestañas:</strong> En la parte inferior para gestionar múltiples hojas dentro del mismo
+            archivo.</li>
     </ul>
 
-    <p>En la parte inferior izquierda, encontramos las pestañas de las diferentes hojas de cálculo dentro del mismo
-        archivo.</p>
-    <!-- IMAGEN: Zona inferior izquierda de Google Sheets mostrando las pestañas de las hojas. -->
-    `
-
-    <h2 class="mb-4 text-primary">5.2. Importación de Otras Hojas de Cálculo</h2>
-    <p>Importar datos desde otro archivo de hoja de cálculo es una funcionalidad útil para combinar información o
-        continuar trabajando en archivos ya existentes.</p>
-    <p>Para realizar esto, debemos ir a <strong>"Archivo → Importar"</strong>.</p>
-    <!-- IMAGEN: Ventana de diálogo "Importar archivo" en Google Sheets. -->
-    `
-    <p class="text-muted small"><em>Ejemplo: Ventana de importación de Google Sheets.</em></p>
-    <p>Luego nos aparecerá una ventana como ésta:</p>
-    <p>Para subir uno de nuestros archivos hacemos clic en <strong>"Subir → Examinar”</strong>. Una vez seleccionado el
-        archivo (compatible con formatos como <code>.xlsx</code>, <code>.ods</code>, <code>.csv</code>,
-        <code>.tsv</code>, <code>.tab</code> y <code>.txt</code>), podemos configurar la forma en la que este archivo se
-        integrará:
+    <div class="text-center my-4">
+        <img alt="Vista general de la interfaz de Google Sheets" src="../AO/img/Unidad-5/Ejemplo26.png"
+            class="img-fluid shadow-sm rounded w-100">
+        <p class="text-muted mt-2"><small>Vista general de la interfaz de Google Sheets - Identifica los elementos
+                descritos</small></p>
+    </div>
+    <h4 class="text-primary mt-4 mb-3">Análisis Detallado de los Componentes</h4>
+    <p>A continuación se presenta un desglose completo de todos los elementos numerados que encontrarás en la interfaz:
     </p>
-    <ul>
-        <li><strong>Crear una nueva hoja de cálculo:</strong> El archivo importado se crearía en un documento nuevo y
-            totalmente independiente.</li>
-        <li><strong>Insertar hojas nuevas:</strong> Combina el archivo importado añadiendo nuevas hojas al documento
-            actual.</li>
-        <li><strong>Sustituir hoja de cálculo:</strong> Reemplaza el documento actual con el archivo importado.</li>
-        <li><strong>Sustituir la hoja actual (solo para CSV, TSV, TAB y TXT):</strong> Sustituye los datos de la hoja
-            activa con los datos importados.</li>
-        <li><strong>Añadir filas a la hoja actual (solo para CSV, TSV, TAB y TXT):</strong> Añade nuevas filas a la hoja
-            actual con los datos del archivo importado.</li>
-        <li><strong>Sustituir los datos de la celda seleccionada (solo para CSV, TSV, TAB y TXT):</strong> Pega los
-            datos importados en el rango de celdas seleccionado.</li>
-    </ul>
-    <p>Para finalizar la importación, sólo tenemos que hacer clic en <strong>"Importar"</strong>.</p>
-
-    <h2 class="mb-4 text-primary">5.3. Hojas</h2>
-    <p>Si consideramos el archivo de hoja de cálculo como un libro, cada una de sus páginas se llama "hoja". Cada una de
-        estas "hojas", dentro del mismo libro, son independientes y pueden contener datos diferentes, aunque también
-        pueden compartir información e intercambiar datos entre ellas.</p>
-
-    <h3 class="mb-4 text-primary">5.3.1. Cambiar el Nombre a una Hoja</h3>
-    <p>Para cambiar el nombre de una hoja, tan sólo debemos hacer clic derecho sobre la pestaña de la hoja que queramos
-        y seleccionar <strong>"Cambiar nombre"</strong>.</p>
-    <!-- IMAGEN: Menú contextual de una pestaña de hoja mostrando la opción "Cambiar nombre". -->
-    `
-    <p class="text-muted small"><em>Ejemplo: Cambiar el nombre de una hoja.</em></p>
-    <p>Le indicamos el nombre nuevo y aceptamos.</p>
-
-    <h3 class="mb-4 text-primary">5.3.2. Mover una Hoja de Posición</h3>
-    <p>Para mover una hoja tenemos 2 opciones:</p>
-    <ul>
-        <li><strong>Arrastrar y Soltar:</strong> Hacemos clic en la pestaña de la hoja, mantenemos pulsado el botón del
-            ratón y la arrastramos hasta la posición deseada.</li>
-        <li><strong>A través de las Opciones de Hoja:</strong> Hacemos clic derecho sobre la pestaña de la hoja que
-            queramos mover y en el menú contextual que aparece, clicamos en <strong>"Mover a la derecha"</strong> o
-            <strong>"Mover a la izquierda"</strong>.
-        </li>
-    </ul>
-
-    <h3 class="mb-4 text-primary">5.3.3. Eliminar una Hoja</h3>
-    <p>Eliminar una hoja es muy sencillo. Tan sólo debemos hacer clic derecho en la pestaña de la hoja a eliminar y
-        después clicar en <strong>"Eliminar"</strong>.</p>
-    <p>Nos preguntará si estamos seguros de que queremos eliminar esta hoja. Si lo estamos, hacemos clic en
-        <strong>"Aceptar"</strong>.
-    </p>
-
-    <h2 class="mb-4 text-primary">5.4. Insertar</h2>
-    <p>En esta sección veremos cómo insertar diferentes elementos en una hoja de cálculo.</p>
-
-    <h3 class="mb-4 text-primary">5.4.1. Columnas</h3>
-    <p>Para insertar una columna, tan sólo debemos hacer clic derecho sobre la letra de la columna adyacente donde
-        queremos insertar una nueva columna y seleccionar:</p>
-    <ul>
-        <li><strong>Insertar 1 a la izquierda:</strong> Inserta una nueva columna a la izquierda de la seleccionada.
-        </li>
-        <li><strong>Insertar 1 a la derecha:</strong> Inserta una nueva columna a la derecha de la seleccionada.</li>
-    </ul>
-
-    <h3 class="mb-4 text-primary">5.4.2. Filas</h3>
-    <p>Insertar una fila es muy sencillo. Tan sólo debemos hacer clic derecho sobre el número de la fila adyacente donde
-        queremos insertar una nueva fila y seleccionar:</p>
-    <ul>
-        <li><strong>Insertar 1 encima:</strong> Inserta una nueva fila encima de la seleccionada.</li>
-        <li><strong>Insertar 1 debajo:</strong> Inserta una nueva fila debajo de la seleccionada.</li>
-    </ul>
-
-    <h3 class="mb-4 text-primary">5.4.3. Notas</h3>
-    <p>Para insertar una nota en una celda, debemos hacer clic derecho sobre la celda que queremos comentar y
-        seleccionar <strong>"Insertar nota"</strong>.</p>
-    <!-- IMAGEN: Menú contextual de una celda mostrando la opción "Insertar nota". -->
-    `
-    <p class="text-muted small"><em>Ejemplo: Insertar una nota en una celda.</em></p>
-    <p>Nos aparecerá un cuadro donde escribiremos lo que necesitemos.</p>
-    <p>Para visualizar esta nota, tan sólo debemos pasar el cursor del ratón sobre la celda.</p>
-
-    <h3 class="mb-4 text-primary">5.4.4. Imágenes</h3>
-    <p>La inserción de imágenes es muy similar a cómo se insertan en otros documentos de Google: <strong>Insertar →
-            Imagen</strong>. Puedes elegir si insertar la imagen <strong>"en la celda"</strong> o <strong>"sobre las
-            celdas"</strong>.</p>
-    <!-- IMAGEN: Menú "Insertar" en Google Sheets con la opción "Imagen" desplegada. -->
-    `
-    <p class="text-muted small"><em>Ejemplo: Opciones para insertar una imagen en Google Sheets.</em></p>
-
-    <h3 class="mb-4 text-primary">5.4.5. Funciones / Fórmulas Básicas</h3>
-    <p>Las funciones nos permiten agilizar cálculos y optimizar nuestra hoja de cálculo. Aunque hay muchas funciones
-        disponibles, las básicas que trataremos son: <code>SUMA()</code>, <code>AVERAGE()</code> o
-        <code>PROMEDIO()</code>, <code>MAX()</code>, <code>MIN()</code> y <code>COUNT()</code> o <code>CONTAR()</code>.
-    </p>
-
-    <ul>
-        <li><strong>SUMA():</strong> Suma los valores que se ponen entre paréntesis o un rango de celdas seleccionado.
-        </li>
-        <li><strong>PROMEDIO():</strong> Calcula la media de los valores de las celdas seleccionadas.</li>
-        <li><strong>MAX():</strong> Obtiene el valor máximo de un rango de celdas seleccionado.</li>
-        <li><strong>MIN():</strong> Obtiene el valor mínimo de un rango de celdas seleccionado.</li>
-        <li><strong>CONTAR():</strong> Cuenta el número de elementos existentes en un rango de celdas seleccionado.</li>
-    </ul>
-    <p>El procedimiento para insertar estas funciones es similar. Realizaremos el proceso con la función
-        <code>SUMA()</code>, pero los pasos son los mismos para las demás funciones.
-    </p>
-    <p>Consideremos este caso en el que queremos saber la suma de los elementos:</p>
-    <!-- IMAGEN: Una tabla simple en Google Sheets con números en una columna (B1:B5) y una celda vacía (B6) resaltada. -->
-    `
-    <p class="text-muted small"><em>Ejemplo: Datos para aplicar la función SUMA.</em></p>
-    <ol>
-        <li>Nos colocamos en una celda vacía, en nuestro caso la B6 (señalada en azul).</li>
-        <li>Hacemos clic en el botón <strong>Funciones</strong> (el icono de sigma "Σ") en la barra de herramientas y
-            seleccionamos <strong>"SUMA"</strong>.</li>
-        <li>Seleccionamos las celdas con valores que queramos sumar, en nuestro caso de B1 a B5.</li>
-        <!-- IMAGEN: Selección de celdas B1:B5 en Google Sheets para la función SUMA. -->
-        `
-        <p class="text-muted small"><em>Ejemplo: Selección del rango de celdas para la función SUMA.</em></p>
-        <li>Pulsamos la tecla <strong>"Intro"</strong> en el teclado para que se ejecute la función.</li>
-    </ol>
-
-    <h2 class="mb-4 text-primary">5.5. Eliminar</h2>
-
-    <h3 class="mb-4 text-primary">5.5.1. Columnas</h3>
-    <p>El proceso para eliminar una columna es muy sencillo. Sólo debemos hacer clic derecho sobre la columna que
-        queremos eliminar y después clicar sobre:</p>
-    <ul>
-        <li><strong>Eliminar columna:</strong> Borra el contenido y la columna.</li>
-        <li><strong>Borrar columna:</strong> Borra únicamente el contenido de la columna, dejando la columna vacía.</li>
-        <li><strong>Ocultar columna:</strong> Oculta la columna así como también la información, pero sus datos siguen
-            presentes en las fórmulas donde se utilice esa columna.</li>
-    </ul>
-
-    <h3 class="mb-4 text-primary">5.5.2. Filas</h3>
-    <p>Para eliminar una fila, tan sólo debemos hacer clic derecho en la fila que queremos eliminar y clicar sobre:</p>
-    <ul>
-        <li><strong>Eliminar fila:</strong> Borra el contenido y la fila.</li>
-        <li><strong>Borrar fila:</strong> Borra únicamente el contenido de la fila, dejando la fila vacía.</li>
-        <li><strong>Ocultar fila:</strong> Oculta la fila así como también la información, pero sus datos siguen
-            presentes en las fórmulas donde se utilice esa fila.</li>
-    </ul>
-
-    <h3 class="mb-4 text-primary">5.5.3. Notas</h3>
-    <p>Para eliminar una nota, debemos hacer clic derecho sobre la celda que contenga una nota y clicar sobre
-        <strong>“Borrar nota”</strong>.
-    </p>
-    <!-- IMAGEN: Menú contextual de una celda con nota, mostrando la opción "Borrar nota". -->
-    `
-
-    <h3 class="mb-4 text-primary">5.5.4. Imágenes</h3>
-    <p>Para eliminar una imagen, debemos hacer clic en ella. En la parte superior derecha de la imagen aparecen tres
-        puntos verticales. Hacemos clic en ese icono (1) y después en <strong>“Eliminar imagen”</strong> (2).</p>
-    <!-- IMAGEN: Una imagen insertada en Google Sheets con los tres puntos de menú (1) y la opción "Eliminar imagen" (2) señaladas. -->
-    `
-
-    <h2 class="mb-4 text-primary">5.6. ¿Cómo Descargamos Nuestras Hojas de Cálculo?</h2>
-    <p>Para descargar una copia local de nuestra hoja de cálculo debemos ir a la barra de menús, pasar el puntero sobre
-        <strong>"Archivo"</strong> y después sobre <strong>"Descargar como"</strong>. Google Sheets nos permite
-        descargar el archivo en varios formatos (<code>.xlsx</code>, <code>.ods</code>, <code>.pdf</code>,
-        <code>.csv</code>, <code>.txt</code>, <code>.html</code>). Hacemos clic en el formato que queramos y comenzará
-        el proceso de descarga.
-    </p>
-    <!-- IMAGEN: Menú "Archivo" en Google Sheets con la opción "Descargar como" desplegada y los formatos disponibles. -->
-    `
-    <p class="text-muted small"><em>Ejemplo: Opciones de descarga de Google Sheets.</em></p>
-
-    <h2 class="mb-4 text-primary">5.7. Cómo Podemos Compartir Nuestra Hoja de Cálculo para Colaboración en Grupo</h2>
-    <p>El proceso es muy similar al que hemos estado viendo a la hora de compartir un documento para la colaboración en
-        grupo. Debemos hacer clic en el botón <strong>"Compartir"</strong>, seleccionar a los usuarios y los permisos
-        que queramos conceder (lector, comentador, editor).</p>
-    <!-- IMAGEN: Ventana de diálogo "Compartir" en Google Sheets. -->
-    `
-
-    <h2 class="mb-4 text-primary">5.8. Comentarios</h2>
-    <p>Esta parte de comentarios también es muy similar a la que hemos visto a la hora de comentar un documento, salvo
-        que en las hojas de cálculo se pueden comentar celdas, que es lo que explicaremos a continuación.</p>
-
-    <h3>Comentarios Generales en la Hoja de Cálculo:</h3>
-    <p>Se hacen de la misma forma que en los documentos de Google Docs.</p>
-
-    <h3>Comentarios en una Celda:</h3>
-    <p>Este tipo de comentario en nuestra hoja de cálculo puede ser de gran utilidad. Un ejemplo es al trabajar varias
-        personas en un mismo archivo, alguno puede darse cuenta de un error en un valor y dejar constancia para que otro
-        miembro del grupo lo corrija. Una vez resuelto el problema, se puede marcar este comentario como resuelto y se
-        oculta.</p>
-    <p>Para ello, debemos señalar la celda que queremos comentar y hacer clic en <strong>“Insertar →
-            Comentario”</strong> o también desde la propia interfaz, cuando tengamos la celda seleccionada, a través del
-        icono de comentario en la barra de herramientas.</p>
-    <ol>
-        <li>Seleccionamos la celda que queremos comentar.</li>
-        <li>Hacemos clic en el icono de comentario (el icono de globo de diálogo).</li>
-        <li>Escribimos el comentario en el cuadro de texto que aparece.</li>
-        <li>Hacemos clic en <strong>"Comentar"</strong>.</li>
-    </ol>
-    <!-- IMAGEN: Celda seleccionada en Google Sheets, con el cuadro de texto para añadir un comentario abierto. -->
-    `
-    <p class="text-muted small"><em>Ejemplo: Añadir un comentario a una celda.</em></p>
-    <p>Para resolver un comentario, sólo debemos hacer clic en la celda que tenga el comentario, después ir al cuadro
-        amarillo que nos aparece y hacer clic en el check ✅ o en <strong>"Resolver"</strong>. De esta forma, el
-        comentario se oculta.</p>
-    <!-- IMAGEN: Cuadro de comentario de celda con la opción "Resolver" o el check visible. -->
-    `
-
-    <h2 class="mb-4 text-primary">5.9. Uso Avanzado de la Hoja de Cálculo</h2>
-
-    <h3 class="mb-4 text-primary">5.9.1. Funciones / Fórmulas Avanzadas</h3>
-    <p>Vamos a ver unas cuantas funciones avanzadas de uso corriente dentro de las hojas de cálculo:</p>
-    <ul>
-        <li><code>ABS(número)</code>: Devuelve el valor absoluto del número especificado.</li>
-        <li><code>EXP(número)</code>: Devuelve el valor de <em>e</em> elevado a la potencia indicada.</li>
-        <li><code>INT(número)</code> o <code>ENTERO(NÚMERO)</code>: Redondea el número especificado al entero inferior
-            más cercano.</li>
-        <li><code>LOG(número; base)</code>: Devuelve el logaritmo del número especificado en la base indicada.</li>
-        <li><code>INT.EFECTIVO(tipo_nominal; períodos_por_año)</code>: Devuelve la tasa de interés anual efectiva.
-            <ul>
-                <li><code>tipo_nominal</code> = Tasa de interés anual nominal.</li>
-                <li><code>períodos_por_año</code> = Nº de períodos de capitalización anuales.</li>
-            </ul>
-        </li>
-        <li><code>MULTIPLY(número_1; número_2)</code>: Devuelve el producto de los 2 números indicados.</li>
-        <li><code>CHAR(número)</code> o <code>CARACTER(número)</code>: Convierte un número en un carácter.</li>
-        <li><code>EXACTO(texto_1; texto_2)</code> o <code>IGUAL(texto_1; texto_2)</code>: Compara si son iguales dos
-            cadenas especificadas. Devuelve TRUE si lo son, y FALSE si son diferentes.</li>
-        <li><code>CONCAT(texto_1; texto_2)</code>: Concatena las dos cadenas o valores indicados.</li>
-    </ul>
-    <p>Éstas son sólo unas pocas funciones. Para hacer uso de ellas y saber cómo funcionan:</p>
-    <p>Al hacer clic sobre <strong>"Todas"</strong> (en el selector de funciones), automáticamente accederemos al
-        listado completo de funciones de Google Sheets. En este listado se muestra su significado, cómo utilizarlas y
-        cómo buscarlas de forma cómoda y sencilla.</p>
-    <!-- IMAGEN: Panel lateral de Google Sheets mostrando la lista de funciones y la opción "Más información". -->
-    `
-    <p class="text-muted small"><em>Ejemplo: Explorador de funciones en Google Sheets.</em></p>
-    <p>Si queremos ver aún más información, podemos hacer clic en el botón <strong>“Más información”</strong>.</p>
-    <p>Para utilizar cualquiera de estas funciones, lo que haremos es introducir el signo igual (<code>=</code>) seguido
-        del nombre de la función en la celda que queramos, por ejemplo: <code>“=CONCAT();”</code>.</p>
-    <p>Ten en cuenta que Google Sheets permite las funciones anidadas, es decir, una función dentro de otra, lo que te
-        ahorrará tiempo y espacio.</p>
-
-    <h3 class="mb-4 text-primary">5.9.2. Gráficos</h3>
-
-    <h4 class="mb-4 text-primary">5.9.2.1. Añadir un Gráfico</h4>
-    <p>En Google Sheets podrás crear y personalizar gráficos de forma muy sencilla. Para ello, seguiremos los siguientes
-        pasos:</p>
-    <p>Una vez que tenemos recogida y seleccionada la información válida para crear un gráfico en nuestra hoja de
-        cálculo, hacemos clic sobre el icono <strong>“Insertar gráfico”</strong> en la barra de herramientas.</p>
-    <!-- IMAGEN: Una tabla de datos seleccionada en Google Sheets, con el icono "Insertar gráfico" resaltado. -->
-    `
-    <p class="text-muted small"><em>Ejemplo: Datos seleccionados y botón "Insertar gráfico".</em></p>
-    <p>Nos aparecerá lo siguiente (el editor de gráficos en el panel lateral):</p>
-    <!-- IMAGEN: Panel lateral "Editor de gráficos" en Google Sheets, mostrando las pestañas "Configuración" y "Personalizar". -->
-    `
-    <p class="text-muted small"><em>Ejemplo: Editor de gráficos de Google Sheets.</em></p>
-    <p>Podemos apreciar 2 pestañas:</p>
-    <ul>
-        <li><strong>Configuración:</strong>
-            <p>Este primer apartado corresponde a la imagen anterior. En ella nos proporcionan una serie de parámetros
-                para crear un gráfico general. Observamos:</p>
-            <ul>
-                <li><strong>Tipo de gráfico:</strong> Podemos elegir el tipo de gráfico que necesitemos. Google nos
-                    proporciona varios modelos de gráficos por defecto. Haciendo clic en "Gráficos de líneas" (o el tipo
-                    preseleccionado) accederemos a todos los tipos de gráficos disponibles.</li>
-                <li><strong>Intervalo de datos:</strong> En este punto se reflejan los datos de las celdas seleccionadas
-                    que recogen la información para crear el gráfico.</li>
-                <li><strong>Eje X:</strong> Con estas casillas podremos combinar los intervalos de las coordenadas. Se
-                    recomienda dejarlo tal cual por defecto.</li>
-            </ul>
-        </li>
-        <li><strong>Gráficos:</strong>
-            <p>En esta sección nos encontraremos con un tipo de gráficos más específicos organizados por categorías,
-                tales como: línea, aérea, columna, circular, dispersión, etc.</p>
-            <!-- IMAGEN: Pestaña "Configuración" del editor de gráficos, mostrando diferentes tipos de gráficos por categorías y una previsualización. -->
-            `
-            <p class="text-muted small"><em>Ejemplo: Selección de tipo de gráfico.</em></p>
-            <p>Marcando cada una de las categorías podemos ver a la izquierda en el panel una simulación del gráfico.
-            </p>
-            <p>Por ejemplo: si marcamos la categoría Barras el primer modelo nos aparece lo siguiente:</p>
-            <!-- IMAGEN: Un gráfico de barras de ejemplo generado en el editor. -->
-            `
-            <p class="text-muted small"><em>Ejemplo: Vista previa de un gráfico de barras.</em></p>
-        </li>
-        <li><strong>Personalizar:</strong>
-            <p>En esta última sección encontraremos una serie de parámetros que nos permitirán darle un toque personal a
-                nuestros gráficos.</p>
-            <p>Hay que tener en cuenta que esta sección cambiará dependiendo del tipo de gráfico escogido en la anterior
-                sección; por ejemplo, si elegimos un tipo de gráfico de "Columnas" será diferente al de un gráfico de
-                tipo “Líneas”.</p>
-            <!-- IMAGEN: Pestaña "Personalizar" del editor de gráficos con opciones de personalización (títulos, colores, ejes, leyendas, etc.). -->
-            `
-            <p class="text-muted small"><em>Ejemplo: Opciones de personalización de un gráfico.</em></p>
-            <p>Una vez creado el gráfico a nuestro gusto, estará donde se añadió cuando abrimos la opción de insertar un
-                gráfico, luego lo podremos mover donde queramos dentro de la hoja.</p>
-        </li>
-    </ul>
-
-    <h4 class="mb-4 text-primary">5.9.2.2. Eliminar un Gráfico</h4>
-    <p>En el momento en que queramos eliminar un gráfico de nuestra hoja de cálculo, seguiremos estos 2 sencillos pasos:
-    </p>
-    <p>En la parte superior derecha del gráfico encontramos un icono de tres puntos verticales.</p>
-    <!-- IMAGEN: Gráfico insertado en Google Sheets, con el icono de menú de tres puntos verticales resaltado. -->
-    `
-    <p class="text-muted small"><em>Ejemplo: Botón de opciones de un gráfico.</em></p>
-    <p>Si hacemos clic sobre este icono nos aparecerá una lista desplegable de opciones sobre el gráfico. En este caso
-        elegiremos <strong>"Eliminar gráfico"</strong> y automáticamente se eliminará.</p>
-    <!-- IMAGEN: Menú desplegable de un gráfico con la opción "Eliminar gráfico" resaltada. -->
-    `
-
-    <h3 class="mb-4 text-primary">5.9.3. Portapapeles Web</h3>
-    <p>De esta opción ya hemos hablado en otra sección del manual (probablemente en la unidad de Google Docs). Los pasos
-        para utilizar el portapapeles web son los mismos que se describieron para la edición de documentos, permitiendo
-        copiar y pegar contenido entre diferentes aplicaciones de Google Workspace.</p>
-
-    <h2 class="mb-4 text-primary">5.10. Selección, Tamaño de Celdas y Series</h2>
-
-    <h3 class="mb-4 text-primary">5.10.1. Selección de una Celda o Rango de Celdas</h3>
-    <p>Para activar una celda es suficiente con hacer clic sobre ella. Muchas veces se querrá realizar la misma
-        operación sobre un conjunto de celdas; en este caso, es interesante seleccionar primero el conjunto de celdas y
-        después realizar la modificación de forma única.</p>
-    <p>Para seleccionar un conjunto o rango de celdas, tenemos varias posibilidades:</p>
-
     <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-            <thead>
+        <table class="table table-bordered align-middle my-4 caption-top">
+            <caption class="text-center fw-bold h5">📊 ESQUEMA DETALLADO DE LA INTERFAZ DE GOOGLE SHEETS</caption>
+            <thead class="table-dark">
                 <tr>
-                    <th>Rango a seleccionar</th>
-                    <th>Selección</th>
+                    <th scope="col" style="width: 5%;" class="text-center">#</th>
+                    <th scope="col" colspan="2">Descripción</th>
                 </tr>
             </thead>
             <tbody>
+                <!-- Grupo 1 -->
                 <tr>
-                    <td>Una celda</td>
-                    <td>Clic sobre la celda.</td>
+                    <td rowspan="4" class="text-center h4"><strong>1</strong></td>
+                    <td colspan="2">“Hoja de cálculo sin título”: Si hacemos click podremos cambiar el nombre de nuestra
+                        hoja de cálculo.</td>
                 </tr>
                 <tr>
-                    <td>Una columna</td>
-                    <td>Clic sobre la etiqueta de la columna (la letra).</td>
+                    <td class="text-center" style="width: 120px;"><img alt="Icono de destacar archivo"
+                            src="../AO/img/Unidad-5/Ejemplo65.png" class="img-fluid" style="max-width: 45px;"></td>
+                    <td>Podremos marcar el archivo que estamos editando como “destacado”.</td>
                 </tr>
                 <tr>
-                    <td>Una fila</td>
-                    <td>Clic sobre la etiqueta de la fila (el número).</td>
+                    <td class="text-center"><img alt="Icono de mover archivo" src="../AO/img/Unidad-5/Ejemplo52.png"
+                            class="img-fluid" style="max-width: 45px;"></td>
+                    <td>Aquí podemos mover el archivo que estamos editando en una de las carpetas que tengamos creadas.
+                    </td>
                 </tr>
                 <tr>
-                    <td>Rango de celdas</td>
-                    <td>Clic sobre una esquina del rango y arrastrar hasta la esquina opuesta.</td>
+                    <td class="text-center"><img alt="Icono de estado de la nube" src="../AO/img/Unidad-5/Ejemplo20.png"
+                            class="img-fluid" style="max-width: 45px;"></td>
+                    <td>Puedes editar este documento sin conexión a Internet. Los cambios se guardarán en Drive cuando
+                        vuelvas a conectarte.</td>
+                </tr>
+                <!-- Grupo 2 -->
+                <tr>
+                    <td class="text-center h4"><strong>2</strong></td>
+                    <td colspan="2">Aquí vemos la barra de menús, más adelante se mostrará cómo usarla.</td>
+                </tr>
+                <!-- Grupo 3 -->
+                <tr>
+                    <td rowspan="4" class="text-center h4"><strong>3</strong></td>
+                    <td class="text-center"><img alt="Icono de historial de versiones"
+                            src="../AO/img/Unidad-5/Ejemplo44.png" class="img-fluid" style="max-width: 45px;"></td>
+                    <td>Podemos ver el historial de versiones.</td>
                 </tr>
                 <tr>
-                    <td>Toda la hoja de cálculo</td>
-                    <td>Hacer clic sobre la celda en blanco situada en la esquina superior izquierda (entre las
-                        etiquetas A y 1).</td>
+                    <td class="text-center"><img alt="Icono de comentarios" src="../AO/img/Unidad-5/Ejemplo50.png"
+                            class="img-fluid" style="max-width: 45px;"></td>
+                    <td>Podremos ver los comentarios hechos en nuestra hoja de cálculo.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de videollamada" src="../AO/img/Unidad-5/Ejemplo56.png"
+                            class="img-fluid" style="max-width: 40px;"></td>
+                    <td>Podemos iniciar una videollamada sin salir del documento.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Botón de compartir" src="../AO/img/Unidad-5/Ejemplo49.png"
+                            class="img-fluid" style="max-width: 75px;"></td>
+                    <td>Este botón nos permitirá compartir nuestra hoja de cálculo para que otras personas puedan verla
+                        o
+                        incluso editarla conjuntamente.</td>
+                </tr>
+                <!-- Grupo 4 -->
+                <tr>
+                    <td class="text-center h4"><strong>4</strong></td>
+                    <td colspan="2">En este cuadro de texto podemos escribir el texto o las fórmulas que vayan a una
+                        celda.
+                    </td>
+                </tr>
+                <!-- Grupo 5 -->
+                <tr>
+                    <td rowspan="6" class="text-center h4"><strong>5</strong></td>
+                    <td class="text-center"><img alt="Icono de buscar en los menús"
+                            src="../AO/img/Unidad-5/Ejemplo57.png" class="img-fluid" style="max-width: 45px;"></td>
+                    <td>En esta opción podemos buscar todos los apartados del Google Spreadsheet.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de deshacer" src="../AO/img/Unidad-5/Ejemplo15.png"
+                            class="img-fluid" style="max-width: 40px;"></td>
+                    <td>Deshacer los cambios realizados.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de rehacer" src="../AO/img/Unidad-5/Ejemplo27.png"
+                            class="img-fluid" style="max-width: 40px;"></td>
+                    <td>Rehacer los cambios realizados.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de imprimir" src="../AO/img/Unidad-5/Ejemplo79.png"
+                            class="img-fluid" style="max-width: 50px;"></td>
+                    <td>Imprimir nuestro documento.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de copiar formato" src="../AO/img/Unidad-5/Ejemplo76.png"
+                            class="img-fluid" style="max-width: 40px;"></td>
+                    <td>Copiar el Formato.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de zoom" src="../AO/img/Unidad-5/Ejemplo86.png"
+                            class="img-fluid" style="max-width: 75px;"></td>
+                    <td>Modificar la visualización del documento.</td>
+                </tr>
+                <!-- Grupo 6 -->
+                <tr>
+                    <td rowspan="6" class="text-center h4"><strong>6</strong></td>
+                    <td colspan="2">En este cuadro tenemos las herramientas de los números y los formatos adicionales de
+                        números o fechas.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de formato moneda" src="../AO/img/Unidad-5/Ejemplo94.png"
+                            class="img-fluid" style="max-width: 35px;"></td>
+                    <td>Aquí podemos formatear nuestra celda o celdas texto como tipo "moneda".</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de formato porcentaje"
+                            src="../AO/img/Unidad-5/Ejemplo47.png" class="img-fluid" style="max-width: 35px;"></td>
+                    <td>En este otro botón podemos formatear nuestras celdas como tipos "porcentaje".</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de reducir decimales" src="../AO/img/Unidad-5/Ejemplo4.png"
+                            class="img-fluid" style="max-width: 45px;"></td>
+                    <td>En este botón podremos reducir el número de decimales.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de aumentar decimales"
+                            src="../AO/img/Unidad-5/Ejemplo93.png" class="img-fluid" style="max-width: 40px;"></td>
+                    <td>En este otro botón podremos aumentar el número de decimales.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de más formatos" src="../AO/img/Unidad-5/Ejemplo82.png"
+                            class="img-fluid" style="max-width: 45px;"></td>
+                    <td>Si hacemos clic en este botón aparece una lista desplegable con más formatos como fechas, otros
+                        tipos de monedas, etc.</td>
+                </tr>
+                <!-- Grupo 7 -->
+                <tr>
+                    <td rowspan="7" class="text-center h4"><strong>7</strong></td>
+                    <td colspan="2">En este cuadro tenemos los estilos de las filas y columnas con los formatos que
+                        podemos
+                        aplicar.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Selector de tipo de fuente" src="../AO/img/Unidad-5/Ejemplo87.png"
+                            class="img-fluid" style="max-width: 95px;"></td>
+                    <td>Este botón nos permite cambiar el tipo de letra (fuente).</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Selector de tamaño de fuente"
+                            src="../AO/img/Unidad-5/Ejemplo46.png" class="img-fluid" style="max-width: 85px;"></td>
+                    <td>Desde aquí podemos cambiar el tamaño de la letra.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Iconos de formato de texto" src="../AO/img/Unidad-5/Ejemplo31.png"
+                            class="img-fluid" style="max-width: 55px;"></td>
+                    <td>Cambia el estilo de la fuente a negrita.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Iconos de formato de texto" src="../AO/img/Unidad-5/Ejemplo80.png"
+                            class="img-fluid" style="max-width: 60px;"></td>
+                    <td>Cambia el estilo de la fuente en cursiva.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Iconos de formato de texto" src="../AO/img/Unidad-5/Ejemplo35.png"
+                            class="img-fluid" style="max-width: 60px;"></td>
+                    <td>Cambia el estilo de la fuente a tachado.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de color de texto" src="../AO/img/Unidad-5/Ejemplo83.png"
+                            class="img-fluid" style="max-width: 60px;"></td>
+                    <td>Desde ahí podemos cambiar el color a nuestra fuente.</td>
+                </tr>
+                <!-- Grupo 8 -->
+                <tr>
+                    <td rowspan="4" class="text-center h4"><strong>8</strong></td>
+                    <td colspan="2">En este cuadro podremos añadir estilos a las celdas, como el color, el borde o
+                        combinar
+                        las celdas vertical o horizontalmente.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de color de relleno" src="../AO/img/Unidad-5/Ejemplo64.png"
+                            class="img-fluid" style="max-width: 60px;"></td>
+                    <td>Aquí podemos cambiar el color de relleno de nuestras celdas.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de bordes" src="../AO/img/Unidad-5/Ejemplo53.png"
+                            class="img-fluid" style="max-width: 60px;"></td>
+                    <td>En este otro botón podemos añadir bordes a las celdas que seleccionamos y aplicar color a estos
+                        bordes.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de combinar celdas" src="../AO/img/Unidad-5/Ejemplo10.png"
+                            class="img-fluid" style="max-width: 70px;"></td>
+                    <td>Desde aquí podemos combinar diferentes celdas para que formen una sola.</td>
+                </tr>
+                <!-- Grupo 9 -->
+                <tr>
+                    <td rowspan="5" class="text-center h4"><strong>9</strong></td>
+                    <td colspan="2">En este cuadro tenemos la posibilidad de dar formato a la celda, fila o columna para
+                        alinear horizontal y verticalmente, así como rotar el contenido.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de alineación horizontal"
+                            src="../AO/img/Unidad-5/Ejemplo32.png" class="img-fluid" style="max-width: 60px;"></td>
+                    <td>Aquí podemos alinear horizontalmente el texto de nuestra celda, a la izquierda, a la derecha o
+                        centrado.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de alineación vertical"
+                            src="../AO/img/Unidad-5/Ejemplo33.png" class="img-fluid" style="max-width: 60px;"></td>
+                    <td>En celdas grandes, esta opción nos sirve para alinear verticalmente la nuestra celda, arriba,
+                        abajo
+                        o en el centro.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de ajuste de texto" src="../AO/img/Unidad-5/Ejemplo68.png"
+                            class="img-fluid" style="max-width: 55px;"></td>
+                    <td>En celdas con mucho texto esta opción nos permite ajustar el texto al tamaño de la celda.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de rotación de texto" src="../AO/img/Unidad-5/Ejemplo78.png"
+                            class="img-fluid" style="max-width: 65px;"></td>
+                    <td>En las celdas nos permite rotar el texto en la dirección que seleccionemos.</td>
+                </tr>
+                <!-- Grupo 10 -->
+                <tr>
+                    <td rowspan="7" class="text-center h4"><strong>10</strong></td>
+                    <td colspan="2">Este cuadro es más complejo ya que cuenta con la posibilidad de enlaces,
+                        comentarios,
+                        gráficos, filtros, vistas y lo más importante, las funciones.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de insertar enlace" src="../AO/img/Unidad-5/Ejemplo11.png"
+                            class="img-fluid" style="max-width: 45px;"></td>
+                    <td>Esta opción nos permite añadir enlaces en la celda seleccionada.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de insertar comentario"
+                            src="../AO/img/Unidad-5/Ejemplo16.png" class="img-fluid" style="max-width: 55px;"></td>
+                    <td>Nos permite añadir un comentario a una palabra o frase de nuestra hoja de cálculo.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de insertar gráfico" src="../AO/img/Unidad-5/Ejemplo60.png"
+                            class="img-fluid" style="max-width: 50px;"></td>
+                    <td>Esta opción nos permite insertar gráficos con los datos que tenemos en la hoja de cálculo.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de crear filtro" src="../AO/img/Unidad-5/Ejemplo29.png"
+                            class="img-fluid" style="max-width: 45px;"></td>
+                    <td>Cuando tenemos datos en la hoja de cálculo, esta opción nos permite añadir filtros como ahora
+                        ordenar los datos de la A a la Z o de mayor a menor.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de vistas de filtro" src="../AO/img/Unidad-5/Ejemplo8.png"
+                            class="img-fluid" style="max-width: 70px;"></td>
+                    <td>Cuando tenemos datos en la hoja de cálculo, esta opción nos permite crear Vistas con filtros.
+                        Puedes
+                        ordenar los datos por orden alfabético o numérico, u ocultar los datos que no quieras ver
+                        mediante
+                        filtros.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de funciones" src="../AO/img/Unidad-5/Ejemplo19.png"
+                            class="img-fluid" style="max-width: 50px;"></td>
+                    <td>Este botón nos permite acceder a las funciones/fórmulas.</td>
+                </tr>
+                <!-- Grupo 11 -->
+                <tr>
+                    <td rowspan="4" class="text-center h4"><strong>11</strong></td>
+                    <td colspan="2">Este menú es posible que no os aparezca, es para la estructura del documento y el
+                        alineamiento del mismo.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de dirección de hoja" src="../AO/img/Unidad-5/Ejemplo23.png"
+                            class="img-fluid" style="max-width: 50px;"></td>
+                    <td>Este botón nos permite mover nuestra hoja de cálculo de derecha a izquierda, moviendo las letras
+                        de
+                        orden y los números en la parte izquierda.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de dirección de texto"
+                            src="../AO/img/Unidad-5/Ejemplo71.png" class="img-fluid" style="max-width: 45px;"></td>
+                    <td>
+                        <p>Este botón nos permite mover nuestro texto o contenido de derecha a izquierda, es el que
+                            viene
+                            por defecto.</p>
+                        <small class="text-muted">Esta opción es diferente de alinear el texto.</small>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center"><img alt="Icono de dirección de texto"
+                            src="../AO/img/Unidad-5/Ejemplo70.png" class="img-fluid" style="max-width: 50px;"></td>
+                    <td>
+                        <p>Este botón nos permite mover nuestro texto o contenido de izquierda a derecha.</p>
+                        <small class="text-muted">Esta opción es diferente de alinear el texto.</small>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <!-- IMAGEN: Diferentes formas de seleccionar celdas, filas, columnas y toda la hoja en Google Sheets. -->
-    `
+    <p>Por otra parte en la parte inferior izquierda vemos esto:</p>
+    <div class="text-center my-3">
+        <img alt="Vista de la parte inferior de la interfaz de Google Sheets" src="../AO/img/Unidad-5/Ejemplo45.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <h2 class="mb-4 text-primary" id="h.y43bmjavo9e0">5.2. IMPORTACIÓN DE OTRAS HOJAS DE CÁLCULO</h2>
+    <p>Importa de otro archivo de hoja de cálculo puede ser útil a la hora de combinar un archivo que ya tenemos hecho
+        con otro que estamos haciendo en la aplicación.</p>
+    <div class="text-center my-3">
+        <img alt="Menú para importar archivo" src="../AO/img/Unidad-5/Ejemplo39.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <p>Para realizar esto debemos ir a "Archivo → Importar".</p>
+    <p>Luego nos aparecerá una ventana como ésta:</p>
+    <div class="text-center my-3">
+        <img alt="Ventana de importación de archivos" src="../AO/img/Unidad-5/Ejemplo67.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <p>Para subir uno de nuestros archivos hacemos clic en "Subir → Examinar" de entre los formatos compatibles que nos
+        indican después podemos configurar la forma en la que este archivo que vamos a subir se va a integrar.</p>
 
-    <h3 class="mb-4 text-primary">5.10.2. Dimensiones de las Celdas</h3>
-    <p>Inicialmente, todas las celdas de la hoja de cálculo tienen la misma altura y anchura. Cuando se escribe en una
-        celda un texto cuya longitud es mayor que el ancho de la columna, el texto que sobresale aparecerá en la celda
-        de la derecha, siempre y cuando esté vacía. Si no está vacía, se mostrará sólo la parte de texto que quepa en la
-        celda.</p>
+    <ul>
+        <li><strong>Crear una nueva hoja de cálculo:</strong> un archivo nuevo totalmente independiente.: De esta manera
+            el archivo que vamos a importar se crearía en un documento nuevo.</li>
+        <li><strong>En el archivo de la aplicación:</strong> Con el archivo que vamos a importar.
+            Añadirá nuevas hojas: De esta forma se combinarán las hojas que ya tenemos hechas.</li>
+        <li><strong>Sustituir hoja de cálculo con la hoja de cálculo del archivo local que
+                importamos:</strong> Con esta opción cambiamos la hoja de cálculo de la aplicación.
+        </li>
+    </ul>
+    <p class="fw-bold">Las siguientes opciones sólo son compatibles con los formatos: CSV, TSV, TAB y TXT.</p>
+    <ul>
+        <li><strong>Sustituir la hoja actual:importamos en el archivo que vamos a subir:</strong> Sustituye los datos de
+            la hoja actual con los datos que sustituye a la hoja actual</li>
+        <li><strong>Añadir filas a la hoja actual:con los datos del archivo que vamos a importar:</strong> Con
+            esta opción añadimos nuevas filas a nuestra hoja actual.</li>
+        <li><strong>Sustituir los datos de la celda seleccionada:</strong> esta opción pega los datos importados
+            en el intervalo de celdas seleccionado</li>
+        <li>Para finalizar la importación, sólo tenemos que hacer clic en "Importar"</li>
+    </ul>
+    <h2 class="mb-4 text-primary" id="h.jxt9fhdvr7ih">5.3. HOJAS</h2>
+    <p>Si tomamos el archivo de hoja de cálculo como un libro, cada una de las páginas de ese libro se llama "hoja".
+        Cada una de estas "hojas" todavía dentro del mismo libro, son independientes y pueden contener datos diferentes,
+        aunque también estas hojas pueden compartir información e intercambiar datos entre ellos.</p>
 
-    <h4>Cambio de Ancho de la Columna:</h4>
-    <p>Resalta una celda de la columna a modificar. Selecciona la cabecera de la columna (la letra) y haz clic derecho.
-        Elige la opción <strong>"Cambiar tamaño de columna"</strong>. Puedes introducir un valor exacto o ajustar
-        automáticamente al contenido.</p>
-    <!-- IMAGEN: Menú contextual de la cabecera de una columna con la opción "Cambiar tamaño de columna". -->
-    `
+    <h3 class="mb-4 text-primary" id="h.4343csp6cwx5">5.3.1. CAMBIAR EL NOMBRE A UNA HOJA</h3>
+    <div class="text-center my-3">
+        <img alt="Menú contextual de una hoja de cálculo" src="../AO/img/Unidad-5/Ejemplo48.png"
+            class="img-fluid shadow-sm rounded" style="max-height: 350px;">
+    </div>
+    <p>Para cambiar el nombre de una hoja, tan sólo debemos hacer clic en la hoja que queramos y darle a "cambiar
+        nombre".</p>
+    <div class="text-center my-3">
+        <img alt="Ventana para cambiar nombre de hoja" src="../AO/img/Unidad-5/Ejemplo51.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <p>Le indicamos el nombre nuevo y aceptamos.</p>
 
-    <h4>Cambio de Altura de la Fila:</h4>
-    <p>Resalta una celda de la fila a modificar. Selecciona la cabecera de la fila (el número) y haz clic derecho. Elige
-        la opción <strong>"Cambiar tamaño de fila"</strong>. Puedes introducir un valor exacto o ajustar automáticamente
-        al contenido.</p>
-    <!-- IMAGEN: Menú contextual de la cabecera de una fila con la opción "Cambiar tamaño de fila". -->
-    `
+    <h3 class="mb-4 text-primary" id="h.itlbr46pblqi">5.3.2. MOVER UNA HOJA DE POSICIóN</h3>
+    <p>Para mover una hoja tenemos 2 opciones:</p>
+    <ol>
+        <li>Arrastramos la hoja hasta la posición deseada: Por eso hacemos clic y mantenemos pulsado el
+            botón del ratón y arrastrar y “Arrastrar y soltar”</li>
+        <li>A través de las opciones de hoja: Para ello debemos hacer clic en el nombre de la hoja que queramos
+            mover y en el menú que aparece clicar en "Mueve a la derecha" o "Mueve a la izquierda"</li>
+    </ol>
+    <div class="text-center my-3">
+        <img alt="Opciones para mover hoja" src="../AO/img/Unidad-5/Ejemplo61.png" class="img-fluid shadow-sm rounded">
+    </div>
 
-    <h2 class="mb-4 text-primary">5.11. Formato de Celdas</h2>
-    <p>Una vez seleccionado un rango de celdas, la opción <strong>"Formato"</strong> de la barra de menú, o el panel
-        lateral de formato, permite configurar distintos parámetros de la apariencia de las celdas.</p>
+    <h3 class="mb-4 text-primary" id="h.u85vkp2kvba3">5.3.3. ELIMINAR UNA HOJA</h3>
+    <p>Eliminar una hoja es muy sencilla, tan sólo debemos hacer clic en el nombre de la hoja a eliminar y
+        después clicar en "Eliminar".</p>
+    <div class="text-center my-3">
+        <img alt="Opción para eliminar hoja" src="../AO/img/Unidad-5/Ejemplo77.png" class="img-fluid shadow-sm rounded"
+            style="max-height: 300px;">
+    </div>
+    <p>Nos preguntará si estamos seguros de que queremos eliminar esta hoja, si lo estamos hacemos clic en
+        "Aceptar".</p>
+    <h2 class="mb-4 text-primary" id="h.pdjnd6g7c83z">5.4. INSERTAR</h2>
+    <p>En esta sección del manual vamos a ver cómo insertar elementos en un archivo de hoja de
+        cálculo.</p>
 
-    <h3 class="mb-4 text-primary">5.11.1. Número</h3>
-    <p>Permite definir el formato del número contenido en la celda. A continuación se muestran los distintos tipos de
-        formatos que podemos aplicar, con la representación visual:</p>
-    <!-- IMAGEN: Menú de formato de números en Google Sheets, mostrando opciones como "Número", "Moneda", "Porcentaje", "Fecha", "Hora", etc. -->
-    `
-    <p class="text-muted small"><em>Ejemplo: Opciones de formato de número.</em></p>
-    <p><strong>Nota:</strong> En <strong>"Formato de número personalizado"</strong> podemos crear nuevos formatos en
-        base a unas expresiones que nos permiten crear formatos personalizados, además de distintos tipos de monedas y
-        formatos de fecha y hora a escoger.</p>
+    <h3 class="mb-4 text-primary" id="h.jsqt2tomr4b">5.4.1. COLUMNAS</h3>
+    <p>Para insertar una columna tan sólo debemos hacer clic derecho sobre la letra donde queremos insertar una
+        nueva columna y seleccionar:</p>
+    <ul>
+        <li><strong>Inserta 1 a la izquierda:</strong> Inserta una nueva columna a la izquierda de la que tengamos
+            seleccionada.</li>
+        <li><strong>Inserta 1 a la derecha:</strong> Inserta una nueva columna a la derecha de la que tengamos
+            seleccionada.</li>
+    </ul>
+    <div class="text-center my-3">
+        <img alt="Menú para insertar columnas" src="../AO/img/Unidad-5/Ejemplo21.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
 
-    <h3 class="mb-4 text-primary">5.11.2. Tamaño y Tipo de Letra</h3>
-    <p>Podemos aplicar un tamaño y tipos de letra personalizado (Negrita, Cursiva, Subrayar y tachar), además de alinear
-        y ajustar el texto dentro de la celda.</p>
+    <h3 class="mb-4 text-primary" id="h.c2x4hinl3f71">5.4.2. FILAS</h3>
+    <p>Insertar una fila es muy sencillo, tan sólo debemos hacer clic derecho sobre el número en la
+        posición donde queremos insertar una nueva fila y seleccionar:</p>
+    <ul>
+        <li><strong>Insertar 1 encima:</strong> Inserta una nueva fila de columnas arriba de la que tenemos
+            seleccionada.</li>
+        <li><strong>Insertar 1 debajo:</strong> Inserta una nueva fila de columnas en la parte inferior de la que
+            tenemos seleccionada.</li>
+    </ul>
+    <div class="text-center my-3">
+        <img alt="Menú para insertar filas" src="../AO/img/Unidad-5/Ejemplo22.png" class="img-fluid shadow-sm rounded">
+    </div>
 
-    <h3 class="mb-4 text-primary">5.11.3. Alineación y Texto</h3>
-    <p>Podemos alinear el texto que contenga una celda tanto horizontal (izquierda, centro, derecha) como verticalmente
-        (superior, medio, inferior), además de combinar las distintas opciones.</p>
+    <h3 class="mb-4 text-primary" id="h.fswlx7ok6j2r">5.4.3. NOTAS</h3>
+    <p>Para insertar una nota en una celda, debemos hacer clic en el botón derecho sobre la celda que queremos
+        comentar y seleccionar "Insertar nota".</p>
+    <div class="text-center my-3">
+        <img alt="Opción para insertar nota" src="../AO/img/Unidad-5/Ejemplo42.png" class="img-fluid shadow-sm rounded">
+    </div>
+    <div class="d-flex align-items-center">
+        <img alt="Cuadro de texto para escribir nota" src="../AO/img/Unidad-5/Ejemplo69.png" class="img-fluid me-3"
+            style="max-width: 300px;">
+        <p>Nos aparecerá un cuadro y aquí escribiremos lo que necesitamos.</p>
+    </div>
+    <p class="mt-3">Para visualizar esta nota, tan sólo debemos pasar el cursor del ratón sobre la celda.
+    </p>
 
-    <h3 class="mb-4 text-primary">5.11.4. Ajuste de Texto</h3>
+    <h3 class="mb-4 text-primary" id="h.oklcvt4infy9">5.4.4. IMÁGENES</h3>
+    <p>Es muy similar a cómo se insertan imágenes en un documento: Insertar → Imagen.</p>
+    <div class="text-center my-3">
+        <img alt="Menú para insertar imagen" src="../AO/img/Unidad-5/Ejemplo58.png" class="img-fluid shadow-sm rounded">
+    </div>
 
-    <h4 class="mb-4 text-primary">5.11.4.1. Modo Desbordamiento</h4>
-    <p>Cuando añadimos más texto de lo que podemos mostrar en una celda, el efecto que realiza es el de continuar en la
-        siguiente celda adyacente (a la derecha), siempre y cuando esta esté vacía.</p>
-    <!-- IMAGEN: Celda con texto que desborda hacia una celda vacía contigua. -->
-    `
+    <h3 class="mb-4 text-primary" id="h.2fdcl3rymii7">5.4.5. FUNCIONES / FÓRMULAS BÁSICAS</h3>
+    <p>Las funciones nos permiten agilizar cálculos y optimizar nuestra hoja de cálculo.</p>
+    <p>Hay muchas funciones más, pero las funciones básicas que trataremos son: SUMA(), AVERAGE() O
+        PROMEDIO(), MAX(), MIN() y COUNT() O CONTAR().</p>
+    <ul>
+        <li><strong>SUMA():</strong> Esta función nos sirve para sumar los valores que ponemos entre
+            paréntesis o para sumar un rango de celdas que seleccionemos.</li>
+        <li><strong>PROMEDIO():</strong> Esta función nos sirve para sacar una media de los valores que existan
+            en las celdas que seleccionamos.</li>
+        <li><strong>MAX():</strong> Esta función obtiene el valor máximo de un rango de celdas que
+            seleccionemos.</li>
+        <li><strong>MIN():</strong> Con esta función se obtiene el valor mínimo de un rango de celdas
+            seleccionado.</li>
+        <li><strong>CONTAR():</strong> Esta función nos permite saber el número de elementos existentes en
+            un rango de celdas que seleccionamos.</li>
+    </ul>
+    <p>El procedimiento para insertar estas funciones es similar, nosotros realizaremos el proceso con la función
+        SUMA(), pero son los mismos pasos para las demás funciones.</p>
+    <p>Tenemos este caso en el que queremos saber la suma de los elementos que tenemos.</p>
+    <div class="text-center my-3">
+        <img alt="Ejemplo de datos para sumar" src="../AO/img/Unidad-5/Ejemplo2.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <ol>
+        <li>Para ello nos colocamos en una celda vacía en nuestro caso la que está señalada de
+            color azul B6.</li>
+        <li>Después hacemos clic en el botón Funciones → SUMA.</li>
+        <li>Seleccionamos SUMA → Seleccionamos las celdas que queremos sumar.</li>
+    </ol>
+    <div class="text-center my-3">
+        <img alt="Menú para seleccionar función SUMA" src="../AO/img/Unidad-5/Ejemplo85.png" class="img-fluid">
+    </div>
+    <div class="text-center my-3">
+        <img alt="Selección del rango de celdas para sumar" src="../AO/img/Unidad-5/Ejemplo73.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <p>Después seleccionamos las celdas con valores que queramos sumar, en nuestro caso de B1 a B5.</p>
+    <div class="text-center my-3">
+        <img alt="Fórmula de suma insertada en la celda" src="../AO/img/Unidad-5/Ejemplo13.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <p>Y pulsamos la tecla "Intro" en el teclado para que se ejecute la función.</p>
+    <h2 class="mb-4 text-primary" id="h.veh2dpuqfzqn">5.5. ELIMINAR</h2>
+
+    <h3 class="mb-4 text-primary" id="h.sruu13o82m4q">5.5.1. COLUMNAS</h3>
+    <p>El proceso para eliminar una columna es muy sencillo, sólo debemos hacer clic derecho sobre la columna que
+        queremos eliminar y después clicar sobre "Eliminar columna".</p>
+    <div class="text-center my-3">
+        <img alt="Menú para eliminar columna" src="../AO/img/Unidad-5/Ejemplo1.png" class="img-fluid shadow-sm rounded">
+    </div>
+    <ul>
+        <li><strong>Eliminar columna:</strong> borra el contenido y la columna.</li>
+        <li><strong>Borrar columna:</strong> borra únicamente el contenido de la columna.</li>
+        <li><strong>Ocultar columna:</strong> oculta la columna así como también la información,
+            pero siguen presentes en las fórmulas donde se utilice esa columna.</li>
+    </ul>
+
+    <h3 class="mb-4 text-primary" id="h.o9t41kjfc4e">5.5.2. FILAS</h3>
+    <p>Para eliminar una fila, tan sólo debemos hacer clic derecho en la fila que queremos eliminar y clicar
+        sobre "Eliminar fila".</p>
+    <div class="text-center my-3">
+        <img alt="Menú para eliminar fila" src="../AO/img/Unidad-5/Ejemplo18.png" class="img-fluid shadow-sm rounded">
+    </div>
+    <ul>
+        <li><strong>Eliminar fila:</strong> borra el contenido y la fila.</li>
+        <li><strong>Borrar fila:</strong> borra únicamente el contenido de la fila.</li>
+        <li><strong>Ocultar fila:</strong> oculta la fila así como también la información, pero
+            siguen presentes en las fórmulas donde se utilice esa fila.</li>
+    </ul>
+
+    <h3 class="mb-4 text-primary" id="h.5evltzc316yg">5.5.3. NOTAS</h3>
+    <p>Para eliminar una nota, debemos hacer clic derecho sobre la celda que tenga una nota y clicar sobre “Borrar
+        notas”.</p>
+    <div class="text-center my-3">
+        <img alt="Opción para borrar nota" src="../AO/img/Unidad-5/Ejemplo34.png" class="img-fluid shadow-sm rounded">
+    </div>
+
+    <h3 class="mb-4 text-primary" id="h.7dbneaywd1hw">5.5.4. IMÁGENES</h3>
+    <p>Para eliminar una imagen debemos hacer clic en ella y en la parte superior de la imagen aparecen unos puntos
+        hacemos clic en el (1) y después en “Eliminar imagen” (2).</p>
+    <div class="text-center my-3">
+        <img alt="Menú para eliminar imagen" src="../AO/img/Unidad-5/Ejemplo88.png" class="img-fluid shadow-sm rounded">
+    </div>
+    <h2 class="mb-4 text-primary" id="h.wgpogj5y0w0v">5.6. ¿CÓMO DESCARGAMOS NUESTRAS HOJAS DE CÁLCULO?</h2>
+    <p>Para descargar una copia local de nuestra hoja de cálculo debemos ir a la barra de menús, pasamos
+        el puntero sobre "Archivo" y después sobre "Descarrega como". Google Hoja de Cálculo nos permite
+        descargar el archivo en varios formatos (xlsx, ods, pdf, csv, txt, html) hacemos clic en el formato que queramos
+        y empezará el proceso de descarga.</p>
+    <div class="text-center my-3">
+        <img alt="Menú para descargar hoja de cálculo en diferentes formatos" src="../AO/img/Unidad-5/Ejemplo14.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <h2 class="mb-4 text-primary" id="h.tpx3kxes8s2j">5.7. CÓMO PODEMOS COMPARTIR NUESTRA HOJA DE CÁLCULO PARA LA
+        COLABORACIÓN EN GRUPO</h2>
+    <p>El proceso es muy similar al que hemos estado viendo a la hora de compartir un documento para la
+        colaboración en grupo. Compartir → Seleccionar a los usuarios y los permisos que queramos conceder.</p>
+    <div class="text-center my-3">
+        <img alt="Ventana para compartir hoja de cálculo" src="../AO/img/Unidad-5/Ejemplo89.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <h2 class="mb-4 text-primary" id="h.87eygga2sfaj">5.8. COMENTARIOS</h2>
+    <p>Esta parte de comentarios también es muy similar a la que hemos visto a la hora de comentar un documento,
+        salvo que en las hojas de cálculo se pueden comentar celdas que es lo que explicaremos a
+        continuación.</p>
+
+    <h4 class="mb-4 text-primary">EN GENERAL EN LA HOJA DE CÁLCULO</h4>
+    <p>Se hacen de la misma forma que en los documentos.</p>
+
+    <h4 class="mb-4 text-primary">EN UNA CELDA</h4>
+    <p>Este tipo de comentario en nuestra hoja de cálculo puede ser de gran utilidad. Un ejemplo de la utilidad
+        de estos comentarios es la hora de estar trabajando varias personas en un mismo archivo, alguno de ellos puede
+        darse cuenta de un error en alguno de los valores que hay en la hoja de cálculo y dejar constancia de que
+        otro miembro del grupo pueda corregir este error. Una vez resuelto el problema se puede marcar este comentario
+        como resuelto y se oculta.</p>
+    <p>Por eso debemos señalar la celda queramos comentar y hacer clic en “Insertar → comentario” o
+        también desde la propia interfaz cuando tengamos la palabra señalada a través de este
+        botón: <img alt="Icono de añadir comentario" src="../AO/img/Unidad-5/Ejemplo6.png"
+            style="width: 22px; vertical-align: middle;"></p>
+    <div class="text-center my-3">
+        <img alt="Proceso para insertar un comentario en una celda" src="../AO/img/Unidad-5/Ejemplo30.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <ol>
+        <li>Seleccionamos la celda que queremos comentar.</li>
+        <li>Hagamos clic en el icono <img alt="Icono de añadir comentario" src="../AO/img/Unidad-5/Ejemplo6.png"
+                style="width: 22px; vertical-align: middle;">.</li>
+        <li>Escribimos el comentario en el cuadro de texto que aparece.</li>
+        <li>Hagamos clic en comentar.</li>
+    </ol>
+    <p>Para resolver un comentario, sólo debemos hacer clic en la celda que tenga el comentario, después
+        ir al cuadrado amarillo que nos aparece y hacer clic en el check ☑ o "Resolver" de esta forma se oculta.</p>
+    <div class="text-center my-3">
+        <img alt="Botón para resolver un comentario" src="../AO/img/Unidad-5/Ejemplo92.png"
+            class="img-fluid shadow-sm rounded me-3" style="max-width: 240px;">
+        <img alt="Comentario resuelto y oculto" src="../AO/img/Unidad-5/Ejemplo38.png"
+            class="img-fluid shadow-sm rounded" style="max-width: 280px;">
+    </div>
+    <h2 class="mb-4 text-primary" id="h.szts3coq69r2">5.9. USO AVANZADO DE LA HOJA DE CÁLCULO</h2>
+
+    <h3 class="mb-4 text-primary" id="h.jn16e126o2y8">5.9.1. FUNCIONES / FÓRMULAS AVANZADAS</h3>
+    <p>Vamos a ver unas cuantas funciones avanzadas de uso corriente dentro de las hojas de cálculo:</p>
+    <ul>
+        <li><strong>ABS(número):</strong> Esta función nos devuelve el valor absoluto del número
+            especificado.</li>
+        <li><strong>EXP(número):</strong> Esta función devuelve el valor de e elevado a la potencia
+            indicada.</li>
+        <li><strong>INT(número) o ENTERO(NúMERO):</strong> Redondea el número especificado en el
+            entero inferior más cercano.</li>
+        <li><strong>LOG(número; base):</strong> Devuelve el logaritmo del número especificado en la base
+            indicada.</li>
+        <li><strong>INT.EFECTIVO(tipo_nominal; períodos_por_año):</strong> Devuelve la tasa de
+            interés anual efectiva.</li>
+        <li><strong>MULTIPLY(número_1; número_2) *:</strong> Nos devolverá el producto de los 2
+            números indicados.</li>
+        <li><strong>CHAR(número) o CARACTER(número):</strong> Convierte un número en un
+            carácter.</li>
+        <li><strong>EXACTO(texto_1; texto_2) o IGUAL(texto_1; texto_2):</strong> Compara si son iguales dos cadenas
+            especificadas. Devuelve TRUE si lo son, y FALSE si son diferentes.</li>
+        <li><strong>CONCAT(texto_1; texto_2):</strong> Concatena las dos cadenas o valores indicados.</li>
+    </ul>
+    <p>Éstas son sólo unas pocas funciones. Para hacer uso de ellas y saber cómo funcionan hemos de
+        ir al menú de funciones:</p>
+    <div class="text-center my-3">
+        <img alt="Menú de inserción de funciones" src="../AO/img/Unidad-5/Ejemplo41.png" class="img-fluid"
+            style="max-width: 440px;">
+    </div>
+    <p>Al hacer clic sobre <strong>Todas</strong> automáticamente accederemos al listado completo de funciones de
+        Google Drive. En este listado nos muestra su significado, cómo utilizarlas y buscarlas de forma
+        cómoda y sencilla.</p>
+    <p>Si queremos ver aún más información, podemos hacer click en el botón “<a
+            href="https://support.google.com/docs/table/25273">Más información</a>”.</p>
+    <p>Para utilizar cualquiera de estas funciones, lo que haremos es introducir el signo igual (=) seguido del nombre
+        de la función en la celda que queramos, por ejemplo: “=CONCAT();”</p>
+    <p>Ten en cuenta que Google Drive permite las funciones anidadas, es decir, una función dentro de otra, por
+        lo que ahorrarás tiempo y espacio.</p>
+
+    <h3 class="mb-4 text-primary" id="h.sf8td9lqu4ez">5.9.2. GRÁFICOS</h3>
+
+    <h4 class="mb-4 text-primary" id="h.fvcuols7r1id">5.9.2.1. AÑADIR UN GRÁFICO</h4>
+    <p>En Google Drive podrás crear y personalizar gráficos cuando desees de forma muy sencilla. Por eso
+        seguiremos los siguientes pasos:</p>
+    <p>Una vez que tenemos recogida la información válida y seleccionada para crear un gráfico en
+        nuestra hoja de cálculo, pinchamos sobre el icono “Insertar gráfico”:</p>
+    <div class="text-center my-3">
+        <img alt="Barra de herramientas con el botón de insertar gráfico" src="../AO/img/Unidad-5/Ejemplo72.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <p>Nos aparecerá lo siguiente, con dos pestañas principales:</p>
+    <div class="text-center my-3">
+        <img alt="Editor de gráficos, pestaña de configuración" src="../AO/img/Unidad-5/Ejemplo74.png" class="img-fluid"
+            style="max-width: 250px;">
+    </div>
+    <p><strong>Configuración:</strong></p>
+    <p>Este primer apartado corresponde a la imagen anterior. En ella nos proporcionan una serie de parámetros
+        para crear un gráfico general.</p>
+    <ul>
+        <li><strong>Tipo de gráfico:</strong> Podemos elegir el tipo de gráfico que necesitemos.</li>
+        <li><strong>Intervalo de datos:</strong> En este punto se reflejan los datos de las celdas seleccionadas que
+            recogen la información para crear el gráfico.</li>
+        <li><strong>Eje X:</strong> Con estas casillas podremos combinar los intervalos de las coordenadas. Se
+            recomienda dejarlo tal cual por defecto.</li>
+    </ul>
+    <div class="text-center my-3">
+        <img alt="Ejemplo de un gráfico generado" src="../AO/img/Unidad-5/Ejemplo91.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+
+    <p><strong>Personalizar:</strong></p>
+    <p>En esta última sección encontraremos una serie de parámetros que nos permitirán darle
+        un toque personal a nuestros gráficos. Hay que tener en cuenta que esta sección cambiará
+        dependiendo del tipo de gráfico escogido.</p>
+    <div class="text-center my-3">
+        <img alt="Opciones de personalización de un gráfico" src="../AO/img/Unidad-5/Ejemplo9.png" class="img-fluid"
+            style="max-width: 240px;">
+    </div>
+    <p>Una vez creado el gráfico a nuestro gusto, estará donde se añadió cuando abrimos la
+        opción de insertar un gráfico, luego lo podremos mover donde queramos.</p>
+    <div class="text-center my-3">
+        <img alt="Ejemplo de un gráfico final insertado en la hoja de cálculo" src="../AO/img/Unidad-5/Ejemplo40.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <h4 class="mb-4 text-primary" id="h.6nr4u4sporxx">5.9.2.2. ELIMINAR UN GRÁFICO</h4>
+    <p>En el momento en que queramos eliminar un gráfico de nuestra hoja de cálculo seguiremos estos 2
+        sencillos pasos:</p>
+    <p>En la parte derecha superior del gráfico encontramos un icono de tres puntos.</p>
+    <div class="text-center my-3">
+        <img alt="Menú de opciones de un gráfico para eliminarlo" src="../AO/img/Unidad-5/Ejemplo7.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <p>Si hacemos clic sobre este icono nos aparecerá una lista desplegable de opciones sobre el gráfico.
+        En este caso elegiremos "Eliminar Gráfico" y automáticamente se eliminará.</p>
+
+    <h3 class="mb-4 text-primary" id="h.nsntwiz34guz">5.9.3. PORTAPAPELES WEB</h3>
+    <p>De esta opción ya hemos hablado en otra sección del manual, los pasos son los mismos que hablaron
+        en la edición de documentos.</p>
+    <h2 class="mb-4 text-primary" id="h.2dw4s12xxv0b">5.10. SELECCIÓN, TAMAÑO DE CELDAS Y SERIES</h2>
+
+    <h3 class="mb-4 text-primary" id="h.3hjs5px2f72u">5.10.1. SELECCIÓN DE UNA CELDA O RANGO DE CELDAS</h3>
+    <p>Para activar una celda es suficiente con hacer clic sobre ella. Muchas veces se querrá realizar la misma
+        operación sobre un conjunto de celdas, en este caso es interesante seleccionar primero el conjunto de
+        celdas y después realizar la modificación de forma única.</p>
+    <table class="table table-bordered my-4">
+        <thead class="table-light">
+            <tr>
+                <th>Rango a seleccionar</th>
+                <th>Selección</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Una celda</td>
+                <td>Clic sobre la celda</td>
+            </tr>
+            <tr>
+                <td>Una columna</td>
+                <td>Clic sobre la etiqueta de la columna</td>
+            </tr>
+            <tr>
+                <td>Una fila</td>
+                <td>Clic sobre la etiqueta de la fila</td>
+            </tr>
+            <tr>
+                <td>Rango de celdas</td>
+                <td>Clic sobre una esquina del rango y arrastrar hasta la esquina opuesta</td>
+            </tr>
+            <tr>
+                <td>Toda la hoja de cálculo</td>
+                <td>Hacer clic sobre la celda en blanco situada en la esquina superior izquierda</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 class="mb-4 text-primary" id="h.tzf9lkgw0yma">5.10.2. DIMENSIONES DE LAS CELDAS</h3>
+    <p>Inicialmente todas las celdas de la hoja de cálculo tienen la misma altura y anchura. Cuando se escribe en
+        una celda un texto, la longitud es mayor en el ancho de la columna, el texto que sobresale aparecerá en
+        la celda de la derecha, siempre y cuando esté vacía. Si no está vacía se
+        mostrará sólo la parte de texto que quepa en la celda.</p>
+    <p><strong>CAMBIO DE ANCHO DE LA COLUMNA:</strong> Resalta una celda de la columna a modificar. Selecciona la
+        cabecera de la columna y haz clic en botón derecho y elige la opción modificar tamaño de la
+        columna.</p>
+    <p><strong>CAMBIO DE ALTURA DE LA FILA:</strong> Resalta una celda de la columna a modificar. Selecciona la cabecera
+        de la fila, justo en el nombre de fila deseada y haz clic en el botón derecho y la opción
+        modificar tamaño de la fila.</p>
+    <h2 class="mb-4 text-primary" id="h.q1cnl9hautb6">5.11. FORMATO DE CELDAS</h2>
+
+    <h3 class="mb-4 text-primary" id="h.bzwwyuec3w93">5.11.1. NÚMERO</h3>
+    <p>Permite definir el formato del número contenido en la celda, a continuación se muestran los
+        distintos tipos de formatos que podemos aplicar.</p>
+    <div class="text-center my-3">
+        <img alt="Menú de formatos de número" src="../AO/img/Unidad-5/Ejemplo12.png" class="img-fluid"
+            style="max-width: 450px;">
+    </div>
+    <div class="alert alert-info"><strong>Nota:</strong> En "Formato de número personalizado" podemos crear
+        nuevos formatos en base a unas expresiones que nos permiten crear formatos personalizados, además de
+        distintos tipos de monedas y formatos de fecha y hora a escoger.</div>
+
+    <h3 class="mb-4 text-primary" id="h.segc7klarjuu">5.11.2. AJUSTE DE TEXTO</h3>
+    <div class="text-center my-3">
+        <img alt="Opciones de ajuste de texto" src="../AO/img/Unidad-5/Ejemplo84.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <h4 class="mb-4 text-primary" id="h.tyjt2tmn5zgu">5.11.2.1. MODO DESBORDAMIENTO</h4>
+    <p>Cuando añadimos más texto de lo que podemos mostrar en una celda, el efecto que realiza es el de
+        continuar en la siguiente celda. Por encima de las líneas de fila y columna.</p>
+    <div class="text-center my-3">
+        <img alt="Ejemplo de desbordamiento de texto" src="../AO/img/Unidad-5/Ejemplo36.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <h4 class="mb-4 text-primary" id="h.4lp83n3wqco1">5.11.2.2. AJUSTE DE TEXTO MODO AJUSTE</h4>
+    <p>Ajustar la celda al contenido del texto. Modificando el tamaño de la celda hasta que contenga todo su
+        contenido.</p>
+    <div class="text-center my-3">
+        <img alt="Ejemplo de ajuste de texto" src="../AO/img/Unidad-5/Ejemplo28.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <h4 class="mb-4 text-primary" id="h.k84emnf1xsy">5.11.2.3. AJUSTE DE TEXTO MODO RECORTE</h4>
+    <p>Recorta el texto en el tamaño fijado en la celda.</p>
+    <div class="text-center my-3">
+        <img alt="Ejemplo de recorte de texto" src="../AO/img/Unidad-5/Ejemplo59.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <h2 class="mb-4 text-primary" id="h.orvp0pdeajpz">5.12. FÓRMULAS BÁSICAS</h2>
+    <p><strong>Fórmula:</strong> Expresión que calcula en una celda un valor numérico, utilizando
+        para ello valores ya existentes en otras celdas. El valor de una fórmula se recalcula
+        automáticamente cada vez que modificamos el contenido de algunas de las celdas que afectan a la
+        fórmula.</p>
+    <p>La hoja de cálculo de Google entiende como fórmula, todo lo que comience con el signo igual. En una
+        fórmula pueden aparecer cuatro tipos de elemento:</p>
+    <table class="table table-bordered my-4">
+        <tbody>
+            <tr>
+                <td><strong>Números</strong></td>
+                <td>Cifras de cualquier tipo.</td>
+            </tr>
+            <tr>
+                <td><strong>Referencias</strong></td>
+                <td>Celda o rango de celdas donde se encuentran datos o parámetros que la fórmula necesita
+                    conocer.</td>
+            </tr>
+            <tr>
+                <td><strong>Operadores</strong></td>
+                <td>
+                    <ul>
+                        <li>Suma (+)</li>
+                        <li>Resta (-)</li>
+                        <li>Multiplicación (*)</li>
+                        <li>División (/)</li>
+                        <li>Potencia (^)</li>
+                    </ul>
+                    <p>El orden de prioridad en sentido descendente es: Potencia, Multiplicación,
+                        División, Suma y Resta. Este orden puede alterarse utilizando paréntesis.</p>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Funciones</strong></td>
+                <td>Expresiones que permiten realizar operaciones complejas de forma sencilla. Se verán en el
+                    siguiente punto.</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2 class="mb-4 text-primary" id="h.lco97pgaty92">5.13. FUNCIONES</h2>
+    <p><strong>Función:</strong> Expresión matemática que viene incorporada en el programa. Con
+        ellas, es posible realizar cálculos, que de elaborarse por medio de fórmulas serían
+        complejos, de una forma muy sencilla.</p>
+    <p>Para insertar una función dentro de una celda es necesario seguir los siguientes pasos:</p>
+    <div class="text-center my-3">
+        <img alt="Menú para insertar funciones" src="../AO/img/Unidad-5/Ejemplo43.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <p>Por defecto, se muestran las funciones más básicas que dispone la hoja de cálculo de Google:
+    </p>
+    <div class="text-center my-3">
+        <img alt="Lista de funciones básicas" src="../AO/img/Unidad-5/Ejemplo90.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <h2 class="mb-4 text-primary" id="h.ml0ab76maobq">5.14. COPIAR FÓRMULAS Y FUNCIONES: REFERENCIAS ABSOLUTAS Y
+        RELATIVAS</h2>
+    <p>Una característica de la hoja de cálculo que la hace especialmente potente es la forma en que puede
+        utilizarse para copiar fórmulas.</p>
+    <p><strong>Ejemplo:</strong> Procedimiento para obtener los 100 primeros múltiplos de 17:</p>
+    <ul>
+        <li>Introduce en A1 el valor 17.</li>
+        <li>En A2 teclea la fórmula <code>=A1 + 17</code>.</li>
+        <li>Copia la fórmula anterior y pegala al rango A3:A100</li>
+    </ul>
+    <div class="text-center my-3">
+        <img alt="Ejemplo de copia de fórmula con referencias relativas" src="../AO/img/Unidad-5/Ejemplo66.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
+    <p>Esto se debe a que la hoja de cálculo, por defecto, no realiza copias literales de las fórmulas,
+        sino que trabaja con <strong>direcciones relativas</strong>. En nuestro caso, la fórmula le indica que
+        debe sumar 17 al valor de la celda situada justo encima de ella.</p>
+    <p>Sin embargo, en algunas ocasiones esta forma de copiar no nos resultará útil y deberemos trabajar
+        con <strong>posiciones absolutas</strong>. Cuando queramos trabajar con posiciones absolutas a la hora de copiar
+        una fórmula, utilizaremos el símbolo <code>$</code>. Podemos escribir el símbolo o
+        presionar F4, seleccionando la referencia o coordenada de la celda que se quiera fijar.</p>
+    <p>Por ejemplo, si en la celda B1 tenemos la fórmula <code>=$A1 + 7</code> y arrastramos la celda B1 hacia la
+        celda C1, el resultado sería el mismo puesto que a nivel de columna lo hemos fijado. Pero si arrastramos
+        la celda B1 hacia la celda B2, la fórmula cambiaría a <code>=$A2 + 7</code>. Para fijar tanto la
+        columna como la fila, se usa <code>=$A$2 + 7</code>.</p>
+    <h2 class="mb-4 text-primary" id="h.9p51q71t7zpg">5.15. USANDO FORMATO CONDICIONAL</h2>
+    <p>Puedes aplicar formato a las celdas, filas o columnas para cambiar el color del texto o del fondo si cumplen
+        ciertas condiciones, por ejemplo, si contienen una palabra o un número determinados.</p>
+    <ol>
+        <li>Abre una hoja de cálculo en Hojas de cálculo de Google.</li>
+        <li>Selecciona las celdas a las que quieras aplicar reglas de formato.</li>
+        <li>Haz clic en <strong>Formato → Formato condicional</strong>. Se abrirá una barra de herramientas en la
+            parte derecha.</li>
+        <li>Crea una regla.</li>
+        <li>Haz clic en De acuerdo.</li>
+    </ol>
+    <p><strong>Ejemplo:</strong> Queremos resaltar las puntuaciones de un examen para ver qué alumnos sacaron
+        menos de un 8.</p>
+    <div class="d-flex justify-content-center align-items-start">
+        <div class="me-4">
+            <img alt="Datos de ejemplo para formato condicional" src="../AO/img/Unidad-5/Ejemplo54.png"
+                class="img-fluid shadow-sm rounded">
+        </div>
+        <div>
+            <ol>
+                <li>Selecciona las celdas a formatear.</li>
+                <li>Haz clic en Formato → Formato condicional.</li>
+                <li>En "Dar formato a celdas sí", haz clic en "Menor que".</li>
+                <li>En "Valor o fórmula", escribe <code>8</code>.</li>
+                <li>Para elegir un color rojo, haz clic en Color de relleno.</li>
+                <li>Haz clic en De acuerdo.</li>
+            </ol>
+        </div>
+    </div>
+    <p class="mt-3">Las puntuaciones que están debajo del valor introducido se resaltarán en rojo.</p>
+    <div class="text-center my-3">
+        <img alt="Resultado del formato condicional aplicado" src="../AO/img/Unidad-5/Ejemplo81.png"
+            class="img-fluid shadow-sm rounded">
+    </div>
 </div>
