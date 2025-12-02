@@ -1,0 +1,101 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Actividad 2.6: Creación de un Servidor VPS en AWS</h1>
+    <p>Para crear una máquina virtual (servidor VPS) con Debian en Amazon Web Services (AWS), utilizarás el servicio
+        Amazon EC2 (Elastic Compute Cloud).</p>
+    <p>Aquí tienes la guía paso a paso para lanzar una instancia EC2 con Debian:</p>
+
+    <h2 class="mb-4 text-primary">Paso 1: Configuración de la Cuenta y Acceso a EC2</h2>
+    <ul>
+        <li><strong>Regístrate en AWS:</strong> Si no lo has hecho, crea una cuenta de AWS. Necesitarás una tarjeta de
+            crédito, aunque si usas el Free Tier (nivel gratuito), no se te cobrará nada por la instancia básica durante
+            6 meses o los 100$ de crédito.</li>
+        <li><strong>Accede a la Consola EC2:</strong>
+            <ol>
+                <li>Inicia sesión en la Consola de AWS.</li>
+                <li>Busca "EC2" en la barra de búsqueda superior y haz clic en el servicio.</li>
+            </ol>
+        </li>
+    </ul>
+
+    <h2 class="mb-4 text-primary">Paso 2: Iniciar la Instancia de Debian</h2>
+    <p>En el panel de EC2, haz clic en el botón naranja "Launch Instance" (Lanzar instancia).</p>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-2/lanzar-instancia.png" alt="Botón Launch Instance en la consola de AWS EC2"
+            class="w-75">
+    </div>
+
+    <h2 class="mb-4 text-primary">Paso 3: Configuración de la Instancia</h2>
+    <p>Rellena los siguientes pasos en el asistente de lanzamiento:</p>
+    <ol>
+        <li><strong>Nombre y Etiqueta (Name and Tags)</strong>
+            <p>Name: Asígnale un nombre fácil de recordar, por ejemplo: <code>Servidor-Debian-Proyectos</code>.</p>
+        </li>
+        <li><strong>Imagen de la Aplicación y del Sistema Operativo (Application and OS Images - AMI)</strong>
+            <p>Aquí es donde seleccionas Debian.</p>
+            <p>En la sección "Quick Start", busca y selecciona una AMI que diga "Debian". Asegúrate de que sea la
+                versión que deseas (ej: Debian 11 o 12) y que esté marcada como "Free tier eligible" (elegible para el
+                nivel gratuito).</p>
+        </li>
+        <li><strong>Tipo de Instancia (Instance Type)</strong>
+            <p>Selecciona <code>t2.micro</code> o <code>t3.micro</code>. Estos son los tipos de instancia que califican
+                para el Nivel Gratuito de AWS. Son suficientes para empezar.</p>
+        </li>
+        <li><strong>Par de Claves (Key Pair - Login)</strong>
+            <p>Esta es la parte más importante para el acceso de seguridad. AWS utiliza pares de claves SSH para que
+                puedas acceder a tu servidor, en lugar de contraseñas.</p>
+            <p>Selecciona una existente o crea una nueva: Si no tienes una, selecciona "Create a new key pair".</p>
+            <ul>
+                <li><strong>Nombre:</strong> Asígnale un nombre (ej: <code>mi-clave-debian</code>).</li>
+                <li><strong>Tipo:</strong> Deja RSA.</li>
+                <li><strong>Formato de Archivo Privado:</strong> Selecciona <code>.pem</code> (para usuarios de
+                    Linux/macOS) o <code>.ppk</code> (si planeas usar PuTTY en Windows).</li>
+            </ul>
+            <p>Haz clic en "Create key pair". Guarda este archivo <code>.pem</code> en un lugar seguro; lo necesitarás
+                para conectarte.</p>
+        </li>
+        <li><strong>Configuración de Red (Network Settings)</strong>
+            <p>Firewall (Security Groups): Esta es la configuración del Firewall de AWS.</p>
+            <p>Haz clic en "Create security group" (Crear grupo de seguridad).</p>
+            <ul>
+                <li><strong>Regla 1 (SSH):</strong> Deja la regla por defecto para el puerto 22 (SSH). En la columna
+                    "Source type" (Tipo de origen), selecciona "My IP" (Mi IP) para mayor seguridad, o "Anywhere"
+                    (Cualquier lugar - 0.0.0.0/0) si tu IP cambia a menudo.</li>
+                <li><strong>Regla 2 (HTTP/Web):</strong> Haz clic en "Add rule" (Agregar regla).
+                    <ul>
+                        <li>Type (Tipo): HTTP</li>
+                        <li>Source (Origen): Anywhere (Cualquier lugar - 0.0.0.0/0)</li>
+                    </ul>
+                </li>
+                <li><strong>Regla 3 (Nginx/Puerto 8080):</strong> Si usas el puerto 8080 para Nginx, agrega otra regla:
+                    <ul>
+                        <li>Type (Tipo): Custom TCP</li>
+                        <li>Port range (Rango de puertos): 8080</li>
+                        <li>Source (Origen): Anywhere (Cualquier lugar - 0.0.0.0/0)</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><strong>Configurar Almacenamiento (Configure Storage)</strong>
+            <p>Deja el tamaño predeterminado (generalmente 8 GB), que es suficiente para el nivel gratuito.</p>
+        </li>
+        <li><strong>Lanzar Instancia</strong>
+            <p>Revisa el resumen y haz clic en el botón naranja "Launch instance" (Lanzar instancia).</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">Paso 4: Conectarse a la Instancia</h2>
+    <p>Una vez que la instancia muestre el estado "Running" (En ejecución), selecciónala en el panel de EC2.</p>
+    <p>Haz clic en el botón "Connect" (Conectar).</p>
+    <p>AWS te mostrará el comando SSH para conectarte. Será similar a:</p>
+    <pre><code class="language-bash">ssh -i /ruta/a/mi-clave-debian.pem admin@&lt;IP-Pública-de-tu-Instancia&gt;</code></pre>
+    <div class="img-responsive text-center p-3">
+        <img src="../DES/img/Unidad-2/IP-Pública-de-tu-Instancia.png"
+            alt="Ubicación de la IP pública en la consola de AWS" class="w-75">
+    </div>
+    <p>(Nota: El usuario predeterminado para Debian en AWS es a menudo <code>admin</code> o <code>ec2-user</code>, AWS
+        te lo indicará).</p>
+    <p>Ejecuta este comando en tu terminal (después de cambiar los permisos del archivo de clave):</p>
+    <pre><code class="language-bash">chmod 400 /ruta/a/mi-clave-debian.pem
+ssh -i /ruta/a/mi-clave-debian.pem admin@&lt;IP-Pública-de-tu-Instancia&gt;</code></pre>
+    <p class="alert alert-success">¡Ya estarás dentro de tu servidor Debian en AWS!</p>
+</div>

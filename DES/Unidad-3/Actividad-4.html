@@ -1,0 +1,246 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Actividad 3.4: Despliegue de aplicaciones Jakarta EE con WildFly</h1>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>⚠️ Requisito:</strong> Esta práctica requiere más recursos de sistema (RAM) que las anteriores.
+        Asegúrate de que tu VM tenga al menos 2GB de RAM.
+    </div>
+
+    <h2 class="mb-4 text-primary">Introducción</h2>
+    <p>En el mundo empresarial, Java sigue siendo un estándar robusto. <strong>Jakarta EE</strong> (antes Java EE) es un
+        conjunto de especificaciones para aplicaciones empresariales. <strong>WildFly</strong> (antes JBoss) es un
+        servidor de aplicaciones potente y flexible que implementa estas especificaciones.</p>
+
+    <h2 class="mb-4 text-primary">1. Instalación del Entorno Java</h2>
+
+    <h3 class="mb-4 text-primary">1.1 Instalar JDK y Maven</h3>
+    <ol>
+        <li>Instala el Kit de Desarrollo de Java (JDK) y Maven:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo apt update
+sudo apt install -y openjdk-17-jdk maven</code></pre>
+            </div>
+        </li>
+        <li>Verifica las versiones:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">java -version
+mvn -version</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">2. Instalación de WildFly</h2>
+
+    <h3 class="mb-4 text-primary">2.1 Descargar y Descomprimir</h3>
+    <ol>
+        <li>Descarga la última versión estable de WildFly (ejemplo con 30.0.0, verifica la web oficial para la última):
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">cd /tmp
+wget https://github.com/wildfly/wildfly/releases/download/30.0.0.Final/wildfly-30.0.0.Final.tar.gz</code></pre>
+            </div>
+        </li>
+        <li>Descomprime en <code>/opt</code>:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo tar xf wildfly-30.0.0.Final.tar.gz -C /opt/
+sudo ln -s /opt/wildfly-30.0.0.Final /opt/wildfly</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <h3 class="mb-4 text-primary">2.2 Crear usuario de gestión</h3>
+    <ol>
+        <li>Ejecuta el script para añadir usuarios:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo /opt/wildfly/bin/add-user.sh</code></pre>
+            </div>
+        </li>
+        <li>Sigue los pasos:
+            <ul>
+                <li>Type: Management User (a)</li>
+                <li>Username: admin</li>
+                <li>Password: (elige una segura)</li>
+                <li>Resto de opciones: yes/enter</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h3 class="mb-4 text-primary">2.3 Iniciar WildFly</h3>
+    <ol>
+        <li>Inicia el servidor en modo standalone permitiendo acceso externo a la consola de administración:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo /opt/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0</code></pre>
+            </div>
+            <div class="alert alert-info">
+                <strong>Nota:</strong> <code>-b 0.0.0.0</code> permite acceso a la app desde cualquier IP.
+                <code>-bmanagement</code> permite acceso a la consola de administración. ¡Cuidado en producción!
+            </div>
+        </li>
+        <li>Accede a la consola de administración en tu navegador: <code>http://IP-DE-TU-SERVIDOR:9990</code></li>
+        <li>Accede a la página de bienvenida: <code>http://IP-DE-TU-SERVIDOR:8080</code></li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">3. Creación del Proyecto Jakarta EE</h2>
+
+    <h3 class="mb-4 text-primary">3.1 Generar proyecto con Maven</h3>
+    <p>Vamos a crear una aplicación web simple.</p>
+    <ol>
+        <li>Abre una nueva terminal (deja WildFly corriendo en la otra).</li>
+        <li>Genera el proyecto:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">mvn archetype:generate \
+    -DgroupId=com.ejemplo \
+    -DartifactId=mi-webapp-java \
+    -DarchetypeArtifactId=maven-archetype-webapp \
+    -DinteractiveMode=false</code></pre>
+            </div>
+        </li>
+        <li>Entra en el directorio:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">cd mi-webapp-java</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <h3 class="mb-4 text-primary">3.2 Crear un Servlet (Hola Mundo)</h3>
+    <ol>
+        <li>Crea la estructura de directorios para el código Java:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">mkdir -p src/main/java/com/ejemplo</code></pre>
+            </div>
+        </li>
+        <li>Crea el archivo <code>HelloServlet.java</code>:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">nano src/main/java/com/ejemplo/HelloServlet.java</code></pre>
+            </div>
+        </li>
+        <li>Contenido del Servlet:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-java">package com.ejemplo;
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
+
+@WebServlet(name = "helloServlet", value = "/hello-servlet")
+public class HelloServlet extends HttpServlet {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html");
+
+        PrintWriter out = response.getWriter();
+        out.println("&lt;html&gt;&lt;body&gt;");
+        out.println("&lt;h1&gt;¡Hola desde Jakarta EE y WildFly!&lt;/h1&gt;");
+        out.println("&lt;p&gt;Este es un Servlet compilado con Maven.&lt;/p&gt;");
+        out.println("&lt;/body&gt;&lt;/html&gt;");
+    }
+}</code></pre>
+            </div>
+            <div class="alert alert-warning">
+                Nota: Si usas una versión muy reciente de Jakarta EE, los imports pueden ser
+                <code>jakarta.servlet.*</code> en lugar de <code>javax.servlet.*</code>. WildFly 30 soporta Jakarta EE
+                10 (jakarta.*). Si usas javax.* necesitarás una dependencia de Java EE 8 o anterior, o usar WildFly
+                transform.
+            </div>
+        </li>
+    </ol>
+
+    <h3 class="mb-4 text-primary">3.3 Actualizar pom.xml</h3>
+    <p>Asegúrate de tener las dependencias necesarias.</p>
+    <ol>
+        <li>Edita <code>pom.xml</code> y añade la dependencia de Servlet API en la sección
+            <code>&lt;dependencies&gt;</code>:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+    &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
+    &lt;version&gt;4.0.1&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">4. Construcción y Despliegue</h2>
+
+    <h3 class="mb-4 text-primary">4.1 Construir el WAR</h3>
+    <ol>
+        <li>Ejecuta Maven para empaquetar la aplicación:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">mvn clean package</code></pre>
+            </div>
+        </li>
+        <li>Verifica que se ha creado el archivo <code>.war</code> en la carpeta <code>target/</code>.</li>
+    </ol>
+
+    <h3 class="mb-4 text-primary">4.2 Desplegar en WildFly</h3>
+    <p>La forma más sencilla es copiar el WAR a la carpeta de despliegues.</p>
+    <ol>
+        <li>Copia el archivo:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo cp target/mi-webapp-java.war /opt/wildfly/standalone/deployments/</code></pre>
+            </div>
+        </li>
+        <li>Observa los logs de WildFly en la otra terminal. Deberías ver algo como "Deployed mi-webapp-java.war".</li>
+    </ol>
+
+    <h3 class="mb-4 text-primary">4.3 Probar la aplicación</h3>
+    <p>Accede a:</p>
+    <ul>
+        <li><code>http://IP-DE-TU-SERVIDOR:8080/mi-webapp-java/</code> (debería mostrar el index.jsp por defecto)</li>
+        <li><code>http://IP-DE-TU-SERVIDOR:8080/mi-webapp-java/hello-servlet</code> (tu Servlet)</li>
+    </ul>
+
+    <h2 class="mb-4 text-primary">Cuestionario Final</h2>
+    <p>Responde a estas preguntas al final del documento:</p>
+    <ol>
+        <li>¿Qué función cumple Maven en este proyecto?</li>
+        <li>¿Qué es un archivo WAR y qué contiene?</li>
+        <li>¿Por qué la dependencia de Servlet API tiene el scope <code>provided</code> en el pom.xml?</li>
+        <li>¿Qué diferencia hay entre desplegar copiando el archivo a <code>deployments</code> y usar la consola de
+            administración?</li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">Entrega de la Práctica</h2>
+    <div class="alert alert-success" role="alert">
+        <strong>📦 Contenido a entregar:</strong>
+        <ul>
+            <li>Capturas de pantalla de:
+                <ul>
+                    <li>Consola de administración de WildFly funcionando.</li>
+                    <li>Estructura del proyecto Maven.</li>
+                    <li>Comando <code>mvn package</code> exitoso.</li>
+                    <li>Navegador mostrando la respuesta de tu Servlet.</li>
+                </ul>
+            </li>
+            <li>Respuestas al cuestionario final.</li>
+        </ul>
+    </div>
+</div>

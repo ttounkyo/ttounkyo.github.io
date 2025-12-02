@@ -1,0 +1,769 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Actividad 3.1: Despliegue de aplicaciones con Node.js y Express</h1>
+
+    <h2 class="mb-4 text-primary">Introducción</h2>
+    <p>En esta actividad vamos a trabajar con <strong>Node.js</strong> y <strong>Express</strong>, dos tecnologías muy
+        populares para crear aplicaciones web del lado del servidor.</p>
+
+    <h4 class="mb-3 text-primary">¿Qué es Node.js?</h4>
+    <p>Node.js es un entorno de ejecución de JavaScript que nos permite ejecutar código JavaScript fuera del navegador,
+        directamente en el servidor. Es muy rápido y eficiente para manejar múltiples conexiones simultáneas.</p>
+
+    <h4 class="mb-3 text-primary">¿Qué es npm?</h4>
+    <p><strong>npm</strong> (Node Package Manager) es el gestor de paquetes de Node.js. Nos permite instalar librerías y
+        herramientas que otros desarrolladores han creado, similar a <code class="language-bash">apt</code> en Debian
+        pero para paquetes de
+        JavaScript.</p>
+
+    <h4 class="mb-3 text-primary">¿Qué es Express?</h4>
+    <p><strong>Express</strong> es un framework minimalista para Node.js que nos facilita la creación de servidores web
+        y APIs. Simplifica tareas comunes como manejar rutas, peticiones HTTP y respuestas.</p>
+
+    <div class="alert alert-info" role="alert">
+        A diferencia de Apache o Nginx, en Node.js <strong>la aplicación ES el servidor</strong>. No desplegamos nuestra
+        aplicación sobre un servidor web, sino que nuestra aplicación incluye el servidor web integrado.
+    </div>
+
+    <h2 class="mb-4 text-primary">1. Instalación y Configuración</h2>
+
+    <h3 class="mb-4 text-primary">1.1 Instalación de Node.js y npm</h3>
+    <p>Vamos a instalar Node.js y npm en nuestro servidor Debian. Sigue estos pasos:</p>
+
+    <ol>
+        <li>Primero, actualiza los repositorios del sistema:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo apt update</code></pre>
+            </div>
+        </li>
+
+        <li>Instala Node.js y npm (se instalan juntos):
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo apt install -y nodejs npm</code></pre>
+            </div>
+            <div class="alert alert-info mt-2">
+                La opción <code class="language-bash">-y</code> confirma automáticamente la instalación sin
+                preguntarnos.
+            </div>
+        </li>
+
+        <li>Verifica que la instalación fue correcta comprobando las versiones instaladas:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">node --version
+npm --version</code></pre>
+            </div>
+            Deberías ver algo como:
+            <pre><code class="language-bash">v20.19.2
+9.2.0</code></pre>
+            <div class="alert alert-info mt-2">
+                Si ves las versiones, la instalación fue exitosa, ten en cuenta que la versión puede variar.
+            </div>
+        </li>
+    </ol>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>📸 Tarea:</strong> Captura de pantalla mostrando las versiones de <code
+            class="language-bash">node</code> y <code class="language-bash">npm</code>
+        instaladas en tu sistema.
+    </div>
+
+    <h3 class="mb-4 text-primary">1.2 Instalación de Express (globalmente)</h3>
+    <p>Aunque Express normalmente se instala por proyecto, vamos a instalarlo globalmente para tener acceso al generador
+        de aplicaciones:</p>
+
+    <ol>
+        <li>Instala Express de forma global:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo npm install -g express express-generator</code></pre>
+            </div>
+            <div class="alert alert-info mt-2">
+                <strong>Explicación:</strong>
+                <ul>
+                    <li><code class="language-bash">-g</code> significa "global", instala el paquete para todo el
+                        sistema</li>
+                    <li><code class="language-bash">express-generator</code> es una herramienta que nos ayuda a crear
+                        proyectos Express
+                        rápidamente</li>
+                    <li>
+                        Si ves un mensaje npm WARN deprecated mkdirp@0.5.1 es solo una advertencia, no un error.
+                        Significa que:
+                        <ul>
+                            <li>Express y express-generator se instalaron correctamente ("changed 75 packages in 3s")
+                            </li>
+                            <li>Una dependencia interna (mkdirp) usa una versión antigua</li>
+                            <li>Los desarrolladores recomiendan actualizar, pero no afecta el funcionamiento</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li>Verifica la instalación:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">express --version
+# Posible resultado, la versión puede variar.
+4.16.1
+                </code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">2. Primera Aplicación - "Hola Mundo"</h2>
+
+    <h3 class="mb-4 text-primary">2.1 Crear y ejecutar tu primera aplicación Node.js</h3>
+    <p>Vamos a crear una aplicación muy simple para entender los conceptos básicos.</p>
+
+    <ol>
+        <li>Crea un directorio para tu primera aplicación:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">mkdir ~/mi-primera-app
+cd ~/mi-primera-app</code></pre>
+            </div>
+        </li>
+
+        <li>Inicializa un proyecto Node.js. Este comando creará un archivo <code
+                class="language-bash">package.json</code> que contiene
+            información sobre tu proyecto:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">npm init -y</code></pre>
+            </div>
+            <div class="alert alert-info mt-2">
+                El flag <code class="language-bash">-y</code> acepta todas las opciones por
+                defecto. El archivo
+                <code class="language-bash">package.json</code> es como el "DNI" de tu aplicación.
+            </div>
+        </li>
+
+        <li>Instala Express para este proyecto específico:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">npm install express</code></pre>
+            </div>
+            Verás que se crea una carpeta <code class="language-bash">node_modules</code> con todas las dependencias.
+        </li>
+
+        <li>Crea un archivo llamado <code class="language-bash">app.js</code> con el siguiente contenido:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">nano app.js</code></pre>
+            </div>
+            Escribe (o copia) este código:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-javascript">const express = require('express');
+const app = express();
+const puerto = 3000;
+
+app.get('/', (req, res) => {
+  res.send('¡Hola Mundo desde Express!');
+});
+
+app.listen(puerto, () => {
+  console.log(`Servidor corriendo en http://localhost:${puerto}`);
+});</code></pre>
+                Guarda el archivo (Ctrl+O, Enter, Ctrl+X).
+
+                <div class="alert alert-info mt-3">
+                    <strong>Explicación del código:</strong>
+                    <ul>
+                        <li><code class="language-bash">require('express')</code> importa la librería Express</li>
+                        <li><code class="language-bash">app.get('/', ...)</code> define qué hacer cuando alguien visita
+                            la raíz del sitio</li>
+                        <li><code class="language-bash">app.listen(3000)</code> inicia el servidor en el puerto 3000
+                        </li>
+                    </ul>
+                </div>
+        </li>
+
+        <li>Ejecuta la aplicación:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">node app.js</code></pre>
+            </div>
+            Deberías ver el mensaje: <code class="language-bash">Servidor corriendo en http://localhost:3000</code>
+        </li>
+
+        <li>Desde tu navegador en tu máquina local, accede a:
+            <pre><code class="language-bash">http://IP-DE-TU-SERVIDOR:3000</code></pre>
+            Deberías ver el mensaje "¡Hola Mundo desde Express!"
+        </li>
+    </ol>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>🔒 Seguridad AWS:</strong> Si estás usando AWS, recuerda abrir el puerto 3000 en tu grupo de seguridad:
+        <ul>
+            <li>Tipo: TCP personalizado</li>
+            <li>Puerto: 3000</li>
+            <li>Origen: 0.0.0.0/0 (o tu IP específica para mayor seguridad)</li>
+        </ul>
+    </div>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>📸 Tarea:</strong> Captura de pantalla mostrando:
+        <ul>
+            <li>La terminal con el servidor corriendo (<code class="language-bash">node app.js</code>)</li>
+            <li>El navegador mostrando "¡Hola Mundo desde Express!"</li>
+        </ul>
+    </div>
+
+    <div class="alert alert-danger" role="alert">
+        <strong>⛔ Para detener el servidor:</strong> Presiona <code class="language-bash">Ctrl+C</code> en la terminal
+        donde está corriendo.
+    </div>
+
+    <h2 class="mb-4 text-primary">3. Aplicación Real - Lista de Tareas (ToDo App)</h2>
+
+    <h3 class="mb-4 text-primary">3.1 Clonar y configurar una aplicación existente</h3>
+    <p>Ahora vamos a trabajar con una aplicación más completa: un gestor de tareas.</p>
+
+    <ol>
+        <li>Primero, para el servidor anterior si aún está corriendo (Ctrl+C).</li>
+
+        <li>Vuelve a tu directorio home e instala Git si no lo tienes:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">cd ~
+sudo apt install -y git</code></pre>
+            </div>
+        </li>
+
+        <li>Clona el repositorio de la aplicación:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">git clone https://github.com/bezkoder/nodejs-express-mysql.git
+cd nodejs-express-mysql</code></pre>
+            </div>
+            <div class="alert alert-info mt-2">
+                <strong>¿Qué es clonar?</strong> Descargar una copia completa de un proyecto desde GitHub.
+            </div>
+        </li>
+
+        <li>Examina el contenido del directorio:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">ls -la</code></pre>
+            </div>
+            Verás archivos como <code class="language-bash">package.json</code>, <code
+                class="language-bash">server.js</code>, y carpetas como <code class="language-bash">app/</code>.
+        </li>
+
+        <li>Instala todas las dependencias del proyecto. <strong>Este paso puede tardar varios minutos</strong>, ten
+            paciencia:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">npm install</code></pre>
+            </div>
+            <div class="alert alert-info mt-2">
+                <strong>¿Qué hace esto?</strong> Lee el archivo <code class="language-bash">package.json</code> y
+                descarga todas las librerías
+                que la aplicación necesita.
+            </div>
+        </li>
+
+        <li>Examina el archivo <code class="language-bash">package.json</code> para ver las dependencias:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">cat package.json</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <h3 class="mb-4 text-primary">3.2 Configurar la Base de Datos MySQL</h3>
+    <p>Esta aplicación necesita una base de datos MySQL para funcionar.</p>
+
+    <ol>
+        <li>Instala MySQL Server:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo apt install -y mariadb-server</code></pre>
+            </div>
+        </li>
+
+        <li>Inicia el servicio MySQL:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo systemctl start mariadb
+sudo systemctl enable mariadb</code></pre>
+            </div>
+        </li>
+
+        <li>Accede a MySQL como root:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo mysql -u root</code></pre>
+            </div>
+        </li>
+
+        <li>Dentro de MySQL, crea una base de datos y un usuario para la aplicación:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-sql">CREATE DATABASE testdb;
+CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'testpassword';
+GRANT ALL PRIVILEGES ON testdb.* TO 'testuser'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;</code></pre>
+            </div>
+        </li>
+
+        <li>Configura la conexión en la aplicación. Edita el archivo de configuración:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">nano app/config/db.config.js</code></pre>
+            </div>
+            Verifica que contenga:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-javascript">module.exports = {
+  HOST: "localhost",
+  USER: "testuser",
+  PASSWORD: "testpassword",
+  DB: "testdb"
+};</code></pre>
+            </div>
+            Guarda los cambios.
+        </li>
+    </ol>
+
+    <h3 class="mb-4 text-primary">3.3 Ejecutar la aplicación</h3>
+    <ol>
+        <li>Inicia la aplicación:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">node server.js</code></pre>
+            </div>
+            Deberías ver mensajes indicando que el servidor está corriendo en el puerto 8080.
+        </li>
+
+        <li>Accede desde tu navegador a:
+            <pre><code class="language-bash">http://IP-DE-TU-SERVIDOR:8080</code></pre>
+        </li>
+
+        <li>Prueba la API con diferentes endpoints. Abre otra terminal (sin cerrar la del servidor) y ejecuta, recuerda
+            cambiar la IP por la de tu servidor, <strong>si tienes errores pasa al paso siguiente</strong>:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash"># Crear un tutorial 0: Node.js Tutorial
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"Node.js Tutorial","description":"Aprendiendo Node.js"}'
+
+# Tutorial 1: Node.js Básico
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"Node.js Básico","description":"Introducción a Node.js y JavaScript del lado del servidor"}'
+
+# Tutorial 2: Express Framework
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"Express Framework","description":"Creando APIs REST con Express"}'
+
+# Tutorial 3: Bases de Datos
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"MySQL con Node.js","description":"Conectando Node.js con bases de datos MySQL"}'
+
+# Tutorial 4: Autenticación
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"Autenticación JWT","description":"Implementando autenticación con JSON Web Tokens"}'
+
+# Tutorial 5: PM2
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"Gestión con PM2","description":"Administrando aplicaciones Node.js en producción"}'
+
+# Tutorial 6: Docker
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"Node.js en Docker","description":"Contenedorización de aplicaciones Node.js"}'
+
+# Tutorial 7: Testing
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"Testing con Jest","description":"Pruebas unitarias e integración en Node.js"}'
+
+# Tutorial 8: WebSockets
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"WebSockets en tiempo real","description":"Comunicación bidireccional con Socket.io"}'
+
+# Listar todos los tutoriales
+curl http://localhost:8080/api/tutorials
+
+# Obtener un tutorial específico (ID 1)
+curl http://localhost:8080/api/tutorials/1
+
+# Actualizar un tutorial (ID 2)
+curl -X PUT http://localhost:8080/api/tutorials/2 -H "Content-Type: application/json" -d '{"title":"Express Avanzado","description":"Técnicas avanzadas con Express.js","published":true}'
+
+# Eliminar un tutorial (ID 2)
+curl -X DELETE http://localhost:8080/api/tutorials/2
+
+# Eliminar todos los tutoriales
+curl -X DELETE http://localhost:8080/api/tutorials
+</code></pre>
+            </div>
+
+            <div class="alert alert-info mt-3">
+                <p><strong>¿Qué hace curl?</strong> Es una herramienta para hacer peticiones HTTP desde la terminal.</p>
+            </div>
+            <div class="alert alert-danger mt-2">
+                <p><strong>Posiblemente de un error</strong>, la tabla tutorials no se creó.</p>
+            </div>
+        </li>
+        <li>Dentro de MySQL, crea una tabla, en la base de datos testdb:
+            <pre><code class="language-sql">sudo mysql -u root</code></pre>
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-sql">USE testdb;
+CREATE TABLE IF NOT EXISTS tutorials (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255),
+  description VARCHAR(255),
+  published BOOLEAN DEFAULT false,
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+EXIT;</code></pre>
+            </div>
+        </li>
+        <li>Reinicia el servidor:
+            <pre><code class="language-bash">node server.js</code></pre>
+            <div class="alert alert-success mt-2">
+                <p>Vuelve al punto 3.3 y prueba la API con diferentes endpoints.</p>
+            </div>
+        </li>
+    </ol>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>🔒 Seguridad AWS:</strong> Abre también el puerto 8080 en tu grupo de seguridad.
+    </div>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>📸 Tarea:</strong> Capturas de pantalla mostrando:
+        <ul>
+            <li>El servidor corriendo en la terminal</li>
+            <li>Los resultados de los comandos curl (crear y listar tutoriales)</li>
+        </ul>
+    </div>
+
+    <h2 class="mb-4 text-primary">4. Gestión de Procesos con PM2</h2>
+    <p>Hasta ahora, si cierras la terminal, el servidor se detiene. PM2 es un gestor de procesos que mantiene tu
+        aplicación corriendo en segundo plano y la reinicia automáticamente si falla.</p>
+
+    <h3 class="mb-4 text-primary">4.1 Instalar y configurar PM2</h3>
+    <ol>
+        <li>Detén el servidor actual (Ctrl+C).</li>
+
+        <li>Instala PM2 globalmente:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo npm install -g pm2</code></pre>
+            </div>
+        </li>
+
+        <li>Inicia tu aplicación con PM2:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">pm2 start server.js --name "todo-app"</code></pre>
+            </div>
+            <div class="alert alert-info mt-2">
+                <code class="language-bash">--name "todo-app"</code> le da un nombre fácil de
+                recordar a tu aplicación.
+            </div>
+        </li>
+
+        <li>Verifica que la aplicación está corriendo:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">pm2 list</code></pre>
+            </div>
+            Deberías ver tu aplicación en la lista con estado "online".
+        </li>
+
+        <li>Prueba que puedes cerrar la terminal y la aplicación sigue funcionando:
+            <ul>
+                <li>Accede de nuevo a <code class="language-bash">http://IP-DE-TU-SERVIDOR:8080/api/tutorials</code>
+                </li>
+                <li>Cierra tu sesión SSH</li>
+                <li>Vuelve a conectarte y verifica que la app sigue corriendo</li>
+            </ul>
+        </li>
+
+        <li>Comandos útiles de PM2:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash"># Ver logs en tiempo real
+pm2 logs todo-app
+
+# Reiniciar la aplicación
+pm2 restart todo-app
+
+# Detener la aplicación
+pm2 stop todo-app
+
+# Eliminar la aplicación de PM2
+pm2 delete todo-app
+
+# Ver información detallada
+pm2 show todo-app</code></pre>
+            </div>
+        </li>
+
+        <li>Configura PM2 para que se inicie automáticamente al arrancar el servidor:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash"># El primer comando te mostrará un comando adicional que debes ejecutar (cópialo y ejecútalo).
+pm2 startup
+# El segundo guarda la lista de aplicaciones actuales.
+pm2 save</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>📸 Tarea:</strong> Captura de pantalla mostrando:
+        <ul>
+            <li>La salida de <code class="language-bash">pm2 list</code> con tu aplicación corriendo</li>
+            <li>La salida de <code class="language-bash">pm2 logs todo-app</code></li>
+        </ul>
+    </div>
+
+    <h2 class="mb-4 text-primary">5. Proxy Inverso con Nginx (Opcional pero Recomendado)</h2>
+    <p>En producción, es una buena práctica poner Nginx delante de Node.js. Nginx manejará las peticiones HTTP y las
+        redirigirá a Node.js.</p>
+
+    <h3 class="mb-4 text-primary">5.1 Configurar Nginx como proxy inverso</h3>
+    <ol>
+        <li>Instala Nginx:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo apt install -y nginx</code></pre>
+            </div>
+        </li>
+
+        <li>Crea un archivo de configuración para tu aplicación:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo nano /etc/nginx/sites-available/todo-app</code></pre>
+            </div>
+            Añade el siguiente contenido:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-nginx">server {
+    listen 80;
+    server_name tu-dominio.com;  # O tu IP
+
+    location / {
+        proxy_pass http://localhost:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}</code></pre>
+            </div>
+        </li>
+
+        <li>Habilita el sitio creando un enlace simbólico:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo ln -s /etc/nginx/sites-available/todo-app /etc/nginx/sites-enabled/</code></pre>
+            </div>
+        </li>
+
+        <li>Desactiva el sitio por defecto de Nginx (opcional):
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo rm /etc/nginx/sites-enabled/default</code></pre>
+            </div>
+        </li>
+
+        <li>Verifica que la configuración es correcta:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo nginx -t</code></pre>
+            </div>
+        </li>
+
+        <li>Reinicia Nginx:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo systemctl restart nginx</code></pre>
+            </div>
+        </li>
+
+        <li>Ahora puedes acceder a tu aplicación directamente por HTTP (puerto 80):
+            <pre><code class="language-bash">http://IP-DE-TU-SERVIDOR/api/tutorials</code></pre>
+            ¡Ya no necesitas especificar el puerto 8080!
+        </li>
+    </ol>
+
+    <div class="alert alert-info" role="alert">
+        <strong>💡 Ventajas del proxy inverso:</strong>
+        <ul>
+            <li>Nginx maneja SSL/TLS (HTTPS) de forma más eficiente</li>
+            <li>Puedes servir archivos estáticos directamente desde Nginx</li>
+            <li>Mejor rendimiento bajo carga alta</li>
+            <li>Puedes tener múltiples aplicaciones Node.js con un solo Nginx</li>
+        </ul>
+    </div>
+
+    <h2 class="mb-4 text-primary">6. Análisis y Troubleshooting</h2>
+
+    <h3 class="mb-4 text-primary">6.1 Trabajar con logs</h3>
+    <ol>
+        <li>Ver los logs de PM2 en tiempo real:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">pm2 logs todo-app</code></pre>
+            </div>
+            Mantén este comando corriendo y desde tu navegador accede a la aplicación. Verás las peticiones en tiempo
+            real.
+        </li>
+
+        <li>Ver logs de Nginx:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash"># Logs de acceso
+sudo tail -f /var/log/nginx/access.log
+
+# Logs de errores
+sudo tail -f /var/log/nginx/error.log</code></pre>
+            </div>
+        </li>
+
+        <li>Simula un error: intenta acceder a una ruta que no existe:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">curl http://localhost:8080/api/noexiste</code></pre>
+            </div>
+            Observa el error en los logs.
+        </li>
+    </ol>
+
+    <h3 class="mb-4 text-primary">6.2 Depuración de problemas comunes</h3>
+    <p>Practica resolver estos problemas simulados:</p>
+
+    <ol>
+        <li><strong>Problema 1:</strong> El servidor no inicia.
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash"># Verifica si el puerto está siendo usado
+sudo ss -tulpn | grep :8080
+
+# Verifica los logs de PM2
+pm2 logs todo-app --err</code></pre>
+            </div>
+        </li>
+
+        <li><strong>Problema 2:</strong> No puedes conectarte desde fuera.
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash"># Verifica que el firewall no esté bloqueando - SOLO PARA AWS
+sudo ufw status
+
+# Verifica que la aplicación esté escuchando en todas las interfaces
+sudo ss -tulpn | grep :8080</code></pre>
+            </div>
+        </li>
+
+        <li><strong>Problema 3:</strong> La aplicación se reinicia constantemente.
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash"># Revisa los logs para ver el error
+pm2 logs todo-app
+
+# Verifica el estado
+pm2 list</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">Cuestionario Final</h2>
+    <p>Responde a estas preguntas al final del documento:</p>
+
+    <ol>
+        <li>¿Qué es npm y cuál es su función principal?</li>
+
+        <li>¿Qué archivo contiene la lista de dependencias de un proyecto Node.js?</li>
+
+        <li>Explica la diferencia entre instalar un paquete con <code class="language-bash">npm install express</code> y
+            con
+            <code class="language-bash">npm install -g express</code>.
+        </li>
+
+        <li>¿Por qué es recomendable usar PM2 en producción en lugar de ejecutar <code
+                class="language-bash">node app.js</code>
+            directamente?</li>
+
+        <li>¿Qué ventajas ofrece usar Nginx como proxy inverso delante de Node.js?</li>
+
+        <li>Si tu aplicación no arranca y PM2 muestra el estado "errored", ¿qué comando usarías para ver los
+            logs de error?</li>
+
+        <li>En el código de la primera aplicación (<code class="language-bash">app.js</code>), ¿qué hace
+            exactamente la línea
+            <code class="language-bash">app.listen(3000)</code>?
+        </li>
+
+        <li>Cuando ejecutas <code class="language-bash">npm install</code>, ¿qué carpeta se crea y qué
+            contiene?</li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">Entrega de la Práctica</h2>
+    <div class="alert alert-success" role="alert">
+        <strong>📦 Contenido a entregar:</strong>
+        <ul>
+            <li>Documento Google Docs con todas las capturas que consideres relevantes, además puedes añadir información
+                adicional para que sea más entendible.</li>
+            <li>Respuestas al cuestionario final</li>
+        </ul>
+    </div>
+
+    <div class="alert alert-info" role="alert">
+        <strong>💡 Consejos finales:</strong>
+        <ul>
+            <li>Lee los mensajes de error completos, suelen indicar exactamente qué falla</li>
+            <li>Usa <code class="language-bash">pm2 logs</code> cuando algo no funcione como esperabas</li>
+            <li>Verifica siempre que los puertos estén abiertos en el firewall/grupo de seguridad</li>
+            <li>La documentación oficial de Express es excelente: <a href="https://expressjs.com"
+                    target="_blank">https://expressjs.com</a></li>
+        </ul>
+    </div>
+</div>

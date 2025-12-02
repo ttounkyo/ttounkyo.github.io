@@ -1,0 +1,313 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Actividad 3.3: Despliegue de aplicaciones Node.js con Docker</h1>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>⚠️ Requisito previo:</strong> Asegúrate de tener permisos de sudo en tu máquina virtual Debian.
+    </div>
+
+    <h2 class="mb-4 text-primary">Introducción</h2>
+    <p>En esta actividad, daremos un paso más allá en el despliegue de aplicaciones modernas utilizando
+        <strong>contenedores</strong>. Docker nos permite empaquetar nuestra aplicación junto con todas sus dependencias
+        (Node.js, librerías, configuración) en una unidad estandarizada llamada "contenedor".</p>
+
+    <h4 class="mb-3 text-primary">¿Por qué usar Docker?</h4>
+    <ul>
+        <li><strong>Consistencia:</strong> "Funciona en mi máquina" es cosa del pasado. Si funciona en Docker, funciona
+            en cualquier sitio.</li>
+        <li><strong>Aislamiento:</strong> Cada aplicación tiene su propio entorno, sin conflictos de versiones entre
+            ellas.</li>
+        <li><strong>Portabilidad:</strong> Puedes mover tu contenedor de desarrollo a producción fácilmente.</li>
+    </ul>
+
+    <h2 class="mb-4 text-primary">1. Instalación de Docker</h2>
+
+    <h3 class="mb-4 text-primary">1.1 Instalar Docker Engine</h3>
+    <p>Vamos a instalar Docker en Debian. Sigue estos pasos cuidadosamente.</p>
+
+    <ol>
+        <li>Actualiza los repositorios e instala dependencias previas:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo apt update
+sudo apt install -y ca-certificates curl gnupg</code></pre>
+            </div>
+        </li>
+
+        <li>Añade la clave GPG oficial de Docker:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg</code></pre>
+            </div>
+        </li>
+
+        <li>Configura el repositorio:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null</code></pre>
+            </div>
+        </li>
+
+        <li>Instala Docker Engine:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</code></pre>
+            </div>
+        </li>
+
+        <li>Verifica la instalación ejecutando el contenedor "hello-world":
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo docker run hello-world</code></pre>
+            </div>
+            Deberías ver un mensaje que dice "Hello from Docker!".
+        </li>
+    </ol>
+
+    <h3 class="mb-4 text-primary">1.2 Configurar permisos (Opcional pero recomendado)</h3>
+    <p>Para no tener que escribir <code>sudo</code> delante de cada comando de Docker:</p>
+    <ol>
+        <li>Añade tu usuario al grupo docker:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo usermod -aG docker $USER</code></pre>
+            </div>
+        </li>
+        <li>Cierra sesión y vuelve a entrar, o ejecuta:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">newgrp docker</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">2. Preparación de la Aplicación Node.js</h2>
+    <p>Usaremos una aplicación sencilla de Express, similar a la Actividad 1.</p>
+
+    <ol>
+        <li>Crea un directorio para el proyecto:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">mkdir ~/docker-node-app
+cd ~/docker-node-app</code></pre>
+            </div>
+        </li>
+
+        <li>Inicializa el proyecto y crea <code>package.json</code>:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">npm init -y
+npm install express</code></pre>
+            </div>
+            <div class="alert alert-info">
+                Nota: Si no tienes npm instalado en esta máquina, puedes saltar el paso de <code>npm install</code> y
+                crear los archivos manualmente, ya que Docker se encargará de instalar las dependencias DENTRO del
+                contenedor. Pero para este ejercicio asumiremos que tienes los archivos fuente.
+            </div>
+        </li>
+
+        <li>Crea el archivo <code>app.js</code>:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-javascript">const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => {
+  res.send('¡Hola desde un contenedor Docker! 🐳');
+});
+
+app.listen(port, () => {
+  console.log(`App escuchando en http://localhost:${port}`);
+});</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">3. Dockerización de la Aplicación</h2>
+    <p>Aquí es donde ocurre la magia. Vamos a crear una "receta" para construir la imagen de nuestra aplicación.</p>
+
+    <h3 class="mb-4 text-primary">3.1 Crear el Dockerfile</h3>
+    <ol>
+        <li>Crea un archivo llamado <code>Dockerfile</code> (sin extensión):
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">nano Dockerfile</code></pre>
+            </div>
+        </li>
+        <li>Añade el siguiente contenido:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-dockerfile"># Usamos una imagen base oficial de Node.js (versión LTS ligera)
+FROM node:18-alpine
+
+# Establecemos el directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copiamos los archivos de definición de dependencias
+COPY package*.json ./
+
+# Instalamos las dependencias
+RUN npm install
+
+# Copiamos el resto del código fuente
+COPY . .
+
+# Exponemos el puerto que usa la app
+EXPOSE 3000
+
+# Comando para iniciar la aplicación
+CMD ["node", "app.js"]</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <h3 class="mb-4 text-primary">3.2 Crear .dockerignore</h3>
+    <p>Para evitar copiar archivos innecesarios (como <code>node_modules</code> local) al contenedor.</p>
+    <ol>
+        <li>Crea el archivo <code>.dockerignore</code>:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">nano .dockerignore</code></pre>
+            </div>
+        </li>
+        <li>Añade:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-text">node_modules
+npm-debug.log</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">4. Construcción y Ejecución</h2>
+
+    <h3 class="mb-4 text-primary">4.1 Construir la Imagen</h3>
+    <ol>
+        <li>Ejecuta el comando build:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">docker build -t mi-node-app .</code></pre>
+            </div>
+            <div class="alert alert-info">
+                <strong>Explicación:</strong> <code>-t mi-node-app</code> le da un nombre (tag) a la imagen. El
+                <code>.</code> final indica que el Dockerfile está en el directorio actual.
+            </div>
+        </li>
+        <li>Verifica que la imagen se ha creado:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">docker images</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <h3 class="mb-4 text-primary">4.2 Ejecutar el Contenedor</h3>
+    <ol>
+        <li>Arranca un contenedor basado en tu imagen:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">docker run -d -p 8080:3000 --name mi-contenedor mi-node-app</code></pre>
+            </div>
+            <div class="alert alert-info">
+                <strong>Desglose del comando:</strong>
+                <ul>
+                    <li><code>-d</code>: Detached mode (corre en segundo plano).</li>
+                    <li><code>-p 8080:3000</code>: Mapea el puerto 8080 de tu máquina (host) al puerto 3000 del
+                        contenedor.</li>
+                    <li><code>--name mi-contenedor</code>: Le da un nombre fácil de recordar.</li>
+                </ul>
+            </div>
+        </li>
+        <li>Verifica que está corriendo:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">docker ps</code></pre>
+            </div>
+        </li>
+        <li>Prueba la aplicación desde tu navegador o curl:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">curl http://localhost:8080</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">5. Gestión y Troubleshooting</h2>
+
+    <h3 class="mb-4 text-primary">5.1 Comandos útiles</h3>
+    <ul>
+        <li>Ver logs del contenedor:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">docker logs mi-contenedor</code></pre>
+            </div>
+        </li>
+        <li>Detener el contenedor:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">docker stop mi-contenedor</code></pre>
+            </div>
+        </li>
+        <li>Eliminar el contenedor (debe estar detenido):
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">docker rm mi-contenedor</code></pre>
+            </div>
+        </li>
+    </ul>
+
+    <h2 class="mb-4 text-primary">Cuestionario Final</h2>
+    <p>Responde a estas preguntas al final del documento:</p>
+    <ol>
+        <li>¿Cuál es la diferencia principal entre una Imagen Docker y un Contenedor Docker?</li>
+        <li>¿Qué hace la instrucción <code>EXPOSE</code> en el Dockerfile? ¿Realmente publica el puerto?</li>
+        <li>¿Por qué usamos <code>-p 8080:3000</code> al ejecutar el contenedor? ¿Qué pasaría si no lo usáramos?</li>
+        <li>¿Qué ventaja tiene usar una imagen base como <code>node:18-alpine</code> frente a una imagen completa de
+            Ubuntu?</li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">Entrega de la Práctica</h2>
+    <div class="alert alert-success" role="alert">
+        <strong>📦 Contenido a entregar:</strong>
+        <ul>
+            <li>Documento con capturas de pantalla de:
+                <ul>
+                    <li>Versión de Docker instalada.</li>
+                    <li>Contenido del Dockerfile.</li>
+                    <li>Proceso de construcción de la imagen (docker build).</li>
+                    <li>Salida de <code>docker ps</code> mostrando el contenedor corriendo.</li>
+                    <li>Prueba de funcionamiento en el navegador o curl.</li>
+                </ul>
+            </li>
+            <li>Respuestas al cuestionario final.</li>
+        </ul>
+    </div>
+</div>

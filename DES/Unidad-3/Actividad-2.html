@@ -1,0 +1,958 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Actividad 3.2: Despliegue de aplicaciones Flask (Python)</h1>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>⚠️ Importante antes de empezar:</strong> Si tienes servicios corriendo de prácticas anteriores (Apache,
+        Node.js, etc.), verifica que no estén usando los puertos que vamos a necesitar:
+        <pre><code class="language-bash">sudo systemctl stop apache2
+sudo systemctl stop nginx
+pm2 stop all</code></pre>
+    </div>
+
+    <h2 class="mb-4 text-primary">Introducción</h2>
+    <p>En esta actividad vamos a trabajar con <strong>Flask</strong>, uno de los frameworks web más populares de Python.
+        Flask es conocido por ser minimalista, fácil de aprender y muy flexible.</p>
+
+    <h4 class="mb-3 text-primary">¿Qué es Python?</h4>
+    <p>Python es un lenguaje de programación de alto nivel, fácil de leer y escribir. Es muy popular en desarrollo web,
+        ciencia de datos, inteligencia artificial y automatización.</p>
+
+    <h4 class="mb-3 text-primary">¿Qué es Flask?</h4>
+    <p><strong>Flask</strong> es un micro-framework web para Python. Se llama "micro" porque mantiene su núcleo simple
+        pero es extensible. Flask es perfecto para crear desde APIs pequeñas hasta aplicaciones web completas.</p>
+
+    <h4 class="mb-3 text-primary">¿Qué es pip?</h4>
+    <p><strong>pip</strong> es el gestor de paquetes de Python, equivalente a npm en Node.js o apt en Debian. Nos
+        permite instalar librerías y frameworks que otros desarrolladores han creado.</p>
+
+    <h4 class="mb-3 text-primary">¿Qué es un entorno virtual?</h4>
+    <p>Un <strong>entorno virtual</strong> es un espacio aislado donde podemos instalar paquetes de Python sin afectar
+        al sistema. Es una buena práctica usar siempre entornos virtuales para cada proyecto.</p>
+
+    <div class="alert alert-info" role="alert">
+        <strong>💡 Ventaja de Flask:</strong> Python suele venir preinstalado en Debian, lo que hace que el setup
+        inicial sea más rápido que con Node.js.
+    </div>
+
+    <h2 class="mb-4 text-primary">1. Instalación y Configuración</h2>
+
+    <h3 class="mb-4 text-primary">1.1 Verificar e instalar Python y pip</h3>
+    <p>Vamos a comprobar si Python está instalado y preparar el entorno.</p>
+
+    <ol>
+        <li>Verifica la versión de Python instalada:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">python3 --version</code></pre>
+            </div>
+            Deberías ver algo como: <code class="language-bash">Python 3.13.5</code>
+            <div class="alert alert-success mt-2">
+                Debian 13 suele traer Python 3.13 preinstalado
+            </div>
+        </li>
+
+        <li>Actualiza los repositorios e instala pip y herramientas necesarias:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo apt update
+sudo apt install -y python3-pip python3-venv python3-dev build-essential</code></pre>
+            </div>
+            <div class="alert alert-info mt-2">
+                <strong>Explicación de paquetes:</strong>
+                <ul>
+                    <li><code class="language-bash">python3-pip</code>: Gestor de paquetes de Python</li>
+                    <li><code class="language-bash">python3-venv</code>: Para crear entornos virtuales</li>
+                    <li><code class="language-bash">python3-dev</code>: Archivos de desarrollo de Python</li>
+                    <li><code class="language-bash">build-essential</code>: Herramientas de compilación necesarias para
+                        algunos paquetes</li>
+                </ul>
+            </div>
+        </li>
+
+        <li>Verifica que pip está instalado:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">pip3 --version</code></pre>
+            </div>
+            Deberías ver algo como: <code
+                class="language-bash">pip 25.1 from /usr/lib/python3/dist-packages/pip (python 3.13)</code>
+        </li>
+    </ol>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>📸 Tarea:</strong> Captura de pantalla mostrando las versiones de Python y pip instaladas.
+    </div>
+
+    <h2 class="mb-4 text-primary">2. Primera Aplicación - "Hola Mundo"</h2>
+
+    <h3 class="mb-4 text-primary">2.1 Crear tu primera aplicación Flask</h3>
+    <p>Vamos a crear una aplicación muy simple para entender los conceptos básicos.</p>
+
+    <ol>
+        <li>Crea un directorio para tu primera aplicación:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">mkdir ~/mi-primera-flask
+cd ~/mi-primera-flask</code></pre>
+            </div>
+        </li>
+
+        <li>Crea un entorno virtual. Esto aislará las dependencias de este proyecto:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">python3 -m venv venv</code></pre>
+            </div>
+            <div class="alert alert-info mt-2">
+                <strong>¿Qué hace esto?</strong> Crea una carpeta llamada <code class="language-bash">venv</code> con
+                una instalación de Python limpia y aislada.
+            </div>
+        </li>
+
+        <li>Activa el entorno virtual:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">source venv/bin/activate</code></pre>
+            </div>
+            Verás que tu prompt cambia y aparece <code class="language-bash">(venv)</code> al principio:
+            <pre><code class="language-bash">(venv) tuNombre@Debian13:~/mi-primera-flask$</code></pre>
+            <div class="alert alert-success mt-2">
+                ✅ Esto indica que el entorno virtual está activo. Todos los paquetes que instales ahora solo afectarán a
+                este proyecto.
+            </div>
+        </li>
+
+        <li>Instala Flask dentro del entorno virtual:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">pip install Flask</code></pre>
+            </div>
+        </li>
+
+        <li>Crea un archivo llamado <code class="language-bash">app.py</code>:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">nano app.py</code></pre>
+            </div>
+            Escribe el siguiente código:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-python">from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def hola_mundo():
+    return '¡Hola Mundo desde Flask!'
+
+@app.route('/sobre')
+def sobre():
+    return 'Esta es mi primera aplicación Flask en Debian'
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)</code></pre>
+            </div>
+            Guarda el archivo (Ctrl+O, Enter, Ctrl+X).
+
+            <div class="alert alert-info mt-3">
+                <strong>Explicación del código:</strong>
+                <ul>
+                    <li><code class="language-bash">from flask import Flask</code>: Importa Flask</li>
+                    <li><code class="language-bash">@app.route('/')</code>: Decorador que define la ruta principal</li>
+                    <li><code class="language-bash">host='0.0.0.0'</code>: Permite conexiones desde cualquier IP
+                        (necesario para acceder desde
+                        tu máquina local)</li>
+                    <li><code class="language-bash">port=5000</code>: Puerto donde escucha el servidor</li>
+                    <li><code class="language-bash">debug=True</code>: Modo debug (recarga automática al cambiar código)
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li>Ejecuta la aplicación:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">python app.py</code></pre>
+            </div>
+            Deberías ver mensajes como:
+            <pre><code class="language-bash">* Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://IP-DE-TU-SERVIDOR:5000
+ * Debug mode: on</code></pre>
+        </li>
+
+        <li>Desde tu navegador, accede a:
+            <pre><code class="language-bash">http://IP-DE-TU-SERVIDOR:5000
+http://IP-DE-TU-SERVIDOR:5000/sobre</code></pre>
+        </li>
+    </ol>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>📸 Tarea:</strong> Capturas de pantalla mostrando:
+        <ul>
+            <li>La terminal con el servidor Flask corriendo</li>
+            <li>El navegador mostrando ambas rutas (/ y /sobre)</li>
+        </ul>
+    </div>
+
+    <div class="alert alert-danger" role="alert">
+        <strong>Para detener el servidor:</strong> Presiona <code class="language-bash">Ctrl+C</code> en la terminal.
+        <br><strong>Para desactivar el entorno virtual:</strong> Escribe <code class="language-bash">deactivate</code>
+    </div>
+
+    <h2 class="mb-4 text-primary">3. Aplicación Real - Blog Sencillo</h2>
+
+    <h3 class="mb-4 text-primary">3.1 Crear una aplicación de blog con base de datos</h3>
+    <p>Ahora vamos a crear una aplicación más completa que incluya formularios y base de datos SQLite.</p>
+
+    <ol>
+        <li>Detén el servidor anterior (Ctrl+C) y desactiva el entorno virtual:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">deactivate</code></pre>
+            </div>
+        </li>
+
+        <li>Crea un nuevo directorio para el proyecto de blog:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">cd ~
+mkdir flask-blog
+cd flask-blog</code></pre>
+            </div>
+        </li>
+
+        <li>Crea y activa un nuevo entorno virtual:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">python3 -m venv venv
+source venv/bin/activate</code></pre>
+            </div>
+        </li>
+
+        <li>Instala Flask y extensiones necesarias:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">pip install Flask Flask-SQLAlchemy</code></pre>
+            </div>
+            <div class="alert alert-info mt-2">
+                <strong>Flask-SQLAlchemy:</strong> Extensión que facilita el trabajo con bases de datos desde Flask.
+            </div>
+        </li>
+
+        <li>Crea el archivo principal <code class="language-bash">app.py</code>:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">nano app.py</code></pre>
+            </div>
+            Escribe el siguiente código:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-python">from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+# Modelo de datos para los posts
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    titulo = db.Column(db.String(100), nullable=False)
+    contenido = db.Column(db.Text, nullable=False)
+    fecha = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f'&lt;Post {self.titulo}&gt;'
+
+# Ruta principal - listar posts
+@app.route('/')
+def index():
+    posts = Post.query.order_by(Post.fecha.desc()).all()
+    return render_template('index.html', posts=posts)
+
+# Ruta para crear nuevo post
+@app.route('/crear', methods=['GET', 'POST'])
+def crear():
+    if request.method == 'POST':
+        titulo = request.form['titulo']
+        contenido = request.form['contenido']
+        nuevo_post = Post(titulo=titulo, contenido=contenido)
+
+        db.session.add(nuevo_post)
+        db.session.commit()
+
+        return redirect(url_for('index'))
+
+    return render_template('crear.html')
+
+# Ruta para editar un post existente
+@app.route('/editar/&lt;int:id&gt;', methods=['GET', 'POST'])
+def editar(id):
+    # Primero, obtenemos el post que se quiere editar.
+    # Si no existe, get_or_404 mostrará un error 404.
+    post = Post.query.get_or_404(id)
+
+    # Si el usuario envía el formulario (método POST)
+    if request.method == 'POST':
+        # Actualizamos los campos del post con los nuevos datos del formulario
+        post.titulo = request.form['titulo']
+        post.contenido = request.form['contenido']
+
+        # Guardamos los cambios en la base de datos
+        db.session.commit()
+
+        # Redirigimos al usuario a la página principal
+        return redirect(url_for('index'))
+
+    # Si el usuario solo está visitando la página (método GET)
+    # Mostramos el formulario de edición, pasándole los datos del post actual
+    return render_template('editar.html', post=post)
+
+# Ruta para eliminar post
+@app.route('/eliminar/&lt;int:id&gt;')
+def eliminar(id):
+    post = Post.query.get_or_404(id)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('index'))
+
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
+    app.run(host='0.0.0.0', port=5000, debug=True)</code></pre>
+            </div>
+        </li>
+
+        <li>Crea el directorio para las plantillas HTML:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">mkdir templates</code></pre>
+            </div>
+        </li>
+
+        <li>Crea la plantilla base <code class="language-bash">templates/base.html</code>:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">nano templates/base.html</code></pre>
+            </div>
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mi Blog Flask&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .post {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-danger {
+            background: #dc3545;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;🐍 Mi Blog con Flask&lt;/h1&gt;
+    &lt;nav&gt;
+        &lt;a href="/" class="btn"&gt;Inicio&lt;/a&gt;
+        &lt;a href="/crear" class="btn"&gt;Nuevo Post&lt;/a&gt;
+    &lt;/nav&gt;
+    &lt;hr&gt;
+    {% block content %}{% endblock %}
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+        </li>
+
+        <li>Crea la plantilla del índice <code class="language-bash">templates/index.html</code>:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">nano templates/index.html</code></pre>
+            </div>
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">{% extends 'base.html' %}
+
+{% block content %}
+    &lt;h2&gt;Todos los Posts&lt;/h2&gt;
+
+    {% if posts %}
+        {% for post in posts %}
+        &lt;div class="post"&gt;
+            &lt;h3&gt;{{ post.titulo }}&lt;/h3&gt;
+            &lt;p&gt;{{ post.contenido }}&lt;/p&gt;
+            &lt;small&gt;Publicado: {{ post.fecha.strftime('%d/%m/%Y %H:%M') }}&lt;/small&gt;
+            &lt;br&gt;&lt;br&gt;
+            &lt;a href="/eliminar/{{ post.id }}" class="btn btn-danger"&gt;Eliminar&lt;/a&gt;
+            &lt;a href="/editar/{{ post.id }}" class="btn btn-warning"&gt;Editar&lt;/a&gt;
+        &lt;/div&gt;
+        {% endfor %}
+    {% else %}
+        &lt;p&gt;No hay posts aún. ¡Crea el primero!&lt;/p&gt;
+    {% endif %}
+{% endblock %}</code></pre>
+            </div>
+        </li>
+
+        <li>Crea la plantilla para crear posts <code class="language-bash">templates/crear.html</code>:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">nano templates/crear.html</code></pre>
+            </div>
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">{% extends 'base.html' %}
+
+{% block content %}
+    &lt;h2&gt;Crear Nuevo Post&lt;/h2&gt;
+
+    &lt;form method="POST"&gt;
+        &lt;input type="text" name="titulo" placeholder="Título del post" required&gt;
+        &lt;textarea name="contenido" rows="10" placeholder="Contenido del post" required&gt;&lt;/textarea&gt;
+        &lt;button type="submit" class="btn"&gt;Publicar&lt;/button&gt;
+    &lt;/form&gt;
+{% endblock %}</code></pre>
+            </div>
+        </li>
+        <li>Crea la plantilla para editar posts <code class="language-bash">templates/editar.html</code>:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">{% extends 'base.html' %}
+
+{% block content %}
+    &lt;h2&gt;Editar Post&lt;/h2&gt;
+
+    &lt;form method="POST"&gt;
+        &lt;input type="text" name="titulo" value="{{ post.titulo }}" required&gt;
+        &lt;textarea name="contenido" rows="10" required&gt;{{ post.contenido }}&lt;/textarea&gt;
+        &lt;button type="submit" class="btn"&gt;Actualizar&lt;/button&gt;
+    &lt;/form&gt;
+{% endblock %}</code></pre>
+            </div>
+        </li>
+
+        <li>Tu estructura de directorios debería verse así:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">flask-blog/
+├── venv/
+├── app.py
+└── templates/
+    ├── base.html
+    ├── index.html
+    ├── crear.html
+    └── editar.html</code></pre>
+            </div>
+            Puedes verificarlo con:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">tree -L 2</code></pre>
+            </div>
+            (Si no tienes tree: <code class="language-bash">sudo apt install tree</code>)
+        </li>
+
+        <li>Ejecuta la aplicación:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">python app.py</code></pre>
+            </div>
+        </li>
+
+        <li>Accede desde tu navegador a <code class="language-bash">http://IP-DE-TU-SERVIDOR:5000</code> y prueba:
+            <ul>
+                <li>Crear varios posts</li>
+                <li>Ver la lista de posts</li>
+                <li>Editar algún post</li>
+                <li>Eliminar algún post</li>
+            </ul>
+        </li>
+    </ol>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>📸 Tarea:</strong> Capturas de pantalla mostrando:
+        <ul>
+            <li>La página principal con varios posts creados</li>
+            <li>El formulario de crear nuevo post</li>
+            <li>La terminal mostrando las peticiones que recibe Flask</li>
+        </ul>
+    </div>
+
+    <h2 class="mb-4 text-primary">4. Despliegue en Producción con Gunicorn</h2>
+    <p>El servidor de desarrollo de Flask (el que usamos con <code class="language-bash">python app.py</code>) NO es
+        adecuado para
+        producción.
+        Vamos a usar <strong>Gunicorn</strong>, un servidor WSGI robusto y eficiente.</p>
+
+    <h3 class="mb-4 text-primary">4.1 Instalar y configurar Gunicorn</h3>
+    <ol>
+        <li>Detén el servidor Flask (Ctrl+C).</li>
+
+        <li>Asegúrate de estar en el directorio del proyecto y con el entorno virtual activo:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">cd ~/flask-blog
+source venv/bin/activate</code></pre>
+            </div>
+        </li>
+
+        <li>Instala Gunicorn:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">pip install gunicorn</code></pre>
+            </div>
+        </li>
+
+        <li>Prueba que Gunicorn funciona:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">gunicorn --bind 0.0.0.0:5000 app:app</code></pre>
+            </div>
+            <div class="alert alert-info mt-2">
+                <strong>Explicación:</strong>
+                <ul>
+                    <li><code class="language-bash">--bind 0.0.0.0:5000</code>: Escucha en todas las interfaces en el
+                        puerto 5000</li>
+                    <li><code class="language-bash">app:app</code>: Primer "app" es el archivo (app.py), segundo "app"
+                        es la variable Flask
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li>Verifica que la aplicación funciona accediendo desde tu navegador. Luego detén Gunicorn (Ctrl+C).</li>
+
+        <li>Crea un archivo de servicio systemd para que Gunicorn se ejecute como servicio:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo nano /etc/systemd/system/flask-blog.service</code></pre>
+            </div>
+            <p>Añade el siguiente contenido (ajusta el usuario y rutas según tu sistema):</p>
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-ini">[Unit]
+Description=Gunicorn instance for Flask Blog
+After=network.target
+
+[Service]
+User=tuUsuario
+Group=www-data
+WorkingDirectory=/home/tuUsuario/flask-blog
+Environment="PATH=/home/tuUsuario/flask-blog/venv/bin"
+ExecStart=/home/tuUsuario/flask-blog/venv/bin/gunicorn --workers 3 --bind 0.0.0.0:5000 app:app
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+            </div>
+            <div class="alert alert-info mt-2">
+                <strong>Importante:</strong> Cambia <code class="language-bash">tuUsuario</code> por tu nombre de
+                usuario en las líneas User y en las rutas.
+            </div>
+        </li>
+
+        <li>Recarga systemd y habilita el servicio:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo systemctl daemon-reload
+sudo systemctl start flask-blog
+sudo systemctl enable flask-blog</code></pre>
+            </div>
+        </li>
+
+        <li>Verifica que el servicio está corriendo:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo systemctl status flask-blog</code></pre>
+            </div>
+            Deberías ver <code class="language-bash">active (running)</code> en verde.
+        </li>
+
+        <li>Comandos útiles para gestionar el servicio:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash"># Ver logs en tiempo real
+sudo journalctl -u flask-blog -f
+
+# Reiniciar el servicio
+sudo systemctl restart flask-blog
+
+# Detener el servicio
+sudo systemctl stop flask-blog
+
+# Ver estado
+sudo systemctl status flask-blog</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>📸 Tarea:</strong> Captura de pantalla mostrando la salida de
+        <code class="language-bash">sudo systemctl status flask-blog</code> con el servicio activo.
+    </div>
+
+    <h2 class="mb-4 text-primary">5. Proxy Inverso con Nginx</h2>
+    <p>Al igual que con Node.js, vamos a configurar Nginx como proxy inverso para manejar las peticiones HTTP.</p>
+
+    <h3 class="mb-4 text-primary">5.1 Configurar Nginx</h3>
+    <ol>
+        <li>Instala Nginx si no lo tienes:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo apt install -y nginx</code></pre>
+            </div>
+        </li>
+
+        <li>Crea un archivo de configuración para tu aplicación:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo nano /etc/nginx/sites-available/flask-blog</code></pre>
+            </div>
+            Añade:
+            Añade:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-nginx">server {
+    listen 80;
+    server_name tu-dominio.com;  # O tu IP
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Archivos estáticos (si los tuvieras)
+    location /static {
+        alias /home/antonio/flask-blog/static;
+    }
+}</code></pre>
+            </div>
+        </li>
+
+        <li>Habilita el sitio:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo ln -s /etc/nginx/sites-available/flask-blog /etc/nginx/sites-enabled/</code></pre>
+            </div>
+        </li>
+
+        <li>Desactiva el sitio por defecto (opcional):
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo rm /etc/nginx/sites-enabled/default</code></pre>
+            </div>
+        </li>
+
+        <li>Verifica la configuración:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo nginx -t</code></pre>
+            </div>
+        </li>
+
+        <li>Reinicia Nginx:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo systemctl restart nginx</code></pre>
+            </div>
+        </li>
+
+        <li>Ahora puedes acceder directamente por HTTP (puerto 80):
+            <pre><code class="language-bash">http://IP-DE-TU-SERVIDOR</code></pre>
+            ¡Sin especificar puerto 5000!
+        </li>
+    </ol>
+
+    <div class="alert alert-info" role="alert">
+        <strong>💡 Arquitectura final:</strong>
+        <br>Usuario → Nginx (puerto 80) → Gunicorn (puerto 5000) → Flask App
+    </div>
+
+    <h2 class="mb-4 text-primary">6. Gestión de Dependencias</h2>
+
+    <h3 class="mb-4 text-primary">6.1 Crear archivo requirements.txt</h3>
+    <p>Es una buena práctica documentar todas las dependencias de tu proyecto en un archivo
+        <code class="language-bash">requirements.txt</code>.
+    </p>
+
+    <ol>
+        <li>Activa el entorno virtual si no lo está:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">cd ~/flask-blog
+source venv/bin/activate</code></pre>
+            </div>
+        </li>
+
+        <li>Genera el archivo de dependencias:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">pip freeze > requirements.txt</code></pre>
+            </div>
+        </li>
+
+        <li>Visualiza el contenido:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">cat requirements.txt</code></pre>
+            </div>
+            Verás algo como:
+            <pre><code class="language-bash">blinker==1.9.0
+click==8.3.1
+Flask==3.1.2
+Flask-SQLAlchemy==3.1.1
+greenlet==3.2.4
+gunicorn==23.0.0
+itsdangerous==2.2.0
+Jinja2==3.1.6
+MarkupSafe==3.0.3
+packaging==25.0
+SQLAlchemy==2.0.44
+typing_extensions==4.15.0
+Werkzeug==3.1.4</code></pre>
+        </li>
+
+        <li>Este archivo es útil para:
+            <ul>
+                <li>Documentar las versiones exactas que funcionan</li>
+                <li>Recrear el entorno en otro servidor</li>
+                <li>Compartir tu proyecto con otros desarrolladores</li>
+            </ul>
+        </li>
+
+        <li>Para instalar las dependencias desde este archivo en otro sistema:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">pip install -r requirements.txt</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">7. Análisis y Troubleshooting</h2>
+
+    <h3 class="mb-4 text-primary">7.1 Trabajar con logs</h3>
+    <ol>
+        <li>Ver logs de la aplicación Flask (con Gunicorn):
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo journalctl -u flask-blog -f</code></pre>
+            </div>
+            Mantén este comando corriendo y accede a la aplicación desde el navegador. Verás las peticiones en tiempo
+            real.
+        </li>
+
+        <li>Ver logs de Nginx:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash"># Logs de acceso
+sudo tail -f /var/log/nginx/access.log
+
+# Logs de errores
+sudo tail -f /var/log/nginx/error.log</code></pre>
+            </div>
+        </li>
+
+        <li>Ver los últimos 50 logs de la aplicación:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo journalctl -u flask-blog -n 50</code></pre>
+            </div>
+        </li>
+
+        <li>Buscar errores específicos:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">sudo journalctl -u flask-blog | grep -i error</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <h3 class="mb-4 text-primary">7.2 Resolución de problemas comunes</h3>
+
+    <div class="alert alert-warning">
+        <strong>Problema 1: El servicio no arranca</strong>
+        <div class="position-relative">
+            <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                onclick="copiarCodigo(this)">Copiar</button>
+            <pre><code class="language-bash"># Verifica el estado y lee los logs
+sudo systemctl status flask-blog
+sudo journalctl -u flask-blog -n 50
+
+# Causas comunes:
+# - Ruta incorrecta en el archivo .service
+# - Usuario incorrecto
+# - Entorno virtual no encontrado</code></pre>
+        </div>
+    </div>
+
+    <div class="alert alert-warning">
+        <strong>Problema 2: Error 502 Bad Gateway en Nginx</strong>
+        <div class="position-relative">
+            <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                onclick="copiarCodigo(this)">Copiar</button>
+            <pre><code class="language-bash"># Verifica que Gunicorn está corriendo
+sudo systemctl status flask-blog
+
+# Verifica que está escuchando en el puerto correcto
+sudo ss -tulpn | grep :5000
+
+# Revisa los logs de Nginx
+sudo tail -f /var/log/nginx/error.log</code></pre>
+        </div>
+    </div>
+
+    <div class="alert alert-warning">
+        <strong>Problema 3: Cambios en el código no se reflejan</strong>
+        <div class="position-relative">
+            <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                onclick="copiarCodigo(this)">Copiar</button>
+            <pre><code class="language-bash"># Reinicia el servicio después de cambiar el código
+sudo systemctl restart flask-blog
+
+# O reinicia Gunicorn para recargar los cambios
+sudo systemctl reload flask-blog</code></pre>
+        </div>
+    </div>
+
+    <h2 class="mb-4 text-primary">Cuestionario Final</h2>
+    <p>Responde a estas preguntas al final del documento:</p>
+
+    <ol>
+        <li>¿Qué es un entorno virtual en Python y por qué es importante usarlo?</li>
+
+        <li>¿Cuál es la diferencia entre el servidor de desarrollo de Flask (<code
+                class="language-bash">flask run</code>) y
+            Gunicorn?</li>
+
+        <li>¿Qué comando usarías para instalar todas las dependencias de un proyecto Flask que tiene un archivo
+            <code class="language-bash">requirements.txt</code>?
+        </li>
+
+        <li>¿Qué es SQLAlchemy y para qué se utiliza en Flask?</li>
+
+        <li>En el archivo de servicio systemd, ¿qué hace la línea <code class="language-bash">ExecStart</code>?</li>
+
+        <li>¿Por qué es recomendable usar Nginx delante de Gunicorn en lugar de exponer Gunicorn
+            directamente?</li>
+
+        <li>Si modificas el código de tu aplicación Flask, ¿qué comando necesitas ejecutar para que los cambios
+            se reflejen en producción?</li>
+
+        <li>¿Qué diferencias observas entre desplegar una aplicación Flask vs una aplicación Node.js con
+            Express?</li>
+
+        <li>¿Qué es WSGI y cuál es su función en el contexto de aplicaciones Python?</li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">8. Ejercicio (AWS)</h2>
+
+    <h3 class="mb-4 text-primary">8.1 Desplegar una aplicación Flask</h3>
+    <p>Despliega una aplicación Flask en un servidor remoto.</p>
+
+    <ol>
+        <li>Configura un servidor remoto (por ejemplo, un VPS en DigitalOcean o AWS).</li>
+        <li>Instala Python, pip, y Git en el servidor remoto.</li>
+        <li>Clona tu repositorio de GitHub en el servidor remoto.</li>
+        <li>Configura el entorno virtual y las dependencias.</li>
+        <li>Configura Gunicorn para que arranque la aplicación.</li>
+        <li>Configura Nginx para que sirva la aplicación.</li>
+        <li>Configura el archivo de servicio systemd para que arranque la aplicación al iniciar el sistema.</li>
+        <li>Revisa los logs de la aplicación y Nginx para asegurarte de que todo funcione correctamente.</li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">Entrega de la Práctica</h2>
+    <div class="alert alert-success" role="alert">
+        <strong>📦 Contenido a entregar:</strong>
+        <ul>
+            <li>Documento Google Docs con todas las capturas que consideres relevantes, además puedes añadir información
+                adicional para que sea más entendible.</li>
+            <li>Respuestas al cuestionario final</li>
+            <li>El ejercicio 8 de despliegue de la aplicación Flask en AWS, lo veremos cuando hayamos montado el
+                servidor en AWS.</li>
+        </ul>
+    </div>
+
+</div>
