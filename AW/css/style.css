@@ -1,0 +1,190 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    overflow-x: hidden;
+    /* Evita el scroll horizontal en caso de desbordamiento */
+}
+
+h1,
+h2 {
+    color: #005f99;
+}
+
+code,
+pre {
+    background-color: #eaeaea;
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-family: Consolas, monospace;
+}
+
+pre {
+    display: block;
+    padding: 10px;
+    overflow-x: auto;
+}
+
+
+.method-title {
+    margin-top: 40px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+.explanation {
+    background-color: #f8f9fa;
+    border-left: 4px solid #007bff;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+/* --- ESTILOS PARA EL LAYOUT DE LA PÁGINA CON SIDEBAR --- */
+
+#wrapper {
+    display: flex;
+    /* Utiliza flexbox para alinear el sidebar y el contenido */
+}
+
+/* SIDEBAR FIJO Y RESPONSIVE */
+#sidebar-wrapper {
+    min-width: 15rem;
+    /* Ancho por defecto del sidebar */
+    max-width: 15rem;
+    height: 100vh;
+    /* Ocupa el 100% de la altura de la ventana */
+    position: fixed;
+    /* Lo fija en la ventana del navegador */
+    top: 0;
+    left: 0;
+    z-index: 1030;
+    /* Alto z-index para que esté por encima del contenido */
+    overflow-y: auto;
+    /* Permite scroll solo en el sidebar si el contenido es largo */
+    background-color: #17ca0a;
+    /* Color de fondo primario (Bootstrap) */
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    /* Borde derecho sutil */
+    transition: margin-left .25s ease-out;
+    /* Suaviza la transición al ocultar/mostrar */
+
+    /* OCULTAR SIDEBAR POR DEFECTO EN MÓVILES */
+    margin-left: -15rem;
+    /* Oculto por defecto en pantallas pequeñas */
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+    color: white;
+    background-color: #17ca0a;
+    /* Un tono más oscuro para el encabezado */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Estilos para que los elementos del menú vertical se vean bien */
+#sidebar-wrapper .navbar .navbar-nav .nav-item .nav-link {
+    padding: 0.8rem 1rem;
+    color: white;
+    /* Asegura el color blanco para los enlaces */
+    white-space: normal;
+    word-wrap: break-word;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#sidebar-wrapper .navbar .navbar-nav .nav-item:last-child .nav-link {
+    border-bottom: none;
+}
+
+#sidebar-wrapper .navbar .navbar-nav .nav-item .nav-link:hover {
+    background-color: rgba(190, 244, 116, 0.42);
+    /* Efecto hover */
+}
+
+/* Ajustes para el dropdown-menu en un sidebar vertical */
+#sidebar-wrapper .dropdown-menu {
+    position: static;
+    /* Importante para que se despliegue dentro del sidebar */
+    width: 100%;
+    background-color: #17ca0a;
+    /* Color ligeramente más oscuro para el submenú */
+    border: none;
+    border-radius: 0;
+    padding-left: 1rem;
+    /* Indentación para los submenús */
+    box-shadow: none;
+    /* Elimina sombras que podrían verse raras */
+}
+
+#sidebar-wrapper .dropdown-menu .dropdown-item {
+    color: white;
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    /* Quita el fondo blanco por defecto */
+}
+
+#sidebar-wrapper .dropdown-menu .dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+#sidebar-wrapper .dropdown-menu .dropdown-header {
+    color: #b0d3f3;
+    font-weight: bold;
+    padding: 0.75rem 1rem 0.25rem;
+}
+
+#sidebar-wrapper .dropdown-menu .dropdown-divider {
+    border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+
+/* CONTENIDO PRINCIPAL */
+#page-content-wrapper {
+    flex-grow: 1;
+    /* Permite que el contenido principal ocupe el espacio restante */
+    min-width: 0;
+    /* Necesario para que flex-grow funcione correctamente */
+}
+
+/* Clase 'toggled' para mostrar/ocultar el sidebar */
+#wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+    /* Muestra el sidebar */
+}
+
+/* Para la navbar del contenido principal (solo visible en móviles para el botón de toggle) */
+#page-content-wrapper .navbar {
+    width: 100%;
+    position: sticky;
+    /* Se fija en la parte superior al hacer scroll */
+    top: 0;
+    z-index: 1000;
+    /* Asegura que esté por encima del contenido */
+}
+
+
+/* Media query para pantallas más grandes (desktop) */
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+        /* Sidebar visible por defecto en pantallas grandes */
+    }
+
+    #page-content-wrapper {
+        margin-left: 15rem;
+        /* Desplaza el contenido principal a la derecha del sidebar fijo */
+        width: calc(100% - 15rem);
+        /* Ocupa el ancho restante */
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        margin-left: -15rem;
+        /* Oculta el sidebar si se togglea en desktop */
+    }
+
+    /* Ocultar el botón de toggle en pantallas grandes */
+    #sidebarToggle {
+        display: none !important;
+    }
+}

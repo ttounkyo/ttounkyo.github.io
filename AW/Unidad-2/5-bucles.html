@@ -1,0 +1,212 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Bucles e Iteración en JavaScript</h1>
+    <p>Los bucles ofrecen una forma rápida y sencilla de hacer algo repetidamente. Este capítulo presenta las diferentes
+        declaraciones de iteración disponibles en JavaScript, explicando no solo cómo funcionan, sino cuándo es mejor
+        usar cada una.</p>
+
+    <table class="table table-bordered mt-4">
+        <thead class="table-light">
+            <tr>
+                <th>Tipo de Bucle</th>
+                <th>Cuándo usarlo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code class="language-javascript">for</code></td>
+                <td>Cuando sabes de antemano cuántas veces quieres que se repita el bucle. Ideal para contar.</td>
+            </tr>
+            <tr>
+                <td><code class="language-javascript">while</code></td>
+                <td>Cuando quieres que el bucle se repita mientras una condición sea verdadera, pero no sabes cuántas
+                    veces ocurrirá.</td>
+            </tr>
+            <tr>
+                <td><code class="language-javascript">do...while</code></td>
+                <td>Similar a <code class="language-javascript">while</code>, pero garantiza que el bloque de código se
+                    ejecute <strong>al menos una vez</strong>.</td>
+            </tr>
+            <tr>
+                <td><code class="language-javascript">for...in</code></td>
+                <td>Para iterar sobre las <strong>claves (propiedades)</strong> de un objeto.</td>
+            </tr>
+            <tr>
+                <td><code class="language-javascript">for...of</code></td>
+                <td>Para iterar sobre los <strong>valores</strong> de un objeto iterable (como arreglos, cadenas, Map,
+                    Set).</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Bucles Contadores: El Bucle <code class="language-javascript">for</code></h2>
+    <p>El bucle <code class="language-javascript">for</code> se repite hasta que una condición especificada se evalúe
+        como <code class="language-javascript">false</code>. Es el
+        bucle más común cuando se necesita un contador.</p>
+    <p>Su sintaxis se compone de tres partes:</p>
+    <ol>
+        <li><strong>Inicialización:</strong> Se ejecuta una sola vez, al principio. Aquí se suele declarar e inicializar
+            la variable contadora.</li>
+        <li><strong>Condición:</strong> Se evalúa antes de cada iteración. Si es <code>true</code>, el bucle continúa.
+            Si es <code>false</code>, el bucle termina.</li>
+        <li><strong>Expresión de actualización:</strong> Se ejecuta al final de cada iteración. Aquí se suele
+            incrementar o decrementar el contador.</li>
+    </ol>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+// for ([inicialización]; [condición]; [actualización])
+
+for (let i = 0; i < 5; i++) {
+  // Se ejecuta 5 veces, con valores de i desde 0 hasta 4.
+  console.log("Camina un paso hacia el este. Paso número: " + (i + 1));
+}
+        </code></pre>
+    </div>
+
+    <h2 class="mb-4 text-primary">Bucles Condicionales: <code class="language-javascript">while</code> y <code
+            class="language-javascript">do...while</code></h2>
+
+    <h3 class="mb-4 text-primary">Declaración <code class="language-javascript">while</code></h3>
+    <p>Una declaración <code class="language-javascript">while</code> ejecuta sus instrucciones siempre que una
+        condición especificada se evalúe
+        como <code class="language-javascript">true</code>. La condición se comprueba <strong>antes</strong> de cada
+        iteración.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+let n = 0;
+while (n < 3) {
+  n++;
+  console.log("El valor de n es: " + n);
+}
+// Salida:
+// El valor de n es: 1
+// El valor de n es: 2
+// El valor de n es: 3
+        </code></pre>
+    </div>
+    <div class="alert alert-danger mt-3" role="alert">
+        <h4 class="alert-heading">¡Cuidado con los Bucles Infinitos!</h4>
+        <p class="mb-0">Asegúrate de que la condición en un bucle <code>while</code> eventualmente se convierta en
+            <code>false</code>. De lo contrario, el bucle nunca terminará y bloqueará tu programa.
+        </p>
+    </div>
+
+    <h3 class="mb-4 text-primary">Declaración <code class="language-javascript">do...while</code></h3>
+    <p>La instrucción <code class="language-javascript">do...while</code> es casi idéntica a <code
+            class="language-javascript">while</code>, pero con una diferencia crucial: la
+        condición se comprueba <strong>después</strong> de cada iteración. Esto garantiza que el bloque de código se
+        ejecute <strong>al menos una vez</strong>.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+let i = 5;
+do {
+  console.log("El valor de i es: " + i);
+  i++;
+} while (i < 5);
+
+// Salida:
+// El valor de i es: 5
+// (El bucle se ejecuta una vez, aunque la condición inicial '5 < 5' es falsa)
+        </code></pre>
+    </div>
+
+    <h2 class="mb-4 text-primary">Bucles Iteradores: <code class="language-javascript">for...in</code> y <code
+            class="language-javascript">for...of</code></h2>
+    <p>Estos bucles fueron diseñados para iterar sobre estructuras de datos de una forma más sencilla y directa que un
+        bucle <code class="language-javascript">for</code> tradicional.</p>
+
+    <h3 class="mb-4 text-primary">Declaración <code class="language-javascript">for...in</code></h3>
+    <p>La instrucción <code class="language-javascript">for...in</code> itera sobre todas las <strong>propiedades
+            enumerables (claves)</strong> de
+        un objeto.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+const user = {
+  name: 'Juan',
+  age: 30,
+  city: 'Madrid'
+};
+
+for (const key in user) {
+  console.log(`La clave es: ${key}, y su valor es: ${user[key]}`);
+}
+// Salida:
+// La clave es: name, y su valor es: Juan
+// La clave es: age, y su valor es: 30
+// La clave es: city, y su valor es: Madrid
+        </code></pre>
+    </div>
+    <div class="alert alert-warning mt-3" role="alert">
+        <h4 class="alert-heading">No uses <code class="language-javascript">for...in</code> para Arreglos</h4>
+        <p class="mb-0">Aunque técnicamente funciona, no se recomienda usar <code
+                class="language-javascript">for...in</code> para iterar sobre
+            arreglos. No garantiza el orden de los elementos y puede iterar sobre propiedades inesperadas si el
+            prototipo del arreglo ha sido modificado.</p>
+    </div>
+
+    <h3 class="mb-4 text-primary">Declaración <code class="language-javascript">for...of</code></h3>
+    <p>Introducida en ES2015, la declaración <code class="language-javascript">for...of</code> crea un bucle que itera
+        sobre los
+        <strong>valores</strong> de objetos iterables (como <code class="language-javascript">Array</code>, <code
+            class="language-javascript">String</code>, <code class="language-javascript">Map</code>,
+        <code class="language-javascript">Set</code>, etc.).
+    </p>
+    <p>Este es el método moderno y recomendado para iterar sobre los valores de un arreglo.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+const arr = [3, 5, 7];
+
+for (const value of arr) {
+  console.log(value); // Muestra 3, luego 5, luego 7
+}
+        </code></pre>
+    </div>
+
+    <h2 class="mb-4 text-primary">Control del Flujo de un Bucle</h2>
+    <p>A veces necesitas alterar el comportamiento normal de un bucle, ya sea para salir de él prematuramente o para
+        saltar una iteración.</p>
+
+    <h3 class="mb-4 text-primary">Declaración <code class="language-javascript">break</code></h3>
+    <p>Usa la instrucción <code class="language-javascript">break</code> para <strong>terminar un bucle</strong> por
+        completo y transferir el
+        control a la siguiente instrucción después del bucle.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+for (let i = 0; i < 10; i++) {
+  if (i === 5) {
+    break; // El bucle se detiene aquí
+  }
+  console.log(i); // Se mostrarán los números del 0 al 4
+}
+console.log("Bucle finalizado.");
+        </code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Declaración <code class="language-javascript">continue</code></h3>
+    <p>La instrucción <code class="language-javascript">continue</code> se usa para <strong>saltar la iteración
+            actual</strong> y continuar con la
+        siguiente iteración del bucle.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+for (let i = 0; i < 5; i++) {
+  if (i === 2) {
+    continue; // Salta la iteración cuando i es 2
+  }
+  console.log(i); // Se mostrarán los números 0, 1, 3, 4
+}
+        </code></pre>
+    </div>
+</div>

@@ -1,0 +1,208 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Control de Flujo y Manejo de Errores en JavaScript</h1>
+    <p>JavaScript admite un compacto conjunto de declaraciones, específicamente declaraciones de control de flujo, que
+        puedes utilizar para incorporar una gran cantidad de interactividad en tu aplicación.</p>
+
+    <h2 class="mb-4 text-primary">Declaración de Bloque <code>{...}</code></h2>
+    <p>La declaración más básica es una declaración de bloque, que se utiliza para agrupar una o más instrucciones. El
+        bloque está delimitado por un par de llaves y se usa comúnmente con declaraciones de control de flujo como
+        <code>if</code>, <code>for</code> o
+        <code>while</code>.
+    </p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+while (x < 10) {
+  x++; // Este es el bloque de código que se ejecuta en cada iteración.
+}
+        </code></pre>
+    </div>
+    <div class="alert alert-warning mt-3" role="alert">
+        <h4 class="alert-heading">Ámbito de Bloque y `var` vs. `let`</h4>
+        <p>En versiones antiguas de JavaScript (antes de ECMAScript 2015), las declaraciones de bloque no creaban un
+            nuevo ámbito. Una variable declarada con <code>var</code> dentro de un bloque
+            era
+            accesible en toda la función. A partir de ES2015, las variables declaradas con <code>let</code> y
+            <code>const</code> tienen <strong>ámbito de bloque</strong>, lo que significa
+            que
+            solo existen dentro del bloque en el que fueron declaradas.
+        </p>
+    </div>
+
+    <h2 class="mb-4 text-primary">Expresiones Condicionales</h2>
+    <p>Una expresión condicional es un conjunto de instrucciones que se ejecutarán si una condición especificada es
+        verdadera. JavaScript admite dos expresiones condicionales: <code>if...else</code> y
+        <code>switch</code>.
+    </p>
+
+    <h3 class="mb-4 text-primary">Expresión <code>if...else</code></h3>
+    <p>Utiliza la expresión <code>if</code> para ejecutar una instrucción si una condición
+        lógica es <code>true</code>.
+        Utiliza la cláusula opcional <code>else</code> para ejecutar una instrucción si la condición es
+        <code>false</code>.
+    </p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+if (condition) {
+  // Código a ejecutar si la condición es verdadera.
+} else {
+  // Código a ejecutar si la condición es falsa.
+}
+        </code></pre>
+    </div>
+    <p>También puedes anidar condiciones usando <code>else if</code>:</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+if (condition_1) {
+  statement_1;
+} else if (condition_2) {
+  statement_2;
+} else {
+  statement_last;
+}
+        </code></pre>
+    </div>
+
+    <div class="alert alert-info mt-4" role="alert">
+        <h4 class="alert-heading">Valores "Falsy" en JavaScript</h4>
+        <p>En un contexto booleano, los siguientes valores se evalúan siempre como <code>false</code>:</p>
+        <table class="table table-sm table-borderless">
+            <tbody>
+                <tr>
+                    <td><code>false</code></td>
+                    <td><code>undefined</code></td>
+                    <td><code>null</code></td>
+                </tr>
+                <tr>
+                    <td><code>0</code></td>
+                    <td><code>NaN</code></td>
+                    <td><code>""</code> (cadena vacía)</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="mb-0">Todos los demás valores, incluidos todos los objetos y arreglos (incluso si están vacíos), se
+            evalúan como <code>true</code>.</p>
+    </div>
+
+    <h3 class="mb-4 text-primary">Declaración <code>switch</code></h3>
+    <p>Una instrucción <code>switch</code> permite que un programa evalúe una expresión e
+        intente hacer coincidir el
+        valor de la expresión con una etiqueta <code>case</code>. Si la encuentra, el
+        programa ejecuta la declaración
+        asociada.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+switch (fruittype) {
+  case "Oranges":
+    console.log("Las naranjas cuestan 0.59€ el kilo.");
+    break; // 'break' evita que el código continúe al siguiente 'case'.
+  case "Apples":
+    console.log("Las manzanas cuestan 0.32€ el kilo.");
+    break;
+  case "Bananas":
+    console.log("Los plátanos cuestan 0.48€ el kilo.");
+    break;
+  default: // Se ejecuta si ningún 'case' coincide.
+    console.log(`Lo sentimos, no tenemos ${fruittype}.`);
+}
+        </code></pre>
+    </div>
+
+    <h2 class="mb-4 text-primary">Manejo de Excepciones</h2>
+    <p>Puedes lanzar excepciones usando la instrucción <code>throw</code> y manejarlas
+        usando las declaraciones
+        <code>try...catch...finally</code>.
+    </p>
+
+    <h3 class="mb-4 text-primary">Expresión <code>throw</code></h3>
+    <p>Utiliza la expresión <code>throw</code> para lanzar una excepción. Puedes lanzar
+        cualquier expresión, no solo
+        objetos de error.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+// Crea un objeto de error personalizado
+function UserException(message) {
+  this.message = message;
+  this.name = "UserException";
+}
+
+// Lanza una instancia del nuevo tipo de error
+throw new UserException("Valor muy alto");
+        </code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Declaración <code>try...catch...finally</code></h3>
+    <p>La declaración <code>try...catch</code> marca un bloque de código para "intentar"
+        (try) y especifica una
+        respuesta en caso de que se produzca una excepción (catch). El bloque <code>finally</code> es opcional y se
+        ejecuta siempre, haya o no una excepción.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+function getMonthName(mo) {
+  mo = mo - 1; // Ajusta el número de mes para el índice del arreglo
+  let months = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+  if (months[mo]) {
+    return months[mo];
+  } else {
+    throw "InvalidMonthNo"; // Lanza una excepción si el mes no es válido
+  }
+}
+
+try {
+  // Intentamos ejecutar este código
+  let myMonth = 15;
+  let monthName = getMonthName(myMonth);
+} catch (e) {
+  // Si ocurre una excepción en el bloque 'try', se ejecuta este bloque
+  monthName = "unknown";
+  console.error("Error capturado: ", e); // Manejamos el error
+} finally {
+  // Este bloque se ejecuta siempre, con o sin error.
+  console.log("Proceso finalizado.");
+}
+        </code></pre>
+    </div>
+    <div class="alert alert-success mt-4" role="alert">
+        <h4 class="alert-heading">El Bloque `finally`</h4>
+        <p>El bloque <code>finally</code> es ideal para tareas de "limpieza", como cerrar
+            una conexión a una base de
+            datos o un archivo, ya que garantiza que ese código se ejecutará sin importar si la operación principal tuvo
+            éxito o falló.</p>
+    </div>
+
+    <h3 class="mb-4 text-primary">Utilizar Objetos <code>Error</code></h3>
+    <p>Para un manejo de errores más robusto, es recomendable lanzar objetos <code>Error</code>. Estos objetos tienen
+        propiedades estándar como <code>name</code> y <code>message</code> que proporcionan información más detallada
+        sobre el error.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+function doSomethingErrorProne() {
+  if (ourCodeMakesAMistake()) {
+    throw new Error('Este es un mensaje de error específico.');
+  } else {
+    // ...
+  }
+}
+
+try {
+  doSomethingErrorProne();
+} catch (e) {
+  console.error(e.name);    // Muestra: 'Error'
+  console.error(e.message); // Muestra: 'Este es un mensaje de error específico.'
+}
+        </code></pre>
+    </div>
+</div>

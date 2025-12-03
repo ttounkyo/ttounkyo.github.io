@@ -1,0 +1,139 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Introducción a JavaScript</h1>
+    <p>Este capítulo presenta el lenguaje de programación JavaScript y analiza algunos de sus conceptos fundamentales,
+        desde su propósito y su historia hasta cómo empezar a escribir tus primeras líneas de código.</p>
+
+    <div class="alert alert-info mt-4" role="alert">
+        <h4 class="alert-heading">¿Qué Debes Conocer Previamente?</h4>
+        <p>Esta guía presume que tienes los siguientes antecedentes básicos:</p>
+        <ul>
+            <li>Una comprensión general de Internet y la World Wide Web.</li>
+            <li>Un buen conocimiento práctico del Lenguaje de Marcado de Hipertexto (HTML).</li>
+            <li>Alguna experiencia en programación. Si eres completamente nuevo, te recomendamos empezar con un tutorial
+                básico de lógica de programación.</li>
+        </ul>
+    </div>
+
+    <h2 class="mb-4 text-primary">¿Qué es JavaScript?</h2>
+    <p>JavaScript es un lenguaje de programación <strong>multiplataforma y orientado a objetos</strong> que se utiliza
+        para hacer que las páginas web sean interactivas. Gracias a él, podemos crear desde animaciones complejas y
+        menús desplegables hasta aplicaciones web completas que se actualizan en tiempo real.</p>
+    <p>JavaScript contiene una biblioteca estándar de objetos, como <code>Array</code>, <code>Date</code> y
+        <code>Math</code>, y un conjunto básico de elementos del lenguaje como operadores, estructuras de control y
+        declaraciones. El núcleo de JavaScript se puede extender para una variedad de propósitos completándolo con
+        objetos adicionales:
+    </p>
+    <ul>
+        <li><strong>JavaScript de lado del cliente (Client-Side):</strong> Es el JavaScript que se ejecuta en el
+            navegador web. Se extiende proporcionando objetos para controlar el navegador y su <strong>Modelo de Objetos
+                de Documento (DOM)</strong>. Permite que una aplicación coloque elementos en un formulario HTML,
+            responda a clics del ratón, valide datos y cambie dinámicamente el contenido de la página sin necesidad de
+            recargarla.</li>
+        <li><strong>JavaScript de lado del servidor (Server-Side):</strong> Versiones más avanzadas como
+            <strong>Node.js</strong> amplían el núcleo del lenguaje con objetos relevantes para ejecutar JavaScript en
+            un servidor. Esto permite a una aplicación comunicarse con una base de datos, gestionar usuarios, manipular
+            archivos en el servidor y construir APIs completas.
+        </li>
+    </ul>
+
+    <div class="alert alert-warning mt-4" role="alert">
+        <h4 class="alert-heading">¡No Confundir! JavaScript y Java</h4>
+        <p>JavaScript y Java son similares en algunos aspectos superficiales, pero fundamentalmente diferentes. El
+            lenguaje JavaScript se parece a Java en la sintaxis, pero no tiene su tipado estático ni su fuerte
+            verificación de tipos. La similitud en el nombre es principalmente una decisión de marketing de la época.
+        </p>
+    </div>
+
+    <table class="table table-bordered align-middle mt-4">
+        <thead class="table-light">
+            <tr>
+                <th>JavaScript</th>
+                <th>Java</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Orientado a objetos basado en <strong>prototipos</strong>. La herencia es dinámica y las propiedades
+                    y métodos se pueden agregar a cualquier objeto en tiempo de ejecución.</td>
+                <td>Basado en <strong>clases</strong>. Los objetos son instancias de clases y la herencia se define en
+                    la jerarquía de clases. No se pueden añadir propiedades dinámicamente.</td>
+            </tr>
+            <tr>
+                <td>Los tipos de datos de las variables no se declaran (<strong>tipado dinámico</strong>).</td>
+                <td>Los tipos de datos de las variables deben declararse (<strong>tipado estático</strong>).</td>
+            </tr>
+            <tr>
+                <td>Se ejecuta principalmente en el navegador o en entornos como Node.js. Por seguridad, no puede
+                    acceder directamente al sistema de archivos del cliente.</td>
+                <td>Puede ejecutarse en una máquina virtual (JVM) en cualquier sistema y tiene acceso completo a los
+                    recursos del sistema, como el disco duro.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">JavaScript y la Especificación ECMAScript</h2>
+    <p>JavaScript está estandarizado por <strong>Ecma International</strong>. Esta versión estandarizada se denomina
+        <strong>ECMAScript</strong> y su objetivo es asegurar que el lenguaje se comporte de la misma manera en todas
+        las plataformas que lo soporten (navegadores, servidores, etc.). El estándar ECMAScript está documentado en la
+        especificación <strong>ECMA-262</strong>.
+    </p>
+    <div class="alert alert-info mt-4" role="alert">
+        <h4 class="alert-heading">Documentación vs. Especificación</h4>
+        <p>La especificación ECMA-262 es un documento técnico para los ingenieros que crean los motores de JavaScript
+            (como V8 en Chrome o SpiderMonkey en Firefox). <strong>No está pensada para aprender a programar</strong>.
+        </p>
+        <p class="mb-0">Para aprender a escribir código, debes utilizar la documentación de JavaScript, como la de
+            <strong>MDN Web Docs</strong>, que describe el lenguaje desde la perspectiva de un programador.
+        </p>
+    </div>
+
+    <h2 class="mb-4 text-primary">Cómo Empezar con JavaScript</h2>
+    <p>Comenzar con JavaScript es fácil: todo lo que necesitas es un navegador web moderno. La <strong>Consola
+            Web</strong> integrada en los navegadores es una herramienta increíblemente útil para experimentar.</p>
+    <p>Para abrir la Consola Web, presiona <code>Ctrl+Shift+J</code> (o F12) en Windows/Linux, o
+        <code>Cmd+Option+J</code> en Mac, y selecciona la pestaña "Consola".
+    </p>
+
+    <div class="text-center p-3">
+        <img src="../AW/img/Unidad-2/web-console.png"
+            alt="Imagen de la Consola Web del navegador mostrando la línea de entrada de comandos y el área de salida."
+            class="img-fluid border rounded shadow-sm">
+        <p class="text-muted small mt-2"><em>La Consola Web es tu primer campo de pruebas para JavaScript.</em></p>
+    </div>
+
+    <h3 class="mb-4 text-primary">Hola Mundo en la Consola</h3>
+    <p>Para comenzar a escribir JavaScript, abre la Consola Web y escribe tu primer código "Hola mundo":</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+(function () {
+  "use strict";
+  /* Inicio de tu código */
+
+  function greetMe(yourName) {
+    alert("Hola " + yourName);
+  }
+
+  greetMe("Mundo");
+
+  /* Fin de tu código */
+})();
+    </code></pre>
+    </div>
+
+    <p>Presiona <code>Ctrl+Enter</code> (o haz clic en el botón Ejecutar si usas el modo multilínea) para ver el
+        resultado.</p>
+
+    <div class="alert alert-success mt-4" role="alert">
+        <h4 class="alert-heading">Una Buena Práctica: "use strict" y las IIFE</h4>
+        <p>Por ahora, acostúmbrate a envolver tu código de esta manera. La estructura
+            <code>(function() { ... })();</code> se llama <strong>IIFE</strong> (Immediately Invoked Function
+            Expression) y, junto con <code>"use strict";</code>, te ayudará a:
+        </p>
+        <ul>
+            <li>Evitar errores comunes que confunden a los principiantes.</li>
+            <li>Prevenir que las variables de tu código interfieran con otras partes de la página web.</li>
+        </ul>
+    </div>
+</div>

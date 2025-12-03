@@ -1,0 +1,152 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Expresiones en JavaScript</h1>
+
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">¿Qué es una Expresión?</h4>
+        <p class="mb-0">Una expresión es cualquier unidad de código válida que, al ser evaluada por el intérprete de
+            JavaScript, <strong>se resuelve en un valor</strong>. Es la idea más fundamental en el lenguaje.</p>
+    </div>
+
+    <p>Toda expresión sintácticamente válida se resuelve en algún valor, pero conceptualmente, hay dos tipos de
+        expresiones:</p>
+
+    <div class="row mt-4">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title d-flex align-items-center"><span class="display-6 me-3">✍️</span> Con Efectos
+                        Secundarios</h5>
+                    <p class="card-text">Son expresiones que, además de resolverse en un valor, modifican el estado del
+                        programa, como asignar un valor a una variable.</p>
+                    <div class="position-relative">
+                        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                            onclick="copiarCodigo(this)">Copiar</button>
+                        <pre><code class="language-javascript">
+// Esta expresión asigna 7 a 'x'.
+// El "efecto secundario" es el cambio en la variable 'x'.
+// La expresión completa se resuelve en el valor 7.
+x = 7;
+                        </code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title d-flex align-items-center"><span class="display-6 me-3">🧮</span> Que Solo
+                        Evalúan</h5>
+                    <p class="card-text">Son expresiones que simplemente calculan un valor sin modificar el estado del
+                        programa.</p>
+                    <div class="position-relative">
+                        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                            onclick="copiarCodigo(this)">Copiar</button>
+                        <pre><code class="language-javascript">
+// Esta expresión usa el operador '+' para sumar 3 y 4.
+// No modifica ninguna variable.
+// La expresión se resuelve en el valor 7.
+3 + 4;
+                        </code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mb-4 text-primary">Categorías de Expresiones</h2>
+    <ul>
+        <li><strong>Aritméticas:</strong> Se evalúa como un número (ej. <code>3.14159</code>). Generalmente usa
+            operadores aritméticos.</li>
+        <li><strong>Cadenas:</strong> Se evalúa como una cadena de caracteres (ej. <code>"Fred"</code>). Generalmente
+            usa operadores de cadena.</li>
+        <li><strong>Lógicas:</strong> Se evalúan como <code>true</code> o <code>false</code>. A menudo implica
+            operadores lógicos.</li>
+        <li><strong>Expresiones primarias:</strong> Palabras clave básicas y expresiones generales en JavaScript.</li>
+        <li><strong>Expresiones del lado izquierdo:</strong> Los valores del lado izquierdo son el destino de una
+            asignación.</li>
+    </ul>
+
+    <h2 class="mb-4 text-primary">Expresiones Primarias</h2>
+
+    <h3 class="mb-4 text-primary">La Palabra Clave <code>this</code></h3>
+    <p>Utiliza la palabra clave <code>this</code> para hacer referencia al <strong>objeto actual</strong>. En general,
+        <code>this</code> se refiere al objeto que está ejecutando el método actual. El valor de <code>this</code> se
+        determina por cómo se llama a la función.</p>
+    <p>Supongamos que una función llamada <code>validate</code> valida la propiedad <code>value</code> de un objeto:</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+function validate(obj, lowval, hival) {
+  // 'obj' es el objeto que recibe la función.
+  if (obj.value < lowval || obj.value > hival) {
+    console.log("¡Valor no válido!");
+  }
+}
+        </code></pre>
+    </div>
+    <p>Puedes llamar a <code>validate</code> en el controlador de eventos <code>onChange</code> de un elemento de
+        formulario, utilizando <code>this</code> para pasar el propio elemento de formulario a la función:</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">
+&lt;p&gt;Ingresa un número entre 18 y 99:&lt;/p&gt;
+&lt;!-- Aquí, 'this' se refiere al propio elemento 'input' --&gt;
+&lt;input type="text" name="age" size="3" onChange="validate(this, 18, 99);" /&gt;
+        </code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Operador de Agrupación <code>()</code></h3>
+    <p>El operador de agrupación <code>()</code> controla la precedencia (el orden) de la evaluación en las expresiones.
+        Por ejemplo, puedes forzar que una suma se realice antes que una multiplicación.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+let a = 1 + 2 * 3; // a es 7 (la multiplicación es primero)
+let b = (1 + 2) * 3; // b es 9 (los paréntesis fuerzan la suma primero)
+        </code></pre>
+    </div>
+
+    <h2 class="mb-4 text-primary">Expresiones del Lado Izquierdo</h2>
+    <p>Los valores a la izquierda de un operador de asignación son el destino de esa asignación.</p>
+
+    <h3 class="mb-4 text-primary">Operador <code>new</code></h3>
+    <p>Puedes utilizar el operador <code>new</code> para crear una <strong>instancia</strong> de un tipo de objeto, ya
+        sea uno definido por el usuario (una clase) o uno de los tipos de objeto integrados de JavaScript.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+// 'new Date()' crea una nueva instancia del objeto 'Date'
+const hoy = new Date();
+
+// 'new Array()' crea una nueva instancia de 'Array'
+const miArray = new Array('a', 'b', 'c');
+        </code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Palabra Clave <code>super</code></h3>
+    <p>La palabra clave <code>super</code> se utiliza dentro de las clases para llamar a funciones del objeto padre (la
+        clase de la que hereda). Su uso más común es para llamar al constructor de la clase padre.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+class Animal {
+  constructor(nombre) {
+    this.nombre = nombre;
+  }
+}
+
+class Perro extends Animal {
+  constructor(nombre, raza) {
+    // 'super(nombre)' llama al constructor de la clase padre (Animal)
+    super(nombre);
+    this.raza = raza;
+  }
+}
+        </code></pre>
+    </div>
+</div>

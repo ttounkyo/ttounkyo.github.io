@@ -1,0 +1,247 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Conceptos Básicos de JavaScript</h1>
+    <p>JavaScript está influenciado sobre todo por la sintaxis de Java, C y C++, pero también ha sido influenciado por
+        Awk, Perl y Python.</p>
+
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">💡 Case-Sensitive y Caracteres Unicode</h4>
+        <p>JavaScript <strong>distingue entre mayúsculas y minúsculas</strong> (es case-sensitive) y utiliza el conjunto
+            de caracteres Unicode. Por ejemplo, la palabra <code>Früh</code> (que significa "temprano" en Alemán) se
+            podría usar como el nombre de una variable, pero no sería la misma que <code>früh</code>.</p>
+        <pre><code>let Früh = "foobar";
+let früh = "another value";
+console.log(Früh); // Muestra "foobar"</code></pre>
+    </div>
+
+    <p>En JavaScript, las instrucciones se denominan <strong>declaraciones</strong> y están separadas por un punto y
+        coma (<code>;</code>). Aunque no es estrictamente necesario si cada declaración está en una línea nueva, se
+        considera una <strong>buena práctica</strong> incluirlo siempre para evitar errores inesperados.</p>
+
+    <h2 class="mb-4 text-primary">Comentarios</h2>
+    <p>La sintaxis de los comentarios es la misma que en C++ y en muchos otros lenguajes. Los comentarios se comportan
+        como espacios en blanco y se descartan durante la ejecución del script.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+// Este es un comentario de una sola línea.
+
+/*
+  Este es un comentario
+  más largo, que ocupa
+  varias líneas.
+*/
+
+/* No puedes anidar /* comentarios de bloque */ SyntaxError */
+    </code></pre>
+    </div>
+
+    <h2 class="mb-4 text-primary">Declaraciones de Variables</h2>
+    <p>JavaScript tiene tres tipos de declaraciones de variables, cada una con un comportamiento diferente en cuanto a
+        su ámbito (scope):</p>
+    <ul>
+        <li><code><strong>var</strong></code>: Declara una variable, opcionalmente la inicia a un valor. Tiene ámbito de
+            función (function-scoped).</li>
+        <li><code><strong>let</strong></code>: Declara una variable local con ámbito de bloque (block-scoped),
+            opcionalmente la inicia a un valor. Es la forma moderna y recomendada.</li>
+        <li><code><strong>const</strong></code>: Declara una constante de solo lectura y con ámbito de bloque. Debe ser
+            inicializada en el momento de su declaración.</li>
+    </ul>
+
+    <h2 class="mb-4 text-primary">Variables</h2>
+    <p>Utiliza variables como nombres simbólicos para valores en tu aplicación. Un identificador de JavaScript debe
+        comenzar con una letra, un guión bajo (<code>_</code>) o un signo de dólar (<code>$</code>). Los siguientes
+        caracteres también pueden ser dígitos (0-9).</p>
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">⚠️ ¡Cuidado con las Variables Globales no Declaradas!</h4>
+        <p>Si asignas un valor a una variable sin haberla declarado antes con <code>var</code>, <code>let</code> o
+            <code>const</code> (por ejemplo, <code>x = 42;</code>), JavaScript crea una variable global no declarada.
+            Esto se desaconseja totalmente porque puede provocar comportamientos inesperados y errores difíciles de
+            depurar.
+        </p>
+    </div>
+
+    <h3 class="mb-4 text-primary">Ámbito de Variables: `var` vs. `let`</h3>
+    <p>Cuando declaras una variable fuera de cualquier función, se denomina <strong>variable global</strong>. Cuando la
+        declaras dentro de una función, es una <strong>variable local</strong>.</p>
+    <p>La principal diferencia entre <code>var</code> y <code>let</code> es su ámbito:</p>
+    <ul>
+        <li><code><strong>var</strong></code> tiene ámbito de función. Esto significa que si declaras una variable con
+            <code>var</code> dentro de un bloque (como un <code>if</code>), esa variable será accesible en toda la
+            función que contiene el bloque.
+        </li>
+    </ul>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+if (true) {
+  var x = 5;
+}
+console.log(x); // Muestra 5, porque 'x' es accesible fuera del bloque if.
+    </code></pre>
+    </div>
+    <ul>
+        <li><code><strong>let</strong></code> (y <code>const</code>) tienen ámbito de bloque. La variable solo existe
+            dentro del bloque en el que fue declarada (las llaves <code>{}</code>).</li>
+    </ul>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+if (true) {
+  let y = 5;
+}
+console.log(y); // ReferenceError: y is not defined
+    </code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Elevación de Variables (Hoisting)</h3>
+    <p>Otro concepto inusual de JavaScript es que puedes hacer referencia a una variable declarada con <code>var</code>
+        antes de su declaración sin obtener una excepción. Este concepto se conoce como <strong>hoisting</strong>
+        (elevación).</p>
+    <p>Las declaraciones de variables con <code>var</code> son "elevadas" al principio de su ámbito, pero su
+        inicialización no. Por lo tanto, la variable existe pero su valor es <code>undefined</code> hasta que el código
+        llega a la línea donde se le asigna un valor.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+console.log(myVar); // Muestra "undefined", no un error.
+var myVar = "my value";
+console.log(myVar); // Muestra "my value".
+    </code></pre>
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">Hoisting con `let` y `const`</h4>
+            <p><code>let</code> y <code>const</code> también son elevadas, pero no se inicializan. Acceder a ellas antes
+                de
+                su declaración resulta en un <code>ReferenceError</code> porque entran en una "zona muerta temporal"
+                (Temporal Dead Zone o TDZ).</p>
+        </div>
+
+        <h2 class="mb-4 text-primary">Constantes</h2>
+        <p>Puedes crear una constante de solo lectura con la palabra clave <code>const</code>. Una constante no puede
+            cambiar su valor a través de la reasignación.</p>
+        <pre><code>const PI = 3.14;
+PI = 3; // TypeError: Assignment to constant variable.</code></pre>
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">Importante: `const` no hace que el valor sea inmutable</h4>
+            <p>Si una constante es un objeto o un arreglo (Array), sus propiedades o elementos sí pueden ser
+                modificados.
+                <code>const</code> solo protege la referencia, no el contenido.
+            </p>
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-javascript">
+const MY_OBJECT = { key: "value" };
+MY_OBJECT.key = "otherValue"; // Esto es válido.
+
+const MY_ARRAY = ["HTML", "CSS"];
+MY_ARRAY.push("JAVASCRIPT"); // Esto también es válido.
+            </code></pre>
+            </div>
+        </div>
+
+        <h2 class="mb-4 text-primary">Estructuras y Tipos de Datos</h2>
+        <p>El último estándar ECMAScript define ocho tipos de datos:</p>
+        <table class="table table-bordered mt-4">
+            <thead class="table-light">
+                <tr>
+                    <th colspan="2">Siete Tipos de Datos Primitivos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Booleano</strong></td>
+                    <td><code>true</code> y <code>false</code>.</td>
+                </tr>
+                <tr>
+                    <td><strong>null</strong></td>
+                    <td>Una palabra clave especial que denota un valor nulo.</td>
+                </tr>
+                <tr>
+                    <td><strong>undefined</strong></td>
+                    <td>Una propiedad cuyo valor no está definido.</td>
+                </tr>
+                <tr>
+                    <td><strong>Number</strong></td>
+                    <td>Un número entero o con coma flotante (ej: <code>42</code>, <code>3.14</code>).</td>
+                </tr>
+                <tr>
+                    <td><strong>BigInt</strong></td>
+                    <td>Un número entero con precisión arbitraria (ej: <code>9007199254740992n</code>).</td>
+                </tr>
+                <tr>
+                    <td><strong>String</strong></td>
+                    <td>Una secuencia de caracteres (ej: <code>"Hola"</code>).</td>
+                </tr>
+                <tr>
+                    <td><strong>Symbol</strong></td>
+                    <td>Un tipo de dato cuyas instancias son únicas e inmutables.</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">Y <strong>Object</strong>, que es el único tipo no primitivo.</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <h3 class="mb-4 text-primary">Conversión de Tipos de Datos</h3>
+        <p>JavaScript es un lenguaje de <strong>tipado dinámico</strong>. Esto significa que no tienes que especificar
+            el
+            tipo de dato de una variable al declararla, y los tipos se convierten automáticamente según sea necesario.
+        </p>
+        <pre><code>
+let answer = 42;      // answer es un Number
+answer = "Gracias..."; // ahora answer es un String, sin error.
+    </code></pre>
+        <p>En expresiones que involucran valores numéricos y de cadena con el operador <code>+</code>, JavaScript
+            convierte
+            los números a cadenas. Con otros operadores, intenta convertir las cadenas a números.</p>
+        <pre><code>
+"37" + 7; // "377" (concatenación)
+"37" - 7; // 30 (resta numérica)
+    </code></pre>
+
+        <h2 class="mb-4 text-primary">Literales</h2>
+        <p>Los literales representan valores fijos en JavaScript. Los más comunes son:</p>
+        <ul>
+            <li><strong>Literales de Arreglo (Array):</strong> Una lista de valores entre corchetes <code>[]</code>.
+                <pre><code>let coffees = ["French Roast", "Colombian", "Kona"];</code></pre>
+            </li>
+            <li><strong>Literales Booleanos (Boolean):</strong> <code>true</code> y <code>false</code>.</li>
+            <li><strong>Literales Numéricos (Number):</strong> <code>117</code>, <code>-3.14</code>.</li>
+            <li><strong>Literales de Objeto (Object):</strong> Una lista de pares clave-valor entre llaves
+                <code>{}</code>.
+                <pre><code>
+var car = {
+  myCar: "Saturn",
+  getCar: "Honda",
+  special: "Toyota"
+};
+            </code></pre>
+            </li>
+            <li><strong>Literales de Cadena (String):</strong> Caracteres entre comillas simples (<code>'</code>),
+                dobles
+                (<code>"</code>) o acentos graves (<code>`</code>).</li>
+        </ul>
+
+        <h3 class="mb-4 text-primary">Plantillas Literales (Template Literals)</h3>
+        <p>Introducidas en ES2015, las plantillas literales usan acentos graves (<code>`</code>) y permiten:</p>
+        <ul>
+            <li><strong>Cadenas multilínea (Multiline String):</strong> Escribir texto en varias líneas de forma
+                natural.</li>
+            <li><strong>Interpolación de expresiones (Expression Interpolation):</strong> Incrustar variables y
+                expresiones dentro de la cadena
+                usando
+                la sintaxis <code>${...}</code>.</li>
+        </ul>
+        <pre><code>
+var name = "Bob", time = "hoy";
+let greeting = `Hola ${name}, ¿cómo estás ${time}?`;
+console.log(greeting); // Muestra "Hola Bob, ¿cómo estás hoy?"
+    </code></pre>
+
+    </div>

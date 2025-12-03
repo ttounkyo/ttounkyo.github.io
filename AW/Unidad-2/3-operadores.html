@@ -1,0 +1,258 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Operadores en JavaScript</h1>
+    <p>JavaScript tiene un amplio conjunto de operadores para realizar asignaciones, comparaciones, operaciones
+        aritméticas y mucho más. Esta sección describe los operadores más importantes y su precedencia.</p>
+
+    <h2 class="mb-4 text-primary">🔢 Operadores de Asignación</h2>
+    <p>Un operador de asignación asigna un valor a su operando izquierdo. El más simple es el de igualdad
+        (<code>=</code>), pero existen operadores compuestos que son una abreviatura de operaciones comunes.</p>
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Nombre</th>
+                <th>Operador Abreviado</th>
+                <th>Significado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Asignación</td>
+                <td><code>x = y</code></td>
+                <td><code>x = y</code></td>
+            </tr>
+            <tr>
+                <td>Asignación de adición</td>
+                <td><code>x += y</code></td>
+                <td><code>x = x + y</code></td>
+            </tr>
+            <tr>
+                <td>Asignación de resta</td>
+                <td><code>x -= y</code></td>
+                <td><code>x = x - y</code></td>
+            </tr>
+            <tr>
+                <td>Asignación de multiplicación</td>
+                <td><code>x *= y</code></td>
+                <td><code>x = x * y</code></td>
+            </tr>
+            <tr>
+                <td>Asignación de división</td>
+                <td><code>x /= y</code></td>
+                <td><code>x = x / y</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info mt-4" role="alert">
+        <h4 class="alert-heading">✨ Desestructuración (Destructuring)</h4>
+        <p>Para asignaciones más complejas, la sintaxis de desestructuración permite extraer datos de arreglos u objetos
+            de una forma muy concisa.</p>
+        <div class="position-relative">
+            <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                onclick="copiarCodigo(this)">Copiar</button>
+            <pre><code class="language-javascript">
+const foo = ["uno", "dos", "tres"];
+
+// Con desestructuración
+const [uno, dos, tres] = foo;
+
+console.log(uno); // "uno"
+            </code></pre>
+        </div>
+    </div>
+
+    <h2 class="mb-4 text-primary">⚖️ Operadores de Comparación</h2>
+    <p>Un operador de comparación compara sus operandos y devuelve un valor lógico (<code>true</code> o
+        <code>false</code>).</p>
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Operador</th>
+                <th>Descripción</th>
+                <th>Ejemplo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Igual (<code>==</code>)</td>
+                <td>Compara si los operandos son iguales, realizando conversión de tipo.</td>
+                <td><code>"3" == 3 // true</code></td>
+            </tr>
+            <tr>
+                <td>No es igual (<code>!=</code>)</td>
+                <td>Compara si los operandos no son iguales, realizando conversión de tipo.</td>
+                <td><code>"3" != 4 // true</code></td>
+            </tr>
+            <tr>
+                <td>Estrictamente igual (<code>===</code>)</td>
+                <td>Compara si los operandos son iguales y del mismo tipo, <strong>sin</strong> conversión de tipo.</td>
+                <td><code>"3" === 3 // false</code></td>
+            </tr>
+            <tr>
+                <td>Desigualdad estricta (<code>!==</code>)</td>
+                <td>Compara si los operandos no son iguales o son de diferente tipo.</td>
+                <td><code>"3" !== 3 // true</code></td>
+            </tr>
+            <tr>
+                <td>Mayor que (<code>&gt;</code>)</td>
+                <td>Compara si el operando izquierdo es mayor que el derecho.</td>
+                <td><code>4 > 3 // true</code></td>
+            </tr>
+            <tr>
+                <td>Menor que (<code>&lt;</code>)</td>
+                <td>Compara si el operando izquierdo es menor que el derecho.</td>
+                <td><code>3 < 4 // true</code></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-warning mt-3" role="alert">
+        <h4 class="alert-heading">Mejor Práctica: Usa Siempre `===` y `!==`</h4>
+        <p>La comparación estricta (<code>===</code>) evita errores sutiles causados por la conversión automática de
+            tipos. Es la forma recomendada y más segura de comparar valores en JavaScript.</p>
+    </div>
+
+    <h2 class="mb-4 text-primary">➕ Operadores Aritméticos</h2>
+    <p>Toman valores numéricos como operandos y devuelven un solo valor numérico. Los estándar son <code>+</code>,
+        <code>-</code>, <code>*</code>, <code>/</code>.</p>
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Operador</th>
+                <th>Descripción</th>
+                <th>Ejemplo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Residuo (<code>%</code>)</td>
+                <td>Devuelve el resto entero de una división.</td>
+                <td><code>12 % 5 // devuelve 2</code></td>
+            </tr>
+            <tr>
+                <td>Incremento (<code>++</code>)</td>
+                <td>Agrega uno a su operando.</td>
+                <td><code>let x = 3; x++; // ahora x es 4</code></td>
+            </tr>
+            <tr>
+                <td>Decremento (<code>--</code>)</td>
+                <td>Resta uno de su operando.</td>
+                <td><code>let x = 3; x--; // ahora x es 2</code></td>
+            </tr>
+            <tr>
+                <td>Exponenciación (<code>**</code>)</td>
+                <td>Calcula la base a la potencia del exponente.</td>
+                <td><code>2 ** 3 // devuelve 8</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">🧠 Operadores Lógicos</h2>
+    <p>Se utilizan normalmente con valores booleanos y devuelven un valor booleano. Sin embargo, <code>&&</code> y
+        <code>||</code> pueden devolver el valor de uno de los operandos.</p>
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Operador</th>
+                <th>Uso</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>AND Lógico (<code>&&</code>)</td>
+                <td><code>expr1 && expr2</code></td>
+                <td>Devuelve <code>expr1</code> si se puede convertir a <code>false</code>; de lo contrario, devuelve
+                    <code>expr2</code>.</td>
+            </tr>
+            <tr>
+                <td>OR lógico (<code>||</code>)</td>
+                <td><code>expr1 || expr2</code></td>
+                <td>Devuelve <code>expr1</code> si se puede convertir a <code>true</code>; de lo contrario, devuelve
+                    <code>expr2</code>.</td>
+            </tr>
+            <tr>
+                <td>NOT lógico (<code>!</code>)</td>
+                <td><code>!expr</code></td>
+                <td>Devuelve <code>false</code> si su operando se puede convertir a <code>true</code>; de lo contrario,
+                    devuelve <code>true</code>.</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info mt-3" role="alert">
+        <h4 class="alert-heading">Evaluación de Cortocircuito (Short-circuiting)</h4>
+        <p>Las expresiones lógicas se evalúan de izquierda a derecha y se detienen tan pronto como se conoce el
+            resultado final. Esto es muy útil para establecer valores por defecto o evitar errores.</p>
+        <div class="position-relative">
+            <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                onclick="copiarCodigo(this)">Copiar</button>
+            <pre><code class="language-javascript">
+// Si `user` es null, `getName()` nunca se ejecuta, evitando un error.
+const name = user && user.getName();
+
+// Si `config.port` no está definido, se usa 8080 como valor por defecto.
+const port = config.port || 8080;
+            </code></pre>
+        </div>
+    </div>
+
+    <h2 class="mb-4 text-primary">❓ Operador Condicional (Ternario)</h2>
+    <p>Es el único operador de JavaScript que toma tres operandos. Es una forma compacta de escribir una declaración
+        <code>if...else</code>.</p>
+    <p>La sintaxis es: <code>condición ? valorSiTrue : valorSiFalse</code></p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+const age = 20;
+const status = age >= 18 ? "adulto" : "menor";
+
+console.log(status); // "adulto"
+        </code></pre>
+    </div>
+
+    <h2 class="mb-4 text-primary">🔗 Otros Operadores Útiles</h2>
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Operador</th>
+                <th>Descripción</th>
+                <th>Ejemplo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Operador de Cadena (<code>+</code>)</td>
+                <td>Concatena dos cadenas.</td>
+                <td><code>"hola " + "mundo" // "hola mundo"</code></td>
+            </tr>
+            <tr>
+                <td><code>typeof</code></td>
+                <td>Devuelve una cadena que indica el tipo del operando.</td>
+                <td><code>typeof 42 // "number"</code></td>
+            </tr>
+            <tr>
+                <td><code>instanceof</code></td>
+                <td>Devuelve <code>true</code> si un objeto es una instancia de un tipo de objeto específico.</td>
+                <td><code>new Date() instanceof Date // true</code></td>
+            </tr>
+            <tr>
+                <td><code>in</code></td>
+                <td>Devuelve <code>true</code> si la propiedad especificada está en el objeto.</td>
+                <td><code>'make' in mycar // true</code></td>
+            </tr>
+            <tr>
+                <td><code>delete</code></td>
+                <td>Elimina una propiedad de un objeto.</td>
+                <td><code>delete mycar.make;</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-secondary mt-4" role="alert">
+        <h4 class="alert-heading">Operadores Bit a Bit (Bitwise)</h4>
+        <p>JavaScript también incluye operadores que trabajan directamente a nivel de bits (ceros y unos) de un número,
+            como <code>&</code> (AND), <code>|</code> (OR), <code>^</code> (XOR), <code>~</code> (NOT), y operadores de
+            desplazamiento como <code>&lt;&lt;</code> y <code>&gt;&gt;</code>. Aunque son menos comunes en el desarrollo
+            web del día a día, son fundamentales en operaciones de bajo nivel, criptografía o gráficos.</p>
+    </div>
+</div>
