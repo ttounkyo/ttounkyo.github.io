@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 4: Cambiar Color</title>
+</head>
+
+<body>
+
+    <h1>Ejercicio 4: Cambiar Color de Texto</h1>
+
+    <p id="textoEjemplo">Este es un párrafo de ejemplo. Haz clic en los botones para cambiar su color.</p>
+
+    <!-- Cada botón llama a la misma función, pero le pasa un color diferente como argumento -->
+    <button onclick="cambiarColor('red')">Rojo</button>
+    <button onclick="cambiarColor('green')">Verde</button>
+    <button onclick="cambiarColor('blue')">Azul</button>
+
+    <script>
+        // La función acepta un parámetro, 'colorSeleccionado', que cambiará
+        // dependiendo del botón que se pulse.
+        function cambiarColor(colorSeleccionado) {
+            // 1. Seleccionamos el párrafo por su ID
+            const parrafo = document.getElementById("textoEjemplo");
+
+            // 2. Accedemos a sus estilos (style) y cambiamos la propiedad 'color'
+            parrafo.style.color = colorSeleccionado;
+        }
+    </script>
+</body>
+
+</html>

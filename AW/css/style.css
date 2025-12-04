@@ -188,3 +188,21 @@ pre {
         display: none !important;
     }
 }
+
+/* --- ESTILOS ADICIONALES PARA EL MENÚ DE 3 NIVELES --- */
+
+/* Oculta el submenú de tercer nivel por defecto */
+#sidebar-wrapper .sub-menu {
+    display: none;
+    padding-left: 1rem; /* Añade sangría para diferenciarlo */
+}
+
+/* Muestra el submenú cuando tenga la clase 'show' (que añadiremos con JS) */
+#sidebar-wrapper .sub-menu.show {
+    display: block;
+}
+
+/* Opcional: Estilo para el enlace del submenú cuando está activo */
+#sidebar-wrapper .submenu-toggle {
+    cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+}

@@ -13,34 +13,34 @@
         </thead>
         <tbody>
             <tr>
-                <td><code class="language-javascript">for</code></td>
+                <td><code>for</code></td>
                 <td>Cuando sabes de antemano cuántas veces quieres que se repita el bucle. Ideal para contar.</td>
             </tr>
             <tr>
-                <td><code class="language-javascript">while</code></td>
+                <td><code>while</code></td>
                 <td>Cuando quieres que el bucle se repita mientras una condición sea verdadera, pero no sabes cuántas
                     veces ocurrirá.</td>
             </tr>
             <tr>
-                <td><code class="language-javascript">do...while</code></td>
-                <td>Similar a <code class="language-javascript">while</code>, pero garantiza que el bloque de código se
+                <td><code>do...while</code></td>
+                <td>Similar a <code>while</code>, pero garantiza que el bloque de código se
                     ejecute <strong>al menos una vez</strong>.</td>
             </tr>
             <tr>
-                <td><code class="language-javascript">for...in</code></td>
+                <td><code>for...in</code></td>
                 <td>Para iterar sobre las <strong>claves (propiedades)</strong> de un objeto.</td>
             </tr>
             <tr>
-                <td><code class="language-javascript">for...of</code></td>
+                <td><code>for...of</code></td>
                 <td>Para iterar sobre los <strong>valores</strong> de un objeto iterable (como arreglos, cadenas, Map,
                     Set).</td>
             </tr>
         </tbody>
     </table>
 
-    <h2 class="mb-4 text-primary">Bucles Contadores: El Bucle <code class="language-javascript">for</code></h2>
-    <p>El bucle <code class="language-javascript">for</code> se repite hasta que una condición especificada se evalúe
-        como <code class="language-javascript">false</code>. Es el
+    <h2 class="mb-4 text-primary">Bucles Contadores: El Bucle <code>for</code></h2>
+    <p>El bucle <code>for</code> se repite hasta que una condición especificada se evalúe
+        como <code>false</code>. Es el
         bucle más común cuando se necesita un contador.</p>
     <p>Su sintaxis se compone de tres partes:</p>
     <ol>
@@ -64,13 +64,12 @@ for (let i = 0; i < 5; i++) {
         </code></pre>
     </div>
 
-    <h2 class="mb-4 text-primary">Bucles Condicionales: <code class="language-javascript">while</code> y <code
-            class="language-javascript">do...while</code></h2>
+    <h2 class="mb-4 text-primary">Bucles Condicionales: <code>while</code> y <code>do...while</code></h2>
 
-    <h3 class="mb-4 text-primary">Declaración <code class="language-javascript">while</code></h3>
-    <p>Una declaración <code class="language-javascript">while</code> ejecuta sus instrucciones siempre que una
+    <h3 class="mb-4 text-primary">Declaración <code>while</code></h3>
+    <p>Una declaración <code>while</code> ejecuta sus instrucciones siempre que una
         condición especificada se evalúe
-        como <code class="language-javascript">true</code>. La condición se comprueba <strong>antes</strong> de cada
+        como <code>true</code>. La condición se comprueba <strong>antes</strong> de cada
         iteración.</p>
     <div class="position-relative">
         <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
@@ -94,9 +93,8 @@ while (n < 3) {
         </p>
     </div>
 
-    <h3 class="mb-4 text-primary">Declaración <code class="language-javascript">do...while</code></h3>
-    <p>La instrucción <code class="language-javascript">do...while</code> es casi idéntica a <code
-            class="language-javascript">while</code>, pero con una diferencia crucial: la
+    <h3 class="mb-4 text-primary">Declaración <code>do...while</code></h3>
+    <p>La instrucción <code>do...while</code> es casi idéntica a <code>while</code>, pero con una diferencia crucial: la
         condición se comprueba <strong>después</strong> de cada iteración. Esto garantiza que el bloque de código se
         ejecute <strong>al menos una vez</strong>.</p>
     <div class="position-relative">
@@ -115,13 +113,12 @@ do {
         </code></pre>
     </div>
 
-    <h2 class="mb-4 text-primary">Bucles Iteradores: <code class="language-javascript">for...in</code> y <code
-            class="language-javascript">for...of</code></h2>
+    <h2 class="mb-4 text-primary">Bucles Iteradores: <code>for...in</code> y <code>for...of</code></h2>
     <p>Estos bucles fueron diseñados para iterar sobre estructuras de datos de una forma más sencilla y directa que un
-        bucle <code class="language-javascript">for</code> tradicional.</p>
+        bucle <code>for</code> tradicional.</p>
 
-    <h3 class="mb-4 text-primary">Declaración <code class="language-javascript">for...in</code></h3>
-    <p>La instrucción <code class="language-javascript">for...in</code> itera sobre todas las <strong>propiedades
+    <h3 class="mb-4 text-primary">Declaración <code>for...in</code></h3>
+    <p>La instrucción <code>for...in</code> itera sobre todas las <strong>propiedades
             enumerables (claves)</strong> de
         un objeto.</p>
     <div class="position-relative">
@@ -144,19 +141,17 @@ for (const key in user) {
         </code></pre>
     </div>
     <div class="alert alert-warning mt-3" role="alert">
-        <h4 class="alert-heading">No uses <code class="language-javascript">for...in</code> para Arreglos</h4>
-        <p class="mb-0">Aunque técnicamente funciona, no se recomienda usar <code
-                class="language-javascript">for...in</code> para iterar sobre
+        <h4 class="alert-heading">No uses <code>for...in</code> para Arreglos</h4>
+        <p class="mb-0">Aunque técnicamente funciona, no se recomienda usar <code>for...in</code> para iterar sobre
             arreglos. No garantiza el orden de los elementos y puede iterar sobre propiedades inesperadas si el
             prototipo del arreglo ha sido modificado.</p>
     </div>
 
-    <h3 class="mb-4 text-primary">Declaración <code class="language-javascript">for...of</code></h3>
-    <p>Introducida en ES2015, la declaración <code class="language-javascript">for...of</code> crea un bucle que itera
+    <h3 class="mb-4 text-primary">Declaración <code>for...of</code></h3>
+    <p>Introducida en ES2015, la declaración <code>for...of</code> crea un bucle que itera
         sobre los
-        <strong>valores</strong> de objetos iterables (como <code class="language-javascript">Array</code>, <code
-            class="language-javascript">String</code>, <code class="language-javascript">Map</code>,
-        <code class="language-javascript">Set</code>, etc.).
+        <strong>valores</strong> de objetos iterables (como <code>Array</code>, <code>String</code>, <code>Map</code>,
+        <code>Set</code>, etc.).
     </p>
     <p>Este es el método moderno y recomendado para iterar sobre los valores de un arreglo.</p>
     <div class="position-relative">
@@ -175,8 +170,8 @@ for (const value of arr) {
     <p>A veces necesitas alterar el comportamiento normal de un bucle, ya sea para salir de él prematuramente o para
         saltar una iteración.</p>
 
-    <h3 class="mb-4 text-primary">Declaración <code class="language-javascript">break</code></h3>
-    <p>Usa la instrucción <code class="language-javascript">break</code> para <strong>terminar un bucle</strong> por
+    <h3 class="mb-4 text-primary">Declaración <code>break</code></h3>
+    <p>Usa la instrucción <code>break</code> para <strong>terminar un bucle</strong> por
         completo y transferir el
         control a la siguiente instrucción después del bucle.</p>
     <div class="position-relative">
@@ -193,8 +188,8 @@ console.log("Bucle finalizado.");
         </code></pre>
     </div>
 
-    <h3 class="mb-4 text-primary">Declaración <code class="language-javascript">continue</code></h3>
-    <p>La instrucción <code class="language-javascript">continue</code> se usa para <strong>saltar la iteración
+    <h3 class="mb-4 text-primary">Declaración <code>continue</code></h3>
+    <p>La instrucción <code>continue</code> se usa para <strong>saltar la iteración
             actual</strong> y continuar con la
         siguiente iteración del bucle.</p>
     <div class="position-relative">

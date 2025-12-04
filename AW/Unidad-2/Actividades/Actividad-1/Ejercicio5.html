@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 5: Contador</title>
+</head>
+
+<body>
+    <h1>Ejercicio 5: Contador</h1>
+
+    <!-- Este h2 mostrará el número actual del contador -->
+    <h2 id="numeroContador">0</h2>
+
+    <button onclick="aumentar()">+</button>
+    <button onclick="disminuir()">-</button>
+
+    <script>
+        // 1. Declaramos una variable para guardar el estado del contador.
+        // La declaramos fuera de las funciones para que no se reinicie cada vez que las llamamos.
+        let contador = 0;
+
+        // 2. Seleccionamos el elemento que muestra el número para no tener que buscarlo cada vez.
+        const displayContador = document.getElementById("numeroContador");
+
+        // Función para aumentar el valor
+        function aumentar() {
+            contador = contador + 1; // o simplemente contador++;
+            // Actualizamos el texto en la página con el nuevo valor
+            displayContador.innerText = contador;
+        }
+
+        // Función para disminuir el valor
+        function disminuir() {
+            contador = contador - 1; // o simplemente contador--;
+            // Actualizamos el texto en la página con el nuevo valor
+            displayContador.innerText = contador;
+        }
+    </script>
+</body>
+
+</html>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>SMX - APLICACIONES WEB</title>
+    <title>SMX - APLICACIONES OFIMÁTICAS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -39,32 +39,44 @@
     <!-- /#wrapper -->
 
     <script>
-        // Cargar el menú
+        // Función para inicializar los listeners del menú de 3 niveles
+        function inicializarSubmenus() {
+            const submenuToggles = document.querySelectorAll('.submenu-toggle');
+            submenuToggles.forEach(function (toggle) {
+                toggle.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    const submenu = this.nextElementSibling;
+                    if (submenu) {
+                        submenu.classList.toggle('show');
+                    }
+                });
+            });
+        }
+
+        // Cargar el menú principal y luego inicializar todo
         fetch("./nav/menu.html")
             .then((res) => res.text())
             .then((data) => {
-                document.getElementById("sidebar-wrapper").innerHTML = data; // Carga el nav en el #sidebar-wrapper
+                // 1. Carga el nav en el #sidebar-wrapper
+                document.getElementById("sidebar-wrapper").innerHTML = data;
 
-                // Una vez cargado el menú, añadir listeners a los enlaces
+                // 2. Añadir listeners a los enlaces que cargan contenido
                 const links = document.querySelectorAll("a[data-page]");
                 links.forEach(link => {
                     link.addEventListener("click", function (e) {
                         e.preventDefault();
                         const page = this.getAttribute("data-page");
-                        const title = this.getAttribute("data-title") || "APLICACIONES OFIMÁTICAS"; // Título por defecto
+                        const title = this.getAttribute("data-title") || "APLICACIONES WEB";
 
-                        // Cargar el contenido correspondiente
                         fetch(page)
                             .then(res => res.text())
                             .then(html => {
                                 document.getElementById("contenido").innerHTML = html;
-                                // Cambiar título de la pestaña
                                 document.title = title;
-                                // Reaplicar Prism.js al nuevo contenido
                                 if (window.Prism) {
                                     Prism.highlightAll();
                                 }
-                                // En móvil, después de cargar, oculta el sidebar
                                 if (window.innerWidth < 768 && document.getElementById("wrapper").classList.contains("toggled")) {
                                     document.getElementById("wrapper").classList.remove("toggled");
                                 }
@@ -72,7 +84,11 @@
                     });
                 });
 
-                // Lógica para el toggle del sidebar (visible en móvil, fijo en desktop)
+                // ***** LA PARTE CLAVE DE LA SOLUCIÓN *****
+                // 3. AHORA que el HTML del menú está en la página, inicializamos los submenús
+                inicializarSubmenus();
+
+                // 4. Lógica para el toggle del sidebar (botón de hamburguesa)
                 var sidebarToggle = document.getElementById("sidebarToggle");
                 if (sidebarToggle) {
                     sidebarToggle.addEventListener("click", function (e) {
@@ -81,9 +97,9 @@
                     });
                 }
 
-                // Asegurar que el sidebar se muestra correctamente en desktop si se refresca la página
+                // 5. Asegurar estado visual correcto del sidebar en desktop
                 if (window.innerWidth >= 768) {
-                    document.getElementById("wrapper").classList.remove("toggled"); // Asegura que no esté 'toggled' en desktop
+                    document.getElementById("wrapper").classList.remove("toggled");
                 }
             });
     </script>

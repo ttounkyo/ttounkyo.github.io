@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3: Comprobar Edad</title>
+</head>
+
+<body>
+
+    <h1>Ejercicio 3: Comprobar Edad</h1>
+
+    <label for="campoEdad">Introduce tu edad:</label>
+    <input type="number" id="campoEdad" placeholder="Ej: 25">
+
+    <!-- Este botón llama a la función comprobarEdad() al ser pulsado -->
+    <button onclick="comprobarEdad()">Comprobar</button>
+
+    <!-- Este div mostrará el resultado de la comprobación -->
+    <div id="resultado" style="margin-top: 20px; font-weight: bold;"></div>
+
+    <script>
+        function comprobarEdad() {
+            // 1. Seleccionamos el campo de entrada (input) y el div de resultado
+            const inputEdad = document.getElementById("campoEdad");
+            const divResultado = document.getElementById("resultado");
+
+            // 2. Obtenemos el valor escrito en el campo y lo convertimos a número
+            const edad = Number(inputEdad.value);
+
+            // 3. Usamos un condicional para decidir qué mensaje mostrar
+            if (edad >= 18) {
+                // Si la edad es 18 o más...
+                divResultado.innerText = "Eres mayor de edad. ¡Bienvenido/a!";
+                divResultado.style.color = "green";
+            } else {
+                // Si la edad es menor de 18...
+                divResultado.innerText = "Lo siento, no puedes acceder.";
+                divResultado.style.color = "red";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

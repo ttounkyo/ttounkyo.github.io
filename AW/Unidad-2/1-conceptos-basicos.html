@@ -8,7 +8,7 @@
         <p>JavaScript <strong>distingue entre mayúsculas y minúsculas</strong> (es case-sensitive) y utiliza el conjunto
             de caracteres Unicode. Por ejemplo, la palabra <code>Früh</code> (que significa "temprano" en Alemán) se
             podría usar como el nombre de una variable, pero no sería la misma que <code>früh</code>.</p>
-        <pre><code>let Früh = "foobar";
+        <pre><code class="language-javascript">let Früh = "foobar";
 let früh = "another value";
 console.log(Früh); // Muestra "foobar"</code></pre>
     </div>
@@ -122,7 +122,7 @@ console.log(myVar); // Muestra "my value".
         <h2 class="mb-4 text-primary">Constantes</h2>
         <p>Puedes crear una constante de solo lectura con la palabra clave <code>const</code>. Una constante no puede
             cambiar su valor a través de la reasignación.</p>
-        <pre><code>const PI = 3.14;
+        <pre><code >const PI = 3.14;
 PI = 3; // TypeError: Assignment to constant variable.</code></pre>
         <div class="alert alert-warning" role="alert">
             <h4 class="alert-heading">Importante: `const` no hace que el valor sea inmutable</h4>
@@ -193,14 +193,14 @@ MY_ARRAY.push("JAVASCRIPT"); // Esto también es válido.
             el
             tipo de dato de una variable al declararla, y los tipos se convierten automáticamente según sea necesario.
         </p>
-        <pre><code>
+        <pre><code class="language-javascript">
 let answer = 42;      // answer es un Number
 answer = "Gracias..."; // ahora answer es un String, sin error.
     </code></pre>
         <p>En expresiones que involucran valores numéricos y de cadena con el operador <code>+</code>, JavaScript
             convierte
             los números a cadenas. Con otros operadores, intenta convertir las cadenas a números.</p>
-        <pre><code>
+        <pre><code class="language-javascript">
 "37" + 7; // "377" (concatenación)
 "37" - 7; // 30 (resta numérica)
     </code></pre>
@@ -209,13 +209,13 @@ answer = "Gracias..."; // ahora answer es un String, sin error.
         <p>Los literales representan valores fijos en JavaScript. Los más comunes son:</p>
         <ul>
             <li><strong>Literales de Arreglo (Array):</strong> Una lista de valores entre corchetes <code>[]</code>.
-                <pre><code>let coffees = ["French Roast", "Colombian", "Kona"];</code></pre>
+                <pre><code >let coffees = ["French Roast", "Colombian", "Kona"];</code></pre>
             </li>
             <li><strong>Literales Booleanos (Boolean):</strong> <code>true</code> y <code>false</code>.</li>
             <li><strong>Literales Numéricos (Number):</strong> <code>117</code>, <code>-3.14</code>.</li>
             <li><strong>Literales de Objeto (Object):</strong> Una lista de pares clave-valor entre llaves
                 <code>{}</code>.
-                <pre><code>
+                <pre><code class="language-javascript">
 var car = {
   myCar: "Saturn",
   getCar: "Honda",
@@ -238,7 +238,7 @@ var car = {
                 usando
                 la sintaxis <code>${...}</code>.</li>
         </ul>
-        <pre><code>
+        <pre><code class="language-javascript">
 var name = "Bob", time = "hoy";
 let greeting = `Hola ${name}, ¿cómo estás ${time}?`;
 console.log(greeting); // Muestra "Hola Bob, ¿cómo estás hoy?"

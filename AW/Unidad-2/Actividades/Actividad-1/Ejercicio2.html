@@ -1,0 +1,42 @@
+<div class="container my-5">
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Ejercicio 2: Saludo Personalizado&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body onload="saludarUsuario()"&gt;
+
+    &lt;h1&gt;Ejercicio 2: Saludo Personalizado&lt;/h1&gt;
+
+    <!-- Este párrafo está vacío al principio, pero lo llenaremos con JavaScript -->
+    &lt;p id="mensajeBienvenida"&gt;&lt;/p&gt;
+
+    &lt;script&gt;
+        // Esta función se ejecutará cuando el cuerpo (body) de la página se haya cargado
+        function saludarUsuario() {
+            // 1. Preguntamos el nombre al usuario y lo guardamos en una variable
+            const nombre = prompt("Por favor, introduce tu nombre:");
+
+            // 2. Buscamos el elemento HTML que tiene el id="mensajeBienvenida"
+            const parrafo = document.getElementById("mensajeBienvenida");
+
+            // 3. Cambiamos el texto de ese párrafo para mostrar el saludo personalizado
+            parrafo.innerText = `Hola, ${nombre}, ¡gracias por visitar nuestra web!`;
+        }
+    &lt;/script&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+
+</code></pre>
+    </div>
+</div>
