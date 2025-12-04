@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+    <script>
+        // Aquí el contenido no existe
+        // Por lo tanto, se ejecutará al cargar la página
+    </script>
+</head>
+
+<body>
+    <button onclick="alerta()">Click me</button>
+    <script>
+        function alerta() {
+            let nombre = prompt("Introduce tu nombre");
+            if (nombre !== "") {
+                let ok = confirm(`¿Estás seguro de que eres ${nombre}?`);
+                if (ok) {
+                    let p = document.createElement("p").append(`Bienvenido/a ${nombre} a mi página web`);
+                    document.body.appendChild(p);
+                } else {
+                    alert("No has confirmado que eres " + nombre + ", repite el proceso");
+                    alerta();
+                }
+            } else {
+                alert("No has introducido ningún nombre, repite el proceso");
+                alerta();
+            }
+
+            //document.body.style.backgroundColor = "red";
+        }
+        // Ya ha cargado todo el contenido de la página
+    </script>
+</body>
+
+</html>
