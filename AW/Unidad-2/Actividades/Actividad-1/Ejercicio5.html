@@ -1,22 +1,37 @@
-<!DOCTYPE html>
-<html lang="es">
+<div class="container my-5">
+    <h1 class="text-center text-primary">Ejercicio 5: Contador</h1>
+    <p>En este ejercicio se muestra un contador que, al hacer clic en él, actuliza el elemento h2 con el número actual.
+    </p>
+    <p>Deberás desarrollar la lógica necesaria para:</p>
+    <ul>
+        <li>Seleccionar el elemento h2 por su ID.</li>
+        <li>Seleccionar los botones por su texto.</li>
+        <li>Asociar una función JavaScript a eventos de clic en múltiples botones.</li>
+    </ul>
+    <p>El código HTML es el siguiente:</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 5: Contador</title>
-</head>
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Ejercicio 5: Contador&lt;/title&gt;
+&lt;/head&gt;
 
-<body>
-    <h1>Ejercicio 5: Contador</h1>
+&lt;body&gt;
+    &lt;h1&gt;Ejercicio 5: Contador&lt;/h1&gt;
 
-    <!-- Este h2 mostrará el número actual del contador -->
-    <h2 id="numeroContador">0</h2>
+    &lt;!-- Este h2 mostrará el número actual del contador --&gt;
+    &lt;h2 id="numeroContador"&gt;0&lt;/h2&gt;
 
-    <button onclick="aumentar()">+</button>
-    <button onclick="disminuir()">-</button>
+    &lt;button onclick="aumentar()"&gt;+&lt;/button&gt;
+    &lt;button onclick="disminuir()"&gt;-&lt;/button&gt;
 
-    <script>
+    &lt;script&gt;
         // 1. Declaramos una variable para guardar el estado del contador.
         // La declaramos fuera de las funciones para que no se reinicie cada vez que las llamamos.
         let contador = 0;
@@ -37,7 +52,10 @@
             // Actualizamos el texto en la página con el nuevo valor
             displayContador.innerText = contador;
         }
-    </script>
-</body>
+    &lt;/script&gt;
+&lt;/body&gt;
 
-</html>
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>

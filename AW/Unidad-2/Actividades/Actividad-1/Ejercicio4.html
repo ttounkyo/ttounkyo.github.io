@@ -1,24 +1,68 @@
-<!DOCTYPE html>
-<html lang="es">
+<div class="container my-5">
+    <h1 class="text-center text-primary">Ejercicio 3: Comprobar Edad</h1>
+    <p>
+        En esta actividad, el objetivo principal es manipular el DOM para cambiar dinámicamente el color de un elemento
+        de texto utilizando JavaScript. Se busca que el usuario interactúe con botones que, al ser pulsados, modifiquen
+        la apariencia de un párrafo específico.
+    </p>
+    <p>
+        Puedes añadir un unico boton y pasarle un color en ingles para que lo aplique al párrafo.
+    </p>
+    <p>
+        Deberás desarrollar la lógica necesaria para:
+    <ul>
+        <li>
+            <strong>Identificación de Elementos:</strong> Seleccionar un elemento HTML (un párrafo en este caso) por su
+            ID para poder
+            modificar sus propiedades.
+            Puedes añadir más elementos para modificar su color.
+        </li>
+        <li>
+            <strong>Manejo de Eventos:</strong> Asociar una función JavaScript a eventos de clic en múltiples botones.
+            Cada botón
+            debe
+            invocar la misma función, pero pasándole un argumento diferente (el color deseado).
+        </li>
+        <li>
+            <strong>Manipulación de Estilos:</strong> Dentro de la función, acceder a la propiedad `style.color` del
+            elemento
+            seleccionado
+            y asignarle el valor del color recibido como argumento.
+        </li>
+        <li>
+            <strong>Interactividad:</strong> Demostrar cómo diferentes interacciones del usuario (clics en distintos
+            botones) pueden
+            llevar a cambios visuales inmediatos en la página web.
+        </li>
+    </ul>
+    </p>
+    <p>El código HTML es el siguiente:</p>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 4: Cambiar Color</title>
-</head>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
 
-<body>
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Ejercicio 4: Cambiar Color&lt;/title&gt;
+&lt;/head&gt;
 
-    <h1>Ejercicio 4: Cambiar Color de Texto</h1>
+&lt;body&gt;
 
-    <p id="textoEjemplo">Este es un párrafo de ejemplo. Haz clic en los botones para cambiar su color.</p>
+    &lt;h1&gt;Ejercicio 4: Cambiar Color de Texto&lt;/h1&gt;
 
-    <!-- Cada botón llama a la misma función, pero le pasa un color diferente como argumento -->
-    <button onclick="cambiarColor('red')">Rojo</button>
-    <button onclick="cambiarColor('green')">Verde</button>
-    <button onclick="cambiarColor('blue')">Azul</button>
+    &lt;p id="textoEjemplo"&gt;Este es un párrafo de ejemplo. Haz clic en los botones para cambiar su color.&lt;/p&gt;
 
-    <script>
+    &lt;!-- Cada botón llama a la misma función, pero le pasa un color diferente como argumento --&gt;
+    &lt;button onclick="cambiarColor('red')"&gt;Rojo&lt;/button&gt;
+    &lt;button onclick="cambiarColor('green')"&gt;Verde&lt;/button&gt;
+    &lt;button onclick="cambiarColor('blue')"&gt;Azul&lt;/button&gt;
+
+    &lt;script&gt;
         // La función acepta un parámetro, 'colorSeleccionado', que cambiará
         // dependiendo del botón que se pulse.
         function cambiarColor(colorSeleccionado) {
@@ -28,7 +72,10 @@
             // 2. Accedemos a sus estilos (style) y cambiamos la propiedad 'color'
             parrafo.style.color = colorSeleccionado;
         }
-    </script>
-</body>
+    &lt;/script&gt;
+&lt;/body&gt;
 
-</html>
+&lt;/html&gt;
+</code></pre>
+    </div>
+</div>

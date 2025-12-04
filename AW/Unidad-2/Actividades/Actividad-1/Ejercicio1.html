@@ -1,4 +1,11 @@
 <div class="container my-5">
+    <h1 class="text-center text-primary">Ejercicio 1: Botón con Alerta</h1>
+    <p>En este ejercicio se muestra un botón que, al hacer clic en él, muestra una alerta con un mensaje personalizado.
+    </p>
+    <p>Ahora modificalo tal y como hemos realizado en clase, con otros elementos como <code>prompt</code>,
+        <code>confirm</code> y <code>createElement</code>
+    </p>
+    <p>El código HTML es el siguiente:</p>
     <div class="position-relative">
         <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
             onclick="copiarCodigo(this)">Copiar</button>
@@ -16,10 +23,10 @@
 
     &lt;h1&gt;Ejercicio 1: Botón con Alerta&lt;/h1&gt;
 
-    <!--
+    &lt;!--
         El atributo 'onclick' ejecuta el código JavaScript que contiene
         cuando el usuario hace clic en este botón.
-    -->
+    --&gt;
     &lt;button onclick="alert('Bienvenido/a a mi página web')"&gt;
         Púlsame
     &lt;/button&gt;
@@ -32,7 +39,37 @@
         &lt;li&gt;&lt;alert('...')&gt;: Es una función de JavaScript que muestra una ventana emergente (un pop-up) con el
             mensaje que le pases entre paréntesis.&lt;/li&gt;
     &lt;/ul&gt;
-
+    &lt;!-- Lo que hicimos en clase sobre el ejercicio 1--&gt;
+    &lt;button onclick="alerta()"&gt;Click me&lt;/button&gt;
+    &lt;script&gt;
+        //Función alerta()
+        function alerta() {
+            //Pedimos el nombre al usuario
+            let nombre = prompt("Introduce tu nombre");
+            //Si el usuario no introduce ningún nombre
+            if (nombre !== "") {
+                //Pedimos confirmación
+                let ok = confirm(`¿Estás seguro de que eres ${nombre}?`);
+                //Si el usuario confirma
+                if (ok) {
+                    //Creamos un párrafo
+                    let p = document.createElement("p").append(`Bienvenido/a ${nombre} a mi página web`);
+                    //Lo añadimos al body
+                    document.body.appendChild(p);
+                } else {
+                    //Si el usuario no confirma
+                    alert("No has confirmado que eres " + nombre + ", repite el proceso");
+                    //Repetimos la función
+                    alerta();
+                }
+            } else {
+                //Si el usuario no introduce ningún nombre
+                alert("No has introducido ningún nombre, repite el proceso");
+                //Repetimos la función
+                alerta();
+            }
+        }
+    &lt;/script&gt;
 &lt;/body&gt;
 
 &lt;/html&gt;

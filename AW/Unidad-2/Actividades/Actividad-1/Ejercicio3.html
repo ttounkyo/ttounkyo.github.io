@@ -1,26 +1,52 @@
-<!DOCTYPE html>
-<html lang="es">
+<div class="container my-5">
+    <h1 class="text-center text-primary">Ejercicio 3: Comprobar Edad</h1>
+    <p>En este ejercicio se muestra un botón que, al hacer clic en él, muestra una alerta con un mensaje personalizado.
+    </p>
+    <p>Ahora modificalo, tienes que comprobar que haya puesto algo en el input de edad, si no lo ha puesto, que muestre
+        una alerta diciendo que debe introducir una edad.<br>
+        Como ejemplo<br>
+    <ul>
+        <li>
+            También comprobar menor a 99 años, en caso de que la edad sea mayor a 99, que muestre una alerta diciendo
+            que debe introducir una edad menor a 99.
+        </li>
+        <li>
+            Si todo está correcto, que muestre el resultado en el div con id="resultado".
+        </li>
+        <li>
+            Puedes realizar las modificaciones que creas necesarias.
+        </li>
+    </ul>
+    </p>
+    <p>El código HTML es el siguiente:</p>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 3: Comprobar Edad</title>
-</head>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
 
-<body>
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Ejercicio 3: Comprobar Edad&lt;/title&gt;
+&lt;/head&gt;
 
-    <h1>Ejercicio 3: Comprobar Edad</h1>
+&lt;body&gt;
 
-    <label for="campoEdad">Introduce tu edad:</label>
-    <input type="number" id="campoEdad" placeholder="Ej: 25">
+    &lt;h1&gt;Ejercicio 3: Comprobar Edad&lt;/h1&gt;
 
-    <!-- Este botón llama a la función comprobarEdad() al ser pulsado -->
-    <button onclick="comprobarEdad()">Comprobar</button>
+    &lt;label for="campoEdad">Introduce tu edad:&lt;/label&gt;
+    &lt;input type="number" id="campoEdad" placeholder="Ej: 25"&gt;
 
-    <!-- Este div mostrará el resultado de la comprobación -->
-    <div id="resultado" style="margin-top: 20px; font-weight: bold;"></div>
+    &lt;!-- Este botón llama a la función comprobarEdad() al ser pulsado --&gt;
+    &lt;button onclick="comprobarEdad()">Comprobar&lt;/button&gt;
 
-    <script>
+    &lt;!-- Este div mostrará el resultado de la comprobación --&gt;
+    &lt;div id="resultado" style="margin-top: 20px; font-weight: bold;">&lt;/div&gt;
+
+    &lt;script&gt;
         function comprobarEdad() {
             // 1. Seleccionamos el campo de entrada (input) y el div de resultado
             const inputEdad = document.getElementById("campoEdad");
@@ -40,8 +66,10 @@
                 divResultado.style.color = "red";
             }
         }
-    </script>
+    &lt;/script&gt;
 
-</body>
+&lt;/body&gt;
 
-</html>
+&lt;/html&gt;
+</code></pre>
+    </div>
