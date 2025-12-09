@@ -366,13 +366,45 @@ EXIT;</code></pre>
         <li>Accede desde tu navegador a:
             <pre><code class="language-bash">http://IP-DE-TU-SERVIDOR:8080</code></pre>
         </li>
-
         <li>Prueba la API con diferentes endpoints. Abre otra terminal (sin cerrar la del servidor) y ejecuta, recuerda
             cambiar la IP por la de tu servidor, <strong>si tienes errores pasa al paso siguiente</strong>:
-            <div class="position-relative">
-                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
-                    onclick="copiarCodigo(this)">Copiar</button>
-                <pre><code class="language-bash"># Crear un tutorial 0: Node.js Tutorial
+        </li>
+        <!-- Menú de selección -->
+        <ul class="nav nav-tabs" id="codeTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="mac-tab" data-bs-toggle="tab" data-bs-target="#mac" type="button"
+                    role="tab">
+                    Mac / Linux
+                </button>
+            </li>
+
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="win-tab" data-bs-toggle="tab" data-bs-target="#windows" type="button"
+                    role="tab">
+                    Windows (PowerShell)
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="win-tab" data-bs-toggle="tab" data-bs-target="#windows-cmd" type="button"
+                    role="tab">
+                    Windows (CMD)
+                </button>
+            </li>
+        </ul>
+
+        <!-- Contenido de las pestañas -->
+        <div class="tab-content mt-3">
+
+            <!-- TAB MAC/LINUX -->
+            <div class="tab-pane fade show active" id="mac" role="tabpanel">
+
+                <!-- Aquí pegas tu código -->
+                <div class="position-relative">
+                    <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                        onclick="copiarCodigo(this)">Copiar</button>
+
+                    <pre><code class="language-bash">
+# Crear un tutorial 0: Node.js Tutorial
 curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"Node.js Tutorial","description":"Aprendiendo Node.js"}'
 
 # Tutorial 1: Node.js Básico
@@ -414,15 +446,143 @@ curl -X DELETE http://localhost:8080/api/tutorials/2
 # Eliminar todos los tutoriales
 curl -X DELETE http://localhost:8080/api/tutorials
 </code></pre>
+                </div>
+
             </div>
 
-            <div class="alert alert-info mt-3">
-                <p><strong>¿Qué hace curl?</strong> Es una herramienta para hacer peticiones HTTP desde la terminal.</p>
+            <!-- TAB WINDOWS -->
+            <div class="tab-pane fade" id="windows" role="tabpanel">
+
+                <div class="position-relative">
+                    <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                        onclick="copiarCodigo(this)">Copiar</button>
+
+                    <pre><code class="language-powershell">
+# Crear un tutorial 0: Node.js Tutorial
+curl -Method POST "http://localhost:8080/api/tutorials" `
+    -Headers @{"Content-Type"="application/json"} `
+    -Body "{ \"title\": \"Node.js Tutorial\", \"description\": \"Aprendiendo Node.js\" }"
+
+# Tutorial 1: Node.js Básico
+curl -Method POST "http://localhost:8080/api/tutorials" `
+    -Headers @{"Content-Type"="application/json"} `
+    -Body "{ \"title\": \"Node.js Básico\", \"description\": \"Introducción a Node.js y JavaScript del lado del servidor\" }"
+
+# Tutorial 2: Express Framework
+curl -Method POST "http://localhost:8080/api/tutorials" `
+    -Headers @{"Content-Type"="application/json"} `
+    -Body "{ \"title\": \"Express Framework\", \"description\": \"Creando APIs REST con Express\" }"
+
+# Tutorial 3: Bases de Datos
+curl -Method POST "http://localhost:8080/api/tutorials" `
+    -Headers @{"Content-Type"="application/json"} `
+    -Body "{ \"title\": \"MySQL con Node.js\", \"description\": \"Conectando Node.js con bases de datos MySQL\" }"
+
+# Tutorial 4: Autenticación
+curl -Method POST "http://localhost:8080/api/tutorials" `
+    -Headers @{"Content-Type"="application/json"} `
+    -Body "{ \"title\": \"Autenticación JWT\", \"description\": \"Implementando autenticación con JSON Web Tokens\" }"
+
+# Tutorial 5: PM2
+curl -Method POST "http://localhost:8080/api/tutorials" `
+    -Headers @{"Content-Type"="application/json"} `
+    -Body "{ \"title\": \"Gestión con PM2\", \"description\": \"Administrando aplicaciones Node.js en producción\" }"
+
+# Tutorial 6: Docker
+curl -Method POST "http://localhost:8080/api/tutorials" `
+    -Headers @{"Content-Type"="application/json"} `
+    -Body "{ \"title\": \"Node.js en Docker\", \"description\": \"Contenedorización de aplicaciones Node.js\" }"
+
+# Tutorial 7: Testing
+curl -Method POST "http://localhost:8080/api/tutorials" `
+    -Headers @{"Content-Type"="application/json"} `
+    -Body "{ \"title\": \"Testing con Jest\", \"description\": \"Pruebas unitarias e integración en Node.js\" }"
+
+# Tutorial 8: WebSockets
+curl -Method POST "http://localhost:8080/api/tutorials" `
+    -Headers @{"Content-Type"="application/json"} `
+    -Body "{ \"title\": \"WebSockets en tiempo real\", \"description\": \"Comunicación bidireccional con Socket.io\" }"
+
+# Listar todos los tutoriales
+curl "http://localhost:8080/api/tutorials"
+
+# Obtener un tutorial específico (ID 1)
+curl "http://localhost:8080/api/tutorials/1"
+
+# Actualizar un tutorial (ID 2)
+curl -Method PUT "http://localhost:8080/api/tutorials/2" `
+    -Headers @{"Content-Type"="application/json"} `
+    -Body "{ \"title\": \"Express Avanzado\", \"description\": \"Técnicas avanzadas con Express.js\", \"published\": true }"
+
+# Eliminar un tutorial (ID 2)
+curl -Method DELETE "http://localhost:8080/api/tutorials/2"
+
+# Eliminar todos los tutoriales
+curl -Method DELETE "http://localhost:8080/api/tutorials"
+</code></pre>
+                </div>
+
             </div>
-            <div class="alert alert-danger mt-2">
-                <p><strong>Posiblemente de un error</strong>, la tabla tutorials no se creó.</p>
+            <!-- TAB WINDOWS CMD -->
+            <div class="tab-pane fade" id="windows-cmd" role="tabpanel">
+
+                <div class="position-relative">
+                    <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                        onclick="copiarCodigo(this)">Copiar</button>
+
+                    <pre><code class="language-powershell">
+:: Crear un tutorial 0: Node.js Tutorial
+curl -X POST "http://localhost:8080/api/tutorials" -H "Content-Type: application/json" -d "{ \"title\":\"Node.js Tutorial\", \"description\":\"Aprendiendo Node.js\" }"
+
+:: Tutorial 1: Node.js Básico
+curl -X POST "http://localhost:8080/api/tutorials" -H "Content-Type: application/json" -d "{ \"title\":\"Node.js Básico\", \"description\":\"Introducción a Node.js y JavaScript del lado del servidor\" }"
+
+:: Tutorial 2: Express Framework
+curl -X POST "http://localhost:8080/api/tutorials" -H "Content-Type: application/json" -d "{ \"title\":\"Express Framework\", \"description\":\"Creando APIs REST con Express\" }"
+
+:: Tutorial 3: Bases de Datos
+curl -X POST "http://localhost:8080/api/tutorials" -H "Content-Type: application/json" -d "{ \"title\":\"MySQL con Node.js\", \"description\":\"Conectando Node.js con bases de datos MySQL\" }"
+
+:: Tutorial 4: Autenticación
+curl -X POST "http://localhost:8080/api/tutorials" -H "Content-Type: application/json" -d "{ \"title\":\"Autenticación JWT\", \"description\":\"Implementando autenticación con JSON Web Tokens\" }"
+
+:: Tutorial 5: PM2
+curl -X POST "http://localhost:8080/api/tutorials" -H "Content-Type: application/json" -d "{ \"title\":\"Gestión con PM2\", \"description\":\"Administrando aplicaciones Node.js en producción\" }"
+
+:: Tutorial 6: Docker
+curl -X POST "http://localhost:8080/api/tutorials" -H "Content-Type: application/json" -d "{ \"title\":\"Node.js en Docker\", \"description\":\"Contenedorización de aplicaciones Node.js\" }"
+
+:: Tutorial 7: Testing
+curl -X POST "http://localhost:8080/api/tutorials" -H "Content-Type: application/json" -d "{ \"title\":\"Testing con Jest\", \"description\":\"Pruebas unitarias e integración en Node.js\" }"
+
+:: Tutorial 8: WebSockets
+curl -X POST "http://localhost:8080/api/tutorials" -H "Content-Type: application/json" -d "{ \"title\":\"WebSockets en tiempo real\", \"description\":\"Comunicación bidireccional con Socket.io\" }"
+
+:: Listar todos los tutoriales
+curl "http://localhost:8080/api/tutorials"
+
+:: Obtener un tutorial específico (ID 1)
+curl "http://localhost:8080/api/tutorials/1"
+
+:: Actualizar un tutorial (ID 2)
+curl -X PUT "http://localhost:8080/api/tutorials/2" -H "Content-Type: application/json" -d "{ \"title\":\"Express Avanzado\", \"description\":\"Técnicas avanzadas con Express.js\", \"published\":true }"
+
+:: Eliminar un tutorial (ID 2)
+curl -X DELETE "http://localhost:8080/api/tutorials/2"
+
+:: Eliminar todos los tutoriales
+curl -X DELETE "http://localhost:8080/api/tutorials"
+</code></pre>
+                </div>
+
             </div>
-        </li>
+        </div>
+        <div class="alert alert-info mt-3">
+            <p><strong>¿Qué hace curl?</strong> Es una herramienta para hacer peticiones HTTP desde la terminal.</p>
+        </div>
+        <div class="alert alert-danger mt-2">
+            <p><strong>Posiblemente de un error</strong>, la tabla tutorials no se creó.</p>
+        </div>
         <li>Dentro de MySQL, crea una tabla, en la base de datos testdb:
             <pre><code class="language-sql">sudo mysql -u root</code></pre>
             <div class="position-relative">
