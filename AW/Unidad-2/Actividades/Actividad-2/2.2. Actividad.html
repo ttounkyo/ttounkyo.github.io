@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad: Tarjeta de Producto DOM</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .tarjeta-producto {
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .tarjeta-producto img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .tarjeta-producto h2 {
+            font-size: 1.5em;
+            margin: 15px 0;
+            color: #333;
+        }
+
+        .tarjeta-producto .precio {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .tarjeta-producto button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .tarjeta-producto button:hover {
+            background-color: #0056b3;
+        }
+
+        .tarjeta-producto button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="tarjeta-producto">
+        <img id="producto-imagen" src="https://via.placeholder.com/400x300.png/CCCCCC/FFFFFF?Text=Producto"
+            alt="Imagen del producto">
+        <h2 id="producto-titulo">Producto Genérico</h2>
+        <p id="producto-precio" class="precio">0,00 €</p>
+        <button id="boton-comprar">Comprar</button>
+    </div>
+
+    <script src="../Actividad-2/2.2.Actividad.js">
+        // --- EMPIEZA A ESCRIBIR TU CÓDIGO JAVASCRIPT AQUÍ ---
+        // --- FIN DEL CÓDIGO JAVASCRIPT ---
+    </script>
+
+</body>
+
+</html>

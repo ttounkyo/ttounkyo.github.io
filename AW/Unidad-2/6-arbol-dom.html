@@ -1,0 +1,417 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Entendiendo el Árbol DOM</h1>
+
+    <div class="">
+        <h4 class="mb-4 text-primary">¿Qué es el DOM?</h4>
+        <p>El <strong>Document Object Model (DOM)</strong> es la representación en forma de árbol de tu página web.
+            Imagínalo como un árbol genealógico de tu HTML.</p>
+        <p>El objeto <code>document</code> es nuestro punto de entrada para interactuar con cualquier elemento de la
+            página. Nos proporciona una serie de métodos poderosos para encontrar, crear y modificar los nodos del árbol
+            DOM.</p>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="alert alert-secondary h-100">
+                <h5>Visualizando el Árbol DOM</h5>
+                <pre><code>
+document (📄)
+└── html (🌐)
+    ├── head (📝)
+    │   └── title
+    └── body (👤)
+        ├── h1
+        ├── p
+        └── div (📦)
+            └── ul (📋)
+                ├── li (✅)
+                └── li (✅)
+                </code></pre>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-light h-100 border">
+                <h5>Piénsalo así:</h5>
+                <p>Tu página web es como una casa:</p>
+                <ul>
+                    <li><strong>document</strong> = La casa completa</li>
+                    <li><strong>body</strong> = La sala de estar</li>
+                    <li><strong>div, p, h1</strong> = Los muebles</li>
+                    <li><strong>JavaScript</strong> = Tú, moviendo los muebles</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- SECCIÓN 1: SELECCIÓN -->
+    <h2 class="mb-4 text-primary mt-5">1. Encontrando Elementos (Selección)</h2>
+    <p>Primero necesitamos "agarrar" los elementos para poder trabajar con ellos.</p>
+
+    <h3 class="mb-4 text-primary">getElementById('id')</h3>
+    <p><strong>Búsqueda por ID:</strong> Encuentra UN elemento por su ID único.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">
+&lt;div id="caja"&gt;Contenido&lt;/div&gt;
+        </code></pre>
+    </div>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+const caja = document.getElementById('caja');
+caja.style.backgroundColor = 'yellow';
+        </code></pre>
+    </div>
+    <div class="alert alert-warning mt-3" role="alert">
+        <strong>💡 Recuerda:</strong> ID debe ser único en toda la página.
+    </div>
+
+    <h3 class="mb-4 text-primary">🎯 querySelector('selector')</h3>
+    <p><strong>Selector CSS:</strong> Encuentra el PRIMER elemento que coincida.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">
+&lt;p class="destacado"&gt;Párrafo 1&lt;/p&gt;
+&lt;p class="destacado"&gt;Párrafo 2&lt;/p&gt;
+        </code></pre>
+    </div>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+const primerParrafo = document.querySelector('.destacado');
+primerParrafo.textContent = '¡Soy el primero!';
+        </code></pre>
+    </div>
+    <div class="alert alert-warning mt-3" role="alert">
+        <strong>💡 Puedes usar:</strong>
+        <code>'.clase'</code>, <code>'#id'</code>, <code>'p'</code>, <code>'div.clase'</code>
+    </div>
+
+    <h3 class="mb-4 text-primary">🎯🎯 querySelectorAll('selector')</h3>
+    <p><strong>Todos los que coincidan:</strong> Encuentra TODOS los elementos.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">
+&lt;ul&gt;
+  &lt;li&gt;Tarea 1&lt;/li&gt;
+  &lt;li&gt;Tarea 2&lt;/li&gt;
+  &lt;li&gt;Tarea 3&lt;/li&gt;
+&lt;/ul&gt;
+        </code></pre>
+    </div>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+const tareas = document.querySelectorAll('li');
+tareas.forEach((tarea, indice) => {
+  tarea.textContent = `Tarea ${indice + 1} - Completada`;
+});
+        </code></pre>
+    </div>
+
+    <!-- SECCIÓN 2: CREACIÓN -->
+    <h2 class="mb-4 text-primary mt-5">2. Creando Elementos Nuevos</h2>
+    <p>No solo podemos modificar elementos existentes, ¡también crear nuevos!</p>
+
+    <h3 class="mb-4 text-primary">🏗️ createElement('etiqueta')</h3>
+    <p><strong>Crear desde cero:</strong> Fabrica un elemento nuevo en memoria.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+// Crear un nuevo párrafo "en el aire"
+const nuevoParrafo = document.createElement('p');
+
+// Darle contenido y estilo
+nuevoParrafo.textContent = '¡Soy un párrafo nuevo!';
+nuevoParrafo.style.color = 'blue';
+
+// IMPORTANTE: Aún no es visible en la página
+// Necesitamos añadirlo al DOM (ver siguiente sección)
+        </code></pre>
+    </div>
+    <div class="alert alert-info mt-3" role="alert">
+        <strong>🧱 Analogía:</strong> Es como fabricar un mueble en el taller. Existe, pero no está en tu casa
+        todavía.
+    </div>
+
+    <!-- SECCIÓN 3: MODIFICACIÓN DEL DOM -->
+    <h2 class="mb-4 text-primary mt-5">3. Añadiendo y Quitando Elementos</h2>
+    <p>Colocar nuestros elementos creados en el árbol DOM.</p>
+
+    <h3 class="mb-4 text-primary">👇 appendChild(elemento)</h3>
+    <p><strong>Añadir al final:</strong> Pone el elemento como ÚLTIMO hijo.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">
+&lt;div id="contenedor"&gt;
+  &lt;p&gt;Texto existente&lt;/p&gt;
+&lt;/div&gt;
+        </code></pre>
+    </div>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+const contenedor = document.getElementById('contenedor');
+const nuevoElemento = document.createElement('p');
+nuevoElemento.textContent = '¡Soy el último!';
+
+contenedor.appendChild(nuevoElemento);
+// Resultado: El nuevo párrafo aparece DESPUÉS del texto existente
+        </code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">👆 prepend(elemento)</h3>
+    <p><strong>Añadir al inicio:</strong> Pone el elemento como PRIMER hijo.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">
+&lt;div id="contenedor"&gt;
+  &lt;p&gt;Texto existente&lt;/p&gt;
+&lt;/div&gt;
+        </code></pre>
+    </div>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+const contenedor = document.getElementById('contenedor');
+const nuevoElemento = document.createElement('p');
+nuevoElemento.textContent = '¡Soy el primero!';
+
+contenedor.prepend(nuevoElemento);
+// Resultado: El nuevo párrafo aparece ANTES del texto existente
+        </code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">❌ remove() y removeChild()</h3>
+    <p><strong>Eliminar elementos:</strong> Dos formas de quitar elementos.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">
+&lt;div id="contenedor"&gt;
+  &lt;p id="eliminar"&gt;Este será eliminado&lt;/p&gt;
+&lt;/div&gt;
+        </code></pre>
+    </div>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+// Método 1: Fácil (recomendado)
+const elemento = document.getElementById('eliminar');
+elemento.remove(); // ¡Adiós!
+
+// Método 2: Tradicional
+const padre = elemento.parentElement;
+padre.removeChild(elemento); // También funciona
+        </code></pre>
+    </div>
+    <div class="alert alert-warning mt-3" role="alert">
+        <strong>💡 Recomendación:</strong> Usa <code>elemento.remove()</code> porque es más simple.
+    </div>
+
+    <!-- EJERCICIO PRÁCTICO -->
+    <div class="alert alert-success mt-5" role="alert">
+        <h4>🎯 Ejercicio Práctico: Lista de Tareas</h4>
+        <p>Intenta crear este mini-proyecto paso a paso:</p>
+        <ol>
+            <li>Crea un <code>&lt;ul&gt;</code> con id="lista-tareas"</li>
+            <li>Crea un botón con id="btn-agregar"</li>
+            <li>Cuando se haga clic en el botón:
+                <ul>
+                    <li>Crea un nuevo <code>&lt;li&gt;</code></li>
+                    <li>Ponle texto: "Tarea nueva"</li>
+                    <li>Áñadelo a la lista</li>
+                </ul>
+            </li>
+        </ol>
+        <button class="btn btn-primary mt-2" onclick="mostrarSolucion()">📝 Ver Solución</button>
+    </div>
+
+    <!-- SOLUCIÓN (oculta inicialmente) -->
+    <div id="solucion" class="d-none">
+        <div class="mt-3">
+            <h4 class="mb-4 text-primary">💡 Solución al Ejercicio</h4>
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">
+// HTML
+&lt;ul id="lista-tareas"&gt;&lt;/ul&gt;
+&lt;button id="btn-agregar"&gt;Agregar Tarea&lt;/button&gt;
+                </code></pre>
+            </div>
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-javascript">
+// JavaScript
+const boton = document.getElementById('btn-agregar');
+const lista = document.getElementById('lista-tareas');
+
+boton.addEventListener('click', function() {
+  // 1. Crear nuevo elemento li
+  const nuevaTarea = document.createElement('li');
+
+  // 2. Darle contenido
+  nuevaTarea.textContent = 'Tarea nueva';
+
+  // 3. Añadir a la lista
+  lista.appendChild(nuevaTarea);
+});
+                </code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESUMEN -->
+    <div class="alert alert-info mt-5" role="alert">
+        <h4>📋 Resumen de lo Aprendido</h4>
+        <table class="table table-bordered mt-3">
+            <thead class="table-light">
+                <tr>
+                    <th>¿Qué quieres hacer?</th>
+                    <th>Método a usar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Encontrar UN elemento por su ID</td>
+                    <td><code>getElementById()</code></td>
+                </tr>
+                <tr>
+                    <td>Encontrar el PRIMER elemento (usando CSS)</td>
+                    <td><code>querySelector()</code></td>
+                </tr>
+                <tr>
+                    <td>Encontrar TODOS los elementos (usando CSS)</td>
+                    <td><code>querySelectorAll()</code></td>
+                </tr>
+                <tr>
+                    <td>Crear un elemento nuevo</td>
+                    <td><code>createElement()</code></td>
+                </tr>
+                <tr>
+                    <td>Añadir al FINAL de un contenedor</td>
+                    <td><code>appendChild()</code></td>
+                </tr>
+                <tr>
+                    <td>Añadir al PRINCIPIO de un contenedor</td>
+                    <td><code>prepend()</code></td>
+                </tr>
+                <tr>
+                    <td>Eliminar un elemento</td>
+                    <td><code>remove()</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- PRÁCTICA INTERACTIVA -->
+    <div class="alert alert-warning mt-5" role="alert">
+        <h4>🎮 Zona de Práctica</h4>
+        <p>Prueba estos métodos aquí mismo:</p>
+        <div class="p-3 border rounded bg-light">
+            <div id="zona-practica">
+                <p id="texto-ejemplo">Este texto puede cambiar</p>
+                <button class="btn btn-sm btn-success me-2" onclick="cambiarTexto()">Cambiar Texto</button>
+                <button class="btn btn-sm btn-primary me-2" onclick="añadirElemento()">Añadir Elemento</button>
+                <button class="btn btn-sm btn-danger" onclick="eliminarElemento()">Eliminar Último</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Manipulación del DOM</h1>
+
+    <h2 class="mb-4 text-primary">1. Selección de elementos</h2>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+// Moderno (similar a jQuery, pero nativo)
+document.querySelector('.mi-clase');      // Primer elemento con clase
+document.querySelectorAll('p');           // NodeList de todos los &lt;p&gt;
+document.getElementById('mi-id');         // Elemento por ID
+document.getElementsByClassName('clase'); // HTMLCollection por clase
+document.getElementsByTagName('div');     // HTMLCollection por etiqueta
+
+// Nuevos métodos
+document.querySelector(':scope');         // Scope actual (útil en componentes)
+        </code></pre>
+    </div>
+
+    <h2 class="mb-4 text-primary mt-5">2. Creación y manipulación de elementos</h2>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+// Crear elementos
+const div = document.createElement('div');
+const texto = document.createTextNode('Hola');
+const fragment = document.createDocumentFragment(); // Para mejor performance
+
+// Manipulación de contenido
+div.innerHTML = '&lt;span&gt;HTML seguro&lt;/span&gt;'; // Cuidado con XSS
+div.textContent = 'Texto seguro'; // Más seguro
+div.innerText = 'Texto con estilos'; // Considera CSS
+
+// Atributos y datos
+div.setAttribute('id', 'mi-div');
+div.getAttribute('id');
+div.dataset.info = 'valor'; // data-info="valor"
+div.classList.add('clase'); // add, remove, toggle, contains
+        </code></pre>
+    </div>
+
+    <h2 class="mb-4 text-primary mt-5">3. Inserción en el DOM</h2>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+// Métodos modernos (más flexibles)
+parent.append(div);     // Al final, varios elementos
+parent.prepend(div);    // Al inicio
+div.before(otro);       // Antes del elemento
+div.after(otro);        // Después del elemento
+div.replaceWith(nuevo); // Reemplazar elemento
+
+// Métodos clásicos
+parent.appendChild(div);
+parent.insertBefore(div, referencia);
+parent.replaceChild(nuevo, viejo);
+parent.removeChild(div);
+div.remove(); // Método moderno
+        </code></pre>
+    </div>
+
+    <h2 class="mb-4 text-primary mt-5">4. Navegación del DOM</h2>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+// Propiedades modernas
+element.parentElement;
+element.children;      // Solo elementos hijos
+element.childNodes;    // Todos los nodos (texto, comentarios)
+element.firstElementChild;
+element.lastElementChild;
+element.nextElementSibling;
+element.previousElementSibling;
+element.closest('.clase'); // Busca ancestro más cercano
+
+// vs propiedades clásicas
+element.parentNode;
+element.firstChild;
+        </code></pre>
+    </div>
+</div>

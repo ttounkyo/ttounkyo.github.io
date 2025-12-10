@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validación de Formulario</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 400px;
+            margin: 40px auto;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            /* Transición suave para el cambio de color del borde */
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /* --- NUEVOS ESTILOS PARA VALIDACIÓN --- */
+
+        /* Estilo para el input cuando es INVÁLIDO */
+        .is-invalid {
+            border-color: red;
+        }
+
+        /* Estilo para el input cuando es VÁLIDO */
+        .is-valid {
+            border-color: green;
+        }
+
+        /* Estilo para los pequeños mensajes de error debajo de cada input */
+        .error-mensaje {
+            color: red;
+            font-size: 0.8em;
+            /* Estará oculto hasta que tenga texto */
+            min-height: 1.2em;
+        }
+
+        /* Estilo para el mensaje de éxito/error general */
+        #mensaje {
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Formulario de Contacto</h1>
+
+    <form id="formulario" novalidate>
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Escribe tu nombre">
+        <!-- Contenedor para el error del nombre -->
+        <div class="error-mensaje" id="nombre-error"></div>
+
+        <label for="correo">Correo Electrónico:</label>
+        <input type="email" id="correo" placeholder="Escribe tu correo">
+        <!-- Contenedor para el error del correo -->
+        <div class="error-mensaje" id="correo-error"></div>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <p id="mensaje"></p>
+
+    <!-- Enlazamos nuestro archivo JavaScript al final del body -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>

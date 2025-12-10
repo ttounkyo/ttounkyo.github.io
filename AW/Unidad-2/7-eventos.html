@@ -1,0 +1,258 @@
+<div class="container my-5">
+
+    <h1 class="mb-4 text-primary">Introducción a los Eventos en JavaScript</h1>
+
+    <h2 class="mb-4 text-primary">¿Qué es un Evento?</h2>
+    <p>Los eventos son "cosas que pasan" en el sistema que estás programando. El sistema se encarga de producir una
+        señal cuando un evento ocurre y proporciona un mecanismo para que una acción (tu código) se ejecute
+        automáticamente. En la web, los eventos se lanzan dentro de la ventana del navegador y están asociados a un
+        elemento específico.</p>
+    <p>Algunos ejemplos de eventos son:</p>
+    <ul>
+        <li>El usuario hace clic o pasa el ratón por encima de un elemento.</li>
+        <li>El usuario presiona una tecla del teclado.</li>
+        <li>Una página web termina de cargarse.</li>
+        <li>Un formulario es enviado.</li>
+        <li>Un vídeo se reproduce, se pausa o se termina.</li>
+    </ul>
+    <p>Para reaccionar a un evento, le asociamos un <strong>manejador de eventos</strong> (o "event handler"), que es
+        una función de JavaScript que se ejecuta cuando el evento ocurre.</p>
+
+    <h2 class="mb-4 text-primary">El Método Moderno: <code>addEventListener()</code></h2>
+    <p>El método <code>addEventListener()</code> es la forma recomendada para registrar un manejador de eventos. Permite
+        añadir múltiples manejadores a un mismo evento.</p>
+    <p>Su sintaxis básica recibe dos parámetros: el nombre del evento y la función a ejecutar.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+const btn = document.querySelector("button");
+
+function random(number) {
+  return Math.floor(Math.random() * (number + 1));
+}
+
+// Se puede pasar una función anónima (arrow function)
+btn.addEventListener("click", () => {
+  const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+  document.body.style.backgroundColor = rndCol;
+});
+
+// O se puede pasar una función con nombre
+function changeBackground() {
+  const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+  document.body.style.backgroundColor = rndCol;
+}
+btn.addEventListener("click", changeBackground);
+        </code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Removiendo Detectores de Eventos</h3>
+    <p>Si has agregado un manejador, también puedes eliminarlo con <code>removeEventListener()</code>. Para que
+        funcione, debes pasarle exactamente la misma función con nombre que usaste para añadirlo.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+// Para remover el evento, la función debe tener un nombre.
+btn.removeEventListener("click", changeBackground);
+        </code></pre>
+    </div>
+
+    <h2 class="mb-4 text-primary">Otros Mecanismos (Antiguos y Desaconsejados)</h2>
+    <h3 class="mb-4 text-primary">Propiedades para Manejar Eventos (ej. `onclick`)</h3>
+    <p>Los elementos del DOM tienen propiedades como <code>onclick</code>, <code>onmouseover</code>, etc., a las que
+        puedes asignar una función. La principal desventaja es que <strong>solo puedes asignar un manejador por
+            evento</strong>. Si asignas un segundo, el primero se sobrescribe.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+btn.onclick = function1;
+btn.onclick = function2; // ¡`function1` ha sido eliminada y nunca se ejecutará!
+        </code></pre>
+    </div>
+
+    <div class="alert alert-danger mt-4" role="alert">
+        <h4 class="alert-heading">❌ Mala Práctica: Manejadores de Eventos en Línea</h4>
+        <p>Es posible que veas código que asigna eventos directamente en el HTML, como
+            <code>&lt;button onclick="bgChange()"&gt;</code>. Esta es una práctica <strong>obsoleta y
+                desaconsejada</strong> porque mezcla la estructura (HTML) con el comportamiento (JavaScript), lo que
+            dificulta enormemente el mantenimiento y la escalabilidad del código.
+        </p>
+    </div>
+
+    <h2 class="mb-4 text-primary">El Objeto <code>Event</code></h2>
+    <p>Cuando un evento ocurre, el navegador pasa automáticamente un objeto especial a tu función manejadora. Este
+        objeto, comúnmente llamado <code>event</code>, <code>evt</code> o <code>e</code>, contiene información y métodos
+        muy útiles.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+function bgChange(e) {
+  // `e.target` es el elemento exacto que originó el evento (el botón).
+  const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+  e.target.style.backgroundColor = rndCol;
+
+  // La propiedad `key` solo existe en eventos de teclado.
+  if (e.key) {
+    console.log(`Presionaste la tecla: ${e.key}`);
+  }
+}
+btn.addEventListener("click", bgChange);
+        </code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Evitando el Comportamiento por Defecto: <code>event.preventDefault()</code></h3>
+    <p>Algunos eventos tienen un comportamiento por defecto. Por ejemplo, al enviar un formulario, la página se recarga.
+        Podemos detener este comportamiento con <code>event.preventDefault()</code> para realizar validaciones.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+form.addEventListener("submit", (e) => {
+  if (fname.value === "" || lname.value === "") {
+    // Si algún campo está vacío, detenemos el envío del formulario.
+    e.preventDefault();
+    para.textContent = "¡Necesitas completar ambos campos!";
+  }
+});
+        </code></pre>
+    </div>
+
+    <h2 class="mb-4 text-primary">Propagación de Eventos: Burbujeo y Captura</h2>
+    <p>Cuando un evento ocurre en un elemento anidado, el evento "viaja" a través de sus ancestros en el DOM.</p>
+
+    <h3 class="mb-4 text-primary">Burbujeo (Bubbling): De Adentro hacia Afuera 🧼</h3>
+    <p>Por defecto, el evento se dispara primero en el elemento más interno, y luego "burbujea" hacia arriba a través de
+        sus padres. Este comportamiento puede causar problemas si varios ancestros tienen un listener para el mismo
+        evento. Podemos detenerlo con <code>event.stopPropagation()</code>.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+// Ejemplo: un video dentro de una caja que se oculta al hacer clic.
+video.addEventListener("click", (event) => {
+  // Evita que el clic en el video se propague a la caja (su padre).
+  event.stopPropagation();
+  video.play();
+});
+
+box.addEventListener("click", () => {
+  box.classList.add("hidden");
+});
+        </code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Captura (Capturing): De Afuera hacia Adentro 🎣</h3>
+    <p>Existe una fase previa al burbujeo donde el evento viaja desde el <code>document</code> hacia abajo hasta el
+        elemento objetivo. Se activa pasando <code>{ capture: true }</code> a <code>addEventListener</code>.</p>
+
+    <h2 class="mb-4 text-primary">Delegación de Eventos</h2>
+    <p>El burbujeo es la base de una técnica muy potente y eficiente. En lugar de añadir un manejador a cada uno de los
+        100 elementos de una lista, podemos añadir un <strong>único manejador al contenedor padre</strong>. Dentro del
+        manejador, usamos <code>event.target</code> para saber qué hijo exacto fue el que originó el evento.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">
+// HTML: <div id="container"> <div class="tile"></div> ... </div>
+const container = document.querySelector("#container");
+
+container.addEventListener("click", (event) => {
+  // `event.currentTarget` es el #container
+  // `event.target` es el .tile específico que fue clickeado
+  event.target.style.backgroundColor = bgChange();
+});
+        </code></pre>
+    </div>
+
+    <div class="alert alert-info mt-4" role="alert">
+        <h4 class="alert-heading">No es Solamente en Páginas Web</h4>
+        <p class="mb-0">Los eventos no son exclusivos de JavaScript en el navegador. La mayoría de lenguajes de
+            programación y entornos, como <strong>Node.js</strong>, poseen algún tipo de modelo de eventos, aunque la
+            sintaxis y el funcionamiento pueden ser diferentes.</p>
+    </div>
+
+
+
+    <h2 class="mb-4 text-primary mt-5 text-center">Mas sobre eventos</h2>
+    <h2 class="mb-4 text-primary mt-5">Registro de eventos</h2>
+
+    <pre><code class="language-javascript">
+// Método recomendado (permite múltiples listeners)
+element.addEventListener('click', handler, {
+  capture: false,      // Fase de captura?
+  once: true,          // Se ejecuta una vez
+  passive: true        // Para scroll/touch mejor performance
+});
+
+// Métodos antiguos (evitar)
+element.onclick = handler; // Sobrescribe listeners previos
+
+// Remover evento
+element.removeEventListener('click', handler);
+    </code></pre>
+    <h2 class="mb-4 text-primary mt-5">Tipos comunes de eventos</h2>
+    <div class="position-relative">
+        <pre><code class="language-javascript">
+// Mouse
+'click', 'dblclick', 'mousedown', 'mouseup', 'mousemove', 'mouseenter', 'mouseleave'
+
+// Teclado
+'keydown', 'keyup', 'keypress'
+
+// Formularios
+'submit', 'change', 'input', 'focus', 'blur'
+
+// Ventana/Documento
+'DOMContentLoaded', 'load', 'resize', 'scroll'
+
+// Touch (móviles)
+'touchstart', 'touchmove', 'touchend'
+
+// Modernos
+'visibilitychange', 'online', 'offline'
+    </code></pre>
+    </div>
+    <h2 class="mb-4 text-primary mt-5">Delegación de eventos</h2>
+    <div class="position-relative">
+        <pre><code class="language-javascript">
+// Delegación de eventos (eficiente para múltiples elementos)
+document.addEventListener('click', function(event) {
+  if (event.target.matches('.boton')) {
+    console.log('Botón clickeado');
+  }
+});
+
+// Propiedades del evento
+event.preventDefault();  // Evita comportamiento por defecto
+event.stopPropagation(); // Detiene propagación
+event.stopImmediatePropagation(); // Detiene otros listeners
+event.target;            // Elemento que originó el evento
+event.currentTarget;     // Elemento con el listener
+event.type;              // Tipo de evento
+        </code></pre>
+    </div>
+
+    <h2 class="mb-4 text-primary mt-5">Eventos personalizados</h2>
+    <div class="position-relative">
+        <pre><code class="language-javascript">
+// Crear evento personalizado
+const evento = new CustomEvent('micustom', {
+  detail: { mensaje: 'Hola' },
+  bubbles: true,
+  cancelable: true
+});
+
+// Disparar evento
+element.dispatchEvent(evento);
+
+// Escuchar evento personalizado
+element.addEventListener('micustom', (e) => {
+  console.log(e.detail.mensaje); // "Hola"
+});
+    </code></pre>
+    </div>
+</div>

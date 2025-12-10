@@ -1,0 +1,80 @@
+<div class="container my-5">
+    <h1 class="text-center text-primary">Actividad 3: Validación de Formulario</h1>
+    <p>En esta actividad, crearemos un formulario de contacto con validación de datos utilizando el DOM.</p>
+    <p>El código HTML es el siguiente:</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Validación de Formulario&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: sans-serif; max-width: 400px; margin: 40px auto; }
+        form { display: flex; flex-direction: column; gap: 10px; }
+        label { font-weight: bold; }
+        input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            /* Transición suave para el cambio de color del borde */
+            transition: border-color 0.3s ease-in-out;
+        }
+        button { padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 4px; }
+
+        /* --- NUEVOS ESTILOS PARA VALIDACIÓN --- */
+
+        /* Estilo para el input cuando es INVÁLIDO */
+        .is-invalid {
+            border-color: red;
+        }
+
+        /* Estilo para el input cuando es VÁLIDO */
+        .is-valid {
+            border-color: green;
+        }
+
+        /* Estilo para los pequeños mensajes de error debajo de cada input */
+        .error-mensaje {
+            color: red;
+            font-size: 0.8em;
+            /* Estará oculto hasta que tenga texto */
+            min-height: 1.2em;
+        }
+
+        /* Estilo para el mensaje de éxito/error general */
+        #mensaje { margin-top: 15px; font-weight: bold; text-align: center; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;h1&gt;Formulario de Contacto&lt;/h1&gt;
+
+    &lt;form id="formulario" novalidate&gt;
+
+        &lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
+        &lt;input type="text" id="nombre" placeholder="Escribe tu nombre">
+        &lt;!-- Contenedor para el error del nombre --&gt;
+        &lt;div class="error-mensaje" id="nombre-error"&gt;&lt;/div&gt;
+
+        &lt;label for="correo"&gt;Correo Electrónico:&lt;/label&gt;
+        &lt;input type="email" id="correo" placeholder="Escribe tu correo"&gt;
+        &lt;!-- Contenedor para el error del correo --&gt;
+        &lt;div class="error-mensaje" id="correo-error"&gt;&lt;/div&gt;
+
+        &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+    &lt;/form&gt;
+
+    &lt;p id="mensaje"&gt;&lt;/p&gt;
+
+    &lt;!-- Enlazamos nuestro archivo JavaScript al final del body --&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+    </div>
+</div>

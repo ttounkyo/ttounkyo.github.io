@@ -1,0 +1,114 @@
+<div class="container my-5">
+    <h1 class="text-center text-primary">Actividad 2: Tarjeta de Producto DOM</h1>
+    <h4>Descripción:</h4>
+    <p>A partir de la plantilla HTML y CSS proporcionada, escribe el código JavaScript necesario en el bloque
+        <code>&lt;script&gt;</code> para realizar las siguientes tareas en orden:
+    <ul>
+        <li><strong>Cambiar el título</strong>: El título actual es "Producto Genérico".Cámbialo por "Increíble Teclado
+            Mecánico".</li>
+        <li><strong>Actualizar el precio</strong>: El precio es "0,00 €".Actualízalo a "99,99 €".</li>
+        <li><strong>Aplicar un estilo de oferta</strong>: Para que el nuevo precio llame la atención, cambia su color a
+            verde(green) y ponlo
+            en negrita.</li>
+        <li><strong>Cambiar la imagen del producto</strong>: La imagen actual es un placeholder.Cambia la imagen por una
+            de un teclado.Usa
+            esta URL: https://via.placeholder.com/400x300.png/0000FF/FFFFFF?Text=Teclado</li>
+        <li><strong>Hacer el botón interactivo</strong>: Cuando un usuario haga clic en el botón "Comprar", su texto
+            debe cambiar a "¡Añadido
+            al carrito!" y el botón debe deshabilitarse para que no se pueda volver a pulsar.</li>
+    </ul>
+    </p>
+    <p>El código HTML es el siguiente:</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Actividad 2: Tarjeta de Producto DOM&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            font-family: sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .tarjeta-producto {
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .tarjeta-producto img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .tarjeta-producto h2 {
+            font-size: 1.5em;
+            margin: 15px 0;
+            color: #333;
+        }
+
+        .tarjeta-producto .precio {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .tarjeta-producto button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .tarjeta-producto button:hover {
+            background-color: #0056b3;
+        }
+
+        .tarjeta-producto button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+    &lt;div class="tarjeta-producto"&gt;
+        &lt;img id="producto-imagen" src="https://via.placeholder.com/400x300.png/CCCCCC/FFFFFF?Text=Producto"
+            alt="Imagen del producto"&gt;
+        &lt;h2 id="producto-titulo">Producto Genérico&lt;/h2&gt;
+        &lt;p id="producto-precio" class="precio">0,00 €&lt;/p&gt;
+        &lt;button id="boton-comprar">Comprar&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;script src="../Actividad-2/2.2.Actividad.js"&gt;
+        // --- EMPIEZA A ESCRIBIR TU CÓDIGO JAVASCRIPT AQUÍ ---
+        // --- FIN DEL CÓDIGO JAVASCRIPT ---
+    &lt;/script&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;
+
+</code></pre>
+    </div>
+</div>
