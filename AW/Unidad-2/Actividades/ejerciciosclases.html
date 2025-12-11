@@ -5,13 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio 1</title>
-    <script>
-        // Aquí el contenido no existe
-        // Por lo tanto, se ejecutará al cargar la página
-    </script>
 </head>
 
 <body>
+    <p></p>
+    <a href=""></a>
+    <li></li>
     <button onclick="alerta()">Click me</button>
     <script>
         function alerta() {
@@ -19,8 +18,17 @@
             if (nombre !== "") {
                 let ok = confirm(`¿Estás seguro de que eres ${nombre}?`);
                 if (ok) {
-                    let p = document.createElement("p").append(`Bienvenido/a ${nombre} a mi página web`);
+                    let p = document.createElement("p");
+                    let li = document.createElement("li");
+                    let a = document.createElement("a");
+                    p.textContent = `Bienvenido/a ${nombre} a mi página web`;
+                    let ul = document.createElement("ul");
+                    li.textContent = `Bienvenido/a ${nombre} a mi página web`;
+                    a.textContent = `Bienvenido/a ${nombre} a mi página web`;
+                    ul.appendChild(li);
                     document.body.appendChild(p);
+                    document.body.appendChild(ul);
+                    document.body.appendChild(a);
                 } else {
                     alert("No has confirmado que eres " + nombre + ", repite el proceso");
                     alerta();

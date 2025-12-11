@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3: Comprobar Edad</title>
+</head>
+
+<body>
+
+    <h1>Ejercicio 3: Comprobar Edad</h1>
+
+    <label for="campoEdad">Introduce tu edad:</label>
+    <input type="number" id="campoEdad" placeholder="Ej: 25">
+
+    <!-- Este botón llama a la función comprobarEdad() al ser pulsado -->
+    <button onclick="comprobarEdad()">Comprobar</button>
+
+    <!-- Este div mostrará el resultado de la comprobación -->
+    <div id="resultado" style="margin-top: 20px; font-weight: bold;"></div>
+
+    <script>
+        function comprobarEdad() {
+            let edad = document.getElementById("campoEdad").value;
+            let resultado = document.getElementById("resultado");
+            if (edad != "") {
+                switch (true) {
+                    case edad >= 18:
+                        resultado.innerText = "Eres mayor de edad";
+                        break;
+                    case edad < 100:
+                        resultado.innerText = "Eras menor de 100";
+                        break;
+                    default: break;
+                }
+
+            } else {
+                alert("No has introducido ninguna edad");
+            }
+
+        }
+    </script>
+
+</body>
+
+</html>
