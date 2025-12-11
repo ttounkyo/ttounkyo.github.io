@@ -12,7 +12,7 @@
     <h1>Ejercicio 3: Comprobar Edad</h1>
 
     <label for="campoEdad">Introduce tu edad:</label>
-    <input type="number" id="campoEdad" placeholder="Ej: 25">
+    <input id="campoEdad" placeholder="Ej: 25">
 
     <!-- Este botón llama a la función comprobarEdad() al ser pulsado -->
     <button onclick="comprobarEdad()">Comprobar</button>
@@ -22,23 +22,32 @@
 
     <script>
         function comprobarEdad() {
-            let edad = document.getElementById("campoEdad").value;
-            let resultado = document.getElementById("resultado");
-            if (edad != "") {
-                switch (true) {
-                    case edad >= 18:
-                        resultado.innerText = "Eres mayor de edad";
-                        break;
-                    case edad < 100:
-                        resultado.innerText = "Eras menor de 100";
-                        break;
-                    default: break;
-                }
+            // 1. Seleccionamos el campo de entrada (input) y el div de resultado
+            const inputEdad = document.getElementById("campoEdad");
+            const divResultado = document.getElementById("resultado");
 
-            } else {
-                alert("No has introducido ninguna edad");
+            // 2. Obtenemos el valor escrito en el campo y lo convertimos a número
+            let edad = Number(inputEdad.value); // 16
+
+            debugger;
+            switch (true) {
+                case edad < 18:
+                    divResultado.textContent = "Lo siento, no puedes acceder eres menor de 18";
+                    divResultado.style.color = "red";
+                    break;
+                case edad > 99:
+                    divResultado.textContent = "Lo siento, no puedes acceder eres mayor de 99";
+                    divResultado.style.color = "red";
+                    break;
+                case edad >= 18:
+                    divResultado.textContent = "Eres mayor de edad. ¡Bienvenido/a!";
+                    divResultado.style.color = "green";
+                    divResultado.style.backgroundColor = "#012";
+                    break;
+                default:
+                    divResultado.textContent = "Introduce un número válido.";
+                    divResultado.style.color = "red";
             }
-
         }
     </script>
 
