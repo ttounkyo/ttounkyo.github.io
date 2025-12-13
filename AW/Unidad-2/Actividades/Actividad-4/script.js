@@ -168,28 +168,32 @@ function cambiarCajas() {
     }
 }
 
-let cajasVisibles = true;
+document.querySelectorAll('.caja').forEach(caja => {
+    caja.addEventListener('mouseenter', () => caja.style.opacity = '0');
+    caja.addEventListener('mouseleave', () => caja.style.opacity = '1');
+});
+/**
+ * let cajasVisibles = true;
+debugger;
+const cajas = document.querySelectorAll('.caja');
 
-function esconderCajas() {
-    const caja1 = document.getElementById('caja1');
-    const caja2 = document.getElementById('caja2');
-    const caja3 = document.getElementById('caja3');
-
-    if (cajasVisibles) {
-        // Esconder
-        caja1.style.opacity = '0.3';
-        caja2.style.opacity = '0.3';
-        caja3.style.opacity = '0.3';
-        cajasVisibles = false;
-    } else {
-        // Mostrar
-        caja1.style.opacity = '1';
-        caja2.style.opacity = '1';
-        caja3.style.opacity = '1';
-        cajasVisibles = true;
-    }
+cajas.forEach(caja => {
+    caja.addEventListener('mouseover', () => {
+        esconderCajas(caja);
+    });
+});
+cajas.forEach(caja => {
+    caja.addEventListener('mouseout', () => {
+        mostrarCajas(caja);
+    });
+});
+function esconderCajas(caja) {
+    caja.style.opacity = '0';
 }
-
+function mostrarCajas(caja) {
+    caja.style.opacity = '1';
+}
+ */
 // =========== EJERCICIOS ADICIONALES PARA LOS ESTUDIANTES ===========
 // Estas funciones pueden ser completadas por los estudiantes
 
