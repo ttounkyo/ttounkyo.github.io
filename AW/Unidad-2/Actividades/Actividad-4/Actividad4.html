@@ -1,11 +1,19 @@
-<!DOCTYPE html>
-<html lang="es">
+<div class="container my-5">
+    <h1 class="text-center text-primary">Actividad 4: Ejercicios</h1>
+    <p>En esta actividad, realizaremos ejercicios de manipulación del DOM.</p>
+    <p>El código HTML es el siguiente:</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Práctica DOM Sencilla</title>
-    <style>
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Práctica DOM Sencilla&lt;/title&gt;
+    &lt;style&gt;
         * {
             margin: 0;
             padding: 0;
@@ -80,65 +88,69 @@
             border-radius: 5px;
             text-align: center;
         }
-    </style>
-</head>
+    &lt;/style&gt;
+&lt;/head&gt;
 
-<body>
-    <h1>🎮 Práctica Sencilla de Manipulación DOM</h1>
+&lt;body&gt;
+    &lt;h1&gt;🎮 Práctica Sencilla de Manipulación DOM&lt;/h1&gt;
 
-    <!-- Sección 1: Buscar por ID -->
-    <div class="seccion">
-        <h2>1️⃣ Buscar por ID</h2>
-        <p id="textoEjemplo">Este texto será modificado cuando hagas clic.</p>
-        <button class="boton" onclick="cambiarTexto()">Cambiar Texto</button>
-        <button class="boton" onclick="restaurarTexto()">Restaurar Texto</button>
+    &lt;!-- Sección 1: Buscar por ID --&gt;
+    &lt;div class="seccion"&gt;
+        &lt;h2&gt;1️⃣ Buscar por ID&lt;/h2&gt;
+        &lt;p id="textoEjemplo"&gt;Este texto será modificado cuando hagas clic.&lt;/p&gt;
+        &lt;button class="boton" onclick="cambiarTexto()"&gt;Cambiar Texto&lt;/button&gt;
+        &lt;button class="boton" onclick="restaurarTexto()"&gt;Restaurar Texto&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Sección 2: Buscar por Clase --&gt;
+    &lt;div class="seccion"&gt;
+        &lt;h2&gt;2️⃣ Buscar por Clase&lt;/h2&gt;
+        &lt;p class="ejemplo"&gt;Primer párrafo con clase "ejemplo"&lt;/p&gt;
+        &lt;p class="ejemplo"&gt;Segundo párrafo con clase "ejemplo"&lt;/p&gt;
+        &lt;p class="ejemplo"&gt;Tercer párrafo con clase "ejemplo"&lt;/p&gt;
+        &lt;button class="boton" onclick="cambiarColorClases()"&gt;Cambiar Color&lt;/button&gt;
+        &lt;button class="boton" onclick="restaurarClases()"&gt;Restaurar Color&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Sección 3: Crear Divs con Colores Aleatorios --&gt;
+    &lt;div class="seccion"&gt;
+        &lt;h2&gt;3️⃣ Crear Divs con Colores Aleatorios&lt;/h2&gt;
+        &lt;div id="contenedorDivs"&gt;&lt;/div&gt;
+        &lt;br&gt;
+        &lt;button class="boton" onclick="crearDiv()"&gt;Crear 1 Div&lt;/button&gt;
+        &lt;button class="boton" onclick="crear5Divs()"&gt;Crear 5 Divs&lt;/button&gt;
+        &lt;button class="boton" onclick="limpiarDivs()"&gt;Limpiar Todo&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Sección 4: Modificar Lista --&gt;
+    &lt;div class="seccion"&gt;
+        &lt;h2&gt;4️⃣ Modificar Lista&lt;/h2&gt;
+        &lt;ul id="listaElementos"&gt;
+            &lt;li&gt;Manzana 🍎&lt;/li&gt;
+            &lt;li&gt;Plátano 🍌&lt;/li&gt;
+            &lt;li&gt;Naranja 🍊&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;input type="text" id="nuevoItem" placeholder="Escribe un nuevo elemento"&gt;
+        &lt;button class="boton" onclick="agregarItem()"&gt;Agregar a la lista&lt;/button&gt;
+        &lt;button class="boton" onclick="eliminarUltimo()"&gt;Eliminar último&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Sección 5: Cajas Interactivas --&gt;
+    &lt;div class="seccion"&gt;
+        &lt;h2&gt;5️⃣ Cajas Interactivas&lt;/h2&gt;
+        &lt;div class="caja" id="caja1"&gt;Caja 1&lt;/div&gt;
+        &lt;div class="caja" id="caja2"&gt;Caja 2&lt;/div&gt;
+        &lt;div class="caja" id="caja3"&gt;Caja 3&lt;/div&gt;
+        &lt;br&gt;&lt;br&gt;
+        &lt;button class="boton" onclick="cambiarCajas()"&gt;Cambiar Colores&lt;/button&gt;
+        &lt;button class="boton" onclick="esconderCajas()"&gt;Esconder/Mostrar&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;script src="../Actividad-4/script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+
+        </code></pre>
     </div>
-
-    <!-- Sección 2: Buscar por Clase -->
-    <div class="seccion">
-        <h2>2️⃣ Buscar por Clase</h2>
-        <p class="ejemplo">Primer párrafo con clase "ejemplo"</p>
-        <p class="ejemplo">Segundo párrafo con clase "ejemplo"</p>
-        <p class="ejemplo">Tercer párrafo con clase "ejemplo"</p>
-        <button class="boton" onclick="cambiarColorClases()">Cambiar Color</button>
-        <button class="boton" onclick="restaurarClases()">Restaurar Color</button>
-    </div>
-
-    <!-- Sección 3: Crear Divs con Colores Aleatorios -->
-    <div class="seccion">
-        <h2>3️⃣ Crear Divs con Colores Aleatorios</h2>
-        <div id="contenedorDivs"></div>
-        <br>
-        <button class="boton" onclick="crearDiv()">Crear 1 Div</button>
-        <button class="boton" onclick="crear5Divs()">Crear 5 Divs</button>
-        <button class="boton" onclick="limpiarDivs()">Limpiar Todo</button>
-    </div>
-
-    <!-- Sección 4: Modificar Lista -->
-    <div class="seccion">
-        <h2>4️⃣ Modificar Lista</h2>
-        <ul id="listaElementos">
-            <li>Manzana 🍎</li>
-            <li>Plátano 🍌</li>
-            <li>Naranja 🍊</li>
-        </ul>
-        <input type="text" id="nuevoItem" placeholder="Escribe un nuevo elemento">
-        <button class="boton" onclick="agregarItem()">Agregar a la lista</button>
-        <button class="boton" onclick="eliminarUltimo()">Eliminar último</button>
-    </div>
-
-    <!-- Sección 5: Cajas Interactivas -->
-    <div class="seccion">
-        <h2>5️⃣ Cajas Interactivas</h2>
-        <div class="caja" id="caja1">Caja 1</div>
-        <div class="caja" id="caja2">Caja 2</div>
-        <div class="caja" id="caja3">Caja 3</div>
-        <br><br>
-        <button class="boton" onclick="cambiarCajas()">Cambiar Colores</button>
-        <button class="boton" onclick="esconderCajas()">Esconder/Mostrar</button>
-    </div>
-
-    <script src="../Actividad-4/script.js"></script>
-</body>
-
-</html>
+</div>
