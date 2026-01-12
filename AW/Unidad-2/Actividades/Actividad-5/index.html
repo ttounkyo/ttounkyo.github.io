@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio JS: Crear Elementos</title>
+    <style>
+        .container {
+            width: 50%;
+            margin: auto;
+        }
+
+        .tarea {
+            background: #f4f4f4;
+            margin: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .urgente {
+            border-left: 5px solid red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Mi Lista de Tareas</h1>
+
+    <input type="text" id="inputTarea" placeholder="Escribe una tarea...">
+    <button id="btnAgregar">Agregar Tarea</button>
+
+    <div class="container">
+        <ul id="listaTareas">
+            <!-- Aquí se insertarán las tareas dinámicamente -->
+        </ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

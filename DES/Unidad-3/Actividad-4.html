@@ -3,7 +3,28 @@
 
     <div class="alert alert-warning" role="alert">
         <strong>⚠️ Requisito:</strong> Esta práctica requiere más recursos de sistema (RAM) que las anteriores.
-        Asegúrate de que tu VM tenga al menos 2GB de RAM.
+        Asegúrate de que tu VM tenga al menos 2GB de RAM<br>
+        <strong>Detener lo que ocupa el puerto 8080 (Recomendado)</strong>
+        Primero, vamos a ver qué hay corriendo en Docker:
+        <div class="position-relative">
+            <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                onclick="copiarCodigo(this)">Copiar</button>
+            <pre><code class="language-bash">docker ps</code></pre>
+        </div>
+        Si ves el contenedor de WordPress o el de Node, deténlos:
+        Para el de Node.js:
+        <div class="position-relative">
+            <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                onclick="copiarCodigo(this)">Copiar</button>
+            <pre><code class="language-bash">docker stop mi-contenedor</code></pre>
+        </div>
+        Para el de WordPress (dentro de su carpeta):
+        <div class="position-relative">
+            <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                onclick="copiarCodigo(this)">Copiar</button>
+            <pre><code class="language-bash">cd ~/mi-wordpress
+docker compose stop</code></pre>
+        </div>
     </div>
 
     <h2 class="mb-4 text-primary">Introducción</h2>
@@ -20,7 +41,7 @@
                 <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
                     onclick="copiarCodigo(this)">Copiar</button>
                 <pre><code class="language-bash">sudo apt update
-sudo apt install -y openjdk-17-jdk maven</code></pre>
+sudo apt install -y openjdk-21-jdk maven</code></pre>
             </div>
         </li>
         <li>Verifica las versiones:
@@ -180,6 +201,25 @@ public class HelloServlet extends HttpServlet {
     &lt;version&gt;4.0.1&lt;/version&gt;
     &lt;scope&gt;provided&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
+            </div>
+        </li>
+        <li>Edita <code>pom.xml</code> y añade la dependencia de Servlet API en la sección
+            <code>&lt;dependencies&gt;</code>:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
+    &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
+    &lt;version&gt;6.0.0&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;
+&lt;properties&gt;
+    &lt;maven.compiler.source&gt;17&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;17&lt;/maven.compiler.target&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+&lt;/properties&gt;
+</code></pre>
             </div>
         </li>
     </ol>

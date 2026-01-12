@@ -8,7 +8,8 @@
     <h2 class="mb-4 text-primary">Introducción</h2>
     <p>En esta actividad, daremos un paso más allá en el despliegue de aplicaciones modernas utilizando
         <strong>contenedores</strong>. Docker nos permite empaquetar nuestra aplicación junto con todas sus dependencias
-        (Node.js, librerías, configuración) en una unidad estandarizada llamada "contenedor".</p>
+        (Node.js, librerías, configuración) en una unidad estandarizada llamada "contenedor".
+    </p>
 
     <h4 class="mb-3 text-primary">¿Por qué usar Docker?</h4>
     <ul>
@@ -283,6 +284,106 @@ npm-debug.log</code></pre>
             </div>
         </li>
     </ul>
+
+    <h2 class="mb-4 text-primary">6. Despliegue de WordPress con Docker Compose</h2>
+    <p>A diferencia del ejercicio anterior (donde creamos nuestra propia imagen con un Dockerfile), para WordPress no
+        solemos escribir un Dockerfile desde cero. En su lugar, usamos imágenes oficiales ya creadas por la comunidad y
+        las conectamos.</p>
+    <p>Para montar WordPress necesitas dos "piezas" (contenedores):</p>
+    <ul>
+        <li><strong>WordPress:</strong> El código PHP y el servidor web.</li>
+        <li><strong>MySQL o MariaDB:</strong> La base de datos donde se guarda todo.</li>
+    </ul>
+    <p>Aquí tienes cómo hacerlo de forma profesional usando un archivo llamado <code>docker-compose.yml</code>.</p>
+
+    <h3 class="mb-4 text-primary">6.1 Configuración del entorno</h3>
+
+    <ol>
+        <li>Crea una carpeta para el proyecto:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">mkdir ~/mi-wordpress
+cd ~/mi-wordpress</code></pre>
+            </div>
+        </li>
+
+        <li>Crea el archivo de configuración <code>docker-compose.yml</code>:
+            <p>En lugar de lanzar comandos largos, creamos una receta completa:</p>
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">nano docker-compose.yml</code></pre>
+            </div>
+            <p>Pega este contenido:</p>
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-yaml">services:
+  db:
+    image: mariadb:10.6
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: contraseña_maestra
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: usuario_wp
+      MYSQL_PASSWORD: contraseña_wp
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:latest
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: usuario_wp
+      WORDPRESS_DB_PASSWORD: contraseña_wp
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wp_data:/var/www/html
+
+volumes:
+  db_data:
+  wp_data:</code></pre>
+            </div>
+        </li>
+    </ol>
+
+    <h3 class="mb-4 text-primary">6.2 Despliegue y Validación</h3>
+
+    <ol>
+        <li>Levanta el sitio:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash">docker compose up -d</code></pre>
+            </div>
+            <div class="alert alert-info">
+                El parámetro <code>-d</code> es para que corra en segundo plano (detached).
+            </div>
+        </li>
+
+        <li>Accede a tu WordPress:
+            <p>Abre tu navegador y ve a <code>http://localhost:8080</code> (o la IP de tu máquina virtual).</p>
+        </li>
+    </ol>
+
+    <h3 class="mb-4 text-primary">6.3 ¿Qué acaba de pasar?</h3>
+    <div class="alert alert-success">
+        <ul>
+            <li><strong>Docker Compose:</strong> En el primer ejercicio usaste <code>docker build</code> y
+                <code>docker run</code> para un solo contenedor. Aquí, <code>docker compose</code> gestiona varios
+                contenedores a la vez y los conecta entre sí automáticamente.</li>
+            <li><strong>Persistencia (Volumes):</strong> ¿Viste la sección <code>volumes</code>? Eso es vital. Si borras
+                el contenedor de WordPress, tus fotos y artículos no se borran porque están guardados en tu disco duro
+                (volúmenes nombrados), no "dentro" del contenedor efímero.</li>
+            <li><strong>Imágenes Oficiales:</strong> No hemos creado un Dockerfile. Hemos usado
+                <code>image: wordpress:latest</code>. Docker la descarga directamente de Internet con todo ya
+                configurado (Apache, PHP, etc.).</li>
+        </ul>
+    </div>
 
     <h2 class="mb-4 text-primary">Cuestionario Final</h2>
     <p>Responde a estas preguntas al final del documento:</p>
