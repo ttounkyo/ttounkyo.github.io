@@ -151,18 +151,49 @@ def index(request):
     return HttpResponse("¡Hola Mundo desde Django en Debian!")</code></pre>
             </div>
         </li>
+        <li>
+            Crea el archivo <code>hola/urls.py</code>:
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-python">from django.urls import path
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', views.index, name='index'),
+]</code></pre>
+            </div>
+        </li>
 
         <li>Configura la URL en <code>misitio/urls.py</code>:
             <div class="position-relative">
                 <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
                     onclick="copiarCodigo(this)">Copiar</button>
                 <pre><code class="language-python">from django.contrib import admin
-from django.urls import path
-from hola import views
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
+    path('', include('hola.urls')),
+
+]</code></pre>
+            </div>
+        </li>
+        <li>
+            Modificar el archivo misitio/settings.py, añadir la linea hola en INSTALLED_APPS.
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-python">INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'hola',
 ]</code></pre>
             </div>
         </li>
@@ -202,7 +233,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')</code></pre>
             <div class="position-relative">
                 <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
                     onclick="copiarCodigo(this)">Copiar</button>
-                <pre><code class="language-bash">gunicorn --bind 0.0.0.0:8000 misitio.wsgi</code></pre>
+                <pre><code class="language-bash">gunicorn --bind unix:/home/TuUsuario/mi-proyecto-django/misitio.sock misitio.wsgi:application</code></pre>
+            </div>
+            <div class="alert alert-info mt-2">
+                <strong>Nota:</strong> Usamos un <strong>socket Unix</strong> en lugar de un puerto TCP.
             </div>
         </li>
 
@@ -217,16 +251,16 @@ Description=Gunicorn daemon for Django Project
 After=network.target
 
 [Service]
-User=tuUsuario
+User=TuUsuario
 Group=www-data
-WorkingDirectory=/home/tuUsuario/mi-proyecto-django
-ExecStart=/home/tuUsuario/mi-proyecto-django/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/tuUsuario/mi-proyecto-django/misitio.sock misitio.wsgi:application
+WorkingDirectory=/home/TuUsuario/mi-proyecto-django
+ExecStart=/home/TuUsuario/mi-proyecto-django/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/TuUsuario/mi-proyecto-django/misitio.sock --umask 007 misitio.wsgi:application
 
 [Install]
 WantedBy=multi-user.target</code></pre>
             <div class="alert alert-info">
-                <strong>Nota:</strong> Esta vez usaremos un <strong>socket Unix</strong> en lugar de un puerto TCP para
-                comunicar Nginx y Gunicorn, ya que es más eficiente.
+                <strong>Permiso de Socket:</strong> El <code>--umask 007</code> permite que el socket sea accesible
+                por el grupo <code>www-data</code>, que es necesario para Nginx.
             </div>
         </li>
 
@@ -234,7 +268,8 @@ WantedBy=multi-user.target</code></pre>
             <div class="position-relative">
                 <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
                     onclick="copiarCodigo(this)">Copiar</button>
-                <pre><code class="language-bash">sudo systemctl start django-app
+                <pre><code class="language-bash">sudo systemctl daemon-reload
+sudo systemctl start django-app
 sudo systemctl enable django-app</code></pre>
             </div>
         </li>
@@ -255,12 +290,12 @@ sudo systemctl enable django-app</code></pre>
     location = /favicon.ico { access_log off; log_not_found off; }
 
     location /static/ {
-        root /home/tuUsuario/mi-proyecto-django;
+        root /home/TuUsuario/mi-proyecto-django;
     }
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:/home/tuUsuario/mi-proyecto-django/misitio.sock;
+        proxy_pass http://unix:/home/TuUsuario/mi-proyecto-django/misitio.sock;
     }
 }</code></pre>
         </li>
@@ -271,6 +306,17 @@ sudo systemctl enable django-app</code></pre>
                     onclick="copiarCodigo(this)">Copiar</button>
                 <pre><code class="language-bash">sudo ln -s /etc/nginx/sites-available/django-app /etc/nginx/sites-enabled/
 sudo systemctl restart nginx</code></pre>
+            </div>
+        </li>
+
+        <li>Asegúrate de que Nginx pueda acceder al socket:
+            <pre><code class="language-bash">sudo chmod 750 /home/TuUsuario
+sudo chown -R TuUsuario:www-data /home/TuUsuario/mi-proyecto-django
+sudo chmod 660 /home/TuUsuario/mi-proyecto-django/misitio.sock</code></pre>
+            <div class="alert alert-info mt-2">
+                <strong>Nota:</strong> Los permisos correctos en el directorio padre y el socket son necesarios para
+                evitar
+                el error 502 Bad Gateway.
             </div>
         </li>
     </ol>
