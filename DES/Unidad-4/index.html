@@ -1,0 +1,1436 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Unidad 4. Servicio DNS (Domain Name System)</h1>
+
+    <h2 class="mb-4 text-primary">Introducción</h2>
+    <p>El sistema de nombres de dominio DNS (Domain Name System) proporciona un mecanismo eficaz para llevar a cabo la
+        resolución de nombres de dominio a direcciones IP. Como usuarios (humanos) nos es más fácil dirigirnos a un
+        nombre de
+        dominio (de host, de web, de servidor de correo, etc.) utilizando un texto identificativo (por ejemplo,
+        www.gva.es) que
+        a la dirección IP pertinente (por ejemplo, 193.144.127.85). El servicio DNS no sólo permite hacer la resolución
+        de
+        nombres de dominio a direcciones IP, sino también la resolución inversa. Es decir, a partir de una IP averiguar
+        el
+        nombre de dominio.</p>
+
+    <p>El servicio DNS proporciona independencia del nombre de dominio respecto a la IP. Así un dominio puede cambiar de
+        IP de
+        forma transparente para los usuarios del dominio. Incluso es usual que un dominio se identifique con más de una
+        IP como
+        medida de redundancia contra la caída del sistema o como balanceo de cargas. Otros servicios proporcionados por
+        el DNS
+        son la identificación de los servidores de correo de un dominio, de cada uno de los hosts que pertenecen a la
+        red,
+        servidores de impresión, etc.</p>
+
+    <h2 class="mb-4 text-primary">Sistemas de nombres planos y jerárquicos</h2>
+    <p>El problema de la identificación de equipos se produce desde el principio de la existencia de las redes de
+        ordenadores y
+        no es algo específico de TCP/IP. Hacía falta un lenguaje humano para realizar esta identificación.</p>
+    <p>En los albores de las redes, cuando ARPANET (la red predecesora de Internet), los nombres los equipos se
+        centralizaban
+        en un archivo llamado <code>host.txt</code> (<code>/etc/hosts</code> en Linux), que incluía el nombre del equipo
+        y su IP. Esto es lo que se conoce
+        como un sistema de nombres plano. Puede ser adecuado para redes pequeñas pero no es escalable ni práctico en
+        redes
+        grandes y mucho menos en Internet.</p>
+
+    <h3 class="mb-3 text-secondary">Ejemplo de fichero de nombres plano:</h3>
+    <div class="text-center my-4">
+        <img src="../DES/img/Unidad-4/cat-hosts.png" alt="Ejemplo Nombres de Dominio"
+            class="img-fluid border rounded shadow-sm" style="max-height: 400px;">
+    </div>
+    <pre><code class="language-dns-zone-file">
+127.0.0.1       localhost
+127.0.1.1       hostname
+192.168.1.10    servidor
+192.168.1.20    pc1
+    </code></pre>
+
+    <h2 class="mb-4 text-primary">Elementos del sistema de nombres de dominio</h2>
+    <p>El espacio de nombres de dominio está formado por los nombres válidos utilizados para identificar servicios o
+        máquinas
+        en una red. Se puede representar mediante una estructura jerárquica de topología arbórea, es decir, todos los
+        nombres
+        forman un árbol invertido donde cada nodo se separa de los otros nodos por un punto.</p>
+
+    <div class="text-center my-4">
+        <svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg" class="img-fluid border rounded shadow-sm">
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#333"></polygon>
+                </marker>
+                <marker id="arrowhead2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#0066cc"></polygon>
+                </marker>
+                <marker id="arrowhead3" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#cc3300"></polygon>
+                </marker>
+                <marker id="arrowhead4" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#009900"></polygon>
+                </marker>
+                <marker id="arrowhead5" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#cc6600"></polygon>
+                </marker>
+            </defs>
+
+            <rect width="1200" height="700" fill="#f8f9fa"></rect>
+
+            <text x="10" y="40" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#000">Dominio
+                raíz</text>
+            <line x1="120" y1="35" x2="560" y2="35" stroke="#333" stroke-width="2" stroke-dasharray="5,5"
+                marker-end="url(#arrowhead)"></line>
+
+            <text x="10" y="120" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+                fill="#0066cc">Dominios
+                de primer nivel o nivel superior</text>
+            <text x="10" y="138" font-family="Arial, sans-serif" font-size="12" fill="#0066cc">(TLD, Top Level
+                Domains)</text>
+            <line x1="360" y1="120" x2="440" y2="120" stroke="#0066cc" stroke-width="2" stroke-dasharray="5,5"
+                marker-end="url(#arrowhead2)"></line>
+
+            <text x="10" y="245" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+                fill="#cc3300">Dominios
+                de segundo nivel</text>
+            <line x1="220" y1="240" x2="440" y2="240" stroke="#cc3300" stroke-width="2" stroke-dasharray="5,5"
+                marker-end="url(#arrowhead3)"></line>
+
+            <text x="10" y="385" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+                fill="#009900">Dominios
+                de tercer nivel</text>
+            <line x1="200" y1="380" x2="340" y2="380" stroke="#009900" stroke-width="2" stroke-dasharray="5,5"
+                marker-end="url(#arrowhead4)"></line>
+
+            <text x="10" y="596" font-family="Arial, sans-serif" font-size="14" font-weight="bold"
+                fill="#cc6600">Dominios
+                de cuarto nivel</text>
+            <line x1="210" y1="591" x2="400" y2="591" stroke="#cc6600" stroke-width="2" stroke-dasharray="5,5"
+                marker-end="url(#arrowhead5)"></line>
+
+            <circle cx="600" cy="35" r="8" fill="#000"></circle>
+            <text x="595" y="55" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#000">.</text>
+
+            <line x1="600" y1="43" x2="470" y2="110" stroke="#000" stroke-width="2"></line>
+            <line x1="600" y1="43" x2="540" y2="110" stroke="#000" stroke-width="2"></line>
+            <line x1="600" y1="43" x2="600" y2="110" stroke="#000" stroke-width="2"></line>
+            <line x1="600" y1="43" x2="720" y2="110" stroke="#000" stroke-width="2"></line>
+            <line x1="600" y1="43" x2="800" y2="110" stroke="#000" stroke-width="2"></line>
+
+            <text x="460" y="125" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+                fill="#0066cc">org</text>
+            <text x="530" y="125" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+                fill="#0066cc">net</text>
+            <text x="590" y="125" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+                fill="#0066cc">com</text>
+            <text x="715" y="125" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+                fill="#0066cc">es</text>
+            <text x="790" y="125" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+                fill="#0066cc">info</text>
+
+            <line x1="720" y1="130" x2="500" y2="230" stroke="#000" stroke-width="2"></line>
+            <line x1="720" y1="130" x2="680" y2="230" stroke="#000" stroke-width="2"></line>
+            <line x1="720" y1="130" x2="780" y2="230" stroke="#000" stroke-width="2"></line>
+            <line x1="720" y1="130" x2="850" y2="230" stroke="#000" stroke-width="2"></line>
+
+            <text x="480" y="245" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+                fill="#cc3300">mired</text>
+            <text x="640" y="245" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+                fill="#cc3300">zeppelinux</text>
+            <text x="760" y="245" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+                fill="#cc3300">google</text>
+            <text x="850" y="245" font-family="Arial, sans-serif" font-size="16" font-weight="bold"
+                fill="#cc3300">red</text>
+
+            <line x1="500" y1="250" x2="380" y2="370" stroke="#000" stroke-width="2"></line>
+            <line x1="500" y1="250" x2="440" y2="370" stroke="#000" stroke-width="2"></line>
+            <line x1="500" y1="250" x2="505" y2="370" stroke="#000" stroke-width="2"></line>
+            <line x1="500" y1="250" x2="555" y2="370" stroke="#000" stroke-width="2"></line>
+            <line x1="500" y1="250" x2="620" y2="370" stroke="#000" stroke-width="2"></line>
+
+            <line x1="670" y1="250" x2="700" y2="370" stroke="#000" stroke-width="2"></line>
+            <line x1="780" y1="250" x2="780" y2="370" stroke="#000" stroke-width="2"></line>
+            <line x1="860" y1="250" x2="850" y2="370" stroke="#000" stroke-width="2"></line>
+
+            <text x="368" y="385" font-family="Arial, sans-serif" font-size="15" fill="#009900">ftp</text>
+            <text x="425" y="385" font-family="Arial, sans-serif" font-size="15" fill="#009900">www</text>
+            <text x="488" y="385" font-family="Arial, sans-serif" font-size="15" fill="#009900">smtp</text>
+            <text x="545" y="385" font-family="Arial, sans-serif" font-size="15" fill="#009900">pop</text>
+            <text x="595" y="385" font-family="Arial, sans-serif" font-size="15" fill="#009900">direccion</text>
+            <text x="690" y="385" font-family="Arial, sans-serif" font-size="15" fill="#009900">www</text>
+            <text x="770" y="385" font-family="Arial, sans-serif" font-size="15" fill="#009900">www</text>
+            <text x="840" y="385" font-family="Arial, sans-serif" font-size="15" fill="#009900">www</text>
+
+            <line x1="480" y1="390" x2="460" y2="580" stroke="#000" stroke-width="2" />
+            <line x1="480" y1="390" x2="500" y2="580" stroke="#000" stroke-width="2" />
+
+            <line x1="540" y1="390" x2="540" y2="580" stroke="#000" stroke-width="2" />
+            <line x1="540" y1="390" x2="580" y2="580" stroke="#000" stroke-width="2" />
+
+            <line x1="600" y1="390" x2="620" y2="580" stroke="#000" stroke-width="2" />
+            <line x1="600" y1="390" x2="660" y2="580" stroke="#000" stroke-width="2" />
+
+            <line x1="730" y1="390" x2="700" y2="580" stroke="#000" stroke-width="2" />
+            <line x1="730" y1="390" x2="740" y2="580" stroke="#000" stroke-width="2" />
+            <line x1="730" y1="390" x2="780" y2="580" stroke="#000" stroke-width="2" />
+
+            <line x1="810" y1="390" x2="820" y2="580" stroke="#000" stroke-width="2" />
+            <line x1="810" y1="390" x2="860" y2="580" stroke="#000" stroke-width="2" />
+
+            <line x1="900" y1="390" x2="900" y2="580" stroke="#000" stroke-width="2" />
+            <line x1="900" y1="390" x2="940" y2="580" stroke="#000" stroke-width="2" />
+
+            <text x="420" y="595" font-family="Arial, sans-serif" font-size="14" fill="#cc6600">publico</text>
+            <text x="470" y="595" font-family="Arial, sans-serif" font-size="14" fill="#cc6600">privado</text>
+            <text x="530" y="595" font-family="Arial, sans-serif" font-size="14" fill="#cc6600">blog</text>
+            <text x="570" y="595" font-family="Arial, sans-serif" font-size="14" fill="#cc6600">admin</text>
+            <text x="612" y="595" font-family="Arial, sans-serif" font-size="14" fill="#cc6600">relay1</text>
+            <text x="655" y="595" font-family="Arial, sans-serif" font-size="14" fill="#cc6600">relay2</text>
+            <text x="695" y="595" font-family="Arial, sans-serif" font-size="14" fill="#cc6600">pc01</text>
+            <text x="935" y="595" font-family="Arial, sans-serif" font-size="14" fill="#cc6600">drive</text>
+            <text x="727" y="595" font-family="Arial, sans-serif" font-size="14" fill="#cc6600">pc02</text>
+            <text x="762" y="595" font-family="Arial, sans-serif" font-size="14" fill="#cc6600">servidor</text>
+            <text x="815" y="595" font-family="Arial, sans-serif" font-size="14" fill="#cc6600">tienda</text>
+            <text x="855" y="595" font-family="Arial, sans-serif" font-size="14" fill="#cc6600">blog</text>
+            <text x="895" y="595" font-family="Arial, sans-serif" font-size="14" fill="#cc6600">mail</text>
+
+            <text x="350" y="630" font-family="Arial, sans-serif" font-size="12" fill="#666" font-style="italic">Cada
+                nivel depende del anterior: raíz - TLD - 2do nivel - 3er nivel - 4to nivel</text>
+            <text x="355" y="645" font-family="Arial, sans-serif" font-size="11" fill="#666" font-style="italic">Nota:
+                Cualquier dominio de tercer nivel puede tener subdominios de cuarto nivel</text>
+
+        </svg>
+    </div>
+
+
+
+    <h3 class="mb-4 text-primary">Nombres de dominio</h3>
+    <p>Los nombres de dominio pueden estar formados por una o más cadenas de caracteres separadas por puntos y no se
+        distingue
+        entre mayúsculas y minúsculas. Por ejemplo, <code>www.deaw.es.</code> es lo mismo que <code>WWW.deaw.ES.</code>.
+    </p>
+
+    <div class="text-center my-4">
+        <img src="https://raul-profesor.github.io/Despliegue/img/dns3.png" alt="Ejemplo Nombres de Dominio"
+            class="img-fluid border rounded shadow-sm" style="max-height: 400px;">
+    </div>
+
+    <p>Los nombres de dominio se expresan como secuencias de etiquetas (labels).</p>
+
+    <h3 class="mb-4 text-primary">Dominios raíz</h3>
+    <p>En teoría, todos los dominios deben de terminar con un punto (.). Es así porque el árbol de nombres de dominio
+        (espacio
+        de nombres de dominio) empieza con el dominio . que se conoce como dominio raíz (root). En realidad es un
+        elemento nulo
+        de 0 caracteres que se representa con un punto (.).</p>
+    <p>Un dominio se lee de derecha a izquierda, empezando por el punto ., aunque en la práctica lo hacemos de izquierda
+        a
+        derecha. El punto inicial, generalmente se omite ya que los programas lo añaden por defecto y es meramente
+        formal, pero
+        en ocasiones, será necesario que indiquemos el nombre de dominio completo incluyendo el dominio raíz, es lo que
+        se
+        conoce como nombres de dominio completos (Fully Qualified Domain Names, FQDN).</p>
+
+    <h3 class="mb-4 text-primary">Dominios y subdominios</h3>
+    <p>Como consecuencia de la organización jerárquica del espacio de nombres de dominios, podemos utilizar los términos
+        dominio y subdominio. Por ejemplo, <code>deaw.es.</code> es un subdominio del dominio <code>es.</code> y
+        <code>www.deaw.es.</code> es un subdominio del dominio
+        <code>deaw.es.</code>.
+    </p>
+    <p>Los dominios o subdominios que cuelgan del dominio raíz . se conocen como dominios de primer nivel o dominios de
+        nivel
+        superior (Top Level Domains, TLD), los que cuelgan de los dominios TLD se denominan dominios de segundo nivel y
+        así
+        sucesivamente.</p>
+
+    <h3 class="mb-4 text-primary">Zonas</h3>
+    <p>Una zona es una porción del espacio del espacio de nombre de dominio en el DNS cuya responsabilidad
+        administrativa recae
+        sobre un único responsable.</p>
+    <p>Los servidores que gestionan la zona tienen información completa sobre ella y se dice que son autorizados para
+        esa zona.</p>
+    <p>Las zonas se almacenan en archivos de texto o en bases de datos, según el tipo de software que se utilice para
+        montar el
+        servidor DNS y de como se configure.</p>
+
+    <p>Tomemos como ejemplo el dominio <code>deaw.es.</code> y veamos parte de su archivo de zona:</p>
+    <pre><code class="language-dns-zone-file">
+...
+deaw.es.      IN NS    ns1.deaw.es.
+ns1.deaw.es.  IN A     192.168.1.20
+natos.deaw.es. IN A    192.168.1.21
+waor.deaw.es.  IN A    192.168.1.22
+www.deaw.es.   IN CNAME natos.deaw.es.
+ftp.deaw.es.   IN CNAME waor.deaw.es.
+...
+    </code></pre>
+
+    <p>A cada una de las líneas del fichero se las conoce como registros de recurso (RR: Resource Records) y definen los
+        tipos
+        de datos en el Domain Name System (DNS). Se utilizan para almacenar datos sobre nombres de dominio y direcciones
+        IP. Una
+        base de datos o fichero de zona está formada por una serie de registros de recursos. Cada registro de recurso da
+        información pertinente sobre un objeto determinado. Por ejemplo, los registros de tipo (A) asocian un nombre de
+        host con
+        una dirección IP, y los registros de puntero de búsqueda inversa (PTR) asocian una dirección IP con un nombre de
+        host y
+        un registro (NS) define un servidor DNS para la zona. El servidor DNS utiliza estos registros de recurso para
+        resolver
+        las consultas de los hosts de su zona.</p>
+    <p>Cuando un servidor DNS es autorizado para una zona, es el responsable de los nombres de dominio para esa zona. En
+        nuestro ejemplo, <code>ns1.deaw.es</code> es el servidor autorizado para la zona <code>deaw.es.</code> y en él
+        se definen los nombres que cuelgan
+        de <code>deaw.es</code> como por ejemplo, <code>www.deaw.es</code>, <code>ftp.deaw.es</code>,
+        <code>natos.deaw.es</code>, etc.
+    </p>
+
+    <div class="text-center my-4">
+        <img src="https://raul-profesor.github.io/Despliegue/img/dns3.webp" alt="Zonas y Dominios"
+            class="img-fluid border rounded shadow-sm" style="max-height: 400px;">
+    </div>
+
+    <p>La organización que administra el servidor DNS y por lo tanto la zona, puede delegar o no alguno de sus
+        subdominios.
+        Supongamos que de <code>deaw.es.</code> cuelgan los subdominios <code>teoria.deaw.es.</code> y
+        <code>practicas.deaw.es.</code> y se decide delegar solo el
+        subdominio <code>practicas.deaw.es.</code>. Esto implica que existirá otro servidor DNS autorizado para el
+        dominio
+        <code>practicas.deaw.es.</code>, que almacenará el fichero de zona para dicho dominio.
+    </p>
+
+    <p>Una zona no es lo mismo que un dominio. Un dominio es un subarbol del espacio de nombres de dominio y los datos
+        asociados a los nombres de un dominio pueden estar almacenados en una o varias zonas, distribuidas en uno o
+        varios
+        servidores DNS.</p>
+
+    <div class="alert alert-info mt-4" role="alert">
+        <h4 class="alert-heading">Info</h4>
+        <p>Básicamente una zona es una porción de un dominio.</p>
+    </div>
+
+    <p>Un servidor DNS puede ser autorizado sobre varias zonas, por ejemplo, el mismo servidor DNS puede ser autorizado
+        para la
+        zona <code>deaw.es.</code> y para la zona <code>seguridadinformatica.es.</code>.</p>
+
+    <div class="text-center my-4">
+        <img src="https://raul-profesor.github.io/Despliegue/img/dns5.png" alt="Zonas y Dominios"
+            class="img-fluid border rounded shadow-sm" style="max-height: 400px;">
+    </div>
+    <h2 class="mb-4 mt-5 text-primary">Tipos de RR (Resource Record)</h2>
+    <p>En esta subsección vamos a ver cuáles son los registros de recursos o RR más utilizados. Antes debemos aclarar
+        algunos
+        conceptos:</p>
+
+    <h3 class="mb-3 text-secondary">$TTL (Time To Live)</h3>
+    <p>El TTL o tiempo de vida determina, en segundos, durante cuánto tiempo son validos los RR. Pueden indicarse en
+        semanas
+        (<code>$TTL 1W</code>), días (<code>$TTL 7D</code>), horas (<code>$TTL 168H</code>) o minutos
+        (<code>10080M</code>).</p>
+    <p>En otras palabras, el TTL indica cuánto tiempo tardarán en aplicarse los cambios que le hagamos a un RR desde que
+        los
+        hacemos. En el ejemplo del párrafo anterior, los servidores DNS comprobarán cada semana si se ha producido algún
+        cambio
+        en esos RR. Debe declararse al inicio del archivo de zona.</p>
+
+    <h3 class="mb-3 text-secondary">$ORIGIN</h3>
+    <p>La directiva <code>$ORIGIN</code> define el nombre del dominio que será añadido al final de cualquier nombre que
+        no acabe en punto
+        (nombres relativos o no cualificados) en los RR, para así transformarlos en nombres FQDN (fully qualified domain
+        name).
+        Si un nombre acaba en punto, se considera un nombre FQDN y no se utilizaría <code>$ORIGIN</code>.</p>
+    <p>Su sintaxis o forma de escribirlo será:</p>
+    <pre><code class="language-dns-zone">$ORIGIN nombre-dominio</code></pre>
+    <p>Por ejemplo:</p>
+    <pre><code class="language-dns-zone">
+$ORIGIN deaw.es.
+; A partir de aquí se añade deaw.es. a todos los nombres relativos
+    </code></pre>
+
+    <h3 class="mb-3 text-secondary">Formato general de los RR</h3>
+    <p>El formato con el que se introducen los RR en los archivos de zona es del siguiente estilo:</p>
+    <pre><code class="language-text">Nombre de dominio [TTL] Clase Tipo Tipo-Dato</code></pre>
+    <p>Así por ejemplo, un RR quedaría tal que así:</p>
+    <pre><code class="language-dns-zone">profesor.deaw.es 7200 IN A 192.168.10.254</code></pre>
+
+    <h3 class="mb-4 text-primary">Tipos de registros</h3>
+    <p>Aclarados los puntos anteriores, ahora sí vamos a ver los principales tipos de registros:</p>
+
+    <ul>
+        <li>
+            <h4>Registro SOA (Start Of Authority)</h4>
+            <p>Especifica información autoritaria sobre una zona DNS, incluyendo el servidor de nombre primario, el
+                email del
+                administrador, el número de serial o versión de la zona, y varios temporizadores.</p>
+            <p>Ejemplo:</p>
+            <pre><code class="language-dns-zone">
+deaw.es. IN SOA ns1.deaw.es. super.deaw.es. (
+    20190425001 ; serial
+    604800      ; refresh (7 días)
+    86400       ; retry (1 día)
+    2419200     ; expire (28 días)
+    604800 )    ; TTL negativo (7 días)
+    </code></pre>
+            <div class="mt-3 mb-3">
+                <h5 class="mt-4 text-primary">Explicación del registro SOA</h5>
+
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item">
+                        <strong>deaw.es.</strong><br>
+                        Indica el <strong>nombre del dominio</strong> al que pertenece la zona DNS.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>IN</strong><br>
+                        Es la <strong>clase del registro</strong>. <code>IN</code> significa Internet y es la más
+                        habitual en DNS.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>SOA (Start Of Authority)</strong><br>
+                        Define el <strong>registro de autoridad</strong> de la zona DNS. Contiene la información
+                        principal de
+                        configuración y control de la zona.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>ns1.deaw.es.</strong><br>
+                        Servidor DNS <strong>primario (Master)</strong> de la zona. Es el servidor autorizado principal
+                        desde el que
+                        se propagan los cambios.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>super.deaw.es.</strong><br>
+                        Correo electrónico del <strong>administrador de la zona</strong>.
+                        En DNS, el primer punto sustituye a la <code>@</code>, por lo que equivale a:
+                        <code>super@deaw.es</code>
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>20190425001 (Serial)</strong><br>
+                        Número de <strong>versión de la zona</strong>.
+                        Se incrementa cada vez que se realiza un cambio para que los servidores secundarios sepan que
+                        deben actualizarse.<br>
+                        Formato habitual: YYYYMMDDNN
+                        → 2019/04/25, revisión 01
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>604800 (Refresh)</strong><br>
+                        Tiempo en segundos que los servidores secundarios esperan antes de comprobar si hay cambios.<br>
+                        Equivale a <strong>7 días</strong>.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>86400 (Retry)</strong><br>
+                        Tiempo que espera un servidor secundario para reintentar la conexión con el primario si
+                        falla.<br>
+                        Equivale a <strong>1 día</strong>.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>2419200 (Expire)</strong><br>
+                        Tiempo máximo que un servidor secundario puede seguir usando la zona sin contactar con el
+                        primario.<br>
+                        Pasado este tiempo, la zona se considera <strong>no válida</strong>.<br>
+                        Equivale a <strong>28 días</strong>.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>604800 (TTL negativo)</strong><br>
+                        Tiempo durante el cual se cachean las <strong>respuestas negativas</strong> (por ejemplo, cuando
+                        un dominio no existe).<br>
+                        Equivale a <strong>7 días</strong>.
+                        <br>
+                        <strong>Ejemplo:</strong> Si intentas entrar a esta-web-no-existe-12345.com, el servidor DNS
+                        responderá con un error llamado NXDOMAIN (Non-Existent Domain).
+                        <ul>
+                            <li><strong>Sin TTL Negativo:</strong> Si 1.000 personas escriben mal tu dominio al mismo
+                                tiempo, tu servidor DNS recibiría 1.000 consultas inútiles preguntando por algo que no
+                                existe.</li>
+                            <li><strong>Con TTL Negativo:</strong> El servidor DNS le dice a los navegadores: "Este
+                                dominio no existe, y no me vuelvas a preguntar por él durante los próximos 7 días,
+                                porque la respuesta seguirá siendo la misma".</li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+
+        </li>
+        <li>
+            <h4>Registro NS (Name Server)</h4>
+            <p>Cuando se delega la administración de subdominios en otros servidores, este registro indica cuáles son
+                esos servidores autorizados.</p>
+            <pre><code class="language-dns-zone">
+...
+deaw.es. IN NS ns1.deaw.es.  ; Servidor DNS maestro
+deaw.es. IN NS ns2.deaw.es.  ; Servidor DNS esclavo
+deaw.es. IN NS dns.deaw.net. ; Servidor DNS esclavo
+
+ns1.deaw.es. IN A 192.168.10.20
+ns2.deaw.es. IN A 192.168.10.21
+
+; DELEGACIÓN
+practicas.deaw.es. IN NS ns1.practicas.deaw.es.
+redes.deaw.es.     IN NS dns.deaw.net.
+    </code></pre>
+            <div class="mt-3 mb-3">
+                <h5 class="mt-4 text-primary">Explicación de los registros NS y la delegación</h5>
+
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item">
+                        <strong>deaw.es. IN NS ns1.deaw.es.</strong><br>
+                        Indica que <strong>ns1.deaw.es</strong> es un <strong>servidor DNS autorizado</strong> para el
+                        dominio
+                        <code>deaw.es</code>.
+                        En este caso actúa como <strong>servidor DNS maestro</strong>.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>deaw.es. IN NS ns2.deaw.es.</strong><br>
+                        Define a <strong>ns2.deaw.es</strong> como <strong>servidor DNS esclavo</strong> del dominio
+                        <code>deaw.es</code>, proporcionando redundancia.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>deaw.es. IN NS dns.deaw.net.</strong><br>
+                        Establece un <strong>servidor DNS externo</strong> como servidor autorizado para el dominio
+                        <code>deaw.es</code>.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>ns1.deaw.es. IN A 192.168.10.20</strong><br>
+                        Registro <strong>A</strong> que asocia el nombre del servidor DNS
+                        <code>ns1.deaw.es</code> con su <strong>dirección IP</strong>.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>ns2.deaw.es. IN A 192.168.10.21</strong><br>
+                        Registro <strong>A</strong> que asigna una dirección IP al servidor DNS
+                        <code>ns2.deaw.es</code>.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>Delegación de subdominios</strong><br>
+                        Permite que partes del dominio principal sean gestionadas por otros servidores DNS.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>practicas.deaw.es. IN NS ns1.practicas.deaw.es.</strong><br>
+                        Delegación del subdominio <code>practicas.deaw.es</code> a su propio servidor DNS
+                        <code>ns1.practicas.deaw.es</code>.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>redes.deaw.es. IN NS dns.deaw.net.</strong><br>
+                        Delegación del subdominio <code>redes.deaw.es</code> a un <strong>servidor DNS externo</strong>.
+                    </li>
+
+                </ul>
+            </div>
+
+        </li>
+        <li>
+            <h4>Registro A (Address)</h4>
+            <p>También conocido como registro de dirección, establece una correspondencia entre un nombre de dominio
+                completamente cualificado (FQDN) y una dirección IP versión 4.</p>
+            <pre><code class="language-dns-zone">
+...
+ns1.deaw.es.   IN A 192.168.1.20
+ns2.deaw.es.   IN A 192.168.1.21
+natos.deaw.es. IN A 192.168.1.22
+...
+    </code></pre>
+        </li>
+        <li>
+            <h4>Registro CNAME (Canonical Name)</h4>
+            <p>Permite crear alias para nombres de dominio especificados en registros A. <strong>Importante:</strong> un
+                registro CNAME siempre debe apuntar a otro nombre, nunca directamente a una dirección IP.</p>
+            <pre><code class="language-dns-zone">
+...
+natos.deaw.es. IN A 192.168.1.22
+www.deaw.es.   IN CNAME natos.deaw.es.
+ftp.deaw.es.   IN CNAME natos.deaw.es.
+...
+    </code></pre>
+        </li>
+        <li>
+            <p>Un registro CNAME también puede apuntar a un nombre de otro dominio externo.</p>
+            <pre><code class="language-dns-zone">
+...
+www.deaw.es. IN CNAME www.google.com.
+...
+    </code></pre>
+        </li>
+        <li>
+            <h4>Registro MX (Mail Exchange)</h4>
+            <p>Define los servidores encargados de la entrega de correo en el dominio. El número indica la prioridad:
+                <strong>a menor número, mayor prioridad</strong>. Deben apuntar a un nombre (registro A), no a una IP.
+            </p>
+            <pre><code class="language-dns-zone">
+...
+deaw.es. IN MX 10 mail1.deaw.es.
+deaw.es. IN MX 20 mail2.deaw.es.
+
+mail1.deaw.es. IN A 192.168.1.100
+mail2.deaw.es. IN A 192.168.1.101
+...
+    </code></pre>
+        </li>
+        <li>
+            <h4>Registro PTR (Pointer Record)</h4>
+            <p>Establece una correspondencia inversa entre direcciones IP y nombres de dominio. Se utilizan en las
+                zonas de resolución inversa para verificar la identidad de un host.</p>
+            <p>Para la red 192.168.1.0/24, la sintaxis completa o abreviada sería:</p>
+            <pre><code class="language-dns-zone">
+...
+20.1.168.192.in-addr.arpa. IN PTR ns1.deaw.es.
+21.1.168.192.in-addr.arpa. IN PTR ns2.deaw.es.
+...
+    </code></pre>
+            <p>O de forma abreviada en el archivo de zona inversa:</p>
+            <pre><code class="language-dns-zone">
+...
+20 IN PTR ns1.deaw.es.
+21 IN PTR ns2.deaw.es.
+22 IN PTR natos.deaw.es.
+...
+    </code></pre>
+            <div class="mt-3 mb-3">
+                <h5 class="mt-4 text-primary">Entendiendo la jerarquía de la resolución inversa</h5>
+
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item">
+                        <strong>.arpa (Address and Routing Parameter Area)</strong><br>
+                        Es un <strong>dominio de nivel superior (TLD)</strong> de infraestructura. A diferencia de los
+                        .com o .es, no es para sitios web, sino para funciones técnicas internas del protocolo de
+                        Internet.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>.in-addr</strong><br>
+                        Es el subdominio dentro de <code>.arpa</code> encargado de gestionar las direcciones
+                        <strong>IPv4</strong>. (Para IPv6 se utiliza <code>.ip6.arpa</code>).
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>¿Por qué la IP aparece al revés? (Ej: 20.1.168.192)</strong><br>
+                        Porque el DNS lee los nombres de <strong>derecha a izquierda</strong> (de lo más general a lo
+                        más específico). En una IP, la red es lo más general (192) y el host lo más específico (.20). Al
+                        <strong>invertirla</strong>, el DNS puede buscar primero la red y finalmente el equipo
+                        individual, manteniendo la misma lógica de jerarquía que un dominio normal.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>El punto final (.)</strong><br>
+                        En DNS, este punto representa la <strong>raíz (Root)</strong>. Indica que el nombre es un
+                        <strong>FQDN</strong> (nombre completo) y que el servidor no debe añadir nada más al final para
+                        intentar resolverlo.
+                    </li>
+
+                    <li class="list-group-item">
+                        <strong>Importancia en el correo electrónico</strong><br>
+                        Muchos servidores de correo rechazan mensajes si la IP de origen no tiene un registro
+                        <strong>PTR</strong> válido. Se utiliza para confirmar que el servidor que envía el correo es
+                        realmente quien dice ser (evitando el SPAM).
+                    </li>
+
+                </ul>
+            </div>
+        </li>
+        <li>
+            <h4>Registro TXT (Text)</h4>
+            <p>Permite asociar texto arbitrario a un dominio. Hoy se usa principalmente para seguridad en el correo
+                (SPF, DKIM)
+                y validación de propiedad de servicios.</p>
+            <pre><code class="language-dns-zone">
+...
+@ IN TXT "Descripción: Servidor maestro de la red DEAW"
+@ IN TXT "v=spf1 ip4:192.168.1.100 -all"
+    </code></pre>
+        </li>
+    </ul>
+
+    <h2 class="mb-4 mt-5 text-primary">Tipos de servidores DNS</h2>
+
+    <h3 class="mb-3 text-secondary">Servidor maestro o primario</h3>
+    <p>Un servidor maestro o primario, define una o varias zonas de las que es autorizado. Sus archivos de zona son de
+        lectura
+        y escritura y es en ellos donde el administrador del servidor añade, modifica o elimina nombres de dominio.</p>
+    <ul>
+        <li>Si un cliente DNS u otro servidor DNS le pregunta por algún nombre de dominio para el que es autorizado,
+            consulta
+            con
+            los ficheros de zona y responde a la pregunta.</li>
+        <li>Si un cliente DNS u otro servidor DNS le pregunta por algún nombre de dominio para el que no es autorizado,
+            tendrá que
+            preguntar a otros servidores DNS o responder que no conoce la respuesta.</li>
+    </ul>
+    <h3 class="mb-3 text-secondary">Servidor esclavo o secundario</h3>
+    <p>Un servidor esclavo o secundario define una o varias zonas para las que es autorizado. La diferencia con respecto
+        a un
+        servidor maestro es que los ficheros de zona los obtiene de otro servidor autorizado para la zona, normalmente,
+        de un
+        servidor maestro mediante un procedimiento denominado transferencia de zona. Los ficheros de zona de los
+        servidores
+        esclavos son de solo lectura y por lo tanto, el administrador no tiene que editarlos. La modificación de los
+        archivos de
+        zona debe realizarla el servidor maestro que transfiere la zona.</p>
+    <p>El funcionamiento de como responden a los clientes DNS o a otros servidores DNS es similar al de un servidor
+        maestro. Un
+        servidor puede ser maestro para una o varias zonas y al mismo tiempo ser esclavo para otras.</p>
+    <p>Pueden existir varios servidores esclavos para una misma zona. Las razones para esto suelen ser:</p>
+    <ul>
+        <li>Reducir y repartir la carga entre varios servidores DNS.</li>
+        <li>Favorecer la tolerancia a fallos.</li>
+        <li>Ofrecer mayor rapidez.</li>
+    </ul>
+    <p>Lo ideal es que los servidores DNS para una misma zona estén ubicados en redes y localizaciones diferentes para
+        evitar
+        que, si ocurre algún problema no les afecte simultáneamente y deje sin servicio de resolución a los nombres de
+        esa zona.</p>
+
+    <div class="text-center my-4">
+        <img src="https://raul-profesor.github.io/Despliegue/img/dns6.png" alt="Tipos de Servidores"
+            class="img-fluid border rounded shadow-sm" style="max-height: 400px;">
+    </div>
+
+    <h3 class="mb-3 text-secondary">Servidor caché</h3>
+    <p>Los servidores DNS se configuran como servidores cache para mejorar los tiempos de respuesta de las consultas,
+        reducir
+        la carga de los equipos y disminuir el tráfico de red.</p>
+    <p>Cuando un servidor DNS recibe una pregunta sobre un dominio para el cual no es autorizado, es decir, de un nombre
+        del
+        cual no tiene información, puede preguntar, si así está configurado, a otros servidores para obtener la
+        respuesta. Si el
+        servidor actúa como cache, guarda durante un tiempo (TTL: Time To Live) las respuestas a las últimas preguntas
+        que ha
+        realizado a otros servidores DNS. Cada vez que un cliente DNS u otro servidor DNS le formula una pregunta,
+        comprueba si
+        tiene la respuesta en su memoria cache, si la tiene, no tendrá que preguntar a otro servidor DNS por la
+        pregunta.</p>
+    <p>Un servidor DNS es solo cache (cache only server) cuando:</p>
+    <ul>
+        <li>No tiene autoridad sobre ninguna zona.</li>
+        <li>Pregunta a otros servidores DNS para resolver las preguntas de los clientes DNS y las guarda en su memoria
+            cache.</li>
+    </ul>
+    <p>En el siguiente gráfico se explica como dos clientes DNS hacen preguntas a un mismo servidor DNS que es
+        autorizado para
+        algunas zonas y además actúa como caché.</p>
+
+    <div class="text-center my-4">
+        <img src="https://raul-profesor.github.io/Despliegue/img/dns7.png" alt="Servidor DNS Caché"
+            class="img-fluid border rounded shadow-sm" style="max-height: 400px;">
+    </div>
+
+    <h3 class="mb-3 text-secondary">Servidor forwarder (reenviador)</h3>
+    <p>Cuando a un servidor DNS se le hace una pregunta sobre un nombre de dominio del que no dispone información (no es
+        autorizado), este puede preguntar a otros servidores DNS. Simplificando, existen dos formas de procesar las
+        consultas:</p>
+    <ul>
+        <li>El servidor DNS procesa la consulta preguntando a diversos servidores DNS y empezando por los servidores DNS
+            raíz.
+            Consulta iterativa.</li>
+    </ul>
+
+    <div class="text-center my-4">
+        <img src="https://raul-profesor.github.io/Despliegue/img/dns8.png" alt="Consulta Iterativa"
+            class="img-fluid border rounded shadow-sm" style="max-height: 400px;">
+    </div>
+
+    <ul>
+        <li>El servidor DNS reenvía la consulta a otro servidor DNS, denominado reenviador (forwarder), para que se
+            encargue de
+            resolverla. Consulta recursiva.</li>
+    </ul>
+
+    <div class="text-center my-4">
+        <img src="https://raul-profesor.github.io/Despliegue/img/dns9.png" alt="Consulta Recursiva"
+            class="img-fluid border rounded shadow-sm" style="max-height: 400px;">
+    </div>
+
+    <p>Visto lo anterior, un reenviador (forwarder) es un servidor DNS que otros servidores DNS designan para reenviarle
+        consultas. Son utilizados para minimizar las consultas y el tráfico de peticiones DNS desde una red hacia
+        Internet.
+        Además permiten a los equipos locales utilizar su cache DNS para minimizar los tiempos de respuesta.</p>
+
+    <h3 class="mb-3 text-secondary">Servidor sólo autorizado</h3>
+    <p>Un Servidor solo autorizado (authoritative only) es aquel que es autorizado para una o varias zonas como servidor
+        maestro y/o esclavo y no responde a preguntas que no sean relativas a sus zonas. Es decir, no tiene activada la
+        recursividad, no es reenviador y no actúa como cache.</p>
+
+    <h3 class="mb-3 text-secondary">Servidores raíz</h3>
+    <p>En Internet existen un conjunto de servidores DNS autorizados para el dominio raíz ., conocidos como servidores
+        raíz
+        (root servers). Contienen el fichero de la zona . que contiene información sobre los servidores DNS autorizados
+        para
+        cada uno de los dominios TLD.</p>
+    <p>Los servidores raíz son una parte fundamental de Internet, son el primer paso en la traducción (resolución) de
+        los
+        nombres de host en direcciones IP, que se utilizan en la comunicación entre los hosts de Internet. Son claves en
+        el
+        proceso de resolución de nombres de dominio en Internet, y deben de ser conocidos por todos los servidores DNS
+        que
+        respondan a preguntas sobre nombres para los que no son autorizados.</p>
+    <p>Existen 13 servidores raíz en toda Internet y cada uno de ellos tiene múltiples copias distribuidas por todo el
+        mundo,
+        es decir, que físicamente no solo son 13 servidores. Cada conjunto de copias de uno de los 13 servidores se
+        identifica
+        por una misma IP. Cuando un cliente realiza una pregunta a una IP de un servidor raíz, los routers de Internet
+        encaminan
+        la pregunta hacia la copia más cercana mediante un procedimiento denominado anycasting.</p>
+    <p>Los nombres de los servidores raíz son de la forma <code>letra.root-servers.net</code>, donde letra va desde la A
+        a la M.</p>
+
+    <h5>Servidores Raíz DNS</h5>
+    <p>Tabla con los 13 servidores raíz de Internet, sus direcciones IPv4 y organización.</p>
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Letra</th>
+                <th>Nombre del servidor</th>
+                <th>Dirección IPv4</th>
+                <th>Organización</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>A</td>
+                <td>a.root-servers.net</td>
+                <td>198.41.0.4</td>
+                <td>Verisign</td>
+            </tr>
+            <tr>
+                <td>B</td>
+                <td>b.root-servers.net</td>
+                <td>199.9.14.201</td>
+                <td>USC-ISI</td>
+            </tr>
+            <tr>
+                <td>C</td>
+                <td>c.root-servers.net</td>
+                <td>192.33.4.12</td>
+                <td>Cogent</td>
+            </tr>
+            <tr>
+                <td>D</td>
+                <td>d.root-servers.net</td>
+                <td>199.7.91.13</td>
+                <td>University of Maryland</td>
+            </tr>
+            <tr>
+                <td>E</td>
+                <td>e.root-servers.net</td>
+                <td>192.203.230.10</td>
+                <td>NASA</td>
+            </tr>
+            <tr>
+                <td>F</td>
+                <td>f.root-servers.net</td>
+                <td>192.5.5.241</td>
+                <td>ISC</td>
+            </tr>
+            <tr>
+                <td>G</td>
+                <td>g.root-servers.net</td>
+                <td>192.112.36.4</td>
+                <td>U.S. DoD NIC</td>
+            </tr>
+            <tr>
+                <td>H</td>
+                <td>h.root-servers.net</td>
+                <td>198.97.190.53</td>
+                <td>ARL</td>
+            </tr>
+            <tr>
+                <td>I</td>
+                <td>i.root-servers.net</td>
+                <td>192.36.148.17</td>
+                <td>Netnod</td>
+            </tr>
+            <tr>
+                <td>J</td>
+                <td>j.root-servers.net</td>
+                <td>192.58.128.30</td>
+                <td>Verisign</td>
+            </tr>
+            <tr>
+                <td>K</td>
+                <td>k.root-servers.net</td>
+                <td>193.0.14.129</td>
+                <td>RIPE NCC</td>
+            </tr>
+            <tr>
+                <td>L</td>
+                <td>l.root-servers.net</td>
+                <td>199.7.83.42</td>
+                <td>ICANN</td>
+            </tr>
+            <tr>
+                <td>M</td>
+                <td>m.root-servers.net</td>
+                <td>202.12.27.33</td>
+                <td>WIDE Project</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 class="mb-3 text-secondary">DNS de Horizonte Dividido (Split-Horizon)</h3>
+    <p>Es una configuración donde un mismo servidor DNS ofrece respuestas diferentes dependiendo de quién pregunte
+        (desde dónde venga la IP del cliente). Por ejemplo:</p>
+    <ul>
+        <li>Si un empleado pregunta desde la red interna de la empresa, el DNS le da la IP privada del servidor.</li>
+        <li>Si un usuario pregunta desde Internet, el DNS le da la IP pública del mismo servidor.</li>
+    </ul>
+    <h3 class="mb-3 text-secondary">Maestro Oculto (Stealth Master)</h3>
+    <p>Es un servidor maestro que contiene la zona original pero <strong>no aparece listado en los registros NS</strong>
+        del dominio. Su existencia es secreta para el público. Solo los servidores esclavos saben quién es para poder
+        copiar la zona. Esto añade una capa extra de seguridad, ya que los atacantes no saben qué servidor es el que
+        realmente permite editar los datos.</p>
+    <h2 class="mb-4 mt-5 text-primary">Tipos de consultas: recursivas e iterativas</h2>
+
+    <h3 class="mb-3 text-secondary">Consultas recursivas</h3>
+    <p>Una consulta recursiva es aquella en la que el servidor DNS da una respuesta completa o exacta. Pueden darse tres
+        tipos
+        de respuesta:</p>
+    <ul>
+        <li><strong>Positivas:</strong> se devuelve información sobre el dominio consultado</li>
+        <li><strong>Negativas:</strong> no se puede resolver el nombre de dominio</li>
+        <li><strong>Error:</strong> debido a un fallo en la red</li>
+    </ul>
+
+    <h3 class="mb-3 text-secondary">Consultas iterativas</h3>
+    <p>Una consulta iterativa es aquella en la que el servidor DNS proporciona una respuesta parcial. Existen cuatro
+        posibles
+        respuestas:</p>
+    <ul>
+        <li><strong>Positivas:</strong> se devuelve información sobre el dominio consultado</li>
+        <li><strong>Negativas:</strong> no se puede resolver el nombre de dominio</li>
+        <li><strong>Referencia:</strong> el servidor DNS indica a otros servidores a los que se le puede consultar para
+            resolver la pregunta</li>
+        <li><strong>Error:</strong> debido a un fallo en la red</li>
+    </ul>
+
+    <h3 class="mb-3 text-secondary">Ejemplos</h3>
+    <p>Completando la información de la imagen del primer ejemplo del apartado del reenviador forwarder:</p>
+    <div class="text-center my-4">
+        <img src="https://raul-profesor.github.io/Despliegue/img/dns11.png" alt="Ejemplo Forwarder 1"
+            class="img-fluid border rounded shadow-sm" style="max-height: 400px;">
+    </div>
+
+    <p>Completando la información de la imagen del segundo ejemplo del apartado del reenviador forwarder:</p>
+    <div class="text-center my-4">
+        <img src="https://raul-profesor.github.io/Despliegue/img/dns12.png" alt="Ejemplo Forwarder 2"
+            class="img-fluid border rounded shadow-sm" style="max-height: 400px;">
+    </div>
+
+    <h2 class="mb-4 mt-5 text-primary">Resolución inversa</h2>
+    <p>La resolución inversa consiste en obtener información de un nombre de dominio preguntando por la dirección IP en
+        vez de
+        preguntar por el nombre de domino como hemos explicado en apartados anteriores.</p>
+
+    <h3 class="mb-3 text-secondary">Mapeo de direcciones y el dominio arpa</h3>
+    <p>El funcionamiento de la resolución de direcciones IP es igual al de la resolución de nombres de dominio. Las
+        direcciones IP se tratan como nombres que cuelgan del dominio <code>in-addr.arpa</code> para las direcciones
+        IPv4, y del dominio
+        <code>ip6.arpa</code> para las direcciones IPv6.
+    </p>
+
+    <div class="text-center my-4">
+        <img src="https://raul-profesor.github.io/Despliegue/img/dns13.png" alt="Dominio Arpa"
+            class="img-fluid border rounded shadow-sm" style="max-height: 400px;">
+    </div>
+
+    <p>Cuando usamos una dirección IP, por ejemplo <code>192.168.1.21</code>, para realizar una pregunta DNS inversa, en
+        realidad estamos
+        preguntando por el nombre de dominio <code>21.1.168.192.in-addr.arpa</code>. La estructura jerárquica de la
+        dirección IP, tratada
+        como nombre de dominio, es de derecha a izquierda, comenzando por el dominio <code>in-addr.arpa</code>.</p>
+    <p><code>.arpa</code> (Address and Routing Parameter Area) es un dominio de nivel superior genérico utilizado sólo
+        para la
+        infraestructura de Internet. Los subdominios de <code>.arpa</code> o dominios de segundo nivel
+        «<code>in-addr.arpa</code>» e «<code>ip6.arpa</code>» son usados
+        por los servidores DNS inversos para la obtención de direcciones IPv4 e IPv6 respectivamente.</p>
+    <p>Cuando mapeamos una dirección IP estamos asociando la dirección IP al nombre en el dominio <code>.arpa</code>.
+        Por ejemplo la
+        dirección <code>192.168.1.21</code> es mapeada al nombre <code>21.1.168.192.in-addr.arpa</code>.</p>
+
+    <h3 class="mb-3 text-secondary">Zonas de resolución inversa</h3>
+    <p>Los servidores DNS almacenan zonas de resolución inversa con registros de recursos (RR) que asocien nombres de
+        dominio
+        con direcciones IP. Las zonas de resolución inversa pueden ser maestras o primarias y esclavas o secundarias.
+    </p>
+    <p>Las zonas de resolución directa e inversa son independientes y es responsabilidad de los administradores de los
+        servidores DNS que dichas zonas contengan información coherente y que no existan discrepancias.</p>
+    <p>No es obligatorio que la entidad que administra una zona de resolución directa de un dominio tenga que
+        administrar la
+        zona de resolución inversa que se corresponda con las direcciones IPs asociadas a dicho dominio.</p>
+    <pre><code class="language-dns-zone">
+...
+deaw.es.       IN NS ns1.deaw.es.
+ns1.deaw.es.   IN A  192.168.1.20
+natos.deaw.es. IN A  192.168.1.21
+waor.deaw.es.  IN A  192.168.1.22
+altea.deaw.es. IN A  192.168.1.23
+www.deaw.es.   IN CNAME natos.deaw.es.
+ftp.deaw.es.   IN CNAME waor.deaw.es.
+...
+    </code></pre>
+    <p>Archivo de zona de resolución directa del dominio <code>deaw.es.</code>:</p>
+
+    <pre><code class="language-dns-zone">
+...
+1.168.192.in-addr.arpa.    IN NS ns1.deaw.es.
+20.1.168.192.in-addr.arpa. IN PTR ns1.deaw.es.
+21.1.168.192.in-addr.arpa. IN PTR natos.deaw.es.
+22.1.168.192.in-addr.arpa. IN PTR waor.deaw.es.
+23.1.168.192.in-addr.arpa. IN PTR altea.deaw.es.
+...
+    </code></pre>
+    <p>Archivo de zona de resolución inversa <code>1.168.192.in-addr.arpa</code> que permite resolver consultas inversas
+        sobre direcciones
+        IP de la red <code>192.168.1.0/24</code>:</p>
+
+
+    <h3 class="mb-3 text-secondary">Proceso de resolución</h3>
+    <p>El proceso de resolución inversa es similar al de resolución directa. Las direcciones IP se tratan como nombres
+        de
+        dominio. Por lo tanto, existen consultas recursivas, iterativas, cache, TTL...</p>
+    <p>Por ejemplo, si un cliente DNS realiza una consulta recursiva de la IP <code>192.168.1.21</code> a un servidor
+        DNS, éste, si no lo
+        tiene en cache, iniciará una serie de consultas iterativas a los servidores DNS raíz, a los servidores
+        autorizados para
+        el dominio <code>192.in-addr.arpa</code> y así sucesivamente.</p>
+
+    <h2 class="mb-4 mt-5 text-primary">Herramientas</h2>
+
+    <h3 class="mb-3 text-secondary">Nslookup</h3>
+    <p>Es un programa para consultar servidores DNS. Se utiliza para saber si un servidor DNS resuelve correctamente los
+        nombres DNS y las direcciones IP, para solucionar problemas frecuentes de los servidores DNS o, para
+        diagnosticar
+        problemas ocasionales de configuración en los servidores DNS.</p>
+    <p>Con nslookup podemos obtener la dirección IP asociada a un nombre DNS y viceversa, además, podemos preguntar a
+        los
+        servidores de nombres información relativa a los registros de recursos (RR) de la/s zona/s de las que son
+        autorizados.</p>
+    <p><code>nslookup</code> se usa de dos modos: interactivo y no interactivo. El modo interactivo permite al usuario
+        consultar los
+        servidores DNS para obtener información sobre varios hosts y dominios o para listar los hosts de un dominios. El
+        modo no
+        interactivo se usa para presentar solo el nombre y la información solicitada para un host o nombre DNS.</p>
+    <p>Este comando funciona tanto en sistemas operativos UNIX/Linux como en Windows. En su momento se trató a nslookup
+        como
+        una aplicación “deprecated” u obsoleta, pero a día de hoy parece que ha vuelto a considerarse apta para su uso
+        normal.</p>
+    <div class="text-center my-4">
+        <img src="../DES/img/Unidad-4/cisco.png" alt="Ejemplo Nslookup" class="img-fluid border rounded shadow-sm"
+            style="max-height: 400px;">
+    </div>
+    <div class="mt-3 mb-3">
+        <h5 class="mt-4 text-primary">Análisis del comando: nslookup cisco.com</h5>
+
+        <ul class="list-group list-group-flush">
+
+            <li class="list-group-item">
+                <strong>Servidor Local (Server: 127.0.0.53)</strong><br>
+                Indica qué servidor DNS ha utilizado tu equipo para resolver la consulta. La IP <code>127.0.0.53</code>
+                es el resolvedor local por defecto en sistemas Linux modernos (systemd-resolved). El <code>#53</code>
+                indica que la consulta se hizo a través del <strong>puerto 53</strong>, el estándar para DNS.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Respuesta no autoritativa (Non-authoritative answer)</strong><br>
+                Este es un concepto clave. Significa que el servidor que te ha respondido (tu servidor local) <strong>no
+                    es el dueño original</strong> de los registros de Cisco. Ha buscado la información en su memoria
+                caché o ha preguntado a otros servidores, pero la respuesta es "de segunda mano".
+            </li>
+
+            <li class="list-group-item">
+                <strong>Nombre y Dirección (IPv4)</strong><br>
+                <code>Address: 72.163.4.185</code><br>
+                Muestra la dirección IPv4 asociada al dominio. Es el resultado del <strong>Registro A</strong>.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Nombre y Dirección (IPv6)</strong><br>
+                <code>Address: 2001:420:1101:1::185</code><br>
+                Muestra la dirección IPv6 asociada al dominio. Es el resultado del <strong>Registro AAAA</strong>.
+            </li>
+
+        </ul>
+    </div>
+    <div class="text-center my-4">
+        <img src="../DES/img/Unidad-4/type-cisco.png" alt="Ejemplo Nslookup" class="img-fluid border rounded shadow-sm"
+            style="max-height: 400px;">
+    </div>
+    <div class="mt-3 mb-3">
+        <h5 class="mt-4 text-primary">Análisis del comando: nslookup -type=ns cisco.com</h5>
+
+        <ul class="list-group list-group-flush">
+
+            <li class="list-group-item">
+                <strong>El parámetro -type=ns</strong><br>
+                Le indica a <code>nslookup</code> que no queremos buscar la IP del dominio, sino específicamente sus
+                <strong>servidores de nombres (Name Servers)</strong>. Estos son los servidores que tienen la autoridad
+                para gestionar y responder por cualquier subdominio o registro de <code>cisco.com</code>.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Servidor y Dirección (127.0.0.53#53)</strong><br>
+                Al igual que en la consulta anterior, el sistema utiliza el resolvedor local de Linux
+                (<code>systemd-resolved</code>) en el puerto estándar <strong>53</strong> para buscar la información.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Respuesta no autoritativa (Non-authoritative answer)</strong><br>
+                Significa que nuestro servidor local ha obtenido esta lista de servidores desde su <strong>memoria
+                    caché</strong> (información que guardó de consultas previas) en lugar de ir a preguntar directamente
+                a los servidores raíz en este preciso momento.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Lista de Nameservers</strong><br>
+                Se muestran los 5 servidores autorizados para Cisco. Se observa una mezcla entre servidores propios
+                (<code>ns1, ns2, ns3.cisco.com</code>) y servidores de <strong>Akamai</strong> (<code>akam.net</code>),
+                lo que garantiza que el DNS sea rápido y resistente a ataques o caídas globales.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Authoritative answers can be found from:</strong><br>
+                Esta sección (aunque aparece vacía en la captura) indica que si quisiéramos una respuesta "100% oficial"
+                y no de caché, deberíamos dirigir nuestra pregunta a cualquiera de los servidores que aparecen en la
+                lista de resultados.
+            </li>
+
+        </ul>
+    </div>
+    <div class="text-center my-4">
+        <img src="../DES/img/Unidad-4/nslookup.png" alt="Ejemplo Nslookup" class="img-fluid border rounded shadow-sm"
+            style="max-height: 400px;">
+    </div>
+    <div class="mt-3 mb-3">
+        <h5 class="mt-4 text-primary">Análisis de nslookup en modo interactivo</h5>
+
+        <ul class="list-group list-group-flush">
+
+            <li class="list-group-item">
+                <strong>Modo Interactivo</strong><br>
+                Al ejecutar <code>nslookup</code> sin argumentos, entramos en un subentorno (indicado por el símbolo
+                <code>&gt;</code>). Esto permite realizar varias consultas seguidas o cambiar configuraciones sin tener
+                que volver a escribir el comando inicial.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Comando set type=ns</strong><br>
+                Dentro del modo interactivo, usamos <code>set type</code> para definir qué clase de registro buscamos.
+                En este caso, configuramos la herramienta para que solo devuelva los <strong>Name Servers</strong>
+                (servidores de nombres). Otros valores comunes podrían ser <code>set type=mx</code> para correo o
+                <code>set type=a</code> para direcciones IP.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Consulta: cisco.com</strong><br>
+                Una vez configurado el tipo, simplemente escribimos el nombre del dominio. El sistema utiliza el
+                servidor local (<code>127.0.0.53</code>) para obtener la información.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Interpretación de la Respuesta</strong><br>
+                Al igual que en el modo de una sola línea, obtenemos una <strong>Non-authoritative answer</strong>
+                (respuesta no autoritativa). Esto nos recuerda que los datos provienen de la memoria caché de nuestro
+                resolvedor local y no directamente de los servidores de Cisco.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Servidores Encontrados</strong><br>
+                Se listan los 5 servidores responsables de la zona <code>cisco.com</code>. El hecho de que se repitan
+                los mismos servidores que en el comando <code>host</code> confirma que la base de datos DNS es
+                consistente independientemente de la herramienta que utilicemos.
+            </li>
+
+        </ul>
+    </div>
+    <h3 class="mb-3 text-secondary">Dig (Domain Information Groper)</h3>
+
+    <p>Es la herramienta de referencia para administradores de sistemas y profesionales de red a la hora de realizar
+        diagnósticos y consultas a servidores DNS. A diferencia de otras utilidades, <code>dig</code> ofrece una visión
+        profunda y técnica de las respuestas del servidor.</p>
+
+    <ul>
+        <li>
+            <strong>Estándar Profesional:</strong> Es considerado el sucesor de herramientas clásicas como
+            <code>nslookup</code>, siendo el estándar actual para resolver problemas de red gracias a su precisión y
+            claridad.
+        </li>
+        <li>
+            <strong>Información Exhaustiva:</strong> Proporciona una respuesta técnica completa que incluye
+            secciones de encabezado, banderas de estado (flags), secciones de autoridad y tiempos de respuesta
+            detallados.
+        </li>
+        <li>
+            <strong>Versatilidad de Uso:</strong> Aunque su uso más común es a través de la interfaz de línea de
+            comandos (CLI), destaca por su capacidad de operar <strong>por lotes</strong>, permitiendo leer
+            múltiples consultas desde un archivo de texto externo.
+        </li>
+        <li>
+            <strong>Multiplataforma:</strong> Es una herramienta nativa de sistemas <strong>UNIX/Linux</strong>,
+            pero su utilidad ha hecho que esté disponible y sea ampliamente utilizada también en entornos
+            <strong>Windows</strong>.
+        </li>
+    </ul>
+
+
+    <p class="text-muted italic"><em>Nota: La principal ventaja de <code>dig</code> es que muestra la respuesta del
+            servidor DNS exactamente como se recibe, sin procesar ni simplificar, lo que facilita la detección de
+            errores de configuración.</em></p>
+
+    <div class="text-center my-4">
+        <img src="../DES/img/Unidad-4/dig-cisco.png" alt="Ejemplo Dig" class="img-fluid border rounded shadow-sm"
+            style="max-height: 400px;">
+    </div>
+    <div class="mt-3 mb-3">
+        <h5 class="mt-4 text-primary">Análisis avanzado con el comando: dig cisco.com a</h5>
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <strong>Encabezado (HEADER) y Estado</strong><br>
+                <code>status: NOERROR</code> indica que la consulta fue exitosa.
+                Las <strong>flags</strong> nos dan información clave:
+                <br>• <strong>qr</strong> (Query Response): Es una respuesta.
+                <br>• <strong>rd</strong> (Recursion Desired): Pedimos que el servidor buscara por nosotros.
+                <br>• <strong>ra</strong> (Recursion Available): El servidor DNS admite búsquedas recursivas.
+                <em>Nota: Al no aparecer la bandera <strong>aa</strong>, sabemos que la respuesta no es autoritativa
+                    (viene de caché).</em>
+            </li>
+
+            <li class="list-group-item">
+                <strong>Sección de Pregunta (QUESTION SECTION)</strong><br>
+                <code>;cisco.com.  IN  A</code><br>
+                Aquí se muestra exactamente qué le preguntamos al servidor: buscamos el registro de clase
+                <strong>Internet (IN)</strong> del tipo <strong>A</strong> para el dominio <code>cisco.com</code>.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Sección de Respuesta (ANSWER SECTION)</strong><br>
+                <code>cisco.com.  300  IN  A  72.163.4.185</code><br>
+                Este es el resultado final. El número <strong>300</strong> es el <strong>TTL</strong> (tiempo de vida en
+                segundos), lo que significa que esta respuesta se guardará en caché durante 5 minutos antes de volver a
+                preguntar al servidor maestro.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Estadísticas de la consulta</strong><br>
+                • <strong>Query time:</strong> 144 msec (tiempo que tardó en llegar la respuesta).
+                <br>• <strong>SERVER:</strong> 127.0.0.53#53 (indica que respondió el resolvedor local del sistema).
+                <br>• <strong>WHEN:</strong> La fecha y hora exacta de la consulta (19 de enero de 2026).
+            </li>
+
+        </ul>
+    </div>
+    <div class="text-center my-4">
+        <img src="../DES/img/Unidad-4/dig-cisco-mx.png" alt="Ejemplo Dig" class="img-fluid border rounded shadow-sm"
+            style="max-height: 400px;">
+    </div>
+    <div class="mt-3 mb-3">
+        <h5 class="mt-4 text-primary">Análisis de servidores de correo con: dig cisco.com mx</h5>
+
+        <ul class="list-group list-group-flush">
+
+            <li class="list-group-item">
+                <strong>Registro MX (Mail Exchange)</strong><br>
+                El parámetro <code>mx</code> indica que estamos consultando los "intercambiadores de correo". Estos
+                registros le dicen al mundo a qué servidores deben enviarse los emails dirigidos a
+                <code>@cisco.com</code>.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Sección de Respuesta (ANSWER SECTION)</strong><br>
+                Se muestran 3 servidores de correo. La estructura es: <em>[Dominio] [TTL] [Clase] [Tipo] [Prioridad]
+                    [Nombre del servidor]</em>.
+                <br>• El servidor <code>alln-mx-01</code> tiene <strong>prioridad 10</strong> (es el principal).
+                <br>• Los servidores con 20 y 30 son secundarios y actúan como respaldo.
+            </li>
+
+            <li class="list-group-item">
+                <strong>El TTL (463)</strong><br>
+                En esta consulta, el tiempo de vida (TTL) es de <strong>463 segundos</strong>. Es un número "extraño"
+                porque es una cuenta atrás; originalmente pudo ser de 600 segundos, pero como la respuesta viene de la
+                caché, nos indica que en poco más de 7 minutos la información caducará y el servidor tendrá que volver a
+                preguntar.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Query time: 0 msec</strong><br>
+                Este es un dato revelador. Un tiempo de respuesta de <strong>0 milisegundos</strong> significa que la
+                respuesta ha sido instantánea porque ya estaba guardada en la memoria RAM del resolvedor local
+                (<code>127.0.0.53</code>). No ha hecho falta salir a Internet para obtenerla.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Flags: qr rd ra</strong><br>
+                Nuevamente, vemos que no aparece la flag <strong>aa</strong> (Authoritative Answer). Esto confirma que,
+                aunque la información es correcta, nuestro servidor nos la está dando "de segunda mano" desde su caché.
+            </li>
+
+        </ul>
+    </div>
+    <h3 class="mb-3 text-secondary">Host</h3>
+    <p><code>host</code> es una herramienta CLI sencilla y fácil de usar para realizar consultas DNS, que traducen
+        nombres de dominio a direcciones IP y viceversa. También se utiliza para consultar los registros DNS de las
+        zonas que almacenan los servidores DNS, probar y validar el servidor DNS y la conectividad a Internet, registros
+        de correo no deseado y listas negras, diagnóstico de problemas en el servidor DNS...</p>
+    <div class="text-center my-4">
+        <img src="../DES/img/Unidad-4/host-cisco.png" alt="Ejemplo Host" class="img-fluid border rounded shadow-sm"
+            style="max-height: 400px;">
+    </div>
+    <div class="mt-3 mb-3">
+        <h5 class="mt-4 text-primary">Análisis de la consulta general: host cisco.com</h5>
+
+        <ul class="list-group list-group-flush">
+
+            <li class="list-group-item">
+                <strong>Registro A (IPv4)</strong><br>
+                <code>cisco.com has address 72.163.4.185</code><br>
+                Indica la dirección IP física (versión 4) del servidor web. Es el dato que utiliza el navegador para
+                cargar la página.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Registro AAAA (IPv6)</strong><br>
+                <code>cisco.com has IPv6 address 2001:420:1101:1::185</code><br>
+                Es el equivalente al registro A pero para el protocolo <strong>IPv6</strong>. Las empresas grandes como
+                Cisco siempre ofrecen ambas para asegurar conectividad global moderna.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Registros MX (Mail Exchange)</strong><br>
+                <code>mail is handled by 10 alln-mx-01.cisco.com...</code><br>
+                Estos registros indican qué servidores reciben los correos electrónicos enviados a
+                <code>@cisco.com</code>.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Prioridad en el Correo</strong><br>
+                Los números <strong>10, 20 y 30</strong> indican el orden de preferencia. El servidor con el número más
+                bajo (10: <code>alln-mx-01</code>) es el principal. Si este falla, el correo se enviará al siguiente
+                (20) y así sucesivamente.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Balanceo y Redundancia</strong><br>
+                Al mostrar múltiples registros MX y direcciones IP, se demuestra que el dominio está preparado para la
+                <strong>alta disponibilidad</strong>: si un centro de datos cae, los otros registros permiten que los
+                servicios sigan funcionando.
+            </li>
+
+        </ul>
+    </div>
+    <div class="text-center my-4">
+        <img src="../DES/img/Unidad-4/host-ip.png" alt="Ejemplo Host" class="img-fluid border rounded shadow-sm"
+            style="max-height: 400px;">
+    </div>
+    <div class="mt-3 mb-3">
+        <h5 class="mt-4 text-primary">Análisis de la resolución inversa: host 72.163.4.185</h5>
+
+        <ul class="list-group list-group-flush">
+
+            <li class="list-group-item">
+                <strong>Consulta Inversa Automática</strong><br>
+                Cuando ejecutamos <code>host</code> seguido de una dirección IP, el comando entiende que no buscamos una
+                IP, sino que queremos hacer el camino contrario: obtener el nombre asociado a esa dirección (proceso
+                conocido como <em>Reverse DNS Lookup</em>).
+            </li>
+
+            <li class="list-group-item">
+                <strong>185.4.163.72.in-addr.arpa.</strong><br>
+                Como se observa en la respuesta, el sistema ha invertido automáticamente la IP <code>72.163.4.185</code>
+                y le ha añadido el sufijo <code>.in-addr.arpa.</code> para poder buscarla en la jerarquía DNS mundial.
+            </li>
+
+            <li class="list-group-item">
+                <strong>domain name pointer (PTR)</strong><br>
+                La respuesta indica que ha encontrado un "puntero de nombre de dominio". Este es el nombre técnico del
+                <strong>Registro PTR</strong> que vincula esa IP específica con un nombre concreto.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Resultado: redirect-ns.cisco.com.</strong><br>
+                Este es el nombre oficial (FQDN) configurado para esa IP. Es común que las grandes empresas usen nombres
+                técnicos como <code>redirect-ns</code> (Redirect Name Server) para sus IPs públicas de infraestructura.
+            </li>
+
+            <li class="list-group-item">
+                <strong>¿Para qué sirve esta comprobación?</strong><br>
+                Sirve para verificar la identidad. Si un servidor dice ser de Cisco pero su resolución inversa apunta a
+                un dominio desconocido o sospechoso, otros servidores en Internet podrían bloquearlo por seguridad o
+                marcar su correo como SPAM.
+            </li>
+
+        </ul>
+    </div>
+    <div class="text-center my-4">
+        <img src="../DES/img/Unidad-4/host-t.png" alt="Ejemplo Host" class="img-fluid border rounded shadow-sm"
+            style="max-height: 400px;">
+    </div>
+    <div class="mt-3 mb-3">
+        <h5 class="mt-4 text-primary">Análisis del comando: host -t NS cisco.com</h5>
+
+        <ul class="list-group list-group-flush">
+
+            <li class="list-group-item">
+                <strong>El parámetro -t NS</strong><br>
+                Indica que estamos filtrando la búsqueda para que solo nos muestre los registros de tipo <strong>Name
+                    Server</strong>. Estos registros definen qué servidores DNS son los "dueños" o
+                <strong>autorizados</strong> para responder por el dominio <code>cisco.com</code>.
+            </li>
+
+            <li class="list-group-item">
+                <strong>Servidores Propios (ns1, ns2, ns3.cisco.com)</strong><br>
+                Cisco utiliza sus propios servidores DNS para gestionar parte de su tráfico. Al tener varios (1, 2 y 3),
+                se aseguran de que si uno falla, los otros puedan seguir respondiendo (redundancia).
+            </li>
+
+            <li class="list-group-item">
+                <strong>Servidores Externos (akam.net)</strong><br>
+                Observamos que Cisco también delega su autoridad en <strong>Akamai</strong> (<code>akam.net</code>), una
+                de las redes de distribución de contenido (CDN) más grandes del mundo. Esto sirve para que las consultas
+                DNS se respondan de forma mucho más rápida desde cualquier parte del planeta.
+            </li>
+
+            <li class="list-group-item">
+                <strong>¿Por qué aparecen 5 servidores?</strong><br>
+                Por <strong>tolerancia a fallos</strong>. Si un atacante intentara tirar el servicio DNS de Cisco,
+                tendría que tumbar los servidores en sus centros de datos y también los de Akamai simultáneamente, lo
+                cual es extremadamente difícil.
+            </li>
+
+            <li class="list-group-item">
+                <strong>El proceso de resolución</strong><br>
+                Cuando alguien busca <code>www.cisco.com</code>, los servidores raíz y los TLD (.com) le dirán: "Yo no
+                sé la IP, pero pregúntale a cualquiera de estos 5 servidores de la lista, ellos tienen la verdad
+                oficial".
+            </li>
+
+        </ul>
+    </div>
+    <h3 class="mb-3 text-secondary">Whois</h3>
+    <p>Aunque no es una herramienta de diagnóstico DNS si que nos ofrece información sobre el registro del dominio.</p>
+    <p><code>whois</code> es un protocolo que permite realizar consultas a bases de datos que contienen información; del
+        usuario, empresa u organización que registra un nombre de dominio y/o una dirección IP en Internet. El protocolo
+        whois se encapsula en TCP y solo especifica el intercambio de peticiones y respuestas, no el formato de datos a
+        intercambiar. Por eso, los resultados de las consultas whois pueden variar dependiendo de la base de datos whois
+        a la que se pregunte.</p>
+
+</div>
+<footer style="font-size: 0.9em; text-align: center; margin-top: 2em;">
+    <p>
+        Contenido de este apartado basado en el trabajo de
+        <a href="https://raul-profesor.github.io/Despliegue/dns/" target="_blank">Raul-profesor</a>,
+        usado bajo <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>.
+        No se permite su uso comercial sin permiso explícito.
+    </p>
+</footer>
