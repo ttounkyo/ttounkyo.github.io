@@ -1,316 +1,124 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Práctica DOM Sencilla</title>
+    <title>Document</title>
     <style>
+        @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #f5f5f5;
+            background: #111;
+            /*#111111*/
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
 
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
+        #container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 100%;
         }
 
-        .seccion {
-            background: white;
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        .square {
+            background-color: #1d1d1d;
+            box-shadow: 0 0 2px #000;
+            margin: 2px;
+            width: 36px;
+            height: 36px;
+            transition: 1s ease;
         }
 
-        .boton {
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            margin: 5px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
+        .square:hover {
+            transition-duration: 0s;
         }
-
-        .boton:hover {
-            background: #45a049;
-        }
-
-        .caja {
-            width: 100px;
-            height: 100px;
-            margin: 10px;
-            display: inline-block;
-            border: 2px solid #333;
-            border-radius: 5px;
-        }
-
-        .caja:hover {
-            display: none;
-        }
-
-        .ejemplo {
-            color: blue;
-            font-weight: bold;
-        }
-
-
-
-        #listaElementos {
-            list-style-type: none;
-        }
-
-        #listaElementos li {
-            padding: 8px;
-            margin: 5px 0;
-            background: #e9e9e9;
-            border-radius: 4px;
-        }
-
-        .nuevo-div {
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            text-align: center;
-        }
-
-        .bold {
-            font-weight: bold;
-            color: red;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        }
-
-        .wo-bold {
-            font-weight: 500;
-            color: black;
-            font-family: Arial, sans-serif;
-        }
+    </style>
     </style>
 </head>
 
 <body>
-    <h1>🎮 Práctica Sencilla de Manipulación DOM</h1>
+    <div id="container"></div>
 
-    <!-- Sección 1: Buscar por ID -->
-    <div class="seccion">
-        <h2>1️⃣ Buscar por ID, y realia las dos funciones.</h2>
-        <p id="textoEjemplo">Este texto será modificado cuando hagas clic.</p>
-        <button class="boton" onclick="cambiarTexto()">Cambiar Texto</button>
-        <button class="boton" onclick="restaurarTexto()">Restaurar Texto</button>
-    </div>
-
-    <!-- Sección 2: Buscar por Clase -->
-    <div class="seccion">
-        <h2>2️⃣ Buscar por Clase, y realia las dos funciones.</h2>
-        <p class="ejemplo">Primer párrafo con clase "ejemplo"</p>
-        <p class="ejemplo">Segundo párrafo con clase "ejemplo"</p>
-        <p class="ejemplo">Tercer párrafo con clase "ejemplo"</p>
-        <button class="boton" onclick="cambiarColorClases()">Cambiar Color</button>
-        <button class="boton" onclick="restaurarClases()">Restaurar Color</button>
-    </div>
-
-    <!-- Sección 3: Crear Divs con Colores Aleatorios -->
-    <div class="seccion">
-        <h2>3️⃣ Crear Divs con Colores Aleatorios.</h2>
-        <p>Cada div estará dentro del contenedor divs y tendrá un color aleatorio.</p>
-        <div id="contenedorDivs"></div>
-        <br>
-        <button class="boton" onclick="optimo(1)">Crear 1 Div</button>
-        <button class="boton" onclick="optimo(5)">Crear 5 Divs</button>
-        <button class="boton" onclick="limpiarDivs()">Limpiar Todo</button>
-    </div>
-
-    <!-- Sección 4: Modificar Lista -->
-    <div class="seccion">
-        <h2>4️⃣ Modificar Lista</h2>
-        <ul id="listaElementos">
-            <li>Manzana 🍎</li>
-            <li>Plátano 🍌</li>
-            <li>Naranja 🍊</li>
-        </ul>
-        <input type="text" id="nuevoItem" placeholder="Escribe un nuevo elemento de lista">
-        <button class="boton" onclick="agregarItem()">Agregar elemento a la lista</button>
-        <button class="boton" onclick="eliminarUltimo()">Eliminar último elemento de la lista</button>
-    </div>
-
-    <!-- Sección 5: Cajas Interactivas -->
-    <div class="seccion">
-        <h2>5️⃣ Cajas Interactivas</h2>
-        <p>Cada caja no se eliminará, se esconderá y se mostrará dependiendo si paso por encima de la caja con el mouse
-            o no.</p>
-        <div class="caja" id="caja1" onmouseover="" onmouseout="">Caja 1</div>
-        <div class="caja" id="caja2">Caja 2</div>
-        <div class="caja" id="caja3">Caja 3</div>
-        <br><br>
-        <button class="boton" onclick="cambiarCajas()">Cambiar Colores</button>
-        <button class="boton" onclick="esconderCajas()">Esconder/Mostrar</button>
-    </div>
-
-    <script>
-        // =========== SECCIÓN 1: Buscar por ID ===========
-        // 1. Buscar elemento por su ID
-        const textoEjemplo = document.getElementById("textoEjemplo");
-        textoEjemplo.classList.remove("bold", "wo-bold");
-        // 2. Verificar que existe
-        // 3. Cambiar su contenido
-        function cambiarTexto() {
-            textoEjemplo.innerHTML = "Texto modificado";
-            //textoEjemplo.style = "font-weight: bold; color: red";
-            textoEjemplo.classList.add("bold");
-        }
-        function restaurarTexto() {
-            textoEjemplo.innerHTML = "Este texto será modificado cuando hagas clic";
-            //textoEjemplo.style = "font-weight: 500; color: black";
-            textoEjemplo.classList.add("wo-bold");
-        }
-        // =========== SECCIÓN 2: Buscar por Clase ===========
-        // 1. Buscar TODOS los elementos con clase "ejemplo"
-        const ejemplo = document.querySelectorAll(".ejemplo");
-        const aejemplo = document.getElementsByClassName("ejemplo");
-        // 2. Recorrer la colección (no es un array, es HTMLCollection)
-        function cambiarColorClases() {
-            let eloy = 0;
-            while (eloy < ejemplo.length) {
-                ejemplo[eloy].classList.add("bold");
-                eloy++;
-            }
-
-        }
-
-        function restaurarClases() {
-            let raul = 0;
-            do {
-                aejemplo[raul].classList.remove("bold");
-                raul++;
-            } while (raul < aejemplo.length);
-        }
-
-
-        // 3. Cambiar propiedades de cada elemento
-        // =========== SECCIÓN 3: Crear Divs con Colores Aleatorios ===========
-
-        function generarColorAleatorio() {
-            // Generar un color hexadecimal aleatorio
-            const letras = '0123456789ABCDEF';
-            let color = '#';
-            for (let i = 0; i < 6; i++) {
-                color += letras[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
-
-        // 1. Buscar el contenedor
-        const contenedorDivs = document.getElementById("contenedorDivs");
-
-        function optimo(cant) {
-            for (let i = 0; i < cant; i++) {
-                const diva = document.createElement("div");
-                diva.textContent = "Esta es una sección de contenedor div " + (i + 1);
-                diva.style.backgroundColor = generarColorAleatorio();
-                diva.style.color = "white";
-                contenedorDivs.appendChild(diva);
-            }
-        }
-        // 4. Asignar color aleatorio
-        function crearDiv() {
-            // 2. Crear un nuevo elemento div
-            const contenedordiv = document.createElement("div");
-            contenedordiv.textContent = "Contenedor div 1";
-            // 3. Configurar propiedades del div
-            contenedordiv.style.backgroundColor = generarColorAleatorio();
-            // Texto blanco para mejor contraste
-            contenedordiv.style.color = "white";
-            // 5. Añadir evento de clic
-            // 6. Insertar en el contenedor
-            contenedorDivs.appendChild(contenedordiv);
-        }
-        function crear5Divs() {
-            for (let i = 0; i < 5; i++) {
-                const diva = document.createElement("div");
-                diva.textContent = "Esta es una sección de contenedor div " + (i + 1);
-                diva.style.backgroundColor = generarColorAleatorio();
-                diva.style.color = "white";
-                contenedorDivs.appendChild(diva);
-            }
-        }
-
-        function limpiarDivs() {
-            contenedorDivs.innerHTML = "";
-        }
-        // Vaciar todo el contenido
-        // =========== SECCIÓN 4: Modificar Lista ===========
-        // 1. Obtener valor del input
-        // 2. Validar que no esté vacío
-        // 3. Buscar la lista
-        // 4. Crear nuevo elemento de lista
-        // 5. Añadir emoji aleatorio
-        // 6. Añadir evento para eliminar al hacer doble clic
-        // 7. Insertar en la lista
-        // 8. Limpiar el input
-
-
-        const listaElementos = document.getElementById("listaElementos");
-
-        function agregarItem() {
-            const nuevoItem = document.getElementById("nuevoItem");
-            const emojis = ['🍎', '🍌', '🍊', '🍇', '🍓', '🍉', '🥭', '🍍'];
-
-            if (nuevoItem.value === "") {
-                alert("El elemento de la lista no puede estar vacio");
-            } else {
-                const emojiAleatorio = emojis[Math.floor(Math.random() * emojis.length)];
-                let li = document.createElement("li");
-                li.textContent = nuevoItem.value + " " + emojiAleatorio;
-                listaElementos.appendChild(li);
-                nuevoItem.value = "";
-            }
-        }
-
-        function eliminarUltimo() {
-            const li = document.querySelectorAll("li");
-            let ultimo = li.length - 1;
-            //debugger
-            listaElementos.removeChild(li[ultimo]);
-        }
-        // Poner el cursor de nuevo en el input
-        // =========== SECCIÓN 5: Cajas Interactivas ===========
-        // Cambiar colores de las 3 cajas
-        // Cambiar también el color del texto para que sea visible
-
-        function cambiarCajas() {
-            const cajas = document.querySelectorAll(".caja");
-            const color = generarColorAleatorio();
-            for (let i = 0; i < cajas.length; i++) {
-                cajas[i].style.backgroundColor = generarColorAleatorio();
-            }
-        }
-
-        // =========== EJERCICIOS ADICIONALES ===========
-        // PRÁCTICA: Cambiar el título principal (h1)
-        // 1. Buscar el elemento h1
-        // 2. Cambiar su texto a "¡DOM Manipulado!"
-        // 3. Cambiar su color a morado (#8A2BE2)
-        // PRÁCTICA: Contar cuántos divs hay en la página
-        // 1. Buscar todos los divs
-        // 2. Mostrar un alert con el número total
-        // PRÁCTICA: Crear un botón que alerte el texto de todos los párrafos
-        // 1. Buscar todos los párrafos (etiqueta <p>)
-        // 2. Recorrerlos y concatenar sus textos
-        // 3. Mostrar el resultado en un alert
-    </script>
 </body>
 
 </html>
+<script>
+    generarDiv();
+    /*
+    ;
+    const input = document.createElement("input");
+    input.value = "Insertar div";
+    input.type = "button";
+    input.onclick = generarDiv;
+    div.appendChild(input);
+    */
+
+    function generarDiv() {
+        const div = document.getElementById("container")
+        const cantDiv = parseInt(prompt("¿Cuantos DIV quieres?"));
+
+        for (let i = 0; i < cantDiv; i++) {
+            const nuevoDiv = document.createElement("div");
+            //div.innerHTML = "Contenedor " + i;
+            nuevoDiv.setAttribute("class", "square");
+            nuevoDiv.textContent = "Contenedor " + i;
+            nuevoDiv.onmouseover = agregarColor;
+            nuevoDiv.onmouseout = quitarColor;
+            //Añadir los eventos con addEventListener
+            nuevoDiv.addEventListener("mouseover", () => {
+                agregarColor(div);
+            });
+
+            nuevoDiv.addEventListener("mouseout", () => {
+                quitarColor(div);
+            });
+            nuevoDiv.appendChild(nuevoDiv);
+        }
+    }
+
+
+    //La función cambiar color, tiene que preguntarme a que div le tengo que cambiar el color, según me diga le aplicaré el style
+    function cambiarColor() {
+        const cajas = document.querySelectorAll(".prueba"); //NodeList
+        let div = prompt("A que div quieres cambiar el color entre el 1 y el " + cajas.length);
+        if (div === "") {
+            alert("No puede estar vacío");
+            cambiarColor();
+        } else if (isNaN(parseInt(div))) {
+            alert("Tiene que ser un valor numerico");
+            cambiarColor();
+        } else if (div >= 1 && div <= cajas.length) {
+            cajas[div - 1].style.backgroundColor = generarColorAleatorio();
+        } else {
+            alert("El número tiene que ser entre el 1 y el " + cajas.length);
+            cambiarColor();
+        }
+    }
+
+    // Validar.
+    // 1-5 si pone un 6 tiene que darle un mensaje diciendo estás fuera del rango.
+    // Tiene que ser un número. Parseint()
+    // No puede estar vacío
+
+    function generarColorAleatorio() {
+        // Generar un color hexadecimal aleatorio
+        const letras = '0123456789ABCDEF';
+        let color = '#';
+
+        for (let i = 0; i < 6; i++) {
+            color += letras[Math.floor(Math.random() * 16)];
+        }
+
+        return color;
+    }
+</script>

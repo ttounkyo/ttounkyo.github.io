@@ -157,11 +157,9 @@ def index(request):
                 <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
                     onclick="copiarCodigo(this)">Copiar</button>
                 <pre><code class="language-python">from django.urls import path
-from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', views.index, name='index'),
 ]</code></pre>
             </div>
