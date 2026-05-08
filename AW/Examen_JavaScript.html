@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Examen de JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #333;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+        }
+
+        .answer-space {
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Examen Práctico de JavaScript</h1>
+    <p><strong>Nombre del alumno:</strong> _________________________________________________</p>
+    <hr>
+
+    <h2>Parte 1: ¿Qué hace este código?</h2>
+    <p>Lee atentamente los siguientes fragmentos de código JavaScript y explica detalladamente qué es lo que hacen (qué
+        elementos seleccionan, qué modifican o cuál es la lógica).</p>
+
+    <h3>Pregunta 1</h3>
+    <pre><code>let respuesta = prompt("¿Cuál es tu color favorito?");
+if (respuesta !== "") {
+    alert("Tu color favorito es " + respuesta);
+} else {
+    alert("No has introducido ningún color.");
+}</code></pre>
+    <p><strong>Explicación:</strong></p>
+    <p class="answer-space"><br><br><br><br></p>
+
+    <h3>Pregunta 2</h3>
+    <pre><code>const titulo = document.getElementById("titulo-principal");
+titulo.innerText = "Bienvenido a la página";
+titulo.style.color = "blue";</code></pre>
+    <p><strong>Explicación:</strong></p>
+    <p class="answer-space"><br><br><br><br></p>
+
+    <h3>Pregunta 3</h3>
+    <pre><code>const boton = document.getElementById("miBoton");
+
+boton.addEventListener("click", function() {
+    let nuevoParrafo = document.createElement("p");
+    nuevoParrafo.innerText = "Has hecho clic en el botón";
+    document.body.appendChild(nuevoParrafo);
+});</code></pre>
+    <p><strong>Explicación:</strong></p>
+    <p class="answer-space"><br><br><br><br><br></p>
+
+    <h2>Parte 2: Escribe el código</h2>
+    <p>A partir de los siguientes enunciados, redacta el código JavaScript necesario para cumplir con lo que se pide.
+        Supón que el HTML ya contiene los elementos con los identificadores mencionados.</p>
+
+    <h3>Pregunta 4</h3>
+    <p><strong>Enunciado:</strong> Escribe el código necesario para seleccionar una imagen con el identificador
+        <code>"foto-perfil"</code> y cambiar su atributo <code>src</code> para que muestre la imagen
+        <code>"nueva-foto.png"</code>.</p>
+    <p><strong>Código:</strong></p>
+    <p class="answer-space"><br><br><br><br><br></p>
+
+    <h3>Pregunta 5</h3>
+    <p><strong>Enunciado:</strong> Escribe el código de una función llamada <code>verificarEdad()</code>. Esta función
+        debe preguntar al usuario su edad usando un cuadro de diálogo (<code>prompt</code>). Si la edad es mayor o igual
+        a 18, debe mostrar una alerta diciendo "Eres mayor de edad". Si es menor, una alerta diciendo "Eres menor de
+        edad".</p>
+    <p><strong>Código:</strong></p>
+    <p class="answer-space"><br><br><br><br><br><br><br><br></p>
+
+    <h3>Pregunta 6</h3>
+    <p><strong>Enunciado:</strong> Escribe el código para seleccionar un botón con el identificador
+        <code>"btn-desactivar"</code> y, al hacerle clic, asegurarte de que cambie su texto a "Desactivado" y se
+        deshabilite el botón (pista: usa la propiedad <code>disabled</code>).</p>
+    <p><strong>Código:</strong></p>
+    <p class="answer-space"><br><br><br><br><br><br><br></p>
+
+</body>
+
+</html>
