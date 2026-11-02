@@ -13,15 +13,48 @@
 
     <p class="menu-titulo">Unidades</p>
     <ul class="list-unstyled">
+        <!-- Unidad 1: teoría + actividades -->
         <li data-unidad="1">
-            <a class="menu-enlace" href="#/Unidad-1/index"><span class="num">1</span><span>Instalación y conceptos</span></a>
+            <button type="button" class="menu-enlace menu-desplegar" data-bs-toggle="collapse"
+                data-bs-target="#submenu-unidad1" aria-expanded="false" aria-controls="submenu-unidad1">
+                <span class="num">1</span><span>Instalación y conceptos</span><i class="bi bi-chevron-down flecha"></i>
+            </button>
+            <ul class="collapse submenu list-unstyled" id="submenu-unidad1">
+                <li><a href="#/Unidad-1/index"><i class="bi bi-book"></i>Teoría</a></li>
+                <li><a href="#/Unidad-1/actividades/index"><i class="bi bi-list-check"></i>Actividades</a></li>
+                <li><a class="sub2" data-actividad="1-1" href="#/Unidad-1/actividades/1-1"><span class="sub-num">1.1</span>Ofimática para una empresa</a></li>
+                <li><a class="sub2" data-actividad="1-2" href="#/Unidad-1/actividades/1-2"><span class="sub-num">1.2</span>Busca como un profesional</a></li>
+            </ul>
         </li>
+
+        <!-- Unidad 2: teoría + actividades -->
         <li data-unidad="2">
-            <a class="menu-enlace" href="#/Unidad-2/index"><span class="num">2</span><span>Correo y agenda</span></a>
+            <button type="button" class="menu-enlace menu-desplegar" data-bs-toggle="collapse"
+                data-bs-target="#submenu-unidad2" aria-expanded="false" aria-controls="submenu-unidad2">
+                <span class="num">2</span><span>Correo y agenda</span><i class="bi bi-chevron-down flecha"></i>
+            </button>
+            <ul class="collapse submenu list-unstyled" id="submenu-unidad2">
+                <li><a href="#/Unidad-2/index"><i class="bi bi-book"></i>Teoría</a></li>
+                <li><a href="#/Unidad-2/actividades/index"><i class="bi bi-list-check"></i>Actividades</a></li>
+                <li><a class="sub2" data-actividad="2-1" href="#/Unidad-2/actividades/2-1"><span class="sub-num">2.1</span>Organiza tu correo</a></li>
+                <li><a class="sub2" data-actividad="2-2" href="#/Unidad-2/actividades/2-2"><span class="sub-num">2.2</span>La agenda del trimestre</a></li>
+            </ul>
         </li>
+
+        <!-- Unidad 3: teoría + actividades -->
         <li data-unidad="3">
-            <a class="menu-enlace" href="#/Unidad-3/index"><span class="num">3</span><span>Presentaciones</span></a>
+            <button type="button" class="menu-enlace menu-desplegar" data-bs-toggle="collapse"
+                data-bs-target="#submenu-unidad3" aria-expanded="false" aria-controls="submenu-unidad3">
+                <span class="num">3</span><span>Presentaciones</span><i class="bi bi-chevron-down flecha"></i>
+            </button>
+            <ul class="collapse submenu list-unstyled" id="submenu-unidad3">
+                <li><a href="#/Unidad-3/index"><i class="bi bi-book"></i>Teoría</a></li>
+                <li><a href="#/Unidad-3/actividades/index"><i class="bi bi-list-check"></i>Actividades</a></li>
+                <li><a class="sub2" data-actividad="3-1" href="#/Unidad-3/actividades/3-1"><span class="sub-num">3.1</span>Arregla una presentación</a></li>
+                <li><a class="sub2" data-actividad="3-2" href="#/Unidad-3/actividades/3-2"><span class="sub-num">3.2</span>Presenta el ciclo SMX</a></li>
+            </ul>
         </li>
+
 
         <!-- Unidad 4: teoría + actividades -->
         <li data-unidad="4">
