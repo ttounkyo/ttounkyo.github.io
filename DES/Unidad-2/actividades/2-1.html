@@ -1,0 +1,181 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-2/index">Unidad 2</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-2/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">2.1</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 2.1. Petición HTTP con Telnet</h1>
+    <p class="lead">Vas a «hablar» directamente con un servidor web: escribirás a mano una petición HTTP con Telnet y
+        analizarás la respuesta. Es lo mismo que hace tu navegador cada vez que abres una página.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Abrir una conexión TCP al puerto 80</li>
+                    <li>La línea de inicio y la cabecera <code>Host</code> de una petición</li>
+                    <li>La línea de estado, las cabeceras y el cuerpo de una respuesta</li>
+                    <li>Los métodos <code>GET</code> y <code>HEAD</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-2/index?sec=2-5-funcionamiento-un-dialogo-cliente-servidor">2.5.
+                            Funcionamiento: un diálogo cliente-servidor</a> y <a
+                            href="#/Unidad-2/index?sec=4-mensajes-http-peticion-y-respuesta">4. Mensajes HTTP</a></li>
+                    <li>Una terminal en tu ordenador o en tu servidor Debian.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>ApellidoNombre_DES_Actividad2.1.pdf</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Capturas de tus peticiones <code>GET</code> y <code>HEAD</code> con sus respuestas, y el análisis
+                    de cada parte de la respuesta con tus palabras.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Activa el cliente Telnet</h3>
+            <p>En casi todos los sistemas actuales Telnet no viene activado:</p>
+            <ul>
+                <li><strong>Windows:</strong> abre el <span class="ruta-menu">Panel de control → Programas → Activar o
+                        desactivar las características de Windows</span>, marca <strong>Cliente Telnet</strong> y pulsa
+                    <span class="ruta-menu">Aceptar</span>.</li>
+                <li><strong>Debian y Ubuntu:</strong> instálalo con <code>sudo apt install telnet</code>.</li>
+                <li><strong>macOS:</strong> ya no trae Telnet. Instálalo con Homebrew (<code>brew install
+                        telnet</code>) o usa <code>nc example.com 80</code>, que funciona igual para esta
+                    actividad.</li>
+            </ul>
+        </li>
+
+        <li class="paso">
+            <h3>Conéctate al servidor web</h3>
+            <p>Abre una conexión con el servidor de <code>example.com</code> en el puerto de HTTP, el 80:</p>
+            <pre><code class="language-bash">telnet example.com 80</code></pre>
+            <p>Si la conexión funciona, verás <code>Connected to example.com</code> (o la pantalla se quedará en
+                blanco, en Windows) esperando a que escribas.</p>
+            <p class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Ten la petición del paso
+                siguiente preparada: si tardas mucho en escribir, el servidor cierra la conexión. En Windows, además,
+                no se ve lo que escribes: escribe con cuidado.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Envía una petición GET</h3>
+            <p>Escribe estas dos líneas exactamente así, pulsando <kbd>Intro</kbd> al final de cada una, y pulsa
+                <kbd>Intro</kbd> <strong>otra vez</strong> al final. Esa línea en blanco le dice al servidor que la
+                petición ha terminado.</p>
+            <pre><code class="language-http">GET / HTTP/1.1
+Host: example.com</code></pre>
+            <ul>
+                <li><code>GET / HTTP/1.1</code> es la <strong>línea de inicio</strong>:
+                    <ul>
+                        <li><code>GET</code> es el método: quieres obtener un recurso.</li>
+                        <li><code>/</code> es la ruta del recurso: en este caso, la página principal.</li>
+                        <li><code>HTTP/1.1</code> es la versión del protocolo.</li>
+                    </ul>
+                </li>
+                <li><code>Host: example.com</code> es una cabecera <strong>obligatoria</strong> en HTTP/1.1: indica el
+                    dominio al que va la petición.</li>
+            </ul>
+        </li>
+
+        <li class="paso">
+            <h3>Analiza la respuesta</h3>
+            <p>Nada más pulsar el segundo <kbd>Intro</kbd>, el servidor responde. La respuesta será parecida a esta
+                (las cabeceras exactas cambian según el servidor y el día):</p>
+            <pre><code class="language-http">HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 1256
+Date: Tue, 21 Oct 2025 14:30:00 GMT
+Last-Modified: Tue, 17 Oct 2023 07:18:26 GMT
+ETag: "3147526947"
+Connection: keep-alive
+
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Example Domain&lt;/title&gt;
+    ... (resto del HTML de la página)
+&lt;/html&gt;</code></pre>
+            <p>Busca en tu respuesta sus tres partes y explícalas en tu entrega:</p>
+            <ul>
+                <li><strong>Línea de estado</strong> (<code>HTTP/1.1 200 OK</code>): la versión del protocolo, el código
+                    de estado (<code>200</code>, la petición ha ido bien) y el texto que lo describe
+                    (<code>OK</code>).</li>
+                <li><strong>Cabeceras de la respuesta</strong>: datos sobre la respuesta. Por ejemplo,
+                    <code>Content-Type</code> (el tipo de contenido, aquí un HTML), <code>Content-Length</code> (el
+                    tamaño del cuerpo en bytes), <code>Date</code> (cuándo se generó) o <code>Server</code> (el
+                    software del servidor, si lo indica).</li>
+                <li><strong>Cuerpo</strong>: después de una línea en blanco, el HTML de la página.</li>
+            </ul>
+        </li>
+
+        <li class="paso">
+            <h3>Prueba el método HEAD</h3>
+            <p>Vuelve a conectarte y envía la misma petición con <code>HEAD</code>. El servidor solo devuelve las
+                cabeceras, sin el cuerpo: sirve para saber si un recurso existe sin descargarlo.</p>
+            <pre><code class="language-http">HEAD / HTTP/1.1
+Host: example.com</code></pre>
+            <p>Compara la respuesta con la del paso anterior: ¿qué falta?</p>
+        </li>
+
+        <li class="paso">
+            <h3>Pide una página que no existe</h3>
+            <p>Conéctate otra vez y pide una ruta inventada, por ejemplo <code>/no-existe.html</code>. Anota el código de
+                estado que te devuelve el servidor y explica qué significa.</p>
+            <pre><code class="language-http">GET /no-existe.html HTTP/1.1
+Host: example.com</code></pre>
+            <p>Hay más métodos: <code>POST</code> envía datos para crear un recurso (su petición lleva un cuerpo y es
+                más larga de escribir a mano), <code>PUT</code> actualiza un recurso y <code>DELETE</code> lo borra.
+                Los servidores públicos como este no te dejarán usarlos.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="2-1">
+        <li><label><input type="checkbox"><span>He abierto una conexión con <code>telnet example.com 80</code> (o
+                    con <code>nc</code>).</span></label></li>
+        <li><label><input type="checkbox"><span>Mi petición <code>GET</code> tiene la línea de inicio, la cabecera
+                    <code>Host</code> y la línea en blanco final.</span></label></li>
+        <li><label><input type="checkbox"><span>He señalado en la respuesta la línea de estado, las cabeceras y el
+                    cuerpo.</span></label></li>
+        <li><label><input type="checkbox"><span>He comparado la respuesta de <code>HEAD</code> con la de
+                    <code>GET</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>He anotado el código de estado de la página que no existe.</span></label>
+        </li>
+        <li><label><input type="checkbox"><span>El PDF se llama
+                    <code>ApellidoNombre_DES_Actividad2.1.pdf</code>.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-2/actividades/index"><i
+                class="bi bi-list-check me-1"></i>Todas las actividades</a>
+        <a class="btn btn-primary" href="#/Unidad-2/actividades/2-2">Siguiente: 2.2. Instalar y configurar Nginx <i
+                class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

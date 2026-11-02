@@ -1,570 +1,502 @@
 <div class="container my-5">
-    <h1 class="mb-4 text-primary">Unidad 3. Servidores de aplicaciones</h1>
+    <h1 class="mb-4 text-primary">Unidad 3. Servidores de aplicaciones. Despliegue de aplicaciones web</h1>
 
-    <h2 class="mb-4 text-primary">Introducción</h2>
-    <p>Un servidor de aplicaciones es un marco mixto de software que permite tanto la creación de aplicaciones web como
-        un entorno de servidor para ejecutarlas.</p>
-    <p>A menudo puede ser una pila compleja de diferentes elementos computacionales que ejecutan tareas específicas que
-        necesitan trabajar como uno solo para alimentar múltiples nubes y software y aplicaciones basadas en la web.</p>
-    <p>Situado entre el servidor web y el nivel de backend del servidor de bases de datos, el servidor de aplicaciones
-        es esencialmente un intermediario para el servidor de bases de datos y los usuarios de las aplicaciones
-        empresariales o de consumo que soporta mediante el uso de varios protocolos e interfaces de programación de
+    <div data-indice></div>
+
+    <div class="alert alert-primary d-flex align-items-center gap-2">
+        <i class="bi bi-list-check fs-4"></i>
+        <div>Esta unidad tiene <strong>5 actividades</strong> guiadas paso a paso: despliegas la misma idea con Node.js,
+            Flask, Docker, WildFly y Django. <a href="#/Unidad-3/actividades/index">Ver las actividades</a></div>
+    </div>
+
+    <h2 class="mb-4 text-primary">1. Introducción</h2>
+    <p>Un servidor de aplicaciones es un conjunto de software que permite tanto crear aplicaciones web como ofrecer el
+        entorno de servidor donde se ejecutan.</p>
+    <p>A menudo es una pila de elementos que hacen tareas concretas y que tienen que trabajar como uno solo para dar
+        servicio a aplicaciones web y en la nube.</p>
+    <p>Está situado entre el servidor web y el servidor de bases de datos. Hace de intermediario entre la base de datos
+        y los usuarios de las aplicaciones, y para ello usa distintos protocolos e interfaces de programación de
         aplicaciones (API).</p>
-    <p>Es habitual que se utilice junto con un servidor web o que contenga un servidor web, por lo que ambos pueden
-        converger y denominarse servidor de aplicaciones web. También es lo suficientemente versátil como para ser
-        utilizado con otros servidores de aplicaciones simultáneamente.</p>
-    <p>Los servidores de aplicaciones también pueden contener sus propias interfaces gráficas de usuario para su gestión
-        a través de PC, pero también pueden ocuparse de sus propios recursos, así como del procesamiento de
-        transacciones, la mensajería, la agrupación de recursos y conexiones, y la realización de tareas de seguridad.
-    </p>
+    <p>Es habitual que se use junto con un servidor web o que lleve uno integrado, por lo que a veces se habla de
+        <strong>servidor de aplicaciones web</strong>. También puede trabajar a la vez con otros servidores de
+        aplicaciones.</p>
+    <p>Los servidores de aplicaciones pueden tener su propia interfaz gráfica de administración y se ocupan de sus
+        propios recursos: procesamiento de transacciones, mensajería, agrupación de recursos y conexiones, y tareas de
+        seguridad.</p>
 
-    <h2 class="mb-4 text-primary">Servidor de aplicaciones</h2>
-    <p>Las aplicaciones vienen en todas las formas, tamaños y casos de uso. En un mundo en el que dependemos de una
-        serie de procesos empresariales críticos, los servidores de aplicaciones son los ordenadores de gran potencia
-        que proporcionan recursos de aplicaciones a los usuarios y clientes web.</p>
-    <p>Los servidores de aplicaciones, como ya hemos dicho, se sitúan física o virtualmente entre los servidores de
-        bases de datos que almacenan los datos de las aplicaciones y los servidores web que se comunican con los
-        clientes. Los servidores de aplicaciones y el middleware afín son los sistemas operativos que soportan el
-        desarrollo y la entrega de una aplicación. Ya sea una aplicación de escritorio, móvil o web, los servidores de
-        aplicaciones desempeñan un papel fundamental en la conexión de un mundo de dispositivos.</p>
+    <h2 class="mb-4 text-primary">2. El servidor de aplicaciones</h2>
+    <p>Las aplicaciones tienen todo tipo de formas, tamaños y usos. Los servidores de aplicaciones son los equipos que
+        proporcionan los recursos de esas aplicaciones a los usuarios y a los clientes web.</p>
+    <p>Se sitúan, física o virtualmente, entre los servidores de bases de datos que guardan los datos de las
+        aplicaciones y los servidores web que se comunican con los clientes. Junto con el <em>middleware</em>, son la
+        base sobre la que se desarrolla y se entrega una aplicación, sea de escritorio, móvil o web.</p>
 
-    <div class="text-center my-4">
-        <img src="../DES/img/Unidad-3/web_app_stack.png" alt="Stack de Aplicación Web"
+    <figure class="text-center my-4">
+        <img src="../DES/img/Unidad-3/web_app_stack.png" alt="Pila de una aplicación web: cliente, servidor web, servidor de aplicaciones y base de datos"
             class="img-fluid border rounded shadow-sm" style="max-height: 400px;">
+        <figcaption class="text-muted small mt-2">Pila de una aplicación web.</figcaption>
+    </figure>
+
+    <h3 class="mb-4 text-primary">2.1. Terminología</h3>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Término</th>
+                    <th scope="col">Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Servidor web</td>
+                    <td>Guarda, procesa y entrega las páginas web.</td>
+                </tr>
+                <tr>
+                    <td>Cliente web</td>
+                    <td>El extremo que intenta acceder a los recursos de la web o de la aplicación (por ejemplo, un
+                        navegador).</td>
+                </tr>
+                <tr>
+                    <td>HTTPS</td>
+                    <td>Protocolo de comunicación seguro entre el servidor web y los clientes web.</td>
+                </tr>
+                <tr>
+                    <td>JSON</td>
+                    <td>Formato de datos para el intercambio entre los servidores web y de aplicaciones.</td>
+                </tr>
+                <tr>
+                    <td>Lógica de negocio</td>
+                    <td>Reglas para guardar los datos y transferir los recursos de la aplicación.</td>
+                </tr>
+                <tr>
+                    <td>Aplicación</td>
+                    <td>Un programa o un sitio web unido a una base de datos.</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <h3 class="mb-4 text-primary">Terminología de los servidores de aplicaciones</h3>
-    <table class="table table-striped table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th>Término</th>
-                <th>Descripción</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Servidor web</td>
-                <td>Responsable de almacenar, procesar y entregar los datos de E/S de las páginas web</td>
-            </tr>
-            <tr>
-                <td>Cliente web</td>
-                <td>Punto final que intenta acceder a los recursos de la web o de la aplicación</td>
-            </tr>
-            <tr>
-                <td>HTTPS</td>
-                <td>Protocolo de comunicación seguro entre el servidor web y los clientes web</td>
-            </tr>
-            <tr>
-                <td>JSON</td>
-                <td>Lenguaje para el intercambio entre los servidores web y de aplicaciones</td>
-            </tr>
-            <tr>
-                <td>Lógica de negocio</td>
-                <td>Reglas para el almacenamiento de datos y la transferencia de recursos de la aplicación</td>
-            </tr>
-            <tr>
-                <td>Aplicación</td>
-                <td>Un programa de software o un sitio web unido a una base de datos</td>
-            </tr>
-        </tbody>
-    </table>
+    <h3 class="mb-4 text-primary">2.2. Su papel en la arquitectura de servicios</h3>
+    <p>Cuando los usuarios o los clientes web piden acceso a una aplicación, el servidor de aplicaciones suele hacer el
+        trabajo pesado en el <em>backend</em>: guarda y procesa las peticiones dinámicas de la aplicación.</p>
 
-    <h3 class="mb-4 text-primary">El papel del servidor de aplicaciones en la arquitectura de servicios</h3>
-    <p>Cuando los usuarios de las aplicaciones, ya sea usuarios físicos o los clientes web, solicitan acceso a una
-        aplicación, el servidor de aplicaciones suele hacer el trabajo pesado en el backend para almacenar y procesar
-        las solicitudes dinámicas de las aplicaciones.</p>
+    <h3 class="mb-4 text-primary">2.3. ¿Por qué necesitamos servidores de aplicaciones?</h3>
+    <p>Miles de millones de clientes web hacen peticiones HTTP cada día y esperan una respuesta inmediata. Da igual la
+        aplicación (Google Docs para un informe, una red social en el descanso…): se consulta en un servidor de
+        aplicaciones y se devuelve a través de un servidor web.</p>
+    <p>Los servidores web responden a las peticiones HTTP de los clientes con respuestas HTTP. A diferencia de los
+        servidores de aplicaciones, son lo bastante ligeros como para servir el contenido estático de varias
+        aplicaciones o sitios web manteniendo la seguridad. Las peticiones dinámicas, típicas de las aplicaciones,
+        necesitan ayuda adicional.</p>
 
-    <h3 class="mb-4 text-primary">¿Por qué necesitamos servidores de aplicaciones?</h3>
-    <p>Miles de millones de clientes web hacen peticiones HTTP cada día, esperando un acceso instantáneo a la aplicación
-        en cuestión. Headspace durante la rutina de la mañana, Google Docs para el informe extenso, Twitter durante la
-        pausa para el café, no importa la aplicación en uso, está siendo consultada en un servidor de aplicaciones y
-        devuelta a través de un servidor web.</p>
-    <p>Los servidores web se encargan de servir a los clientes web peticiones HTTP con respuestas HTTP. A diferencia de
-        los servidores de aplicaciones, el diseño del servidor web es lo suficientemente ligero como para procesar las
-        solicitudes de datos estáticos de varias aplicaciones (o sitios web), manteniendo la seguridad. Las peticiones
-        dinámicas, a menudo en forma de aplicaciones, requieren asistencia adicional.</p>
+    <h3 class="mb-4 text-primary">2.4. Optimizan el tráfico y añaden seguridad</h3>
+    <p>Para que el servidor web sea ágil, no conviene que además de atender las peticiones HTTP tenga que procesar o
+        guardar los recursos de varios sitios. Los servidores de aplicaciones cubren ese hueco: están pensados para
+        atender las peticiones de contenido dinámico.</p>
+    <p>También aportan redundancia y una capa más de seguridad. Al estar entre la base de datos y el servidor web, es
+        más fácil replicar la aplicación en la red, y hay un paso más entre las posibles peticiones maliciosas y los
+        datos de la base de datos. Como el servidor de aplicaciones procesa la lógica de negocio, un intento de
+        inyección SQL también es más difícil.</p>
+    <p>Las organizaciones pueden proteger aún más sus datos con un servidor <strong>proxy inverso</strong> delante. Los
+        proxies y las VPN ayudan a ocultar y cifrar la comunicación para proteger a los usuarios y los datos de la
+        empresa.</p>
 
-    <h3 class="mb-4 text-primary">Los servidores de aplicaciones optimizan el tráfico y añaden seguridad</h3>
-    <p>Para conseguir una agilidad óptima del servidor web, no sirve gestionar tanto las peticiones HTTP de los clientes
-        web como pasar o almacenar recursos de múltiples sitios web. Los servidores de aplicaciones llenan este vacío
-        con un diseño de alta potencia construido para manejar las solicitudes de contenido web dinámico.</p>
-    <p>Los servidores de aplicaciones también proporcionan redundancia de programas y una capa adicional de seguridad.
-        Una vez desplegado entre una base de datos y un servidor web, el trabajo de preservar y duplicar la arquitectura
-        de la aplicación a través de la red es más factible. El paso adicional entre las potenciales comunicaciones web
-        maliciosas y las joyas de la corona en el servidor de base de datos añade una capa de seguridad adicional. Dado
-        que los servidores de aplicaciones pueden procesar solicitudes de lógica empresarial, un intento de inyección
-        SQL es también mucho más difícil.</p>
-    <p>Las organizaciones pueden proteger aún más sus datos con un servidor proxy inverso colocado delante de sus bases
-        de datos. Los servidores proxy y las VPN pueden hacer maravillas para anonimizar y encriptar la comunicación
-        para proteger a los usuarios y los datos de la empresa.</p>
+    <h3 class="mb-4 text-primary">2.5. Los servidores de aplicaciones hoy</h3>
+    <p>Las previsiones publicadas en 2020 daban al mercado de los servidores de aplicaciones un crecimiento anual del
+        13,2 %: de unos 17.000 millones de dólares en 2020 a 41.000 millones en 2026. No es una sorpresa, porque la
+        conexión a Internet y la dependencia de las aplicaciones no paran de crecer.</p>
+    <p>La migración a la nube y el auge de los dispositivos IoT son dos de los motores de este mercado. A esto se suman
+        las políticas BYOD (<em>Bring Your Own Device</em>, cada persona trabaja con su propio dispositivo) y el
+        teletrabajo, que necesitan más conectividad y eficiencia.</p>
+    <p>Los servidores de aplicaciones son el mejor aliado del servidor web: cuando una petición es demasiado para el
+        servidor web, el servidor de aplicaciones permite seguir atendiendo el contenido dinámico sin problemas. Sin una
+        conexión estable y escalable a las aplicaciones, los clientes se van.</p>
 
-    <h2 class="mb-4 text-primary">¿Cómo funcionan los servidores de aplicaciones?</h2>
-    <p>Pongamos como ejemplo un servidor de aplicaciones Java.</p>
+    <h2 class="mb-4 text-primary">3. Cómo funciona un servidor de aplicaciones</h2>
+    <p>Vamos a verlo con el ejemplo de un servidor de aplicaciones Java.</p>
 
-    <h3 class="mb-4 text-primary">¿Qué son los servlets?</h3>
-    <p>Un servlet es un programa Java que se ejecuta en un servidor Web y construye o sirve páginas web. De esta forma
-        se pueden construir páginas dinámicas, basadas en diferentes fuentes variables: datos proporcionados por el
-        usuario, fuentes de información variable (páginas de noticias, por ejemplo), o programas que extraigan
-        información de bases de datos.</p>
-    <p>Comparado con un CGI, un servlet es más sencillo de utilizar, más eficiente (se arranca un hilo por cada petición
-        y no un proceso entero), más potente y portable. Con los servlets podremos, entre otras cosas, procesar,
-        sincronizar y coordinar múltiples peticiones de clientes, reenviar peticiones a otros servlets o a otros
-        servidores u otros.</p>
-    <p>Como la mayoría de los servidores de hoy en día, los servidores de aplicaciones contienen características de
-        seguridad, transacciones, servicios, clustering, diagnósticos y bases de datos. En lo que se diferencian los
-        servidores de aplicaciones es en su capacidad para procesar peticiones de servlets (programas Java) desde un
-        servidor web.</p>
+    <h3 class="mb-4 text-primary">3.1. Los servlets</h3>
+    <p>Un <strong>servlet</strong> es un programa Java que se ejecuta en el servidor y construye o sirve páginas web.
+        Así se crean páginas dinámicas a partir de datos variables: lo que escribe el usuario, fuentes de información
+        que cambian (como una página de noticias) o programas que sacan información de bases de datos.</p>
+    <p>Comparado con un CGI, un servlet es más sencillo de usar, más eficiente (arranca un hilo por cada petición y no
+        un proceso entero), más potente y portable. Con los servlets se pueden procesar, sincronizar y coordinar muchas
+        peticiones de clientes, o reenviarlas a otros servlets o a otros servidores.</p>
+    <p>Como la mayoría de los servidores actuales, los servidores de aplicaciones incluyen seguridad, transacciones,
+        servicios, <em>clustering</em>, diagnóstico y bases de datos. Lo que los distingue es que pueden procesar las
+        peticiones de servlets (programas Java) que les llegan desde un servidor web.</p>
 
-    <div class="text-center my-4">
-        <img src="../DES/img/Unidad-3/app_server_architecture.png" alt="Flujo de Servidor de Aplicaciones"
+    <h3 class="mb-4 text-primary">3.2. El recorrido de una petición</h3>
+    <figure class="text-center my-4">
+        <img src="../DES/img/Unidad-3/app_server_architecture.png" alt="Flujo de una petición entre cliente, servidor web, servidor de aplicaciones y base de datos"
             class="img-fluid border rounded shadow-sm" style="max-height: 400px;">
-    </div>
-
-    <p>En la imagen anterior, se muestra el flujo general de los servidores de aplicaciones web:</p>
+        <figcaption class="text-muted small mt-2">Flujo general de un servidor de aplicaciones web.</figcaption>
+    </figure>
     <ol>
-        <li>El cliente abre un navegador y solicita acceso a un sitio web</li>
-        <li>El servidor web recibe la petición HTTP y responde con la página web deseada</li>
-        <li>El servidor web gestiona las peticiones de datos estáticos, pero el cliente quiere utilizar una herramienta
-            interactiva</li>
-        <li>Al tratarse de una petición de datos dinámicos, el servidor web transfiere la petición a un servidor de
-            aplicaciones</li>
-        <li>El servidor de aplicaciones recibe la petición HTTP y la convierte en una petición de servlet</li>
-        <li>El servlet llega al servidor de la base de datos, y el servidor de aplicaciones recibe una respuesta del
-            servlet</li>
-        <li>El servidor de aplicaciones traduce la respuesta del servlet al formato HTTP para el acceso del cliente</li>
+        <li>El cliente abre un navegador y pide acceso a un sitio web.</li>
+        <li>El servidor web recibe la petición HTTP y responde con la página pedida.</li>
+        <li>El servidor web atiende las peticiones de datos estáticos, pero el cliente quiere usar una herramienta
+            interactiva.</li>
+        <li>Como es una petición de datos dinámicos, el servidor web la pasa al servidor de aplicaciones.</li>
+        <li>El servidor de aplicaciones recibe la petición HTTP y la convierte en una petición de servlet.</li>
+        <li>El servlet consulta el servidor de base de datos y el servidor de aplicaciones recibe la respuesta del
+            servlet.</li>
+        <li>El servidor de aplicaciones traduce la respuesta del servlet a HTTP para que llegue al cliente.</li>
     </ol>
-    <p>Al recibir una solicitud de servlet de un servidor web, el servidor de aplicaciones procesa la solicitud y
-        responde al servidor web mediante la respuesta de servlet. Dado que los servidores de aplicaciones trabajan
-        principalmente con peticiones de lógica de negocio, el servidor web traduce la respuesta del servlet y pasa una
-        respuesta HTTP accesible para el usuario.</p>
+    <p>Como los servidores de aplicaciones trabajan sobre todo con la lógica de negocio, el servidor web se encarga de
+        pasar al usuario una respuesta HTTP que pueda entender.</p>
 
-    <table class="table table-striped table-bordered mt-4">
-        <thead class="thead-dark">
-            <tr>
-                <th>Característica</th>
-                <th>Servidor de aplicaciones</th>
-                <th>Servidor web</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Diseñado para</td>
-                <td>Sirve peticiones HTTP y de otra lógica de negocio</td>
-                <td>Sirve peticiones HTTP</td>
-            </tr>
-            <tr>
-                <td>Almacena y proporciona</td>
-                <td>Lógica de negocio</td>
-                <td>Contenido web estático</td>
-            </tr>
-            <tr>
-                <td>La utilización de los recursos es</td>
-                <td>Pesada</td>
-                <td>Ligera</td>
-            </tr>
-            <tr>
-                <td>Soporta</td>
-                <td>Transacciones distribuidas y Enterprise JavaBeans (EJB)</td>
-                <td>Servlets, Java Server Pages (JSP) y JSON</td>
-            </tr>
-        </tbody>
-    </table>
+    <h3 class="mb-4 text-primary">3.3. Servidor de aplicaciones y servidor web</h3>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Característica</th>
+                    <th scope="col">Servidor de aplicaciones</th>
+                    <th scope="col">Servidor web</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Diseñado para</td>
+                    <td>Atender peticiones HTTP y de lógica de negocio</td>
+                    <td>Atender peticiones HTTP</td>
+                </tr>
+                <tr>
+                    <td>Guarda y proporciona</td>
+                    <td>Lógica de negocio</td>
+                    <td>Contenido web estático</td>
+                </tr>
+                <tr>
+                    <td>Uso de recursos</td>
+                    <td>Pesado</td>
+                    <td>Ligero</td>
+                </tr>
+                <tr>
+                    <td>Soporta</td>
+                    <td>Transacciones distribuidas y Enterprise JavaBeans (EJB)</td>
+                    <td>Servlets, Java Server Pages (JSP) y JSON</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p class="small text-muted">En el mundo Java, a un servidor web que solo ejecuta servlets y JSP (como Apache Tomcat)
+        se le llama <strong>contenedor web</strong> o contenedor de servlets. Un servidor de aplicaciones completo, como
+        WildFly, añade el resto de especificaciones (EJB, transacciones, mensajería…).</p>
 
-    <h3 class="mb-4 text-primary">Servidores de aplicaciones en la década de 2020</h3>
-    <p>El mercado de los servidores de aplicaciones espera crecer a una CAGR del 13,2%, pasando de cerca de 17.000
-        millones de dólares en 2020 a 41.000 millones en 2026. El crecimiento continuo no es una sorpresa, ya que la
-        conectividad a Internet y la dependencia de las aplicaciones crece.</p>
-    <p>La migración a las plataformas y servicios en la nube y el auge de los dispositivos IoT son dos impulsores clave
-        en el mercado de infraestructura de aplicaciones y middleware moderno. A esto hay que añadir un movimiento hacia
-        las políticas BYOD (Bring Your Own Device) y una fuerza de trabajo remota que depende de una mayor conectividad
-        y eficiencia operativa.</p>
+    <h2 class="mb-4 text-primary">4. El despliegue de aplicaciones web</h2>
+    <p>En el desarrollo de software y web, <strong>desplegar</strong> es pasar los cambios o actualizaciones de un
+        entorno a otro. Cuando montas un sitio web, siempre tienes el sitio en vivo: el <strong>entorno de
+            producción</strong>.</p>
 
-    <h3 class="mb-4 text-primary">Servidores de aplicaciones: El mejor amigo de un servidor web</h3>
-    <p>Los servidores de aplicaciones son fundamentales para las exigencias actuales de interconexión. Las empresas, en
-        última instancia, están al servicio de los intereses de los clientes por lo que sin una conexión escalable y
-        estable a los recursos de las aplicaciones, los clientes modernos huirán sin mirar atrás.</p>
-    <p>Los servidores de aplicaciones asumen el papel de conector y mejor amigo de los servidores web. Cuando los
-        servidores web tienen una petición del cliente que es demasiado para soportar, los servidores de aplicaciones
-        hacen posible mantener la comunicación sin problemas con el contenido web dinámico.</p>
-
-    <h2 class="mb-4 text-primary">¿Qué es el despliegue de aplicaciones web?</h2>
-    <p>El despliegue en el desarrollo de software y web significa pasar los cambios o actualizaciones de un entorno de
-        funcionamiento a otro. Al configurar un sitio web, siempre se tendrá el sitio web en vivo, que se llama el
-        entorno en vivo o entorno de producción.</p>
-    <p>Si se quiere tener la capacidad de hacer cambios sin afectar a un sitio web en producción, se puede (y se debe)
-        añadir entornos adicionales. Estos entornos se llaman entornos de desarrollo o entornos de despliegue. Los
-        entornos de desarrollo adicionales suelen ser un entorno local, un entorno de desarrollo y un entorno de
-        preparación o preproducción. El número de entornos que se necesitan depende de cada caso y de la complejidad del
-        proyecto en el que se esté trabajando.</p>
-    <p>Aunque los modelos de despliegue pueden variar, el más común es el clásico modelo de despliegue "de izquierda a
-        derecha" cuando se trabaja con múltiples entornos de despliegue. En este modelo, los cambios se realizan en
-        entornos locales, de desarrollo o de preparación (dependiendo de la configuración) y se van pasando de izquierda
-        a derecha a través de los diferentes entornos, terminando en el de producción.</p>
-    <p>Una vez completado este proceso de despliegue, los nuevos cambios serán visibles en el entorno activo.</p>
-    <div class="text-center my-4">
-        <img src="../DES/img/Unidad-3/deployment_environments.png" alt="Entornos de Despliegue"
+    <h3 class="mb-4 text-primary">4.1. Entornos de despliegue</h3>
+    <p>Si quieres hacer cambios sin afectar al sitio en producción, puedes (y debes) añadir más entornos: los
+        <strong>entornos de desarrollo</strong> o de despliegue. Lo habitual es tener un entorno local, uno de
+        desarrollo y uno de preproducción (<em>staging</em>). Cuántos hacen falta depende del proyecto y de su
+        complejidad.</p>
+    <p>El modelo más común es el clásico «de izquierda a derecha»: los cambios se hacen en los entornos local, de
+        desarrollo o de preproducción y van pasando de izquierda a derecha por los distintos entornos hasta llegar a
+        producción. Al terminar el despliegue, los cambios se ven en el sitio en vivo.</p>
+    <figure class="text-center my-4">
+        <img src="../DES/img/Unidad-3/deployment_environments.png" alt="Entornos de despliegue de izquierda a derecha: local, desarrollo, preproducción y producción"
             class="img-fluid border rounded shadow-sm" style="max-height: 400px;">
-    </div>
+        <figcaption class="text-muted small mt-2">Forma clásica y simplificada de desplegar un sitio web hecho con un
+            CMS.</figcaption>
+    </figure>
+    <p>No siempre hacen falta todos los entornos, pero el proceso es el mismo. La gran ventaja de tener varios es que
+        puedes hacer cambios sin que afecten al sitio en vivo: cuando están hechos, probados y listos, el proceso de
+        despliegue se encarga del resto.</p>
 
-    <p>En la imagen anterior se muestra una forma muy simplificada y clásica de manejar los despliegues cuando se
-        trabaja con sitios web en un CMS. No necesariamente se necesitan todos los entornos anteriores, pero el proceso
-        sigue siendo el mismo.</p>
-    <p>Al utilizar múltiples entornos se obtiene una lista de ventajas - la principal es que se pueden hacer cambios sin
-        que afecten a su sitio web en vivo. Una vez que los cambios se hacen, se prueban y están listos para ser pasados
-        a producción, el proceso de despliegue se encarga del resto.</p>
+    <h3 class="mb-4 text-primary">4.2. El plan de despliegue</h3>
+    <p>Para que el proceso vaya lo más fluido posible, es fundamental tener un <strong>plan de despliegue</strong>. El
+        plan garantiza que todo se haga siempre de la misma manera y reduce los conflictos y errores, sobre todo cuando
+        varias personas trabajan en el mismo proyecto.</p>
+    <p>Un buen plan incluye horarios, reglas sobre cuándo pasar los cambios de un entorno a otro (desarrollo,
+        preproducción, producción) y qué hacer si hay errores o hay que deshacer los cambios.</p>
+    <div class="alert alert-light border small"><i class="bi bi-info-circle me-1"></i>El flujo que se describe a
+        continuación es una simplificación con lo fundamental. No es la única forma de hacerlo, pero es una buena base
+        para entender las partes más importantes.</div>
 
+    <h3 class="mb-4 text-primary">4.3. Las cinco fases del despliegue</h3>
+    <ol>
+        <li><strong>Planificación.</strong> Además del plan general, hay que planificar cada cambio. Para un cambio
+            pequeño será rápido; para uno grande, mucho más detallado. Cuanto antes se planifique, más fácil será el
+            despliegue.</li>
+        <li><strong>Desarrollo.</strong> Con el plan en marcha, se hace el desarrollo. Para que varias personas puedan
+            trabajar a la vez sin romper nada, se trabaja solo en entornos locales o de desarrollo. Al terminar, se
+            empiezan a probar y desplegar los cambios por los distintos entornos.</li>
+        <li><strong>Pruebas.</strong> Probar es clave para que no lleguen errores a producción. Cuando todo funciona en
+            local, se despliega al siguiente entorno (preproducción o <em>staging</em>), que debe ser lo más parecido
+            posible al real. Ahí se hacen las pruebas finales de control de calidad (QA). Si aparecen errores, los
+            cambios vuelven a desarrollo y se repite el ciclo de pruebas.</li>
+        <li><strong>Despliegue en producción.</strong> Con todo probado y corregido, se despliega en el entorno real.
+            Debería ser un paso seguro gracias a las fases anteriores, pero siempre puede fallar algo; por eso el
+            proceso no acaba aquí.</li>
+        <li><strong>Supervisión.</strong> Con los cambios en marcha y los usuarios usándolos, hay que vigilar que todo
+            funcione como estaba previsto: los usuarios pueden encontrar problemas o hacer cosas que no se habían
+            pensado. Conviene desplegar en momentos de poco tráfico y tener al equipo preparado para arreglar o
+            deshacer los cambios. Si hay que deshacerlos, hazlo con la misma calma y el mismo cuidado que el
+            despliegue.</li>
+    </ol>
 
-    <h3 class="mb-4 text-primary">¿De qué pasos consta el proceso de despliegue?</h3>
-    <p>El flujo del proceso de despliegue consta de 5 pasos clave: Planificación, desarrollo, pruebas, despliegue y
-        supervisión. A continuación, nos adentraremos en cada uno de ellos.</p>
-
-    <div class="alert alert-info mt-4" role="alert">
-        <p>El flujo que se describe a continuación es una simplificación que cubre los aspectos fundamentales. No es
-            la
-            única manera de hacerlo y podría haber un proceso mejor para cada caso, pero sirve como una excelente
-            base
-            para entender las partes más importantes.</p>
-    </div>
-
-    <div class="alert alert-success mt-5" role="alert">
-        <h4 class="alert-heading">Tener Siempre un Plan de Despliegue</h4>
-        <p>Para asegurarse de que el proceso se desarrolle con la mayor fluidez posible, es fundamental tener un
-            plan
-            de despliegue. Este plan garantiza que todo se haga de la misma manera cada vez, reduciendo el riesgo de
-            conflictos y errores, especialmente cuando varios desarrolladores trabajan en el mismo proyecto.</p>
-        <p class="mb-0">Un buen plan incluye horarios, reglas sobre cuándo mover cambios entre entornos (desarrollo,
-            preproducción, producción) y protocolos para gestionar errores o revertir cambios si es necesario.</p>
-    </div>
-
-    <h3 class="mb-4 mt-5 text-primary">Las 5 Fases del Flujo de Despliegue</h3>
-
-    <!-- Fase 1: Planificación -->
-    <div class="d-flex align-items-start mb-5">
-        <div class="display-4 me-4">📅</div>
-        <div>
-            <h4 class="text-secondary">1. Planificación</h4>
-            <p>Además de un plan general, es importante planificar cada uno de los cambios que se vaya a realizar.
-                Este
-                proceso será muy rápido para los cambios menores, pero debería ser mucho más extenso para los
-                grandes
-                cambios. Si se planifica con mucha antelación, se estará mucho más preparado para tener un proceso
-                de
-                despliegue sin problemas.</p>
-        </div>
-    </div>
-
-    <!-- Fase 2: Desarrollo -->
-    <div class="d-flex align-items-start mb-5">
-        <div class="display-4 me-4">💻</div>
-        <div>
-            <h4 class="text-secondary">2. Desarrollo</h4>
-            <p>Una vez que se tenga el plan en marcha, es el momento de realizar el desarrollo real. Para garantizar
-                que
-                cualquier desarrollo pueda realizarse simultáneamente y sin romper nada, es importante trabajar
-                únicamente en entornos locales o de desarrollo. Una vez que el proceso de desarrollo está hecho, es
-                el
-                momento de empezar a probar y desplegar los cambios a través de los diferentes entornos.</p>
-        </div>
-    </div>
-
-    <!-- Fase 3: Pruebas -->
-    <div class="d-flex align-items-start mb-5">
-        <div class="display-4 me-4">🧪</div>
-        <div>
-            <h4 class="text-secondary">3. Pruebas</h4>
-            <p>Probar los cambios es crucial para garantizar que no haya errores en el entorno de producción final.
-                Una
-                vez que se haya comprobado que todo funciona en el entorno local, es el momento de desplegar los
-                cambios
-                al siguiente entorno (preproducción o "staging").</p>
-            <p>En este entorno, que debe ser lo más parecido posible al real, se deben realizar las pruebas finales
-                de
-                control de calidad (QA). Si se descubren errores, los cambios deben ser devueltos a la fase de
-                desarrollo para su corrección antes de volver a empezar el ciclo de pruebas.</p>
-        </div>
-    </div>
-
-    <!-- Fase 4: Despliegue -->
-    <div class="d-flex align-items-start mb-5">
-        <div class="display-4 me-4">🚀</div>
-        <div>
-            <h4 class="text-secondary">4. Despliegue en Producción</h4>
-            <p>Una vez que se han realizado todas las pruebas en los entornos anteriores y se han corregido los
-                errores,
-                es el momento de desplegar los cambios en el entorno real (producción). Aunque debería ser un paso
-                seguro gracias a las fases anteriores, siempre existe la posibilidad de que algo salga mal. Por eso,
-                el
-                proceso no termina aquí.</p>
-        </div>
-    </div>
-
-    <!-- Fase 5: Supervisión -->
-    <div class="d-flex align-items-start mb-5">
-        <div class="display-4 me-4">📈</div>
-        <div>
-            <h4 class="text-secondary">5. Supervisión y Monitorización</h4>
-            <p>Una vez que los nuevos cambios estén en marcha y los usuarios reales los utilicen, es importante
-                supervisar que todo funcione según lo previsto. A pesar de todas las pruebas, los usuarios pueden
-                encontrarse con problemas o realizar acciones no previstas.</p>
-            <p>Un buen consejo es planificar los lanzamientos para momentos de bajo tráfico y tener al equipo de
-                desarrollo preparado para solucionar cualquier problema o revertir los cambios si fuera necesario.
-                Si
-                se deben revertir los cambios, es importante mantener la calma y seguir un proceso tan minucioso
-                como
-                el del propio despliegue.</p>
-        </div>
-    </div>
-
-
-
-    <h3 class="mb-4 text-primary">Diferentes tipos de despliegue</h3>
-    <p>Cuando se trata del tipo de despliegue, a menudo se divide en dos partes. Por lo general, se dividirá entre
-        metadatos y contenido, ya que estos tienen diferentes impactos en un nuevo entorno y deben ser manejados de
-        manera diferente.</p>
-
-    <div class="row mt-4">
-        <!-- Despliegue de Metadatos -->
-        <div class="col-md-6 mb-4">
-            <div class="d-flex align-items-start">
-                <div class="display-4 me-3">⚙️</div>
-                <div>
-                    <h5>Despliegue de Metadatos</h5>
-                    <p class="small">Los metadatos incluyen los cambios en el código, las plantillas, las hojas de
-                        estilo, los archivos, etc. Estos cambios a menudo requerirán una comprobación de validación
-                        entre entornos para ver si tiene algún conflicto imprevisto que deba resolverse. Muchas
-                        herramientas de despliegue incluyen comprobaciones de coherencia y ayudan a guiarte en caso de
-                        conflictos.</p>
-                </div>
-            </div>
-        </div>
-        <!-- Despliegue de Contenidos -->
-        <div class="col-md-6 mb-4">
-            <div class="d-flex align-items-start">
-                <div class="display-4 me-3">📝</div>
-                <div>
-                    <h5>Despliegue de Contenidos</h5>
-                    <p class="small">El contenido, como el texto, las imágenes y los vídeos, se maneja de forma
-                        diferente durante el despliegue. Por esa razón, a menudo verás que las herramientas de
-                        despliegue hacen que el despliegue de contenido sea accesible para los editores de contenido y
-                        no sólo para los desarrolladores.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <h3 class="mb-4 mt-4 text-primary">Mejores Prácticas de Despliegue</h3>
-    <p>Cuando se trabaja con entornos de despliegue, es importante tener un plan y un proceso claro. A continuación, se
-        presentan algunas mejores prácticas a implementar como parte de ese proceso.</p>
-
-    <ul class="list-unstyled mt-4">
-        <li class="d-flex align-items-start mb-4">
-            <div class="h3 me-3">🐙</div>
-            <div>
-                <strong>Utilizar Git:</strong> Tener un sistema de control de versiones es inestimable. Sin él, es
-                probable que se produzcan errores si se trabaja en equipo. Incluso si eres el único desarrollador, es
-                muy recomendable utilizar Git para volver a versiones anteriores o si alguien nuevo se une al equipo.
-            </div>
-        </li>
-        <li class="d-flex align-items-start mb-4">
-            <div class="h3 me-3">🌿</div>
-            <div>
-                <strong>Trabajar en ramas (branches):</strong> Como regla general, tu equipo debería trabajar en ramas.
-                Hacerlo así permitirá trabajar en varias características al mismo tiempo sin que se afecten entre sí y
-                manteniendo la rama principal (master/main) siempre estable.
-            </div>
-        </li>
-        <li class="d-flex align-items-start mb-4">
-            <div class="h3 me-3">🏠</div>
-            <div>
-                <strong>Utilizar un entorno local:</strong> Aunque es posible trabajar directamente en un servidor de
-                desarrollo, en la mayoría de los casos se ahorrará mucho tiempo trabajando localmente. Al instalar el
-                sitio web o el software de forma local, se podrá trabajar de forma más eficiente y acelerar las pruebas.
-            </div>
-        </li>
-        <li class="d-flex align-items-start mb-4">
-            <div class="h3 me-3">🔍</div>
-            <div>
-                <strong>Revisar las diferencias antes del despliegue final:</strong> Antes de hacer el despliegue en
-                producción, es importante hacer una revisión final de las diferencias ("diff") entre el entorno actual
-                en producción y la versión que se va a desplegar.
-            </div>
-        </li>
-        <li class="d-flex align-items-start mb-4">
-            <div class="h3 me-3">👤</div>
-            <div>
-                <strong>Considerar tener grupos de usuarios con diferentes permisos:</strong> Mientras que cualquier
-                desarrollador debe ser capaz de empujar los cambios a los entornos de test, puede ser una buena idea
-                restringir quién puede desplegarlos en producción.
-            </div>
-        </li>
-    </ul>
-
-    <div class="alert alert-danger mt-5" role="alert">
-        <h4 class="alert-heading">Mantener la calma, incluso si algo se rompe</h4>
-        <p>Acabas de desplegar en producción y ahora tu sitio web está roto. ¿Ahora qué se hace?</p>
-        <p>Desgraciadamente, estas cosas ocurren. En lugar de entrar en pánico y aplicar "hotfixes" o retroceder
-            inmediatamente, es importante mantener la calma. Primero, comprueba si es posible realizar una reversión
-            (rollback) y si realmente se arreglaría algo. En algunas situaciones, una reversión podría causar problemas
-            aún mayores.</p>
-        <p class="mb-0">Así que, en lugar de entrar en pánico, ten un plan preparado y respira hondo antes de buscar una
-            solución. Puede parecer sencillo, pero ayuda a salir de una mala situación mucho más rápido.</p>
-    </div>
-
-    <div class="alert alert-primary mt-5" role="alert">
-        <h4 class="alert-heading">¿A qué hora del día se deben desplegar los cambios?</h4>
-        <p>Para minimizar el impacto de un posible error, hazte dos preguntas para determinar cuándo desplegar:</p>
-        <ul>
-            <li><strong>¿Cuándo tiene la menor cantidad de usuarios activos?</strong> Por lo general, se busca el
-                momento del día con el menor número de usuarios utilizando activamente el sitio web o software.</li>
-            <li><strong>¿Hay alguien preparado para supervisar y solucionar problemas después del despliegue?</strong>
-                Si la respuesta es no, entonces desplegar los cambios en mitad de la noche podría no ser la mejor idea.
-            </li>
-        </ul>
-        <hr>
-        <p class="mb-0">Aunque no hay un momento perfecto para el despliegue, definitivamente hay momentos que son
-            mejores que otros.</p>
-    </div>
-
-    <h3 class="mb-4 mt-5 text-primary">¿Cuáles son las ventajas del despliegue y de los entornos múltiples?</h3>
+    <h3 class="mb-4 text-primary">4.4. Tipos de despliegue</h3>
+    <p>Lo que se despliega se suele dividir en dos partes, porque afectan de forma distinta al nuevo entorno:</p>
     <ul>
-        <li><strong>Reducción del riesgo:</strong> Una de las principales razones para utilizar múltiples entornos es
-            reducir el riesgo de que los cambios tengan un impacto negativo en un sitio web en vivo.</li>
-        <li><strong>Ahorro de tiempo:</strong> Sin la preocupación de romper algo en un sitio web en vivo, los
-            desarrolladores pueden realizar los cambios de forma más ágil.</li>
-        <li><strong>Gestión de contenido sensible al tiempo:</strong> Si se están llevando a cabo campañas que sólo
-            pueden ponerse en marcha a partir de un determinado día u hora, el uso de múltiples entornos puede ahorrar
-            una gran cantidad de estrés.</li>
+        <li><strong>Metadatos:</strong> cambios en el código, las plantillas, las hojas de estilo, los archivos… Suelen
+            necesitar una comprobación entre entornos para ver si hay algún conflicto. Muchas herramientas de despliegue
+            incluyen comprobaciones de coherencia y te guían si hay conflictos.</li>
+        <li><strong>Contenido:</strong> textos, imágenes y vídeos. Se tratan de otra forma; por eso muchas herramientas
+            permiten que también lo desplieguen los editores de contenido, no solo los desarrolladores.</li>
     </ul>
 
-    <h2 class="mb-4 mt-5 text-primary">Despliegue de Aplicaciones Java</h2>
-
-    <h3 class="mb-4 text-primary">Introducción</h3>
-    <p>En el lado del servidor, necesitamos que nuestro servidor HTTP sea capaz de ejecutar aplicaciones que recojan
-        peticiones del cliente, las procesen y devuelvan un documento dinámico. Los programas de aplicación son
-        típicamente programas que realizan consultas a bases de datos, procesan la información y devuelven la salida al
-        servidor.</p>
-    <p>Nos centraremos en las aplicaciones web JavaEE, en las que los componentes dinámicos (servlets y JSPs) recibirán
-        las peticiones HTTP y utilizarán otros componentes Java (Beans, EJBs) para realizar las acciones necesarias.</p>
-
-    <h3 class="mb-4 text-primary">Estructura de una Aplicación Java</h3>
-    <p>Una aplicación web JavaEE debe tener una estructura de directorios determinada:</p>
+    <h3 class="mb-4 text-primary">4.5. Buenas prácticas</h3>
     <ul>
-        <li>En el <strong>directorio raíz</strong> de la aplicación se colocan las páginas HTML o JSP.</li>
-        <li>Dentro de la raíz, debe existir un directorio <strong>WEB-INF</strong>, que contiene la información web
-            relevante para la aplicación.</li>
-        <li>El resto de elementos (imágenes, etc.), podemos estructurarlos como nos convenga.</li>
+        <li><strong>Usa Git.</strong> Un sistema de control de versiones es imprescindible. Sin él es fácil cometer
+            errores en equipo, e incluso si trabajas solo te permite volver a versiones anteriores o incorporar a alguien
+            nuevo.</li>
+        <li><strong>Trabaja en ramas.</strong> Cada funcionalidad en su rama, para trabajar en varias a la vez sin que se
+            afecten y con la rama principal (<code>main</code>) siempre estable.</li>
+        <li><strong>Usa un entorno local.</strong> Se puede trabajar directamente en un servidor de desarrollo, pero en
+            local ahorras mucho tiempo y las pruebas son más rápidas.</li>
+        <li><strong>Revisa las diferencias antes del despliegue final.</strong> Antes de pasar a producción, revisa las
+            diferencias (<em>diff</em>) entre lo que está en producción y lo que vas a desplegar.</li>
+        <li><strong>Usa grupos de usuarios con distintos permisos.</strong> Cualquier desarrollador debe poder llevar
+            cambios a los entornos de prueba, pero conviene limitar quién puede desplegar en producción.</li>
     </ul>
 
-    <h3 class="mb-4 text-primary">Empaquetamiento: Archivos WAR</h3>
-    <p>Una forma de distribuir aplicaciones Web es empaquetar toda la aplicación en un fichero <strong>WAR (Web
-            Application Archive)</strong>. Estos ficheros son un estándar de JavaEE, por lo que podremos utilizarlos en
-        los diferentes servidores de aplicaciones. Para desplegarlos, la mayoría de servidores permiten hacerlo desde
-        una consola de administración o simplemente "dejando caer" el fichero WAR en un directorio específico.</p>
+    <h3 class="mb-4 text-primary">4.6. Si algo se rompe, calma</h3>
+    <div class="alert alert-warning">
+        <p>Acabas de desplegar en producción y la web está rota. ¿Y ahora qué?</p>
+        <p>Por desgracia, estas cosas pasan. En lugar de entrar en pánico y aplicar parches (<em>hotfixes</em>) o volver
+            atrás sin pensar, mantén la calma. Primero comprueba si se puede volver a la versión anterior
+            (<em>rollback</em>) y si de verdad arreglaría algo: a veces un <em>rollback</em> causa problemas aún
+            mayores.</p>
+        <p class="mb-0">Ten un plan preparado y respira hondo antes de buscar la solución. Parece una tontería, pero
+            ayuda a salir antes de una mala situación.</p>
+    </div>
 
-    <h3 class="mb-4 text-primary">Maven: Gestión de Proyectos Java</h3>
-    <p>Maven es una herramienta open-source para simplificar los procesos de "build" (compilar y generar ejecutables).
-        Es capaz de gestionar un proyecto software completo, desde la compilación hasta el despliegue.</p>
-    <p>En Maven se definen tres ciclos de build con una serie de etapas. El ciclo por defecto tiene las siguientes
-        fases:</p>
+    <h3 class="mb-4 text-primary">4.7. ¿A qué hora conviene desplegar?</h3>
+    <p>Para que un posible error afecte lo menos posible, hazte dos preguntas:</p>
+    <ul>
+        <li><strong>¿Cuándo hay menos usuarios activos?</strong> Normalmente se busca el momento del día con menos
+            usuarios usando la web o el programa.</li>
+        <li><strong>¿Habrá alguien preparado para vigilar y arreglar problemas después?</strong> Si la respuesta es no,
+            desplegar en mitad de la noche puede no ser buena idea.</li>
+    </ul>
+    <p>No hay un momento perfecto, pero sí momentos mejores que otros.</p>
 
-    <table class="table table-striped table-bordered mt-4">
-        <thead>
-            <tr>
-                <th>Fase (Comando)</th>
-                <th>Descripción</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>validate</strong></td>
-                <td>Valida que el proyecto es correcto.</td>
-            </tr>
-            <tr>
-                <td><strong>compile</strong></td>
-                <td>Compila el código fuente.</td>
-            </tr>
-            <tr>
-                <td><strong>test</strong></td>
-                <td>Prueba el código compilado usando un framework de pruebas unitarias.</td>
-            </tr>
-            <tr>
-                <td><strong>package</strong></td>
-                <td>Empaqueta el código en un formato distribuible, como .jar o .war.</td>
-            </tr>
-            <tr>
-                <td><strong>integration-test</strong></td>
-                <td>Procesa y despliega el paquete en un entorno para pruebas de integración.</td>
-            </tr>
-            <tr>
-                <td><strong>verify</strong></td>
-                <td>Verifica que el paquete es válido y cumple los criterios de calidad.</td>
-            </tr>
-            <tr>
-                <td><strong>install</strong></td>
-                <td>Instala el paquete en el repositorio local de Maven para usarlo como dependencia.</td>
-            </tr>
-            <tr>
-                <td><strong>deploy</strong></td>
-                <td>Copia el paquete final a un repositorio remoto para compartirlo.</td>
-            </tr>
-        </tbody>
-    </table>
-    <p>Además, Maven gestiona las dependencias del proyecto a través de un fichero de configuración llamado
-        <code>pom.xml</code> (Project Object Module).</p>
+    <h3 class="mb-4 text-primary">4.8. Ventajas de usar varios entornos</h3>
+    <ul>
+        <li><strong>Menos riesgo:</strong> es la razón principal; los cambios no afectan directamente al sitio en
+            vivo.</li>
+        <li><strong>Ahorro de tiempo:</strong> sin miedo a romper el sitio en vivo, los desarrolladores trabajan más
+            ágiles.</li>
+        <li><strong>Contenido con fecha:</strong> si hay campañas que solo pueden salir un día o a una hora concretos,
+            tenerlas preparadas en otro entorno ahorra mucho estrés.</li>
+    </ul>
 
-    <h2 class="mb-4 mt-5 text-primary">Despliegue de Aplicaciones Node.js con Express</h2>
+    <h2 class="mb-4 text-primary">5. Despliegue de aplicaciones Java</h2>
+    <p>En el lado del servidor necesitamos que el servidor HTTP pueda ejecutar aplicaciones que recojan las peticiones
+        del cliente, las procesen y devuelvan un documento dinámico. Normalmente son programas que consultan bases de
+        datos, procesan la información y devuelven el resultado al servidor.</p>
+    <p>Nos centramos en las aplicaciones web <strong>Jakarta EE</strong> (antes Java EE), en las que los componentes
+        dinámicos (servlets y JSP) reciben las peticiones HTTP y usan otros componentes Java (Beans, EJB) para hacer lo
+        necesario.</p>
+    <p><strong>Jakarta EE</strong> es un conjunto de especificaciones para aplicaciones empresariales en Java.
+        <strong>WildFly</strong> (antes JBoss) es un servidor de aplicaciones potente y flexible que las implementa.</p>
+    <div class="alert alert-light border small"><i class="bi bi-info-circle me-1"></i>En 2019 Java EE pasó a llamarse
+        Jakarta EE. Desde Jakarta EE 9 los paquetes cambiaron de nombre: <code>javax.servlet</code> ahora es
+        <code>jakarta.servlet</code>. Los servidores actuales (como WildFly 27 o posteriores) solo entienden
+        <code>jakarta.*</code>, así que el código antiguo con <code>javax.*</code> hay que adaptarlo.</div>
 
-    <h3 class="mb-4 text-primary">¿Qué es Node.js?</h3>
-    <p>Node.js es un entorno de ejecución de JavaScript del lado del servidor. No es un lenguaje de programación ni un
-        framework, sino un entorno que permite ejecutar JavaScript fuera del navegador. Por sí mismo no sabe cómo servir
-        archivos o manejar peticiones HTTP, por lo que necesita un framework como Express.</p>
+    <h3 class="mb-4 text-primary">5.1. Estructura de una aplicación web Java</h3>
+    <p>Una aplicación web Jakarta EE tiene una estructura de carpetas fija:</p>
+    <ul>
+        <li>En la <strong>carpeta raíz</strong> de la aplicación van las páginas HTML o JSP.</li>
+        <li>Dentro de la raíz tiene que haber una carpeta <strong>WEB-INF</strong> con la información web de la
+            aplicación (por ejemplo, el descriptor <code>web.xml</code>).</li>
+        <li>El resto de elementos (imágenes, etc.) se organizan como convenga.</li>
+    </ul>
 
-    <h3 class="mb-4 text-primary">¿Qué es Express?</h3>
-    <p>Express JS es un framework minimalista y flexible de Node.js diseñado para construir aplicaciones web y APIs de
-        forma rápida y sencilla.</p>
+    <h3 class="mb-4 text-primary">5.2. Empaquetado: archivos WAR</h3>
+    <p>Una forma de distribuir aplicaciones web es empaquetarlas enteras en un archivo <strong>WAR</strong> (<em>Web
+            Application Archive</em>). Es un estándar de Jakarta EE, así que sirve en los distintos servidores de
+        aplicaciones. Para desplegarlo, la mayoría de servidores permiten hacerlo desde una consola de administración o
+        simplemente copiando el WAR en una carpeta concreta.</p>
 
-    <h3 class="mb-4 text-primary">¿Qué es npm?</h3>
-    <p>NPM (Node Package Manager) es el gestor de paquetes por defecto de JavaScript. Se compone de un repositorio
-        online de paquetes y una herramienta de línea de comandos para instalarlos y gestionar las dependencias de un
-        proyecto.</p>
+    <h3 class="mb-4 text-primary">5.3. Maven: gestión de proyectos Java</h3>
+    <p>Maven es una herramienta libre que simplifica la construcción (<em>build</em>: compilar y generar el ejecutable)
+        y gestiona un proyecto completo, desde la compilación hasta el despliegue.</p>
+    <p>Maven define tres ciclos de construcción con una serie de fases. El ciclo por defecto tiene estas:</p>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Fase (comando)</th>
+                    <th scope="col">Qué hace</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>validate</code></td>
+                    <td>Comprueba que el proyecto es correcto.</td>
+                </tr>
+                <tr>
+                    <td><code>compile</code></td>
+                    <td>Compila el código fuente.</td>
+                </tr>
+                <tr>
+                    <td><code>test</code></td>
+                    <td>Prueba el código compilado con un framework de pruebas unitarias.</td>
+                </tr>
+                <tr>
+                    <td><code>package</code></td>
+                    <td>Empaqueta el código en un formato distribuible, como <code>.jar</code> o <code>.war</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>integration-test</code></td>
+                    <td>Despliega el paquete en un entorno para las pruebas de integración.</td>
+                </tr>
+                <tr>
+                    <td><code>verify</code></td>
+                    <td>Comprueba que el paquete es válido y cumple los criterios de calidad.</td>
+                </tr>
+                <tr>
+                    <td><code>install</code></td>
+                    <td>Instala el paquete en el repositorio local de Maven para usarlo como dependencia.</td>
+                </tr>
+                <tr>
+                    <td><code>deploy</code></td>
+                    <td>Copia el paquete final a un repositorio remoto para compartirlo.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>Maven gestiona además las dependencias del proyecto con un archivo de configuración llamado
+        <code>pom.xml</code> (<em>Project Object Model</em>).</p>
 
-    <h3 class="mb-4 text-primary">El fichero `package.json` y los `npm scripts`</h3>
-    <p>Cada proyecto Node.js tiene un archivo <code>package.json</code> que describe el proyecto y sus dependencias.
-        Este archivo también soporta la propiedad <code>scripts</code>, que permite definir comandos para automatizar
-        tareas como compilar, testear o desplegar.</p>
-    <pre><code class="language-json">
-{
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-3/actividades/3-4"><strong>Actividad 3.4</strong>. Jakarta EE
+                con WildFly</a></div>
+    </div>
+
+    <h2 class="mb-4 text-primary">6. Despliegue de aplicaciones Node.js con Express</h2>
+
+    <h3 class="mb-4 text-primary">6.1. ¿Qué es Node.js?</h3>
+    <p>Node.js es un <strong>entorno de ejecución de JavaScript</strong> del lado del servidor. No es un lenguaje ni un
+        framework: es lo que permite ejecutar JavaScript fuera del navegador. Es rápido y eficiente con muchas
+        conexiones a la vez. Por sí solo no sabe servir archivos ni gestionar rutas cómodamente, así que se usa con un
+        framework como Express.</p>
+
+    <h3 class="mb-4 text-primary">6.2. ¿Qué es Express?</h3>
+    <p>Express es un framework minimalista y flexible de Node.js para crear aplicaciones web y API de forma rápida y
+        sencilla. Simplifica tareas comunes como gestionar rutas, peticiones HTTP y respuestas.</p>
+    <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>A diferencia de Apache o Nginx, en
+        Node.js <strong>la aplicación es el servidor</strong>. No despliegas la aplicación sobre un servidor web: la
+        aplicación lleva el servidor web dentro. Por eso en producción se suele poner Nginx delante como proxy
+        inverso.</div>
+
+    <h3 class="mb-4 text-primary">6.3. ¿Qué es npm?</h3>
+    <p><strong>npm</strong> (<em>Node Package Manager</em>) es el gestor de paquetes de JavaScript. Tiene un repositorio
+        en línea de paquetes y una herramienta de línea de comandos para instalarlos y gestionar las dependencias de un
+        proyecto, igual que <code>apt</code> en Debian pero para paquetes de JavaScript.</p>
+
+    <h3 class="mb-4 text-primary">6.4. El archivo package.json y los scripts de npm</h3>
+    <p>Cada proyecto Node.js tiene un archivo <code>package.json</code> que describe el proyecto y sus dependencias. Con
+        la propiedad <code>scripts</code> puedes definir comandos para automatizar tareas como compilar, probar o
+        desplegar, y lanzarlos con <code>npm run nombre</code>:</p>
+    <pre><code class="language-json">{
   "scripts": {
     "build": "tsc",
     "format": "prettier --write **/*.ts",
     "lint": "eslint src/**/*.ts",
     "test": "jest",
-    "all": "npm run build && npm run format && npm run lint && npm test"
+    "all": "npm run build &amp;&amp; npm run format &amp;&amp; npm run lint &amp;&amp; npm test"
   }
-}
-    </code></pre>
+}</code></pre>
 
-    <h2 class="mb-4 mt-5 text-primary">CI/CD (Continuous Integration / Continuous Deployment-Delivery)</h2>
-    <p>La CI/CD es un método para distribuir aplicaciones a los clientes con frecuencia mediante el uso de la
-        automatización. Los conceptos clave son la integración, la distribución y la implementación continuas.</p>
-
-    <div class="text-center my-4">
-        <img src="../DES/img/Unidad-3/cicd_pipeline.png" alt="Diagrama de un pipeline de CI/CD"
-            class="img-fluid border rounded shadow-sm" style="max-height: 400px;">
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-3/actividades/3-1"><strong>Actividad 3.1</strong>. Node.js y
+                Express</a></div>
     </div>
 
-    <p><strong>Integración Continua (CI):</strong> Es un proceso de automatización para los desarrolladores. Implica que
-        los cambios en el código se integran y prueban automáticamente en un repositorio compartido con frecuencia,
-        evitando problemas de integración.</p>
-    <p><strong>Distribución Continua (CD - Delivery):</strong> Es el siguiente paso. El código que pasa la fase de CI se
-        empaqueta y se prepara automáticamente para su lanzamiento a producción. El despliegue final suele ser un paso
-        manual.</p>
-    <p><strong>Implementación Continua (CD - Deployment):</strong> Va un paso más allá. Cada cambio que pasa todas las
-        etapas anteriores se despliega automáticamente en producción sin intervención humana.</p>
+    <h2 class="mb-4 text-primary">7. Despliegue de aplicaciones Python</h2>
+    <p><strong>Python</strong> es un lenguaje de programación de alto nivel, fácil de leer y escribir. Es muy usado en
+        desarrollo web, ciencia de datos, inteligencia artificial y automatización, y suele venir instalado en Debian.
+    </p>
 
-    <h2 class="mb-4 mt-5 text-primary">Conclusión</h2>
-    <p>En este tema se han explicado las características de los servidores web y de aplicaciones, así como el proceso de
-        despliegue clásico con sus fases y buenas prácticas. Por último, hemos presentado las nuevas tendencias en el
-        mundo del despliegue, como son las técnicas de CI/CD, que abordaremos de forma más profunda.</p>
+    <h3 class="mb-4 text-primary">7.1. pip y los entornos virtuales</h3>
+    <ul>
+        <li><strong>pip</strong> es el gestor de paquetes de Python, equivalente a npm en Node.js o a apt en Debian.</li>
+        <li>Un <strong>entorno virtual</strong> (<code>python3 -m venv</code>) es un espacio aislado donde instalar
+            paquetes de Python sin tocar el sistema. Lo correcto es usar uno por proyecto. En Debian, además, pip no
+            deja instalar paquetes fuera de un entorno virtual.</li>
+        <li>El archivo <code>requirements.txt</code> guarda la lista de dependencias con sus versiones, para recrear el
+            entorno en otro servidor (<code>pip install -r requirements.txt</code>).</li>
+    </ul>
 
+    <h3 class="mb-4 text-primary">7.2. Flask y Django</h3>
+    <p><strong>Flask</strong> es un <em>micro-framework</em> web para Python. Se llama «micro» porque su núcleo es
+        sencillo, pero se puede ampliar con extensiones. Sirve desde para una API pequeña hasta para una aplicación web
+        completa.</p>
+    <p><strong>Django</strong> es un framework web libre de alto nivel que sigue el patrón Modelo-Vista-Plantilla (MVT)
+        y el principio de «pilas incluidas»: trae ORM, autenticación, panel de administración y mucho más. Lo usan
+        sitios como Instagram, Pinterest o Mozilla.</p>
+    <p>Mientras que Flask te da lo mínimo y tú eliges las herramientas, Django es un framework completo con todo
+        integrado.</p>
+
+    <h3 class="mb-4 text-primary">7.3. WSGI y Gunicorn</h3>
+    <p>El servidor que traen Flask (<code>flask run</code> o <code>python app.py</code>) y Django
+        (<code>runserver</code>) es solo para desarrollo. En producción se usa un servidor <strong>WSGI</strong>
+        (<em>Web Server Gateway Interface</em>, la interfaz estándar entre servidores web y aplicaciones Python) como
+        <strong>Gunicorn</strong>, que se ejecuta como servicio de <code>systemd</code> y se pone detrás de Nginx:</p>
+    <p class="text-center"><strong>Usuario → Nginx (puerto 80) → Gunicorn → aplicación Flask o Django</strong></p>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-3/actividades/3-2"><strong>Actividad 3.2</strong>. Flask y
+                Gunicorn</a> · <a href="#/Unidad-3/actividades/3-5"><strong>Actividad 3.5</strong>. Django</a></div>
+    </div>
+
+    <h2 class="mb-4 text-primary">8. Contenedores: Docker</h2>
+    <p><strong>Docker</strong> permite empaquetar una aplicación con todas sus dependencias (Node.js, librerías,
+        configuración) en una unidad estándar llamada <strong>contenedor</strong>. ¿Por qué usarlo?</p>
+    <ul>
+        <li><strong>Consistencia:</strong> se acabó el «en mi máquina funciona». Si funciona en Docker, funciona en
+            cualquier sitio.</li>
+        <li><strong>Aislamiento:</strong> cada aplicación tiene su propio entorno, sin conflictos de versiones con las
+            demás.</li>
+        <li><strong>Portabilidad:</strong> el mismo contenedor pasa fácilmente de desarrollo a producción.</li>
+    </ul>
+    <p>Una <strong>imagen</strong> es la «receta» ya construida (se crea con un <code>Dockerfile</code> o se descarga de
+        Docker Hub) y un <strong>contenedor</strong> es una imagen en marcha. Para aplicaciones con varias piezas (por
+        ejemplo, WordPress y su base de datos) se usa <strong>Docker Compose</strong>, que las describe todas en un
+        archivo <code>docker-compose.yml</code> y las arranca con <code>docker compose up</code>.</p>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-3/actividades/3-3"><strong>Actividad 3.3</strong>. Node.js con
+                Docker</a></div>
+    </div>
+
+    <h2 class="mb-4 text-primary">9. CI/CD: integración y despliegue continuos</h2>
+    <p>La CI/CD es una forma de entregar aplicaciones a los clientes con frecuencia gracias a la automatización. Los
+        conceptos clave son la integración, la entrega y el despliegue continuos.</p>
+    <figure class="text-center my-4">
+        <img src="../DES/img/Unidad-3/cicd_pipeline.png" alt="Diagrama de un pipeline de CI/CD"
+            class="img-fluid border rounded shadow-sm" style="max-height: 400px;">
+        <figcaption class="text-muted small mt-2">Un <em>pipeline</em> de CI/CD.</figcaption>
+    </figure>
+    <ul>
+        <li><strong>Integración continua (CI):</strong> los cambios en el código se integran y se prueban
+            automáticamente y con frecuencia en un repositorio compartido, para evitar problemas de integración.</li>
+        <li><strong>Entrega continua (CD, <em>Continuous Delivery</em>):</strong> es el paso siguiente. El código que
+            pasa la CI se empaqueta y se deja listo automáticamente para producción. El despliegue final suele ser un
+            paso manual.</li>
+        <li><strong>Despliegue continuo (CD, <em>Continuous Deployment</em>):</strong> va un paso más allá. Cada cambio
+            que supera todas las etapas anteriores se despliega solo en producción, sin intervención humana.</li>
+    </ul>
+
+    <h2 class="mb-4 text-primary">10. Conclusión</h2>
+    <p>En esta unidad has visto las características de los servidores web y de aplicaciones, el proceso de despliegue
+        clásico con sus fases y buenas prácticas, y cómo se despliegan aplicaciones Java, Node.js y Python. Por último,
+        has conocido las nuevas tendencias, como los contenedores y la CI/CD, que veremos con más detalle.</p>
 </div>

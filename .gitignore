@@ -1,0 +1,10 @@
+# Archivos que crea macOS
+.DS_Store
+
+# Configuración local de herramientas (editor, Claude Code, comprobaciones de diseño)
+.vscode/
+.claude/
+.impeccable/
+
+# Material original del profesor (exámenes, vídeos, notas): nunca se publica
+recursos[uU]nidad*/

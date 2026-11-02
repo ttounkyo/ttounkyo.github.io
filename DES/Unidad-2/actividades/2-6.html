@@ -1,0 +1,199 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-2/index">Unidad 2</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-2/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">2.6</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 2.6. Servidor VPS en AWS</h1>
+    <p class="lead">Vas a crear un servidor de verdad en la nube: una instancia con Debian en Amazon EC2
+        (<em>Elastic Compute Cloud</em>), el servicio de máquinas virtuales de Amazon Web Services, y te conectarás a
+        ella por SSH.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Lanzar una instancia EC2 con una imagen (AMI) de Debian</li>
+                    <li>Crear un par de claves en AWS</li>
+                    <li>Grupos de seguridad: el cortafuegos de AWS</li>
+                    <li>Conectar por SSH con un archivo <code>.pem</code> o <code>.ppk</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-1/index?sec=1-que-es-un-vps">Unidad 1, 1. ¿Qué es un VPS?</a> y <a
+                            href="#/Unidad-2/index?sec=1-que-es-un-servidor-web">1. ¿Qué es un servidor web?</a></li>
+                    <li>Una cuenta de AWS (o la que te indique el profesor).</li>
+                    <li>Saber conectarte por SSH con clave (<a href="#/Unidad-1/actividades/1-2">actividad
+                            1.2</a>).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>ApellidoNombre_DES_Actividad2.6.pdf</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Capturas de la configuración de la instancia, del grupo de seguridad, de la instancia en ejecución
+                    y de tu conexión SSH. Antes de entregar, tapa en las capturas tu ID de cuenta de AWS.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>La consola de AWS cambia a menudo de aspecto, y también
+        las condiciones de la capa gratuita y los tipos de instancia que incluye. Si algo no está donde dice la guía,
+        busca la opción parecida. Las capturas son de octubre de 2025, en la región Europa (Estocolmo).</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Prepara la cuenta y entra en EC2</h3>
+            <p>Si no tienes cuenta de AWS, créala. Te pedirán una tarjeta bancaria, aunque con el plan gratuito no se
+                cobra nada mientras no superes sus límites. Desde julio de 2025, las cuentas nuevas tienen un plan
+                gratuito de 6 meses con créditos (hasta 200 USD); consulta las condiciones actuales en <a
+                    href="https://aws.amazon.com/es/free/" target="_blank" rel="noopener noreferrer">la página de la
+                    capa gratuita de AWS</a>.</p>
+            <p>Inicia sesión en la consola de AWS, escribe <strong>EC2</strong> en el buscador de arriba y entra en el
+                servicio.</p>
+            <div class="alert alert-warning small"><i class="bi bi-exclamation-triangle me-1"></i>Lo que tienes en
+                AWS cuesta dinero aunque no lo uses. Cuando termines el curso, <strong>termina</strong> la instancia
+                (no basta con detenerla) y borra lo que hayas creado.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Empieza a lanzar la instancia</h3>
+            <p>En el panel de EC2, pulsa el botón naranja <span class="ruta-menu">Lanzar la instancia</span>
+                (<em>Launch instance</em>).</p>
+            <figure><img src="../DES/img/Unidad-2/lanzar-instancia.png"
+                    alt="Panel de EC2 con el botón naranja Lanzar la instancia">
+                <figcaption>Panel de EC2 → Lanzar la instancia</figcaption>
+            </figure>
+        </li>
+
+        <li class="paso">
+            <h3>Ponle nombre y elige Debian</h3>
+            <ul>
+                <li><strong>Nombre y etiquetas:</strong> ponle un nombre fácil de reconocer, por ejemplo
+                    <code>Servidor-Debian-Proyectos</code>.</li>
+                <li><strong>Imágenes de aplicaciones y sistemas operativos (AMI):</strong> en <span
+                        class="ruta-menu">Inicio rápido</span>, elige <strong>Debian</strong>. Elige la versión más
+                    reciente (Debian 13) que esté marcada como <strong>Apta para la capa gratuita</strong> (<em>Free
+                        tier eligible</em>).</li>
+            </ul>
+        </li>
+
+        <li class="paso">
+            <h3>Elige el tipo de instancia</h3>
+            <p>Elige un tipo que entre en la capa gratuita, como <code>t3.micro</code> (en algunas regiones,
+                <code>t2.micro</code>). Lo verás marcado como apto para la capa gratuita. Es suficiente para empezar.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Crea el par de claves</h3>
+            <p>Es la parte más importante para el acceso: AWS no usa contraseñas, sino un par de claves SSH. Pulsa
+                <span class="ruta-menu">Crear un nuevo par de claves</span>:</p>
+            <ul>
+                <li><strong>Nombre:</strong> por ejemplo, <code>mi-clave-debian</code>.</li>
+                <li><strong>Tipo:</strong> <strong>ED25519</strong> o <strong>RSA</strong>. Si vas a usar PuTTY,
+                    elige RSA.</li>
+                <li><strong>Formato del archivo de clave privada:</strong> <code>.pem</code> para conectarte con
+                    <code>ssh</code> (Linux, Mac o PowerShell de Windows) o <code>.ppk</code> si vas a usar PuTTY.</li>
+            </ul>
+            <p>Al pulsar <span class="ruta-menu">Crear par de claves</span> se descarga el archivo. Guárdalo en un
+                lugar seguro: <strong>AWS no te lo vuelve a dar</strong> y sin él no podrás entrar.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Configura el grupo de seguridad</h3>
+            <p>En <strong>Configuración de red</strong>, el <strong>grupo de seguridad</strong> es el cortafuegos de
+                AWS: decide qué puertos se pueden usar desde Internet. Elige <span class="ruta-menu">Crear grupo de
+                    seguridad</span> con estas reglas:</p>
+            <ul>
+                <li><strong>SSH (puerto 22):</strong> viene por defecto. En el origen elige <strong>Mi IP</strong>,
+                    que es más seguro, o <strong>Cualquier lugar</strong> (<code>0.0.0.0/0</code>) si tu IP cambia a
+                    menudo (por ejemplo, si te conectas desde clase y desde casa).</li>
+                <li><strong>HTTP (puerto 80):</strong> origen <strong>Cualquier lugar</strong>.</li>
+                <li><strong>HTTPS (puerto 443):</strong> origen <strong>Cualquier lugar</strong>. Lo necesitarás en la
+                    <a href="#/Unidad-2/actividades/2-5">actividad 2.5</a>.</li>
+                <li><strong>Puerto 8080 (opcional):</strong> solo si vas a usar ese puerto para alguna aplicación:
+                    tipo <strong>TCP personalizado</strong>, puerto <code>8080</code>, origen <strong>Cualquier
+                        lugar</strong>.</li>
+            </ul>
+        </li>
+
+        <li class="paso">
+            <h3>Revisa el almacenamiento y lanza la instancia</h3>
+            <p>En <strong>Configurar almacenamiento</strong>, deja el tamaño que viene por defecto (normalmente 8 GB),
+                suficiente para la capa gratuita. Revisa el resumen y pulsa <span class="ruta-menu">Lanzar
+                    instancia</span>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Busca la IP pública de tu instancia</h3>
+            <p>Ve a <span class="ruta-menu">Instancias</span> y espera a que el estado sea <strong>En
+                    ejecución</strong> (<em>Running</em>). Selecciónala y apunta su <strong>Dirección IPv4
+                    pública</strong>.</p>
+            <figure><img src="../DES/img/Unidad-2/IP-Pública-de-tu-Instancia.png"
+                    alt="Resumen de la instancia en EC2 con su ID, la dirección IPv4 pública y el estado En ejecución">
+                <figcaption>La IP pública aparece en el resumen de la instancia</figcaption>
+            </figure>
+            <p class="alert alert-light border small"><i class="bi bi-info-circle me-1"></i>Si detienes y vuelves a
+                arrancar la instancia, la IP pública <strong>cambia</strong>. Para tener una IP fija hay que asignarle
+                una <strong>IP elástica</strong>, que puede tener coste.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Conéctate por SSH</h3>
+            <p>Pulsa el botón <span class="ruta-menu">Conectar</span> y abre la pestaña <span class="ruta-menu">Cliente
+                    SSH</span>: AWS te muestra el comando. En Linux, Mac o PowerShell, primero protege el archivo de la
+                clave (si no, <code>ssh</code> se niega a usarlo) y después conéctate:</p>
+            <pre><code class="language-bash">chmod 400 /ruta/a/mi-clave-debian.pem
+ssh -i /ruta/a/mi-clave-debian.pem admin@203.0.113.10</code></pre>
+            <p>Cambia <code>203.0.113.10</code> por la IP pública de tu instancia. En las imágenes de Debian el usuario
+                es <strong><code>admin</code></strong> (<code>ec2-user</code> es el de Amazon Linux; la ventana
+                <span class="ruta-menu">Conectar</span> te indica cuál usar).</p>
+            <p>Con PuTTY, pon <code>admin@IP_PÚBLICA</code> en <strong>Host Name</strong> y tu archivo
+                <code>.ppk</code> en <span class="ruta-menu">Connection → SSH → Auth → Credentials</span>, como en la
+                <a href="#/Unidad-1/actividades/1-2">actividad 1.2</a>.</p>
+            <p>Si ves el prompt <code>admin@ip-…</code>, ya estás dentro de tu servidor Debian en AWS.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="2-6">
+        <li><label><input type="checkbox"><span>La instancia usa una AMI de Debian y un tipo apto para la capa
+                    gratuita.</span></label></li>
+        <li><label><input type="checkbox"><span>Tengo el archivo de la clave privada guardado en un lugar
+                    seguro.</span></label></li>
+        <li><label><input type="checkbox"><span>El grupo de seguridad tiene abiertos los puertos 22, 80 y
+                    443.</span></label></li>
+        <li><label><input type="checkbox"><span>La instancia está en ejecución y sé su IP pública.</span></label></li>
+        <li><label><input type="checkbox"><span>Me conecto por SSH como <code>admin</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>He tapado mi ID de cuenta de AWS en las capturas y el PDF se llama
+                    <code>ApellidoNombre_DES_Actividad2.6.pdf</code>.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-2/actividades/2-5"><i class="bi bi-arrow-left me-1"></i>Anterior: 2.5</a>
+        <a class="btn btn-outline-primary" href="#/Unidad-2/actividades/index"><i
+                class="bi bi-list-check me-1"></i>Todas las actividades</a>
+    </nav>
+</div>

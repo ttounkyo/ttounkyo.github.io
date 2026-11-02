@@ -1,0 +1,256 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-2/index">Unidad 2</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-2/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">2.8</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 2.8. Repaso de JavaScript</h1>
+    <p class="lead">Seis preguntas para repasar toda la unidad: en las tres primeras lees un código y explicas qué hace; en las tres últimas escribes tú el código. Intenta responder sin mirar y después compara con la respuesta.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Leer código y explicar qué hace, línea a línea</li>
+                    <li><code>prompt</code>, <code>alert</code> y condicionales</li>
+                    <li>Seleccionar elementos y cambiar su texto, su estilo y sus atributos</li>
+                    <li>Eventos con <code>addEventListener</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: toda la unidad, sobre todo <a href="#/Unidad-2/index?sec=1-introduccion-a-javascript">1. Introducción</a>, <a href="#/Unidad-2/index?sec=7-el-arbol-dom">7. El árbol DOM</a> y <a href="#/Unidad-2/index?sec=8-eventos">8. Eventos</a>.</li>
+                    <li>Las actividades 2.1 y 2.2: las preguntas se parecen mucho a lo que hiciste en ellas.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>ApellidoNombre_AW_Actividad2.8.pdf</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Tus respuestas: la explicación de las preguntas 1 a 3 y el código de las preguntas 4 a 6</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-light border small"><strong>Cómo hacerla:</strong> responde primero en papel o en un
+        documento, sin mirar la teoría. Después comprueba tus respuestas en el navegador: crea un
+        <code>index.html</code> con este HTML de prueba (tiene todos los elementos que usan las preguntas), escribe el
+        código en <code>script.js</code> y mira el resultado y la consola (<kbd>F12</kbd>). Por último, abre las
+        respuestas y compáralas con las tuyas.</div>
+    <div class="position-relative">
+        <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Repaso de JavaScript&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1 id="titulo-principal"&gt;Título&lt;/h1&gt;
+    &lt;button id="miBoton"&gt;Haz clic&lt;/button&gt;
+    &lt;img id="foto-perfil" src="foto.png" alt="Foto de perfil"&gt;
+    &lt;button id="btn-desactivar"&gt;Desactivar&lt;/button&gt;
+
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p>En las preguntas 1 a 3, explica <strong>qué hace el código</strong>: qué elementos selecciona, qué modifica y
+        cuál es la lógica. En las preguntas 4 a 6, <strong>escribe el código</strong>; supón que el HTML ya contiene
+        los elementos con los identificadores que se mencionan.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Pregunta 1. ¿Qué hace este código? (prompt)</h3>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-javascript">let respuesta = prompt("¿Cuál es tu color favorito?");
+if (respuesta !== "") {
+    alert("Tu color favorito es " + respuesta);
+} else {
+    alert("No has introducido ningún color.");
+}</code></pre>
+            </div>
+            <p>¿Qué hace? ¿Qué pasa si el usuario pulsa Cancelar?</p>
+            <details>
+                <summary>Ver la respuesta</summary>
+                <p>Muestra una ventana (<code>prompt</code>) que pregunta «¿Cuál es tu color favorito?» y guarda lo
+                    que escribe el usuario en la variable <code>respuesta</code>. Después comprueba si la respuesta es
+                    distinta de la cadena vacía:</p>
+                <ul>
+                    <li>Si ha escrito algo, por ejemplo «verde», muestra una alerta: «Tu color favorito es verde».</li>
+                    <li>Si ha dejado el cuadro vacío y ha pulsado Aceptar, muestra «No has introducido ningún
+                        color.».</li>
+                </ul>
+                <p>Ojo: si pulsa <strong>Cancelar</strong>, <code>prompt</code> devuelve <code>null</code>, que es
+                    distinto de <code>""</code>, así que la alerta dice «Tu color favorito es null». Para tratar los dos
+                    casos igual, basta con comprobar <code>if (respuesta)</code>:</p>
+                <div class="position-relative">
+                    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                        onclick="copiarCodigo(this)">Copiar</button>
+                    <pre><code class="language-javascript">const respuesta = prompt("¿Cuál es tu color favorito?");
+if (respuesta) { // falso con "" y con null
+    alert("Tu color favorito es " + respuesta);
+} else {
+    alert("No has introducido ningún color.");
+}</code></pre>
+                </div>
+            </details>
+        </li>
+
+        <li class="paso">
+            <h3>Pregunta 2. ¿Qué hace este código? (un título)</h3>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-javascript">const titulo = document.getElementById("titulo-principal");
+titulo.innerText = "Bienvenido a la página";
+titulo.style.color = "blue";</code></pre>
+            </div>
+            <details>
+                <summary>Ver la respuesta</summary>
+                <ol>
+                    <li>Busca en la página el elemento con <code>id="titulo-principal"</code> y lo guarda en la
+                        constante <code>titulo</code>.</li>
+                    <li>Sustituye su texto por «Bienvenido a la página» (lo que tuviera antes desaparece).</li>
+                    <li>Cambia el color de su texto a azul con el estilo en línea <code>color: blue</code>.</li>
+                </ol>
+                <p>Si en la página no existe ningún elemento con ese ID, <code>getElementById</code> devuelve
+                    <code>null</code> y la segunda línea da un error en la consola (<code>Cannot set properties of
+                    null</code>).</p>
+            </details>
+        </li>
+
+        <li class="paso">
+            <h3>Pregunta 3. ¿Qué hace este código? (un botón)</h3>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-javascript">const boton = document.getElementById("miBoton");
+boton.addEventListener("click", function() {
+    let nuevoParrafo = document.createElement("p");
+    nuevoParrafo.innerText = "Has hecho clic en el botón";
+    document.body.appendChild(nuevoParrafo);
+});</code></pre>
+            </div>
+            <details>
+                <summary>Ver la respuesta</summary>
+                <ol>
+                    <li>Busca el botón con <code>id="miBoton"</code> y lo guarda en <code>boton</code>.</li>
+                    <li>Le añade un manejador del evento <code>click</code>: la función no se ejecuta ahora, sino cada
+                        vez que se hace clic en el botón.</li>
+                    <li>En cada clic, crea un párrafo nuevo (<code>p</code>), le pone el texto «Has hecho clic en el
+                        botón» y lo añade al final del <code>body</code>.</li>
+                </ol>
+                <p>Resultado: cada clic añade otro párrafo igual debajo de los anteriores. Con tres clics, verás el
+                    texto tres veces.</p>
+            </details>
+        </li>
+
+        <li class="paso">
+            <h3>Pregunta 4. Escribe el código: cambiar una imagen</h3>
+            <p><strong>Escribe el código</strong> para seleccionar una imagen con el identificador
+                <code>foto-perfil</code> y cambiar su atributo <code>src</code> para que muestre la imagen
+                <code>nueva-foto.png</code>. Supón que el HTML ya tiene la imagen.</p>
+            <details>
+                <summary>Ver la respuesta</summary>
+                <div class="position-relative">
+                    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                        onclick="copiarCodigo(this)">Copiar</button>
+                    <pre><code class="language-javascript">const foto = document.getElementById("foto-perfil");
+foto.src = "nueva-foto.png";
+
+// También vale:
+// foto.setAttribute("src", "nueva-foto.png");</code></pre>
+                </div>
+            </details>
+        </li>
+
+        <li class="paso">
+            <h3>Pregunta 5. Escribe el código: verificar la edad</h3>
+            <p><strong>Escribe una función</strong> llamada <code>verificarEdad()</code> que pregunte al usuario su edad
+                con <code>prompt</code>. Si la edad es mayor o igual que 18, debe mostrar una alerta que diga «Eres
+                mayor de edad». Si es menor, una alerta que diga «Eres menor de edad».</p>
+            <details>
+                <summary>Ver la respuesta</summary>
+                <div class="position-relative">
+                    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                        onclick="copiarCodigo(this)">Copiar</button>
+                    <pre><code class="language-javascript">function verificarEdad() {
+    // prompt devuelve texto: lo convertimos a número
+    const edad = Number(prompt("¿Cuántos años tienes?"));
+
+    if (edad &gt;= 18) {
+        alert("Eres mayor de edad");
+    } else {
+        alert("Eres menor de edad");
+    }
+}
+
+verificarEdad(); // para probarla</code></pre>
+                </div>
+                <p>Convertimos con <code>Number()</code> porque <code>prompt</code> devuelve texto. Sin convertir,
+                    <code>"20" &gt;= 18</code> también funcionaría (JavaScript convierte el texto al comparar), pero es
+                    mejor no depender de esas conversiones automáticas.</p>
+            </details>
+        </li>
+
+        <li class="paso">
+            <h3>Pregunta 6. Escribe el código: desactivar un botón</h3>
+            <p><strong>Escribe el código</strong> para seleccionar un botón con el identificador
+                <code>btn-desactivar</code> y, al hacerle clic, cambiar su texto a «Desactivado» y deshabilitarlo
+                (pista: usa la propiedad <code>disabled</code>).</p>
+            <details>
+                <summary>Ver la respuesta</summary>
+                <div class="position-relative">
+                    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                        onclick="copiarCodigo(this)">Copiar</button>
+                    <pre><code class="language-javascript">const botonDesactivar = document.getElementById("btn-desactivar");
+
+botonDesactivar.addEventListener("click", function () {
+    botonDesactivar.textContent = "Desactivado";
+    botonDesactivar.disabled = true;
+});</code></pre>
+                </div>
+                <p>Un botón con <code>disabled = true</code> se ve gris y ya no responde a los clics.</p>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="2-8">
+        <li><label><input type="checkbox"><span>Has explicado qué hacen los códigos 1, 2 y 3, incluido qué pasa al pulsar Cancelar en el primero.</span></label></li>
+        <li><label><input type="checkbox"><span>Has escrito el código de las preguntas 4, 5 y 6.</span></label></li>
+        <li><label><input type="checkbox"><span>Has probado tus respuestas 4, 5 y 6 en el navegador con el HTML de prueba y funcionan.</span></label></li>
+        <li><label><input type="checkbox"><span>Has comparado tus respuestas con las de la página y has corregido lo que estaba mal.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-2/actividades/2-7"><i class="bi bi-arrow-left me-1"></i>Anterior: 2.7</a>
+        <a class="btn btn-primary" href="#/Unidad-2/actividades/index">Todas las actividades <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

@@ -1,0 +1,135 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-1/index">Unidad 1</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-1/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">1.4</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 1.4. Configuración inicial del servidor</h1>
+    <p class="lead">Vas a darle a tu servidor un nombre descriptivo y a ponerlo en la zona horaria de España, dos
+        ajustes que se hacen siempre al preparar un servidor nuevo.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li><code>hostnamectl</code> y el archivo <code>/etc/hosts</code></li>
+                    <li><code>timedatectl</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-1/index?sec=1-que-es-un-vps">1. ¿Qué es un VPS?</a></li>
+                    <li>Conéctate al servidor por SSH como <code>despliegue</code> (<a
+                            href="#/Unidad-1/actividades/1-3">actividad 1.3</a>).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>ApellidoNombre_DES_Actividad1.4.pdf</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Capturas del prompt con el nombre nuevo, de <code>/etc/hosts</code> y de la salida de
+                    <code>timedatectl</code>.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Cambia el nombre del servidor</h3>
+            <p>El <em>hostname</em> es el nombre con el que el equipo se identifica a sí mismo y ante otros equipos
+                de la red. Cámbialo con:</p>
+            <pre><code class="language-bash">sudo hostnamectl set-hostname servidor-despliegue</code></pre>
+            <p>Usa nombres descriptivos y sencillos, sin espacios ni caracteres especiales. Por ejemplo:
+                <code>srvweb</code>, <code>debian01</code>, <code>vps-pruebas</code> o <code>despliegue-daw</code>.
+            </p>
+        </li>
+
+        <li class="paso">
+            <h3>Actualiza el archivo /etc/hosts</h3>
+            <p>Debian guarda el nombre antiguo en <code>/etc/hosts</code>, en la línea que empieza por
+                <code>127.0.1.1</code>. Si no lo cambias, <code>sudo</code> mostrará el aviso <code>unable to resolve
+                    host</code>. Ábrelo:</p>
+            <pre><code class="language-bash">sudo nano /etc/hosts</code></pre>
+            <p>y cambia el nombre antiguo por el nuevo en esa línea:</p>
+            <pre><code class="language-bash">127.0.1.1       servidor-despliegue</code></pre>
+            <p>Ahora, si ejecutas <code>ping -c 3 servidor-despliegue</code>, el sistema sabe que se refiere a la
+                propia máquina.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Comprueba el nuevo nombre</h3>
+            <p>Cierra la sesión (<code>exit</code>) y vuelve a conectarte. El prompt mostrará el nombre nuevo:</p>
+            <pre><code class="language-bash">despliegue@servidor-despliegue:~$</code></pre>
+        </li>
+
+        <li class="paso">
+            <h3>Configura la zona horaria</h3>
+            <p>Pon la hora del sistema en la zona de España peninsular:</p>
+            <pre><code class="language-bash">sudo timedatectl set-timezone Europe/Madrid</code></pre>
+            <p>Es muy importante que la hora sea la correcta:</p>
+            <ul>
+                <li>Los registros del sistema (<em>logs</em>) tendrán la fecha y la hora buenas, y será más fácil
+                    encontrar problemas.</li>
+                <li>Las tareas programadas (<em>cron</em>) se ejecutarán cuando esperas.</li>
+                <li>Las aplicaciones web, las bases de datos y otros servicios mostrarán fechas y horas coherentes
+                    con tu hora local.</li>
+            </ul>
+            <p class="alert alert-light border small"><i class="bi bi-info-circle me-1"></i>Si estás en Canarias,
+                usa <code>Atlantic/Canary</code>. Puedes ver todas las zonas con
+                <code>timedatectl list-timezones</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Comprueba la fecha y la hora</h3>
+            <p>Ejecuta:</p>
+            <pre><code class="language-bash">timedatectl</code></pre>
+            <p>El resultado será parecido a este. Fíjate en que la zona sea <code>Europe/Madrid</code> y en que el
+                reloj esté sincronizado (<code>System clock synchronized: yes</code>):</p>
+            <pre><code class="language-bash">               Local time: mié 2025-10-15 09:37:54 CEST
+           Universal time: mié 2025-10-15 07:37:54 UTC
+                Time zone: Europe/Madrid (CEST, +0200)
+System clock synchronized: yes</code></pre>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="1-4">
+        <li><label><input type="checkbox"><span><code>hostnamectl</code> muestra el nombre nuevo del
+                    servidor.</span></label></li>
+        <li><label><input type="checkbox"><span>La línea <code>127.0.1.1</code> de <code>/etc/hosts</code> tiene el
+                    nombre nuevo y <code>sudo</code> ya no da avisos.</span></label></li>
+        <li><label><input type="checkbox"><span>El prompt muestra el nombre nuevo.</span></label></li>
+        <li><label><input type="checkbox"><span><code>timedatectl</code> muestra la zona
+                    <code>Europe/Madrid</code> (o la tuya) y el reloj sincronizado.</span></label></li>
+        <li><label><input type="checkbox"><span>El PDF se llama
+                    <code>ApellidoNombre_DES_Actividad1.4.pdf</code>.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-1/actividades/1-3"><i class="bi bi-arrow-left me-1"></i>Anterior: 1.3</a>
+        <a class="btn btn-outline-primary" href="#/Unidad-1/actividades/index"><i
+                class="bi bi-list-check me-1"></i>Todas las actividades</a>
+    </nav>
+</div>

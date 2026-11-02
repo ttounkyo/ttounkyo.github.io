@@ -1,0 +1,416 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-3/index">Unidad 3</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-3/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">3.3</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 3.3. Despliegue de aplicaciones Node.js con Docker</h1>
+    <p class="lead">Vas a instalar Docker, meter una aplicación Express en un contenedor con tu propio
+        <code>Dockerfile</code> y, después, levantar un WordPress completo (web y base de datos) con Docker Compose usando
+        imágenes oficiales.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Instalar Docker Engine y Docker Compose en Debian</li>
+                    <li>Escribir un <code>Dockerfile</code> y un <code>.dockerignore</code></li>
+                    <li>Construir una imagen y ejecutar un contenedor con puertos publicados</li>
+                    <li>Levantar varios contenedores con <code>docker compose</code> y volúmenes</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-3/index?sec=8-contenedores-docker">8. Contenedores: Docker</a></li>
+                    <li>Tu servidor Debian 13 con un usuario con permisos de <code>sudo</code>.</li>
+                    <li>Node.js y npm de la <a href="#/Unidad-3/actividades/3-1">Actividad 3.1</a> (si no los tienes, mira
+                        el paso 5).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_DES_Actividad3.3</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Formato</th>
+                <td>Un documento (de Google Docs, entregado en PDF) con capturas de: la versión de Docker, el contenido
+                    del <code>Dockerfile</code>, la construcción de la imagen (<code>docker build</code>), la salida de
+                    <code>docker ps</code> con el contenedor en marcha y la prueba en el navegador o con
+                    <code>curl</code>.</td>
+            </tr>
+            <tr>
+                <th scope="row">Respuestas</th>
+                <td>Las preguntas del final de la actividad</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Docker cambia a menudo su forma de instalarse. Si algún
+        comando de los pasos 1 y 2 falla, sigue la guía oficial: <a
+            href="https://docs.docker.com/engine/install/debian/" target="_blank" rel="noopener noreferrer">Install
+            Docker Engine on Debian</a>. Ojo: el comando actual es <code>docker compose</code> (con espacio); el antiguo
+        <code>docker-compose</code> (con guion) ya no se usa.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Libera los puertos de las prácticas anteriores</h3>
+            <p>Vas a usar el puerto 8080, que en la Actividad 3.1 ocupaba la API con PM2. Detén lo que tengas en marcha
+                (si algo no está instalado, verás un aviso; no pasa nada):</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">pm2 stop all
+sudo systemctl stop flask-blog</code></pre>
+</div>
+        </li>
+
+        <li class="paso">
+            <h3>Añade el repositorio oficial de Docker</h3>
+            <p>Docker no se instala desde los repositorios de Debian, sino desde el suyo. Primero instala lo necesario y
+                descarga la clave con la que Docker firma sus paquetes:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo apt update
+sudo apt install -y ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc</code></pre>
+</div>
+            <p>Después añade el repositorio. Copia el bloque entero: crea el archivo
+                <code>/etc/apt/sources.list.d/docker.sources</code> con la versión de tu Debian:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo tee /etc/apt/sources.list.d/docker.sources &lt;&lt;EOF
+Types: deb
+URIs: https://download.docker.com/linux/debian
+Suites: $(. /etc/os-release &amp;&amp; echo "$VERSION_CODENAME")
+Components: stable
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+sudo apt update</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                en la salida de <code>sudo apt update</code> aparece una línea con
+                <code>https://download.docker.com/linux/debian trixie</code> sin errores.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Instala Docker Engine</h3>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo docker --version
+sudo docker compose version</code></pre>
+</div>
+            <p>Comprueba que funciona descargando y ejecutando el contenedor de prueba <code>hello-world</code>:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo docker run hello-world</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                salen las versiones de Docker y de Docker Compose, y el contenedor de prueba muestra el mensaje
+                <code>Hello from Docker!</code></div>
+            <p><i class="bi bi-camera me-1"></i><strong>Captura:</strong> la versión de Docker instalada.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Usa Docker sin sudo</h3>
+            <p>Para no tener que escribir <code>sudo</code> delante de cada comando, añade tu usuario al grupo
+                <code>docker</code> y aplica el cambio (o cierra la sesión y vuelve a entrar):</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo usermod -aG docker $USER
+newgrp docker</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                <code>docker ps</code> (sin <code>sudo</code>) muestra una tabla vacía en lugar de un error de
+                permisos.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Prepara la aplicación Node.js</h3>
+            <p>Usarás una aplicación Express sencilla, como la de la Actividad 3.1:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">mkdir ~/docker-node-app
+cd ~/docker-node-app
+npm init -y
+npm install express</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-info-circle me-1"></i>Si no tienes npm en este
+                servidor, no instales nada: crea el <code>package.json</code> a mano con la dependencia de Express (en
+                el siguiente bloque) y Docker instalará las dependencias <strong>dentro</strong> del contenedor.</div>
+            <details>
+                <summary>Ver un <code>package.json</code> mínimo</summary>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-json">{
+  "name": "docker-node-app",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^5.0.0"
+  }
+}</code></pre>
+</div>
+            </details>
+            <p>Crea el archivo <code>app.js</code>:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">nano app.js</code></pre>
+</div>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-javascript">const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) =&gt; {
+  res.send('¡Hola desde un contenedor Docker! 🐳');
+});
+
+app.listen(port, () =&gt; {
+  console.log(`App escuchando en http://localhost:${port}`);
+});</code></pre>
+</div>
+        </li>
+
+        <li class="paso">
+            <h3>Escribe el Dockerfile y el .dockerignore</h3>
+            <p>El <code>Dockerfile</code> es la «receta» para construir la imagen de la aplicación. Créalo (sin
+                extensión):</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">nano Dockerfile</code></pre>
+</div>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-docker"># Imagen base oficial de Node.js: versión LTS, ligera (Alpine Linux)
+FROM node:lts-alpine
+
+# Directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copia los archivos de dependencias
+COPY package*.json ./
+
+# Instala las dependencias
+RUN npm install
+
+# Copia el resto del código
+COPY . .
+
+# Puerto que usa la aplicación
+EXPOSE 3000
+
+# Comando para arrancar la aplicación
+CMD ["node", "app.js"]</code></pre>
+</div>
+            <p>El <code>.dockerignore</code> evita copiar al contenedor archivos que no hacen falta, como tu
+                <code>node_modules</code> local:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">nano .dockerignore</code></pre>
+</div>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-none">node_modules
+npm-debug.log</code></pre>
+</div>
+            <p><i class="bi bi-camera me-1"></i><strong>Captura:</strong> el contenido del <code>Dockerfile</code>
+                (por ejemplo, con <code>cat Dockerfile</code>).</p>
+        </li>
+
+        <li class="paso">
+            <h3>Construye la imagen</h3>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">docker build -t mi-node-app .</code></pre>
+</div>
+            <p><code>-t mi-node-app</code> pone nombre (etiqueta) a la imagen y el punto final indica que el
+                <code>Dockerfile</code> está en la carpeta actual.</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">docker images</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                la construcción termina sin errores (con <code>naming to docker.io/library/mi-node-app</code>) y
+                <code>docker images</code> muestra <code>mi-node-app</code> con la etiqueta <code>latest</code>.</div>
+            <p><i class="bi bi-camera me-1"></i><strong>Captura:</strong> el proceso de construcción
+                (<code>docker build</code>).</p>
+        </li>
+
+        <li class="paso">
+            <h3>Ejecuta el contenedor</h3>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">docker run -d -p 8080:3000 --name mi-contenedor mi-node-app</code></pre>
+</div>
+            <ul>
+                <li><code>-d</code>: modo <em>detached</em>, se ejecuta en segundo plano.</li>
+                <li><code>-p 8080:3000</code>: une el puerto 8080 del servidor (<em>host</em>) con el puerto 3000 del
+                    contenedor.</li>
+                <li><code>--name mi-contenedor</code>: le da un nombre fácil de recordar.</li>
+            </ul>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">docker ps
+curl http://localhost:8080</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                <code>docker ps</code> muestra <code>mi-contenedor</code> con el estado <code>Up</code> y los puertos
+                <code>0.0.0.0:8080-&gt;3000/tcp</code>; <code>curl</code> (o el navegador en
+                <code>http://IP-DE-TU-SERVIDOR:8080</code>) devuelve <code>¡Hola desde un contenedor Docker! 🐳</code>.
+            </div>
+            <p><i class="bi bi-camera me-1"></i><strong>Captura:</strong> la salida de <code>docker ps</code> y la
+                prueba en el navegador o con <code>curl</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Gestiona el contenedor</h3>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash"># Ver los logs del contenedor
+docker logs mi-contenedor
+
+# Detener el contenedor
+docker stop mi-contenedor
+
+# Eliminar el contenedor (tiene que estar detenido)
+docker rm mi-contenedor</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                el log muestra <code>App escuchando en http://localhost:3000</code> y, al final,
+                <code>docker ps -a</code> ya no muestra <code>mi-contenedor</code>. Así el puerto 8080 queda libre para
+                WordPress.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Prepara WordPress con Docker Compose</h3>
+            <p>Para WordPress no se escribe un <code>Dockerfile</code>: se usan imágenes oficiales ya creadas y se
+                conectan entre sí. Hacen falta dos contenedores:</p>
+            <ul>
+                <li><strong>WordPress:</strong> el código PHP y el servidor web.</li>
+                <li><strong>MariaDB:</strong> la base de datos donde se guarda todo.</li>
+            </ul>
+            <p>En lugar de lanzar comandos largos, se describe todo en un archivo <code>docker-compose.yml</code>:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">mkdir ~/mi-wordpress
+cd ~/mi-wordpress
+nano docker-compose.yml</code></pre>
+</div>
+            <p>Pega este contenido. Cambia las contraseñas de ejemplo por otras inventadas (la de
+                <code>MYSQL_PASSWORD</code> y la de <code>WORDPRESS_DB_PASSWORD</code> tienen que ser iguales):</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-yaml">services:
+  db:
+    image: mariadb:11.8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: contraseña_maestra
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: usuario_wp
+      MYSQL_PASSWORD: contraseña_wp
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:latest
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: usuario_wp
+      WORDPRESS_DB_PASSWORD: contraseña_wp
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - wp_data:/var/www/html
+
+volumes:
+  db_data:
+  wp_data:</code></pre>
+</div>
+        </li>
+
+        <li class="paso">
+            <h3>Levanta WordPress y compruébalo</h3>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">docker compose up -d
+docker compose ps</code></pre>
+</div>
+            <p><code>-d</code> hace que se ejecute en segundo plano. La primera vez tarda un poco porque descarga las
+                imágenes.</p>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                <code>docker compose ps</code> muestra los dos servicios (<code>db</code> y <code>wordpress</code>) en
+                marcha, y <code>http://IP-DE-TU-SERVIDOR:8080</code> abre el asistente de instalación de WordPress
+                (empieza pidiendo el idioma). Si sale un error de conexión a la base de datos, espera unos segundos y
+                recarga: MariaDB tarda un poco en arrancar.</div>
+            <div class="alert alert-success">
+                <strong>¿Qué acaba de pasar?</strong>
+                <ul class="mb-0">
+                    <li><strong>Docker Compose:</strong> antes usaste <code>docker build</code> y
+                        <code>docker run</code> para un solo contenedor. Ahora <code>docker compose</code> gestiona
+                        varios a la vez y los conecta entre sí (WordPress encuentra la base de datos por el nombre
+                        <code>db</code>).</li>
+                    <li><strong>Persistencia (volúmenes):</strong> la sección <code>volumes</code> es vital. Si borras
+                        el contenedor de WordPress, tus fotos y artículos no se pierden porque están guardados en
+                        volúmenes con nombre en el disco del servidor, no «dentro» del contenedor, que es efímero.</li>
+                    <li><strong>Imágenes oficiales:</strong> no has creado ningún <code>Dockerfile</code>. Con
+                        <code>image: wordpress:latest</code>, Docker descarga de Docker Hub la imagen con todo ya
+                        preparado (Apache, PHP, etc.).</li>
+                </ul>
+            </div>
+            <p>Para pararlo todo sin borrar los datos: <code>docker compose stop</code> (o <code>docker compose
+                    down</code> para quitar también los contenedores; los volúmenes se conservan).</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Preguntas</h2>
+    <p>Responde en tu documento de entrega:</p>
+    <ol>
+        <li>¿Cuál es la diferencia principal entre una imagen Docker y un contenedor Docker?</li>
+        <li>¿Qué hace la instrucción <code>EXPOSE</code> en el <code>Dockerfile</code>? ¿Publica realmente el puerto?
+        </li>
+        <li>¿Por qué usamos <code>-p 8080:3000</code> al ejecutar el contenedor? ¿Qué pasaría si no lo usáramos?</li>
+        <li>¿Qué ventaja tiene usar una imagen base como <code>node:lts-alpine</code> frente a una imagen completa de
+            Ubuntu?</li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="3-3">
+        <li><label><input type="checkbox"><span><code>docker run hello-world</code> muestra <code>Hello from Docker!</code></span></label></li>
+        <li><label><input type="checkbox"><span>Uso <code>docker</code> sin <code>sudo</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>La imagen <code>mi-node-app</code> aparece en <code>docker images</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>El contenedor responde en el puerto 8080 con el mensaje de la aplicación.</span></label></li>
+        <li><label><input type="checkbox"><span>WordPress muestra su asistente de instalación con <code>docker compose</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>El documento tiene todas las capturas y las respuestas a las preguntas.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-3/actividades/3-2"><i class="bi bi-arrow-left me-1"></i>Anterior: 3.2</a>
+        <a class="btn btn-primary" href="#/Unidad-3/actividades/3-4">Siguiente: 3.4. Jakarta EE con WildFly <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

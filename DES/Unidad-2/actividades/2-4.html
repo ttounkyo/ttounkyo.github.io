@@ -1,0 +1,166 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-2/index">Unidad 2</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-2/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">2.4</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 2.4. Transferencia de archivos con SFTP</h1>
+    <p class="lead">Vas a publicar un sitio web nuevo subiendo sus archivos al servidor con SFTP desde FileZilla, en
+        lugar de clonarlos con Git.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Conectar con FileZilla por SFTP y con tu clave</li>
+                    <li>Subir archivos al servidor</li>
+                    <li>Resolver problemas de permisos</li>
+                    <li>Repetir la configuración de un sitio en Nginx</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-2/index?sec=1-2-otras-funciones-de-los-servidores-web">1.2. Otras
+                            funciones de los servidores web</a> y <a
+                            href="#/Unidad-2/index?sec=7-5-varios-sitios-en-un-servidor-server-blocks">7.5. Server
+                            blocks</a></li>
+                    <li>Haber hecho la <a href="#/Unidad-2/actividades/2-2">actividad 2.2</a>.</li>
+                    <li><a href="https://filezilla-project.org/" target="_blank" rel="noopener noreferrer">FileZilla</a>
+                        (el cliente) instalado en tu ordenador.</li>
+                    <li>Los archivos de una web sencilla en tu ordenador (puede ser tuya o una plantilla).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>ApellidoNombre_DES_Actividad2.4.pdf</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Capturas de la conexión en FileZilla, de los archivos subidos, del server block y de la web abierta
+                    en el navegador con el dominio <code>actividad-24</code>.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>Usar Git es una forma moderna de desplegar código, pero conviene conocer también los métodos tradicionales,
+        como <strong>SFTP</strong> (<em>SSH File Transfer Protocol</em>). SFTP transfiere archivos de forma segura y
+        cifrada usando SSH. No tienes que instalar ningún servidor FTP: SFTP funciona con el servidor OpenSSH que ya
+        tienes instalado.</p>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>FileZilla cambia los menús de sitio entre versiones y
+        entre Windows y Mac. Si no encuentras una opción, busca una parecida.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Prepara la carpeta del nuevo sitio</h3>
+            <p>En el servidor, crea la carpeta del sitio nuevo:</p>
+            <pre><code class="language-bash">sudo mkdir -p /var/www/actividad-24/html</code></pre>
+        </li>
+
+        <li class="paso">
+            <h3>Añade tu clave a FileZilla</h3>
+            <p>Como entras al servidor con clave, FileZilla necesita tu clave privada. Ve a <span
+                    class="ruta-menu">Edición → Opciones → Conexión → SFTP</span> (en Mac, <span
+                    class="ruta-menu">FileZilla → Preferencias</span>) y pulsa <span class="ruta-menu">Añadir archivo
+                    de clave</span>. Elige tu clave privada: el archivo <code>.ppk</code> de PuTTY o el
+                <code>.pem</code> / <code>id_ed25519</code> de OpenSSH.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Conéctate por SFTP</h3>
+            <p>En la barra de conexión rápida de FileZilla, escribe:</p>
+            <ul>
+                <li><strong>Servidor:</strong> <code>sftp://IP_DEL_SERVIDOR</code></li>
+                <li><strong>Nombre de usuario:</strong> tu usuario del servidor.</li>
+                <li><strong>Puerto:</strong> déjalo vacío (se usa el 22) y pulsa <span class="ruta-menu">Conexión
+                        rápida</span>.</li>
+            </ul>
+            <p>La primera vez, FileZilla te avisa de que no conoce la clave del servidor, igual que PuTTY. Comprueba
+                que la IP es la tuya y acepta.</p>
+            <div class="capturas">
+                <figure><img src="../DES/img/Unidad-2/clave-desconocida.png"
+                        alt="Aviso de FileZilla: clave del sitio desconocida, con la IP, el algoritmo ssh-ed25519 y la huella">
+                    <figcaption>Acepta la clave del servidor la primera vez</figcaption>
+                </figure>
+                <figure><img src="../DES/img/Unidad-2/conexion-filezilla.png"
+                        alt="FileZilla conectado por SFTP: a la izquierda los archivos locales y a la derecha la carpeta personal en el servidor">
+                    <figcaption>Conectado: a la izquierda, tu ordenador; a la derecha, el servidor</figcaption>
+                </figure>
+            </div>
+        </li>
+
+        <li class="paso">
+            <h3>Sube los archivos de la web</h3>
+            <p>En el panel derecho, ve a <code>/var/www/actividad-24/html</code>. En el izquierdo, busca la carpeta de
+                tu web y arrastra sus archivos al panel derecho.</p>
+            <div class="alert alert-warning small">
+                <p class="mb-1"><strong>Error <code>open for write: permission denied</code></strong></p>
+                <p class="mb-0">Es normal que te salga: la carpeta la creaste con <code>sudo</code>, así que es de
+                    <code>root</code>, y tú te conectas con tu usuario. Comprueba con qué usuario creaste la carpeta,
+                    sus permisos (<code>ls -l /var/www/actividad-24</code>) y con qué usuario te conectas en FileZilla.
+                    Intenta resolverlo antes de mirar la solución.</p>
+            </div>
+            <details>
+                <summary>Ver una solución</summary>
+                <p>Una forma de hacerlo: que la carpeta sea de tu usuario y del grupo <code>www-data</code>, con
+                    permisos para que Nginx pueda leerla. Cambia <code>usuario</code> por tu usuario:</p>
+                <pre><code class="language-bash">sudo chown -R usuario:www-data /var/www/actividad-24
+sudo chmod -R 755 /var/www/actividad-24</code></pre>
+                <p>Vuelve a subir los archivos.</p>
+            </details>
+        </li>
+
+        <li class="paso">
+            <h3>Configura el sitio en Nginx</h3>
+            <p>Repite los pasos de la <a href="#/Unidad-2/actividades/2-2">actividad 2.2</a> para el sitio nuevo: crea
+                su server block en <code>/etc/nginx/sites-available/actividad-24</code> con
+                <code>root /var/www/actividad-24/html</code> y <code>server_name actividad-24</code>, actívalo con el
+                enlace simbólico, comprueba con <code>sudo nginx -t</code> y recarga Nginx.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Abre la web</h3>
+            <p>Añade <code>actividad-24</code> con la IP de tu servidor al archivo <code>hosts</code> de tu ordenador y
+                abre <code>http://actividad-24</code> en el navegador.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="2-4">
+        <li><label><input type="checkbox"><span>FileZilla se conecta por SFTP con mi clave.</span></label></li>
+        <li><label><input type="checkbox"><span>Los archivos de la web están en
+                    <code>/var/www/actividad-24/html</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>He resuelto el error de permisos (si me ha salido) y sé explicar por
+                    qué pasaba.</span></label></li>
+        <li><label><input type="checkbox"><span>El server block <code>actividad-24</code> está activo y
+                    <code>nginx -t</code> no da errores.</span></label></li>
+        <li><label><input type="checkbox"><span>La web se abre en <code>http://actividad-24</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>El PDF se llama
+                    <code>ApellidoNombre_DES_Actividad2.4.pdf</code>.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-2/actividades/2-3"><i class="bi bi-arrow-left me-1"></i>Anterior: 2.3</a>
+        <a class="btn btn-primary" href="#/Unidad-2/actividades/2-5">Siguiente: 2.5. HTTPS con Let's Encrypt <i
+                class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

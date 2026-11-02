@@ -1,0 +1,245 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-1/index">Unidad 1</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-1/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">1.2</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 1.2. Conexión SSH con PuTTY y claves</h1>
+    <p class="lead">Vas a instalar PuTTY, generar un par de claves con PuTTYgen, instalar la clave pública en tu
+        servidor Debian y conectarte con la clave privada, sin escribir la contraseña.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>El archivo <code>/etc/ssh/sshd_config</code></li>
+                    <li>Instalar PuTTY y generar claves con PuTTYgen</li>
+                    <li>El archivo <code>~/.ssh/authorized_keys</code> y sus permisos</li>
+                    <li>Guardar una sesión de PuTTY con la clave privada</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-1/index?sec=3-autenticacion-y-cifrado-en-ssh">3. Autenticación y
+                            cifrado en SSH</a> y <a
+                            href="#/Unidad-1/index?sec=4-configuracion-del-servidor-ssh">4. Configuración del servidor
+                            SSH</a></li>
+                    <li>Tu servidor de la <a href="#/Unidad-1/actividades/1-1">actividad 1.1</a> funcionando, con
+                        <code>openssh-server</code> instalado.</li>
+                    <li>PuTTY es para Windows. Si usas Mac o Linux, mira la nota del paso 3.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>ApellidoNombre_DES_Actividad1.2.pdf</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Una captura de cada paso con una frase que lo explique. La última, la conexión con tu clave
+                    (<code>Authenticating with public key</code>).</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Las capturas son de PuTTY 0.83 en Windows. Si tienes una
+        versión más nueva, las ventanas pueden cambiar un poco, pero las opciones son las mismas.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Revisa la configuración del servidor SSH</h3>
+            <p>Conéctate a tu servidor (como en la actividad 1.1) y abre la configuración de SSH:</p>
+            <pre><code class="language-bash">cd /etc/ssh
+sudo nano sshd_config</code></pre>
+            <p>Comprueba que la línea <code>PubkeyAuthentication yes</code> no está comentada (sin <code>#</code>
+                delante) y que <code>AuthorizedKeysFile</code> apunta a <code>.ssh/authorized_keys</code>. Si cambias
+                algo, guarda y reinicia el servicio:</p>
+            <pre><code class="language-bash">sudo systemctl restart ssh</code></pre>
+            <div class="capturas">
+                <figure><img src="../DES/img/Unidad-1/30.2.png"
+                        alt="Archivo sshd_config en nano con PubkeyAuthentication yes y AuthorizedKeysFile">
+                    <figcaption><code>PubkeyAuthentication yes</code> activado</figcaption>
+                </figure>
+                <figure><img src="../DES/img/Unidad-1/30.1.png"
+                        alt="Terminal con sudo nano sshd_config y sudo systemctl restart ssh">
+                    <figcaption>Editar y reiniciar el servicio</figcaption>
+                </figure>
+            </div>
+        </li>
+
+        <li class="paso">
+            <h3>Instala PuTTY</h3>
+            <p>Descarga el instalador de 64 bits (<code>.msi</code>) desde la <a
+                    href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html" target="_blank"
+                    rel="noopener noreferrer">página oficial de PuTTY</a> y ejecútalo. Deja la carpeta por defecto
+                (<code>C:\Program Files\PuTTY\</code>) y las opciones que vienen marcadas.</p>
+            <div class="capturas">
+                <figure><img src="../DES/img/Unidad-1/24.png" alt="Pantalla de bienvenida del instalador de PuTTY 0.83">
+                    <figcaption>Bienvenida del instalador</figcaption>
+                </figure>
+                <figure><img src="../DES/img/Unidad-1/25.png" alt="Carpeta de destino C:\Program Files\PuTTY">
+                    <figcaption>Carpeta por defecto</figcaption>
+                </figure>
+                <figure><img src="../DES/img/Unidad-1/26.png" alt="Opciones de instalación de PuTTY">
+                    <figcaption>Opciones por defecto</figcaption>
+                </figure>
+                <figure><img src="../DES/img/Unidad-1/27.png" alt="Instalación de PuTTY completada">
+                    <figcaption>Instalación terminada</figcaption>
+                </figure>
+            </div>
+        </li>
+
+        <li class="paso">
+            <h3>Genera el par de claves con PuTTYgen</h3>
+            <p>Abre <strong>PuTTYgen</strong> (se instala con PuTTY). Elige el tipo de clave: <strong>EdDSA</strong>
+                (Ed25519), que es la más moderna, o <strong>RSA</strong> de 2048 bits o más, como en las capturas.
+                Pulsa <span class="ruta-menu">Generate</span> y mueve el ratón por el recuadro en blanco hasta que se
+                llene la barra: así se genera aleatoriedad para la clave.</p>
+            <p>Cuando termine, puedes escribir una frase de paso (<em>Key passphrase</em>) para proteger la clave
+                privada. Después pulsa <span class="ruta-menu">Save private key</span> y guarda el archivo
+                <code>.ppk</code> en una carpeta tuya. Guarda también la pública con <span class="ruta-menu">Save
+                    public key</span>.</p>
+            <div class="capturas">
+                <figure><img src="../DES/img/Unidad-1/28.png" alt="PuTTYgen al abrirlo, sin ninguna clave">
+                    <figcaption>PuTTYgen sin clave</figcaption>
+                </figure>
+                <figure><img src="../DES/img/Unidad-1/29.png" alt="PuTTYgen generando la clave mientras se mueve el ratón">
+                    <figcaption>Mueve el ratón para generar la clave</figcaption>
+                </figure>
+                <figure><img src="../DES/img/Unidad-1/30.0.png"
+                        alt="PuTTYgen con la clave generada, su huella, el comentario y los botones para guardarla">
+                    <figcaption>Clave generada, lista para guardar</figcaption>
+                </figure>
+            </div>
+            <div class="alert alert-warning small"><i class="bi bi-shield-lock me-1"></i>El archivo
+                <code>.ppk</code> es tu <strong>clave privada</strong>: no lo compartas, no lo subas al servidor ni lo
+                metas en la entrega.</div>
+            <details>
+                <summary>¿Usas Mac o Linux?</summary>
+                <p>No necesitas PuTTY: genera las claves en la terminal de tu ordenador y cópialas al servidor con
+                    <code>ssh-copy-id</code> (hace por ti los pasos 4 a 6):</p>
+                <pre><code class="language-bash">ssh-keygen -t ed25519
+ssh-copy-id usuario@192.168.1.28
+ssh usuario@192.168.1.28</code></pre>
+            </details>
+        </li>
+
+        <li class="paso">
+            <h3>Copia la clave pública</h3>
+            <p>En PuTTYgen, selecciona todo el texto del recuadro <strong>Public key for pasting into OpenSSH
+                    authorized_keys file</strong> (desde <code>ssh-rsa</code> o <code>ssh-ed25519</code> hasta el
+                final) y cópialo.</p>
+            <figure><img src="../DES/img/Unidad-1/public-key.png"
+                    alt="Recuadro de PuTTYgen con la clave pública en formato OpenSSH">
+                <figcaption>Copia la clave de este recuadro</figcaption>
+            </figure>
+            <p class="alert alert-light border small"><i class="bi bi-info-circle me-1"></i>Copia la clave de este
+                recuadro, no del archivo que guardas con <span class="ruta-menu">Save public key</span>: ese archivo
+                tiene otro formato que el servidor no entiende en <code>authorized_keys</code>. Si cierras PuTTYgen,
+                pulsa <span class="ruta-menu">Load</span> y abre tu <code>.ppk</code> para volver a verla.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Conéctate con PuTTY y tu contraseña</h3>
+            <p>Abre PuTTY. En <strong>Host Name</strong> escribe <code>usuario@IP_DEL_SERVIDOR</code>, deja el puerto
+                22 y el tipo de conexión SSH. Pulsa <span class="ruta-menu">Open</span>.</p>
+            <p>La primera vez, PuTTY avisa de que no conoce la huella del servidor. Comprueba que la IP es la de tu
+                servidor y pulsa <span class="ruta-menu">Accept</span>. Después escribe tu contraseña.</p>
+            <div class="capturas">
+                <figure><img src="../DES/img/Unidad-1/36.png"
+                        alt="Configuración de sesión de PuTTY con usuario@192.168.1.28, puerto 22 y SSH">
+                    <figcaption>Usuario, IP y puerto 22</figcaption>
+                </figure>
+                <figure><img src="../DES/img/Unidad-1/31.png"
+                        alt="Alerta de seguridad de PuTTY con la huella ssh-ed25519 del servidor">
+                    <figcaption>Acepta la huella del servidor</figcaption>
+                </figure>
+                <figure><img src="../DES/img/Unidad-1/32.png"
+                        alt="Terminal de PuTTY conectada al servidor después de escribir la contraseña">
+                    <figcaption>Conectado con contraseña</figcaption>
+                </figure>
+            </div>
+        </li>
+
+        <li class="paso">
+            <h3>Instala la clave pública en el servidor</h3>
+            <p>Ya dentro del servidor, crea la carpeta <code>.ssh</code> (si no existe) y abre el archivo
+                <code>authorized_keys</code>:</p>
+            <pre><code class="language-bash">mkdir -p ~/.ssh
+nano ~/.ssh/authorized_keys</code></pre>
+            <p>Pega la clave pública en una sola línea. En PuTTY se pega con el <strong>botón derecho del
+                    ratón</strong>. Guarda con <kbd>Ctrl</kbd>+<kbd>O</kbd> y <kbd>Intro</kbd>, y sal con
+                <kbd>Ctrl</kbd>+<kbd>X</kbd>.</p>
+            <p>Por último, ajusta los permisos. Si la carpeta o el archivo tienen permisos demasiado abiertos, SSH no
+                usará la clave:</p>
+            <pre><code class="language-bash">chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys</code></pre>
+        </li>
+
+        <li class="paso">
+            <h3>Configura PuTTY con la clave privada</h3>
+            <p>Cierra la sesión (<code>exit</code>) y vuelve a abrir PuTTY. Ve a <span class="ruta-menu">Connection →
+                    SSH → Auth → Credentials</span> y, en <strong>Private key file for authentication</strong>, pulsa
+                <span class="ruta-menu">Browse</span> y elige tu archivo <code>.ppk</code>.</p>
+            <p>Vuelve a <span class="ruta-menu">Session</span>, escribe <code>usuario@IP_DEL_SERVIDOR</code>, pon un
+                nombre en <strong>Saved Sessions</strong> (por ejemplo, <code>DES</code>) y pulsa <span
+                    class="ruta-menu">Save</span>. Así no tendrás que configurarla cada vez.</p>
+            <figure><img src="../DES/img/Unidad-1/34.png"
+                    alt="PuTTY en Connection, SSH, Auth, Credentials con la ruta al archivo de clave privada">
+                <figcaption>Ruta a la clave privada en Credentials</figcaption>
+            </figure>
+        </li>
+
+        <li class="paso">
+            <h3>Conéctate con la clave</h3>
+            <p>Abre la sesión guardada. Esta vez PuTTY no te pide la contraseña del usuario: verás el mensaje
+                <code>Authenticating with public key</code> (si pusiste frase de paso, te pedirá esa frase).</p>
+            <figure><img src="../DES/img/Unidad-1/35.png"
+                    alt="PuTTY conectado con el mensaje Authenticating with public key">
+                <figcaption>Conexión con la clave pública, sin contraseña</figcaption>
+            </figure>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="1-2">
+        <li><label><input type="checkbox"><span><code>PubkeyAuthentication yes</code> está activado en
+                    <code>sshd_config</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>He generado un par de claves y tengo la clave privada guardada solo
+                    en mi ordenador.</span></label></li>
+        <li><label><input type="checkbox"><span>La clave pública está en <code>~/.ssh/authorized_keys</code>, en una
+                    sola línea.</span></label></li>
+        <li><label><input type="checkbox"><span><code>~/.ssh</code> tiene permisos 700 y
+                    <code>authorized_keys</code>, 600.</span></label></li>
+        <li><label><input type="checkbox"><span>Tengo una sesión de PuTTY guardada con la clave privada.</span></label>
+        </li>
+        <li><label><input type="checkbox"><span>Entro en el servidor con la clave, sin escribir la contraseña del
+                    usuario.</span></label></li>
+        <li><label><input type="checkbox"><span>El PDF tiene las capturas de cada paso y se llama
+                    <code>ApellidoNombre_DES_Actividad1.2.pdf</code>.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-1/actividades/1-1"><i class="bi bi-arrow-left me-1"></i>Anterior: 1.1</a>
+        <a class="btn btn-primary" href="#/Unidad-1/actividades/1-3">Siguiente: 1.3. Usuario para el despliegue <i
+                class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

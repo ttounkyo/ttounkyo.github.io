@@ -1,0 +1,313 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-2/index">Unidad 2</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-2/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">2.7</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 2.7. Tablero de colores</h1>
+    <p class="lead">Un tablero de cuadrados oscuros que se iluminan de colores al pasar el ratón y se apagan poco a poco. El programa pregunta cuántos cuadrados quieres y comprueba que la respuesta sea válida.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Crear muchos elementos con un bucle <code>for</code></li>
+                    <li>Eventos del ratón: <code>mouseover</code> y <code>mouseout</code></li>
+                    <li>Comprobar lo que escribe el usuario: vacío, que sea un número y que esté en un rango</li>
+                    <li>Repetir una pregunta con un bucle <code>while</code> hasta que la respuesta sea válida</li>
+                    <li>Seleccionar elementos con <code>querySelectorAll</code> y acceder a uno por su posición</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-2/index?sec=6-bucles">6. Bucles</a>, <a href="#/Unidad-2/index?sec=5-control-de-flujo-y-errores">5. Control de flujo</a> y <a href="#/Unidad-2/index?sec=8-eventos">8. Eventos</a>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>ApellidoNombre_AW_Actividad2.7.zip</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Una carpeta con <code>index.html</code> y <code>script.js</code>, comprimida en <code>.zip</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-light border small"><strong>Cómo comprobar tu código:</strong> guarda los archivos y abre
+        el <code>.html</code> con el navegador (doble clic o arrástralo a una pestaña). Pulsa <kbd>F12</kbd> y mira la
+        pestaña <strong>Consola</strong>: si hay un error, aparece en rojo con el nombre del archivo y la línea. Cada
+        vez que cambies el código, guarda y recarga la página con <kbd>F5</kbd>.</div>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea los archivos</h3>
+            <p>Crea una carpeta con <code>index.html</code> (este código) y <code>script.js</code> vacío. El CSS ya
+                hace que cada cuadrado (<code>div</code> con la clase <code>square</code>) sea oscuro y que, al cambiar
+                su color, vuelva al oscuro poco a poco (<code>transition: 1s</code>).</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Tablero de colores&lt;/title&gt;
+    &lt;style&gt;
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #111;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: sans-serif;
+        }
+
+        #container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 100%;
+        }
+
+        .square {
+            background-color: #1d1d1d;
+            box-shadow: 0 0 2px #000;
+            margin: 2px;
+            width: 36px;
+            height: 36px;
+            color: #555;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 1s ease;
+        }
+
+        .square:hover {
+            transition-duration: 0s;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div id="container"&gt;&lt;/div&gt;
+    &lt;button id="btnCambiar"&gt;Cambiar el color de un cuadrado&lt;/button&gt;
+
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+            </div>
+        </li>
+
+        <li class="paso">
+            <h3>Crea los cuadrados</h3>
+            <p>Escribe una función <code>generarCuadrados()</code> que:</p>
+            <ol>
+                <li>Pregunte con <code>prompt</code> cuántos cuadrados quiere el usuario y lo convierta a número con
+                    <code>parseInt()</code>.</li>
+                <li>Con un bucle <code>for</code>, cree ese número de <code>div</code> con la clase
+                    <code>square</code>, les ponga como texto su número (1, 2, 3…) y los añada al contenedor
+                    <code>#container</code>.</li>
+            </ol>
+            <p>Llama a la función al final de <code>script.js</code> para que se ejecute al abrir la página.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Ilumina los cuadrados al pasar el ratón</h3>
+            <p>Dentro del bucle, a cada cuadrado añádele dos eventos con <code>addEventListener</code>:</p>
+            <ul>
+                <li><code>mouseover</code> (el ratón entra): pon un color de fondo aleatorio. Si quieres que brille,
+                    pon también una sombra del mismo color: <code>style.boxShadow = `0 0 10px ${color}`</code>.</li>
+                <li><code>mouseout</code> (el ratón sale): quita el color asignando una cadena vacía. El cuadrado
+                    vuelve al color del CSS poco a poco gracias a la transición.</li>
+            </ul>
+            <p>Para el color aleatorio puedes usar esta función:</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-javascript">function generarColorAleatorio() {
+    const letras = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i &lt; 6; i++) {
+        color += letras[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}</code></pre>
+            </div>
+            <p>Pasa el ratón por el tablero: debe quedar una estela de colores que se apaga.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Comprueba la respuesta del usuario</h3>
+            <p>¿Qué pasa si el usuario deja la respuesta vacía, escribe «hola» o pide un millón de cuadrados? Escribe
+                una función <code>pedirNumero(mensaje, minimo, maximo)</code> que repita la pregunta con un bucle
+                <code>while</code> hasta que la respuesta sea válida y la devuelva como número:</p>
+            <ul>
+                <li>Si está vacía: «No puede estar vacío.»</li>
+                <li>Si no es un número (<code>Number.isNaN(parseInt(respuesta))</code>): «Tiene que ser un valor
+                    numérico.»</li>
+                <li>Si está fuera del rango: «El número tiene que estar entre 1 y 500.»</li>
+                <li>Si el usuario pulsa Cancelar (<code>prompt</code> devuelve <code>null</code>), la función
+                    devuelve <code>null</code> y no se crea nada.</li>
+            </ul>
+            <p>Usa esta función en <code>generarCuadrados()</code> en lugar del <code>prompt</code> directo.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Cambia el color de un cuadrado concreto</h3>
+            <p>Haz que el botón «Cambiar el color de un cuadrado» llame a una función <code>cambiarColor()</code>
+                que:</p>
+            <ol>
+                <li>Seleccione todos los cuadrados con <code>querySelectorAll(".square")</code>.</li>
+                <li>Pregunte, con <code>pedirNumero</code>, a qué cuadrado hay que cambiarle el color (entre 1 y el
+                    número de cuadrados).</li>
+                <li>Le ponga un color aleatorio. Ojo: el cuadrado número 1 está en la posición 0 de la lista.</li>
+            </ol>
+            <details>
+                <summary>Ver la solución</summary>
+                <p><a href="../AW/Unidad-2/actividades/recursos/2-7/index.html" target="_blank" rel="noopener noreferrer"><i class="bi bi-box-arrow-up-right me-1"></i>Ver la solución funcionando</a> (se abre en otra pestaña).</p>
+                <div class="position-relative">
+                    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                        onclick="copiarCodigo(this)">Copiar</button>
+                    <pre><code class="language-javascript">// Tablero de colores: cuadrados que se iluminan al pasar el ratón
+const contenedor = document.getElementById("container");
+const botonCambiar = document.getElementById("btnCambiar");
+
+// Devuelve un color hexadecimal aleatorio, por ejemplo "#3FA2C9"
+function generarColorAleatorio() {
+    const letras = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i &lt; 6; i++) {
+        color += letras[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+// Pregunta un número hasta que sea válido. Devuelve el número, o null si el usuario pulsa Cancelar
+function pedirNumero(mensaje, minimo, maximo) {
+    while (true) {
+        const respuesta = prompt(mensaje);
+
+        if (respuesta === null) {
+            return null; // ha pulsado Cancelar
+        }
+
+        const numero = parseInt(respuesta);
+
+        if (respuesta.trim() === "") {
+            alert("No puede estar vacío.");
+        } else if (Number.isNaN(numero)) {
+            alert("Tiene que ser un valor numérico.");
+        } else if (numero &lt; minimo || numero &gt; maximo) {
+            alert(`El número tiene que estar entre ${minimo} y ${maximo}.`);
+        } else {
+            return numero; // es válido: salimos de la función
+        }
+    }
+}
+
+function agregarColor(cuadrado) {
+    const color = generarColorAleatorio();
+    cuadrado.style.backgroundColor = color;
+    cuadrado.style.boxShadow = `0 0 2px ${color}, 0 0 10px ${color}`;
+}
+
+function quitarColor(cuadrado) {
+    // Al quitar el estilo, vuelve el color del CSS poco a poco (por la transición de 1 s)
+    cuadrado.style.backgroundColor = "";
+    cuadrado.style.boxShadow = "";
+}
+
+function generarCuadrados() {
+    const cantidad = pedirNumero("¿Cuántos cuadrados quieres? (entre 1 y 500)", 1, 500);
+    if (cantidad === null) {
+        return;
+    }
+
+    for (let i = 1; i &lt;= cantidad; i++) {
+        const cuadrado = document.createElement("div");
+        cuadrado.classList.add("square");
+        cuadrado.textContent = i;
+
+        cuadrado.addEventListener("mouseover", () =&gt; agregarColor(cuadrado));
+        cuadrado.addEventListener("mouseout", () =&gt; quitarColor(cuadrado));
+
+        contenedor.appendChild(cuadrado);
+    }
+}
+
+// Pregunta a qué cuadrado hay que cambiarle el color y se lo cambia
+function cambiarColor() {
+    const cuadrados = document.querySelectorAll(".square"); // NodeList
+    if (cuadrados.length === 0) {
+        alert("Todavía no hay cuadrados.");
+        return;
+    }
+
+    const numero = pedirNumero(`¿A qué cuadrado quieres cambiarle el color? (entre 1 y ${cuadrados.length})`, 1, cuadrados.length);
+    if (numero !== null) {
+        cuadrados[numero - 1].style.backgroundColor = generarColorAleatorio();
+    }
+}
+
+botonCambiar.addEventListener("click", cambiarColor);
+generarCuadrados();</code></pre>
+                </div>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="2-7">
+        <li><label><input type="checkbox"><span>Al abrir la página, pregunta cuántos cuadrados quieres y los crea numerados.</span></label></li>
+        <li><label><input type="checkbox"><span>Si dejas la respuesta vacía, escribes letras o un número fuera de rango, te avisa y vuelve a preguntar.</span></label></li>
+        <li><label><input type="checkbox"><span>Si pulsas Cancelar, no se rompe nada.</span></label></li>
+        <li><label><input type="checkbox"><span>Al pasar el ratón, los cuadrados se iluminan de colores y se apagan poco a poco.</span></label></li>
+        <li><label><input type="checkbox"><span>El botón cambia el color del cuadrado que eliges, y comprueba también el número.</span></label></li>
+        <li><label><input type="checkbox"><span>La consola no muestra errores en rojo.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-2/actividades/2-6"><i class="bi bi-arrow-left me-1"></i>Anterior: 2.6</a>
+        <a class="btn btn-primary" href="#/Unidad-2/actividades/2-8">Siguiente: 2.8. Repaso de JavaScript <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

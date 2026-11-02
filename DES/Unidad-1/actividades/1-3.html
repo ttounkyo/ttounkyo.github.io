@@ -1,0 +1,162 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-1/index">Unidad 1</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-1/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">1.3</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 1.3. Usuario para el despliegue</h1>
+    <p class="lead">Vas a crear en tu servidor un usuario llamado <code>despliegue</code>, con permisos de
+        administrador y acceso por SSH con clave, y vas a impedir que <code>root</code> entre por SSH.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li><code>adduser</code> y <code>usermod -aG sudo</code></li>
+                    <li>Dar acceso SSH con clave a otro usuario</li>
+                    <li>Propietario y permisos de <code>.ssh</code> (<code>chown</code>, <code>chmod</code>)</li>
+                    <li>La directiva <code>PermitRootLogin</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-1/index?sec=4-configuracion-del-servidor-ssh">4. Configuración del
+                            servidor SSH</a></li>
+                    <li>Haber terminado la <a href="#/Unidad-1/actividades/1-2">actividad 1.2</a>: entras en el
+                        servidor con tu clave.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>ApellidoNombre_DES_Actividad1.3.pdf</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Capturas de los comandos de cada paso, de la conexión SSH como <code>despliegue</code> y de la
+                    línea <code>PermitRootLogin</code> en <code>sshd_config</code>.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea el usuario despliegue</h3>
+            <p>Conéctate al servidor con tu usuario y crea el nuevo usuario. Te pedirá una contraseña segura y unos
+                datos (nombre completo, teléfono…) que puedes dejar en blanco pulsando <kbd>Intro</kbd>:</p>
+            <pre><code class="language-bash">sudo adduser despliegue</code></pre>
+        </li>
+
+        <li class="paso">
+            <h3>Dale permisos de administrador</h3>
+            <p>Añádelo al grupo <code>sudo</code> para que pueda ejecutar comandos como administrador, y comprueba
+                que aparece en el grupo:</p>
+            <pre><code class="language-bash">sudo usermod -aG sudo despliegue
+groups despliegue</code></pre>
+        </li>
+
+        <li class="paso">
+            <h3>Dale acceso por SSH con clave</h3>
+            <p>Elige una de las dos opciones.</p>
+            <p><strong>Opción A: usar la misma clave que ya tienes.</strong> Copia tu archivo
+                <code>authorized_keys</code> al nuevo usuario y deja como propietario a <code>despliegue</code>.
+                Cambia <code>usuario</code> por tu nombre de usuario:</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-bash"># Crear la carpeta .ssh del nuevo usuario
+sudo mkdir -p /home/despliegue/.ssh
+
+# Copiar las claves públicas autorizadas
+sudo cp /home/usuario/.ssh/authorized_keys /home/despliegue/.ssh/
+
+# Poner como propietario al nuevo usuario
+sudo chown -R despliegue:despliegue /home/despliegue/.ssh
+
+# Permisos de seguridad
+sudo chmod 700 /home/despliegue/.ssh
+sudo chmod 600 /home/despliegue/.ssh/authorized_keys</code></pre>
+            </div>
+            <p><strong>Opción B: una clave nueva solo para este usuario.</strong> Es más segura y más realista,
+                porque cada usuario tiene su propia clave:</p>
+            <ol>
+                <li>En tu ordenador, genera otra clave con PuTTYgen y guárdala con otro nombre (por ejemplo,
+                    <code>id_despliegue.ppk</code>).</li>
+                <li>Conéctate con PuTTY como <code>despliegue</code> con su contraseña.</li>
+                <li>Crea <code>~/.ssh/authorized_keys</code>, pega la nueva clave pública y pon los permisos 700 y 600,
+                    como en la <a href="#/Unidad-1/actividades/1-2">actividad 1.2</a>.</li>
+            </ol>
+        </li>
+
+        <li class="paso">
+            <h3>Comprueba la conexión</h3>
+            <p>Crea en PuTTY una sesión nueva con <code>despliegue@IP_DEL_SERVIDOR</code> y la clave privada que
+                corresponda (la de siempre en la opción A, la nueva en la B). Guárdala y conéctate. Desde Mac o Linux:
+            </p>
+            <pre><code class="language-bash">ssh despliegue@IP_DEL_SERVIDOR</code></pre>
+            <p>Ya dentro, comprueba que puede usar <code>sudo</code>:</p>
+            <pre><code class="language-bash">sudo whoami</code></pre>
+            <p>Si responde <code>root</code>, todo está bien.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Impide que root entre por SSH</h3>
+            <p>Abre la configuración del servidor SSH:</p>
+            <pre><code class="language-bash">sudo nano /etc/ssh/sshd_config</code></pre>
+            <p>Busca la línea <code>PermitRootLogin</code>, quítale el <code>#</code> si lo tiene y déjala así:</p>
+            <pre><code class="language-bash">PermitRootLogin no</code></pre>
+            <p class="alert alert-light border small"><i class="bi bi-info-circle me-1"></i>El valor por defecto en
+                Debian es <code>prohibit-password</code>: <code>root</code> no puede entrar con contraseña, pero sí con
+                clave. Con <code>no</code>, <code>root</code> no puede entrar por SSH de ninguna forma.</p>
+            <p>Guarda, comprueba que el archivo no tiene errores (si no dice nada, está bien) y reinicia el
+                servicio:</p>
+            <pre><code class="language-bash">sudo sshd -t
+sudo systemctl restart ssh</code></pre>
+            <div class="alert alert-warning small"><i class="bi bi-exclamation-triangle me-1"></i>Antes de cerrar tu
+                sesión, abre <strong>otra</strong> conexión como <code>despliegue</code> y comprueba que entras. Si
+                algo ha ido mal, todavía puedes arreglarlo desde la sesión que tienes abierta. En una máquina virtual
+                también puedes entrar siempre desde la ventana de VirtualBox.</div>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="1-3">
+        <li><label><input type="checkbox"><span>Existe el usuario <code>despliegue</code> y está en el grupo
+                    <code>sudo</code>.</span></label></li>
+        <li><label><input type="checkbox"><span><code>/home/despliegue/.ssh</code> es de <code>despliegue</code>, con
+                    permisos 700, y <code>authorized_keys</code> tiene permisos 600.</span></label></li>
+        <li><label><input type="checkbox"><span>Entro por SSH como <code>despliegue</code> con clave.</span></label>
+        </li>
+        <li><label><input type="checkbox"><span><code>sudo whoami</code> responde <code>root</code>.</span></label>
+        </li>
+        <li><label><input type="checkbox"><span><code>PermitRootLogin no</code> está activo y he reiniciado
+                    SSH.</span></label></li>
+        <li><label><input type="checkbox"><span>El PDF se llama
+                    <code>ApellidoNombre_DES_Actividad1.3.pdf</code>.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-1/actividades/1-2"><i class="bi bi-arrow-left me-1"></i>Anterior: 1.2</a>
+        <a class="btn btn-primary" href="#/Unidad-1/actividades/1-4">Siguiente: 1.4. Configuración inicial <i
+                class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

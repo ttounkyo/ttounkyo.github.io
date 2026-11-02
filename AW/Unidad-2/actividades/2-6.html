@@ -1,0 +1,327 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-2/index">Unidad 2</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-2/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">2.6</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 2.6. Cartelera de películas</h1>
+    <p class="lead">Una cartelera de películas hecha con Bootstrap: un formulario para añadir películas a una tabla, un botón para borrar cada una y una ventana (modal) para editarla.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Añadir filas a una tabla desde un formulario (<code>submit</code> y <code>preventDefault()</code>)</li>
+                    <li>Crear una fila con <code>innerHTML</code> y rellenar sus celdas con <code>textContent</code></li>
+                    <li>Dar a cada fila sus propios botones de borrar y editar</li>
+                    <li>Abrir y cerrar una ventana modal de Bootstrap desde JavaScript</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-2/index?sec=7-el-arbol-dom">7. El árbol DOM</a> y <a href="#/Unidad-2/index?sec=8-eventos">8. Eventos</a>.</li>
+                    <li>Haber hecho la <a href="#/Unidad-2/actividades/2-5">Actividad 2.5</a> (lista de tareas): esta es parecida, pero con una tabla.</li>
+                    <li>Conexión a Internet: Bootstrap se carga desde Internet.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>ApellidoNombre_AW_Actividad2.6.zip</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Una carpeta con <code>index.html</code> y <code>script.js</code>, comprimida en <code>.zip</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-light border small"><strong>Cómo comprobar tu código:</strong> guarda los archivos y abre
+        el <code>.html</code> con el navegador (doble clic o arrástralo a una pestaña). Pulsa <kbd>F12</kbd> y mira la
+        pestaña <strong>Consola</strong>: si hay un error, aparece en rojo con el nombre del archivo y la línea. Cada
+        vez que cambies el código, guarda y recarga la página con <kbd>F5</kbd>.</div>
+
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>La página usa Bootstrap 5.3, cargado desde Internet
+        (cdn.jsdelivr.net). Si cambias de versión, comprueba en la documentación de Bootstrap que el modal se sigue
+        creando igual.</p>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea los archivos</h3>
+            <p>Crea una carpeta con <code>index.html</code> (este código) y <code>script.js</code> vacío. Tiene un
+                formulario arriba, una tabla vacía y, al final, una ventana modal (oculta) con otro formulario para
+                editar.</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Cartelera Pro con Bootstrap&lt;/title&gt;
+    &lt;!-- CSS de Bootstrap 5 --&gt;
+    &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+    &lt;style&gt;
+        .img-tabla {
+            width: 60px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        body {
+            background-color: #f8f9fa;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+    &lt;div class="container py-5"&gt;
+        &lt;h1 class="text-center mb-4"&gt;🎬 Mi Cartelera de Películas&lt;/h1&gt;
+
+        &lt;!-- Formulario de Entrada --&gt;
+        &lt;div class="card shadow-sm mb-5"&gt;
+            &lt;div class="card-body"&gt;
+                &lt;form id="formPelicula" class="row g-3"&gt;
+                    &lt;div class="col-md-4"&gt;
+                        &lt;input type="text" id="titulo" class="form-control" placeholder="Título" required&gt;
+                    &lt;/div&gt;
+                    &lt;div class="col-md-3"&gt;
+                        &lt;input type="text" id="genero" class="form-control" placeholder="Género" required&gt;
+                    &lt;/div&gt;
+                    &lt;div class="col-md-3"&gt;
+                        &lt;input type="url" id="urlImagen" class="form-control" placeholder="URL del Póster" required&gt;
+                    &lt;/div&gt;
+                    &lt;div class="col-md-2"&gt;
+                        &lt;button type="submit" class="btn btn-primary w-100"&gt;Añadir&lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Tabla de Películas --&gt;
+        &lt;div class="table-responsive shadow rounded bg-white"&gt;
+            &lt;table class="table table-hover align-middle mb-0"&gt;
+                &lt;thead class="table-dark"&gt;
+                    &lt;tr&gt;
+                        &lt;th&gt;Póster&lt;/th&gt;
+                        &lt;th&gt;Título&lt;/th&gt;
+                        &lt;th&gt;Género&lt;/th&gt;
+                        &lt;th class="text-center"&gt;Acciones&lt;/th&gt;
+                    &lt;/tr&gt;
+                &lt;/thead&gt;
+                &lt;tbody id="cuerpoTabla"&gt;
+                    &lt;!-- Las filas se insertarán aquí --&gt;
+                &lt;/tbody&gt;
+            &lt;/table&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- MODAL PARA EDITAR (El Popup) --&gt;
+    &lt;div class="modal fade" id="modalEditar" tabindex="-1" aria-hidden="true"&gt;
+        &lt;div class="modal-dialog"&gt;
+            &lt;div class="modal-content"&gt;
+                &lt;div class="modal-header"&gt;
+                    &lt;h5 class="modal-title"&gt;Editar Película&lt;/h5&gt;
+                    &lt;button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"&gt;&lt;/button&gt;
+                &lt;/div&gt;
+                &lt;div class="modal-body"&gt;
+                    &lt;form id="formEditar"&gt;
+                        &lt;div class="mb-3"&gt;
+                            &lt;label class="form-label"&gt;Título&lt;/label&gt;
+                            &lt;input type="text" id="editTitulo" class="form-control"&gt;
+                        &lt;/div&gt;
+                        &lt;div class="mb-3"&gt;
+                            &lt;label class="form-label"&gt;Género&lt;/label&gt;
+                            &lt;input type="text" id="editGenero" class="form-control"&gt;
+                        &lt;/div&gt;
+                        &lt;div class="mb-3"&gt;
+                            &lt;label class="form-label"&gt;URL Imagen&lt;/label&gt;
+                            &lt;input type="url" id="editUrl" class="form-control"&gt;
+                        &lt;/div&gt;
+                        &lt;button type="button" id="btnGuardarCambios" class="btn btn-success w-100"&gt;Guardar
+                            Cambios&lt;/button&gt;
+                    &lt;/form&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- JS de Bootstrap (necesario para el modal) --&gt;
+    &lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+            </div>
+            <p>Fíjate en el orden de los scripts al final: primero el de Bootstrap y después el tuyo, porque tu código
+                usa el objeto <code>bootstrap</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Añade películas a la tabla</h3>
+            <p>Escucha el evento <code>submit</code> del formulario <code>formPelicula</code> y, dentro:</p>
+            <ol>
+                <li>Llama a <code>preventDefault()</code> para que la página no se recargue.</li>
+                <li>Lee el título, el género y la URL del póster.</li>
+                <li>Crea una fila (<code>tr</code>) con cuatro celdas: el póster (una <code>img</code> con la clase
+                    <code>img-tabla</code>), el título (clase <code>titulo-celda</code>), el género (clase
+                    <code>genero-celda</code>) y una celda con dos botones, «Editar» y «Borrar».</li>
+                <li>Añade la fila al <code>tbody</code> con <code>id="cuerpoTabla"</code> y vacía el formulario con
+                    <code>reset()</code>.</li>
+            </ol>
+            <div class="alert alert-warning">
+                <strong>Cuidado con <code>innerHTML</code>:</strong> es cómodo para crear la estructura de la fila,
+                pero no metas dentro lo que escribe el usuario. Si alguien escribe etiquetas HTML como título, el
+                navegador las interpretaría (es un fallo de seguridad llamado XSS). Crea la fila con las celdas
+                vacías y pon después los datos con <code>textContent</code> y <code>src</code>.
+            </div>
+        </li>
+
+        <li class="paso">
+            <h3>Borra una película</h3>
+            <p>Dentro de la misma función, después de crear la fila, busca su botón «Borrar»
+                (<code>nuevaFila.querySelector(...)</code>) y haz que al pulsarlo se borre esa fila con
+                <code>remove()</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Abre la ventana para editar</h3>
+            <p>Al pulsar «Editar», se abre el modal con los datos de esa fila ya escritos en sus campos. Para
+                controlar el modal desde JavaScript, Bootstrap tiene el objeto <code>bootstrap.Modal</code>:</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-javascript">// Al principio de script.js: el objeto que controla la ventana modal
+const modalElemento = new bootstrap.Modal(document.getElementById('modalEditar'));
+
+modalElemento.show(); // abre la ventana
+modalElemento.hide(); // la cierra</code></pre>
+            </div>
+            <p>Escribe una función <code>abrirModal(fila)</code> que guarde en una variable cuál es la fila que se está
+                editando, copie el título, el género y la URL de la fila a los campos <code>editTitulo</code>,
+                <code>editGenero</code> y <code>editUrl</code>, y abra el modal. Asígnala al botón «Editar» de cada
+                fila nueva.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Guarda los cambios</h3>
+            <p>Al pulsar «Guardar Cambios» en el modal, copia los valores de los campos a la fila guardada, cierra el
+                modal y vacía la variable de la fila.</p>
+            <p>Prueba a añadir tres películas, editar la segunda y borrar la primera.</p>
+            <details>
+                <summary>Ver la solución</summary>
+                <p><a href="../AW/Unidad-2/actividades/recursos/2-6/index.html" target="_blank" rel="noopener noreferrer"><i class="bi bi-box-arrow-up-right me-1"></i>Ver la solución funcionando</a> (se abre en otra pestaña).</p>
+                <div class="position-relative">
+                    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                        onclick="copiarCodigo(this)">Copiar</button>
+                    <pre><code class="language-javascript">const formPelicula = document.getElementById('formPelicula');
+const cuerpoTabla = document.getElementById('cuerpoTabla');
+
+// Variables para el modal
+let filaAEditar = null;
+const modalElemento = new bootstrap.Modal(document.getElementById('modalEditar'));
+
+// --- FUNCION AGREGAR ---
+formPelicula.addEventListener('submit', (e) =&gt; {
+    e.preventDefault(); // Evita que la página se recargue
+
+    const titulo = document.getElementById('titulo').value;
+    const genero = document.getElementById('genero').value;
+    const url = document.getElementById('urlImagen').value;
+
+    const nuevaFila = document.createElement('tr');
+    // Con innerHTML creamos la estructura de la fila (celdas vacías)...
+    nuevaFila.innerHTML = `
+        &lt;td&gt;&lt;img class="img-tabla shadow-sm" alt=""&gt;&lt;/td&gt;
+        &lt;td class="titulo-celda fw-bold"&gt;&lt;/td&gt;
+        &lt;td class="genero-celda"&gt;&lt;/td&gt;
+        &lt;td class="text-center"&gt;
+            &lt;button class="btn btn-sm btn-warning me-2 btn-editar"&gt;Editar&lt;/button&gt;
+            &lt;button class="btn btn-sm btn-danger btn-eliminar"&gt;Borrar&lt;/button&gt;
+        &lt;/td&gt;
+    `;
+    // ...y los datos que escribe el usuario los ponemos con textContent y src.
+    // Así, si alguien escribe etiquetas HTML en el título, se ven como texto y no se ejecutan.
+    nuevaFila.querySelector('img').src = url;
+    nuevaFila.querySelector('img').alt = `Póster de ${titulo}`;
+    nuevaFila.querySelector('.titulo-celda').textContent = titulo;
+    nuevaFila.querySelector('.genero-celda').textContent = genero;
+
+    // Evento Eliminar
+    nuevaFila.querySelector('.btn-eliminar').onclick = () =&gt; nuevaFila.remove();
+
+    // Evento Abrir Modal de Edición
+    nuevaFila.querySelector('.btn-editar').onclick = () =&gt; abrirModal(nuevaFila);
+
+    cuerpoTabla.appendChild(nuevaFila);
+    formPelicula.reset(); // Limpiar formulario
+});
+
+// --- FUNCION ABRIR MODAL Y LLENAR DATOS ---
+function abrirModal(fila) {
+    filaAEditar = fila; // Guardamos la fila que queremos modificar
+
+    // Cargamos los datos actuales de la fila en los inputs del modal
+    document.getElementById('editTitulo').value = fila.querySelector('.titulo-celda').textContent;
+    document.getElementById('editGenero').value = fila.querySelector('.genero-celda').textContent;
+    document.getElementById('editUrl').value = fila.querySelector('img').src;
+
+    modalElemento.show(); // Mostramos el popup
+}
+
+// --- FUNCION GUARDAR CAMBIOS ---
+document.getElementById('btnGuardarCambios').onclick = () =&gt; {
+    if (filaAEditar) {
+        // Actualizamos los valores de la fila guardada
+        filaAEditar.querySelector('.titulo-celda').textContent = document.getElementById('editTitulo').value;
+        filaAEditar.querySelector('.genero-celda').textContent = document.getElementById('editGenero').value;
+        filaAEditar.querySelector('img').src = document.getElementById('editUrl').value;
+
+        modalElemento.hide(); // Cerramos el popup
+        filaAEditar = null;    // Limpiamos la referencia
+    }
+};</code></pre>
+                </div>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="2-6">
+        <li><label><input type="checkbox"><span>Al pulsar «Añadir», la película aparece en la tabla con su póster y la página no se recarga.</span></label></li>
+        <li><label><input type="checkbox"><span>El formulario se vacía después de añadir.</span></label></li>
+        <li><label><input type="checkbox"><span>Si escribes <code>&lt;b&gt;Hola&lt;/b&gt;</code> como título, se ve tal cual y no en negrita.</span></label></li>
+        <li><label><input type="checkbox"><span>El botón «Borrar» elimina solo su fila.</span></label></li>
+        <li><label><input type="checkbox"><span>El botón «Editar» abre el modal con los datos de esa película.</span></label></li>
+        <li><label><input type="checkbox"><span>Al guardar, la fila cambia y el modal se cierra.</span></label></li>
+        <li><label><input type="checkbox"><span>La consola no muestra errores en rojo.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-2/actividades/2-5"><i class="bi bi-arrow-left me-1"></i>Anterior: 2.5</a>
+        <a class="btn btn-primary" href="#/Unidad-2/actividades/2-7">Siguiente: 2.7. Tablero de colores <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

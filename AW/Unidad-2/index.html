@@ -1,20 +1,35 @@
 <div class="container my-5">
-    <h1 class="mb-4 text-primary">Introducción a JavaScript</h1>
-    <p>Este capítulo presenta el lenguaje de programación JavaScript y analiza algunos de sus conceptos fundamentales,
-        desde su propósito y su historia hasta cómo empezar a escribir tus primeras líneas de código.</p>
+    <h1 class="mb-4 text-primary">Unidad 2. JavaScript</h1>
+
+    <div data-indice></div>
+
+    <div class="alert alert-primary d-flex align-items-center gap-2">
+        <i class="bi bi-list-check fs-4"></i>
+        <div>Esta unidad tiene <strong>8 actividades</strong>: siete prácticas guiadas paso a paso y una de repaso.
+            <a href="#/Unidad-2/actividades/index">Ver las actividades</a></div>
+    </div>
+
+    <div class="alert alert-light border small"><strong>Cómo leer esta unidad:</strong> los apartados van en orden.
+        Primero, la base del lenguaje (variables, operadores y expresiones); después, cómo tomar decisiones
+        (condicionales) y repetir (bucles), y por último cómo cambiar la página (DOM) y reaccionar a lo que hace el
+        usuario (eventos). Prueba los ejemplos en la consola del navegador mientras lees.</div>
+
+    <h2 class="mb-4 text-primary">1. Introducción a JavaScript</h2>
+        <p>Este apartado presenta el lenguaje de programación JavaScript: para qué sirve, cómo se relaciona con el
+        estándar ECMAScript y cómo escribir tus primeras líneas de código.</p>
 
     <div class="alert alert-info mt-4" role="alert">
-        <h4 class="alert-heading">¿Qué Debes Conocer Previamente?</h4>
-        <p>Esta guía presume que tienes los siguientes antecedentes básicos:</p>
-        <ul>
+        <h5 class="alert-heading">¿Qué debes saber antes?</h5>
+        <p>Para seguir esta unidad necesitas:</p>
+        <ul class="mb-0">
             <li>Una comprensión general de Internet y la World Wide Web.</li>
-            <li>Un buen conocimiento práctico del Lenguaje de Marcado de Hipertexto (HTML).</li>
-            <li>Alguna experiencia en programación. Si eres completamente nuevo, te recomendamos empezar con un tutorial
-                básico de lógica de programación.</li>
+            <li>Saber escribir páginas sencillas en HTML.</li>
+            <li>Si nunca has programado, no pasa nada: empieza por los ejemplos de
+                este apartado y del siguiente, y pruébalos en la consola.</li>
         </ul>
     </div>
 
-    <h2 class="mb-4 text-primary">¿Qué es JavaScript?</h2>
+    <h3 class="mb-4 text-primary">¿Qué es JavaScript?</h3>
     <p>JavaScript es un lenguaje de programación <strong>multiplataforma y orientado a objetos</strong> que se utiliza
         para hacer que las páginas web sean interactivas. Gracias a él, podemos crear desde animaciones complejas y
         menús desplegables hasta aplicaciones web completas que se actualizan en tiempo real.</p>
@@ -37,7 +52,7 @@
     </ul>
 
     <div class="alert alert-warning mt-4" role="alert">
-        <h4 class="alert-heading">¡No Confundir! JavaScript y Java</h4>
+        <h5 class="alert-heading">No confundas JavaScript con Java</h5>
         <p>JavaScript y Java son similares en algunos aspectos superficiales, pero fundamentalmente diferentes. El
             lenguaje JavaScript se parece a Java en la sintaxis, pero no tiene su tipado estático ni su fuerte
             verificación de tipos. La similitud en el nombre es principalmente una decisión de marketing de la época.
@@ -71,14 +86,14 @@
         </tbody>
     </table>
 
-    <h2 class="mb-4 text-primary">JavaScript y la Especificación ECMAScript</h2>
+    <h3 class="mb-4 text-primary">JavaScript y la especificación ECMAScript</h3>
     <p>JavaScript está estandarizado por <strong>Ecma International</strong>. Esta versión estandarizada se denomina
         <strong>ECMAScript</strong> y su objetivo es asegurar que el lenguaje se comporte de la misma manera en todas
         las plataformas que lo soporten (navegadores, servidores, etc.). El estándar ECMAScript está documentado en la
         especificación <strong>ECMA-262</strong>.
     </p>
     <div class="alert alert-info mt-4" role="alert">
-        <h4 class="alert-heading">Documentación vs. Especificación</h4>
+        <h5 class="alert-heading">Documentación y especificación</h5>
         <p>La especificación ECMA-262 es un documento técnico para los ingenieros que crean los motores de JavaScript
             (como V8 en Chrome o SpiderMonkey en Firefox). <strong>No está pensada para aprender a programar</strong>.
         </p>
@@ -87,27 +102,26 @@
         </p>
     </div>
 
-    <h2 class="mb-4 text-primary">Cómo Empezar con JavaScript</h2>
+    <h3 class="mb-4 text-primary">Cómo empezar: la consola del navegador</h3>
     <p>Comenzar con JavaScript es fácil: todo lo que necesitas es un navegador web moderno. La <strong>Consola
             Web</strong> integrada en los navegadores es una herramienta increíblemente útil para experimentar.</p>
-    <p>Para abrir la Consola Web, presiona <code>Ctrl+Shift+J</code> (o F12) en Windows/Linux, o
-        <code>Cmd+Option+J</code> en Mac, y selecciona la pestaña "Consola".
-    </p>
+    <p>Para abrir la Consola Web, pulsa <kbd>F12</kbd> y elige la pestaña <strong>Consola</strong>. También puedes
+        usar <kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>J</kbd> en Chrome y Edge, <kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>K</kbd>
+        en Firefox, o <kbd>Cmd</kbd>+<kbd>Opción</kbd>+<kbd>J</kbd> en Chrome para Mac.</p>
+    <p>La consola es también donde aparecen los <strong>errores</strong> de tus programas: si algo no funciona, ábrela
+        y lee el mensaje en rojo, que te dice el error y la línea.</p>
 
-    <div class="text-center p-3">
-        <img src="../AW/img/Unidad-2/web-console.png"
-            alt="Imagen de la Consola Web del navegador mostrando la línea de entrada de comandos y el área de salida."
-            class="img-fluid border rounded shadow-sm">
-        <p class="text-muted small mt-2"><em>La Consola Web es tu primer campo de pruebas para JavaScript.</em></p>
-    </div>
+    <figure><img src="../AW/img/Unidad-2/web-console.png"
+            alt="Consola Web del navegador con la línea para escribir código y el área de resultados">
+        <figcaption>La Consola Web es tu primer campo de pruebas para JavaScript.</figcaption>
+    </figure>
 
-    <h3 class="mb-4 text-primary">Hola Mundo en la Consola</h3>
+    <h4 class="mb-4 text-primary">Hola mundo en la consola</h4>
     <p>Para comenzar a escribir JavaScript, abre la Consola Web y escribe tu primer código "Hola mundo":</p>
     <div class="position-relative">
         <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
             onclick="copiarCodigo(this)">Copiar</button>
-        <pre><code class="language-javascript">
-(function () {
+        <pre><code class="language-javascript">(function () {
   "use strict";
   /* Inicio de tu código */
 
@@ -118,22 +132,1801 @@
   greetMe("Mundo");
 
   /* Fin de tu código */
-})();
-    </code></pre>
+})();</code></pre>
     </div>
 
-    <p>Presiona <code>Ctrl+Enter</code> (o haz clic en el botón Ejecutar si usas el modo multilínea) para ver el
-        resultado.</p>
+    <p>Pulsa <kbd>Intro</kbd> para ejecutarlo. Si quieres escribir varias líneas sin ejecutarlas todavía, usa
+        <kbd>Mayús</kbd>+<kbd>Intro</kbd> para saltar de línea.</p>
+    <div class="alert alert-light border small">La primera vez que pegues código en la consola de Chrome o Edge, puede
+        que te pida escribir <code>allow pasting</code> (o «permitir pegar») antes de dejarte pegar. Es una protección
+        contra estafas: pega solo código que entiendas.</div>
 
     <div class="alert alert-success mt-4" role="alert">
-        <h4 class="alert-heading">Una Buena Práctica: "use strict" y las IIFE</h4>
-        <p>Por ahora, acostúmbrate a envolver tu código de esta manera. La estructura
-            <code>(function() { ... })();</code> se llama <strong>IIFE</strong> (Immediately Invoked Function
-            Expression) y, junto con <code>"use strict";</code>, te ayudará a:
-        </p>
+        <h5 class="alert-heading">"use strict" y las IIFE</h5>
+        <p>La estructura <code>(function () { ... })();</code> se llama <strong>IIFE</strong> (Immediately Invoked
+            Function Expression): es una función que se ejecuta nada más definirla. En la consola es útil porque:</p>
         <ul>
-            <li>Evitar errores comunes que confunden a los principiantes.</li>
-            <li>Prevenir que las variables de tu código interfieran con otras partes de la página web.</li>
+            <li>Las variables quedan dentro de la función y no interfieren con otras partes de la página.</li>
+            <li>Puedes volver a ejecutar el mismo código sin el error «la variable ya está declarada».</li>
         </ul>
+        <p class="mb-0"><code>"use strict";</code> activa el <strong>modo estricto</strong>, que convierte en errores
+            algunos descuidos de principiante (por ejemplo, usar una variable sin declararla). En tus archivos
+            <code>.js</code> no necesitas la IIFE: basta con declarar las variables con <code>let</code> y
+            <code>const</code>.</p>
     </div>
+
+    <h3 class="mb-4 text-primary">Dónde se escribe el código: la etiqueta script</h3>
+    <p>La consola sirve para probar. Para que una página web tenga su JavaScript, el código se escribe en un archivo
+        aparte (por ejemplo, <code>script.js</code>) y se enlaza desde el HTML con la etiqueta
+        <code>&lt;script&gt;</code>, justo antes de cerrar el <code>&lt;body&gt;</code>. Así, cuando el código se
+        ejecuta, los elementos de la página ya existen.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Mi primera página con JavaScript&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1 id="titulo"&gt;Hola&lt;/h1&gt;
+
+    &lt;!-- El script, al final del body --&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">// script.js
+console.log("El script se ha cargado");
+document.getElementById("titulo").textContent = "Hola desde JavaScript";</code></pre>
+    </div>
+    <p>Para probarlo, guarda los dos archivos en la misma carpeta y abre el <code>.html</code> con el navegador
+        (doble clic o arrastrándolo a una pestaña). Si cambias el código, guarda y recarga la página con
+        <kbd>F5</kbd>.</p>
+    <p>También puedes escribir el código dentro de la propia etiqueta: <code>&lt;script&gt; ... &lt;/script&gt;</code>.
+        Lo que no funciona es hacer las dos cosas a la vez: si la etiqueta tiene <code>src</code>, el navegador ignora
+        el código que haya dentro.</p>
+
+    <h3 class="mb-4 text-primary">Mostrar mensajes y pedir datos</h3>
+    <p>Para tus primeros programas usarás estas cuatro funciones del navegador:</p>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Función</th>
+                    <th scope="col">Qué hace</th>
+                    <th scope="col">Qué devuelve</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>console.log("texto")</code></td>
+                    <td>Escribe en la consola. Es la forma más cómoda de ver el valor de una variable mientras
+                        programas.</td>
+                    <td>Nada</td>
+                </tr>
+                <tr>
+                    <td><code>alert("texto")</code></td>
+                    <td>Muestra una ventana con un mensaje y un botón Aceptar.</td>
+                    <td>Nada</td>
+                </tr>
+                <tr>
+                    <td><code>prompt("pregunta")</code></td>
+                    <td>Muestra una ventana con una pregunta y un cuadro para escribir.</td>
+                    <td>Lo que escribe el usuario, <strong>siempre como texto</strong>. Si pulsa Cancelar, devuelve
+                        <code>null</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>confirm("pregunta")</code></td>
+                    <td>Muestra una pregunta con los botones Aceptar y Cancelar.</td>
+                    <td><code>true</code> si pulsa Aceptar y <code>false</code> si pulsa Cancelar.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">const nombre = prompt("¿Cómo te llamas?");
+const edad = Number(prompt("¿Cuántos años tienes?")); // prompt devuelve texto: lo pasamos a número
+console.log(nombre, edad);
+
+if (confirm("¿Quieres ver un saludo?")) {
+  alert(`Hola, ${nombre}`);
+}</code></pre>
+    </div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-2/actividades/2-1"><strong>Actividad 2.1</strong>. Primeros programas</a></div>
+    </div>
+
+
+    <h2 class="mb-4 text-primary">2. Conceptos básicos</h2>
+        <p>JavaScript está influenciado sobre todo por la sintaxis de Java, C y C++, pero también ha sido influenciado por
+        Awk, Perl y Python.</p>
+
+    <div class="alert alert-info" role="alert">
+        <h5 class="alert-heading">Distingue mayúsculas y minúsculas</h5>
+        <p>JavaScript <strong>distingue entre mayúsculas y minúsculas</strong> (es case-sensitive) y utiliza el conjunto
+            de caracteres Unicode. Por ejemplo, la palabra <code>Früh</code> (que significa "temprano" en alemán) se
+            podría usar como el nombre de una variable, pero no sería la misma que <code>früh</code>.</p>
+        <pre><code class="language-javascript">let Früh = "foobar";
+let früh = "another value";
+console.log(Früh); // Muestra "foobar"</code></pre>
+    </div>
+
+    <p>En JavaScript, las instrucciones se denominan <strong>declaraciones</strong> y están separadas por un punto y
+        coma (<code>;</code>). Aunque no es estrictamente necesario si cada declaración está en una línea nueva, se
+        considera una <strong>buena práctica</strong> incluirlo siempre para evitar errores inesperados.</p>
+
+    <h3 class="mb-4 text-primary">Comentarios</h3>
+    <p>La sintaxis de los comentarios es la misma que en C++ y en muchos otros lenguajes. Los comentarios se comportan
+        como espacios en blanco y se descartan durante la ejecución del script.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">// Este es un comentario de una sola línea.
+
+/*
+  Este es un comentario
+  más largo, que ocupa
+  varias líneas.
+*/
+
+/* No puedes anidar /* comentarios de bloque */ SyntaxError */</code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Declarar variables: let, const y var</h3>
+    <p>JavaScript tiene tres tipos de declaraciones de variables, cada una con un comportamiento diferente en cuanto a
+        su ámbito (scope):</p>
+    <ul>
+        <li><code><strong>let</strong></code>: declara una variable cuyo valor puede cambiar. Tiene ámbito de bloque
+            (solo existe dentro de las llaves <code>{}</code> donde se declara). Puedes darle un valor al declararla o
+            más tarde.</li>
+        <li><code><strong>const</strong></code>: declara una constante: su valor no se puede reasignar. También tiene
+            ámbito de bloque y hay que darle valor en el momento de declararla.</li>
+        <li><code><strong>var</strong></code>: la forma antigua (anterior a 2015). Tiene ámbito de función y se
+            comporta de forma extraña (lo verás más abajo). Hoy <strong>no se usa en código nuevo</strong>, pero la
+            encontrarás en ejemplos antiguos de Internet.</li>
+    </ul>
+    <div class="alert alert-light border small"><strong>Qué usar:</strong> declara con <code>const</code> por
+        defecto y cambia a <code>let</code> solo si el valor va a cambiar (un contador, un total que se va
+        acumulando…). No uses <code>var</code>.</div>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">const nombre = "Ana"; // no va a cambiar
+let puntos = 0;       // va a cambiar
+puntos = puntos + 10; // correcto
+nombre = "Luis";      // TypeError: Assignment to constant variable.</code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Variables</h3>
+    <p>Utiliza variables como nombres simbólicos para valores en tu aplicación. Un identificador de JavaScript debe
+        comenzar con una letra, un guión bajo (<code>_</code>) o un signo de dólar (<code>$</code>). Los siguientes
+        caracteres también pueden ser dígitos (0-9).</p>
+    <div class="alert alert-danger" role="alert">
+        <h5 class="alert-heading">¡Cuidado con las variables sin declarar!</h5>
+        <p>Si asignas un valor a una variable sin haberla declarado antes con <code>var</code>, <code>let</code> o
+            <code>const</code> (por ejemplo, <code>x = 42;</code>), JavaScript crea una variable global no declarada.
+            Esto se desaconseja totalmente porque puede provocar comportamientos inesperados y errores difíciles de
+            depurar.
+        </p>
+    </div>
+
+    <h4 class="mb-4 text-primary">Ámbito de variables: var y let</h4>
+    <p>Cuando declaras una variable fuera de cualquier función, se denomina <strong>variable global</strong>. Cuando la
+        declaras dentro de una función, es una <strong>variable local</strong>.</p>
+    <p>La principal diferencia entre <code>var</code> y <code>let</code> es su ámbito:</p>
+    <ul>
+        <li><code><strong>var</strong></code> tiene ámbito de función. Esto significa que si declaras una variable con
+            <code>var</code> dentro de un bloque (como un <code>if</code>), esa variable será accesible en toda la
+            función que contiene el bloque.
+        </li>
+    </ul>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">if (true) {
+  var x = 5;
+}
+console.log(x); // Muestra 5, porque 'x' es accesible fuera del bloque if.</code></pre>
+    </div>
+    <ul>
+        <li><code><strong>let</strong></code> (y <code>const</code>) tienen ámbito de bloque. La variable solo existe
+            dentro del bloque en el que fue declarada (las llaves <code>{}</code>).</li>
+    </ul>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">if (true) {
+  let y = 5;
+}
+console.log(y); // ReferenceError: y is not defined</code></pre>
+    </div>
+
+    <h4 class="mb-4 text-primary">Elevación de variables (hoisting)</h4>
+    <p>Otro concepto inusual de JavaScript es que puedes hacer referencia a una variable declarada con <code>var</code>
+        antes de su declaración sin obtener una excepción. Este concepto se conoce como <strong>hoisting</strong>
+        (elevación).</p>
+    <p>Las declaraciones de variables con <code>var</code> son "elevadas" al principio de su ámbito, pero su
+        inicialización no. Por lo tanto, la variable existe pero su valor es <code>undefined</code> hasta que el código
+        llega a la línea donde se le asigna un valor.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">console.log(myVar); // Muestra "undefined", no un error.
+var myVar = "my value";
+console.log(myVar); // Muestra "my value".</code></pre>
+    </div>
+        <div class="alert alert-info" role="alert">
+            <h5 class="alert-heading">Hoisting con let y const</h5>
+            <p><code>let</code> y <code>const</code> también son elevadas, pero no se inicializan. Acceder a ellas antes
+                de
+                su declaración resulta en un <code>ReferenceError</code> porque entran en una "zona muerta temporal"
+                (Temporal Dead Zone o TDZ).</p>
+        </div>
+
+        <h3 class="mb-4 text-primary">Constantes</h3>
+        <p>Puedes crear una constante de solo lectura con la palabra clave <code>const</code>. Una constante no puede
+            cambiar su valor a través de la reasignación.</p>
+        <pre><code class="language-javascript">const PI = 3.14;
+PI = 3; // TypeError: Assignment to constant variable.</code></pre>
+        <div class="alert alert-warning" role="alert">
+            <h5 class="alert-heading">Importante: const no hace que el valor sea inmutable</h5>
+            <p>Si una constante es un objeto o un arreglo (Array), sus propiedades o elementos sí pueden ser
+                modificados.
+                <code>const</code> solo protege la referencia, no el contenido.
+            </p>
+            <div class="position-relative">
+                <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-javascript">const MY_OBJECT = { key: "value" };
+MY_OBJECT.key = "otherValue"; // Esto es válido.
+
+const MY_ARRAY = ["HTML", "CSS"];
+MY_ARRAY.push("JAVASCRIPT"); // Esto también es válido.</code></pre>
+            </div>
+        </div>
+
+        <h3 class="mb-4 text-primary">Estructuras y tipos de datos</h3>
+        <p>El último estándar ECMAScript define ocho tipos de datos:</p>
+        <table class="table table-bordered mt-4">
+            <thead class="table-light">
+                <tr>
+                    <th colspan="2">Siete tipos de datos primitivos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Booleano</strong></td>
+                    <td><code>true</code> y <code>false</code>.</td>
+                </tr>
+                <tr>
+                    <td><strong>null</strong></td>
+                    <td>Una palabra clave especial que denota un valor nulo.</td>
+                </tr>
+                <tr>
+                    <td><strong>undefined</strong></td>
+                    <td>El valor de una variable a la que todavía no se ha dado valor.</td>
+                </tr>
+                <tr>
+                    <td><strong>Number</strong></td>
+                    <td>Un número entero o con coma flotante (ej: <code>42</code>, <code>3.14</code>).</td>
+                </tr>
+                <tr>
+                    <td><strong>BigInt</strong></td>
+                    <td>Un número entero con precisión arbitraria (ej: <code>9007199254740992n</code>).</td>
+                </tr>
+                <tr>
+                    <td><strong>String</strong></td>
+                    <td>Una secuencia de caracteres (ej: <code>"Hola"</code>).</td>
+                </tr>
+                <tr>
+                    <td><strong>Symbol</strong></td>
+                    <td>Un tipo de dato cuyas instancias son únicas e inmutables.</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">Y <strong>Object</strong>, que es el único tipo no primitivo.</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <h4 class="mb-4 text-primary">Conversión de tipos de datos</h4>
+        <p>JavaScript es un lenguaje de <strong>tipado dinámico</strong>. Esto significa que no tienes que especificar
+            el
+            tipo de dato de una variable al declararla, y los tipos se convierten automáticamente según sea necesario.
+        </p>
+        <pre><code class="language-javascript">let answer = 42;      // answer es un Number
+answer = "Gracias..."; // ahora answer es un String, sin error.</code></pre>
+        <p>En expresiones que involucran valores numéricos y de cadena con el operador <code>+</code>, JavaScript
+            convierte
+            los números a cadenas. Con otros operadores, intenta convertir las cadenas a números.</p>
+        <pre><code class="language-javascript">"37" + 7; // "377" (concatenación)
+"37" - 7; // 30 (resta numérica)</code></pre>
+        <p>Para no depender de estas conversiones automáticas, convierte tú el valor: <code>Number("37")</code>
+            devuelve el número 37 y <code>String(37)</code> el texto "37". Es lo que tienes que hacer con lo que
+            devuelve <code>prompt</code> o el <code>value</code> de un campo de formulario, que siempre es texto.</p>
+
+        <h3 class="mb-4 text-primary">Literales</h3>
+        <p>Los literales representan valores fijos en JavaScript. Los más comunes son:</p>
+        <ul>
+            <li><strong>Literales de Arreglo (Array):</strong> Una lista de valores entre corchetes <code>[]</code>.
+                <pre><code class="language-javascript">const coffees = ["French Roast", "Colombian", "Kona"];</code></pre>
+            </li>
+            <li><strong>Literales Booleanos (Boolean):</strong> <code>true</code> y <code>false</code>.</li>
+            <li><strong>Literales Numéricos (Number):</strong> <code>117</code>, <code>-3.14</code>.</li>
+            <li><strong>Literales de Objeto (Object):</strong> Una lista de pares clave-valor entre llaves
+                <code>{}</code>.
+                <pre><code class="language-javascript">const car = {
+  myCar: "Saturn",
+  getCar: "Honda",
+  special: "Toyota"
+};</code></pre>
+            </li>
+            <li><strong>Literales de Cadena (String):</strong> Caracteres entre comillas simples (<code>'</code>),
+                dobles
+                (<code>"</code>) o acentos graves (<code>`</code>).</li>
+        </ul>
+
+        <h4 class="mb-4 text-primary">Plantillas literales (template literals)</h4>
+        <p>Introducidas en ES2015, las plantillas literales usan acentos graves (<code>`</code>) y permiten:</p>
+        <ul>
+            <li><strong>Cadenas multilínea (Multiline String):</strong> Escribir texto en varias líneas de forma
+                natural.</li>
+            <li><strong>Interpolación de expresiones (Expression Interpolation):</strong> Incrustar variables y
+                expresiones dentro de la cadena
+                usando
+                la sintaxis <code>${...}</code>.</li>
+        </ul>
+        <pre><code class="language-javascript">const name = "Bob";
+const time = "hoy";
+const greeting = `Hola ${name}, ¿cómo estás ${time}?`;
+console.log(greeting); // Muestra "Hola Bob, ¿cómo estás hoy?"</code></pre>
+
+    <h3 class="mb-4 text-primary">Funciones</h3>
+    <p>Una <strong>función</strong> es un bloque de código con nombre que puedes ejecutar (llamar) tantas veces como
+        quieras. Puede recibir datos (<strong>parámetros</strong>) y devolver un resultado con
+        <code>return</code>. Las usarás en todas las actividades: casi siempre, un botón llama a una función.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">// Declarar la función
+function sumar(a, b) {
+  return a + b;
+}
+
+// Llamarla
+const total = sumar(2, 3);
+console.log(total); // 5
+
+// Función flecha (arrow function): otra forma más corta de escribir funciones
+const doble = (n) =&gt; n * 2;
+console.log(doble(4)); // 8</code></pre>
+    </div>
+    <p>Las variables declaradas dentro de una función solo existen dentro de ella. Si necesitas que un valor se
+        conserve entre una llamada y otra (por ejemplo, un contador), declara la variable fuera de la función.</p>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-2/actividades/2-1"><strong>Actividad 2.1</strong>. Primeros programas</a> · <a href="#/Unidad-2/actividades/2-8"><strong>Actividad 2.8</strong>. Repaso de JavaScript</a></div>
+    </div>
+
+
+    <h2 class="mb-4 text-primary">3. Operadores</h2>
+        <p>JavaScript tiene un amplio conjunto de operadores para realizar asignaciones, comparaciones, operaciones
+        aritméticas y mucho más. Esta sección describe los operadores más importantes y su precedencia.</p>
+
+    <h3 class="mb-4 text-primary">Operadores de asignación</h3>
+    <p>Un operador de asignación asigna un valor a su operando izquierdo. El más simple es la asignación
+        (<code>=</code>), que no hay que confundir con la comparación (<code>===</code>). Además, existen operadores
+        compuestos que son una abreviatura de operaciones comunes.</p>
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Nombre</th>
+                <th>Operador abreviado</th>
+                <th>Significado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Asignación</td>
+                <td><code>x = y</code></td>
+                <td><code>x = y</code></td>
+            </tr>
+            <tr>
+                <td>Asignación de adición</td>
+                <td><code>x += y</code></td>
+                <td><code>x = x + y</code></td>
+            </tr>
+            <tr>
+                <td>Asignación de resta</td>
+                <td><code>x -= y</code></td>
+                <td><code>x = x - y</code></td>
+            </tr>
+            <tr>
+                <td>Asignación de multiplicación</td>
+                <td><code>x *= y</code></td>
+                <td><code>x = x * y</code></td>
+            </tr>
+            <tr>
+                <td>Asignación de división</td>
+                <td><code>x /= y</code></td>
+                <td><code>x = x / y</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-info mt-4" role="alert">
+        <h5 class="alert-heading">Desestructuración (destructuring)</h5>
+        <p>Para asignaciones más complejas, la sintaxis de desestructuración permite extraer datos de arreglos u objetos
+            de una forma muy concisa.</p>
+        <div class="position-relative">
+            <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                onclick="copiarCodigo(this)">Copiar</button>
+            <pre><code class="language-javascript">const foo = ["uno", "dos", "tres"];
+
+// Con desestructuración
+const [uno, dos, tres] = foo;
+
+console.log(uno); // "uno"</code></pre>
+        </div>
+    </div>
+
+    <h3 class="mb-4 text-primary">Operadores de comparación</h3>
+    <p>Un operador de comparación compara sus operandos y devuelve un valor lógico (<code>true</code> o
+        <code>false</code>).</p>
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Operador</th>
+                <th>Descripción</th>
+                <th>Ejemplo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Igual (<code>==</code>)</td>
+                <td>Compara si los operandos son iguales, realizando conversión de tipo.</td>
+                <td><code>"3" == 3 // true</code></td>
+            </tr>
+            <tr>
+                <td>No es igual (<code>!=</code>)</td>
+                <td>Compara si los operandos no son iguales, realizando conversión de tipo.</td>
+                <td><code>"3" != 4 // true</code></td>
+            </tr>
+            <tr>
+                <td>Estrictamente igual (<code>===</code>)</td>
+                <td>Compara si los operandos son iguales y del mismo tipo, <strong>sin</strong> conversión de tipo.</td>
+                <td><code>"3" === 3 // false</code></td>
+            </tr>
+            <tr>
+                <td>Desigualdad estricta (<code>!==</code>)</td>
+                <td>Compara si los operandos no son iguales o son de diferente tipo.</td>
+                <td><code>"3" !== 3 // true</code></td>
+            </tr>
+            <tr>
+                <td>Mayor que (<code>&gt;</code>)</td>
+                <td>Compara si el operando izquierdo es mayor que el derecho.</td>
+                <td><code>4 &gt; 3 // true</code></td>
+            </tr>
+            <tr>
+                <td>Menor que (<code>&lt;</code>)</td>
+                <td>Compara si el operando izquierdo es menor que el derecho.</td>
+                <td><code>3 &lt; 4 // true</code></td>
+            </tr>
+            <tr>
+                <td>Mayor o igual (<code>&gt;=</code>)</td>
+                <td>Compara si el operando izquierdo es mayor o igual que el derecho.</td>
+                <td><code>18 &gt;= 18 // true</code></td>
+            </tr>
+            <tr>
+                <td>Menor o igual (<code>&lt;=</code>)</td>
+                <td>Compara si el operando izquierdo es menor o igual que el derecho.</td>
+                <td><code>17 &lt;= 18 // true</code></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-warning mt-3" role="alert">
+        <h5 class="alert-heading">Buena práctica: usa siempre === y !==</h5>
+        <p>La comparación estricta (<code>===</code>) evita errores sutiles causados por la conversión automática de
+            tipos. Con <code>==</code> pasan cosas como <code>0 == ""</code> → <code>true</code> o
+            <code>"1" == 1</code> → <code>true</code>. Es la forma recomendada y más segura de comparar valores en
+            JavaScript.</p>
+        <p class="mb-0">Si comparas lo que devuelve <code>prompt</code> o un campo de formulario con un número,
+            convierte antes el texto con <code>Number()</code>: <code>Number("18") === 18</code> →
+            <code>true</code>.</p>
+    </div>
+
+    <h3 class="mb-4 text-primary">Operadores aritméticos</h3>
+    <p>Toman valores numéricos como operandos y devuelven un solo valor numérico. Los estándar son <code>+</code>,
+        <code>-</code>, <code>*</code>, <code>/</code>. Además:</p>
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Operador</th>
+                <th>Descripción</th>
+                <th>Ejemplo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Resto (<code>%</code>)</td>
+                <td>Devuelve el resto entero de una división.</td>
+                <td><code>12 % 5 // devuelve 2</code></td>
+            </tr>
+            <tr>
+                <td>Incremento (<code>++</code>)</td>
+                <td>Agrega uno a su operando.</td>
+                <td><code>let x = 3; x++; // ahora x es 4</code></td>
+            </tr>
+            <tr>
+                <td>Decremento (<code>--</code>)</td>
+                <td>Resta uno de su operando.</td>
+                <td><code>let x = 3; x--; // ahora x es 2</code></td>
+            </tr>
+            <tr>
+                <td>Exponenciación (<code>**</code>)</td>
+                <td>Calcula la base a la potencia del exponente.</td>
+                <td><code>2 ** 3 // devuelve 8</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 class="mb-4 text-primary">Operadores lógicos</h3>
+    <p>Se utilizan normalmente con valores booleanos y devuelven un valor booleano. Sin embargo, <code>&amp;&amp;</code> y
+        <code>||</code> pueden devolver el valor de uno de los operandos.</p>
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Operador</th>
+                <th>Uso</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>AND lógico (<code>&amp;&amp;</code>)</td>
+                <td><code>expr1 &amp;&amp; expr2</code></td>
+                <td>Devuelve <code>expr1</code> si se puede convertir a <code>false</code>; de lo contrario, devuelve
+                    <code>expr2</code>.</td>
+            </tr>
+            <tr>
+                <td>OR lógico (<code>||</code>)</td>
+                <td><code>expr1 || expr2</code></td>
+                <td>Devuelve <code>expr1</code> si se puede convertir a <code>true</code>; de lo contrario, devuelve
+                    <code>expr2</code>.</td>
+            </tr>
+            <tr>
+                <td>NOT lógico (<code>!</code>)</td>
+                <td><code>!expr</code></td>
+                <td>Devuelve <code>false</code> si su operando se puede convertir a <code>true</code>; de lo contrario,
+                    devuelve <code>true</code>.</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-info mt-3" role="alert">
+        <h5 class="alert-heading">Evaluación de cortocircuito (short-circuiting)</h5>
+        <p>Las expresiones lógicas se evalúan de izquierda a derecha y se detienen tan pronto como se conoce el
+            resultado final. Esto es muy útil para establecer valores por defecto o evitar errores.</p>
+        <div class="position-relative">
+            <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                onclick="copiarCodigo(this)">Copiar</button>
+            <pre><code class="language-javascript">// Si `user` es null, `getName()` nunca se ejecuta, evitando un error.
+const name = user && user.getName();
+
+// Si `config.port` no está definido, se usa 8080 como valor por defecto.
+const port = config.port || 8080;
+
+// Ojo: || también descarta 0 y "". Si esos valores son válidos, usa ??,
+// que solo pone el valor por defecto si es null o undefined.
+const intentos = config.intentos ?? 3;</code></pre>
+        </div>
+    </div>
+
+    <h3 class="mb-4 text-primary">Operador condicional (ternario)</h3>
+    <p>Es el único operador de JavaScript que toma tres operandos. Es una forma compacta de escribir una declaración
+        <code>if...else</code>.</p>
+    <p>La sintaxis es: <code>condición ? valorSiTrue : valorSiFalse</code></p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">const age = 20;
+const status = age &gt;= 18 ? "adulto" : "menor";
+
+console.log(status); // "adulto"</code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Otros operadores útiles</h3>
+    <table class="table table-bordered table-striped mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Operador</th>
+                <th>Descripción</th>
+                <th>Ejemplo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Operador de cadena (<code>+</code>)</td>
+                <td>Concatena dos cadenas.</td>
+                <td><code>"hola " + "mundo" // "hola mundo"</code></td>
+            </tr>
+            <tr>
+                <td><code>typeof</code></td>
+                <td>Devuelve una cadena que indica el tipo del operando.</td>
+                <td><code>typeof 42 // "number"</code></td>
+            </tr>
+            <tr>
+                <td><code>instanceof</code></td>
+                <td>Devuelve <code>true</code> si un objeto es una instancia de un tipo de objeto específico.</td>
+                <td><code>new Date() instanceof Date // true</code></td>
+            </tr>
+            <tr>
+                <td><code>in</code></td>
+                <td>Devuelve <code>true</code> si la propiedad especificada está en el objeto.</td>
+                <td><code>'make' in mycar // true</code></td>
+            </tr>
+            <tr>
+                <td><code>delete</code></td>
+                <td>Elimina una propiedad de un objeto.</td>
+                <td><code>delete mycar.make;</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-secondary mt-4" role="alert">
+        <h5 class="alert-heading">Operadores bit a bit (bitwise)</h5>
+        <p>JavaScript también incluye operadores que trabajan directamente a nivel de bits (ceros y unos) de un número,
+            como <code>&amp;</code> (AND), <code>|</code> (OR), <code>^</code> (XOR), <code>~</code> (NOT), y operadores de
+            desplazamiento como <code>&lt;&lt;</code> y <code>&gt;&gt;</code>. Aunque son menos comunes en el desarrollo
+            web del día a día, son fundamentales en operaciones de bajo nivel, criptografía o gráficos.</p>
+    </div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-2/actividades/2-1"><strong>Actividad 2.1</strong>. Primeros programas</a> · <a href="#/Unidad-2/actividades/2-3"><strong>Actividad 2.3</strong>. Validar un formulario</a> · <a href="#/Unidad-2/actividades/2-7"><strong>Actividad 2.7</strong>. Tablero de colores</a></div>
+    </div>
+
+
+    <h2 class="mb-4 text-primary">4. Expresiones</h2>
+        <div class="alert alert-info" role="alert">
+        <h5 class="alert-heading">¿Qué es una expresión?</h5>
+        <p class="mb-0">Una expresión es cualquier unidad de código válida que, al ser evaluada por el intérprete de
+            JavaScript, <strong>se resuelve en un valor</strong>. Es la idea más fundamental en el lenguaje.</p>
+    </div>
+
+    <p>Toda expresión sintácticamente válida se resuelve en algún valor, pero conceptualmente, hay dos tipos de
+        expresiones:</p>
+
+    <div class="row mt-4">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6 class="card-title d-flex align-items-center">Con efectos secundarios</h6>
+                    <p class="card-text">Son expresiones que, además de resolverse en un valor, modifican el estado del
+                        programa, como asignar un valor a una variable.</p>
+                    <div class="position-relative">
+                        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                            onclick="copiarCodigo(this)">Copiar</button>
+                        <pre><code class="language-javascript">// Esta expresión asigna 7 a 'x'.
+// El "efecto secundario" es el cambio en la variable 'x'.
+// La expresión completa se resuelve en el valor 7.
+x = 7;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6 class="card-title d-flex align-items-center">Que solo evalúan</h6>
+                    <p class="card-text">Son expresiones que simplemente calculan un valor sin modificar el estado del
+                        programa.</p>
+                    <div class="position-relative">
+                        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                            onclick="copiarCodigo(this)">Copiar</button>
+                        <pre><code class="language-javascript">// Esta expresión usa el operador '+' para sumar 3 y 4.
+// No modifica ninguna variable.
+// La expresión se resuelve en el valor 7.
+3 + 4;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h3 class="mb-4 text-primary">Categorías de expresiones</h3>
+    <ul>
+        <li><strong>Aritméticas:</strong> Se evalúa como un número (ej. <code>3.14159</code>). Generalmente usa
+            operadores aritméticos.</li>
+        <li><strong>Cadenas:</strong> Se evalúa como una cadena de caracteres (ej. <code>"Fred"</code>). Generalmente
+            usa operadores de cadena.</li>
+        <li><strong>Lógicas:</strong> Se evalúan como <code>true</code> o <code>false</code>. A menudo implica
+            operadores lógicos.</li>
+        <li><strong>Expresiones primarias:</strong> Palabras clave básicas y expresiones generales en JavaScript.</li>
+        <li><strong>Expresiones del lado izquierdo:</strong> Los valores del lado izquierdo son el destino de una
+            asignación.</li>
+    </ul>
+
+    <h3 class="mb-4 text-primary">Expresiones primarias</h3>
+
+    <h4 class="mb-4 text-primary">La palabra clave <code>this</code></h4>
+    <p>Utiliza la palabra clave <code>this</code> para hacer referencia al <strong>objeto actual</strong>. En general,
+        <code>this</code> se refiere al objeto que está ejecutando el método actual. El valor de <code>this</code> se
+        determina por cómo se llama a la función.</p>
+    <p>Supongamos que una función llamada <code>validate</code> valida la propiedad <code>value</code> de un objeto:</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">function validate(obj, lowval, hival) {
+  // 'obj' es el objeto que recibe la función.
+  if (obj.value &lt; lowval || obj.value &gt; hival) {
+    console.log("¡Valor no válido!");
+  }
+}</code></pre>
+    </div>
+    <p>Puedes llamar a <code>validate</code> en el controlador de eventos <code>onChange</code> de un elemento de
+        formulario, utilizando <code>this</code> para pasar el propio elemento de formulario a la función:</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">&lt;p&gt;Escribe un número entre 18 y 99:&lt;/p&gt;
+&lt;!-- Aquí, 'this' se refiere al propio elemento 'input' --&gt;
+&lt;input type="text" name="age" size="3" onChange="validate(this, 18, 99);" /&gt;</code></pre>
+    </div>
+
+    <h4 class="mb-4 text-primary">Operador de agrupación <code>()</code></h4>
+    <p>El operador de agrupación <code>()</code> controla la precedencia (el orden) de la evaluación en las expresiones.
+        Por ejemplo, puedes forzar que una suma se realice antes que una multiplicación.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">let a = 1 + 2 * 3; // a es 7 (la multiplicación es primero)
+let b = (1 + 2) * 3; // b es 9 (los paréntesis fuerzan la suma primero)</code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Expresiones del lado izquierdo</h3>
+    <p>Los valores a la izquierda de un operador de asignación son el destino de esa asignación.</p>
+
+    <h4 class="mb-4 text-primary">Operador <code>new</code></h4>
+    <p>Puedes utilizar el operador <code>new</code> para crear una <strong>instancia</strong> de un tipo de objeto, ya
+        sea uno definido por el usuario (una clase) o uno de los tipos de objeto integrados de JavaScript.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">// 'new Date()' crea una nueva instancia del objeto 'Date'
+const hoy = new Date();
+
+// 'new Array()' crea una nueva instancia de 'Array'
+const miArray = new Array('a', 'b', 'c');</code></pre>
+    </div>
+
+    <h4 class="mb-4 text-primary">Palabra clave <code>super</code></h4>
+    <p>La palabra clave <code>super</code> se utiliza dentro de las clases para llamar a funciones del objeto padre (la
+        clase de la que hereda). Su uso más común es para llamar al constructor de la clase padre.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">class Animal {
+  constructor(nombre) {
+    this.nombre = nombre;
+  }
+}
+
+class Perro extends Animal {
+  constructor(nombre, raza) {
+    // 'super(nombre)' llama al constructor de la clase padre (Animal)
+    super(nombre);
+    this.raza = raza;
+  }
+}</code></pre>
+    </div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-2/actividades/2-1"><strong>Actividad 2.1</strong>. Primeros programas</a></div>
+    </div>
+
+
+    <h2 class="mb-4 text-primary">5. Control de flujo y errores</h2>
+        <p>JavaScript admite un compacto conjunto de declaraciones, específicamente declaraciones de control de flujo, que
+        puedes utilizar para incorporar una gran cantidad de interactividad en tu aplicación.</p>
+
+    <h3 class="mb-4 text-primary">Declaración de bloque <code>{...}</code></h3>
+    <p>La declaración más básica es una declaración de bloque, que se utiliza para agrupar una o más instrucciones. El
+        bloque está delimitado por un par de llaves y se usa comúnmente con declaraciones de control de flujo como
+        <code>if</code>, <code>for</code> o
+        <code>while</code>.
+    </p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">let x = 0;
+while (x &lt; 10) {
+  x++; // Este es el bloque de código que se ejecuta en cada iteración.
+}</code></pre>
+    </div>
+    <div class="alert alert-warning mt-3" role="alert">
+        <h5 class="alert-heading">Ámbito de bloque: var y let</h5>
+        <p>En versiones antiguas de JavaScript (antes de ECMAScript 2015), las declaraciones de bloque no creaban un
+            nuevo ámbito. Una variable declarada con <code>var</code> dentro de un bloque
+            era
+            accesible en toda la función. A partir de ES2015, las variables declaradas con <code>let</code> y
+            <code>const</code> tienen <strong>ámbito de bloque</strong>, lo que significa
+            que
+            solo existen dentro del bloque en el que fueron declaradas.
+        </p>
+    </div>
+
+    <h3 class="mb-4 text-primary">Condicionales</h3>
+    <p>Una expresión condicional es un conjunto de instrucciones que se ejecutarán si una condición especificada es
+        verdadera. JavaScript admite dos expresiones condicionales: <code>if...else</code> y
+        <code>switch</code>.
+    </p>
+
+    <h4 class="mb-4 text-primary">Expresión <code>if...else</code></h4>
+    <p>Utiliza la expresión <code>if</code> para ejecutar una instrucción si una condición
+        lógica es <code>true</code>.
+        Utiliza la cláusula opcional <code>else</code> para ejecutar una instrucción si la condición es
+        <code>false</code>.
+    </p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">if (condition) {
+  // Código a ejecutar si la condición es verdadera.
+} else {
+  // Código a ejecutar si la condición es falsa.
+}</code></pre>
+    </div>
+    <p>También puedes anidar condiciones usando <code>else if</code>:</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">if (condition_1) {
+  statement_1;
+} else if (condition_2) {
+  statement_2;
+} else {
+  statement_last;
+}</code></pre>
+    </div>
+
+    <div class="alert alert-info mt-4" role="alert">
+        <h5 class="alert-heading">Valores "Falsy" en JavaScript</h5>
+        <p>En un contexto booleano, los siguientes valores se evalúan siempre como <code>false</code>:</p>
+        <table class="table table-sm table-borderless">
+            <tbody>
+                <tr>
+                    <td><code>false</code></td>
+                    <td><code>undefined</code></td>
+                    <td><code>null</code></td>
+                </tr>
+                <tr>
+                    <td><code>0</code></td>
+                    <td><code>NaN</code></td>
+                    <td><code>""</code> (cadena vacía)</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="mb-0">Todos los demás valores, incluidos todos los objetos y arreglos (incluso si están vacíos), se
+            evalúan como <code>true</code>. Por eso <code>if (nombre)</code> es falso tanto si
+            <code>prompt</code> devuelve una cadena vacía como si devuelve <code>null</code> (el usuario pulsó
+            Cancelar).</p>
+    </div>
+
+    <h4 class="mb-4 text-primary">Declaración <code>switch</code></h4>
+    <p>Una instrucción <code>switch</code> permite que un programa evalúe una expresión e
+        intente hacer coincidir el
+        valor de la expresión con una etiqueta <code>case</code>. Si la encuentra, el
+        programa ejecuta la declaración
+        asociada. La comparación es estricta (como <code>===</code>): <code>case 18</code> no coincide con el texto
+        <code>"18"</code>.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">const fruittype = "Apples";
+
+switch (fruittype) {
+  case "Oranges":
+    console.log("Las naranjas cuestan 0.59€ el kilo.");
+    break; // 'break' evita que el código continúe al siguiente 'case'.
+  case "Apples":
+    console.log("Las manzanas cuestan 0.32€ el kilo.");
+    break;
+  case "Bananas":
+    console.log("Los plátanos cuestan 0.48€ el kilo.");
+    break;
+  default: // Se ejecuta si ningún 'case' coincide.
+    console.log(`Lo sentimos, no tenemos ${fruittype}.`);
+}</code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Manejo de excepciones</h3>
+    <p>Puedes lanzar excepciones usando la instrucción <code>throw</code> y manejarlas
+        usando las declaraciones
+        <code>try...catch...finally</code>.
+    </p>
+
+    <h4 class="mb-4 text-primary">Expresión <code>throw</code></h4>
+    <p>Utiliza la expresión <code>throw</code> para lanzar una excepción. Puedes lanzar
+        cualquier expresión, no solo
+        objetos de error.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">// Crea un objeto de error personalizado
+function UserException(message) {
+  this.message = message;
+  this.name = "UserException";
+}
+
+// Lanza una instancia del nuevo tipo de error
+throw new UserException("Valor muy alto");</code></pre>
+    </div>
+
+    <h4 class="mb-4 text-primary">Declaración <code>try...catch...finally</code></h4>
+    <p>La declaración <code>try...catch</code> marca un bloque de código para "intentar"
+        (try) y especifica una
+        respuesta en caso de que se produzca una excepción (catch). El bloque <code>finally</code> es opcional y se
+        ejecuta siempre, haya o no una excepción.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">function getMonthName(mo) {
+  mo = mo - 1; // Ajusta el número de mes para el índice del arreglo
+  let months = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+  if (months[mo]) {
+    return months[mo];
+  } else {
+    throw "InvalidMonthNo"; // Lanza una excepción si el mes no es válido
+  }
+}
+
+let monthName; // la declaramos fuera para poder usarla en try y en catch
+
+try {
+  // Intentamos ejecutar este código
+  const myMonth = 15;
+  monthName = getMonthName(myMonth);
+} catch (e) {
+  // Si ocurre una excepción en el bloque 'try', se ejecuta este bloque
+  monthName = "unknown";
+  console.error("Error capturado: ", e); // Manejamos el error
+} finally {
+  // Este bloque se ejecuta siempre, con o sin error.
+  console.log("Proceso finalizado.");
+}</code></pre>
+    </div>
+    <div class="alert alert-success mt-4" role="alert">
+        <h5 class="alert-heading">El bloque finally</h5>
+        <p>El bloque <code>finally</code> es ideal para tareas de "limpieza", como cerrar
+            una conexión a una base de
+            datos o un archivo, ya que garantiza que ese código se ejecutará sin importar si la operación principal tuvo
+            éxito o falló.</p>
+    </div>
+
+    <h4 class="mb-4 text-primary">Utilizar objetos <code>Error</code></h4>
+    <p>Para un manejo de errores más robusto, es recomendable lanzar objetos <code>Error</code>. Estos objetos tienen
+        propiedades estándar como <code>name</code> y <code>message</code> que proporcionan información más detallada
+        sobre el error.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">function doSomethingErrorProne() {
+  if (ourCodeMakesAMistake()) {
+    throw new Error('Este es un mensaje de error específico.');
+  } else {
+    // ...
+  }
+}
+
+try {
+  doSomethingErrorProne();
+} catch (e) {
+  console.error(e.name);    // Muestra: 'Error'
+  console.error(e.message); // Muestra: 'Este es un mensaje de error específico.'
+}</code></pre>
+    </div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-2/actividades/2-1"><strong>Actividad 2.1</strong>. Primeros programas</a> · <a href="#/Unidad-2/actividades/2-3"><strong>Actividad 2.3</strong>. Validar un formulario</a> · <a href="#/Unidad-2/actividades/2-7"><strong>Actividad 2.7</strong>. Tablero de colores</a></div>
+    </div>
+
+
+    <h2 class="mb-4 text-primary">6. Bucles</h2>
+        <p>Los bucles ofrecen una forma rápida y sencilla de hacer algo repetidamente. Este apartado presenta las diferentes
+        declaraciones de iteración disponibles en JavaScript, explicando no solo cómo funcionan, sino cuándo es mejor
+        usar cada una.</p>
+
+    <table class="table table-bordered mt-4">
+        <thead class="table-light">
+            <tr>
+                <th>Tipo de Bucle</th>
+                <th>Cuándo usarlo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>for</code></td>
+                <td>Cuando sabes de antemano cuántas veces quieres que se repita el bucle. Ideal para contar.</td>
+            </tr>
+            <tr>
+                <td><code>while</code></td>
+                <td>Cuando quieres que el bucle se repita mientras una condición sea verdadera, pero no sabes cuántas
+                    veces ocurrirá.</td>
+            </tr>
+            <tr>
+                <td><code>do...while</code></td>
+                <td>Similar a <code>while</code>, pero garantiza que el bloque de código se
+                    ejecute <strong>al menos una vez</strong>.</td>
+            </tr>
+            <tr>
+                <td><code>for...in</code></td>
+                <td>Para iterar sobre las <strong>claves (propiedades)</strong> de un objeto.</td>
+            </tr>
+            <tr>
+                <td><code>for...of</code></td>
+                <td>Para iterar sobre los <strong>valores</strong> de un objeto iterable (como arreglos, cadenas, Map,
+                    Set).</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 class="mb-4 text-primary">Bucles contadores: el bucle <code>for</code></h3>
+    <p>El bucle <code>for</code> se repite hasta que una condición especificada se evalúe
+        como <code>false</code>. Es el
+        bucle más común cuando se necesita un contador.</p>
+    <p>Su sintaxis se compone de tres partes:</p>
+    <ol>
+        <li><strong>Inicialización:</strong> Se ejecuta una sola vez, al principio. Aquí se suele declarar e inicializar
+            la variable contadora.</li>
+        <li><strong>Condición:</strong> Se evalúa antes de cada iteración. Si es <code>true</code>, el bucle continúa.
+            Si es <code>false</code>, el bucle termina.</li>
+        <li><strong>Expresión de actualización:</strong> Se ejecuta al final de cada iteración. Aquí se suele
+            incrementar o decrementar el contador.</li>
+    </ol>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">// for ([inicialización]; [condición]; [actualización])
+
+for (let i = 0; i &lt; 5; i++) {
+  // Se ejecuta 5 veces, con valores de i desde 0 hasta 4.
+  console.log("Camina un paso hacia el este. Paso número: " + (i + 1));
+}</code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Bucles condicionales: <code>while</code> y <code>do...while</code></h3>
+
+    <h4 class="mb-4 text-primary">Declaración <code>while</code></h4>
+    <p>Una declaración <code>while</code> ejecuta sus instrucciones siempre que una
+        condición especificada se evalúe
+        como <code>true</code>. La condición se comprueba <strong>antes</strong> de cada
+        iteración.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">let n = 0;
+while (n &lt; 3) {
+  n++;
+  console.log("El valor de n es: " + n);
+}
+// Salida:
+// El valor de n es: 1
+// El valor de n es: 2
+// El valor de n es: 3</code></pre>
+    </div>
+    <div class="alert alert-danger mt-3" role="alert">
+        <h5 class="alert-heading">¡Cuidado con los bucles infinitos!</h5>
+        <p class="mb-0">Asegúrate de que la condición en un bucle <code>while</code> eventualmente se convierta en
+            <code>false</code>. De lo contrario, el bucle nunca terminará y bloqueará tu programa.
+        </p>
+    </div>
+
+    <h4 class="mb-4 text-primary">Declaración <code>do...while</code></h4>
+    <p>La instrucción <code>do...while</code> es casi idéntica a <code>while</code>, pero con una diferencia crucial: la
+        condición se comprueba <strong>después</strong> de cada iteración. Esto garantiza que el bloque de código se
+        ejecute <strong>al menos una vez</strong>.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">let i = 5;
+do {
+  console.log("El valor de i es: " + i);
+  i++;
+} while (i &lt; 5);
+
+// Salida:
+// El valor de i es: 5
+// (El bucle se ejecuta una vez, aunque la condición inicial '5 &lt; 5' es falsa)</code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Bucles iteradores: <code>for...in</code> y <code>for...of</code></h3>
+    <p>Estos bucles fueron diseñados para iterar sobre estructuras de datos de una forma más sencilla y directa que un
+        bucle <code>for</code> tradicional.</p>
+
+    <h4 class="mb-4 text-primary">Declaración <code>for...in</code></h4>
+    <p>La instrucción <code>for...in</code> itera sobre todas las <strong>propiedades
+            enumerables (claves)</strong> de
+        un objeto.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">const user = {
+  name: 'Juan',
+  age: 30,
+  city: 'Madrid'
+};
+
+for (const key in user) {
+  console.log(`La clave es: ${key}, y su valor es: ${user[key]}`);
+}
+// Salida:
+// La clave es: name, y su valor es: Juan
+// La clave es: age, y su valor es: 30
+// La clave es: city, y su valor es: Madrid</code></pre>
+    </div>
+    <div class="alert alert-warning mt-3" role="alert">
+        <h5 class="alert-heading">No uses <code>for...in</code> para arreglos</h5>
+        <p class="mb-0">Aunque técnicamente funciona, no se recomienda usar <code>for...in</code> para iterar sobre
+            arreglos. Recorre las claves como texto (<code>"0"</code>,
+            <code>"1"</code>…) y puede recorrer propiedades inesperadas si el prototipo del arreglo ha sido
+            modificado. Para arreglos usa <code>for</code> o <code>for...of</code>.</p>
+    </div>
+
+    <h4 class="mb-4 text-primary">Declaración <code>for...of</code></h4>
+    <p>Introducida en ES2015, la declaración <code>for...of</code> crea un bucle que itera
+        sobre los
+        <strong>valores</strong> de objetos iterables (como <code>Array</code>, <code>String</code>, <code>Map</code>,
+        <code>Set</code>, etc.).
+    </p>
+    <p>Este es el método moderno y recomendado para iterar sobre los valores de un arreglo.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">const arr = [3, 5, 7];
+
+for (const value of arr) {
+  console.log(value); // Muestra 3, luego 5, luego 7
+}</code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Control del flujo de un bucle</h3>
+    <p>A veces necesitas alterar el comportamiento normal de un bucle, ya sea para salir de él prematuramente o para
+        saltar una iteración.</p>
+
+    <h4 class="mb-4 text-primary">Declaración <code>break</code></h4>
+    <p>Usa la instrucción <code>break</code> para <strong>terminar un bucle</strong> por
+        completo y transferir el
+        control a la siguiente instrucción después del bucle.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">for (let i = 0; i &lt; 10; i++) {
+  if (i === 5) {
+    break; // El bucle se detiene aquí
+  }
+  console.log(i); // Se mostrarán los números del 0 al 4
+}
+console.log("Bucle finalizado.");</code></pre>
+    </div>
+
+    <h4 class="mb-4 text-primary">Declaración <code>continue</code></h4>
+    <p>La instrucción <code>continue</code> se usa para <strong>saltar la iteración
+            actual</strong> y continuar con la
+        siguiente iteración del bucle.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">for (let i = 0; i &lt; 5; i++) {
+  if (i === 2) {
+    continue; // Salta la iteración cuando i es 2
+  }
+  console.log(i); // Se mostrarán los números 0, 1, 3, 4
+}</code></pre>
+    </div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-2/actividades/2-4"><strong>Actividad 2.4</strong>. Manipular el DOM</a> · <a href="#/Unidad-2/actividades/2-7"><strong>Actividad 2.7</strong>. Tablero de colores</a></div>
+    </div>
+
+
+    <h2 class="mb-4 text-primary">7. El árbol DOM</h2>
+    <h3 class="mb-4 text-primary">¿Qué es el DOM?</h3>
+        <p>El <strong>Document Object Model (DOM)</strong> es la representación en forma de árbol de tu página web.
+            Imagínalo como un árbol genealógico de tu HTML.</p>
+        <p>El objeto <code>document</code> es nuestro punto de entrada para interactuar con cualquier elemento de la
+            página. Nos proporciona una serie de métodos poderosos para encontrar, crear y modificar los nodos del árbol
+            DOM.</p>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="alert alert-secondary h-100">
+                <p class="fw-bold">Visualizando el árbol DOM</p>
+                <pre><code class="language-none">document (📄)
+└── html (🌐)
+    ├── head (📝)
+    │   └── title
+    └── body (👤)
+        ├── h1
+        ├── p
+        └── div (📦)
+            └── ul (📋)
+                ├── li (✅)
+                └── li (✅)</code></pre>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-light h-100 border">
+                <p class="fw-bold">Piénsalo así:</p>
+                <p>Tu página web es como una casa:</p>
+                <ul>
+                    <li><strong>document</strong> = La casa completa</li>
+                    <li><strong>body</strong> = La sala de estar</li>
+                    <li><strong>div, p, h1</strong> = Los muebles</li>
+                    <li><strong>JavaScript</strong> = Tú, moviendo los muebles</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <h3 class="mb-4 text-primary mt-5">Encontrar elementos (selección)</h3>
+    <p>Primero necesitamos "agarrar" los elementos para poder trabajar con ellos.</p>
+
+    <h4 class="mb-4 text-primary">getElementById('id')</h4>
+    <p><strong>Búsqueda por ID:</strong> Encuentra UN elemento por su ID único.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">&lt;div id="caja"&gt;Contenido&lt;/div&gt;</code></pre>
+    </div>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">const caja = document.getElementById('caja');
+caja.style.backgroundColor = 'yellow';</code></pre>
+    </div>
+    <div class="alert alert-warning mt-3" role="alert">
+        <strong>Recuerda:</strong> el ID debe ser único en toda la página.
+    </div>
+
+    <h4 class="mb-4 text-primary">querySelector('selector')</h4>
+    <p><strong>Selector CSS:</strong> Encuentra el PRIMER elemento que coincida.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">&lt;p class="destacado"&gt;Párrafo 1&lt;/p&gt;
+&lt;p class="destacado"&gt;Párrafo 2&lt;/p&gt;</code></pre>
+    </div>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">const primerParrafo = document.querySelector('.destacado');
+primerParrafo.textContent = '¡Soy el primero!';</code></pre>
+    </div>
+    <div class="alert alert-warning mt-3" role="alert">
+        <strong>Puedes usar:</strong>
+        <code>'.clase'</code>, <code>'#id'</code>, <code>'p'</code>, <code>'div.clase'</code>
+    </div>
+
+    <h4 class="mb-4 text-primary">querySelectorAll('selector')</h4>
+    <p><strong>Todos los que coincidan:</strong> Encuentra TODOS los elementos.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">&lt;ul&gt;
+  &lt;li&gt;Tarea 1&lt;/li&gt;
+  &lt;li&gt;Tarea 2&lt;/li&gt;
+  &lt;li&gt;Tarea 3&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+    </div>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">const tareas = document.querySelectorAll('li');
+tareas.forEach((tarea, indice) =&gt; {
+  tarea.textContent = `Tarea ${indice + 1} - Completada`;
+});</code></pre>
+    </div>
+    <h3 class="mb-4 text-primary mt-5">Crear elementos nuevos</h3>
+    <p>No solo podemos modificar elementos existentes, ¡también crear nuevos!</p>
+
+    <h4 class="mb-4 text-primary">createElement('etiqueta')</h4>
+    <p><strong>Crear desde cero:</strong> Fabrica un elemento nuevo en memoria.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">// Crear un nuevo párrafo "en el aire"
+const nuevoParrafo = document.createElement('p');
+
+// Darle contenido y estilo
+nuevoParrafo.textContent = '¡Soy un párrafo nuevo!';
+nuevoParrafo.style.color = 'blue';
+
+// IMPORTANTE: Aún no es visible en la página
+// Necesitamos añadirlo al DOM (ver siguiente sección)</code></pre>
+    </div>
+    <div class="alert alert-info mt-3" role="alert">
+        <strong>Analogía:</strong> Es como fabricar un mueble en el taller. Existe, pero no está en tu casa
+        todavía.
+    </div>
+    <h3 class="mb-4 text-primary mt-5">Añadir y quitar elementos</h3>
+    <p>Colocar nuestros elementos creados en el árbol DOM.</p>
+
+    <h4 class="mb-4 text-primary">appendChild(elemento)</h4>
+    <p><strong>Añadir al final:</strong> Pone el elemento como ÚLTIMO hijo.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">&lt;div id="contenedor"&gt;
+  &lt;p&gt;Texto existente&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">const contenedor = document.getElementById('contenedor');
+const nuevoElemento = document.createElement('p');
+nuevoElemento.textContent = '¡Soy el último!';
+
+contenedor.appendChild(nuevoElemento);
+// Resultado: El nuevo párrafo aparece DESPUÉS del texto existente</code></pre>
+    </div>
+
+    <h4 class="mb-4 text-primary">prepend(elemento)</h4>
+    <p><strong>Añadir al inicio:</strong> Pone el elemento como PRIMER hijo.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">&lt;div id="contenedor"&gt;
+  &lt;p&gt;Texto existente&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">const contenedor = document.getElementById('contenedor');
+const nuevoElemento = document.createElement('p');
+nuevoElemento.textContent = '¡Soy el primero!';
+
+contenedor.prepend(nuevoElemento);
+// Resultado: El nuevo párrafo aparece ANTES del texto existente</code></pre>
+    </div>
+
+    <h4 class="mb-4 text-primary">remove() y removeChild()</h4>
+    <p><strong>Eliminar elementos:</strong> Dos formas de quitar elementos.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-html">&lt;div id="contenedor"&gt;
+  &lt;p id="eliminar"&gt;Este será eliminado&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">// Método 1: Fácil (recomendado)
+const elemento = document.getElementById('eliminar');
+elemento.remove(); // ¡Adiós!
+
+// Método 2: Tradicional
+const padre = elemento.parentElement;
+padre.removeChild(elemento); // También funciona</code></pre>
+    </div>
+    <div class="alert alert-warning mt-3" role="alert">
+        <strong>Recomendación:</strong> Usa <code>elemento.remove()</code> porque es más simple.
+    </div>
+    <h3 class="mb-4 text-primary">Ejercicio: lista de tareas</h3>
+    <p>Intenta crear este mini-proyecto paso a paso:</p>
+    <ol>
+        <li>Crea un <code>&lt;ul&gt;</code> con <code>id="lista-tareas"</code>.</li>
+        <li>Crea un botón con <code>id="btn-agregar"</code>.</li>
+        <li>Cuando se haga clic en el botón:
+            <ul>
+                <li>Crea un nuevo <code>&lt;li&gt;</code>.</li>
+                <li>Ponle el texto "Tarea nueva".</li>
+                <li>Añádelo a la lista.</li>
+            </ul>
+        </li>
+    </ol>
+    <details>
+        <summary>Ver la solución</summary>
+        <div class="position-relative">
+            <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                onclick="copiarCodigo(this)">Copiar</button>
+            <pre><code class="language-html">&lt;ul id="lista-tareas"&gt;&lt;/ul&gt;
+&lt;button id="btn-agregar"&gt;Agregar Tarea&lt;/button&gt;</code></pre>
+            </div>
+            <div class="position-relative">
+            <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                onclick="copiarCodigo(this)">Copiar</button>
+            <pre><code class="language-javascript">// JavaScript
+const boton = document.getElementById('btn-agregar');
+const lista = document.getElementById('lista-tareas');
+
+boton.addEventListener('click', function() {
+  // 1. Crear nuevo elemento li
+  const nuevaTarea = document.createElement('li');
+
+  // 2. Darle contenido
+  nuevaTarea.textContent = 'Tarea nueva';
+
+  // 3. Añadir a la lista
+  lista.appendChild(nuevaTarea);
+});</code></pre>
+            </div>
+    </details>
+
+    <h3 class="mb-4 text-primary">Resumen</h3>
+    <div class="table-responsive">
+        <table class="table table-bordered mt-3">
+            <thead class="table-light">
+                <tr>
+                    <th>¿Qué quieres hacer?</th>
+                    <th>Método a usar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Encontrar UN elemento por su ID</td>
+                    <td><code>getElementById()</code></td>
+                </tr>
+                <tr>
+                    <td>Encontrar el PRIMER elemento (usando CSS)</td>
+                    <td><code>querySelector()</code></td>
+                </tr>
+                <tr>
+                    <td>Encontrar TODOS los elementos (usando CSS)</td>
+                    <td><code>querySelectorAll()</code></td>
+                </tr>
+                <tr>
+                    <td>Crear un elemento nuevo</td>
+                    <td><code>createElement()</code></td>
+                </tr>
+                <tr>
+                    <td>Añadir al FINAL de un contenedor</td>
+                    <td><code>appendChild()</code></td>
+                </tr>
+                <tr>
+                    <td>Añadir al PRINCIPIO de un contenedor</td>
+                    <td><code>prepend()</code></td>
+                </tr>
+                <tr>
+                    <td>Eliminar un elemento</td>
+                    <td><code>remove()</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h3 class="mb-4 text-primary">Más métodos del DOM (chuleta)</h3>
+    <p>Esta es una chuleta con más métodos para seleccionar, crear, insertar y recorrer elementos. No hace falta
+        aprenderlos todos de memoria: vuelve aquí cuando los necesites.</p>
+
+    <h4 class="mb-4 text-primary mt-4">Selección de elementos</h4>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">// Moderno (similar a jQuery, pero nativo)
+document.querySelector('.mi-clase');      // Primer elemento con clase
+document.querySelectorAll('p');           // NodeList de todos los &lt;p&gt;
+document.getElementById('mi-id');         // Elemento por ID
+document.getElementsByClassName('clase'); // HTMLCollection por clase
+document.getElementsByTagName('div');     // HTMLCollection por etiqueta</code></pre>
+    </div>
+
+    <h4 class="mb-4 text-primary mt-4">Creación y manipulación de elementos</h4>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">// Crear elementos
+const div = document.createElement('div');
+const texto = document.createTextNode('Hola');
+const fragment = document.createDocumentFragment(); // Para mejor performance
+
+// Manipulación de contenido
+div.innerHTML = '&lt;span&gt;Texto con HTML&lt;/span&gt;'; // Interpreta etiquetas: no lo uses con texto que escribe el usuario (XSS)
+div.textContent = 'Texto seguro'; // Solo texto: es la opción segura
+div.innerText = 'Texto visible';  // Como textContent, pero tiene en cuenta el CSS (no incluye el texto oculto)
+
+// Atributos y datos
+div.setAttribute('id', 'mi-div');
+div.getAttribute('id');
+div.dataset.info = 'valor'; // data-info="valor"
+div.classList.add('clase'); // add, remove, toggle, contains</code></pre>
+    </div>
+
+    <h4 class="mb-4 text-primary mt-4">Inserción en el DOM</h4>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">// Métodos modernos (más flexibles)
+parent.append(div);     // Al final, varios elementos
+parent.prepend(div);    // Al inicio
+div.before(otro);       // Antes del elemento
+div.after(otro);        // Después del elemento
+div.replaceWith(nuevo); // Reemplazar elemento
+
+// Métodos clásicos
+parent.appendChild(div);
+parent.insertBefore(div, referencia);
+parent.replaceChild(nuevo, viejo);
+parent.removeChild(div);
+div.remove(); // Método moderno</code></pre>
+    </div>
+
+    <h4 class="mb-4 text-primary mt-4">Navegación del DOM</h4>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">// Propiedades modernas
+element.parentElement;
+element.children;      // Solo elementos hijos
+element.childNodes;    // Todos los nodos (texto, comentarios)
+element.firstElementChild;
+element.lastElementChild;
+element.nextElementSibling;
+element.previousElementSibling;
+element.closest('.clase'); // Busca ancestro más cercano
+
+// vs propiedades clásicas
+element.parentNode;
+element.firstChild;</code></pre>
+    </div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-2/actividades/2-2"><strong>Actividad 2.2</strong>. Tarjeta de producto</a> · <a href="#/Unidad-2/actividades/2-4"><strong>Actividad 2.4</strong>. Manipular el DOM</a> · <a href="#/Unidad-2/actividades/2-5"><strong>Actividad 2.5</strong>. Lista de tareas</a> · <a href="#/Unidad-2/actividades/2-6"><strong>Actividad 2.6</strong>. Cartelera de películas</a> · <a href="#/Unidad-2/actividades/2-8"><strong>Actividad 2.8</strong>. Repaso de JavaScript</a></div>
+    </div>
+
+
+    <h2 class="mb-4 text-primary">8. Eventos</h2>
+        <h3 class="mb-4 text-primary">¿Qué es un evento?</h3>
+    <p>Los eventos son "cosas que pasan" en el sistema que estás programando. El sistema se encarga de producir una
+        señal cuando un evento ocurre y proporciona un mecanismo para que una acción (tu código) se ejecute
+        automáticamente. En la web, los eventos se lanzan dentro de la ventana del navegador y están asociados a un
+        elemento específico.</p>
+    <p>Algunos ejemplos de eventos son:</p>
+    <ul>
+        <li>El usuario hace clic o pasa el ratón por encima de un elemento.</li>
+        <li>El usuario presiona una tecla del teclado.</li>
+        <li>Una página web termina de cargarse.</li>
+        <li>Un formulario es enviado.</li>
+        <li>Un vídeo se reproduce, se pausa o se termina.</li>
+    </ul>
+    <p>Para reaccionar a un evento, le asociamos un <strong>manejador de eventos</strong> (o "event handler"), que es
+        una función de JavaScript que se ejecuta cuando el evento ocurre.</p>
+
+    <h3 class="mb-4 text-primary">El método moderno: <code>addEventListener()</code></h3>
+    <p>El método <code>addEventListener()</code> es la forma recomendada para registrar un manejador de eventos. Permite
+        añadir múltiples manejadores a un mismo evento.</p>
+    <p>Su sintaxis básica recibe dos parámetros: el nombre del evento y la función a ejecutar.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">const btn = document.querySelector("button");
+
+function random(number) {
+  return Math.floor(Math.random() * (number + 1));
+}
+
+// Se puede pasar una función anónima (arrow function)
+btn.addEventListener("click", () =&gt; {
+  const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+  document.body.style.backgroundColor = rndCol;
+});
+
+// O se puede pasar una función con nombre
+function changeBackground() {
+  const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+  document.body.style.backgroundColor = rndCol;
+}
+btn.addEventListener("click", changeBackground);</code></pre>
+    </div>
+
+    <h4 class="mb-4 text-primary">Quitar un manejador: <code>removeEventListener()</code></h4>
+    <p>Si has agregado un manejador, también puedes eliminarlo con <code>removeEventListener()</code>. Para que
+        funcione, debes pasarle exactamente la misma función con nombre que usaste para añadirlo.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">// Para quitar el manejador, la función debe tener un nombre.
+btn.removeEventListener("click", changeBackground);</code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Otros mecanismos (antiguos y desaconsejados)</h3>
+    <h4 class="mb-4 text-primary">Propiedades como onclick</h4>
+    <p>Los elementos del DOM tienen propiedades como <code>onclick</code>, <code>onmouseover</code>, etc., a las que
+        puedes asignar una función. La principal desventaja es que <strong>solo puedes asignar un manejador por
+            evento</strong>. Si asignas un segundo, el primero se sobrescribe.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">btn.onclick = function1;
+btn.onclick = function2; // ¡`function1` ha sido eliminada y nunca se ejecutará!</code></pre>
+    </div>
+
+    <div class="alert alert-warning mt-4" role="alert">
+        <h5 class="alert-heading">Manejadores en el propio HTML</h5>
+        <p>Es posible que veas código que asigna eventos directamente en el HTML, como
+            <code>&lt;button onclick="bgChange()"&gt;</code>. Esta es una práctica <strong>obsoleta y
+                desaconsejada</strong> porque mezcla la estructura (HTML) con el comportamiento (JavaScript), lo que
+            dificulta enormemente el mantenimiento y la escalabilidad del código.
+        </p>
+        <p class="mb-0">En las primeras actividades lo verás porque es fácil de leer, pero en tus propios programas
+            usa <code>addEventListener()</code>.</p>
+    </div>
+
+    <h3 class="mb-4 text-primary">El objeto <code>Event</code></h3>
+    <p>Cuando un evento ocurre, el navegador pasa automáticamente un objeto especial a tu función manejadora. Este
+        objeto, comúnmente llamado <code>event</code>, <code>evt</code> o <code>e</code>, contiene información y métodos
+        muy útiles.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">function bgChange(e) {
+  // `e.target` es el elemento exacto que originó el evento (el botón).
+  const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+  e.target.style.backgroundColor = rndCol;
+
+  // La propiedad `key` solo existe en eventos de teclado.
+  if (e.key) {
+    console.log(`Presionaste la tecla: ${e.key}`);
+  }
+}
+btn.addEventListener("click", bgChange);</code></pre>
+    </div>
+
+    <h4 class="mb-4 text-primary">Evitar el comportamiento por defecto: <code>event.preventDefault()</code></h4>
+    <p>Algunos eventos tienen un comportamiento por defecto. Por ejemplo, al enviar un formulario, la página se recarga.
+        Podemos detener este comportamiento con <code>event.preventDefault()</code> para realizar validaciones.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">// form, fname, lname y para son elementos seleccionados antes (por ejemplo, con querySelector)
+form.addEventListener("submit", (e) =&gt; {
+  if (fname.value === "" || lname.value === "") {
+    // Si algún campo está vacío, detenemos el envío del formulario.
+    e.preventDefault();
+    para.textContent = "¡Necesitas completar ambos campos!";
+  }
+});</code></pre>
+    </div>
+
+    <h3 class="mb-4 text-primary">Propagación de eventos: burbujeo y captura</h3>
+    <p>Cuando un evento ocurre en un elemento anidado, el evento "viaja" a través de sus ancestros en el DOM.</p>
+
+    <h4 class="mb-4 text-primary">Burbujeo (bubbling): de dentro hacia fuera</h4>
+    <p>Por defecto, el evento se dispara primero en el elemento más interno, y luego "burbujea" hacia arriba a través de
+        sus padres. Este comportamiento puede causar problemas si varios ancestros tienen un listener para el mismo
+        evento. Podemos detenerlo con <code>event.stopPropagation()</code>.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">// Ejemplo: un video dentro de una caja que se oculta al hacer clic.
+video.addEventListener("click", (event) =&gt; {
+  // Evita que el clic en el video se propague a la caja (su padre).
+  event.stopPropagation();
+  video.play();
+});
+
+box.addEventListener("click", () =&gt; {
+  box.classList.add("hidden");
+});</code></pre>
+    </div>
+
+    <h4 class="mb-4 text-primary">Captura (capturing): de fuera hacia dentro</h4>
+    <p>Existe una fase previa al burbujeo donde el evento viaja desde el <code>document</code> hacia abajo hasta el
+        elemento objetivo. Se activa pasando <code>{ capture: true }</code> a <code>addEventListener</code>.</p>
+
+    <h3 class="mb-4 text-primary">Delegación de eventos</h3>
+    <p>El burbujeo es la base de una técnica muy potente y eficiente. En lugar de añadir un manejador a cada uno de los
+        100 elementos de una lista, podemos añadir un <strong>único manejador al contenedor padre</strong>. Dentro del
+        manejador, usamos <code>event.target</code> para saber qué hijo exacto fue el que originó el evento.</p>
+    <div class="position-relative">
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+            onclick="copiarCodigo(this)">Copiar</button>
+        <pre><code class="language-javascript">// HTML: &lt;div id="container"&gt; &lt;div class="tile"&gt;&lt;/div&gt; ... &lt;/div&gt;
+const container = document.querySelector("#container");
+
+function colorAleatorio() {
+  return `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
+}
+
+container.addEventListener("click", (event) =&gt; {
+  // `event.currentTarget` es el #container
+  // `event.target` es el .tile en el que se ha hecho clic
+  event.target.style.backgroundColor = colorAleatorio();
+});</code></pre>
+    </div>
+
+    <div class="alert alert-info mt-4" role="alert">
+        <h5 class="alert-heading">No solo en páginas web</h5>
+        <p class="mb-0">Los eventos no son exclusivos de JavaScript en el navegador. La mayoría de lenguajes de
+            programación y entornos, como <strong>Node.js</strong>, poseen algún tipo de modelo de eventos, aunque la
+            sintaxis y el funcionamiento pueden ser diferentes.</p>
+    </div>
+
+    <h3 class="mb-4 text-primary mt-5">Más sobre eventos (chuleta)</h3>
+    <h4 class="mb-4 text-primary mt-4">Opciones de addEventListener</h4>
+
+    <pre><code class="language-javascript">// Método recomendado (permite múltiples listeners)
+element.addEventListener('click', handler, {
+  capture: false,      // Fase de captura?
+  once: true,          // Se ejecuta una vez
+  passive: true        // Para scroll/touch mejor performance
+});
+
+// Métodos antiguos (evitar)
+element.onclick = handler; // Sobrescribe listeners previos
+
+// Remover evento
+element.removeEventListener('click', handler);</code></pre>
+    <h4 class="mb-4 text-primary mt-4">Tipos comunes de eventos</h4>
+    <div class="position-relative">
+        <pre><code class="language-javascript">// Mouse
+'click', 'dblclick', 'mousedown', 'mouseup', 'mousemove', 'mouseenter', 'mouseleave'
+
+// Teclado
+'keydown', 'keyup' // ('keypress' está obsoleto: usa 'keydown')
+
+// Formularios
+'submit', 'change', 'input', 'focus', 'blur'
+
+// Ventana/Documento
+'DOMContentLoaded', 'load', 'resize', 'scroll'
+
+// Touch (móviles)
+'touchstart', 'touchmove', 'touchend'
+
+// Modernos
+'visibilitychange', 'online', 'offline'</code></pre>
+    </div>
+    <h4 class="mb-4 text-primary mt-4">Delegación con matches() y propiedades del evento</h4>
+    <div class="position-relative">
+        <pre><code class="language-javascript">// Delegación de eventos (eficiente para múltiples elementos)
+document.addEventListener('click', function(event) {
+  if (event.target.matches('.boton')) {
+    console.log('Has hecho clic en un botón');
+  }
+});
+
+// Propiedades del evento
+event.preventDefault();  // Evita comportamiento por defecto
+event.stopPropagation(); // Detiene propagación
+event.stopImmediatePropagation(); // Detiene otros listeners
+event.target;            // Elemento que originó el evento
+event.currentTarget;     // Elemento con el listener
+event.type;              // Tipo de evento</code></pre>
+    </div>
+
+    <h4 class="mb-4 text-primary mt-4">Eventos personalizados</h4>
+    <div class="position-relative">
+        <pre><code class="language-javascript">// Crear evento personalizado
+const evento = new CustomEvent('micustom', {
+  detail: { mensaje: 'Hola' },
+  bubbles: true,
+  cancelable: true
+});
+
+// Disparar evento
+element.dispatchEvent(evento);
+
+// Escuchar evento personalizado
+element.addEventListener('micustom', (e) =&gt; {
+  console.log(e.detail.mensaje); // "Hola"
+});</code></pre>
+    </div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-2/actividades/2-3"><strong>Actividad 2.3</strong>. Validar un formulario</a> · <a href="#/Unidad-2/actividades/2-5"><strong>Actividad 2.5</strong>. Lista de tareas</a> · <a href="#/Unidad-2/actividades/2-6"><strong>Actividad 2.6</strong>. Cartelera de películas</a> · <a href="#/Unidad-2/actividades/2-7"><strong>Actividad 2.7</strong>. Tablero de colores</a> · <a href="#/Unidad-2/actividades/2-8"><strong>Actividad 2.8</strong>. Repaso de JavaScript</a></div>
+    </div>
+
+    <p class="fuente"><i class="bi bi-info-circle me-1"></i>Buena parte de los textos y ejemplos están adaptados de la
+        <a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Guide" target="_blank"
+            rel="noopener noreferrer">Guía de JavaScript</a> y de la guía de <a
+            href="https://developer.mozilla.org/es/docs/Learn_web_development/Core/Scripting/Events" target="_blank"
+            rel="noopener noreferrer">introducción a los eventos</a> de MDN Web Docs (licencia CC BY-SA 2.5).</p>
 </div>

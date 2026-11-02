@@ -1,0 +1,424 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-2/index">Unidad 2</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-2/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">2.1</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 2.1. Primeros programas</h1>
+    <p class="lead">Cinco programas cortos para empezar: botones que muestran mensajes, preguntas al usuario, condiciones y un contador. En cada paso tienes un código que ya funciona: pruébalo y después amplíalo con lo que se pide.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Las funciones <code>alert</code>, <code>prompt</code> y <code>confirm</code></li>
+                    <li>Escribir y llamar a funciones</li>
+                    <li>Condicionales <code>if...else</code> (y, si quieres, <code>switch</code>)</li>
+                    <li>Seleccionar elementos con <code>getElementById</code> y cambiar su texto y su estilo</li>
+                    <li>Crear elementos con <code>createElement</code> y <code>appendChild</code></li>
+                    <li>Asociar eventos con <code>addEventListener</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-2/index?sec=1-introduccion-a-javascript">1. Introducción a JavaScript</a> (sobre todo «Mostrar mensajes y pedir datos»), <a href="#/Unidad-2/index?sec=2-conceptos-basicos">2. Conceptos básicos</a> y <a href="#/Unidad-2/index?sec=5-control-de-flujo-y-errores">5. Control de flujo</a>.</li>
+                    <li>Para los pasos 4 y 5: <a href="#/Unidad-2/index?sec=7-el-arbol-dom">7. El árbol DOM</a> y <a href="#/Unidad-2/index?sec=8-eventos">8. Eventos</a>.</li>
+                    <li>Un editor de código (por ejemplo, Visual Studio Code) y un navegador.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>ApellidoNombre_AW_Actividad2.1.zip</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Una carpeta con los cinco archivos <code>ejercicio1.html</code> a <code>ejercicio5.html</code>, comprimida en <code>.zip</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-light border small">En estos ejercicios los botones llaman a las funciones con el atributo
+        <code>onclick</code> del HTML porque es lo más fácil de leer al empezar. En el paso 5 lo cambiarás por
+        <code>addEventListener()</code>, que es la forma recomendada (lo tienes en <a href="#/Unidad-2/index?sec=8-eventos">8. Eventos</a>).</div>
+
+    <div class="alert alert-light border small"><strong>Cómo comprobar tu código:</strong> guarda los archivos y abre
+        el <code>.html</code> con el navegador (doble clic o arrástralo a una pestaña). Pulsa <kbd>F12</kbd> y mira la
+        pestaña <strong>Consola</strong>: si hay un error, aparece en rojo con el nombre del archivo y la línea. Cada
+        vez que cambies el código, guarda y recarga la página con <kbd>F5</kbd>.</div>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Botón con alerta</h3>
+            <p>Crea el archivo <code>ejercicio1.html</code>, copia este código y ábrelo en el navegador. Al pulsar el
+                botón aparece un mensaje.</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Ejercicio 1: Botón con alerta&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+    &lt;h1&gt;Ejercicio 1: Botón con alerta&lt;/h1&gt;
+
+    &lt;!--
+        El atributo 'onclick' ejecuta el código JavaScript que contiene
+        cuando el usuario hace clic en este botón.
+    --&gt;
+    &lt;button onclick="alert('Bienvenido/a a mi página web')"&gt;
+        Púlsame
+    &lt;/button&gt;
+
+    &lt;h2&gt;¿Cómo funciona?&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;code&gt;&amp;lt;button&amp;gt;&lt;/code&gt;: es la etiqueta estándar de HTML para crear un botón.&lt;/li&gt;
+        &lt;li&gt;&lt;code&gt;onclick="..."&lt;/code&gt;: es un "atributo de evento". Le dice al navegador: "cuando alguien haga clic en
+            este elemento, ejecuta el código que está entre las comillas".&lt;/li&gt;
+        &lt;li&gt;&lt;code&gt;alert('...')&lt;/code&gt;: es una función de JavaScript que muestra una ventana emergente con el mensaje que
+            le pases entre paréntesis.&lt;/li&gt;
+    &lt;/ul&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+            </div>
+            <p>Ahora amplíalo como hicimos en clase, con <code>prompt</code>, <code>confirm</code> y
+                <code>createElement</code>. Añade un segundo botón que llame a una función <code>alerta()</code> que:</p>
+            <ol>
+                <li>Pida el nombre al usuario con <code>prompt</code>.</li>
+                <li>Si no ha escrito nada, le avise con <code>alert</code> y vuelva a empezar.</li>
+                <li>Si ha escrito un nombre, le pregunte con <code>confirm</code> si de verdad es esa persona.</li>
+                <li>Si confirma, cree un párrafo con el texto «Bienvenido/a <em>nombre</em> a mi página web» y lo añada
+                    al final del <code>body</code>. Si no confirma, le avise y vuelva a empezar.</li>
+            </ol>
+            <p>La función se escribe dentro de una etiqueta <code>&lt;script&gt;</code> antes de cerrar el
+                <code>&lt;/body&gt;</code>.</p>
+            <details>
+                <summary>Ver la solución (lo que hicimos en clase)</summary>
+                <div class="position-relative">
+                    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                        onclick="copiarCodigo(this)">Copiar</button>
+                    <pre><code class="language-html">&lt;button onclick="alerta()"&gt;Click me&lt;/button&gt;
+
+&lt;script&gt;
+    function alerta() {
+        // Pedimos el nombre al usuario
+        const nombre = prompt("Introduce tu nombre");
+
+        // Si pulsa Cancelar, prompt devuelve null: no hacemos nada más
+        if (nombre === null) {
+            return;
+        }
+
+        if (nombre.trim() !== "") {
+            // Pedimos confirmación
+            const ok = confirm(`¿Estás seguro de que eres ${nombre}?`);
+            if (ok) {
+                // Creamos un párrafo, le ponemos el texto y lo añadimos al body
+                const p = document.createElement("p");
+                p.textContent = `Bienvenido/a ${nombre} a mi página web`;
+                document.body.appendChild(p);
+            } else {
+                alert("No has confirmado que eres " + nombre + ", repite el proceso");
+                alerta(); // volvemos a empezar
+            }
+        } else {
+            alert("No has introducido ningún nombre, repite el proceso");
+            alerta(); // volvemos a empezar
+        }
+    }
+&lt;/script&gt;</code></pre>
+                </div>
+                <p>Fíjate en el orden: primero se crea el párrafo, después se le pone el texto y por último se añade a
+                    la página. <code>document.createElement("p").append(...)</code> en una sola línea no sirve, porque
+                    <code>append</code> no devuelve el párrafo. En clase también probamos a crear, con el mismo texto,
+                    una lista (<code>ul</code> con un <code>li</code>) y un enlace (<code>a</code>): inténtalo.</p>
+            </details>
+        </li>
+
+        <li class="paso">
+            <h3>Saludo personalizado</h3>
+            <p>Crea <code>ejercicio2.html</code> con este código. Al abrir la página, te pregunta el nombre y te
+                saluda en el párrafo.</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Ejercicio 2: Saludo personalizado&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body onload="saludarUsuario()"&gt;
+
+    &lt;h1&gt;Ejercicio 2: Saludo personalizado&lt;/h1&gt;
+
+    &lt;!-- Este párrafo está vacío al principio, pero lo llenaremos con JavaScript --&gt;
+    &lt;p id="mensajeBienvenida"&gt;&lt;/p&gt;
+
+    &lt;script&gt;
+        // Esta función se ejecutará cuando el cuerpo (body) de la página se haya cargado
+        function saludarUsuario() {
+            // 1. Preguntamos el nombre al usuario y lo guardamos en una variable
+            const nombre = prompt("Por favor, introduce tu nombre:");
+
+            // 2. Buscamos el elemento HTML que tiene el id="mensajeBienvenida"
+            const parrafo = document.getElementById("mensajeBienvenida");
+
+            // 3. Cambiamos el texto de ese párrafo para mostrar el saludo personalizado
+            parrafo.innerText = `Hola, ${nombre}, ¡gracias por visitar nuestra web!`;
+        }
+    &lt;/script&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+            </div>
+            <p>Ahora modifícalo para que el usuario confirme si quiere continuar:</p>
+            <ul>
+                <li>Antes de saludar, pregúntale con <code>confirm</code> si quiere ver el saludo. Si dice que no,
+                    escribe en el párrafo otro mensaje (por ejemplo, «Hasta otra»).</li>
+                <li>Si deja el nombre vacío o pulsa Cancelar, no le saludes: muestra un mensaje que le pida su
+                    nombre.</li>
+            </ul>
+            <p class="small text-muted">Pista: recuerda que <code>prompt</code> devuelve <code>null</code> si se pulsa
+                Cancelar, y que <code>if (nombre)</code> es falso tanto con <code>null</code> como con una cadena
+                vacía.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Comprobar la edad</h3>
+            <p>Crea <code>ejercicio3.html</code> con este código. Al pulsar el botón, comprueba la edad escrita en el
+                campo.</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Ejercicio 3: Comprobar edad&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+    &lt;h1&gt;Ejercicio 3: Comprobar edad&lt;/h1&gt;
+
+    &lt;label for="campoEdad"&gt;Introduce tu edad:&lt;/label&gt;
+    &lt;input type="number" id="campoEdad" placeholder="Ej: 25"&gt;
+
+    &lt;!-- Este botón llama a la función comprobarEdad() al ser pulsado --&gt;
+    &lt;button onclick="comprobarEdad()"&gt;Comprobar&lt;/button&gt;
+
+    &lt;!-- Este div mostrará el resultado de la comprobación --&gt;
+    &lt;div id="resultado" style="margin-top: 20px; font-weight: bold;"&gt;&lt;/div&gt;
+
+    &lt;script&gt;
+        function comprobarEdad() {
+            // 1. Seleccionamos el campo de entrada (input) y el div de resultado
+            const inputEdad = document.getElementById("campoEdad");
+            const divResultado = document.getElementById("resultado");
+
+            // 2. Obtenemos el valor escrito en el campo y lo convertimos a número
+            const edad = Number(inputEdad.value);
+
+            // 3. Usamos un condicional para decidir qué mensaje mostrar
+            if (edad &gt;= 18) {
+                // Si la edad es 18 o más...
+                divResultado.innerText = "Eres mayor de edad. ¡Bienvenido/a!";
+                divResultado.style.color = "green";
+            } else {
+                // Si la edad es menor de 18...
+                divResultado.innerText = "Lo siento, no puedes acceder.";
+                divResultado.style.color = "red";
+            }
+        }
+    &lt;/script&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+            </div>
+            <p>Amplía la función <code>comprobarEdad()</code> para que haga estas comprobaciones, en este orden, y
+                muestre cada mensaje en el <code>div</code> con <code>id="resultado"</code>:</p>
+            <ol>
+                <li>Si el campo está vacío, muestra una alerta que diga que debe introducir una edad.</li>
+                <li>Si la edad es mayor de 99, un mensaje que diga que debe introducir una edad menor de 99.</li>
+                <li>Si es menor de 18, un mensaje que diga que es menor de edad.</li>
+                <li>Si es 18 o más, un mensaje que diga que es mayor de edad.</li>
+            </ol>
+            <p class="small text-muted">Pista: comprueba si está vacío <strong>antes</strong> de convertir a número,
+                porque <code>Number("")</code> devuelve <code>0</code>. Si quieres, prueba después a escribir las
+                comprobaciones con <code>switch</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Cambiar el color</h3>
+            <p>Crea <code>ejercicio4.html</code> con este código. Cada botón llama a la misma función, pero le pasa un
+                color diferente.</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Ejercicio 4: Cambiar color&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+    &lt;h1&gt;Ejercicio 4: Cambiar color de texto&lt;/h1&gt;
+
+    &lt;p id="textoEjemplo"&gt;Este es un párrafo de ejemplo. Haz clic en los botones para cambiar su color.&lt;/p&gt;
+
+    &lt;!-- Cada botón llama a la misma función, pero le pasa un color diferente como argumento --&gt;
+    &lt;button onclick="cambiarColor('red')"&gt;Rojo&lt;/button&gt;
+    &lt;button onclick="cambiarColor('green')"&gt;Verde&lt;/button&gt;
+    &lt;button onclick="cambiarColor('blue')"&gt;Azul&lt;/button&gt;
+
+    &lt;script&gt;
+        // La función acepta un parámetro, 'colorSeleccionado', que cambiará
+        // dependiendo del botón que se pulse.
+        function cambiarColor(colorSeleccionado) {
+            // 1. Seleccionamos el párrafo por su ID
+            const parrafo = document.getElementById("textoEjemplo");
+
+            // 2. Accedemos a sus estilos (style) y cambiamos la propiedad 'color'
+            parrafo.style.color = colorSeleccionado;
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+            </div>
+            <p>Cámbialo para que haya <strong>un único botón</strong> y un campo de texto
+                (<code>&lt;input type="text"&gt;</code>) donde el usuario escriba un color en inglés (por ejemplo,
+                <code>orange</code> o <code>purple</code>). Al pulsar el botón, la función lee el
+                <code>value</code> del campo y se lo aplica al párrafo con <code>style.color</code>.</p>
+            <p>Si quieres, añade más elementos (un título, otro párrafo…) y cámbiales también el color.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Contador con addEventListener</h3>
+            <p>Crea <code>ejercicio5.html</code> con este código. Los botones suman y restan uno al número.</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Ejercicio 5: Contador&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;h1&gt;Ejercicio 5: Contador&lt;/h1&gt;
+
+    &lt;!-- Este h2 mostrará el número actual del contador --&gt;
+    &lt;h2 id="numeroContador"&gt;0&lt;/h2&gt;
+
+    &lt;button onclick="aumentar()"&gt;+&lt;/button&gt;
+    &lt;button onclick="disminuir()"&gt;-&lt;/button&gt;
+
+    &lt;script&gt;
+        // 1. Declaramos una variable para guardar el estado del contador.
+        // La declaramos fuera de las funciones para que no se reinicie cada vez que las llamamos.
+        let contador = 0;
+
+        // 2. Seleccionamos el elemento que muestra el número para no tener que buscarlo cada vez.
+        const displayContador = document.getElementById("numeroContador");
+
+        // Función para aumentar el valor
+        function aumentar() {
+            contador = contador + 1; // o simplemente contador++;
+            // Actualizamos el texto en la página con el nuevo valor
+            displayContador.innerText = contador;
+        }
+
+        // Función para disminuir el valor
+        function disminuir() {
+            contador = contador - 1; // o simplemente contador--;
+            // Actualizamos el texto en la página con el nuevo valor
+            displayContador.innerText = contador;
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+            </div>
+            <p>Ahora quita los atributos <code>onclick</code> de los botones y asocia las funciones desde el
+                JavaScript:</p>
+            <ol>
+                <li>Selecciona el <code>h2</code> por su ID (ya está hecho).</li>
+                <li>Selecciona los botones por su texto: recorre todos los botones y mira cuál tiene el texto
+                    <code>+</code> y cuál <code>-</code>.</li>
+                <li>Asocia a cada uno su función con <code>addEventListener("click", ...)</code>.</li>
+            </ol>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-javascript">const botones = document.querySelectorAll("button");
+
+botones.forEach((boton) =&gt; {
+    if (boton.textContent === "+") {
+        // este es el botón de sumar
+    }
+});</code></pre>
+            </div>
+            <p>Comprueba que el contador sigue funcionando igual que antes.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="2-1">
+        <li><label><input type="checkbox"><span>En el ejercicio 1, el segundo botón pide el nombre, pide confirmación y añade el párrafo de bienvenida.</span></label></li>
+        <li><label><input type="checkbox"><span>En el ejercicio 1, si dejas el nombre vacío o no confirmas, te avisa y vuelve a preguntar.</span></label></li>
+        <li><label><input type="checkbox"><span>En el ejercicio 2, la página pide confirmación antes de saludar y no saluda a «null» si pulsas Cancelar.</span></label></li>
+        <li><label><input type="checkbox"><span>En el ejercicio 3, funcionan los cuatro casos: vacío, más de 99, menor de 18 y mayor de edad.</span></label></li>
+        <li><label><input type="checkbox"><span>En el ejercicio 4, el color que escribes en el campo se aplica al párrafo.</span></label></li>
+        <li><label><input type="checkbox"><span>En el ejercicio 5, los botones ya no tienen <code>onclick</code> y el contador funciona.</span></label></li>
+        <li><label><input type="checkbox"><span>La consola (<kbd>F12</kbd>) no muestra errores en rojo en ninguno de los cinco archivos.</span></label></li>
+        <li><label><input type="checkbox"><span>Has comprimido los cinco archivos en <code>ApellidoNombre_AW_Actividad2.1.zip</code>.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-2/actividades/index"><i class="bi bi-arrow-left me-1"></i>Todas las actividades</a>
+        <a class="btn btn-primary" href="#/Unidad-2/actividades/2-2">Siguiente: 2.2. Tarjeta de producto <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

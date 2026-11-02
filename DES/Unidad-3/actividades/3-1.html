@@ -1,0 +1,611 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-3/index">Unidad 3</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-3/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">3.1</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 3.1. Despliegue de aplicaciones con Node.js y Express</h1>
+    <p class="lead">Vas a instalar Node.js en tu servidor Debian, crear un «Hola Mundo» con Express y desplegar una API
+        de tutoriales con base de datos MariaDB. Al final la dejarás funcionando siempre con PM2 y detrás de Nginx.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Instalar Node.js y npm, y gestionar dependencias con <code>package.json</code></li>
+                    <li>Crear y arrancar una aplicación Express</li>
+                    <li>Conectar una API a MariaDB y probarla con <code>curl</code></li>
+                    <li>Mantener la aplicación en marcha con PM2</li>
+                    <li>Poner Nginx como proxy inverso</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-3/index?sec=6-despliegue-de-aplicaciones-node-js-con-express">6.
+                            Despliegue de aplicaciones Node.js con Express</a></li>
+                    <li>Tu servidor Debian 13 de la Unidad 1 (máquina virtual o VPS), con un usuario con
+                        <code>sudo</code> y conexión por SSH.</li>
+                    <li>La IP de tu servidor: la ves con <code>ip a</code>. En los pasos aparece como
+                        <code>IP-DE-TU-SERVIDOR</code>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_DES_Actividad3.1</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Formato</th>
+                <td>Un documento (de Google Docs, entregado en PDF) con las capturas que se piden en los pasos. Puedes
+                    añadir explicaciones para que se entienda mejor.</td>
+            </tr>
+            <tr>
+                <th scope="row">Respuestas</th>
+                <td>Las preguntas del final de la actividad</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Las versiones cambian a menudo: Debian 13 instala
+        Node.js 20 desde sus repositorios, aunque la versión LTS actual de Node.js es más nueva. Para esta práctica
+        sirve la de Debian. Si en tu terminal salen números de versión distintos a los de las capturas, no pasa nada.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Instala Node.js y npm</h3>
+            <p>Conéctate por SSH a tu servidor. Actualiza la lista de paquetes e instala Node.js y npm (se instalan
+                juntos; <code>-y</code> responde «sí» a la pregunta de confirmación):</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo apt update
+sudo apt install -y nodejs npm</code></pre>
+</div>
+            <figure><img src="../DES/img/Unidad-3/Captura%20de%20pantalla%202025-12-02%20a%20las%202.53.56.png"
+                    alt="Terminal con sudo apt update y sudo apt install -y nodejs npm instalando dependencias">
+                <figcaption>La instalación descarga Node.js, npm y muchas dependencias.</figcaption>
+            </figure>
+            <p>Comprueba las versiones instaladas:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">node --version
+npm --version</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                salen dos números de versión, algo así:</div>
+<pre><code class="language-none">v20.19.2
+9.2.0</code></pre>
+            <p><i class="bi bi-camera me-1"></i><strong>Captura:</strong> las versiones de <code>node</code> y
+                <code>npm</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Instala el generador de Express</h3>
+            <p>Express se instala en cada proyecto, pero su generador de proyectos se instala para todo el sistema
+                (<code>-g</code>, global):</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo npm install -g express-generator</code></pre>
+</div>
+            <figure><img src="../DES/img/Unidad-3/Captura%20de%20pantalla%202025-12-02%20a%20las%203.02.56.png"
+                    alt="Terminal con la instalación global de express-generator y un aviso npm WARN deprecated">
+                <figcaption>El aviso <code>npm WARN deprecated</code> no es un error.</figcaption>
+            </figure>
+            <p>Si ves <code>npm WARN deprecated mkdirp@0.5.1</code>, es solo una advertencia: el paquete se ha instalado
+                (sale <code>added … packages</code>), pero una dependencia interna usa una versión antigua. No afecta al
+                funcionamiento.</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">express --version</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                sale la versión del generador, por ejemplo <code>4.16.1</code>.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Crea tu primer proyecto</h3>
+            <p>Crea una carpeta para la aplicación y entra en ella:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">mkdir ~/mi-primera-app
+cd ~/mi-primera-app</code></pre>
+</div>
+            <p>Inicializa el proyecto. Se crea el archivo <code>package.json</code>, que es como el «DNI» de la
+                aplicación (<code>-y</code> acepta todas las opciones por defecto). Después instala Express solo para
+                este proyecto:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">npm init -y
+npm install express</code></pre>
+</div>
+            <figure><img src="../DES/img/Unidad-3/Captura%20de%20pantalla%202025-12-02%20a%20las%203.12.06.png"
+                    alt="Terminal con npm init -y mostrando package.json, npm install express y el listado de node_modules">
+                <figcaption>Se crean <code>package.json</code>, <code>package-lock.json</code> y la carpeta
+                    <code>node_modules</code>.</figcaption>
+            </figure>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                con <code>ls</code> ves <code>node_modules</code>, <code>package.json</code> y
+                <code>package-lock.json</code>. Dentro de <code>node_modules</code> están Express y todas sus
+                dependencias.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Escribe y arranca el «Hola Mundo»</h3>
+            <p>Crea el archivo <code>app.js</code>:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">nano app.js</code></pre>
+</div>
+            <p>Copia este código y guarda (<kbd>Ctrl</kbd>+<kbd>O</kbd>, <kbd>Intro</kbd>, <kbd>Ctrl</kbd>+<kbd>X</kbd>):
+            </p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-javascript">const express = require('express');
+const app = express();
+const puerto = 3000;
+
+app.get('/', (req, res) =&gt; {
+  res.send('¡Hola Mundo desde Express!');
+});
+
+app.listen(puerto, () =&gt; {
+  console.log(`Servidor corriendo en http://localhost:${puerto}`);
+});</code></pre>
+</div>
+            <ul>
+                <li><code>require('express')</code> importa la librería Express.</li>
+                <li><code>app.get('/', ...)</code> dice qué hacer cuando alguien visita la raíz del sitio.</li>
+                <li><code>app.listen(puerto, ...)</code> arranca el servidor en el puerto 3000.</li>
+            </ul>
+            <p>Arranca la aplicación:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">node app.js</code></pre>
+</div>
+            <p>Abre en el navegador de tu ordenador <code>http://IP-DE-TU-SERVIDOR:3000</code>.</p>
+            <div class="capturas">
+                <figure><img src="../DES/img/Unidad-3/Captura%20de%20pantalla%202025-12-02%20a%20las%203.15.47.png"
+                        alt="Navegador en localhost:3000 con el texto ¡Hola Mundo desde Express!">
+                    <figcaption>Desde el propio servidor (<code>localhost:3000</code>)…</figcaption>
+                </figure>
+                <figure><img src="../DES/img/Unidad-3/Captura%20de%20pantalla%202025-12-02%20a%20las%203.16.37.png"
+                        alt="Navegador en la IP del servidor, puerto 3000, con el texto ¡Hola Mundo desde Express!">
+                    <figcaption>…y desde otro equipo, con la IP del servidor.</figcaption>
+                </figure>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                en la terminal sale <code>Servidor corriendo en http://localhost:3000</code> y en el navegador,
+                <strong>¡Hola Mundo desde Express!</strong></div>
+            <div class="alert alert-warning"><i class="bi bi-shield-lock me-1"></i><strong>Si usas AWS:</strong> abre
+                el puerto 3000 en el grupo de seguridad (tipo TCP personalizado, puerto 3000, origen tu IP o
+                <code>0.0.0.0/0</code>). Más adelante necesitarás también el 8080 y el 80.</div>
+            <p><i class="bi bi-camera me-1"></i><strong>Captura:</strong> la terminal con <code>node app.js</code> en
+                marcha y el navegador con el mensaje.</p>
+            <p>Para parar el servidor, pulsa <kbd>Ctrl</kbd>+<kbd>C</kbd> en la terminal.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Descarga la aplicación de tutoriales</h3>
+            <p>Ahora vas a desplegar una aplicación más completa: una API para gestionar tutoriales, guardados en una
+                base de datos. Vuelve a tu carpeta personal, instala Git si no lo tienes y <strong>clona</strong> (descarga
+                una copia completa) el proyecto de GitHub:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">cd ~
+sudo apt install -y git
+git clone https://github.com/bezkoder/nodejs-express-mysql.git
+cd nodejs-express-mysql</code></pre>
+</div>
+            <p>Mira qué hay dentro e instala las dependencias del proyecto. <code>npm install</code> lee
+                <code>package.json</code> y descarga todas las librerías que necesita la aplicación (puede tardar un
+                poco):</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">ls -la
+npm install
+cat package.json</code></pre>
+</div>
+            <figure><img src="../DES/img/Unidad-3/Captura%20de%20pantalla%202025-12-02%20a%20las%203.25.14.png"
+                    alt="Terminal con git clone, ls -la, npm install y el contenido de package.json">
+                <figcaption>Las dependencias de la aplicación son <code>cors</code>, <code>express</code> y
+                    <code>mysql</code>.</figcaption>
+            </figure>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                ves <code>server.js</code>, <code>package.json</code> y la carpeta <code>app/</code>, y
+                <code>npm install</code> termina con <code>found 0 vulnerabilities</code> o con un resumen sin
+                errores.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Instala MariaDB y crea la base de datos</h3>
+            <p>La aplicación guarda los tutoriales en una base de datos MySQL. En Debian se usa
+                <strong>MariaDB</strong>, que es compatible:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo apt install -y mariadb-server
+sudo systemctl start mariadb
+sudo systemctl enable mariadb</code></pre>
+</div>
+            <figure><img src="../DES/img/Unidad-3/Captura%20de%20pantalla%202025-12-02%20a%20las%203.29.20.png"
+                    alt="Terminal con la instalación de mariadb-server y sus dependencias">
+                <figcaption>Instalación de MariaDB.</figcaption>
+            </figure>
+            <p>Entra en MariaDB como administrador:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo mysql -u root</code></pre>
+</div>
+            <p>El símbolo del sistema cambia a <code>MariaDB [(none)]&gt;</code>. Crea la base de datos, un usuario
+                para la aplicación y la tabla <code>tutorials</code> (la aplicación no la crea sola). Cambia
+                <code>TU_CONTRASEÑA</code> por una contraseña inventada y apúntala, porque la necesitas en el paso
+                siguiente:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-sql">CREATE DATABASE testdb;
+CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'TU_CONTRASEÑA';
+GRANT ALL PRIVILEGES ON testdb.* TO 'testuser'@'localhost';
+FLUSH PRIVILEGES;
+
+USE testdb;
+CREATE TABLE IF NOT EXISTS tutorials (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255),
+  description VARCHAR(255),
+  published BOOLEAN DEFAULT false,
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+EXIT;</code></pre>
+</div>
+            <figure><img src="../DES/img/Unidad-3/Captura%20de%20pantalla%202025-12-02%20a%20las%203.30.45.png"
+                    alt="Consola de MariaDB con CREATE DATABASE, CREATE USER, GRANT y FLUSH PRIVILEGES">
+                <figcaption>Cada orden responde <code>Query OK</code>.</figcaption>
+            </figure>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                cada orden responde <code>Query OK</code> y al salir aparece <code>Bye</code>.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Configura la conexión a la base de datos</h3>
+            <p>Edita el archivo de configuración de la aplicación:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">nano app/config/db.config.js</code></pre>
+</div>
+            <p>Déjalo así, con el usuario, la contraseña y la base de datos del paso anterior:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-javascript">module.exports = {
+  HOST: "localhost",
+  USER: "testuser",
+  PASSWORD: "TU_CONTRASEÑA",
+  DB: "testdb"
+};</code></pre>
+</div>
+            <figure><img src="../DES/img/Unidad-3/Captura%20de%20pantalla%202025-12-02%20a%20las%203.31.59.png"
+                    alt="Editor nano con el archivo app/config/db.config.js">
+                <figcaption>El archivo <code>db.config.js</code> en nano.</figcaption>
+            </figure>
+        </li>
+
+        <li class="paso">
+            <h3>Arranca la API</h3>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">node server.js</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                en la terminal sale <code>Server is running on port 8080.</code> y en el navegador,
+                <code>http://IP-DE-TU-SERVIDOR:8080</code> muestra un mensaje de bienvenida en JSON
+                (<code>{"message":"Welcome to bezkoder application."}</code>).</div>
+            <div class="alert alert-warning"><i class="bi bi-shield-lock me-1"></i><strong>Si usas AWS:</strong> abre
+                también el puerto 8080 en el grupo de seguridad.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Prueba la API con curl</h3>
+            <p><code>curl</code> hace peticiones HTTP desde la terminal. Abre <strong>otra</strong> conexión SSH al
+                servidor (sin cerrar la que tiene la API en marcha) y lanza estas peticiones: crean nueve tutoriales,
+                los listan, consultan uno, modifican otro y borran:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash"># Crear tutoriales
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"Node.js Tutorial","description":"Aprendiendo Node.js"}'
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"Node.js Básico","description":"Introducción a Node.js y JavaScript del lado del servidor"}'
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"Express Framework","description":"Creando APIs REST con Express"}'
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"MySQL con Node.js","description":"Conectando Node.js con bases de datos MySQL"}'
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"Autenticación JWT","description":"Implementando autenticación con JSON Web Tokens"}'
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"Gestión con PM2","description":"Administrando aplicaciones Node.js en producción"}'
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"Node.js en Docker","description":"Contenedorización de aplicaciones Node.js"}'
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"Testing con Jest","description":"Pruebas unitarias e integración en Node.js"}'
+curl -X POST http://localhost:8080/api/tutorials -H "Content-Type: application/json" -d '{"title":"WebSockets en tiempo real","description":"Comunicación bidireccional con Socket.io"}'
+
+# Listar todos los tutoriales
+curl http://localhost:8080/api/tutorials
+
+# Obtener un tutorial concreto (id 1)
+curl http://localhost:8080/api/tutorials/1
+
+# Modificar un tutorial (id 2)
+curl -X PUT http://localhost:8080/api/tutorials/2 -H "Content-Type: application/json" -d '{"title":"Express Avanzado","description":"Técnicas avanzadas con Express.js","published":true}'
+
+# Eliminar un tutorial (id 2)
+curl -X DELETE http://localhost:8080/api/tutorials/2</code></pre>
+</div>
+            <figure><img src="../DES/img/Unidad-3/Captura%20de%20pantalla%202025-12-02%20a%20las%203.49.38.png"
+                    alt="Terminal del servidor con los mensajes created tutorial de cada tutorial creado">
+                <figcaption>En la terminal de la API aparece un <code>created tutorial</code> por cada petición.
+                </figcaption>
+            </figure>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                cada <code>POST</code> devuelve el tutorial creado con su <code>id</code>, y el listado devuelve todos en
+                JSON. En la terminal de la API sale <code>created tutorial</code> por cada uno. También puedes ver el
+                listado en el navegador: <code>http://IP-DE-TU-SERVIDOR:8080/api/tutorials</code>.</div>
+            <p>Para borrar <strong>todos</strong> los tutoriales existe <code>curl -X DELETE
+                    http://localhost:8080/api/tutorials</code>. Si lo pruebas, vuelve a crear unos cuantos antes del paso
+                siguiente.</p>
+            <details>
+                <summary>¿Prefieres lanzar las peticiones desde tu ordenador con Windows?</summary>
+                <p>Cambia <code>IP-DE-TU-SERVIDOR</code> por la IP de tu servidor. En <strong>PowerShell</strong>:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-powershell">$api = "http://IP-DE-TU-SERVIDOR:8080/api/tutorials"
+$tipo = "application/json; charset=utf-8"
+
+# Crear tutoriales
+Invoke-RestMethod -Method Post -Uri $api -ContentType $tipo -Body '{"title":"Node.js Tutorial","description":"Aprendiendo Node.js"}'
+Invoke-RestMethod -Method Post -Uri $api -ContentType $tipo -Body '{"title":"Node.js Básico","description":"Introducción a Node.js y JavaScript del lado del servidor"}'
+Invoke-RestMethod -Method Post -Uri $api -ContentType $tipo -Body '{"title":"Express Framework","description":"Creando APIs REST con Express"}'
+Invoke-RestMethod -Method Post -Uri $api -ContentType $tipo -Body '{"title":"MySQL con Node.js","description":"Conectando Node.js con bases de datos MySQL"}'
+Invoke-RestMethod -Method Post -Uri $api -ContentType $tipo -Body '{"title":"Autenticación JWT","description":"Implementando autenticación con JSON Web Tokens"}'
+Invoke-RestMethod -Method Post -Uri $api -ContentType $tipo -Body '{"title":"Gestión con PM2","description":"Administrando aplicaciones Node.js en producción"}'
+Invoke-RestMethod -Method Post -Uri $api -ContentType $tipo -Body '{"title":"Node.js en Docker","description":"Contenedorización de aplicaciones Node.js"}'
+Invoke-RestMethod -Method Post -Uri $api -ContentType $tipo -Body '{"title":"Testing con Jest","description":"Pruebas unitarias e integración en Node.js"}'
+Invoke-RestMethod -Method Post -Uri $api -ContentType $tipo -Body '{"title":"WebSockets en tiempo real","description":"Comunicación bidireccional con Socket.io"}'
+
+# Listar, consultar, modificar y eliminar
+Invoke-RestMethod -Uri $api
+Invoke-RestMethod -Uri "$api/1"
+Invoke-RestMethod -Method Put -Uri "$api/2" -ContentType $tipo -Body '{"title":"Express Avanzado","description":"Técnicas avanzadas con Express.js","published":true}'
+Invoke-RestMethod -Method Delete -Uri "$api/2"</code></pre>
+</div>
+                <p>En el <strong>Símbolo del sistema (CMD)</strong>, con el <code>curl</code> que trae Windows:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-powershell">:: Crear tutoriales
+curl -X POST "http://IP-DE-TU-SERVIDOR:8080/api/tutorials" -H "Content-Type: application/json" -d "{\"title\":\"Node.js Tutorial\",\"description\":\"Aprendiendo Node.js\"}"
+curl -X POST "http://IP-DE-TU-SERVIDOR:8080/api/tutorials" -H "Content-Type: application/json" -d "{\"title\":\"Node.js Básico\",\"description\":\"Introducción a Node.js y JavaScript del lado del servidor\"}"
+curl -X POST "http://IP-DE-TU-SERVIDOR:8080/api/tutorials" -H "Content-Type: application/json" -d "{\"title\":\"Express Framework\",\"description\":\"Creando APIs REST con Express\"}"
+curl -X POST "http://IP-DE-TU-SERVIDOR:8080/api/tutorials" -H "Content-Type: application/json" -d "{\"title\":\"MySQL con Node.js\",\"description\":\"Conectando Node.js con bases de datos MySQL\"}"
+curl -X POST "http://IP-DE-TU-SERVIDOR:8080/api/tutorials" -H "Content-Type: application/json" -d "{\"title\":\"Autenticación JWT\",\"description\":\"Implementando autenticación con JSON Web Tokens\"}"
+curl -X POST "http://IP-DE-TU-SERVIDOR:8080/api/tutorials" -H "Content-Type: application/json" -d "{\"title\":\"Gestión con PM2\",\"description\":\"Administrando aplicaciones Node.js en producción\"}"
+curl -X POST "http://IP-DE-TU-SERVIDOR:8080/api/tutorials" -H "Content-Type: application/json" -d "{\"title\":\"Node.js en Docker\",\"description\":\"Contenedorización de aplicaciones Node.js\"}"
+curl -X POST "http://IP-DE-TU-SERVIDOR:8080/api/tutorials" -H "Content-Type: application/json" -d "{\"title\":\"Testing con Jest\",\"description\":\"Pruebas unitarias e integración en Node.js\"}"
+curl -X POST "http://IP-DE-TU-SERVIDOR:8080/api/tutorials" -H "Content-Type: application/json" -d "{\"title\":\"WebSockets en tiempo real\",\"description\":\"Comunicación bidireccional con Socket.io\"}"
+
+:: Listar, consultar, modificar y eliminar
+curl "http://IP-DE-TU-SERVIDOR:8080/api/tutorials"
+curl "http://IP-DE-TU-SERVIDOR:8080/api/tutorials/1"
+curl -X PUT "http://IP-DE-TU-SERVIDOR:8080/api/tutorials/2" -H "Content-Type: application/json" -d "{\"title\":\"Express Avanzado\",\"description\":\"Técnicas avanzadas con Express.js\",\"published\":true}"
+curl -X DELETE "http://IP-DE-TU-SERVIDOR:8080/api/tutorials/2"</code></pre>
+</div>
+                <p class="small">En CMD las tildes pueden llegar mal según la configuración de la consola. Si pasa, no
+                    te preocupes: la API funciona igual.</p>
+            </details>
+            <p><i class="bi bi-camera me-1"></i><strong>Captura:</strong> la API en marcha en la terminal y el resultado
+                de los <code>curl</code> (crear y listar tutoriales).</p>
+        </li>
+
+        <li class="paso">
+            <h3>Mantén la aplicación en marcha con PM2</h3>
+            <p>Si cierras la terminal, la API se para. <strong>PM2</strong> es un gestor de procesos que mantiene la
+                aplicación en segundo plano y la reinicia sola si falla. Para la API con <kbd>Ctrl</kbd>+<kbd>C</kbd>,
+                instala PM2 y arráncala con él (<code>--name</code> le da un nombre fácil de recordar):</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo npm install -g pm2
+cd ~/nodejs-express-mysql
+pm2 start server.js --name "todo-app"
+pm2 list</code></pre>
+</div>
+            <figure><img src="../DES/img/Unidad-3/Captura%20de%20pantalla%202025-12-02%20a%20las%203.59.00.png"
+                    alt="Terminal con pm2 start server.js y la tabla de pm2 con todo-app en estado online">
+                <figcaption><code>todo-app</code> aparece con el estado <code>online</code>.</figcaption>
+            </figure>
+            <p>Comprueba que sigue funcionando sin la terminal: abre
+                <code>http://IP-DE-TU-SERVIDOR:8080/api/tutorials</code>, cierra la sesión SSH, vuelve a conectarte y
+                recarga la página.</p>
+            <figure><img src="../DES/img/Unidad-3/Captura%20de%20pantalla%202025-12-02%20a%20las%204.00.40.png"
+                    alt="Navegador en la IP del servidor, puerto 8080, ruta /api/tutorials, con la lista de tutoriales en JSON">
+                <figcaption>La lista de tutoriales en JSON, servida por PM2.</figcaption>
+            </figure>
+            <p>Comandos útiles de PM2:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash"># Ver los registros (logs) en tiempo real
+pm2 logs todo-app
+
+# Reiniciar, detener o quitar la aplicación de PM2
+pm2 restart todo-app
+pm2 stop todo-app
+pm2 delete todo-app
+
+# Ver información detallada
+pm2 show todo-app</code></pre>
+</div>
+            <p>Por último, haz que PM2 arranque solo al encender el servidor. <code>pm2 startup</code> te muestra un
+                comando que empieza por <code>sudo env PATH=...</code>: <strong>cópialo y ejecútalo</strong>. Después,
+                <code>pm2 save</code> guarda la lista de aplicaciones actual:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">pm2 startup
+pm2 save</code></pre>
+</div>
+            <figure><img src="../DES/img/Unidad-3/Captura%20de%20pantalla%202025-12-02%20a%20las%204.06.55.png"
+                    alt="Terminal con pm2 startup, el comando sudo env PATH sugerido y su ejecución">
+                <figcaption><code>pm2 startup</code> sugiere el comando que tienes que ejecutar con
+                    <code>sudo</code>.</figcaption>
+            </figure>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                <code>pm2 list</code> muestra <code>todo-app</code> en <code>online</code>, y tras
+                <code>sudo reboot</code> sigue en <code>online</code> sin que hagas nada.</div>
+            <p><i class="bi bi-camera me-1"></i><strong>Captura:</strong> la salida de <code>pm2 list</code> y de
+                <code>pm2 logs todo-app</code> (sales de los logs con <kbd>Ctrl</kbd>+<kbd>C</kbd>).</p>
+        </li>
+
+        <li class="paso">
+            <h3>Pon Nginx delante como proxy inverso</h3>
+            <p>En producción se pone Nginx delante de Node.js: Nginx recibe las peticiones en el puerto 80 y las pasa
+                a la aplicación. Instálalo y crea un archivo de configuración para el sitio:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo apt install -y nginx
+sudo nano /etc/nginx/sites-available/todo-app</code></pre>
+</div>
+            <p>Escribe esto. En <code>server_name</code> pon tu dominio o la IP de tu servidor:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-nginx">server {
+    listen 80;
+    server_name IP-DE-TU-SERVIDOR;
+
+    location / {
+        proxy_pass http://localhost:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}</code></pre>
+</div>
+            <p>Activa el sitio con un enlace simbólico, desactiva el sitio por defecto de Nginx, comprueba la
+                configuración y reinicia:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo ln -s /etc/nginx/sites-available/todo-app /etc/nginx/sites-enabled/
+sudo rm /etc/nginx/sites-enabled/default
+sudo nginx -t
+sudo systemctl restart nginx</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                <code>sudo nginx -t</code> responde <code>syntax is ok</code> y <code>test is successful</code>, y
+                <code>http://IP-DE-TU-SERVIDOR/api/tutorials</code> (sin <code>:8080</code>) muestra la lista.</div>
+            <figure><img src="../DES/img/Unidad-3/Captura%20de%20pantalla%202025-12-02%20a%20las%204.12.10.png"
+                    alt="Navegador con la IP del servidor sin puerto, ruta /api/tutorials, mostrando la lista en JSON">
+                <figcaption>Ya no hace falta poner el puerto 8080.</figcaption>
+            </figure>
+            <p>Ventajas del proxy inverso:</p>
+            <ul>
+                <li>Nginx gestiona HTTPS (SSL/TLS) de forma más eficiente.</li>
+                <li>Puede servir los archivos estáticos directamente.</li>
+                <li>Rinde mejor con mucha carga.</li>
+                <li>Con un solo Nginx puedes tener varias aplicaciones Node.js.</li>
+            </ul>
+        </li>
+
+        <li class="paso">
+            <h3>Revisa los logs y resuelve problemas</h3>
+            <p>Deja los logs de PM2 en marcha y entra en la aplicación desde el navegador: verás las peticiones en
+                tiempo real. Haz lo mismo con los logs de Nginx:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">pm2 logs todo-app
+
+# Logs de acceso y de errores de Nginx
+sudo tail -f /var/log/nginx/access.log
+sudo tail -f /var/log/nginx/error.log</code></pre>
+</div>
+            <p>Provoca un error pidiendo una ruta que no existe y busca la petición en los logs:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">curl http://localhost:8080/api/noexiste</code></pre>
+</div>
+            <p>Si algo falla, estos comandos te ayudan:</p>
+            <div class="table-responsive">
+                <table class="table table-sm table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Problema</th>
+                            <th scope="col">Qué mirar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>El servidor no arranca</td>
+                            <td><code>sudo ss -tulpn | grep :8080</code> (¿otro programa usa el puerto?) y
+                                <code>pm2 logs todo-app --err</code></td>
+                        </tr>
+                        <tr>
+                            <td>No puedes conectarte desde fuera</td>
+                            <td><code>sudo ss -tulpn | grep :8080</code> debe mostrar que escucha en todas las
+                                interfaces (<code>*:8080</code> o <code>0.0.0.0:8080</code>). Si tienes cortafuegos,
+                                <code>sudo ufw status</code>; en AWS, revisa el grupo de seguridad.</td>
+                        </tr>
+                        <tr>
+                            <td>La aplicación se reinicia sin parar</td>
+                            <td><code>pm2 logs todo-app</code> para ver el error y <code>pm2 list</code> para ver el
+                                estado</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Lee los mensajes de error
+                enteros: suelen decir exactamente qué falla. La documentación oficial de Express es muy buena: <a
+                    href="https://expressjs.com/es/" target="_blank" rel="noopener noreferrer">expressjs.com</a>.</div>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Preguntas</h2>
+    <p>Responde en tu documento de entrega:</p>
+    <ol>
+        <li>¿Qué es npm y cuál es su función principal?</li>
+        <li>¿Qué archivo contiene la lista de dependencias de un proyecto Node.js?</li>
+        <li>Explica la diferencia entre instalar un paquete con <code>npm install express</code> y con
+            <code>npm install -g express</code>.</li>
+        <li>¿Por qué es recomendable usar PM2 en producción en lugar de ejecutar <code>node app.js</code>
+            directamente?</li>
+        <li>¿Qué ventajas ofrece usar Nginx como proxy inverso delante de Node.js?</li>
+        <li>Si tu aplicación no arranca y PM2 muestra el estado <code>errored</code>, ¿qué comando usarías para ver los
+            logs de error?</li>
+        <li>En el código de la primera aplicación (<code>app.js</code>), ¿qué hace exactamente la línea
+            <code>app.listen(puerto, ...)</code>?</li>
+        <li>Cuando ejecutas <code>npm install</code>, ¿qué carpeta se crea y qué contiene?</li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="3-1">
+        <li><label><input type="checkbox"><span><code>node --version</code> y <code>npm --version</code> muestran sus versiones.</span></label></li>
+        <li><label><input type="checkbox"><span>El «Hola Mundo» se ve en el navegador en el puerto 3000.</span></label></li>
+        <li><label><input type="checkbox"><span>La base de datos <code>testdb</code> tiene la tabla <code>tutorials</code> y la API se conecta a ella.</span></label></li>
+        <li><label><input type="checkbox"><span>He creado tutoriales con <code>curl</code> y los veo en <code>/api/tutorials</code>.</span></label></li>
+        <li><label><input type="checkbox"><span><code>pm2 list</code> muestra <code>todo-app</code> en <code>online</code> y arranca solo al reiniciar.</span></label></li>
+        <li><label><input type="checkbox"><span>La API responde por el puerto 80 a través de Nginx.</span></label></li>
+        <li><label><input type="checkbox"><span>El documento tiene todas las capturas y las respuestas a las preguntas.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-3/actividades/index"><i class="bi bi-list-check me-1"></i>Todas las actividades</a>
+        <a class="btn btn-primary" href="#/Unidad-3/actividades/3-2">Siguiente: 3.2. Flask y Gunicorn <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

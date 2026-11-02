@@ -1,0 +1,245 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-2/index">Unidad 2</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-2/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">2.2</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 2.2. Instalar y configurar Nginx</h1>
+    <p class="lead">Vas a instalar Nginx en tu servidor Debian, publicar en él una web de ejemplo con su propio server
+        block y abrirla desde el navegador de tu ordenador con un nombre de dominio.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Instalar un servicio con <code>apt</code> y comprobarlo con <code>systemctl</code></li>
+                    <li>La carpeta de la web en <code>/var/www</code>, su propietario y sus permisos</li>
+                    <li>Server blocks: <code>sites-available</code> y <code>sites-enabled</code></li>
+                    <li>El archivo <code>hosts</code> de tu ordenador</li>
+                    <li>Los logs de Nginx</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-2/index?sec=7-servidores-web-apache-y-nginx">7. Servidores web:
+                            Apache y Nginx</a>, sobre todo <a
+                            href="#/Unidad-2/index?sec=7-5-varios-sitios-en-un-servidor-server-blocks">7.5. Server
+                            blocks</a></li>
+                    <li>Tu servidor Debian de la unidad 1, y su IP. Conéctate a él por SSH.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>ApellidoNombre_DES_Actividad2.2.pdf</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Capturas de cada paso, la web abierta en tu navegador con su dominio y las respuestas a las dos
+                    preguntas del último paso.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Las capturas son de Nginx 1.26.3 en Debian 13. En otras
+        versiones los mensajes pueden cambiar un poco, pero los pasos y los archivos son los mismos. En las capturas el
+        sitio se llama <code>disenyo</code> y su dominio es <code>disenyo-creativo.com</code>; tú usa tu propio
+        nombre.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Instala Nginx</h3>
+            <p>Actualiza la lista de paquetes e instala el servidor web:</p>
+            <pre><code class="language-bash">sudo apt update
+sudo apt install nginx</code></pre>
+            <figure><img src="../DES/img/Unidad-2/instalacion-servidor.png"
+                    alt="Terminal con sudo apt update y sudo apt install nginx terminando sin errores">
+                <figcaption>Instalación de Nginx con <code>apt</code></figcaption>
+            </figure>
+        </li>
+
+        <li class="paso">
+            <h3>Comprueba que está en marcha</h3>
+            <pre><code class="language-bash">systemctl status nginx</code></pre>
+            <p>Tiene que decir <code>active (running)</code>. Fíjate también en los procesos: un <em>master
+                    process</em> y varios <em>worker process</em>, como explica la teoría. Sal con <kbd>Q</kbd>.</p>
+            <figure><img src="../DES/img/Unidad-2/status-nginx.png"
+                    alt="Salida de systemctl status nginx: active (running), con el proceso maestro y cuatro procesos worker">
+                <figcaption>Nginx activo, con su proceso maestro y sus <em>workers</em></figcaption>
+            </figure>
+        </li>
+
+        <li class="paso">
+            <h3>Crea la carpeta de la web y descarga el sitio de ejemplo</h3>
+            <p>Los archivos de cada sitio se guardan en su propia carpeta dentro de <code>/var/www</code>. Crea la
+                tuya (cambia <code>nombre_web</code> por el nombre de tu sitio):</p>
+            <pre><code class="language-bash">sudo mkdir -p /var/www/nombre_web/html</code></pre>
+            <p>Dentro, clona este repositorio con una web de ejemplo:</p>
+            <pre><code class="language-bash">sudo git clone https://github.com/cloudacademy/static-website-example.git /var/www/nombre_web/html</code></pre>
+            <p class="alert alert-light border small"><i class="bi bi-info-circle me-1"></i>Si sale
+                <code>sudo: git: command not found</code>, instala Git con <code>sudo apt install git</code> y
+                comprueba la versión con <code>git --version</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Ajusta el propietario y los permisos</h3>
+            <p>Haz que los archivos sean del usuario <code>www-data</code>, el usuario con el que trabaja Nginx, y
+                ajusta los permisos para que pueda leerlos:</p>
+            <pre><code class="language-bash">sudo chown -R www-data:www-data /var/www/nombre_web/html
+sudo chmod -R 755 /var/www/nombre_web</code></pre>
+            <figure><img src="../DES/img/Unidad-2/creacion-estructura-directorios-web.png"
+                    alt="Terminal con la instalación de git, el git clone del sitio de ejemplo y los comandos chown y chmod">
+                <figcaption>Git, clonado del sitio de ejemplo, <code>chown</code> y <code>chmod</code></figcaption>
+            </figure>
+        </li>
+
+        <li class="paso">
+            <h3>Crea el server block del sitio</h3>
+            <p>Crea un archivo de configuración para tu sitio en <code>sites-available</code>. El archivo se llama como
+                tu sitio, y dentro irá el <strong>server block</strong>: el bloque <code>server { … }</code> que le
+                dice a Nginx cómo servirlo.</p>
+            <pre><code class="language-bash">sudo nano /etc/nginx/sites-available/nombre_web</code></pre>
+            <p>Pega este contenido y cambia <code>nombre_web</code> por tu sitio y tu dominio:</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-nginx">server {
+    listen 80;
+    listen [::]:80;
+
+    root /var/www/nombre_web/html;
+    index index.html index.htm;
+
+    server_name nombre_web www.nombre_web;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}</code></pre>
+            </div>
+            <figure><img src="../DES/img/Unidad-2/server-block.png"
+                    alt="Server block en nano con root /var/www/disenyo/html y server_name disenyo-creativo.com">
+                <figcaption>Server block de ejemplo: cambian <code>root</code> y <code>server_name</code></figcaption>
+            </figure>
+        </li>
+
+        <li class="paso">
+            <h3>Activa el sitio</h3>
+            <p>Activa el sitio con un enlace simbólico en <code>sites-enabled</code>, comprueba que la configuración no
+                tiene errores y reinicia Nginx:</p>
+            <pre><code class="language-bash">sudo ln -s /etc/nginx/sites-available/nombre_web /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx</code></pre>
+            <p><code>nginx -t</code> tiene que responder <code>syntax is ok</code> y <code>test is successful</code>. Si
+                da un error, te dice el archivo y la línea: corrígelo antes de reiniciar.</p>
+            <figure><img src="../DES/img/Unidad-2/habilitar-sitio.png"
+                    alt="Terminal con el enlace simbólico a sites-enabled y el reinicio de Nginx">
+                <figcaption>Enlace simbólico y reinicio</figcaption>
+            </figure>
+        </li>
+
+        <li class="paso">
+            <h3>Añade el dominio al archivo hosts de tu ordenador</h3>
+            <p>Todavía no tienes un servidor DNS, así que tienes que decirle a <strong>tu ordenador</strong> (el
+                anfitrión, no el servidor) qué IP tiene tu dominio. Se hace en el archivo <code>hosts</code>:</p>
+            <ul>
+                <li>Linux o macOS: <code>sudo nano /etc/hosts</code></li>
+                <li>Windows: abre el Bloc de notas <strong>como administrador</strong> y, desde él, el archivo
+                    <code>C:\Windows\System32\drivers\etc\hosts</code>.</li>
+            </ul>
+            <p>Añade al final una línea por cada nombre, con la IP de tu servidor:</p>
+            <pre><code class="language-bash"># IP de tu servidor Debian (compruébala con ip a)
+192.168.X.X   nombre_web
+192.168.X.X   www.nombre_web</code></pre>
+            <figure><img src="../DES/img/Unidad-2/editar-fichero-host-mac.png"
+                    alt="Archivo /etc/hosts de un Mac con dos líneas que asocian disenyo-creativo.com a 192.168.1.23">
+                <figcaption><code>/etc/hosts</code> en un Mac con el dominio de ejemplo</figcaption>
+            </figure>
+            <div class="alert alert-warning small"><i class="bi bi-exclamation-triangle me-1"></i>Con el adaptador
+                puente, la IP del servidor depende de la red: no será la misma en clase que en casa, y puede cambiar de
+                un día para otro. Si la web deja de abrirse, comprueba la IP con <code>ip a</code> y corrígela en
+                <code>hosts</code>.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Abre la web en el navegador</h3>
+            <p>En el navegador de tu ordenador, entra en <code>http://nombre_web</code>. Tienes que ver la web del
+                repositorio que has clonado.</p>
+            <figure><img src="../DES/img/Unidad-2/pagina-web-ejemplo-servida-por-nginx.png"
+                    alt="Navegador mostrando la web de ejemplo Dimension en disenyo-creativo.com">
+                <figcaption>La web de ejemplo servida por Nginx</figcaption>
+            </figure>
+        </li>
+
+        <li class="paso">
+            <h3>Revisa los logs del servidor</h3>
+            <p>Nginx anota cada petición en sus archivos de registro:</p>
+            <ul>
+                <li><code>/var/log/nginx/access.log</code>: todas las peticiones que recibe.</li>
+                <li><code>/var/log/nginx/error.log</code>: los errores que encuentra.</li>
+            </ul>
+            <pre><code class="language-bash">sudo tail /var/log/nginx/access.log</code></pre>
+            <p>Busca las líneas de tus visitas: verás la IP de tu ordenador, la fecha, la petición (por ejemplo,
+                <code>GET /assets/css/main.css</code>) y el código de estado.</p>
+            <figure><img src="../DES/img/Unidad-2/comprobar-registros-servidor.png"
+                    alt="Salida de tail access.log con las peticiones GET de la página y sus códigos 200, 304 y 404">
+                <figcaption>Peticiones de la web en <code>access.log</code></figcaption>
+            </figure>
+            <p class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Si no ves tus visitas, puede
+                que el navegador haya guardado la página en caché. Ábrela en una ventana privada o de incógnito para
+                forzar una petición nueva.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Responde a las preguntas</h3>
+            <p>Contesta en tu entrega, con tus palabras. Si quieres, pruébalo en tu servidor y deshazlo después:</p>
+            <ol>
+                <li>¿Qué pasa si no haces el enlace simbólico de tu sitio entre <code>sites-available</code> y
+                    <code>sites-enabled</code>?</li>
+                <li>¿Qué pasa si no das el propietario y los permisos adecuados (<code>chown</code> y
+                    <code>chmod</code>) a la carpeta <code>/var/www/nombre_web</code>?</li>
+            </ol>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="2-2">
+        <li><label><input type="checkbox"><span><code>systemctl status nginx</code> dice
+                    <code>active (running)</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>La web está en <code>/var/www/nombre_web/html</code> y es de
+                    <code>www-data</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>El server block está en <code>sites-available</code> y enlazado en
+                    <code>sites-enabled</code>.</span></label></li>
+        <li><label><input type="checkbox"><span><code>sudo nginx -t</code> no da errores.</span></label></li>
+        <li><label><input type="checkbox"><span>El archivo <code>hosts</code> de mi ordenador tiene mi dominio con la
+                    IP del servidor.</span></label></li>
+        <li><label><input type="checkbox"><span>La web se abre en el navegador con mi dominio.</span></label></li>
+        <li><label><input type="checkbox"><span>He encontrado mis visitas en <code>access.log</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>He respondido a las dos preguntas y el PDF se llama
+                    <code>ApellidoNombre_DES_Actividad2.2.pdf</code>.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-2/actividades/2-1"><i class="bi bi-arrow-left me-1"></i>Anterior: 2.1</a>
+        <a class="btn btn-primary" href="#/Unidad-2/actividades/2-3">Siguiente: 2.3. Servidores y arquitectura web <i
+                class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

@@ -1,0 +1,311 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-2/index">Unidad 2</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-2/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">2.3</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 2.3. Validar un formulario</h1>
+    <p class="lead">Un formulario de contacto no debería enviarse si falta un dato o el correo está mal escrito. Vas a comprobarlo con JavaScript antes de enviarlo, marcando en rojo o en verde cada campo y explicando el error debajo.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Escuchar el evento <code>submit</code> de un formulario y detenerlo con <code>preventDefault()</code></li>
+                    <li>Leer lo que escribe el usuario con <code>value</code> y quitar espacios con <code>trim()</code></li>
+                    <li>Añadir y quitar clases CSS con <code>classList</code></li>
+                    <li>Comprobar un formato con una expresión regular y <code>test()</code></li>
+                    <li>Usar una variable de control (<code>true</code>/<code>false</code>) para el resultado final</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-2/index?sec=8-eventos">8. Eventos</a> (sobre todo «Evitar el comportamiento por defecto»), <a href="#/Unidad-2/index?sec=5-control-de-flujo-y-errores">5. Control de flujo</a> y <a href="#/Unidad-2/index?sec=3-operadores">3. Operadores</a>.</li>
+                    <li>La chuleta de <a href="#/Unidad-2/index?sec=7-el-arbol-dom">7. El árbol DOM</a> (<code>classList</code>).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>ApellidoNombre_AW_Actividad2.3.zip</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Una carpeta con <code>index.html</code> y <code>script.js</code>, comprimida en <code>.zip</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-light border small"><strong>Cómo comprobar tu código:</strong> guarda los archivos y abre
+        el <code>.html</code> con el navegador (doble clic o arrástralo a una pestaña). Pulsa <kbd>F12</kbd> y mira la
+        pestaña <strong>Consola</strong>: si hay un error, aparece en rojo con el nombre del archivo y la línea. Cada
+        vez que cambies el código, guarda y recarga la página con <kbd>F5</kbd>.</div>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea los archivos</h3>
+            <p>Crea una carpeta con <code>index.html</code> (este código) y <code>script.js</code> vacío. El HTML
+                ya trae los estilos para marcar los campos: la clase <code>is-invalid</code> pone el borde rojo y
+                <code>is-valid</code>, verde. Debajo de cada campo hay un <code>div</code> vacío para el mensaje de
+                error.</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Validación de Formulario&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            font-family: sans-serif;
+            max-width: 400px;
+            margin: 40px auto;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            /* Transición suave para el cambio de color del borde */
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /* --- NUEVOS ESTILOS PARA VALIDACIÓN --- */
+
+        /* Estilo para el input cuando es INVÁLIDO */
+        .is-invalid {
+            border-color: red;
+        }
+
+        /* Estilo para el input cuando es VÁLIDO */
+        .is-valid {
+            border-color: green;
+        }
+
+        /* Estilo para los pequeños mensajes de error debajo de cada input */
+        .error-mensaje {
+            color: red;
+            font-size: 0.8em;
+            /* Estará oculto hasta que tenga texto */
+            min-height: 1.2em;
+        }
+
+        /* Estilo para el mensaje de éxito/error general */
+        #mensaje {
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+    &lt;h1&gt;Formulario de Contacto&lt;/h1&gt;
+
+    &lt;form id="formulario" novalidate&gt;
+
+        &lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
+        &lt;input type="text" id="nombre" placeholder="Escribe tu nombre"&gt;
+        &lt;!-- Contenedor para el error del nombre --&gt;
+        &lt;div class="error-mensaje" id="nombre-error"&gt;&lt;/div&gt;
+
+        &lt;label for="correo"&gt;Correo Electrónico:&lt;/label&gt;
+        &lt;input type="email" id="correo" placeholder="Escribe tu correo"&gt;
+        &lt;!-- Contenedor para el error del correo --&gt;
+        &lt;div class="error-mensaje" id="correo-error"&gt;&lt;/div&gt;
+
+        &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+    &lt;/form&gt;
+
+    &lt;p id="mensaje"&gt;&lt;/p&gt;
+
+    &lt;!-- Enlazamos nuestro archivo JavaScript al final del body --&gt;
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+            </div>
+            <p>Fíjate en que el formulario tiene el atributo <code>novalidate</code>: así el navegador no hace sus
+                propias comprobaciones y las haces tú con JavaScript.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Selecciona los elementos y detén el envío</h3>
+            <p>En <code>script.js</code>, guarda en constantes el formulario, los dos campos, los dos
+                <code>div</code> de error y el párrafo <code>#mensaje</code>.</p>
+            <p>Después, escucha el evento <code>submit</code> del formulario. Lo primero que hace la función es
+                llamar a <code>event.preventDefault()</code> para que la página no se recargue al pulsar Enviar.</p>
+            <p>Declara también una variable <code>esValido</code> que empiece en <code>true</code>: cada vez que
+                encuentres un error la pondrás a <code>false</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Borra el resultado anterior</h3>
+            <p>Como el usuario puede pulsar Enviar varias veces, al principio de cada comprobación deja todo como al
+                principio: quita las clases <code>is-valid</code> e <code>is-invalid</code> de los dos campos
+                (<code>classList.remove(...)</code>) y vacía los mensajes de error y el mensaje general.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Comprueba el nombre</h3>
+            <p>Si el nombre está vacío (usa <code>value.trim()</code> para que no valga escribir solo espacios),
+                añade la clase <code>is-invalid</code> al campo, escribe «El campo nombre es obligatorio.» en su
+                <code>div</code> de error y pon <code>esValido</code> a <code>false</code>. Si no está vacío, añade la
+                clase <code>is-valid</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Comprueba el correo</h3>
+            <p>El correo tiene dos comprobaciones: que no esté vacío («El campo correo es obligatorio.») y que tenga
+                formato de correo («El formato del correo no es válido.»). Para el formato usa esta expresión
+                regular, que comprueba que haya algo, una arroba, algo, un punto y algo más:</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-javascript">// Una expresión regular sencilla para correos: "caracteres@caracteres.caracteres"
+const regexCorreo = /^\S+@\S+\.\S+$/;
+
+regexCorreo.test("ana@ejemplo.com"); // true
+regexCorreo.test("ana.ejemplo.com"); // false</code></pre>
+            </div>
+            <p>Usa <code>if ... else if ... else</code>: vacío, formato incorrecto o válido.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Muestra el resultado</h3>
+            <p>Al final, si <code>esValido</code> sigue siendo <code>true</code>, escribe en el párrafo
+                <code>#mensaje</code> «Formulario enviado correctamente.» en verde. Si no, «Por favor, corrige los
+                errores señalados.» en rojo.</p>
+            <p>Prueba todos los casos: los dos campos vacíos, solo el nombre, un correo sin arroba y todo bien.</p>
+            <details>
+                <summary>Ver la solución</summary>
+                <p><a href="../AW/Unidad-2/actividades/recursos/2-3/index.html" target="_blank" rel="noopener noreferrer"><i class="bi bi-box-arrow-up-right me-1"></i>Ver la solución funcionando</a> (se abre en otra pestaña).</p>
+                <div class="position-relative">
+                    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                        onclick="copiarCodigo(this)">Copiar</button>
+                    <pre><code class="language-javascript">// Seleccionamos los elementos del formulario una sola vez al cargar la página
+const formulario = document.getElementById("formulario");
+const nombreInput = document.getElementById("nombre");
+const correoInput = document.getElementById("correo");
+
+const nombreError = document.getElementById("nombre-error");
+const correoError = document.getElementById("correo-error");
+const mensajeGeneral = document.getElementById("mensaje");
+
+// Esta es una Expresión Regular (RegEx) para validar emails de forma sencilla.
+// Busca un patrón de "caracteres@caracteres.caracteres"
+const regexCorreo = /^\S+@\S+\.\S+$/;
+
+formulario.addEventListener("submit", function (event) {
+    event.preventDefault(); // Evitamos el envío
+
+    let esValido = true; // Usaremos esta variable para saber si el formulario es válido al final
+
+    // --- Reseteamos los estilos y mensajes antes de cada validación ---
+    nombreInput.classList.remove("is-valid", "is-invalid");
+    correoInput.classList.remove("is-valid", "is-invalid");
+    nombreError.textContent = "";
+    correoError.textContent = "";
+    mensajeGeneral.textContent = "";
+
+    // --- Validación del Campo Nombre ---
+    if (nombreInput.value.trim() === "") {
+        nombreInput.classList.add("is-invalid"); // Añade clase de error
+        nombreError.textContent = "El campo nombre es obligatorio.";
+        esValido = false;
+    } else {
+        nombreInput.classList.add("is-valid"); // Añade clase de éxito
+    }
+
+    // --- Validación del Campo Correo ---
+    if (correoInput.value.trim() === "") {
+        correoInput.classList.add("is-invalid");
+        correoError.textContent = "El campo correo es obligatorio.";
+        esValido = false;
+    } else if (!regexCorreo.test(correoInput.value.trim())) {
+        // Usamos .test() para ver si el valor del correo cumple con la RegEx
+        correoInput.classList.add("is-invalid");
+        correoError.textContent = "El formato del correo no es válido.";
+        esValido = false;
+    } else {
+        correoInput.classList.add("is-valid");
+    }
+
+    // --- Comprobación Final ---
+    if (esValido) {
+        mensajeGeneral.textContent = "Formulario enviado correctamente.";
+        mensajeGeneral.style.color = "green";
+        // Aquí podrías, por ejemplo, limpiar el formulario después de un envío exitoso
+        // formulario.reset();
+        // y quitar las clases de validación
+        // nombreInput.classList.remove('is-valid');
+        // correoInput.classList.remove('is-valid');
+    } else {
+        mensajeGeneral.textContent = "Por favor, corrige los errores señalados.";
+        mensajeGeneral.style.color = "red";
+    }
+});</code></pre>
+                </div>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="2-3">
+        <li><label><input type="checkbox"><span>Al pulsar Enviar, la página no se recarga.</span></label></li>
+        <li><label><input type="checkbox"><span>Con el nombre vacío (o solo espacios), el campo se pone rojo y aparece el mensaje debajo.</span></label></li>
+        <li><label><input type="checkbox"><span>Con el correo vacío o sin formato de correo, el campo se pone rojo y aparece el mensaje adecuado.</span></label></li>
+        <li><label><input type="checkbox"><span>Los campos correctos se ponen verdes.</span></label></li>
+        <li><label><input type="checkbox"><span>Si lo corriges y vuelves a enviar, desaparecen los errores anteriores.</span></label></li>
+        <li><label><input type="checkbox"><span>Con todo bien, aparece «Formulario enviado correctamente.» en verde.</span></label></li>
+        <li><label><input type="checkbox"><span>La consola no muestra errores en rojo.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-2/actividades/2-2"><i class="bi bi-arrow-left me-1"></i>Anterior: 2.2</a>
+        <a class="btn btn-primary" href="#/Unidad-2/actividades/2-4">Siguiente: 2.4. Manipular el DOM <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

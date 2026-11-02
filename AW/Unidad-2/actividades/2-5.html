@@ -1,0 +1,218 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-2/index">Unidad 2</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-2/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">2.5</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 2.5. Lista de tareas</h1>
+    <p class="lead">Una lista de tareas sencilla: escribes una tarea, pulsas el botón y aparece en la lista con un botón para borrarla. La construyes en tres niveles, de menos a más.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Crear elementos con <code>createElement</code> y meter unos dentro de otros con <code>appendChild</code></li>
+                    <li>Añadir clases con <code>classList.add</code></li>
+                    <li>Buscar un texto dentro de otro con <code>toLowerCase()</code> e <code>includes()</code></li>
+                    <li>Crear botones desde JavaScript y darles su propio evento</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-2/index?sec=7-el-arbol-dom">7. El árbol DOM</a> (y su «Ejercicio: lista de tareas») y <a href="#/Unidad-2/index?sec=8-eventos">8. Eventos</a>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>ApellidoNombre_AW_Actividad2.5.zip</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Una carpeta con <code>index.html</code> y <code>script.js</code>, comprimida en <code>.zip</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-light border small"><strong>Cómo comprobar tu código:</strong> guarda los archivos y abre
+        el <code>.html</code> con el navegador (doble clic o arrástralo a una pestaña). Pulsa <kbd>F12</kbd> y mira la
+        pestaña <strong>Consola</strong>: si hay un error, aparece en rojo con el nombre del archivo y la línea. Cada
+        vez que cambies el código, guarda y recarga la página con <kbd>F5</kbd>.</div>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea los archivos</h3>
+            <p>Crea una carpeta con <code>index.html</code> (este código) y <code>script.js</code> vacío. La lista
+                <code>ul</code> está vacía: las tareas se añadirán con JavaScript.</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Ejercicio JS: Crear Elementos&lt;/title&gt;
+    &lt;style&gt;
+        .container {
+            width: 50%;
+            margin: auto;
+        }
+
+        .tarea {
+            background: #f4f4f4;
+            margin: 5px;
+            padding: 10px;
+            border-radius: 5px;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .urgente {
+            border-left: 5px solid red;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+    &lt;h1&gt;Mi Lista de Tareas&lt;/h1&gt;
+
+    &lt;input type="text" id="inputTarea" placeholder="Escribe una tarea..."&gt;
+    &lt;button id="btnAgregar"&gt;Agregar Tarea&lt;/button&gt;
+
+    &lt;div class="container"&gt;
+        &lt;ul id="listaTareas"&gt;
+            &lt;!-- Aquí se insertarán las tareas dinámicamente --&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+            </div>
+        </li>
+
+        <li class="paso">
+            <h3>Nivel 1: crea la tarea</h3>
+            <p>En <code>script.js</code>, selecciona el campo, el botón y la lista. Cuando se haga clic en el botón
+                (<code>addEventListener</code>):</p>
+            <ol>
+                <li>Lee el texto del campo y quítale los espacios de los extremos con <code>trim()</code>.</li>
+                <li>Si está vacío, avisa con <code>alert("Escribe algo primero")</code> y termina con
+                    <code>return</code>.</li>
+                <li>Si no, crea un <code>li</code>, ponle el texto y añádelo a la lista.</li>
+            </ol>
+        </li>
+
+        <li class="paso">
+            <h3>Nivel 2: clases y tareas importantes</h3>
+            <p>Añade a cada <code>li</code> nuevo la clase <code>tarea</code> (el CSS ya la tiene preparada: fondo
+                gris y esquinas redondeadas).</p>
+            <p>Si el texto de la tarea contiene la palabra «importante», escrita como sea (Importante,
+                IMPORTANTE…), añade además la clase <code>urgente</code>, que le pone una raya roja a la izquierda.
+                Pasa el texto a minúsculas con <code>toLowerCase()</code> y busca la palabra con
+                <code>includes("importante")</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Nivel 3: botón para eliminar</h3>
+            <p>Antes de añadir el <code>li</code> a la lista, crea un <code>button</code> con el texto «Eliminar» y
+                mételo dentro del <code>li</code>. Al hacer clic en ese botón, se borra su tarea con
+                <code>remove()</code>.</p>
+            <p>Cada botón borra solo su tarea porque se crea dentro de la misma función que su <code>li</code> y
+                «recuerda» cuál es.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Deja el campo listo para la siguiente</h3>
+            <p>Al terminar, vacía el campo (<code>value = ""</code>) y vuelve a poner el cursor en él con
+                <code>focus()</code>, para poder escribir la siguiente tarea sin hacer clic.</p>
+            <details>
+                <summary>Ver la solución</summary>
+                <p><a href="../AW/Unidad-2/actividades/recursos/2-5/index.html" target="_blank" rel="noopener noreferrer"><i class="bi bi-box-arrow-up-right me-1"></i>Ver la solución funcionando</a> (se abre en otra pestaña).</p>
+                <div class="position-relative">
+                    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                        onclick="copiarCodigo(this)">Copiar</button>
+                    <pre><code class="language-javascript">// 1. Seleccionamos los elementos del DOM
+const input = document.getElementById('inputTarea');
+const boton = document.getElementById('btnAgregar');
+const lista = document.getElementById('listaTareas');
+
+// 2. Función para agregar la tarea
+boton.addEventListener('click', () =&gt; {
+    const texto = input.value.trim();
+
+    // Validación: No permitir tareas vacías
+    if (texto === "") {
+        alert("Escribe algo primero");
+        return;
+    }
+
+    // --- NIVEL 1: Crear el elemento ---
+    const nuevaTarea = document.createElement('li'); // Creamos el &lt;li&gt;
+    nuevaTarea.textContent = texto; // Le ponemos el texto
+
+    // --- NIVEL 2: Clases y Limpieza ---
+    nuevaTarea.classList.add('tarea'); // Añadimos la clase CSS
+
+    if (texto.toLowerCase().includes("importante")) {
+        nuevaTarea.classList.add('urgente');
+    }
+
+    // --- NIVEL 3: Botón de eliminar ---
+    const btnBorrar = document.createElement('button');
+    btnBorrar.textContent = "Eliminar";
+    btnBorrar.onclick = function () {
+        nuevaTarea.remove(); // Borra el elemento &lt;li&gt;
+    };
+
+    // Unimos las piezas
+    nuevaTarea.appendChild(btnBorrar); // Metemos el botón dentro del li
+    lista.appendChild(nuevaTarea);     // Metemos el li dentro de la lista (ul)
+
+    // Limpieza
+    input.value = "";
+    input.focus();
+});</code></pre>
+                </div>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="2-5">
+        <li><label><input type="checkbox"><span>Al pulsar «Agregar Tarea» con el campo vacío, aparece un aviso y no se añade nada.</span></label></li>
+        <li><label><input type="checkbox"><span>Cada tarea nueva aparece en la lista con fondo gris.</span></label></li>
+        <li><label><input type="checkbox"><span>Las tareas que contienen «importante» (en mayúsculas o minúsculas) tienen la raya roja.</span></label></li>
+        <li><label><input type="checkbox"><span>Cada tarea tiene su botón «Eliminar», que borra solo esa tarea.</span></label></li>
+        <li><label><input type="checkbox"><span>Después de añadir una tarea, el campo se vacía y el cursor vuelve a él.</span></label></li>
+        <li><label><input type="checkbox"><span>La consola no muestra errores en rojo.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-2/actividades/2-4"><i class="bi bi-arrow-left me-1"></i>Anterior: 2.4</a>
+        <a class="btn btn-primary" href="#/Unidad-2/actividades/2-6">Siguiente: 2.6. Cartelera de películas <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

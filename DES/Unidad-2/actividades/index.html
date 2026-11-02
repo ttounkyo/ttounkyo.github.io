@@ -1,0 +1,107 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-2/index">Unidad 2</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Actividades</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Unidad 2. Actividades</h1>
+    <p class="lead">Empiezas viendo cómo funciona HTTP por dentro, después montas Nginx en tu servidor Debian con
+        uno o varios sitios y terminas con un servidor de verdad en la nube, protegido con HTTPS.</p>
+
+    <div class="alert alert-info">
+        <strong><i class="bi bi-info-circle me-1"></i>Cómo trabajar cada actividad:</strong>
+        <ol class="mb-0 mt-2">
+            <li>Lee primero el apartado de teoría que se indica.</li>
+            <li>Sigue el <strong>paso a paso</strong> en tu servidor. Copia los comandos con cuidado y lee lo que
+                responde la terminal antes de pasar al siguiente. Antes de reiniciar Nginx, comprueba siempre la
+                configuración con <code>sudo nginx -t</code>.</li>
+            <li>Haz una captura de cada paso para tu entrega. Cambia los nombres de ejemplo (<code>nombre_web</code>,
+                <code>usuario</code>, la IP…) por los tuyos.</li>
+            <li>Antes de entregar, marca la <strong>lista de comprobación</strong> del final. Tu avance se guarda en
+                este navegador.</li>
+        </ol>
+        <p class="mb-0 mt-2"><i class="bi bi-signpost-split me-1"></i>Las actividades 2.1 a 2.4 se hacen en tu
+            máquina virtual. La 2.5 necesita el servidor de AWS de la 2.6: <strong>haz la 2.6 antes que la
+                2.5</strong>.</p>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle my-4">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Actividad</th>
+                    <th scope="col">Qué practicas</th>
+                    <th scope="col">Teoría</th>
+                    <th scope="col" class="text-center">Tu avance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-light">
+                    <th scope="rowgroup" colspan="4">El protocolo HTTP</th>
+                </tr>
+                <tr>
+                    <td><a href="#/Unidad-2/actividades/2-1"><strong>2.1.</strong> Petición HTTP con Telnet</a></td>
+                    <td>Escribir a mano peticiones <code>GET</code> y <code>HEAD</code> y analizar la respuesta del
+                        servidor.</td>
+                    <td><a href="#/Unidad-2/index?sec=4-mensajes-http-peticion-y-respuesta">4. Mensajes HTTP</a></td>
+                    <td class="text-center"><span data-progreso="2-1" class="badge bg-light text-muted">Sin
+                            empezar</span></td>
+                </tr>
+                <tr class="table-light">
+                    <th scope="rowgroup" colspan="4">Nginx en tu servidor</th>
+                </tr>
+                <tr>
+                    <td><a href="#/Unidad-2/actividades/2-2"><strong>2.2.</strong> Instalar y configurar Nginx</a></td>
+                    <td>Instalar Nginx, publicar una web con su server block, el archivo <code>hosts</code> y los
+                        logs.</td>
+                    <td><a href="#/Unidad-2/index?sec=7-5-varios-sitios-en-un-servidor-server-blocks">7.5. Server
+                            blocks</a></td>
+                    <td class="text-center"><span data-progreso="2-2" class="badge bg-light text-muted">Sin
+                            empezar</span></td>
+                </tr>
+                <tr>
+                    <td><a href="#/Unidad-2/actividades/2-3"><strong>2.3.</strong> Servidores y arquitectura web</a></td>
+                    <td>Versiones de HTTP, cabeceras reales,
+                        Apache o Nginx, stack LEMP, dos sitios con server blocks y análisis de logs.</td>
+                    <td><a href="#/Unidad-2/index?sec=7-servidores-web-apache-y-nginx">7. Servidores web: Apache y
+                            Nginx</a></td>
+                    <td class="text-center"><span data-progreso="2-3" class="badge bg-light text-muted">Sin
+                            empezar</span></td>
+                </tr>
+                <tr>
+                    <td><a href="#/Unidad-2/actividades/2-4"><strong>2.4.</strong> Transferencia de archivos con
+                            SFTP</a></td>
+                    <td>Subir una web al servidor con FileZilla por SFTP y resolver los problemas de permisos.</td>
+                    <td><a href="#/Unidad-2/index?sec=1-2-otras-funciones-de-los-servidores-web">1.2. Otras funciones
+                            de los servidores web</a></td>
+                    <td class="text-center"><span data-progreso="2-4" class="badge bg-light text-muted">Sin
+                            empezar</span></td>
+                </tr>
+                <tr class="table-light">
+                    <th scope="rowgroup" colspan="4">Servidor en la nube</th>
+                </tr>
+                <tr>
+                    <td><a href="#/Unidad-2/actividades/2-5"><strong>2.5.</strong> HTTPS con Let's Encrypt</a></td>
+                    <td>Abrir el puerto 443 en AWS, conseguir un certificado con Certbot, redirigir a HTTPS y probar la
+                        renovación. <strong>Después de la 2.6.</strong></td>
+                    <td><a href="#/Unidad-2/index?sec=6-https-la-capa-de-seguridad-de-la-web">6. HTTPS</a></td>
+                    <td class="text-center"><span data-progreso="2-5" class="badge bg-light text-muted">Sin
+                            empezar</span></td>
+                </tr>
+                <tr>
+                    <td><a href="#/Unidad-2/actividades/2-6"><strong>2.6.</strong> Servidor VPS en AWS</a></td>
+                    <td>Lanzar una instancia EC2 con Debian, crear el par de claves y el grupo de seguridad y conectarte
+                        por SSH.</td>
+                    <td><a href="#/Unidad-2/index?sec=1-que-es-un-servidor-web">1. ¿Qué es un servidor web?</a></td>
+                    <td class="text-center"><span data-progreso="2-6" class="badge bg-light text-muted">Sin
+                            empezar</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="text-muted small">El avance solo se guarda en este navegador y en este ordenador. Si cambias de equipo,
+        empezará de cero.</p>
+</div>

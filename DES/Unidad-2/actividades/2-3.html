@@ -1,0 +1,235 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-2/index">Unidad 2</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-2/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">2.3</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 2.3. Servidores y arquitectura web</h1>
+    <p class="lead">Seis ejercicios para afianzar la unidad: tres de investigación sobre HTTP y los servidores web, y
+        tres prácticos en tu servidor: un stack LEMP, dos sitios con server blocks y el análisis de los logs.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Versiones de HTTP y cabeceras de una petición real</li>
+                    <li>Apache frente a Nginx</li>
+                    <li>Stack LEMP: Nginx, MariaDB y PHP-FPM</li>
+                    <li>Varios sitios con server blocks</li>
+                    <li>Leer <code>access.log</code> y <code>error.log</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-2/index?sec=2-el-protocolo-http">2. El protocolo HTTP</a>, <a
+                            href="#/Unidad-2/index?sec=4-mensajes-http-peticion-y-respuesta">4. Mensajes HTTP</a> y <a
+                            href="#/Unidad-2/index?sec=7-servidores-web-apache-y-nginx">7. Servidores web: Apache y
+                            Nginx</a></li>
+                    <li>Haber terminado la <a href="#/Unidad-2/actividades/2-2">actividad 2.2</a>: te servirá de guía
+                        para los ejercicios 4 a 6.</li>
+                    <li>Tu servidor Debian (o un Ubuntu Server) con acceso por SSH.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>ApellidoNombre_DES_Actividad2.3.pdf</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Las respuestas de los ejercicios 1 a 3 y, en los ejercicios 4 a 6, todos los pasos con sus
+                    capturas.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Ejercicio 1. La evolución de HTTP</h3>
+            <p>Haz una tabla comparativa con las características de cada versión de HTTP y, sobre todo, con el
+                <strong>problema principal que resolvió</strong> cada una:</p>
+            <ul>
+                <li>HTTP/1.0: una conexión TCP nueva para cada recurso.</li>
+                <li>HTTP/1.1: lo poco eficiente que era abrir tantas conexiones.</li>
+                <li>HTTP/2: el bloqueo de cabeza de línea (<em>Head-of-Line Blocking</em>) a nivel de HTTP.</li>
+                <li>HTTP/3: el bloqueo de cabeza de línea a nivel de TCP.</li>
+            </ul>
+        </li>
+
+        <li class="paso">
+            <h3>Ejercicio 2. Anatomía de una petición real</h3>
+            <p>Abre las <strong>herramientas de desarrollador</strong> del navegador (<kbd>F12</kbd> o
+                <kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>I</kbd>; en Mac, <kbd>Cmd</kbd>+<kbd>Opción</kbd>+<kbd>I</kbd>)
+                y ve a la pestaña <strong>Red</strong> (<em>Network</em>).</p>
+            <ol>
+                <li>Visita una web compleja, como <code>www.amazon.es</code> o <code>elpais.com</code>.</li>
+                <li>Selecciona la primera petición de la lista (normalmente, el documento HTML principal).</li>
+                <li>Mira las cabeceras (<em>Headers</em>) de la petición y de la respuesta, y anota:
+                    <ul>
+                        <li>El <strong>método</strong> de la petición y el <strong>código de estado</strong> de la
+                            respuesta.</li>
+                        <li>La cabecera de petición <code>User-Agent</code>. ¿Qué dice de tu sistema?</li>
+                        <li>La cabecera de respuesta <code>Content-Type</code>. ¿Qué tipo de documento has recibido?</li>
+                        <li>La cabecera de respuesta <code>Server</code>. ¿Puedes saber si usan Apache, Nginx u otro
+                            servidor? (Muchas webs la ocultan o ponen el nombre de su CDN).</li>
+                        <li>Busca la petición de una imagen (JPG, PNG, WebP…) y compara su <code>Content-Type</code> con
+                            el del documento HTML.</li>
+                    </ul>
+                </li>
+            </ol>
+            <figure><img src="../DES/img/Unidad-2/amazon.png"
+                    alt="Herramientas de desarrollador en amazon.es: pestaña Network con la petición GET y el código 200 OK">
+                <figcaption>Pestaña <em>Network</em>: método <code>GET</code> y estado <code>200 OK</code> de la
+                    primera petición</figcaption>
+            </figure>
+        </li>
+
+        <li class="paso">
+            <h3>Ejercicio 3. Apache o Nginx</h3>
+            <p>Investiga y responde:</p>
+            <ol>
+                <li>¿Qué son los archivos <code>.htaccess</code> de Apache y por qué son tan populares en los hostings
+                    compartidos? ¿Por qué Nginx decidió no tener nada parecido?</li>
+                <li>Tienes que desplegar dos proyectos:
+                    <ul>
+                        <li><strong>Proyecto A:</strong> un blog de WordPress con mucho tráfico y muchas
+                            imágenes.</li>
+                        <li><strong>Proyecto B:</strong> una intranet para una empresa de 10 personas con una aplicación
+                            PHP muy concreta que depende de varios módulos poco comunes de Apache.</li>
+                    </ul>
+                    ¿Qué servidor web elegirías para cada uno (Apache, Nginx o una configuración híbrida)? Justifícalo
+                    con la arquitectura y las características de cada uno.
+                </li>
+            </ol>
+        </li>
+
+        <li class="paso">
+            <h3>Ejercicio 4. Instala un stack LEMP</h3>
+            <p>Antes de empezar, busca qué significa <strong>stack LEMP</strong> y explícalo en tu entrega. Documenta
+                todos los pasos con capturas.</p>
+            <ol>
+                <li>Instala Nginx, MariaDB y PHP (con el paquete <code>php-fpm</code> y el conector de MySQL):
+                    <pre><code class="language-bash">sudo apt update
+sudo apt install nginx mariadb-server php-fpm php-mysql</code></pre>
+                    <figure><img src="../DES/img/Unidad-2/lemp.png"
+                            alt="Terminal instalando nginx, mariadb-server, php-fpm y php-mysql con apt">
+                        <figcaption>Instalación del stack LEMP</figcaption>
+                    </figure>
+                </li>
+                <li>Comprueba que los tres servicios están en marcha (en Debian 13 la versión de PHP es la 8.4; si la
+                    tuya es otra, cambia el número):
+                    <pre><code class="language-bash">systemctl status nginx mariadb php8.4-fpm</code></pre>
+                </li>
+                <li>Crea el archivo <code>info.php</code> en la carpeta web por defecto:
+                    <pre><code class="language-bash">echo '&lt;?php phpinfo(); ?&gt;' | sudo tee /var/www/html/info.php</code></pre>
+                </li>
+                <li>Configura Nginx para que pase los archivos PHP a PHP-FPM. Abre el sitio por defecto con
+                    <code>sudo nano /etc/nginx/sites-available/default</code> y quita el <code>#</code> de las líneas
+                    del bloque <code>location ~ \.php$</code>, para que quede así:
+                    <pre><code class="language-nginx">location ~ \.php$ {
+    include snippets/fastcgi-php.conf;
+    fastcgi_pass unix:/run/php/php8.4-fpm.sock;
+}</code></pre>
+                    <p>Añade también <code>index.php</code> a la línea <code>index</code> del mismo archivo. Comprueba
+                        la configuración y recarga Nginx:</p>
+                    <pre><code class="language-bash">sudo nginx -t
+sudo systemctl reload nginx</code></pre>
+                    <figure><img src="../DES/img/Unidad-2/default-php.png"
+                            alt="Archivo default de Nginx con el bloque location de PHP descomentado y fastcgi_pass al socket de php8.4-fpm">
+                        <figcaption>Bloque de PHP descomentado en <code>sites-available/default</code></figcaption>
+                    </figure>
+                </li>
+                <li>Abre en tu navegador <code>http://IP_DEL_SERVIDOR/info.php</code>. Tienes que ver la página de
+                    información de PHP.
+                    <figure><img src="../DES/img/Unidad-2/info-php.png"
+                            alt="Página de phpinfo con PHP 8.4.11 servida por Nginx">
+                        <figcaption>PHP funcionando a través de Nginx y PHP-FPM</figcaption>
+                    </figure>
+                </li>
+            </ol>
+            <div class="alert alert-warning small"><i class="bi bi-exclamation-triangle me-1"></i>Cuando termines,
+                borra <code>info.php</code> (<code>sudo rm /var/www/html/info.php</code>): muestra mucha información de
+                tu servidor que no debe ser pública.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Ejercicio 5. Dos sitios con server blocks</h3>
+            <p>Documenta todos los pasos con capturas. Puedes seguir la <a href="#/Unidad-2/actividades/2-2">actividad
+                    2.2</a> como guía.</p>
+            <ol>
+                <li>Crea dos carpetas para dos sitios: <code>/var/www/sitio1</code> y <code>/var/www/sitio2</code>.</li>
+                <li>En cada una, crea un <code>index.html</code> sencillo pero distinto (por ejemplo, «Bienvenido al
+                    sitio 1 de TUNOMBRE» y «Página principal del sitio 2 de TUNOMBRE»).</li>
+                <li>Crea un server block para cada sitio en <code>/etc/nginx/sites-available/</code>, con los nombres
+                    <code>sitio1.local</code> y <code>sitio2.local</code>.</li>
+                <li>Activa los dos sitios con sus enlaces simbólicos en <code>/etc/nginx/sites-enabled/</code>.</li>
+                <li>En el archivo <code>hosts</code> de <strong>tu ordenador</strong>, haz que
+                    <code>sitio1.local</code> y <code>sitio2.local</code> apunten a la IP de tu servidor.</li>
+                <li>Comprueba la configuración con <code>sudo nginx -t</code>, reinicia Nginx y abre los dos sitios en
+                    tu navegador con sus nombres.</li>
+            </ol>
+        </li>
+
+        <li class="paso">
+            <h3>Ejercicio 6. Analiza los logs</h3>
+            <ol>
+                <li>Abre <code>sitio1.local</code>. Después, intenta abrir una página que no existe, como
+                    <code>sitio1.local/pagina-inventada.html</code>.</li>
+                <li>Conéctate al servidor y mira las últimas líneas de los logs de Nginx con <code>tail</code>:
+                    <pre><code class="language-bash">sudo tail -n 20 /var/log/nginx/access.log
+sudo tail -n 20 /var/log/nginx/error.log</code></pre>
+                </li>
+                <li>En <code>access.log</code>, localiza la línea de tu visita correcta (código <code>200</code>) y la
+                    de la página que no existe (código <code>404</code>).</li>
+                <li>Mira también <code>error.log</code>. ¿Aparece el intento fallido? Explica lo que ves: con
+                    <code>try_files … =404</code>, Nginx responde 404 sin anotarlo como error, así que puede que no
+                    aparezca nada.</li>
+                <li>Copia las líneas en tu entrega y explica qué información da cada parte (IP, fecha, petición,
+                    código de estado, tamaño, navegador…).</li>
+            </ol>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="2-3">
+        <li><label><input type="checkbox"><span>Ejercicio 1: tabla con las cuatro versiones de HTTP y el problema
+                    que resolvió cada una.</span></label></li>
+        <li><label><input type="checkbox"><span>Ejercicio 2: método, código de estado, <code>User-Agent</code>,
+                    <code>Content-Type</code> y <code>Server</code> anotados.</span></label></li>
+        <li><label><input type="checkbox"><span>Ejercicio 3: preguntas sobre <code>.htaccess</code> y elección
+                    justificada para los proyectos A y B.</span></label></li>
+        <li><label><input type="checkbox"><span>Ejercicio 4: <code>info.php</code> se ve en el navegador (y después
+                    lo he borrado).</span></label></li>
+        <li><label><input type="checkbox"><span>Ejercicio 5: <code>sitio1.local</code> y <code>sitio2.local</code>
+                    muestran páginas distintas.</span></label></li>
+        <li><label><input type="checkbox"><span>Ejercicio 6: líneas del 200 y del 404 localizadas y
+                    explicadas.</span></label></li>
+        <li><label><input type="checkbox"><span>El PDF se llama
+                    <code>ApellidoNombre_DES_Actividad2.3.pdf</code>.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-2/actividades/2-2"><i class="bi bi-arrow-left me-1"></i>Anterior: 2.2</a>
+        <a class="btn btn-primary" href="#/Unidad-2/actividades/2-4">Siguiente: 2.4. Transferencia con SFTP <i
+                class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

@@ -101,8 +101,24 @@
             transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
         }
 
+        /* Color de cada asignatura (el mismo que tiene dentro: ver comun/apuntes.css) */
+        .asignatura.ao {
+            --tono: #1a4f9c;
+            --tono-claro: #e8f0fb;
+        }
+
+        .asignatura.aw {
+            --tono: #5b3cc4;
+            --tono-claro: #efeafc;
+        }
+
+        .asignatura.des {
+            --tono: #0f6e6e;
+            --tono-claro: #e2f3f2;
+        }
+
         .asignatura:hover {
-            border-color: var(--azul);
+            border-color: var(--tono);
             box-shadow: 0 6px 20px rgba(15, 39, 71, 0.08);
             transform: translateY(-2px);
         }
@@ -119,8 +135,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--azul-claro);
-            color: var(--azul);
+            background-color: var(--tono-claro);
+            color: var(--tono);
             font-size: 1.5rem;
         }
 
@@ -150,7 +166,7 @@
             margin-top: auto;
             padding-top: 0.5rem;
             font-weight: 700;
-            color: var(--azul);
+            color: var(--tono);
         }
 
         footer {
@@ -180,21 +196,21 @@
         <div class="contenedor">
             <h2>Asignaturas</h2>
             <div class="asignaturas">
-                <a class="asignatura" href="AO/">
+                <a class="asignatura ao" href="AO/">
                     <span class="icono"><i class="bi bi-file-earmark-text"></i></span>
                     <span class="ciclo">SMX</span>
                     <span class="nombre">Aplicaciones Ofimáticas</span>
                     <span class="descripcion">Documentos, hojas de cálculo, presentaciones, correo y HTML.</span>
                     <span class="entrar">Entrar <i class="bi bi-arrow-right"></i></span>
                 </a>
-                <a class="asignatura" href="AW/">
+                <a class="asignatura aw" href="AW/">
                     <span class="icono"><i class="bi bi-window"></i></span>
                     <span class="ciclo">SMX</span>
                     <span class="nombre">Aplicaciones Web</span>
-                    <span class="descripcion">Programación web con JavaScript.</span>
+                    <span class="descripcion">Programación web con JavaScript: el DOM y los eventos.</span>
                     <span class="entrar">Entrar <i class="bi bi-arrow-right"></i></span>
                 </a>
-                <a class="asignatura" href="DES/">
+                <a class="asignatura des" href="DES/">
                     <span class="icono"><i class="bi bi-hdd-network"></i></span>
                     <span class="ciclo">DAW</span>
                     <span class="nombre">Despliegue de Aplicaciones Web</span>

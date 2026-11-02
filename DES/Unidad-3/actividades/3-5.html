@@ -1,0 +1,376 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-3/index">Unidad 3</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-3/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">3.5</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 3.5. Despliegue de aplicaciones Django (Python)</h1>
+    <p class="lead">Vas a crear un proyecto con Django, el framework «con todo incluido» de Python, con su panel de
+        administración y una pequeña aplicación. Lo desplegarás con Gunicorn escuchando en un socket Unix y Nginx
+        sirviendo los archivos estáticos.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Crear un proyecto y una aplicación Django</li>
+                    <li>Migraciones y superusuario del panel de administración</li>
+                    <li>Recolectar los archivos estáticos con <code>collectstatic</code></li>
+                    <li>Gunicorn con un socket Unix como servicio de <code>systemd</code></li>
+                    <li>Nginx como proxy inverso y servidor de estáticos</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-3/index?sec=7-despliegue-de-aplicaciones-python">7. Despliegue de
+                            aplicaciones Python</a></li>
+                    <li>Python, pip y venv instalados como en la <a href="#/Unidad-3/actividades/3-2">Actividad 3.2</a>
+                        (paso 2).</li>
+                    <li>Nginx instalado (Actividades 3.1 o 3.2).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_DES_Actividad3.5</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Formato</th>
+                <td>Un documento (de Google Docs, entregado en PDF) con capturas de la instalación, el panel de
+                    administración y la web funcionando a través de Nginx.</td>
+            </tr>
+            <tr>
+                <th scope="row">Respuestas</th>
+                <td>Las preguntas del final de la actividad</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Django saca una versión nueva cada ocho meses. Los pasos
+        sirven para las versiones actuales; si alguna pantalla o mensaje cambia un poco, busca el equivalente. En todos
+        los archivos cambia <code>tuUsuario</code> por tu nombre de usuario (lo ves con <code>whoami</code>).</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Libera los puertos de las prácticas anteriores</h3>
+            <p>Detén los servicios de otras prácticas para que no ocupen los puertos (si alguno no existe, verás un
+                aviso; no pasa nada). Si tienes WildFly en marcha, páralo con <kbd>Ctrl</kbd>+<kbd>C</kbd> en su
+                terminal.</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo systemctl stop apache2
+sudo systemctl stop flask-blog
+pm2 stop all</code></pre>
+</div>
+        </li>
+
+        <li class="paso">
+            <h3>Prepara el entorno virtual e instala Django</h3>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">mkdir ~/mi-proyecto-django
+cd ~/mi-proyecto-django
+python3 -m venv venv
+source venv/bin/activate
+pip install django gunicorn
+python -m django --version</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                el símbolo del sistema empieza por <code>(venv)</code> y el último comando muestra la versión de
+                Django (por ejemplo, <code>6.1.2</code>).</div>
+        </li>
+
+        <li class="paso">
+            <h3>Crea el proyecto</h3>
+            <p>Genera la estructura del proyecto. El punto final es importante: crea el proyecto en la carpeta actual
+                en lugar de en una subcarpeta más:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">django-admin startproject misitio .</code></pre>
+</div>
+            <p>Aplica las migraciones iniciales (crean las tablas de la base de datos SQLite) y crea un superusuario
+                para el panel de administración (te pedirá usuario, correo y contraseña):</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">python manage.py migrate
+python manage.py createsuperuser</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                <code>migrate</code> muestra varias líneas <code>Applying ... OK</code> y al final sale
+                <code>Superuser created successfully.</code></div>
+        </li>
+
+        <li class="paso">
+            <h3>Prueba el servidor de desarrollo</h3>
+            <p>Para poder entrar desde otro equipo, permite cualquier nombre de host (solo para practicar). Abre la
+                configuración:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">nano misitio/settings.py</code></pre>
+</div>
+            <p>Busca <code>ALLOWED_HOSTS</code> y déjalo así:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-python">ALLOWED_HOSTS = ['*']</code></pre>
+</div>
+            <p>Arranca el servidor de desarrollo:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">python manage.py runserver 0.0.0.0:8000</code></pre>
+</div>
+            <p>Abre en el navegador:</p>
+            <ul>
+                <li><code>http://IP-DE-TU-SERVIDOR:8000</code>: verás el cohete de Django («The install worked
+                    successfully!»).</li>
+                <li><code>http://IP-DE-TU-SERVIDOR:8000/admin</code>: el panel de administración. Entra con tu
+                    superusuario.</li>
+            </ul>
+            <div class="alert alert-warning"><i class="bi bi-shield-lock me-1"></i><strong>Si usas AWS:</strong> abre
+                el puerto 8000 en el grupo de seguridad.</div>
+            <p><i class="bi bi-camera me-1"></i><strong>Captura:</strong> el panel de administración de Django
+                funcionando.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Crea una aplicación «Hola Mundo»</h3>
+            <p>En Django, un <strong>proyecto</strong> puede tener varias <strong>aplicaciones</strong>. Para el
+                servidor (<kbd>Ctrl</kbd>+<kbd>C</kbd>) y crea una:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">python manage.py startapp hola</code></pre>
+</div>
+            <p>Define una vista en <code>hola/views.py</code> (sustituye su contenido):</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">nano hola/views.py</code></pre>
+</div>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-python">from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("¡Hola Mundo desde Django en Debian!")</code></pre>
+</div>
+            <p>Crea el archivo <code>hola/urls.py</code> con las rutas de la aplicación:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">nano hola/urls.py</code></pre>
+</div>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-python">from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+]</code></pre>
+</div>
+            <p>Incluye esas rutas en las del proyecto, en <code>misitio/urls.py</code> (sustituye su contenido):</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">nano misitio/urls.py</code></pre>
+</div>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-python">from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('hola.urls')),
+]</code></pre>
+</div>
+            <p>Por último, añade <code>'hola'</code> a la lista <code>INSTALLED_APPS</code> de
+                <code>misitio/settings.py</code>:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-python">INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'hola',
+]</code></pre>
+</div>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">python manage.py runserver 0.0.0.0:8000</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                <code>http://IP-DE-TU-SERVIDOR:8000</code> muestra ahora <strong>¡Hola Mundo desde Django en
+                    Debian!</strong> y <code>/admin</code> sigue funcionando. Después para el servidor con
+                <kbd>Ctrl</kbd>+<kbd>C</kbd>.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Recolecta los archivos estáticos</h3>
+            <p>En producción Django no sirve bien los archivos estáticos (CSS, JavaScript, imágenes): los reúne en una
+                carpeta para que los sirva Nginx. Añade al final de <code>misitio/settings.py</code>:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-python">STATIC_ROOT = BASE_DIR / 'static'</code></pre>
+</div>
+            <p>Y recolecta los estáticos (confirma con <code>yes</code> si te lo pregunta):</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">python manage.py collectstatic</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                sale <code>... static files copied to '/home/tuUsuario/mi-proyecto-django/static'</code> (son los
+                estilos del panel de administración).</div>
+        </li>
+
+        <li class="paso">
+            <h3>Prueba Gunicorn con un socket Unix</h3>
+            <p>Esta vez Gunicorn no escuchará en un puerto TCP, sino en un <strong>socket Unix</strong>: un archivo
+                especial por el que Nginx y Gunicorn se comunican dentro del mismo servidor.</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">gunicorn --bind unix:/home/tuUsuario/mi-proyecto-django/misitio.sock misitio.wsgi:application</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                sale <code>Listening at: unix:/home/tuUsuario/mi-proyecto-django/misitio.sock</code> y
+                <code>Booting worker</code>, sin errores. Desde el navegador todavía no puedes entrar (falta Nginx).
+                Para Gunicorn con <kbd>Ctrl</kbd>+<kbd>C</kbd>.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Crea el servicio de systemd</h3>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo nano /etc/systemd/system/django-app.service</code></pre>
+</div>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-ini">[Unit]
+Description=Gunicorn para el proyecto Django
+After=network.target
+
+[Service]
+User=tuUsuario
+Group=www-data
+WorkingDirectory=/home/tuUsuario/mi-proyecto-django
+ExecStart=/home/tuUsuario/mi-proyecto-django/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/tuUsuario/mi-proyecto-django/misitio.sock --umask 007 misitio.wsgi:application
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+</div>
+            <p>El <code>--umask 007</code> hace que el socket se cree con permisos para el grupo
+                <code>www-data</code>, que es el de Nginx.</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo systemctl daemon-reload
+sudo systemctl start django-app
+sudo systemctl enable django-app
+sudo systemctl status django-app</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                el estado dice <code>active (running)</code> y existe el socket:
+                <code>ls -l ~/mi-proyecto-django/misitio.sock</code> empieza por <code>srwxrwx---</code> con el grupo
+                <code>www-data</code>.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Configura Nginx</h3>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo nano /etc/nginx/sites-available/django-app</code></pre>
+</div>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-nginx">server {
+    listen 80;
+    server_name IP-DE-TU-SERVIDOR;  # o tu dominio
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+
+    location /static/ {
+        root /home/tuUsuario/mi-proyecto-django;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/tuUsuario/mi-proyecto-django/misitio.sock;
+    }
+}</code></pre>
+</div>
+            <p>Nginx (que funciona con el usuario <code>www-data</code>) tiene que poder llegar hasta el socket y los
+                estáticos, que están dentro de tu carpeta personal. Dale permiso para atravesarla (sin poder ver su
+                contenido) y pon el proyecto en el grupo <code>www-data</code>:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo chmod o+x /home/tuUsuario
+sudo chown -R tuUsuario:www-data /home/tuUsuario/mi-proyecto-django</code></pre>
+</div>
+            <p>Activa el sitio, desactiva los de las prácticas anteriores para que no respondan en su lugar,
+                comprueba la configuración y reinicia Nginx:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo ln -s /etc/nginx/sites-available/django-app /etc/nginx/sites-enabled/
+sudo rm -f /etc/nginx/sites-enabled/default /etc/nginx/sites-enabled/todo-app /etc/nginx/sites-enabled/flask-blog
+sudo nginx -t
+sudo systemctl restart nginx</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                <code>http://IP-DE-TU-SERVIDOR</code> (sin puerto) muestra <strong>¡Hola Mundo desde Django en
+                    Debian!</strong> y <code>http://IP-DE-TU-SERVIDOR/admin</code> se ve con sus estilos (los sirve
+                Nginx desde <code>/static/</code>).</div>
+            <div class="alert alert-light border small"><i class="bi bi-wrench me-1"></i><strong>¿Sale 502 Bad
+                    Gateway?</strong> Nginx no puede usar el socket. Mira el log
+                (<code>sudo tail /var/log/nginx/error.log</code>): si dice <code>Permission denied</code>, revisa los
+                permisos de tu carpeta personal y del proyecto; si dice <code>No such file</code>, el servicio
+                <code>django-app</code> no está en marcha (<code>sudo journalctl -u django-app -n 50</code>).</div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En un despliegue real,
+                además, se pone <code>DEBUG = False</code> en <code>settings.py</code> y en <code>ALLOWED_HOSTS</code> solo
+                tu dominio o tu IP.</div>
+            <p><i class="bi bi-camera me-1"></i><strong>Captura:</strong> la web y el panel de administración
+                funcionando por el puerto 80.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Preguntas</h2>
+    <p>Responde en tu documento de entrega:</p>
+    <ol>
+        <li>¿Cuál es la principal diferencia de arquitectura entre Flask y Django?</li>
+        <li>¿Para qué sirve el comando <code>collectstatic</code>?</li>
+        <li>¿Por qué es preferible usar un socket Unix en lugar de un puerto TCP para comunicar Nginx y Gunicorn en el
+            mismo servidor?</li>
+        <li>¿Qué archivo de Django controla las URL de la aplicación?</li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="3-5">
+        <li><label><input type="checkbox"><span>Django está instalado en un entorno virtual.</span></label></li>
+        <li><label><input type="checkbox"><span>He creado el superusuario y entro en <code>/admin</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>La aplicación <code>hola</code> responde en la raíz del sitio.</span></label></li>
+        <li><label><input type="checkbox"><span><code>collectstatic</code> ha creado la carpeta <code>static</code>.</span></label></li>
+        <li><label><input type="checkbox"><span><code>sudo systemctl status django-app</code> dice <code>active (running)</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>La web y el panel (con estilos) se ven por el puerto 80 a través de Nginx.</span></label></li>
+        <li><label><input type="checkbox"><span>El documento tiene todas las capturas y las respuestas a las preguntas.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-3/actividades/3-4"><i class="bi bi-arrow-left me-1"></i>Anterior: 3.4</a>
+        <a class="btn btn-primary" href="#/Unidad-3/actividades/index"><i class="bi bi-list-check me-1"></i>Todas las actividades</a>
+    </nav>
+</div>

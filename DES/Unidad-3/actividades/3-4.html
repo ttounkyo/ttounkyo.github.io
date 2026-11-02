@@ -1,0 +1,371 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-3/index">Unidad 3</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-3/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">3.4</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 3.4. Despliegue de aplicaciones Jakarta EE con WildFly</h1>
+    <p class="lead">En el mundo empresarial, Java sigue siendo un estándar. Vas a instalar el servidor de aplicaciones
+        WildFly, crear con Maven una aplicación web con un servlet, empaquetarla en un archivo WAR y desplegarla.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Instalar el JDK, Maven y WildFly</li>
+                    <li>Usar la consola de administración de WildFly</li>
+                    <li>Crear un proyecto web con Maven y escribir un servlet</li>
+                    <li>Empaquetar un WAR y desplegarlo copiándolo en <code>deployments</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-3/index?sec=5-despliegue-de-aplicaciones-java">5. Despliegue de
+                            aplicaciones Java</a></li>
+                    <li>Esta práctica necesita más memoria que las anteriores: tu máquina virtual debe tener al menos
+                        <strong>2 GB de RAM</strong>.</li>
+                    <li>El puerto 8080 libre (en el primer paso detienes lo que lo ocupa).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_DES_Actividad3.4</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Formato</th>
+                <td>Un documento (de Google Docs, entregado en PDF) con capturas de: la consola de administración de
+                    WildFly, la estructura del proyecto Maven, el <code>mvn package</code> terminado con éxito y el
+                    navegador con la respuesta de tu servlet.</td>
+            </tr>
+            <tr>
+                <th scope="row">Respuestas</th>
+                <td>Las preguntas del final de la actividad</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>WildFly saca una versión nueva cada pocos meses. Los pasos
+        usan la 42.0.0.Final; si en <a href="https://www.wildfly.org/downloads/" target="_blank"
+            rel="noopener noreferrer">wildfly.org/downloads</a> hay una más nueva, cambia el número en el paso 3. Las
+        versiones actuales de WildFly usan Jakarta EE (paquetes <code>jakarta.*</code>), no el antiguo Java EE
+        (<code>javax.*</code>).</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Libera el puerto 8080</h3>
+            <p>WildFly usa el puerto 8080. Mira qué contenedores tienes en marcha de la Actividad 3.3 y detenlos, y para
+                también la API de la Actividad 3.1 si sigue con PM2:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">docker ps
+docker stop mi-contenedor
+cd ~/mi-wordpress &amp;&amp; docker compose stop
+cd ~
+pm2 stop all</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                <code>sudo ss -tulpn | grep :8080</code> no muestra nada: el puerto está libre.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Instala el JDK y Maven</h3>
+            <p>Instala el kit de desarrollo de Java (JDK) 21 y Maven, y comprueba las versiones:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo apt update
+sudo apt install -y openjdk-21-jdk maven
+java -version
+mvn -version</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                <code>java -version</code> dice <code>openjdk version "21...</code> y <code>mvn -version</code> dice
+                <code>Apache Maven 3.9...</code> y <code>Java version: 21...</code>.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Descarga e instala WildFly</h3>
+            <p>Descarga WildFly en <code>/tmp</code>, descomprímelo en <code>/opt</code> y crea un enlace
+                <code>/opt/wildfly</code> para no tener que escribir la versión cada vez:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">WILDFLY_VERSION=42.0.0.Final
+cd /tmp
+wget https://github.com/wildfly/wildfly/releases/download/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz
+sudo tar xf wildfly-$WILDFLY_VERSION.tar.gz -C /opt/
+sudo ln -s /opt/wildfly-$WILDFLY_VERSION /opt/wildfly</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                <code>ls /opt/wildfly</code> muestra carpetas como <code>bin</code>, <code>standalone</code> y
+                <code>modules</code>.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Crea el usuario de administración</h3>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo /opt/wildfly/bin/add-user.sh</code></pre>
+</div>
+            <p>Responde a las preguntas:</p>
+            <ul>
+                <li>Tipo de usuario: <strong>Management User</strong> (opción <code>a</code>).</li>
+                <li>Nombre de usuario: <code>admin</code>.</li>
+                <li>Contraseña: elige una segura y apúntala (no la pongas en las capturas).</li>
+                <li>Resto de preguntas: <code>yes</code> o <kbd>Intro</kbd>.</li>
+            </ul>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                al final sale <code>Added user 'admin' to file ...mgmt-users.properties</code>.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Arranca WildFly</h3>
+            <p>Arranca el servidor en modo <em>standalone</em> permitiendo el acceso desde fuera a las aplicaciones
+                (<code>-b 0.0.0.0</code>) y a la consola de administración (<code>-bmanagement 0.0.0.0</code>). Abrir la
+                consola a todo el mundo está bien para practicar, pero ¡cuidado en producción!</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo /opt/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                tras unos segundos sale una línea como <code>WFLYSRV0025: WildFly 42.0.0.Final (WildFly Core ...)
+                    started in ...ms</code>. Deja esta terminal abierta: aquí verás los logs.</div>
+            <p>En el navegador, abre:</p>
+            <ul>
+                <li><code>http://IP-DE-TU-SERVIDOR:8080</code>: la página de bienvenida de WildFly.</li>
+                <li><code>http://IP-DE-TU-SERVIDOR:9990</code>: la consola de administración (entra con el usuario
+                    <code>admin</code>).</li>
+            </ul>
+            <div class="alert alert-warning"><i class="bi bi-shield-lock me-1"></i><strong>Si usas AWS:</strong> abre
+                los puertos 8080 y 9990 en el grupo de seguridad.</div>
+            <p><i class="bi bi-camera me-1"></i><strong>Captura:</strong> la consola de administración de WildFly
+                funcionando.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Genera el proyecto con Maven</h3>
+            <p>Abre <strong>otra</strong> conexión SSH (deja WildFly en marcha en la primera). Genera una aplicación web
+                a partir de la plantilla (<em>arquetipo</em>) <code>maven-archetype-webapp</code>:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">cd ~
+mvn archetype:generate \
+    -DgroupId=com.ejemplo \
+    -DartifactId=mi-webapp-java \
+    -DarchetypeArtifactId=maven-archetype-webapp \
+    -DarchetypeVersion=1.4 \
+    -DinteractiveMode=false
+cd mi-webapp-java</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                la primera vez descarga muchas cosas y termina con <code>BUILD SUCCESS</code>. Dentro de
+                <code>mi-webapp-java</code> hay un <code>pom.xml</code> y la carpeta <code>src/main/webapp</code> con
+                <code>index.jsp</code> y <code>WEB-INF/web.xml</code>.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Prepara el pom.xml</h3>
+            <p>El <code>pom.xml</code> que crea el arquetipo es antiguo (usa Java 7, que el JDK 21 ya no admite). Ábrelo
+                y <strong>sustituye todo su contenido</strong> por este. Añade la dependencia de la API de Servlet de
+                Jakarta EE, indica que se compila para Java 21 y que el WAR se llame <code>mi-webapp-java.war</code>:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">nano pom.xml</code></pre>
+</div>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+  &lt;groupId&gt;com.ejemplo&lt;/groupId&gt;
+  &lt;artifactId&gt;mi-webapp-java&lt;/artifactId&gt;
+  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;packaging&gt;war&lt;/packaging&gt;
+
+  &lt;properties&gt;
+    &lt;maven.compiler.release&gt;21&lt;/maven.compiler.release&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+  &lt;/properties&gt;
+
+  &lt;dependencies&gt;
+    &lt;!-- API de Servlet de Jakarta EE: la pone el servidor (provided) --&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
+      &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
+      &lt;version&gt;6.0.0&lt;/version&gt;
+      &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+
+  &lt;build&gt;
+    &lt;finalName&gt;mi-webapp-java&lt;/finalName&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.13.0&lt;/version&gt;
+      &lt;/plugin&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.4.0&lt;/version&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+&lt;/project&gt;</code></pre>
+</div>
+        </li>
+
+        <li class="paso">
+            <h3>Actualiza el web.xml</h3>
+            <p>El <code>web.xml</code> del arquetipo es de una versión muy antigua de los servlets y con él el servidor
+                no lee las anotaciones como <code>@WebServlet</code>. Sustitúyelo por uno de Jakarta EE:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">nano src/main/webapp/WEB-INF/web.xml</code></pre>
+</div>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0"&gt;
+    &lt;display-name&gt;mi-webapp-java&lt;/display-name&gt;
+&lt;/web-app&gt;</code></pre>
+</div>
+        </li>
+
+        <li class="paso">
+            <h3>Crea el servlet «Hola Mundo»</h3>
+            <p>Crea la carpeta del código Java y el archivo del servlet:</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">mkdir -p src/main/java/com/ejemplo
+nano src/main/java/com/ejemplo/HelloServlet.java</code></pre>
+</div>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-java">package com.ejemplo;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet(name = "helloServlet", value = "/hello-servlet")
+public class HelloServlet extends HttpServlet {
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
+        PrintWriter out = response.getWriter();
+        out.println("&lt;html&gt;&lt;body&gt;");
+        out.println("&lt;h1&gt;¡Hola desde Jakarta EE y WildFly!&lt;/h1&gt;");
+        out.println("&lt;p&gt;Este es un Servlet compilado con Maven.&lt;/p&gt;");
+        out.println("&lt;/body&gt;&lt;/html&gt;");
+    }
+}</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-info-circle me-1"></i>La anotación
+                <code>@WebServlet</code> dice en qué dirección responde el servlet: <code>/hello-servlet</code>. Los
+                <code>import</code> empiezan por <code>jakarta.</code>: si usaras los antiguos <code>javax.servlet</code>,
+                WildFly no reconocería el servlet y daría un error 404.</div>
+            <p><i class="bi bi-camera me-1"></i><strong>Captura:</strong> la estructura del proyecto (por ejemplo, con
+                <code>tree</code> o <code>find . -type f -not -path "./target/*"</code>).</p>
+        </li>
+
+        <li class="paso">
+            <h3>Construye el WAR</h3>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">mvn clean package
+ls target/</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                Maven termina con <code>BUILD SUCCESS</code> y en <code>target/</code> está
+                <code>mi-webapp-java.war</code>.</div>
+            <p><i class="bi bi-camera me-1"></i><strong>Captura:</strong> el <code>mvn package</code> terminado con
+                éxito.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Despliega el WAR en WildFly</h3>
+            <p>La forma más sencilla es copiar el WAR en la carpeta de despliegues: WildFly lo detecta solo.</p>
+<div class="position-relative">
+    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" onclick="copiarCodigo(this)">Copiar</button>
+    <pre><code class="language-bash">sudo cp target/mi-webapp-java.war /opt/wildfly/standalone/deployments/
+ls /opt/wildfly/standalone/deployments/</code></pre>
+</div>
+            <div class="alert alert-light border small"><i class="bi bi-check2-circle me-1"></i><strong>Comprueba:</strong>
+                en la terminal de WildFly sale <code>WFLYSRV0010: Deployed "mi-webapp-java.war"</code>, y en la carpeta
+                aparece un archivo <code>mi-webapp-java.war.deployed</code>. Si aparece
+                <code>mi-webapp-java.war.failed</code>, lee el error en el log de WildFly.</div>
+        </li>
+
+        <li class="paso">
+            <h3>Prueba la aplicación</h3>
+            <p>Abre en el navegador:</p>
+            <ul>
+                <li><code>http://IP-DE-TU-SERVIDOR:8080/mi-webapp-java/</code>: la página <code>index.jsp</code> del
+                    arquetipo (<strong>Hello World!</strong>).</li>
+                <li><code>http://IP-DE-TU-SERVIDOR:8080/mi-webapp-java/hello-servlet</code>: tu servlet
+                    (<strong>¡Hola desde Jakarta EE y WildFly!</strong>).</li>
+            </ul>
+            <p>Busca también la aplicación en la consola de administración, en <span class="ruta-menu">Deployments</span>.
+            </p>
+            <p><i class="bi bi-camera me-1"></i><strong>Captura:</strong> el navegador con la respuesta de tu servlet.
+            </p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Preguntas</h2>
+    <p>Responde en tu documento de entrega:</p>
+    <ol>
+        <li>¿Qué función cumple Maven en este proyecto?</li>
+        <li>¿Qué es un archivo WAR y qué contiene?</li>
+        <li>¿Por qué la dependencia de la API de Servlet tiene el <em>scope</em> <code>provided</code> en el
+            <code>pom.xml</code>?</li>
+        <li>¿Qué diferencia hay entre desplegar copiando el archivo en <code>deployments</code> y usar la consola de
+            administración?</li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="3-4">
+        <li><label><input type="checkbox"><span><code>java -version</code> y <code>mvn -version</code> muestran Java 21.</span></label></li>
+        <li><label><input type="checkbox"><span>WildFly arranca y entro en la consola de administración (puerto 9990).</span></label></li>
+        <li><label><input type="checkbox"><span>El servlet usa los paquetes <code>jakarta.servlet</code>.</span></label></li>
+        <li><label><input type="checkbox"><span><code>mvn clean package</code> termina con <code>BUILD SUCCESS</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>WildFly muestra <code>Deployed "mi-webapp-java.war"</code>.</span></label></li>
+        <li><label><input type="checkbox"><span><code>/mi-webapp-java/hello-servlet</code> muestra el mensaje del servlet.</span></label></li>
+        <li><label><input type="checkbox"><span>El documento tiene todas las capturas y las respuestas a las preguntas.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-3/actividades/3-3"><i class="bi bi-arrow-left me-1"></i>Anterior: 3.3</a>
+        <a class="btn btn-primary" href="#/Unidad-3/actividades/3-5">Siguiente: 3.5. Django <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

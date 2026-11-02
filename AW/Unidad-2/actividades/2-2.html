@@ -1,0 +1,253 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-2/index">Unidad 2</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-2/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">2.2</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 2.2. Tarjeta de producto</h1>
+    <p class="lead">Tienes la tarjeta de un producto de una tienda online, con su HTML y su CSS. Sin tocar el HTML, vas a cambiar con JavaScript el título, el precio, la imagen y el botón de comprar.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Seleccionar elementos con <code>getElementById</code></li>
+                    <li>Cambiar el texto de un elemento (<code>innerText</code> o <code>textContent</code>)</li>
+                    <li>Cambiar estilos con <code>style</code> y atributos con <code>setAttribute</code></li>
+                    <li>Reaccionar a un clic con <code>addEventListener</code> y deshabilitar un botón</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-2/index?sec=7-el-arbol-dom">7. El árbol DOM</a> y <a href="#/Unidad-2/index?sec=8-eventos">8. Eventos</a>.</li>
+                    <li>Repasa cómo se enlaza un archivo <code>.js</code>: <a href="#/Unidad-2/index?sec=donde-se-escribe-el-codigo-la-etiqueta-script">la etiqueta script</a>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>ApellidoNombre_AW_Actividad2.2.zip</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Una carpeta con <code>index.html</code> y <code>script.js</code>, comprimida en <code>.zip</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="alert alert-light border small"><strong>Cómo comprobar tu código:</strong> guarda los archivos y abre
+        el <code>.html</code> con el navegador (doble clic o arrástralo a una pestaña). Pulsa <kbd>F12</kbd> y mira la
+        pestaña <strong>Consola</strong>: si hay un error, aparece en rojo con el nombre del archivo y la línea. Cada
+        vez que cambies el código, guarda y recarga la página con <kbd>F5</kbd>.</div>
+
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Las imágenes de ejemplo vienen del servicio gratuito
+        <code>placehold.co</code>, que genera imágenes con un texto. Si algún día no cargan, usa la URL de cualquier
+        otra imagen: lo importante es que cambie el atributo <code>src</code>.</p>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea los archivos</h3>
+            <p>Crea una carpeta para la actividad y, dentro, dos archivos: <code>index.html</code> con este código y
+                <code>script.js</code> vacío. Abre <code>index.html</code> en el navegador: verás la tarjeta de un
+                «Producto Genérico» de 0,00 €.</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Actividad 2.2: Tarjeta de producto&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            font-family: sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .tarjeta-producto {
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .tarjeta-producto img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .tarjeta-producto h2 {
+            font-size: 1.5em;
+            margin: 15px 0;
+            color: #333;
+        }
+
+        .tarjeta-producto .precio {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .tarjeta-producto button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .tarjeta-producto button:hover {
+            background-color: #0056b3;
+        }
+
+        .tarjeta-producto button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+    &lt;div class="tarjeta-producto"&gt;
+        &lt;img id="producto-imagen" src="https://placehold.co/400x300/CCCCCC/FFFFFF.png?text=Producto"
+            alt="Imagen del producto"&gt;
+        &lt;h2 id="producto-titulo"&gt;Producto Genérico&lt;/h2&gt;
+        &lt;p id="producto-precio" class="precio"&gt;0,00 €&lt;/p&gt;
+        &lt;button id="boton-comprar"&gt;Comprar&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;script src="script.js"&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</code></pre>
+            </div>
+            <p>Todo el JavaScript de esta actividad va en <code>script.js</code>. El HTML ya lo enlaza al final del
+                <code>body</code> con <code>&lt;script src="script.js"&gt;&lt;/script&gt;</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Cambia el título</h3>
+            <p>El título actual es «Producto Genérico». Selecciona el elemento por su ID
+                (<code>producto-titulo</code>) y cámbialo por <strong>Increíble Teclado Mecánico</strong>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Actualiza el precio</h3>
+            <p>El precio es «0,00 €». Selecciona el elemento <code>producto-precio</code> y actualízalo a
+                <strong>99,99 €</strong>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Aplica un estilo de oferta</h3>
+            <p>Para que el nuevo precio llame la atención, cambia su color a verde (<code>green</code>) y ponlo en
+                negrita. En JavaScript, las propiedades CSS con guion se escriben juntas y con mayúscula:
+                <code>font-weight</code> es <code>style.fontWeight</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Cambia la imagen del producto</h3>
+            <p>La imagen actual es un marcador gris. Selecciona la imagen (<code>producto-imagen</code>) y cambia su
+                atributo <code>src</code> para que muestre esta otra:</p>
+            <p><code>https://placehold.co/400x300/0000FF/FFFFFF.png?text=Teclado</code></p>
+        </li>
+
+        <li class="paso">
+            <h3>Haz el botón interactivo</h3>
+            <p>Cuando el usuario haga clic en el botón «Comprar», su texto debe cambiar a <strong>¡Añadido al
+                carrito!</strong> y el botón debe deshabilitarse para que no se pueda volver a pulsar (propiedad
+                <code>disabled</code>). Usa <code>addEventListener("click", ...)</code>.</p>
+            <p>Recarga la página y comprueba que la tarjeta muestra el teclado, el precio en verde y que el botón
+                cambia al pulsarlo.</p>
+            <details>
+                <summary>Ver la solución</summary>
+                <p><a href="../AW/Unidad-2/actividades/recursos/2-2/index.html" target="_blank" rel="noopener noreferrer"><i class="bi bi-box-arrow-up-right me-1"></i>Ver la solución funcionando</a> (se abre en otra pestaña).</p>
+                <div class="position-relative">
+                    <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                        onclick="copiarCodigo(this)">Copiar</button>
+                    <pre><code class="language-javascript">// 1. Seleccionamos el elemento del título por su ID
+const tituloProducto = document.getElementById('producto-titulo');
+// Cambiamos su contenido de texto
+tituloProducto.innerText = 'Increíble Teclado Mecánico';
+
+// 2. Seleccionamos el elemento del precio
+const precioProducto = document.getElementById('producto-precio');
+// Actualizamos su texto
+precioProducto.innerText = '99,99 €';
+
+// 3. Aplicamos estilos al precio que acabamos de seleccionar
+precioProducto.style.color = 'green';
+precioProducto.style.fontWeight = 'bold';
+
+// 4. Seleccionamos la imagen
+const imagenProducto = document.getElementById('producto-imagen');
+// Cambiamos su atributo 'src' para que muestre una nueva imagen
+imagenProducto.setAttribute('src', 'https://placehold.co/400x300/0000FF/FFFFFF.png?text=Teclado');
+
+// 5. Hacemos el botón interactivo
+// Primero, seleccionamos el botón
+const botonComprar = document.getElementById('boton-comprar');
+
+// Luego, añadimos un "escuchador de eventos" para el 'click'
+botonComprar.addEventListener('click', function () {
+    // Este código se ejecutará SOLO cuando se haga clic en el botón
+
+    // Cambiamos el texto del botón
+    botonComprar.innerText = '¡Añadido al carrito!';
+
+    // Deshabilitamos el botón
+    botonComprar.disabled = true;
+});</code></pre>
+                </div>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="2-2">
+        <li><label><input type="checkbox"><span>El título dice «Increíble Teclado Mecánico».</span></label></li>
+        <li><label><input type="checkbox"><span>El precio es 99,99 €, en verde y en negrita.</span></label></li>
+        <li><label><input type="checkbox"><span>La imagen es la del teclado (fondo azul).</span></label></li>
+        <li><label><input type="checkbox"><span>Al pulsar «Comprar», el botón dice «¡Añadido al carrito!» y queda deshabilitado (gris).</span></label></li>
+        <li><label><input type="checkbox"><span>No has cambiado el HTML: todo está en <code>script.js</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>La consola no muestra errores en rojo.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-2/actividades/2-1"><i class="bi bi-arrow-left me-1"></i>Anterior: 2.1</a>
+        <a class="btn btn-primary" href="#/Unidad-2/actividades/2-3">Siguiente: 2.3. Validar un formulario <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

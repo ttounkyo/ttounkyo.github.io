@@ -1,0 +1,173 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-2/index">Unidad 2</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-2/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">2.5</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 2.5. HTTPS con Let's Encrypt</h1>
+    <p class="lead">Vas a proteger con HTTPS la web de tu servidor en AWS. Usarás <strong>Let's Encrypt</strong>, una
+        autoridad de certificación gratuita, automática y abierta, para conseguir un certificado TLS válido, y Certbot
+        para instalarlo en Nginx.</p>
+
+    <div class="alert alert-info"><i class="bi bi-info-circle me-1"></i>Esta actividad se hace sobre el servidor VPS
+        de AWS de la <a href="#/Unidad-2/actividades/2-6"><strong>actividad 2.6</strong></a>: <strong>haz primero la
+            2.6</strong>. Let's Encrypt tiene que poder llegar a tu servidor desde Internet, por eso no sirve la máquina
+        virtual de clase.</div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Abrir el puerto 443 en el grupo de seguridad de AWS</li>
+                    <li>Conseguir un certificado con Certbot y su plugin de Nginx</li>
+                    <li>Redirigir HTTP a HTTPS</li>
+                    <li>Comprobar la renovación automática</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-2/index?sec=6-https-la-capa-de-seguridad-de-la-web">6. HTTPS: la
+                            capa de seguridad de la web</a></li>
+                    <li>Tu servidor de AWS (Debian) en marcha, con Nginx instalado y funcionando.</li>
+                    <li><strong>Un dominio:</strong> el profesor te asigna un subdominio del tipo
+                        <code>nombre.ohmycats.net</code> que ya apunta a la IP pública de tu servidor.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>ApellidoNombre_DES_Actividad2.5.pdf</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Capturas de la regla HTTPS en AWS, de la salida de Certbot, de tu web con el candado y de la
+                    prueba de renovación.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>La consola de AWS y los mensajes de Certbot cambian a
+        menudo. Si algo no aparece igual que aquí, busca la opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Abre el puerto 443 en AWS</h3>
+            <p>Asegúrate de que el cortafuegos de Amazon deja pasar el tráfico HTTPS. Si en la actividad 2.6 solo
+                abriste los puertos 22 (SSH) y 80 (HTTP), añade el 443:</p>
+            <ol>
+                <li>En la consola de EC2, selecciona tu instancia y ve a la pestaña <span
+                        class="ruta-menu">Seguridad</span>.</li>
+                <li>Pulsa en tu <strong>grupo de seguridad</strong> y después en <span class="ruta-menu">Editar reglas
+                        de entrada</span>.</li>
+                <li>Pulsa <span class="ruta-menu">Agregar regla</span>: tipo <strong>HTTPS</strong> (puerto 443) y
+                    origen <strong>Anywhere-IPv4</strong> (<code>0.0.0.0/0</code>).</li>
+                <li>Pulsa <span class="ruta-menu">Guardar reglas</span>.</li>
+            </ol>
+            <figure><img src="../DES/img/Unidad-2/https.png"
+                    alt="Consola de AWS: editar reglas de entrada del grupo de seguridad con HTTP, TCP 8080, SSH y la nueva regla HTTPS">
+                <figcaption>Regla HTTPS añadida en las reglas de entrada</figcaption>
+            </figure>
+        </li>
+
+        <li class="paso">
+            <h3>Pon tu dominio en Nginx</h3>
+            <p>Para que Certbot sepa a qué sitio pertenece el certificado, el server block tiene que tener tu dominio.
+                Edita la configuración de tu sitio (<code>/etc/nginx/sites-available/default</code> o el archivo que
+                hayas creado) y comprueba la directiva <code>server_name</code>:</p>
+            <pre><code class="language-nginx">server_name tu_nombre.ohmycats.net;</code></pre>
+            <p>Comprueba la configuración y recarga Nginx:</p>
+            <pre><code class="language-bash">sudo nginx -t
+sudo systemctl reload nginx</code></pre>
+            <p>Antes de seguir, abre <code>http://tu_nombre.ohmycats.net</code> en el navegador y comprueba que se ve
+                tu web.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Instala Certbot</h3>
+            <p>Instala Certbot y su plugin para Nginx desde los repositorios de Debian:</p>
+            <pre><code class="language-bash">sudo apt update
+sudo apt install certbot python3-certbot-nginx</code></pre>
+            <p class="alert alert-light border small"><i class="bi bi-info-circle me-1"></i>La web de Certbot recomienda
+                instalarlo con <code>snap</code> para tener siempre la última versión. En Debian, el paquete de
+                <code>apt</code> funciona bien y se actualiza con el sistema.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Consigue el certificado</h3>
+            <p>Ejecuta Certbot con el plugin de Nginx. Él mismo pide el certificado y cambia la configuración de Nginx:
+            </p>
+            <pre><code class="language-bash">sudo certbot --nginx</code></pre>
+            <p>Sigue las instrucciones:</p>
+            <ul>
+                <li>Escribe tu correo electrónico (para avisos importantes sobre tu cuenta).</li>
+                <li>Acepta las condiciones del servicio.</li>
+                <li>Elige tu dominio de la lista.</li>
+                <li>Si te pregunta si quieres redirigir el tráfico HTTP a HTTPS, elige <strong>Redirect</strong>. Las
+                    versiones recientes lo hacen sin preguntar.</li>
+            </ul>
+        </li>
+
+        <li class="paso">
+            <h3>Comprueba que funciona</h3>
+            <ol>
+                <li>Abre <code>https://tu_nombre.ohmycats.net</code> y comprueba que no sale ningún aviso y que aparece
+                    el candado (o el icono de conexión segura) junto a la dirección.</li>
+                <li>Pulsa en el candado y mira el certificado: quién lo ha emitido y hasta cuándo es válido.</li>
+                <li>Entra con <code>http://tu_nombre.ohmycats.net</code> y comprueba que te lleva automáticamente a
+                    <code>https://</code>.</li>
+            </ol>
+        </li>
+
+        <li class="paso">
+            <h3>Comprueba la renovación automática</h3>
+            <p>Los certificados de Let's Encrypt duran 90 días. El paquete de Certbot deja programada una tarea que los
+                renueva sola antes de que caduquen. Compruébalo y haz una prueba de renovación (no cambia nada):</p>
+            <pre><code class="language-bash">systemctl list-timers | grep certbot
+sudo certbot renew --dry-run</code></pre>
+            <p class="alert alert-light border small"><i class="bi bi-info-circle me-1"></i>Let's Encrypt ya no envía
+                correos avisando de que un certificado va a caducar. Por eso es tan importante que la renovación
+                automática funcione.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="2-5">
+        <li><label><input type="checkbox"><span>El grupo de seguridad tiene una regla HTTPS (443) de
+                    entrada.</span></label></li>
+        <li><label><input type="checkbox"><span>El server block tiene mi dominio en
+                    <code>server_name</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Certbot ha conseguido el certificado sin errores.</span></label></li>
+        <li><label><input type="checkbox"><span>Mi web se abre con <code>https://</code> y el candado, sin
+                    avisos.</span></label></li>
+        <li><label><input type="checkbox"><span>Con <code>http://</code> me redirige a <code>https://</code>.</span></label>
+        </li>
+        <li><label><input type="checkbox"><span><code>sudo certbot renew --dry-run</code> termina bien.</span></label>
+        </li>
+        <li><label><input type="checkbox"><span>El PDF se llama
+                    <code>ApellidoNombre_DES_Actividad2.5.pdf</code>.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-2/actividades/2-4"><i class="bi bi-arrow-left me-1"></i>Anterior: 2.4</a>
+        <a class="btn btn-primary" href="#/Unidad-2/actividades/2-6">Siguiente: 2.6. Servidor VPS en AWS <i
+                class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

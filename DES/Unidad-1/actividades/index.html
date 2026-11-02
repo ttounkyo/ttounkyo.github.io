@@ -1,0 +1,81 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-1/index">Unidad 1</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Actividades</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Unidad 1. Actividades</h1>
+    <p class="lead">Vas a montar tu propio servidor Debian en una máquina virtual y a prepararlo como si fuera un VPS
+        remoto: conexión por SSH con claves, un usuario para los despliegues y la configuración básica. Haz las
+        actividades en orden: cada una parte de la anterior.</p>
+
+    <div class="alert alert-info">
+        <strong><i class="bi bi-info-circle me-1"></i>Cómo trabajar cada actividad:</strong>
+        <ol class="mb-0 mt-2">
+            <li>Lee primero el apartado de teoría que se indica.</li>
+            <li>Sigue el <strong>paso a paso</strong> en tu servidor. Copia los comandos con cuidado y lee lo que
+                responde la terminal antes de pasar al siguiente: si sale un error, arréglalo antes de seguir.</li>
+            <li>Haz una captura de cada paso para tu entrega. En los comandos, cambia <code>usuario</code> y la IP de
+                ejemplo por tu usuario y la IP de tu servidor.</li>
+            <li>Antes de entregar, marca la <strong>lista de comprobación</strong> del final. Tu avance se guarda en
+                este navegador.</li>
+        </ol>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle my-4">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Actividad</th>
+                    <th scope="col">Qué practicas</th>
+                    <th scope="col">Teoría</th>
+                    <th scope="col" class="text-center">Tu avance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="#/Unidad-1/actividades/1-1"><strong>1.1.</strong> Instalar Debian en una máquina
+                            virtual</a></td>
+                    <td>Máquina virtual con VirtualBox, red en adaptador puente, permisos de <code>sudo</code> e
+                        instalación del servidor SSH.</td>
+                    <td><a href="#/Unidad-1/index?sec=1-que-es-un-vps">1. ¿Qué es un VPS?</a></td>
+                    <td class="text-center"><span data-progreso="1-1" class="badge bg-light text-muted">Sin
+                            empezar</span></td>
+                </tr>
+                <tr>
+                    <td><a href="#/Unidad-1/actividades/1-2"><strong>1.2.</strong> Conexión SSH con PuTTY y
+                            claves</a></td>
+                    <td>PuTTY y PuTTYgen, <code>sshd_config</code>, <code>authorized_keys</code> y conexión con clave
+                        pública.</td>
+                    <td><a href="#/Unidad-1/index?sec=3-autenticacion-y-cifrado-en-ssh">3. Autenticación y cifrado en
+                            SSH</a></td>
+                    <td class="text-center"><span data-progreso="1-2" class="badge bg-light text-muted">Sin
+                            empezar</span></td>
+                </tr>
+                <tr>
+                    <td><a href="#/Unidad-1/actividades/1-3"><strong>1.3.</strong> Usuario para el despliegue</a></td>
+                    <td>Crear un usuario con <code>sudo</code>, darle acceso con clave y prohibir la entrada de
+                        <code>root</code> por SSH.</td>
+                    <td><a href="#/Unidad-1/index?sec=4-configuracion-del-servidor-ssh">4. Configuración del servidor
+                            SSH</a></td>
+                    <td class="text-center"><span data-progreso="1-3" class="badge bg-light text-muted">Sin
+                            empezar</span></td>
+                </tr>
+                <tr>
+                    <td><a href="#/Unidad-1/actividades/1-4"><strong>1.4.</strong> Configuración inicial del
+                            servidor</a></td>
+                    <td>Nombre del servidor con <code>hostnamectl</code> y zona horaria con
+                        <code>timedatectl</code>.</td>
+                    <td><a href="#/Unidad-1/index?sec=1-que-es-un-vps">1. ¿Qué es un VPS?</a></td>
+                    <td class="text-center"><span data-progreso="1-4" class="badge bg-light text-muted">Sin
+                            empezar</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="text-muted small">El avance solo se guarda en este navegador y en este ordenador. Si cambias de equipo,
+        empezará de cero.</p>
+</div>

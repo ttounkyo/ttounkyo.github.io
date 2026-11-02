@@ -1,0 +1,1687 @@
+/* ==========================================================================
+   APUNTES (AO, AW y DES) - Estilos comunes
+   ========================================================================== */
+
+/* --- COLOR DE CADA ASIGNATURA ---
+   Todas las asignaturas comparten esta hoja de estilos. El color principal se elige con el atributo
+   data-asignatura de <html> (en el index.html de cada asignatura). Para cambiar un color, toca solo su bloque. */
+
+/* AO - Aplicaciones Ofimáticas: azul (es el color por defecto) */
+:root {
+    --color-osc: #0f2747;
+    /* menú lateral y títulos */
+    --color: #1a4f9c;
+    /* enlaces y elementos activos */
+    --color-claro: #e8f0fb;
+    --color-borde: #cddcf3;
+    --color-texto-menu: #dfe7f3;
+    --color-rgb: 26, 79, 156;
+    --color-osc-rgb: 15, 39, 71;
+}
+
+/* AW - Aplicaciones Web: morado */
+html[data-asignatura="aw"] {
+    --color-osc: #24164f;
+    --color: #5b3cc4;
+    --color-claro: #efeafc;
+    --color-borde: #d9cff6;
+    --color-texto-menu: #e4dcfa;
+    --color-rgb: 91, 60, 196;
+    --color-osc-rgb: 36, 22, 79;
+}
+
+/* DES - Despliegue de Aplicaciones Web: verde azulado */
+html[data-asignatura="des"] {
+    --color-osc: #0a3535;
+    --color: #0f6e6e;
+    --color-claro: #e2f3f2;
+    --color-borde: #bfe3e0;
+    --color-texto-menu: #d5ecea;
+    --color-rgb: 15, 110, 110;
+    --color-osc-rgb: 10, 53, 53;
+}
+
+/* --- COLORES Y MEDIDAS COMUNES (cámbialos aquí y se aplican en toda la web) --- */
+:root {
+    --acento: #f2a516;
+    /* detalles: número de la unidad actual, barra de lectura */
+    --verde: #1b7a4f;
+    --verde-claro: #e7f4ec;
+    --texto: #1d2733;
+    --texto-suave: #5a6675;
+    --fondo: #f5f7fa;
+    --superficie: #ffffff;
+    --borde: #e1e6ed;
+
+    --ancho-menu: 17.5rem;
+    --alto-barra: 3.5rem;
+
+    --fuente-texto: "Atkinson Hyperlegible", system-ui, sans-serif;
+    --fuente-titulos: "Lexend", "Atkinson Hyperlegible", system-ui, sans-serif;
+
+    /* Bootstrap usa estas variables para .text-primary y los enlaces */
+    --bs-primary-rgb: var(--color-rgb);
+    --bs-link-color-rgb: var(--color-rgb);
+    --bs-link-hover-color-rgb: var(--color-osc-rgb);
+    --bs-body-font-family: var(--fuente-texto);
+}
+
+
+/* --- BASE --- */
+
+body {
+    font-family: var(--fuente-texto);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    background-color: var(--fondo);
+    color: var(--texto);
+    overflow-x: clip;
+    /* Evita el scroll horizontal en caso de desbordamiento */
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--fuente-titulos);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+    outline: 3px solid var(--acento);
+    outline-offset: 2px;
+}
+
+/* Código en línea (los bloques <pre> los colorea Prism) */
+:not(pre)>code {
+    background-color: #eef2f7;
+    color: #b42318;
+    padding: 0.1rem 0.35rem;
+    border-radius: 0.3rem;
+    font-size: 0.9em;
+}
+
+pre {
+    border-radius: 0.6rem;
+    overflow-x: auto;
+}
+
+.method-title {
+    margin-top: 40px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--borde);
+}
+
+.explanation {
+    background-color: var(--color-claro);
+    border: 1px solid var(--color-borde);
+    border-radius: 0.75rem;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+/* Enlace para saltar al contenido con el teclado */
+.saltar {
+    position: absolute;
+    left: 1rem;
+    top: -3rem;
+    z-index: 2000;
+    background: var(--color-osc);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}
+
+.saltar:focus {
+    top: 1rem;
+}
+
+
+/* ==========================================================================
+   MENÚ LATERAL
+   ========================================================================== */
+
+#barra-lateral {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: var(--ancho-menu);
+    z-index: 1040;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background-color: var(--color-osc);
+    color: var(--color-texto-menu);
+    transition: transform 0.25s ease;
+}
+
+.menu-cabecera {
+    padding: 1.25rem 1rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.menu-marca {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: white;
+    text-decoration: none;
+}
+
+.menu-logo {
+    flex: 0 0 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--acento);
+    color: var(--color-osc);
+    font-size: 1.25rem;
+}
+
+.menu-marca small {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.65;
+}
+
+.menu-marca strong {
+    display: block;
+    font-family: var(--fuente-titulos);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.2;
+}
+
+.menu {
+    flex: 1;
+    padding: 0.75rem 0.75rem 1.5rem;
+}
+
+.menu-titulo {
+    margin: 1.25rem 0.75rem 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.menu ul {
+    margin: 0;
+}
+
+.menu-enlace {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    margin-bottom: 0.15rem;
+    border: 0;
+    border-radius: 0.6rem;
+    background: none;
+    color: var(--color-texto-menu);
+    font: inherit;
+    font-size: 0.97rem;
+    line-height: 1.3;
+    text-align: left;
+    text-decoration: none;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+a.menu-enlace:hover,
+button.menu-enlace:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+    color: white;
+}
+
+.menu-enlace.active {
+    background-color: rgba(255, 255, 255, 0.14);
+    color: white;
+    font-weight: 700;
+}
+
+.menu-enlace>i:first-child {
+    flex: 0 0 1.75rem;
+    text-align: center;
+    font-size: 1.05rem;
+}
+
+/* Número de la unidad */
+.menu-enlace .num {
+    flex: 0 0 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    font-family: var(--fuente-titulos);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.unidad-actual>.menu-enlace {
+    color: white;
+}
+
+.unidad-actual>.menu-enlace .num {
+    background-color: var(--acento);
+    color: var(--color-osc);
+}
+
+.menu-desplegar .flecha {
+    margin-left: auto;
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+}
+
+.menu-desplegar[aria-expanded="true"] .flecha {
+    transform: rotate(180deg);
+}
+
+.menu-enlace.deshabilitado {
+    color: rgba(255, 255, 255, 0.7);
+    cursor: default;
+}
+
+.pronto {
+    margin-left: auto;
+    padding: 0.05rem 0.45rem;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 99px;
+    font-size: 0.66rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* Submenús (Unidad 4, Unidad 8) */
+.submenu {
+    margin: 0.25rem 0 0.6rem 1.6rem;
+    padding-left: 0.75rem;
+    border-left: 2px solid rgba(255, 255, 255, 0.12);
+}
+
+.submenu a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.5rem;
+    color: #c9d5e6;
+    font-size: 0.92rem;
+    line-height: 1.3;
+    text-decoration: none;
+}
+
+.submenu a:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+    color: white;
+}
+
+.submenu a.active {
+    background-color: rgba(255, 255, 255, 0.14);
+    color: white;
+    font-weight: 700;
+}
+
+.submenu .sub-num {
+    min-width: 2.2rem;
+    font-family: var(--fuente-titulos);
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Actividad con todas las comprobaciones hechas */
+.submenu a.completada::after {
+    content: "✔";
+    margin-left: auto;
+    color: #7ee2ae;
+    font-size: 0.85rem;
+}
+
+.submenu-header {
+    padding: 0.75rem 0.6rem 0.25rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.menu-pie {
+    padding: 0.75rem 1rem 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.menu-pie a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.menu-pie a:hover {
+    color: white;
+}
+
+/* Fondo oscuro detrás del menú o del índice en móvil */
+.fondo-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 1035;
+    background-color: rgba(15, 23, 42, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+body.panel-abierto .fondo-menu {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+/* ==========================================================================
+   BARRA SUPERIOR
+   ========================================================================== */
+
+.barra-superior {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    height: var(--alto-barra);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0 1.25rem;
+    background-color: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--borde);
+}
+
+.btn-menu {
+    flex: 0 0 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--borde);
+    border-radius: 0.6rem;
+    background-color: var(--superficie);
+    color: var(--color-osc);
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.miga {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.92rem;
+    color: var(--texto-suave);
+    white-space: nowrap;
+}
+
+.miga a {
+    color: var(--texto-suave);
+    text-decoration: none;
+}
+
+.miga a:hover {
+    color: var(--color);
+    text-decoration: underline;
+}
+
+.miga i {
+    font-size: 0.7rem;
+}
+
+.miga-actual {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--texto);
+    font-weight: 700;
+}
+
+.enlace-asignaturas {
+    flex-shrink: 0;
+    padding: 0.35rem 0.7rem;
+    border-radius: 0.5rem;
+    color: var(--color);
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.enlace-asignaturas:hover {
+    background-color: var(--color-claro);
+}
+
+/* Barra fina que muestra cuánto has leído de la página */
+.progreso-lectura {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 3px;
+}
+
+.progreso-lectura span {
+    display: block;
+    width: 0;
+    height: 100%;
+    background-color: var(--acento);
+}
+
+
+/* ==========================================================================
+   DISPOSICIÓN: menú fijo en escritorio, desplegable en móvil
+   ========================================================================== */
+
+@media (max-width: 991.98px) {
+    #barra-lateral {
+        transform: translateX(-100%);
+    }
+
+    #wrapper.menu-abierto #barra-lateral {
+        transform: none;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .enlace-asignaturas span {
+        display: none;
+    }
+}
+
+@media (min-width: 992px) {
+    #page-content-wrapper {
+        margin-left: var(--ancho-menu);
+    }
+
+    .btn-menu {
+        display: none;
+    }
+}
+
+
+/* ==========================================================================
+   CONTENIDO
+   ========================================================================== */
+
+#contenido {
+    padding: 2rem 1.25rem 6rem;
+    outline: none;
+}
+
+@media (min-width: 768px) {
+    #contenido {
+        padding: 2.5rem 2.5rem 6rem;
+    }
+}
+
+/* Vista previa de una hoja de cálculo (actividades de la Unidad 5) */
+.hoja-wrap {
+    max-width: 100%;
+    margin: 0.75rem 0 0.25rem;
+    overflow-x: auto;
+}
+
+.hoja {
+    border-collapse: collapse;
+    background-color: white;
+    font-family: Arial, sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.3;
+}
+
+.hoja th {
+    min-width: 2rem;
+    padding: 0.15rem 0.4rem;
+    background-color: #f1f3f4;
+    border: 1px solid #dadce0;
+    color: #5f6368;
+    font-weight: 400;
+    text-align: center;
+}
+
+.hoja td {
+    padding: 0.2rem 0.45rem;
+    border: 1px solid #e2e3e3;
+    color: #202124;
+    white-space: nowrap;
+}
+
+.hoja td.num {
+    text-align: right;
+}
+
+/* Celda con fórmula */
+.hoja td.formula {
+    box-shadow: inset 0 0 0 2px rgba(var(--color-rgb), 0.45);
+}
+
+.leyenda-hoja {
+    margin: 0 0 0.5rem;
+    font-size: 0.8rem;
+    color: var(--texto-suave);
+}
+
+/* Fórmulas de la solución: celda y fórmula */
+.formulas {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 0.35rem 0.75rem;
+    margin: 0.75rem 0;
+    padding: 0.75rem 1rem;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 0.75rem;
+}
+
+.formulas dt {
+    font-family: var(--fuente-titulos);
+    color: var(--color-osc);
+}
+
+.formulas dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+/* Pie: autoría y fuentes */
+.pie-pagina {
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem 2.5rem;
+    border-top: 1px solid var(--borde);
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+}
+
+/* Fuente de un texto o una imagen que no es propia */
+.fuente {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+}
+
+/* Las páginas de contenido ya traen <div class="container my-5">: se ajusta a una anchura cómoda de lectura */
+.pagina>.container {
+    max-width: 56rem;
+    margin-top: 0 !important;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.pagina h1 {
+    font-size: clamp(1.9rem, 1.4rem + 1.6vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1.25rem !important;
+}
+
+.pagina h2 {
+    font-size: 1.65rem;
+    font-weight: 600;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--borde);
+}
+
+.pagina h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-top: 2rem;
+}
+
+.pagina h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+}
+
+.pagina li {
+    margin-bottom: 0.35rem;
+}
+
+.pagina img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Deja hueco para la barra superior al saltar a un apartado */
+h2[id],
+h3[id] {
+    scroll-margin-top: calc(var(--alto-barra) + 1rem);
+}
+
+
+/* --- ÍNDICE LATERAL (fijo al bajar, marca el apartado actual) --- */
+
+.indice-lateral {
+    font-size: 0.9rem;
+}
+
+.indice-lateral-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 0.6rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+}
+
+.indice-lateral ol {
+    margin: 0;
+    border-left: 2px solid var(--borde);
+}
+
+.indice-lateral a {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: -2px;
+    padding: 0.4rem 0.75rem 0.4rem 1rem;
+    border-left: 2px solid transparent;
+    border-radius: 0 0.5rem 0.5rem 0;
+    color: var(--texto-suave);
+    line-height: 1.35;
+    text-decoration: none;
+}
+
+.indice-lateral a:hover {
+    color: var(--color);
+}
+
+.indice-lateral a.actual {
+    border-left-color: var(--color);
+    background-color: var(--color-claro);
+    color: var(--color);
+    font-weight: 700;
+}
+
+.indice-num {
+    flex: 0 0 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--borde);
+    font-family: var(--fuente-titulos);
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.indice-lateral a.actual .indice-num {
+    background-color: var(--color);
+    color: white;
+}
+
+/* Escritorio grande: el índice va en una columna a la derecha y se queda fijo */
+@media (min-width: 1200px) {
+    #contenido.con-indice {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 15.5rem;
+        gap: 2.5rem;
+        max-width: 84rem;
+        margin: 0 auto;
+    }
+
+    .indice-lateral {
+        position: sticky;
+        top: calc(var(--alto-barra) + 2rem);
+        align-self: start;
+        max-height: calc(100vh - var(--alto-barra) - 4rem);
+        overflow-y: auto;
+    }
+
+    .indice-lateral .btn-close {
+        display: none;
+    }
+
+    /* El índice del principio de la teoría ya no hace falta: está el lateral */
+    .con-indice .indice {
+        display: none;
+    }
+
+    #btnIndice {
+        display: none !important;
+    }
+}
+
+/* Móvil y tablet: el índice se abre como un panel desde abajo con el botón "Índice" */
+@media (max-width: 1199.98px) {
+    .indice-lateral {
+        position: fixed;
+        right: 0.75rem;
+        bottom: 0.75rem;
+        left: 0.75rem;
+        z-index: 1050;
+        max-width: 26rem;
+        max-height: 70vh;
+        margin-left: auto;
+        overflow-y: auto;
+        padding: 1rem 1rem 1rem 0.5rem;
+        background-color: var(--superficie);
+        border-radius: 1rem;
+        box-shadow: 0 10px 40px rgba(15, 39, 71, 0.25);
+        transform: translateY(calc(100% + 1rem));
+        visibility: hidden;
+        transition: transform 0.25s ease, visibility 0.25s;
+    }
+
+    .indice-lateral.abierto {
+        transform: none;
+        visibility: visible;
+    }
+}
+
+/* Índice al principio de la teoría */
+.indice {
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 0.9rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.indice summary {
+    font-family: var(--fuente-titulos);
+    font-weight: 600;
+    color: var(--color-osc);
+    cursor: pointer;
+}
+
+.indice-lista {
+    columns: 2 17rem;
+    margin: 0.75rem 0 0;
+}
+
+.indice-lista li {
+    break-inside: avoid;
+    padding: 0.15rem 0;
+    margin: 0;
+}
+
+.indice-lista a {
+    text-decoration: none;
+}
+
+.indice-lista a:hover {
+    text-decoration: underline;
+}
+
+
+/* --- BOTONES FLOTANTES --- */
+
+.flotantes {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 1045;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.boton-flotante {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.1rem;
+    border: 0;
+    border-radius: 99px;
+    background-color: var(--color-osc);
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 6px 20px rgba(15, 39, 71, 0.3);
+}
+
+.boton-flotante:hover {
+    background-color: var(--color);
+}
+
+.boton-flotante.redondo {
+    width: 2.9rem;
+    height: 2.9rem;
+    padding: 0;
+}
+
+.boton-flotante[hidden] {
+    display: none;
+}
+
+body.panel-abierto .flotantes {
+    display: none;
+}
+
+
+/* --- PORTADA DE LA ASIGNATURA --- */
+
+.portada {
+    max-width: 64rem;
+    margin: 0 auto;
+}
+
+.portada h1 {
+    max-width: 22ch;
+    font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--color-osc);
+}
+
+.portada-intro {
+    max-width: 46rem;
+    margin-top: 1rem;
+    font-size: 1.15rem;
+    color: var(--texto-suave);
+}
+
+.como-usar {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1rem;
+}
+
+.como-usar li {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem 1.1rem;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 0.9rem;
+    line-height: 1.45;
+}
+
+.como-usar i {
+    font-size: 1.4rem;
+    line-height: 1.1;
+    color: var(--color);
+}
+
+.portada-subtitulo {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-osc);
+}
+
+.tarjetas-unidades {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1rem;
+}
+
+.tarjeta-unidad {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 1.25rem;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 1rem;
+    color: var(--texto);
+    text-decoration: none;
+    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+a.tarjeta-unidad:hover {
+    border-color: var(--color);
+    box-shadow: 0 6px 20px rgba(15, 39, 71, 0.08);
+    transform: translateY(-2px);
+}
+
+.tarjeta-num {
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-bottom: 0.4rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-claro);
+    color: var(--color);
+    font-family: var(--fuente-titulos);
+    font-weight: 700;
+}
+
+.tarjeta-unidad.destacada .tarjeta-num {
+    background-color: var(--acento);
+    color: var(--color-osc);
+}
+
+.tarjeta-titulo {
+    font-family: var(--fuente-titulos);
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--color-osc);
+}
+
+.tarjeta-texto {
+    font-size: 0.93rem;
+    line-height: 1.5;
+    color: var(--texto-suave);
+}
+
+.tarjeta-meta {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--verde);
+}
+
+.tarjeta-unidad.deshabilitada {
+    background-color: transparent;
+    border-style: dashed;
+}
+
+.tarjeta-unidad.deshabilitada .tarjeta-titulo,
+.tarjeta-unidad.deshabilitada .tarjeta-num {
+    color: var(--texto-suave);
+}
+
+.tarjeta-unidad.deshabilitada .tarjeta-meta {
+    color: var(--texto-suave);
+}
+
+/* Página no encontrada */
+.aviso-error {
+    max-width: 32rem;
+    margin: 3rem auto;
+    text-align: center;
+}
+
+.aviso-error i {
+    font-size: 3rem;
+    color: var(--color);
+}
+
+.aviso-error h1 {
+    font-size: 1.8rem;
+    color: var(--color-osc);
+    margin: 1rem 0 0.5rem;
+}
+
+
+/* --- AVISO "PRACTICA ESTE APARTADO" EN LA TEORÍA --- */
+
+.practica {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin: 1.5rem 0;
+    padding: 0.85rem 1.1rem;
+    background-color: var(--verde-claro);
+    border: 1px solid #c6e6d3;
+    border-radius: 0.75rem;
+}
+
+.practica i {
+    color: var(--verde);
+    font-size: 1.4rem;
+}
+
+.practica a {
+    color: var(--verde);
+}
+
+
+/* ==========================================================================
+   PÁGINAS DE ACTIVIDADES
+   ========================================================================== */
+
+.actividad .lead {
+    color: var(--texto-suave);
+}
+
+.actividad .ficha {
+    height: 100%;
+    padding: 1.1rem 1.25rem;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 0.9rem;
+}
+
+.actividad .ficha h2 {
+    margin: 0 0 0.5rem;
+    padding: 0;
+    border: 0;
+    font-size: 1rem;
+    color: var(--color-osc);
+}
+
+.actividad .ficha ul {
+    margin-bottom: 0;
+    padding-left: 1.2rem;
+}
+
+.actividad .ajustes {
+    width: auto;
+    min-width: 50%;
+}
+
+.actividad .ajustes th {
+    width: 1%;
+    white-space: nowrap;
+}
+
+/* Pasos numerados */
+.pasos {
+    list-style: none;
+    counter-reset: paso;
+    padding-left: 0;
+}
+
+.paso {
+    counter-increment: paso;
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding: 0 0 1.5rem 3.25rem;
+    border-bottom: 1px solid var(--borde);
+}
+
+.paso::before {
+    content: counter(paso);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color);
+    color: white;
+    font-family: var(--fuente-titulos);
+    font-weight: 600;
+}
+
+.pagina .paso h3 {
+    margin: 0.3rem 0 0.75rem;
+    font-size: 1.2rem;
+    color: var(--color-osc);
+}
+
+.ruta-menu {
+    display: inline-block;
+    padding: 0 0.45rem;
+    background-color: var(--color-claro);
+    border: 1px solid var(--color-borde);
+    border-radius: 0.35rem;
+    color: var(--color);
+    font-weight: 700;
+}
+
+/* Capturas de pantalla */
+.actividad figure {
+    margin: 1rem 0;
+}
+
+.actividad figure img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--borde);
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 4px rgba(15, 39, 71, 0.08);
+    cursor: zoom-in;
+}
+
+.actividad figcaption {
+    margin-top: 0.35rem;
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+}
+
+.capturas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.capturas figure {
+    margin: 0;
+    flex: 1 1 14rem;
+    min-width: 0;
+    /* Permite que la captura se encoja en móvil */
+    max-width: max-content;
+}
+
+.actividad details summary {
+    color: var(--color);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* Texto que el alumno debe copiar en su documento */
+.texto-modelo {
+    position: relative;
+    margin: 0.75rem 0;
+    padding: 1rem 1.25rem;
+    background-color: var(--superficie);
+    border: 1px dashed #b8c2cf;
+    border-radius: 0.75rem;
+}
+
+.texto-modelo .btn-copiar {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: var(--superficie);
+}
+
+.texto-modelo p:last-child {
+    margin-bottom: 0;
+}
+
+/* Lista de comprobación */
+.checklist {
+    list-style: none;
+    padding: 0.25rem 1.25rem;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 0.9rem;
+}
+
+.checklist li {
+    margin: 0;
+    padding: 0.55rem 0;
+    border-bottom: 1px dashed var(--borde);
+}
+
+.checklist li:last-child {
+    border-bottom: 0;
+}
+
+.checklist label {
+    display: flex;
+    gap: 0.7rem;
+    cursor: pointer;
+}
+
+.checklist input {
+    flex-shrink: 0;
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: 0.25rem;
+    accent-color: var(--verde);
+}
+
+.checklist input:checked+span {
+    color: var(--texto-suave);
+    text-decoration: line-through;
+}
+
+.progreso-actividad .progress {
+    height: 0.6rem;
+    border-radius: 99px;
+}
+
+.navegacion-actividades {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* Visor de capturas ampliadas */
+.visor {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.85);
+    cursor: zoom-out;
+}
+
+.visor[hidden] {
+    display: none;
+}
+
+.visor img {
+    max-width: 100%;
+    max-height: 100%;
+    background-color: white;
+    border-radius: 0.5rem;
+}
+
+.visor .btn-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+
+/* Sin animaciones para quien lo tenga desactivado en su sistema */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+/* --- AÑADIDOS: aviso de versiones, vista previa y texto de práctica --- */
+
+/* Aviso: Google Docs puede cambiar respecto a las capturas */
+.nota-version {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding: 0.7rem 1rem;
+    background-color: #fff8e6;
+    border: 1px solid #f5dfa6;
+    border-radius: 0.75rem;
+    font-size: 0.92rem;
+    color: #5c4813;
+}
+
+.nota-version i {
+    margin-top: 0.15rem;
+    color: #a86b00;
+}
+
+/* Vista previa de cómo debe quedar el documento (actividad 4.4) */
+.vista-documento {
+    padding: 2rem 2.5rem;
+    background-color: white;
+    border: 1px solid var(--borde);
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 16px rgba(15, 39, 71, 0.08);
+    font-family: Arial, sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #3c4043;
+}
+
+.vista-documento p {
+    padding: 0.4rem 0.6rem;
+    text-align: justify;
+}
+
+/* Elementos de segundo nivel en el texto de práctica de listas */
+.texto-lista p {
+    margin-bottom: 0.15rem;
+}
+
+.texto-lista p.sub {
+    padding-left: 1.75rem;
+}
+
+.texto-lista p strong {
+    display: inline-block;
+    margin-top: 0.6rem;
+}
+
+
+/* ==========================================================================
+   UNIDAD 6: EDITOR SQL, TABLAS DE DATOS Y DIAGRAMAS ENTIDAD-RELACIÓN
+   ========================================================================== */
+
+.sql-editor {
+    margin: 1rem 0 1.5rem;
+    padding: 0.75rem;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 0.75rem;
+}
+
+.sql-codigo {
+    display: block;
+    width: 100%;
+    min-height: 4.5rem;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid #2b3445;
+    border-radius: 0.5rem;
+    background-color: #1f2430;
+    color: #e6edf3;
+    caret-color: var(--acento);
+    font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    resize: vertical;
+    overflow: hidden;
+    tab-size: 4;
+}
+
+.sql-codigo:focus {
+    outline: 3px solid var(--acento);
+    outline-offset: 1px;
+}
+
+.sql-botones {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+}
+
+.sql-atajo {
+    margin-left: auto;
+    font-size: 0.78rem;
+    color: var(--texto-suave);
+}
+
+.sql-atajo kbd {
+    font-size: 0.72rem;
+}
+
+.sql-salida:not(:empty) {
+    margin-top: 0.75rem;
+}
+
+.sql-salida>p,
+.sql-salida>div,
+.sql-salida>details {
+    margin-bottom: 0.5rem;
+}
+
+.sql-sentencia {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+    margin: 0.75rem 0 0.35rem;
+    font-size: 0.8rem;
+}
+
+.sql-sentencia span {
+    flex: none;
+    min-width: 1.4rem;
+    padding: 0 0.35rem;
+    background-color: var(--color-claro);
+    border-radius: 0.3rem;
+    color: var(--color);
+    font-weight: 700;
+    text-align: center;
+}
+
+.sql-sentencia code {
+    overflow-wrap: anywhere;
+}
+
+/* Tabla de resultados (también se usa en la teoría para enseñar los datos de una tabla) */
+.sql-tabla-wrap {
+    max-width: 100%;
+    max-height: 24rem;
+    overflow: auto;
+    border: 1px solid var(--borde);
+    border-radius: 0.5rem;
+}
+
+.sql-tabla {
+    border-collapse: collapse;
+    min-width: 100%;
+    background-color: white;
+    font-size: 0.85rem;
+    line-height: 1.35;
+}
+
+.sql-tabla th {
+    position: sticky;
+    top: 0;
+    padding: 0.35rem 0.6rem;
+    background-color: #eef2f7;
+    border-bottom: 1px solid var(--borde);
+    color: var(--color-osc);
+    font-family: var(--fuente-titulos);
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.sql-tabla td {
+    padding: 0.3rem 0.6rem;
+    border-bottom: 1px solid #eef1f5;
+    white-space: nowrap;
+}
+
+.sql-tabla tbody tr:nth-child(even) td {
+    background-color: #fafbfd;
+}
+
+.sql-tabla td.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.sql-tabla td.nulo {
+    color: #8a94a3;
+    font-style: italic;
+}
+
+/* Clave primaria y clave ajena en las tablas de ejemplo de la teoría */
+.sql-tabla th.pk {
+    text-decoration: underline;
+}
+
+.sql-tabla th.fk {
+    font-style: italic;
+}
+
+.sql-pie,
+.sql-vacio {
+    margin: 0.3rem 0 0;
+    font-size: 0.8rem;
+    color: var(--texto-suave);
+}
+
+.sql-cargando {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    color: var(--texto-suave);
+}
+
+.sql-hecho,
+.sql-aviso {
+    display: flex;
+    gap: 0.45rem;
+    align-items: baseline;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.sql-hecho i {
+    color: var(--verde);
+}
+
+.sql-aviso {
+    color: var(--texto-suave);
+}
+
+.sql-error,
+.sql-correcto,
+.sql-incorrecto {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.5rem;
+    font-size: 0.92rem;
+}
+
+.sql-error>i,
+.sql-correcto>i,
+.sql-incorrecto>i {
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+
+.sql-error small {
+    display: block;
+    margin-top: 0.25rem;
+    color: #7a271a;
+    font-size: 0.78rem;
+    overflow-wrap: anywhere;
+}
+
+.sql-error {
+    background-color: #fdecea;
+    border: 1px solid #f5c2bc;
+    color: #7a271a;
+}
+
+.sql-correcto {
+    background-color: var(--verde-claro);
+    border: 1px solid #c6e6d3;
+    color: #145c3b;
+}
+
+.sql-incorrecto {
+    background-color: #fff6e0;
+    border: 1px solid #f6dfa4;
+    color: #6b4a00;
+}
+
+.sql-ver-solucion,
+.sql-tabla-ver {
+    margin-top: 0.6rem;
+}
+
+.sql-ver-solucion summary,
+.sql-tabla-ver summary {
+    cursor: pointer;
+    color: var(--color);
+    font-size: 0.92rem;
+}
+
+.sql-ver-solucion pre {
+    margin: 0.5rem 0 0;
+}
+
+.sql-tabla-ver summary {
+    overflow-wrap: anywhere;
+}
+
+.sql-tabla-ver .sql-tabla-wrap {
+    margin-top: 0.4rem;
+}
+
+/* Esquema relacional: ALUMNO (DNI, nombre, apellidos) con la clave primaria subrayada */
+.esquema {
+    margin: 0.75rem 0;
+    padding: 0.75rem 1rem;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 0.5rem;
+    font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    font-size: 0.9rem;
+    line-height: 1.9;
+}
+
+.esquema p {
+    margin: 0;
+}
+
+.esquema u {
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+}
+
+/* Clave ajena: en cursiva y con subrayado discontinuo */
+.esquema em {
+    text-decoration: underline dashed;
+    text-underline-offset: 3px;
+}
+
+/* Diagramas entidad-relación (SVG dentro de la página) */
+.diagrama {
+    margin: 1.25rem 0;
+    text-align: center;
+}
+
+.diagrama svg {
+    width: 100%;
+    max-width: 44rem;
+    height: auto;
+    padding: 0.5rem;
+    background-color: white;
+    border: 1px solid var(--borde);
+    border-radius: 0.75rem;
+}
+
+.diagrama figcaption {
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+}
+
+.er text {
+    font-family: var(--fuente-texto);
+    font-size: 13px;
+    fill: var(--texto);
+    text-anchor: middle;
+    dominant-baseline: central;
+}
+
+.er .entidad rect {
+    fill: var(--color-claro);
+    stroke: var(--color);
+    stroke-width: 2;
+}
+
+.er .entidad text {
+    font-family: var(--fuente-titulos);
+    font-weight: 600;
+    fill: var(--color-osc);
+}
+
+.er .relacion polygon {
+    fill: #fdf3dc;
+    stroke: #c98a0b;
+    stroke-width: 2;
+}
+
+.er .atributo ellipse {
+    fill: white;
+    stroke: #8a94a3;
+    stroke-width: 1.5;
+}
+
+/* Atributo clave: subrayado (lo dibuja el propio SVG). Multivaluado: doble elipse. Derivado: elipse discontinua */
+.er .derivado ellipse {
+    stroke-dasharray: 5 4;
+}
+
+.er line,
+.er path.linea {
+    fill: none;
+    stroke: #5a6675;
+    stroke-width: 1.5;
+}
+
+.er .card {
+    font-family: var(--fuente-titulos);
+    font-size: 12px;
+    font-weight: 700;
+    fill: #a3550b;
+}
