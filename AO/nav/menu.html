@@ -1,159 +1,107 @@
-<div class="bg-primary border-right
-" id="sidebar-wrapper">
-    <div class="sidebar-heading text-white p-3">Menú de Unidades</div>
-    <nav class="navbar navbar-dark bg-primary">
-        <div class="container-fluid flex-column align-items-start">
-            <ul class="navbar-nav flex-column w-100">
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="https://ttounkyo.github.io/AO/"><i
-                            class="bi bi-house-door-fill me-2"></i>Inicio</a>
-                </li>
+<div class="menu-cabecera">
+    <a class="menu-marca" href="#/">
+        <span class="menu-logo"><i class="bi bi-file-earmark-text"></i></span>
+        <span>
+            <small>SMX</small>
+            <strong>Aplicaciones Ofimáticas</strong>
+        </span>
+    </a>
+</div>
 
-                <li class="nav-item">
-                    <a class="nav-link text-white" data-title="Unidad 1.
-                        Instalación y Conceptos de Aplicaciones Ofimáticas"
-                        data-page="../AO/Unidad-1/index.html">Unidad 1.
-                        Instalación y Conceptos de Aplicaciones Ofimáticas</a>
-                </li>
+<nav class="menu">
+    <a class="menu-enlace" href="#/"><i class="bi bi-house"></i><span>Inicio</span></a>
 
-                <li class="nav-item">
-                    <a class="nav-link text-white" data-title="Unidad 2. Correo
-                        y agenda electrónica" data-page="../AO/Unidad-2/index.html">Unidad 2. Correo
-                        y agenda electrónica</a>
-                </li>
+    <p class="menu-titulo">Unidades</p>
+    <ul class="list-unstyled">
+        <li data-unidad="1">
+            <a class="menu-enlace" href="#/Unidad-1/index"><span class="num">1</span><span>Instalación y conceptos</span></a>
+        </li>
+        <li data-unidad="2">
+            <a class="menu-enlace" href="#/Unidad-2/index"><span class="num">2</span><span>Correo y agenda</span></a>
+        </li>
+        <li data-unidad="3">
+            <a class="menu-enlace" href="#/Unidad-3/index"><span class="num">3</span><span>Presentaciones</span></a>
+        </li>
 
-                <li class="nav-item">
-                    <a class="nav-link text-white" data-title="Unidad 3.
-                        Presentaciones" data-page="../AO/Unidad-3/index.html">Unidad 3. Presentaciones</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link text-white" data-title="Unidad 4.
-                        Documento de
-                        texto" data-page="../AO/Unidad-4/index.html">Unidad 4. Documento de texto</a>
-                </li>
-
-                <li class=" nav-item">
-                    <a class="nav-link text-white" data-title="Unidad 5. Hojas
-                        de cálculo" data-page="../AO/Unidad-5/index.html">Unidad 5. Hojas de cálculo</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link text-white" data-title="Unidad 6. Base de Datos"
-                        data-page="../AO/Unidad-1/index.html">Unidad 6. Base de Datos</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link text-white" data-title="Unidad 7. Imagen y video"
-                        data-page="../AO/Unidad-1/index.html">Unidad 7. Imagen y video</a>
-                </li>
-
-                <li class="nav-item dropdown w-100">
-                    <a class="nav-link dropdown-toggle text-white" href="#" id="unidad8Dropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-code-slash me-1"></i>Unidad 8. HTML - CSS
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="unidad8Dropdown">
-                        <!-- Contenido original de HTML -->
-                        <li>
-                            <h6 class="dropdown-header">HTML</h6>
-                        </li>
-                        <li><a class="dropdown-item" data-page="../AO/Unidad-8/html/index.html">Introducción</a>
-                        </li>
-                        <li><a class="dropdown-item" data-page="../AO/Unidad-8/html/elementos.html">Elementos</a>
-                        </li>
-                        <li><a class="dropdown-item" data-page="../AO/Unidad-8/html/texto.html">Texto</a></li>
-                        <li><a class="dropdown-item" data-page="../AO/Unidad-8/html/listas.html">Listas</a>
-                        </li>
-                        <li><a class="dropdown-item" data-page="../AO/Unidad-8/html/imagenes.html">Imágenes</a>
-                        </li>
-                        <li><a class="dropdown-item" data-page="../AO/Unidad-8/html/enlaces.html">Enlaces</a>
-                        </li>
-                        <li><a class="dropdown-item" data-page="../AO/Unidad-8/html/tablas.html">Tablas</a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <!-- Contenido original de CSS -->
-                        <li>
-                            <h6 class="dropdown-header">CSS</h6>
-                        </li>
-                        <li><a class="dropdown-item" data-page="../AO/Unidad-8/html-css/index.html">Introducción
-                                CSS</a></li>
-                        <li><a class="dropdown-item"
-                                data-page="../AO/Unidad-8/html-css/elementos-importantes.html">Elementos
-                                Importantes</a></li>
-                        <li><a class="dropdown-item"
-                                data-page="../AO/Unidad-8/html-css/propiedades-css.html">Propiedades</a></li>
-                        <li><a class="dropdown-item" data-page="../AO/Unidad-8/html-css/selectores.html">Selectores</a>
-                        </li>
-                        <li><a class="dropdown-item"
-                                data-page="../AO/Unidad-8/html-css/selectores-etiquetas.html">Etiquetas</a>
-                        </li>
-                        <li><a class="dropdown-item" data-page="../AO/Unidad-8/html-css/selectores-clase.html">Clase</a>
-                        </li>
-                        <li><a class="dropdown-item" data-page="../AO/Unidad-8/html-css/selectores-id.html">ID</a></li>
-                        <li><a class="dropdown-item"
-                                data-page="../AO/Unidad-8/html-css/selectores-descendientes.html">Descendientes</a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <!-- Contenido original de Actividades HTML -->
-                        <li>
-                            <h6 class="dropdown-header">Actividades HTML</h6>
-                        </li>
-                        <li><a class="dropdown-item"
-                                data-page="../AO/Unidad-8/Actividades/HTML/Actividad-1.html">Actividad 1</a>
-                        </li>
-                        <li><a class="dropdown-item"
-                                data-page="../AO/Unidad-8/Actividades/HTML/Actividad-2.html">Actividad 2</a>
-                        </li>
-                        <li><a class="dropdown-item"
-                                data-page="../AO/Unidad-8/Actividades/HTML/Actividad-3.html">Actividad 3</a>
-                        </li>
-                        <li><a class="dropdown-item"
-                                data-page="../AO/Unidad-8/Actividades/HTML/Actividad-4.html">Actividad 4</a>
-                        </li>
-                        <li><a class="dropdown-item"
-                                data-page="../AO/Unidad-8/Actividades/HTML/Actividad-5.html">Actividad 5</a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <!-- Contenido original de Actividades CSS -->
-                        <li>
-                            <h6 class="dropdown-header">Actividades CSS</h6>
-                        </li>
-                        <li><a class="dropdown-item"
-                                data-page="../AO/Unidad-8/Actividades/CSS/Actividad-1.html">Actividad 1</a>
-                        </li>
-                        <li><a class="dropdown-item"
-                                data-page="../AO/Unidad-8/Actividades/CSS/Actividad-2.html">Actividad 2</a>
-                        </li>
-                        <li><a class="dropdown-item"
-                                data-page="../AO/Unidad-8/Actividades/CSS/Actividad-3.html">Actividad 3</a>
-                        </li>
-                        <li><a class="dropdown-item"
-                                data-page="../AO/Unidad-8/Actividades/CSS/Actividad-4.html">Actividad 4</a>
-                        </li>
-                        <li><a class="dropdown-item"
-                                data-page="../AO/Unidad-8/Actividades/CSS/Actividad-5.html">Actividad 5</a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <!-- Contenido original de Prueba -->
-                        <li><a class="dropdown-item" data-page="../AO/Unidad-8/Actividades/misitio/prueba.html">Prueba
-                                Final</a></li>
-
-                    </ul>
-                </li>
+        <!-- Unidad 4: teoría + actividades -->
+        <li data-unidad="4">
+            <button type="button" class="menu-enlace menu-desplegar" data-bs-toggle="collapse"
+                data-bs-target="#submenu-unidad4" aria-expanded="false" aria-controls="submenu-unidad4">
+                <span class="num">4</span><span>Documento de texto</span><i class="bi bi-chevron-down flecha"></i>
+            </button>
+            <ul class="collapse submenu list-unstyled" id="submenu-unidad4">
+                <li><a href="#/Unidad-4/index"><i class="bi bi-book"></i>Teoría</a></li>
+                <li><a href="#/Unidad-4/actividades/index"><i class="bi bi-list-check"></i>Actividades</a></li>
+                <li><a class="sub2" data-actividad="4-1" href="#/Unidad-4/actividades/4-1"><span class="sub-num">4.1</span>Formato de texto</a></li>
+                <li><a class="sub2" data-actividad="4-2" href="#/Unidad-4/actividades/4-2"><span class="sub-num">4.2</span>Tablas</a></li>
+                <li><a class="sub2" data-actividad="4-3" href="#/Unidad-4/actividades/4-3"><span class="sub-num">4.3</span>Imágenes</a></li>
+                <li><a class="sub2" data-actividad="4-4" href="#/Unidad-4/actividades/4-4"><span class="sub-num">4.4</span>Estilos de párrafo</a></li>
+                <li><a class="sub2" data-actividad="4-5" href="#/Unidad-4/actividades/4-5"><span class="sub-num">4.5</span>Ecuaciones y dibujos</a></li>
+                <li><a class="sub2" data-actividad="4-6" href="#/Unidad-4/actividades/4-6"><span class="sub-num">4.6</span>Listas</a></li>
+                <li><a class="sub2" data-actividad="4-7" href="#/Unidad-4/actividades/4-7"><span class="sub-num">4.7</span>El tríptico</a></li>
+                <li><a class="sub2" data-actividad="4-8" href="#/Unidad-4/actividades/4-8"><span class="sub-num">4.8</span>Índice y citas</a></li>
             </ul>
-        </div>
-    </nav>
+        </li>
+
+        <li data-unidad="5">
+            <a class="menu-enlace" href="#/Unidad-5/index"><span class="num">5</span><span>Hojas de cálculo</span></a>
+        </li>
+        <li>
+            <span class="menu-enlace deshabilitado"><span class="num">6</span><span>Base de datos</span><span
+                    class="pronto">Pronto</span></span>
+        </li>
+        <li>
+            <span class="menu-enlace deshabilitado"><span class="num">7</span><span>Imagen y vídeo</span><span
+                    class="pronto">Pronto</span></span>
+        </li>
+
+        <!-- Unidad 8: HTML - CSS -->
+        <li data-unidad="8">
+            <button type="button" class="menu-enlace menu-desplegar" data-bs-toggle="collapse"
+                data-bs-target="#submenu-unidad8" aria-expanded="false" aria-controls="submenu-unidad8">
+                <span class="num">8</span><span>HTML y CSS</span><i class="bi bi-chevron-down flecha"></i>
+            </button>
+            <ul class="collapse submenu list-unstyled" id="submenu-unidad8">
+                <li class="submenu-header">HTML</li>
+                <li><a href="#/Unidad-8/html/index">Introducción</a></li>
+                <li><a href="#/Unidad-8/html/elementos">Elementos</a></li>
+                <li><a href="#/Unidad-8/html/texto">Texto</a></li>
+                <li><a href="#/Unidad-8/html/listas">Listas</a></li>
+                <li><a href="#/Unidad-8/html/imagenes">Imágenes</a></li>
+                <li><a href="#/Unidad-8/html/enlaces">Enlaces</a></li>
+                <li><a href="#/Unidad-8/html/tablas">Tablas</a></li>
+
+                <li class="submenu-header">CSS</li>
+                <li><a href="#/Unidad-8/html-css/index">Introducción CSS</a></li>
+                <li><a href="#/Unidad-8/html-css/elementos-importantes">Elementos importantes</a></li>
+                <li><a href="#/Unidad-8/html-css/propiedades-css">Propiedades</a></li>
+                <li><a href="#/Unidad-8/html-css/selectores">Selectores</a></li>
+                <li><a href="#/Unidad-8/html-css/selectores-etiquetas">Etiquetas</a></li>
+                <li><a href="#/Unidad-8/html-css/selectores-clase">Clase</a></li>
+                <li><a href="#/Unidad-8/html-css/selectores-id">ID</a></li>
+                <li><a href="#/Unidad-8/html-css/selectores-descendientes">Descendientes</a></li>
+
+                <li class="submenu-header">Actividades HTML</li>
+                <li><a href="#/Unidad-8/Actividades/HTML/Actividad-1">Actividad 1</a></li>
+                <li><a href="#/Unidad-8/Actividades/HTML/Actividad-2">Actividad 2</a></li>
+                <li><a href="#/Unidad-8/Actividades/HTML/Actividad-3">Actividad 3</a></li>
+                <li><a href="#/Unidad-8/Actividades/HTML/Actividad-4">Actividad 4</a></li>
+                <li><a href="#/Unidad-8/Actividades/HTML/Actividad-5">Actividad 5</a></li>
+
+                <li class="submenu-header">Actividades CSS</li>
+                <li><a href="#/Unidad-8/Actividades/CSS/Actividad-1">Actividad 1</a></li>
+                <li><a href="#/Unidad-8/Actividades/CSS/Actividad-2">Actividad 2</a></li>
+                <li><a href="#/Unidad-8/Actividades/CSS/Actividad-3">Actividad 3</a></li>
+                <li><a href="#/Unidad-8/Actividades/CSS/Actividad-4">Actividad 4</a></li>
+                <li><a href="#/Unidad-8/Actividades/CSS/Actividad-5">Actividad 5</a></li>
+
+                <li class="submenu-header">Prueba</li>
+                <li><a href="#/Unidad-8/Actividades/misitio/prueba">Prueba final</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+<div class="menu-pie">
+    <a href="../"><i class="bi bi-arrow-left"></i>Todas las asignaturas</a>
 </div>
