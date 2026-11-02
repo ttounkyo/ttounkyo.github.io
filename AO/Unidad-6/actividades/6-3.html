@@ -1,0 +1,424 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-6/index">Unidad 6</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-6/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">6.3</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 6.3. Del diagrama a las tablas</h1>
+    <p class="lead">Te damos tres diagramas entidad-relación ya hechos, de más fácil a más difícil. Tu trabajo es
+        convertir cada uno en tablas: qué tablas salen, qué columnas tiene cada una, cuáles son las claves y de qué
+        tipo es cada columna.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Escribir un esquema relacional</li>
+                    <li>Pasar a tablas relaciones 1:N, N:M, 1:1 y reflexivas</li>
+                    <li>Colocar las claves ajenas en la tabla correcta</li>
+                    <li>Claves primarias compuestas</li>
+                    <li>Elegir el tipo de cada columna</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-6/teoria-diseno?sec=4-del-diagrama-a-las-tablas">4. Del diagrama a
+                            las tablas</a> y <a href="#/Unidad-6/teoria-diseno?sec=5-tipos-de-datos">5. Tipos de
+                            datos</a></li>
+                    <li>Si no recuerdas qué significa cada figura del diagrama: <a
+                            href="#/Unidad-6/teoria-diseno?sec=3-el-modelo-entidad-relacion">3. El modelo
+                            entidad-relación</a></li>
+                    <li>Lo puedes hacer con cualquier procesador de textos (Word, Google Docs, LibreOffice Writer).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad6.3</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Formato</th>
+                <td>Un documento PDF</td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Para cada diagrama: el esquema relacional (claves primarias subrayadas y claves ajenas en cursiva)
+                    y una tabla con el tipo de cada columna.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Repasa cómo se escribe un esquema relacional</h3>
+            <p>Un <strong>esquema relacional</strong> es una forma corta de escribir las tablas: el nombre de la tabla
+                y, entre paréntesis, sus columnas. Se marca así:</p>
+            <ul>
+                <li>La <strong>clave primaria</strong>, subrayada (en el procesador de textos,
+                    <kbd>Ctrl</kbd>+<kbd>U</kbd>).</li>
+                <li>Las <strong>claves ajenas</strong> (columnas que guardan la clave de otra tabla), en cursiva
+                    (<kbd>Ctrl</kbd>+<kbd>I</kbd>). Debajo, di a qué tabla apuntan.</li>
+            </ul>
+            <div class="esquema">
+                <p>GRUPO (<u>codigo</u>, aula)</p>
+                <p>ALUMNO (<u>DNI</u>, nombre, apellidos, <em>codigo_grupo</em>)</p>
+            </div>
+            <p><code>codigo_grupo</code> es clave ajena: apunta a <code>codigo</code> de la tabla GRUPO. Así se sabe en
+                qué grupo está cada alumno.</p>
+            <p>Después del esquema de cada diagrama, haz una tabla de tipos con tres columnas: <em>Tabla</em>,
+                <em>Columna</em> y <em>Tipo</em>.</p>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Una clave ajena tiene que
+                ser <strong>del mismo tipo</strong> que la clave primaria a la que apunta. Si <code>codigo</code> es
+                <code>INT</code>, <code>codigo_grupo</code> también.</div>
+        </li>
+        <li class="paso">
+            <h3>Diagrama 1: equipos y jugadores (1:N)</h3>
+            <p>Un club guarda sus equipos y sus jugadores. Pasa este diagrama a tablas:</p>
+            <figure class="diagrama">
+<svg class="er" viewBox="-146 -132 822 259" role="img" aria-label="Diagrama E-R de equipos y jugadores">
+<line x1="0" y1="0" x2="-80" y2="-80"/>
+<line x1="0" y1="0" x2="35" y2="-95"/>
+<line x1="0" y1="0" x2="-80" y2="80"/>
+<line x1="470" y1="0" x2="555" y2="-80"/>
+<line x1="470" y1="0" x2="440" y2="-95"/>
+<line x1="470" y1="0" x2="620" y2="0"/>
+<line x1="470" y1="0" x2="530" y2="90"/>
+<line x1="235" y1="0" x2="0" y2="0"/>
+<line x1="235" y1="0" x2="470" y2="0"/>
+<g class="atributo clave"><ellipse cx="-80" cy="-80" rx="46" ry="17"/><text x="-80" y="-80">id_equipo</text><line x1="-110" y1="-71" x2="-50" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+<g class="atributo"><ellipse cx="35" cy="-95" rx="36" ry="17"/><text x="35" y="-95">nombre</text></g>
+<g class="atributo"><ellipse cx="-80" cy="80" rx="36" ry="17"/><text x="-80" y="80">ciudad</text></g>
+<g class="entidad"><rect x="-55" y="-22.0" width="110" height="44" rx="3"/><text x="0" y="0">EQUIPO</text></g>
+<g class="atributo clave"><ellipse cx="555" cy="-80" rx="50" ry="17"/><text x="555" y="-80">id_jugador</text><line x1="522" y1="-71" x2="588" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+<g class="atributo"><ellipse cx="440" cy="-95" rx="36" ry="17"/><text x="440" y="-95">nombre</text></g>
+<g class="atributo"><ellipse cx="620" cy="0" rx="36" ry="17"/><text x="620" y="0">dorsal</text></g>
+<g class="atributo"><ellipse cx="530" cy="90" rx="72" ry="17"/><text x="530" y="90">fecha_nacimiento</text></g>
+<g class="entidad"><rect x="415" y="-22.0" width="110" height="44" rx="3"/><text x="470" y="0">JUGADOR</text></g>
+<g class="relacion"><polygon points="235,-32.0 290.0,0 235,32.0 180.0,0"/><text x="235" y="0">tiene</text></g>
+<text class="card" x="75" y="-12">1</text>
+<text class="card" x="395" y="-12">N</text>
+</svg>
+<figcaption>Diagrama 1. Equipos y jugadores</figcaption>
+</figure>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Cada entidad será una tabla.
+                La duda es dónde guardar qué jugador es de qué equipo. ¿Puedes poner en EQUIPO una columna con «todos
+                sus jugadores»? ¿Y en JUGADOR una columna con «su equipo»? Recuerda que en una celda solo cabe un
+                valor.</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <div class="esquema">
+                    <p>EQUIPO (<u>id_equipo</u>, nombre, ciudad)</p>
+                    <p>JUGADOR (<u>id_jugador</u>, nombre, dorsal, fecha_nacimiento, <em>id_equipo</em>)</p>
+                </div>
+                <p><code>JUGADOR.id_equipo</code> → <code>EQUIPO.id_equipo</code>. En una relación 1:N, la clave del
+                    lado <strong>1</strong> (equipo) pasa como clave ajena a la tabla del lado <strong>N</strong>
+                    (jugador). Cada jugador tiene un solo equipo, así que cabe en una celda; al revés no cabría.</p>
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Tabla</th>
+                            <th>Columna</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="3">EQUIPO</td>
+                            <td>id_equipo</td>
+                            <td><code>INT</code></td>
+                        </tr>
+                        <tr>
+                            <td>nombre</td>
+                            <td><code>VARCHAR(50)</code></td>
+                        </tr>
+                        <tr>
+                            <td>ciudad</td>
+                            <td><code>VARCHAR(50)</code></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5">JUGADOR</td>
+                            <td>id_jugador</td>
+                            <td><code>INT</code></td>
+                        </tr>
+                        <tr>
+                            <td>nombre</td>
+                            <td><code>VARCHAR(80)</code></td>
+                        </tr>
+                        <tr>
+                            <td>dorsal</td>
+                            <td><code>INT</code></td>
+                        </tr>
+                        <tr>
+                            <td>fecha_nacimiento</td>
+                            <td><code>DATE</code></td>
+                        </tr>
+                        <tr>
+                            <td>id_equipo</td>
+                            <td><code>INT</code> (como <code>EQUIPO.id_equipo</code>)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>No se guarda la edad, sino la fecha de nacimiento: la edad cambia cada año y se puede calcular.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Diagrama 2: alumnos y módulos (N:M con atributo)</h3>
+            <p>El instituto guarda qué módulos cursa cada alumno y la nota que saca en cada uno. Pasa este diagrama a
+                tablas:</p>
+            <figure class="diagrama">
+<svg class="er" viewBox="-141 -132 732 259" role="img" aria-label="Diagrama E-R de alumnos y módulos">
+<line x1="0" y1="0" x2="-75" y2="-80"/>
+<line x1="0" y1="0" x2="35" y2="-95"/>
+<line x1="0" y1="0" x2="-75" y2="80"/>
+<line x1="460" y1="0" x2="535" y2="-80"/>
+<line x1="460" y1="0" x2="425" y2="-95"/>
+<line x1="460" y1="0" x2="535" y2="80"/>
+<line x1="230" y1="0" x2="0" y2="0"/>
+<line x1="230" y1="0" x2="460" y2="0"/>
+<line x1="230" y1="0" x2="230" y2="90"/>
+<g class="atributo clave"><ellipse cx="-75" cy="-80" rx="36" ry="17"/><text x="-75" y="-80">DNI</text><line x1="-85" y1="-71" x2="-65" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+<g class="atributo"><ellipse cx="35" cy="-95" rx="36" ry="17"/><text x="35" y="-95">nombre</text></g>
+<g class="atributo"><ellipse cx="-75" cy="80" rx="46" ry="17"/><text x="-75" y="80">apellidos</text></g>
+<g class="entidad"><rect x="-55" y="-22.0" width="110" height="44" rx="3"/><text x="0" y="0">ALUMNO</text></g>
+<g class="atributo clave"><ellipse cx="535" cy="-80" rx="36" ry="17"/><text x="535" y="-80">código</text><line x1="515" y1="-71" x2="555" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+<g class="atributo"><ellipse cx="425" cy="-95" rx="36" ry="17"/><text x="425" y="-95">nombre</text></g>
+<g class="atributo"><ellipse cx="535" cy="80" rx="36" ry="17"/><text x="535" y="80">horas</text></g>
+<g class="entidad"><rect x="405" y="-22.0" width="110" height="44" rx="3"/><text x="460" y="0">MÓDULO</text></g>
+<g class="atributo"><ellipse cx="230" cy="90" rx="36" ry="17"/><text x="230" y="90">nota</text></g>
+<g class="relacion"><polygon points="230,-32.0 285.0,0 230,32.0 175.0,0"/><text x="230" y="0">cursa</text></g>
+<text class="card" x="75" y="-12">N</text>
+<text class="card" x="385" y="-12">M</text>
+</svg>
+<figcaption>Diagrama 2. Alumnos y módulos</figcaption>
+</figure>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Prueba el truco del paso
+                anterior: ¿cabe en ALUMNO una columna con «su módulo»? ¿Y en MÓDULO una con «su alumno»? Si no cabe en
+                ninguna de las dos, hará falta otra tabla. Y la nota, ¿de quién es: del alumno, del módulo, o de cada
+                pareja alumno-módulo?</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <div class="esquema">
+                    <p>ALUMNO (<u>DNI</u>, nombre, apellidos)</p>
+                    <p>MODULO (<u>codigo</u>, nombre, horas)</p>
+                    <p>CURSA (<u><em>DNI</em></u>, <u><em>codigo_modulo</em></u>, nota)</p>
+                </div>
+                <p><code>CURSA.DNI</code> → <code>ALUMNO.DNI</code> y <code>CURSA.codigo_modulo</code> →
+                    <code>MODULO.codigo</code>.</p>
+                <p>Una relación N:M siempre se convierte en una <strong>tabla nueva</strong> con las claves de las dos
+                    entidades. Juntas forman la clave primaria (una <strong>clave compuesta</strong>): el mismo alumno
+                    aparece en muchas filas y el mismo módulo también, pero la pareja alumno-módulo no se repite. Los
+                    atributos de la relación (la nota) van en esta tabla.</p>
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Tabla</th>
+                            <th>Columna</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="3">ALUMNO</td>
+                            <td>DNI</td>
+                            <td><code>CHAR(9)</code></td>
+                        </tr>
+                        <tr>
+                            <td>nombre</td>
+                            <td><code>VARCHAR(50)</code></td>
+                        </tr>
+                        <tr>
+                            <td>apellidos</td>
+                            <td><code>VARCHAR(80)</code></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3">MODULO</td>
+                            <td>codigo</td>
+                            <td><code>VARCHAR(10)</code> (por ejemplo, <code>AO</code>)</td>
+                        </tr>
+                        <tr>
+                            <td>nombre</td>
+                            <td><code>VARCHAR(100)</code></td>
+                        </tr>
+                        <tr>
+                            <td>horas</td>
+                            <td><code>INT</code></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3">CURSA</td>
+                            <td>DNI</td>
+                            <td><code>CHAR(9)</code></td>
+                        </tr>
+                        <tr>
+                            <td>codigo_modulo</td>
+                            <td><code>VARCHAR(10)</code></td>
+                        </tr>
+                        <tr>
+                            <td>nota</td>
+                            <td><code>DECIMAL(4,2)</code> (de 0,00 a 10,00)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>La tabla nueva puede llamarse CURSA, MATRICULA o ALUMNO_MODULO: lo importante es lo que tiene
+                    dentro.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Diagrama 3: departamentos y empleados (1:1 y reflexiva)</h3>
+            <p>Una empresa pequeña guarda sus departamentos y sus empleados. Cada departamento lo dirige un empleado, y
+                un empleado solo puede dirigir un departamento (1:1). Además, cada empleado tiene un supervisor, que es
+                otro empleado; un supervisor puede tener a varios empleados a su cargo. Esa es una relación
+                <strong>reflexiva</strong>: une la entidad EMPLEADO consigo misma.</p>
+            <figure class="diagrama">
+<svg class="er" viewBox="-146 -132 847 354" role="img" aria-label="Diagrama E-R de departamentos y empleados">
+<line x1="0" y1="0" x2="-90" y2="-80"/>
+<line x1="0" y1="0" x2="30" y2="-95"/>
+<line x1="0" y1="0" x2="-90" y2="80"/>
+<line x1="470" y1="0" x2="560" y2="-80"/>
+<line x1="470" y1="0" x2="440" y2="-95"/>
+<line x1="470" y1="0" x2="645" y2="0"/>
+<line x1="235" y1="0" x2="0" y2="0"/>
+<line x1="235" y1="0" x2="470" y2="0"/>
+<line x1="440" y1="22" x2="406" y2="170"/>
+<line x1="500" y1="22" x2="534" y2="170"/>
+<g class="atributo clave"><ellipse cx="-90" cy="-80" rx="36" ry="17"/><text x="-90" y="-80">código</text><line x1="-110" y1="-71" x2="-70" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+<g class="atributo"><ellipse cx="30" cy="-95" rx="36" ry="17"/><text x="30" y="-95">nombre</text></g>
+<g class="atributo"><ellipse cx="-90" cy="80" rx="36" ry="17"/><text x="-90" y="80">planta</text></g>
+<g class="entidad"><rect x="-74" y="-22.0" width="148" height="44" rx="3"/><text x="0" y="0">DEPARTAMENTO</text></g>
+<g class="atributo clave"><ellipse cx="560" cy="-80" rx="54" ry="17"/><text x="560" y="-80">id_empleado</text><line x1="524" y1="-71" x2="596" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+<g class="atributo"><ellipse cx="440" cy="-95" rx="36" ry="17"/><text x="440" y="-95">nombre</text></g>
+<g class="atributo"><ellipse cx="645" cy="0" rx="36" ry="17"/><text x="645" y="0">puesto</text></g>
+<g class="entidad"><rect x="415" y="-22.0" width="110" height="44" rx="3"/><text x="470" y="0">EMPLEADO</text></g>
+<g class="relacion"><polygon points="235,-32.0 290.0,0 235,32.0 180.0,0"/><text x="235" y="0">dirige</text></g>
+<g class="relacion"><polygon points="470,138.0 534.0,170 470,202.0 406.0,170"/><text x="470" y="170">supervisa</text></g>
+<text class="card" x="94" y="-12">1</text>
+<text class="card" x="395" y="-12">1</text>
+<text class="card" x="412" y="48">1</text>
+<text class="card" x="530" y="48">N</text>
+<text x="372" y="104">supervisor</text>
+<text x="572" y="104">supervisado</text>
+</svg>
+<figcaption>Diagrama 3. Departamentos y empleados</figcaption>
+</figure>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En la 1:1 la clave puede ir
+                a cualquiera de las dos tablas. ¿Dónde quedarían menos celdas vacías: en DEPARTAMENTO o en EMPLEADO
+                (piensa que casi ningún empleado es director)? En la reflexiva, piensa que es una 1:N en la que los dos
+                lados son la misma tabla.</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <div class="esquema">
+                    <p>DEPARTAMENTO (<u>codigo</u>, nombre, planta, <em>id_director</em>)</p>
+                    <p>EMPLEADO (<u>id_empleado</u>, nombre, puesto, <em>id_supervisor</em>)</p>
+                </div>
+                <p><code>DEPARTAMENTO.id_director</code> → <code>EMPLEADO.id_empleado</code> y
+                    <code>EMPLEADO.id_supervisor</code> → <code>EMPLEADO.id_empleado</code>.</p>
+                <ul>
+                    <li><strong>dirige (1:1):</strong> la clave del director va a DEPARTAMENTO. Todos los
+                        departamentos tienen director, así que esa columna siempre estará llena. Si fuera al revés
+                        (una columna «departamento que dirige» en EMPLEADO), casi todas las filas la tendrían vacía.
+                        Para que un empleado no dirija dos departamentos, en SQL se le pone a
+                        <code>id_director</code> la restricción <code>UNIQUE</code>.</li>
+                    <li><strong>supervisa (reflexiva 1:N):</strong> no sale ninguna tabla nueva. EMPLEADO tiene una
+                        columna <code>id_supervisor</code> que apunta a <strong>otra fila de la misma tabla</strong>.
+                        La persona que está más arriba no tiene supervisor: en su fila, <code>id_supervisor</code>
+                        queda vacío (<code>NULL</code>).</li>
+                </ul>
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Tabla</th>
+                            <th>Columna</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="4">DEPARTAMENTO</td>
+                            <td>codigo</td>
+                            <td><code>INT</code></td>
+                        </tr>
+                        <tr>
+                            <td>nombre</td>
+                            <td><code>VARCHAR(50)</code></td>
+                        </tr>
+                        <tr>
+                            <td>planta</td>
+                            <td><code>INT</code></td>
+                        </tr>
+                        <tr>
+                            <td>id_director</td>
+                            <td><code>INT</code> (como <code>EMPLEADO.id_empleado</code>)</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="4">EMPLEADO</td>
+                            <td>id_empleado</td>
+                            <td><code>INT</code></td>
+                        </tr>
+                        <tr>
+                            <td>nombre</td>
+                            <td><code>VARCHAR(80)</code></td>
+                        </tr>
+                        <tr>
+                            <td>puesto</td>
+                            <td><code>VARCHAR(40)</code></td>
+                        </tr>
+                        <tr>
+                            <td>id_supervisor</td>
+                            <td><code>INT</code> (como <code>id_empleado</code>)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Repasa tus esquemas</h3>
+            <p>Antes de pasarlo a PDF, revisa los tres esquemas con estas preguntas:</p>
+            <ul>
+                <li>¿Cuántas tablas te han salido en cada diagrama? (Pista: 2, 3 y 2).</li>
+                <li>¿Todas las tablas tienen clave primaria?</li>
+                <li>¿Cada clave ajena apunta a una tabla que existe y tiene el mismo tipo que su clave primaria?</li>
+                <li>¿Hay alguna celda en la que tendrías que escribir varios valores? Si la hay, algo falla.</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="6-3">
+        <li><label><input type="checkbox"><span>El documento es un PDF y se llama
+                    <code>ApellidoNombre_AO_Actividad6.3</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Diagrama 1: dos tablas, y JUGADOR tiene <code>id_equipo</code> como
+                    clave ajena.</span></label></li>
+        <li><label><input type="checkbox"><span>Diagrama 2: tres tablas, y la de la relación tiene la nota y una clave
+                    primaria formada por las dos claves ajenas.</span></label></li>
+        <li><label><input type="checkbox"><span>Diagrama 3: dos tablas; <code>id_director</code> está en
+                    DEPARTAMENTO y <code>id_supervisor</code> en EMPLEADO, y las dos apuntan a
+                    EMPLEADO.</span></label></li>
+        <li><label><input type="checkbox"><span>En los tres esquemas, las claves primarias están subrayadas y las
+                    ajenas en cursiva.</span></label></li>
+        <li><label><input type="checkbox"><span>Cada columna tiene su tipo, y cada clave ajena el mismo tipo que la
+                    clave a la que apunta.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-6/actividades/6-2"><i class="bi bi-arrow-left me-1"></i>Anterior: 6.2</a>
+        <a class="btn btn-primary" href="#/Unidad-6/actividades/6-4">Siguiente: 6.4. Normalizar una hoja de préstamos <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

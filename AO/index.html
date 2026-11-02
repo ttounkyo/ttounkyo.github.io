@@ -88,11 +88,13 @@
                             <span class="tarjeta-texto">Google Sheets: datos, fórmulas, funciones y gráficos.</span>
                             <span class="tarjeta-meta"><i class="bi bi-list-check"></i> Teoría + 21 actividades</span>
                         </a>
-                        <div class="tarjeta-unidad deshabilitada">
+                        <a class="tarjeta-unidad destacada" href="#/Unidad-6/index">
                             <span class="tarjeta-num">6</span>
                             <span class="tarjeta-titulo">Base de datos</span>
-                            <span class="tarjeta-meta">Próximamente</span>
-                        </div>
+                            <span class="tarjeta-texto">Diseño con el modelo entidad-relación y SQL: crear tablas,
+                                guardar datos y hacer consultas.</span>
+                            <span class="tarjeta-meta"><i class="bi bi-list-check"></i> Teoría + 12 actividades</span>
+                        </a>
                         <div class="tarjeta-unidad deshabilitada">
                             <span class="tarjeta-num">7</span>
                             <span class="tarjeta-titulo">Imagen y vídeo</span>
@@ -274,6 +276,11 @@
             mostrarProgreso();
             marcarEnlaceActivo(ruta);
             actualizarMiga(ruta, titulo);
+
+            // Editores SQL de la Unidad 6 (js/sql-editor.js)
+            if (window.prepararEditoresSQL) {
+                prepararEditoresSQL(contenido, ruta);
+            }
 
             // Reaplicar Prism.js al nuevo contenido
             if (window.Prism) {
@@ -565,6 +572,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <!-- Editor SQL de la Unidad 6 -->
+    <script src="js/sql-editor.js"></script>
     <!-- Script para copiar al portapapeles -->
     <script>
         function copiarCodigo(boton) {

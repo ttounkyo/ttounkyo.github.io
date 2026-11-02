@@ -1,0 +1,596 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-6/index">Unidad 6</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-6/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">6.11</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 6.11. Biblioteca: autores y libros</h1>
+    <p class="lead">La biblioteca del instituto quiere guardar sus <strong>libros</strong> y quién los ha escrito. Vas
+        a crear su base de datos con las tablas <strong>Autor</strong> y <strong>Libros</strong>, a llenarla, a
+        cambiar sus datos y a sacar información con consultas. Es el mismo recorrido que la actividad 6.10, con otros
+        datos.</p>
+
+    <div class="alert alert-info"><i class="bi bi-arrow-repeat me-1"></i><strong>Actividad de repaso.</strong> Los
+        pasos solo dicen qué hay que hacer, no cómo. Intenta hacerla sin mirar la teoría ni las soluciones: pulsa
+        <strong>Comprobar</strong> y, si falla, piensa por qué antes de abrir <strong>Ver la solución</strong>. Así
+        sabrás qué dominas y qué tienes que repasar.</div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li><code>CREATE TABLE</code> y <code>ALTER TABLE</code>, con clave primaria y clave ajena</li>
+                    <li><code>INSERT</code>, <code>UPDATE</code> y <code>DELETE</code></li>
+                    <li><code>SELECT</code> con <code>WHERE</code>, <code>ORDER BY</code>, <code>LIKE</code> y
+                        <code>AS</code></li>
+                    <li><code>JOIN</code>, <code>LEFT JOIN</code>, <code>GROUP BY</code> y <code>HAVING</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Si te atascas, la teoría está en
+                        <a href="#/Unidad-6/teoria-sql?sec=2-crear-y-modificar-tablas">2. Crear y modificar tablas</a>,
+                        <a href="#/Unidad-6/teoria-sql?sec=3-insertar-modificar-y-borrar-datos">3. Insertar, modificar
+                            y borrar</a>,
+                        <a href="#/Unidad-6/teoria-sql?sec=4-consultas-a-una-tabla">4. Consultas a una tabla</a>,
+                        <a href="#/Unidad-6/teoria-sql?sec=5-funciones-y-agrupacion">5. Funciones y agrupación</a> y
+                        <a href="#/Unidad-6/teoria-sql?sec=6-consultas-con-varias-tablas">6. Consultas con varias
+                            tablas</a>. Lo tienes todo resumido en la
+                        <a href="#/Unidad-6/teoria-sql?sec=8-chuleta-de-sql">chuleta de SQL</a>.</li>
+                    <li>Base de datos para phpMyAdmin:
+                        <a href="../AO/Unidad-6/bd/biblioteca.sql" download><i class="bi bi-download me-1"></i>biblioteca.sql</a>
+                        (8 autores y 24 libros).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad6.11.sql</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Un archivo de texto con todas tus sentencias, en orden. Antes de cada apartado, escribe un
+                    comentario con el número del bloque y del paso: <code>-- 1.2</code>, <code>-- 1.3</code>…
+                    <code>-- 6.10</code>.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p class="nota-version"><i class="bi bi-info-circle"></i>Cada editor ya tiene hecho lo que necesita: en los
+        bloques 1 y 2, las tablas de los pasos anteriores; desde el bloque 3, la base de datos completa de
+        <code>biblioteca.sql</code>. Cada editor empieza siempre desde esos datos, aunque en otro hayas borrado o
+        cambiado filas. Pulsa <strong>Ver tablas</strong> para ver qué hay dentro.</p>
+
+    <h2 class="mb-4 text-primary">1. Crear la base de datos y las tablas</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea la base de datos</h3>
+            <p>Crea la base de datos <code>BibliotecaEscolar</code> (sin espacios) y entra en ella.</p>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En los editores ya
+                trabajas dentro de una base de datos vacía, así que este paso no tiene editor. Escríbelo al principio
+                de tu archivo <code>.sql</code>: en phpMyAdmin sí hace falta.</div>
+        </li>
+        <li class="paso">
+            <h3>Crea la tabla Autor</h3>
+            <p>Crea la tabla <code>Autor</code> con dos columnas: <code>Codigo</code> (número entero) y
+                <code>Nombre</code> (texto de hasta 100 caracteres). Sin clave primaria: la añadirás en el paso
+                siguiente.</p>
+            <div class="sql-editor">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">CREATE TABLE Autor (
+    Codigo INT,
+    Nombre VARCHAR(100)
+);
+DESCRIBE Autor;</script>
+                <script type="text/plain" class="comprobar">ESTRUCTURA Autor</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Clave primaria de Autor</h3>
+            <p>Con <code>ALTER TABLE</code>, haz que <code>Codigo</code> sea la clave primaria de <code>Autor</code>.
+                Si crees que hace falta, añade alguna característica más: por ejemplo, que el nombre no pueda quedar
+                vacío.</p>
+            <div class="sql-editor">
+                <textarea>-- La tabla Autor ya está creada (paso 1.2)
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Autor (Codigo INT, Nombre VARCHAR(100));</script>
+                <script type="text/plain" class="solucion">ALTER TABLE Autor
+ADD PRIMARY KEY (Codigo),
+MODIFY Nombre VARCHAR(100) NOT NULL;
+DESCRIBE Autor;</script>
+                <script type="text/plain" class="comprobar">ESTRUCTURA Autor</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Crea la tabla Libros</h3>
+            <p>Crea la tabla <code>Libros</code> con <code>Codigo</code> (entero y clave primaria, dentro del propio
+                <code>CREATE TABLE</code>) y <code>Titulo</code> (texto de hasta 150 caracteres).</p>
+            <div class="sql-editor">
+                <textarea>-- La tabla Autor ya está terminada (pasos 1.2 y 1.3)
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Autor (Codigo INT PRIMARY KEY, Nombre VARCHAR(100) NOT NULL);</script>
+                <script type="text/plain" class="solucion">CREATE TABLE Libros (
+    Codigo INT PRIMARY KEY,
+    Titulo VARCHAR(150)
+);
+DESCRIBE Libros;</script>
+                <script type="text/plain" class="comprobar">ESTRUCTURA Libros</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Añade Autor y Precio</h3>
+            <p>Con <code>ALTER TABLE</code>, añade a <code>Libros</code> dos columnas:</p>
+            <ol>
+                <li>Primero <code>Autor</code>, un número entero: guardará el código del autor de cada libro.</li>
+                <li>Después <code>Precio</code>, un decimal con dos decimales (<code>DECIMAL(6,2)</code>), que tiene
+                    que quedar <strong>antes</strong> de <code>Autor</code>.</li>
+            </ol>
+            <p>Al final, las columnas de <code>Libros</code> deben quedar en este orden: <code>Codigo</code>,
+                <code>Titulo</code>, <code>Precio</code>, <code>Autor</code>.</p>
+            <div class="sql-editor">
+                <textarea>-- Las tablas Autor y Libros ya están creadas
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Autor (Codigo INT PRIMARY KEY, Nombre VARCHAR(100) NOT NULL);
+CREATE TABLE Libros (Codigo INT PRIMARY KEY, Titulo VARCHAR(150));</script>
+                <script type="text/plain" class="solucion">ALTER TABLE Libros ADD Autor INT;
+ALTER TABLE Libros ADD Precio DECIMAL(6,2) AFTER Titulo;
+DESCRIBE Libros;</script>
+                <script type="text/plain" class="comprobar">ESTRUCTURA Libros</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Relaciona Libros con Autor</h3>
+            <p>Haz que la columna <code>Autor</code> de <code>Libros</code> sea una clave ajena que apunte a
+                <code>Codigo</code> de la tabla <code>Autor</code>.</p>
+            <div class="sql-editor">
+                <textarea>-- Las dos tablas ya tienen todas sus columnas
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Autor (Codigo INT PRIMARY KEY, Nombre VARCHAR(100) NOT NULL);
+CREATE TABLE Libros (Codigo INT PRIMARY KEY, Titulo VARCHAR(150), Precio DECIMAL(6,2), Autor INT);</script>
+                <script type="text/plain" class="solucion">ALTER TABLE Libros
+ADD FOREIGN KEY (Autor) REFERENCES Autor(Codigo);
+DESCRIBE Libros;</script>
+                <script type="text/plain" class="comprobar">CLAVES_AJENAS Libros</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Aquí la columna y la
+                tabla se llaman igual, <code>Autor</code>. No pasa nada: SQL sabe cuál es cuál por el sitio donde la
+                escribes.</div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">2. Insertar datos</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Inserta cuatro autores</h3>
+            <p>Las tablas están vacías. Inserta estos autores en <code>Autor</code>:</p>
+            <table class="table table-sm table-bordered ajustes">
+                <thead>
+                    <tr><th scope="col">Codigo</th><th scope="col">Nombre</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Miguel de Cervantes</td></tr>
+                    <tr><td>2</td><td>Federico García Lorca</td></tr>
+                    <tr><td>3</td><td>Isabel Allende</td></tr>
+                    <tr><td>4</td><td>J. K. Rowling</td></tr>
+                </tbody>
+            </table>
+            <div class="sql-editor">
+                <textarea>-- Las tablas están creadas y vacías
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Autor (Codigo INT PRIMARY KEY, Nombre VARCHAR(100) NOT NULL);
+CREATE TABLE Libros (Codigo INT PRIMARY KEY, Titulo VARCHAR(150), Precio DECIMAL(6,2), Autor INT,
+    FOREIGN KEY (Autor) REFERENCES Autor(Codigo));</script>
+                <script type="text/plain" class="solucion">INSERT INTO Autor (Codigo, Nombre) VALUES
+(1, 'Miguel de Cervantes'),
+(2, 'Federico García Lorca'),
+(3, 'Isabel Allende'),
+(4, 'J. K. Rowling');
+SELECT * FROM Autor;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Autor ORDER BY Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Inserta dos libros</h3>
+            <p>Los cuatro autores ya están guardados. Inserta estos dos libros en <code>Libros</code>:</p>
+            <table class="table table-sm table-bordered ajustes">
+                <thead>
+                    <tr><th scope="col">Codigo</th><th scope="col">Titulo</th><th scope="col">Precio</th><th scope="col">Autor</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Don Quijote de la Mancha</td><td>19,99</td><td>Miguel de Cervantes</td></tr>
+                    <tr><td>2</td><td>Harry Potter 1</td><td>24,99</td><td><em>Sin autor</em> (<code>NULL</code>)</td></tr>
+                </tbody>
+            </table>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En la columna
+                <code>Autor</code> no va el nombre, sino el <code>Codigo</code> del autor. Y en SQL los decimales se
+                escriben con punto.</div>
+            <div class="sql-editor">
+                <textarea>-- Los autores del paso 2.1 ya están insertados
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Autor (Codigo INT PRIMARY KEY, Nombre VARCHAR(100) NOT NULL);
+CREATE TABLE Libros (Codigo INT PRIMARY KEY, Titulo VARCHAR(150), Precio DECIMAL(6,2), Autor INT,
+    FOREIGN KEY (Autor) REFERENCES Autor(Codigo));
+INSERT INTO Autor VALUES (1, 'Miguel de Cervantes'), (2, 'Federico García Lorca'), (3, 'Isabel Allende'), (4, 'J. K. Rowling');</script>
+                <script type="text/plain" class="solucion">INSERT INTO Libros (Codigo, Titulo, Precio, Autor) VALUES
+(1, 'Don Quijote de la Mancha', 19.99, 1),
+(2, 'Harry Potter 1', 24.99, NULL);
+SELECT * FROM Libros;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Libros ORDER BY Codigo;</script>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">3. Consultar datos</h2>
+    <p>Desde aquí, los editores tienen la base de datos completa de <code>biblioteca.sql</code>. Si lo haces también
+        en phpMyAdmin, importa antes ese archivo: borra las tablas que has creado y las vuelve a crear con todos los
+        datos.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Títulos de los libros</h3>
+            <p>Obtén los títulos de todos los libros de la biblioteca.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Titulo FROM Libros;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Todos los autores</h3>
+            <p>Obtén todos los autores de la biblioteca, con todas sus columnas.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT * FROM Autor;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Libros del más caro al más barato</h3>
+            <p>Obtén el título y el precio de los libros, ordenados por precio de mayor a menor.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Titulo, Precio
+FROM Libros
+ORDER BY Precio DESC;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Autores por orden alfabético</h3>
+            <p>Obtén el nombre y el código de los autores, ordenados alfabéticamente por nombre.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Codigo
+FROM Autor
+ORDER BY Nombre ASC;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Precio con IVA</h3>
+            <p>Los libros pagan un IVA del 4 %. Obtén el título, el precio y el precio con IVA de cada libro. La
+                última columna se tiene que llamar <code>Precio Total</code>.</p>
+            <div class="sql-editor" data-bd="biblioteca" data-columnas>
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Titulo, Precio, Precio * 1.04 AS 'Precio Total'
+FROM Libros;</script>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">4. Modificar datos</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Cambia el nombre del autor 2</h3>
+            <p>El autor con código 2 tiene que aparecer como <code>F. García Lorca</code>. Cámbialo.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">UPDATE Autor SET Nombre = 'F. García Lorca' WHERE Codigo = 2;
+SELECT * FROM Autor;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Autor ORDER BY Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Sube 5 € los libros de menos de 20 €</h3>
+            <p>Aumenta en 5 € el precio de todos los libros que cuestan menos de 20 € (por ejemplo, uno de 15 € pasa a
+                costar 20 €).</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">UPDATE Libros SET Precio = Precio + 5 WHERE Precio < 20;
+SELECT * FROM Libros;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Libros ORDER BY Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Baja 3 € los libros de más de 25 €</h3>
+            <p>Reduce en 3 € el precio de todos los libros que cuestan más de 25 € (por ejemplo, uno de 30 € pasa a
+                costar 27 €).</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">UPDATE Libros SET Precio = Precio - 3 WHERE Precio > 25;
+SELECT * FROM Libros;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Libros ORDER BY Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Da autor a los libros que no tienen</h3>
+            <p>Hay dos libros sin autor: «Harry Potter 1» y «Antología de poesía». Hazlo con dos sentencias:</p>
+            <ol>
+                <li>Asigna J. K. Rowling al libro «Harry Potter 1» (búscalo por su <code>Codigo</code>).</li>
+                <li>Después, a todos los libros que sigan sin autor, asígnales Federico García Lorca.</li>
+            </ol>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tus dos sentencias
+</textarea>
+                <script type="text/plain" class="solucion">UPDATE Libros SET Autor = 4 WHERE Codigo = 7;
+UPDATE Libros SET Autor = 2 WHERE Autor IS NULL;
+SELECT * FROM Libros;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Libros ORDER BY Codigo;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Pulsa <strong>Ver
+                    tablas</strong> para buscar los códigos que necesitas.</div>
+        </li>
+        <li class="paso">
+            <h3>Sube un 15 % los libros de Harry Potter</h3>
+            <p>Aumenta un 15 % el precio de todos los libros que llevan la palabra <code>Harry</code> en el
+                título.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">UPDATE Libros SET Precio = Precio * 1.15 WHERE Titulo LIKE '%Harry%';
+SELECT * FROM Libros;</script>
+                <script type="text/plain" class="comprobar">SELECT Codigo, Titulo, ROUND(Precio, 1), Autor FROM Libros ORDER BY Codigo;</script>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">5. Borrar datos</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Borra a Isabel Allende</h3>
+            <p>Elimina la autora Isabel Allende. Búscala por su <code>Codigo</code>, no por el nombre.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">DELETE FROM Autor WHERE Codigo = 3;
+SELECT * FROM Autor;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Autor ORDER BY Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Borra los libros de más de 29,99 €</h3>
+            <p>Elimina todos los libros que cuestan más de 29,99 €.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">DELETE FROM Libros WHERE Precio > 29.99;
+SELECT * FROM Libros;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Libros ORDER BY Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Borra los libros de entre 10 y 15 €</h3>
+            <p>Elimina todos los libros que cuestan entre 10 y 15 €.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">DELETE FROM Libros WHERE Precio BETWEEN 10 AND 15;
+SELECT * FROM Libros;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Libros ORDER BY Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Borra los libros sin autor</h3>
+            <p>Elimina los libros que no tienen autor.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">DELETE FROM Libros WHERE Autor IS NULL;
+SELECT * FROM Libros;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Libros ORDER BY Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Borra los libros con más de una «o»</h3>
+            <p>Elimina todos los libros que tienen más de una letra <code>o</code> en el título.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">DELETE FROM Libros WHERE Titulo LIKE '%o%o%';
+SELECT * FROM Libros;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Libros ORDER BY Codigo;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Con <code>LIKE</code>,
+                el <code>%</code> vale por cualquier cantidad de letras, también ninguna. Piensa cómo sería un patrón
+                con dos «o».</div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">6. Consultas con varias tablas</h2>
+    <p>Diez consultas sobre los datos completos de <code>biblioteca.sql</code>. En casi todas necesitas juntar
+        <code>Libros</code> y <code>Autor</code>.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Libros con el nombre de su autor</h3>
+            <p>Obtén un listado de los libros con su título, su precio y el nombre de su autor. Los libros sin autor
+                no salen.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT L.Titulo, L.Precio, A.Nombre AS Autor
+FROM Libros L
+INNER JOIN Autor A ON L.Autor = A.Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Autores con un precio medio de 20 € o más</h3>
+            <p>Obtén el nombre y el precio medio de sus libros de los autores cuyo precio medio es mayor o igual a
+                20 €. Ordénalos por precio medio, de menor a mayor.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT A.Nombre, AVG(L.Precio) AS 'Precio Medio'
+FROM Autor A
+INNER JOIN Libros L ON A.Codigo = L.Autor
+GROUP BY A.Nombre
+HAVING AVG(L.Precio) >= 20
+ORDER BY AVG(L.Precio) ASC;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Una condición sobre un
+                resultado de <code>AVG</code> no va en el <code>WHERE</code>.</div>
+        </li>
+        <li class="paso">
+            <h3>Número de libros de cada autor</h3>
+            <p>Obtén cuántos libros tiene cada autor, también los que no tienen ninguno. Dos columnas:
+                <code>Nombre</code> (del autor) y <code>Número de Libros</code>. Ordena de más a menos libros y, si
+                dos autores tienen los mismos, por nombre.</p>
+            <div class="sql-editor" data-bd="biblioteca" data-columnas>
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT A.Nombre, COUNT(L.Codigo) AS 'Número de Libros'
+FROM Autor A
+LEFT JOIN Libros L ON A.Codigo = L.Autor
+GROUP BY A.Nombre
+ORDER BY COUNT(L.Codigo) DESC, A.Nombre ASC;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Para que salgan también
+                los autores sin libros no vale un <code>INNER JOIN</code>.</div>
+        </li>
+        <li class="paso">
+            <h3>Libros sin autor</h3>
+            <p>Obtén todos los datos de los libros que no tienen autor.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT *
+FROM Libros
+WHERE Autor IS NULL;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Autores sin libros</h3>
+            <p>Obtén el nombre de los autores que no tienen ningún libro, ordenados por nombre.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT A.Nombre
+FROM Autor A
+LEFT JOIN Libros L ON A.Codigo = L.Autor
+WHERE L.Codigo IS NULL
+ORDER BY A.Nombre;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Precio máximo y mínimo de cada autor</h3>
+            <p>Obtén, para cada autor con libros, su nombre, el precio de su libro más caro y el del más barato.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT A.Nombre,
+       MAX(L.Precio) AS 'Precio Máximo',
+       MIN(L.Precio) AS 'Precio Mínimo'
+FROM Autor A
+INNER JOIN Libros L ON A.Codigo = L.Autor
+GROUP BY A.Nombre;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Autores con libros de más de 25 €</h3>
+            <p>Obtén el nombre de los autores que tienen algún libro de más de 25 €, sin que se repita ninguno.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT DISTINCT A.Nombre
+FROM Autor A
+INNER JOIN Libros L ON A.Codigo = L.Autor
+WHERE L.Precio > 25;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Autores con más de 5 libros</h3>
+            <p>Obtén el nombre de los autores y su número de libros, pero solo de los que tienen más de 5.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT A.Nombre, COUNT(L.Codigo) AS 'Número de Libros'
+FROM Autor A
+INNER JOIN Libros L ON A.Codigo = L.Autor
+GROUP BY A.Nombre
+HAVING COUNT(L.Codigo) > 5;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Cuántos autores no tienen libros</h3>
+            <p>Obtén el número de autores que no tienen ningún libro. La columna se tiene que llamar
+                <code>Cantidad de autores sin libros</code>.</p>
+            <div class="sql-editor" data-bd="biblioteca" data-columnas>
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT COUNT(*) AS 'Cantidad de autores sin libros'
+FROM Autor A
+LEFT JOIN Libros L ON A.Codigo = L.Autor
+WHERE L.Codigo IS NULL;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Libros de 25 € o más, ordenados</h3>
+            <p>Obtén el título y el precio de los libros que cuestan 25 € o más. Ordénalos por precio de mayor a
+                menor y, si dos cuestan lo mismo, por título de la A a la Z.</p>
+            <div class="sql-editor" data-bd="biblioteca">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Titulo, Precio
+FROM Libros
+WHERE Precio >= 25
+ORDER BY Precio DESC, Titulo ASC;</script>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="6-11">
+        <li><label><input type="checkbox"><span>El archivo se llama <code>ApellidoNombre_AO_Actividad6.11.sql</code> y
+                    tiene un comentario antes de cada apartado.</span></label></li>
+        <li><label><input type="checkbox"><span>Empieza con <code>CREATE DATABASE BibliotecaEscolar</code> y
+                    <code>USE</code>.</span></label></li>
+        <li><label><input type="checkbox"><span><code>Libros</code> queda con las columnas en este orden:
+                    <code>Codigo</code>, <code>Titulo</code>, <code>Precio</code>, <code>Autor</code>, y
+                    <code>Autor</code> es una clave ajena a la tabla <code>Autor</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Los textos van entre comillas simples y los decimales, con
+                    punto.</span></label></li>
+        <li><label><input type="checkbox"><span>Ningún <code>UPDATE</code> ni <code>DELETE</code> se ha quedado sin
+                    su <code>WHERE</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Todos los editores dan «¡Correcto!» al pulsar Comprobar, y los que
+                    no te salieron a la primera los has repasado en la teoría.</span></label></li>
+    </ul>
+
+    <p class="mb-5">Para terminar el repaso de la unidad, contesta las preguntas de definiciones y tipos de relaciones
+        de la <a href="#/Unidad-6/actividades/6-12">actividad 6.12. Preguntas de teoría</a>.</p>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-6/actividades/6-10"><i class="bi bi-arrow-left me-1"></i>Anterior: 6.10</a>
+        <a class="btn btn-primary" href="#/Unidad-6/actividades/6-12">Siguiente: 6.12. Preguntas de teoría <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

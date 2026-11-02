@@ -1,0 +1,216 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-6/index">Unidad 6</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-6/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">6.5</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 6.5. Tienda de informática: crear las tablas</h1>
+    <p class="lead">Vas a crear la base de datos de una tienda de informática con dos tablas, <strong>Fabricante</strong>
+        y <strong>Articulos</strong>, y a cambiar su estructura con <code>ALTER TABLE</code> hasta dejarlas
+        relacionadas con una clave ajena.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li><code>CREATE DATABASE</code> y <code>CREATE TABLE</code></li>
+                    <li>Tipos de datos: <code>INT</code>, <code>VARCHAR</code> y <code>DECIMAL</code></li>
+                    <li>Añadir columnas y la clave primaria con <code>ALTER TABLE</code></li>
+                    <li>Relacionar dos tablas con <code>FOREIGN KEY</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-6/teoria-sql?sec=2-crear-y-modificar-tablas">2. Crear y modificar tablas</a></li>
+                    <li>Repasa también <a href="#/Unidad-6/teoria-diseno?sec=5-tipos-de-datos">los tipos de datos</a></li>
+                    <li>Todo se hace en los editores de esta página. Si quieres, al final lo pruebas también en
+                        phpMyAdmin.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad6.5.sql</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Un archivo de texto con todas tus sentencias, en orden. Antes de cada paso, escribe un comentario:
+                    <code>-- Paso 2</code>, <code>-- Paso 3</code>…</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-info-circle"></i>Cada editor ya tiene hechos los pasos anteriores, así que
+        puedes empezar por cualquiera. Pulsa <strong>Ejecutar</strong> para ver qué hace tu código y
+        <strong>Comprobar</strong> para saber si está bien. Lo que escribes se guarda en este navegador.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea la base de datos</h3>
+            <p>En MySQL, lo primero es crear la base de datos y entrar en ella con <code>USE</code>. Las tablas que
+                crees después se guardan dentro.</p>
+            <pre><code class="language-sql">CREATE DATABASE TiendaInformatica;
+USE TiendaInformatica;</code></pre>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En los editores de esta
+                página ya estás dentro de una base de datos vacía, así que estas dos órdenes no cambian nada. Ponlas
+                igualmente al principio de tu archivo <code>.sql</code>: en phpMyAdmin sí hacen falta.</div>
+        </li>
+        <li class="paso">
+            <h3>Crea la tabla Fabricante</h3>
+            <p>Crea la tabla <code>Fabricante</code> con dos columnas: <code>Codigo</code>, un número entero, y
+                <code>Nombre</code>, un texto de hasta 100 caracteres. <strong>No le pongas todavía clave
+                    primaria</strong>: lo harás en el paso siguiente.</p>
+            <p>Después de crearla, escribe <code>DESCRIBE Fabricante;</code> para ver cómo ha quedado.</p>
+            <div class="sql-editor">
+                <textarea>-- Escribe aquí el CREATE TABLE
+</textarea>
+                <script type="text/plain" class="solucion">CREATE TABLE Fabricante (
+    Codigo INT,
+    Nombre VARCHAR(100)
+);
+DESCRIBE Fabricante;</script>
+                <script type="text/plain" class="comprobar">ESTRUCTURA Fabricante</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Añade la clave primaria</h3>
+            <p>La tabla ya existe, así que no hace falta borrarla: se cambia con <code>ALTER TABLE</code>. Haz que
+                <code>Codigo</code> sea la <strong>clave primaria</strong> de <code>Fabricante</code>.</p>
+            <p>Con <code>DESCRIBE</code> verás <code>PRI</code> en la columna <em>Key</em>.</p>
+            <div class="sql-editor">
+                <textarea>-- La tabla Fabricante ya está creada (paso 2)
+ALTER TABLE Fabricante
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Fabricante (Codigo INT, Nombre VARCHAR(100));</script>
+                <script type="text/plain" class="solucion">ALTER TABLE Fabricante ADD PRIMARY KEY (Codigo);
+DESCRIBE Fabricante;</script>
+                <script type="text/plain" class="comprobar">ESTRUCTURA Fabricante</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i><strong>Para ir más
+                    allá:</strong> el nombre de un fabricante no debería quedar vacío. Puedes cambiarlo con
+                <code>ALTER TABLE Fabricante MODIFY Nombre VARCHAR(100) NOT NULL;</code></div>
+        </li>
+        <li class="paso">
+            <h3>Crea la tabla Articulos</h3>
+            <p>Crea la tabla <code>Articulos</code> con <code>Codigo</code> (entero y <strong>clave primaria</strong>,
+                esta vez dentro del propio <code>CREATE TABLE</code>) y <code>Nombre</code> (texto de hasta 100
+                caracteres).</p>
+            <div class="sql-editor">
+                <textarea>-- La tabla Fabricante ya está hecha (pasos 2 y 3)
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Fabricante (Codigo INT PRIMARY KEY, Nombre VARCHAR(100));</script>
+                <script type="text/plain" class="solucion">CREATE TABLE Articulos (
+    Codigo INT PRIMARY KEY,
+    Nombre VARCHAR(100)
+);
+DESCRIBE Articulos;</script>
+                <script type="text/plain" class="comprobar">ESTRUCTURA Articulos</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Añade las columnas Fabricante y Precio</h3>
+            <p>Con <code>ALTER TABLE</code>, añade a <code>Articulos</code> dos columnas, en este orden:</p>
+            <ol>
+                <li><code>Fabricante</code>, un número entero. Guardará el código del fabricante de cada artículo.</li>
+                <li><code>Precio</code>, un número decimal con dos decimales (<code>DECIMAL(8,2)</code>), que tiene que
+                    quedar <strong>antes</strong> de <code>Fabricante</code>.</li>
+            </ol>
+            <p>Para colocar una columna en un sitio concreto, termina el <code>ADD</code> con
+                <code>AFTER columna</code> (detrás de esa columna) o con <code>FIRST</code> (la primera).</p>
+            <div class="sql-editor">
+                <textarea>-- Las tablas Fabricante y Articulos ya están creadas
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Fabricante (Codigo INT PRIMARY KEY, Nombre VARCHAR(100));
+CREATE TABLE Articulos (Codigo INT PRIMARY KEY, Nombre VARCHAR(100));</script>
+                <script type="text/plain" class="solucion">ALTER TABLE Articulos ADD Fabricante INT;
+ALTER TABLE Articulos ADD Precio DECIMAL(8,2) AFTER Nombre;
+DESCRIBE Articulos;</script>
+                <script type="text/plain" class="comprobar">ESTRUCTURA Articulos</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Relaciona las tablas con una clave ajena</h3>
+            <p>Cada artículo es de un fabricante. Haz que la columna <code>Fabricante</code> de
+                <code>Articulos</code> sea una <strong>clave ajena</strong> (<code>FOREIGN KEY</code>) que apunte a
+                <code>Codigo</code> de la tabla <code>Fabricante</code>.</p>
+            <p>Así, la base de datos no dejará guardar un artículo de un fabricante que no existe.</p>
+            <div class="sql-editor">
+                <textarea>-- Las dos tablas ya tienen todas sus columnas
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Fabricante (Codigo INT PRIMARY KEY, Nombre VARCHAR(100));
+CREATE TABLE Articulos (Codigo INT PRIMARY KEY, Nombre VARCHAR(100), Precio DECIMAL(8,2), Fabricante INT);</script>
+                <script type="text/plain" class="solucion">ALTER TABLE Articulos
+ADD FOREIGN KEY (Fabricante) REFERENCES Fabricante(Codigo);
+DESCRIBE Articulos;</script>
+                <script type="text/plain" class="comprobar">CLAVES_AJENAS Articulos</script>
+            </div>
+            <p>En el <code>DESCRIBE</code> verás <code>MUL</code> en la columna <em>Key</em> de
+                <code>Fabricante</code>: así marca MySQL una clave ajena.</p>
+        </li>
+        <li class="paso">
+            <h3>Comprueba que la clave ajena funciona</h3>
+            <p>Este editor ya tiene las dos tablas terminadas. Ejecuta el código tal como está: el primer
+                <code>INSERT</code> funciona, pero el segundo da error. ¿Por qué? Cambia el segundo para que el
+                artículo sea del fabricante 1 y vuelve a ejecutar.</p>
+            <div class="sql-editor">
+                <textarea>INSERT INTO Fabricante VALUES (1, 'Nokia');
+INSERT INTO Articulos VALUES (1, 'Nokia G21', 149.99, 7);
+SELECT * FROM Articulos;</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Fabricante (Codigo INT PRIMARY KEY, Nombre VARCHAR(100));
+CREATE TABLE Articulos (Codigo INT PRIMARY KEY, Nombre VARCHAR(100), Precio DECIMAL(8,2), Fabricante INT,
+    FOREIGN KEY (Fabricante) REFERENCES Fabricante(Codigo));</script>
+            </div>
+            <details>
+                <summary>Ver la explicación</summary>
+                <p class="mt-2">No existe ningún fabricante con el código 7, y la clave ajena no deja guardar un
+                    artículo que apunte a un fabricante que no está en la tabla <code>Fabricante</code>. Con el código 1
+                    (Nokia) sí funciona.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Junta todo en tu archivo y pruébalo en phpMyAdmin</h3>
+            <p>Copia en un archivo de texto, en orden, las sentencias de los pasos 1 a 6 y guárdalo como
+                <code>ApellidoNombre_AO_Actividad6.5.sql</code>. Puedes usar el Bloc de notas o Visual Studio Code.</p>
+            <p>Si tienes XAMPP, pruébalo: en phpMyAdmin abre la pestaña <span class="ruta-menu">SQL</span>, pega
+                todo el archivo y pulsa <span class="ruta-menu">Continuar</span>. A la izquierda aparecerá la base de
+                datos <code>TiendaInformatica</code> con sus dos tablas.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="6-5">
+        <li><label><input type="checkbox"><span>El archivo se llama <code>ApellidoNombre_AO_Actividad6.5.sql</code> y
+                    tiene un comentario antes de cada paso.</span></label></li>
+        <li><label><input type="checkbox"><span>Empieza con <code>CREATE DATABASE</code> y <code>USE</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>La clave primaria de <code>Fabricante</code> se añade con
+                    <code>ALTER TABLE … ADD PRIMARY KEY</code>.</span></label></li>
+        <li><label><input type="checkbox"><span><code>Articulos</code> queda con las columnas en este orden:
+                    <code>Codigo</code>, <code>Nombre</code>, <code>Precio</code>, <code>Fabricante</code>.</span></label></li>
+        <li><label><input type="checkbox"><span><code>Articulos.Fabricante</code> es una clave ajena que apunta a
+                    <code>Fabricante.Codigo</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Todos los pasos dan «¡Correcto!» al pulsar Comprobar.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-6/actividades/6-4"><i class="bi bi-arrow-left me-1"></i>Anterior: 6.4</a>
+        <a class="btn btn-primary" href="#/Unidad-6/actividades/6-6">Siguiente: 6.6. Insertar, modificar y borrar <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

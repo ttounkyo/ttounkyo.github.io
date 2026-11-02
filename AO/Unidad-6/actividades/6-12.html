@@ -1,0 +1,417 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-6/index">Unidad 6</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-6/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">6.12</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 6.12. Preguntas de teoría</h1>
+    <p class="lead">Once preguntas para repasar la teoría de la unidad: qué es una base de datos, los SGBD, los tipos
+        de datos y el modelo entidad-relación. La última es un diagrama que tendrás que explicar.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Explicar los conceptos básicos con tus palabras</li>
+                    <li>Poner un ejemplo propio de cada concepto</li>
+                    <li>Los elementos del modelo entidad-relación</li>
+                    <li>Leer un diagrama E-R que no has hecho tú</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-6/teoria-diseno?sec=1-que-es-una-base-de-datos">1. ¿Qué es una base
+                            de datos?</a>, <a
+                            href="#/Unidad-6/teoria-diseno?sec=2-sistemas-gestores-de-bases-de-datos">2. Sistemas
+                            gestores de bases de datos</a>, <a
+                            href="#/Unidad-6/teoria-diseno?sec=3-el-modelo-entidad-relacion">3. El modelo
+                            entidad-relación</a> y <a href="#/Unidad-6/teoria-diseno?sec=5-tipos-de-datos">5. Tipos de
+                            datos</a></li>
+                    <li>Intenta responder primero sin mirar la teoría. Lo que no sepas, búscalo y vuelve a
+                        escribirlo con tus palabras.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad6.12</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Formato</th>
+                <td>Un documento (PDF)</td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Las respuestas de las once preguntas, numeradas y <strong>con tus palabras</strong>. La respuesta
+                    modelo de cada pregunta es para comparar cuando hayas terminado, no para copiarla.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Las preguntas</h2>
+    <p class="nota-version"><i class="bi bi-info-circle"></i>Una buena respuesta explica la idea con frases sencillas
+        y la acompaña de un ejemplo tuyo (del instituto, de una tienda, de una aplicación que uses…). No hace falta
+        que sea tan larga como la respuesta modelo.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Base de datos, tabla, columna y fila</h3>
+            <p>Define por separado estos cuatro conceptos: <strong>base de datos</strong>, <strong>tabla</strong>,
+                <strong>columna</strong> y <strong>fila</strong>.</p>
+            <details>
+                <summary>Ver la respuesta modelo</summary>
+                <ul class="mt-2">
+                    <li><strong>Base de datos:</strong> un conjunto de datos relacionados entre sí, organizados y
+                        guardados de forma que se puedan buscar, añadir y cambiar fácilmente. Ejemplo: la base de datos
+                        del instituto, con los alumnos, los grupos y las notas.</li>
+                    <li><strong>Tabla:</strong> la estructura donde se guardan los datos de un mismo tipo de cosa,
+                        organizados en filas y columnas. Ejemplo: la tabla <code>Alumnos</code>.</li>
+                    <li><strong>Columna</strong> (o campo): un dato concreto que se guarda de todos los elementos de la
+                        tabla. Tiene un nombre y un tipo. Ejemplo: la columna <code>nombre</code>, de tipo
+                        texto.</li>
+                    <li><strong>Fila</strong> (o registro): todos los datos de un elemento concreto. Ejemplo: la fila
+                        de una alumna, con su DNI, su nombre y su grupo.</li>
+                </ul>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Características de una base de datos</h3>
+            <p>¿Qué características tiene una base de datos?</p>
+            <details>
+                <summary>Ver la respuesta modelo</summary>
+                <ul class="mt-2">
+                    <li><strong>Datos organizados e integrados:</strong> toda la información está en un solo sitio y
+                        ordenada en tablas relacionadas.</li>
+                    <li><strong>Poca redundancia:</strong> cada dato se guarda, si es posible, una sola vez.</li>
+                    <li><strong>Integridad:</strong> hay reglas (tipos de datos, claves, restricciones) que impiden
+                        guardar datos incorrectos, como un precio con letras o un DNI repetido.</li>
+                    <li><strong>Se describe a sí misma:</strong> además de los datos, guarda cómo son las tablas y sus
+                        columnas (los <em>metadatos</em>).</li>
+                    <li><strong>Compartida:</strong> la pueden usar muchas personas y programas a la vez.</li>
+                    <li><strong>Segura:</strong> cada usuario solo puede ver o cambiar lo que tiene permitido.</li>
+                    <li><strong>Se maneja con un SGBD</strong> y un lenguaje (SQL) que permite ordenar, buscar,
+                        relacionar y calcular.</li>
+                </ul>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Ventajas de una base de datos</h3>
+            <p>¿Qué ventajas tiene usar una base de datos en lugar de guardar la información en archivos sueltos u hojas
+                de cálculo?</p>
+            <details>
+                <summary>Ver la respuesta modelo</summary>
+                <ul class="mt-2">
+                    <li><strong>Menos datos repetidos</strong> y, por tanto, menos contradicciones (el mismo cliente
+                        con dos direcciones distintas).</li>
+                    <li><strong>Datos fiables:</strong> el SGBD comprueba los tipos y las claves antes de guardar.</li>
+                    <li><strong>Varios usuarios a la vez</strong> sin estropear los datos: el SGBD controla que dos
+                        personas no cambien lo mismo al mismo tiempo.</li>
+                    <li><strong>Seguridad:</strong> permisos distintos para cada usuario (uno solo puede leer, otro
+                        puede cambiar).</li>
+                    <li><strong>Vistas distintas:</strong> cada usuario puede ver solo la parte que le interesa.</li>
+                    <li><strong>Independencia:</strong> se puede cambiar la estructura de las tablas sin tener que
+                        rehacer todos los programas que las usan.</li>
+                    <li><strong>Copias de seguridad y recuperación</strong> si algo falla.</li>
+                    <li><strong>Consultas potentes:</strong> con una sola consulta SQL se cruzan datos de varias
+                        tablas.</li>
+                </ul>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Clasificación de los SGBD</h3>
+            <p>¿Qué es un SGBD? ¿Cómo se pueden clasificar?</p>
+            <details>
+                <summary>Ver la respuesta modelo</summary>
+                <p class="mt-2">Un <strong>SGBD</strong> (sistema gestor de bases de datos) es el programa que crea y
+                    mantiene las bases de datos y controla quién accede a ellas y cómo. Ejemplos: MySQL, MariaDB,
+                    PostgreSQL, Oracle, SQL Server o Access.</p>
+                <ul>
+                    <li><strong>Según el modelo de datos:</strong> relacionales (los datos en tablas relacionadas; son
+                        los más usados, como MySQL), jerárquicos y en red (más antiguos), y orientados a objetos.</li>
+                    <li><strong>Según el número de usuarios:</strong> monousuario (un usuario cada vez) o multiusuario
+                        (muchos a la vez).</li>
+                    <li><strong>Según dónde están los datos:</strong> centralizados (todo en un mismo ordenador o
+                        servidor) o distribuidos (repartidos entre varios ordenadores conectados en red).</li>
+                </ul>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Tipos de datos</h3>
+            <p>¿Qué es un tipo de dato? Explica los que conozcas.</p>
+            <details>
+                <summary>Ver la respuesta modelo</summary>
+                <p class="mt-2">El <strong>tipo de dato</strong> de una columna dice qué clase de valores puede
+                    guardar: números, texto, fechas… Así el SGBD rechaza los valores que no encajan, sabe cuánto
+                    ocupan y qué operaciones puede hacer con ellos (sumar números, ordenar fechas…).</p>
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Familia</th>
+                            <th>Tipos de MySQL</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Números enteros</td>
+                            <td><code>INT</code>, <code>SMALLINT</code>, <code>BIGINT</code></td>
+                            <td>Número de habitantes</td>
+                        </tr>
+                        <tr>
+                            <td>Números con decimales</td>
+                            <td><code>DECIMAL(p,s)</code> (exacto), <code>FLOAT</code>, <code>DOUBLE</code></td>
+                            <td>Precio: <code>DECIMAL(8,2)</code></td>
+                        </tr>
+                        <tr>
+                            <td>Texto</td>
+                            <td><code>CHAR(n)</code> (largo fijo), <code>VARCHAR(n)</code> (largo variable),
+                                <code>TEXT</code> (textos largos)</td>
+                            <td>DNI: <code>CHAR(9)</code>; nombre: <code>VARCHAR(50)</code></td>
+                        </tr>
+                        <tr>
+                            <td>Fecha y hora</td>
+                            <td><code>DATE</code>, <code>TIME</code>, <code>DATETIME</code>, <code>TIMESTAMP</code></td>
+                            <td>Fecha de nacimiento: <code>DATE</code></td>
+                        </tr>
+                        <tr>
+                            <td>Sí o no</td>
+                            <td><code>BOOLEAN</code> (guarda 1 o 0)</td>
+                            <td>¿Tiene proyector?</td>
+                        </tr>
+                        <tr>
+                            <td>Binarios</td>
+                            <td><code>BLOB</code></td>
+                            <td>Una imagen o un archivo</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p><code>PRIMARY KEY</code>, <code>UNIQUE</code> o <code>NOT NULL</code> no son tipos de datos: son
+                    <strong>restricciones</strong>, reglas que se añaden a una columna además de su tipo.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>El diagrama entidad-relación</h3>
+            <p>¿Qué es un diagrama entidad-relación y para qué sirve?</p>
+            <details>
+                <summary>Ver la respuesta modelo</summary>
+                <p class="mt-2">Es un dibujo que representa el diseño de una base de datos <strong>antes de
+                        crearla</strong>: qué cosas hay que guardar (entidades), qué datos se guardan de cada una
+                    (atributos) y cómo se relacionan entre ellas (relaciones). Lo propuso Peter Chen en 1976; en su
+                    notación, las entidades son rectángulos, las relaciones rombos y los atributos elipses.</p>
+                <p>Sirve para pensar el diseño sin preocuparse todavía del programa, para hablarlo con quien encarga la
+                    base de datos y como plano para crear después las tablas.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Los tres conceptos del modelo E-R</h3>
+            <p>El modelo entidad-relación se basa en tres conceptos. ¿Cuáles son? Defínelos.</p>
+            <details>
+                <summary>Ver la respuesta modelo</summary>
+                <ul class="mt-2">
+                    <li><strong>Entidad:</strong> una cosa, persona o idea de la que queremos guardar datos (ALUMNO,
+                        LIBRO). Se dibuja con un rectángulo.</li>
+                    <li><strong>Atributo:</strong> una característica de una entidad o de una relación (el nombre del
+                        alumno, el título del libro). Se dibuja con una elipse.</li>
+                    <li><strong>Relación:</strong> la asociación entre dos o más entidades (un alumno
+                        <em>toma prestado</em> un libro). Se dibuja con un rombo, normalmente con un verbo.</li>
+                </ul>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Entidades y tipos de atributos</h3>
+            <p>¿Qué es una entidad? ¿Y un atributo? ¿Qué es un atributo derivado? ¿Qué significa que un atributo es
+                univaluado o multivaluado?</p>
+            <details>
+                <summary>Ver la respuesta modelo</summary>
+                <ul class="mt-2">
+                    <li><strong>Entidad:</strong> algo del mundo real (una persona, un objeto, un lugar) o una idea (un
+                        préstamo, una matrícula) que se distingue de los demás y del que queremos guardar datos.
+                        Ejemplo: cada alumno del instituto es un ejemplar de la entidad ALUMNO.</li>
+                    <li><strong>Atributo:</strong> cada uno de los datos que describen una entidad. Ejemplo: DNI,
+                        nombre y fecha de nacimiento de ALUMNO.</li>
+                    <li><strong>Atributo derivado:</strong> el que se puede calcular a partir de otros, así que no hace
+                        falta guardarlo. Ejemplo: la edad, que sale de la fecha de nacimiento. Se dibuja con una elipse
+                        discontinua.</li>
+                    <li><strong>Atributo univaluado:</strong> tiene un solo valor para cada ejemplar. Ejemplo: el DNI
+                        de un alumno.</li>
+                    <li><strong>Atributo multivaluado:</strong> puede tener varios valores para el mismo ejemplar.
+                        Ejemplo: los teléfonos de un alumno. Se dibuja con una elipse doble y, al pasar a tablas, se
+                        guarda en una tabla aparte.</li>
+                </ul>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Las claves</h3>
+            <p>Explica todo lo que sepas de las claves.</p>
+            <details>
+                <summary>Ver la respuesta modelo</summary>
+                <ul class="mt-2">
+                    <li><strong>Clave primaria:</strong> el atributo (o atributos) que identifica cada fila de forma
+                        única. No se puede repetir ni quedar vacía. Ejemplo: el DNI en la tabla de alumnos. En el
+                        diagrama E-R y en el esquema se escribe subrayada.</li>
+                    <li><strong>Claves candidatas:</strong> todos los atributos que podrían servir de clave primaria.
+                        Un alumno se puede identificar por su DNI, por su número de expediente o por su correo del
+                        instituto. Se elige una como clave primaria; las demás quedan como <strong>claves
+                            alternativas</strong> (en SQL se les pone <code>UNIQUE</code>).</li>
+                    <li><strong>Clave compuesta:</strong> la formada por varias columnas, cuando ninguna sola basta.
+                        Ejemplo: en la tabla de notas, DNI del alumno + código del módulo.</li>
+                    <li><strong>Clave ajena</strong> (o foránea, <em>foreign key</em>): una columna que guarda el
+                        valor de la clave primaria de otra tabla para relacionarlas. Ejemplo: la columna
+                        <code>Fabricante</code> de <code>Articulos</code>, que guarda el código de un fabricante. El
+                        SGBD no deja guardar un valor que no exista en la otra tabla (integridad referencial).</li>
+                </ul>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Las relaciones y sus tipos</h3>
+            <p>¿Qué son las relaciones? ¿Qué tipos de relaciones conoces? Explica sus características.</p>
+            <details>
+                <summary>Ver la respuesta modelo</summary>
+                <p class="mt-2">Una <strong>relación</strong> es la asociación entre entidades: un alumno
+                    <em>cursa</em> módulos, un ordenador <em>está en</em> un aula. Su <strong>cardinalidad</strong>
+                    dice cuántos ejemplares de una entidad se pueden asociar con uno de la otra:</p>
+                <table class="table table-sm table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Qué significa</th>
+                            <th>Ejemplo</th>
+                            <th>En tablas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1:1</td>
+                            <td>Cada uno se asocia con uno solo del otro lado.</td>
+                            <td>Un departamento tiene un director y un empleado dirige un solo departamento.</td>
+                            <td>La clave de una tabla va como clave ajena a la otra.</td>
+                        </tr>
+                        <tr>
+                            <td>1:N</td>
+                            <td>Uno de un lado se asocia con muchos del otro, pero no al revés.</td>
+                            <td>Un fabricante hace muchos artículos; cada artículo es de un fabricante.</td>
+                            <td>La clave del lado 1 va como clave ajena a la tabla del lado N.</td>
+                        </tr>
+                        <tr>
+                            <td>N:M</td>
+                            <td>Muchos se asocian con muchos.</td>
+                            <td>Un alumno cursa muchos módulos y un módulo lo cursan muchos alumnos.</td>
+                            <td>Se crea una tabla nueva con las claves de las dos.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Según cuántas entidades une, una relación puede ser <strong>binaria</strong> (dos entidades, la más
+                    habitual), <strong>ternaria</strong> (tres) o <strong>reflexiva</strong> (una entidad consigo misma:
+                    un empleado <em>supervisa</em> a otros empleados).</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Explica este diagrama</h3>
+            <p>Observa el diagrama y explica todo lo que sepas de él: entidades, atributos, claves, la relación, sus
+                atributos y su cardinalidad. Si te atreves, escribe también las tablas que saldrían.</p>
+            <figure class="diagrama">
+<svg class="er" viewBox="-196 -137 862 459" role="img" aria-label="Diagrama E-R de proveedores, piezas y proyectos">
+<line x1="0" y1="0" x2="-10" y2="100"/>
+<line x1="0" y1="0" x2="20" y2="-95"/>
+<line x1="0" y1="0" x2="-130" y2="-60"/>
+<line x1="500" y1="0" x2="460" y2="-100"/>
+<line x1="500" y1="0" x2="610" y2="-70"/>
+<line x1="500" y1="0" x2="500" y2="100"/>
+<line x1="250" y1="190" x2="280" y2="285"/>
+<line x1="250" y1="190" x2="120" y2="230"/>
+<line x1="250" y1="190" x2="380" y2="230"/>
+<line x1="250" y1="0" x2="0" y2="0"/>
+<line x1="250" y1="0" x2="500" y2="0"/>
+<line x1="250" y1="0" x2="250" y2="190"/>
+<line x1="250" y1="0" x2="195" y2="-95"/>
+<line x1="250" y1="0" x2="305" y2="-95"/>
+<g class="atributo clave"><ellipse cx="-10" cy="100" rx="36" ry="17"/><text x="-10" y="100">id</text><line x1="-17" y1="109" x2="-3" y2="109" style="stroke:#1d2733;stroke-width:1.2"/></g>
+<g class="atributo"><ellipse cx="20" cy="-95" rx="36" ry="17"/><text x="20" y="-95">nombre</text></g>
+<g class="atributo"><ellipse cx="-130" cy="-60" rx="46" ry="17"/><text x="-130" y="-60">dirección</text></g>
+<g class="entidad"><rect x="-60" y="-22.0" width="120" height="44" rx="3"/><text x="0" y="0">PROVEEDOR</text></g>
+<g class="atributo clave"><ellipse cx="460" cy="-100" rx="36" ry="17"/><text x="460" y="-100">código</text><line x1="440" y1="-91" x2="480" y2="-91" style="stroke:#1d2733;stroke-width:1.2"/></g>
+<g class="atributo"><ellipse cx="610" cy="-70" rx="36" ry="17"/><text x="610" y="-70">nombre</text></g>
+<g class="atributo"><ellipse cx="500" cy="100" rx="54" ry="17"/><text x="500" y="100">presupuesto</text></g>
+<g class="entidad"><rect x="445" y="-22.0" width="110" height="44" rx="3"/><text x="500" y="0">PROYECTO</text></g>
+<g class="atributo clave"><ellipse cx="280" cy="285" rx="36" ry="17"/><text x="280" y="285">id</text><line x1="273" y1="294" x2="287" y2="294" style="stroke:#1d2733;stroke-width:1.2"/></g>
+<g class="atributo"><ellipse cx="120" cy="230" rx="36" ry="17"/><text x="120" y="230">nombre</text></g>
+<g class="atributo"><ellipse cx="380" cy="230" rx="36" ry="17"/><text x="380" y="230">color</text></g>
+<g class="entidad"><rect x="195" y="168.0" width="110" height="44" rx="3"/><text x="250" y="190">PIEZA</text></g>
+<g class="atributo"><ellipse cx="195" cy="-95" rx="43" ry="17"/><text x="195" y="-95">cantidad</text></g>
+<g class="atributo"><ellipse cx="305" cy="-95" rx="36" ry="17"/><text x="305" y="-95">fecha</text></g>
+<g class="relacion"><polygon points="250,-32.0 318.0,0 250,32.0 182.0,0"/><text x="250" y="0">suministra</text></g>
+<text class="card" x="80" y="-12">M</text>
+<text class="card" x="425" y="-12">P</text>
+<text class="card" x="238" y="148">N</text>
+</svg>
+<figcaption>Proveedores, piezas y proyectos</figcaption>
+</figure>
+            <details>
+                <summary>Ver la respuesta modelo</summary>
+                <ul class="mt-2">
+                    <li>Hay tres <strong>entidades</strong>: PROVEEDOR, PIEZA y PROYECTO.</li>
+                    <li><strong>Atributos y claves:</strong> PROVEEDOR tiene <code>id</code> (clave primaria, por eso
+                        está subrayado), <code>nombre</code> y <code>dirección</code>. PIEZA tiene <code>id</code>
+                        (clave), <code>nombre</code> y <code>color</code>. PROYECTO tiene <code>código</code> (clave),
+                        <code>nombre</code> y <code>presupuesto</code>. Todos son univaluados (elipse simple).</li>
+                    <li>Hay una sola <strong>relación</strong>, «suministra», que une las tres entidades a la vez: es
+                        una relación <strong>ternaria</strong>. Cada suministro dice qué proveedor entrega qué pieza a
+                        qué proyecto.</li>
+                    <li>La relación tiene dos <strong>atributos propios</strong>: <code>cantidad</code> y
+                        <code>fecha</code>. No son de ninguna entidad, sino de cada suministro.</li>
+                    <li>La <strong>cardinalidad</strong> es M, N y P: muchos en los tres lados. Un proveedor puede
+                        suministrar muchas piezas a muchos proyectos, una pieza la pueden suministrar muchos proveedores
+                        a muchos proyectos, y un proyecto recibe muchas piezas de muchos proveedores.</li>
+                </ul>
+                <p>Al pasarlo a tablas, cada entidad es una tabla y la relación, como es de muchos a muchos, se
+                    convierte en una tabla nueva con las tres claves y los atributos de la relación:</p>
+                <div class="esquema">
+                    <p>PROVEEDOR (<u>id</u>, nombre, direccion)</p>
+                    <p>PIEZA (<u>id</u>, nombre, color)</p>
+                    <p>PROYECTO (<u>codigo</u>, nombre, presupuesto)</p>
+                    <p>SUMINISTRA (<u><em>id_proveedor</em></u>, <u><em>id_pieza</em></u>,
+                        <u><em>codigo_proyecto</em></u>, cantidad, fecha)</p>
+                </div>
+                <p>Si el mismo proveedor pudiera entregar la misma pieza al mismo proyecto varias veces, habría que
+                    añadir la fecha a la clave de SUMINISTRA.</p>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="6-12">
+        <li><label><input type="checkbox"><span>El documento se llama
+                    <code>ApellidoNombre_AO_Actividad6.12</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Están las once respuestas, numeradas.</span></label></li>
+        <li><label><input type="checkbox"><span>Las respuestas están escritas con tus palabras, no copiadas de la
+                    respuesta modelo.</span></label></li>
+        <li><label><input type="checkbox"><span>Las definiciones (preguntas 1, 7 y 8) llevan un ejemplo
+                    tuyo.</span></label></li>
+        <li><label><input type="checkbox"><span>En la pregunta 10 aparecen las relaciones 1:1, 1:N y N:M, con un
+                    ejemplo de cada una.</span></label></li>
+        <li><label><input type="checkbox"><span>En la pregunta 11 nombras las tres entidades, sus claves, la relación
+                    ternaria y sus dos atributos.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-6/actividades/6-11"><i class="bi bi-arrow-left me-1"></i>Anterior: 6.11</a>
+        <a class="btn btn-primary" href="#/Unidad-6/actividades/index">Todas las actividades <i class="bi bi-list-check ms-1"></i></a>
+    </nav>
+</div>

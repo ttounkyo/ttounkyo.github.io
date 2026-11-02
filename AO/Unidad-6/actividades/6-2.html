@@ -1,0 +1,400 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-6/index">Unidad 6</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-6/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">6.2</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 6.2. Aulas de informática</h1>
+    <p class="lead">Vas a diseñar una base de datos para saber qué alumnos trabajan en cada aula de informática del
+        instituto y qué ordenador usa cada uno. Esta vez hay tres entidades y dos relaciones.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Entidades, atributos y claves primarias</li>
+                    <li>Tipos de datos, incluido <code>BOOLEAN</code> para los datos de sí o no</li>
+                    <li>Atributos derivados</li>
+                    <li>Relaciones 1:N y N:M en un mismo diagrama</li>
+                    <li>Dibujar el diagrama E-R</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-6/teoria-diseno?sec=3-el-modelo-entidad-relacion">3. El modelo
+                            entidad-relación</a> y <a href="#/Unidad-6/teoria-diseno?sec=5-tipos-de-datos">5. Tipos de
+                            datos</a></li>
+                    <li>Haz antes la <a href="#/Unidad-6/actividades/6-1">actividad 6.1</a>: aquí se sigue el mismo
+                        método.</li>
+                    <li>Para dibujar: papel y lápiz o <a href="https://app.diagrams.net/" target="_blank"
+                            rel="noopener">draw.io</a> (en la 6.1 tienes cómo usarlo).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad6.2</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Formato</th>
+                <td>Un documento PDF</td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Las respuestas de los pasos 1 a 5 y el diagrama E-R del paso 6 (foto del dibujo a mano o imagen
+                    de draw.io).</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-3 text-primary">El caso</h2>
+    <p>Un instituto quiere saber qué alumnos de ciclos formativos trabajan en cada una de sus aulas de informática y
+        qué ordenador usa cada uno.</p>
+    <ul>
+        <li><strong>Aulas:</strong> el nombre del aula (por ejemplo, <code>Info1</code>), cuántos alumnos caben (20),
+            su superficie en metros cuadrados (30 m²) y cuántos ordenadores tiene (20). También se quiere saber qué
+            aulas tienen proyector y cuáles tienen aire acondicionado.</li>
+        <li><strong>Alumnos:</strong> nombre, apellidos, DNI, y el curso, ciclo y grupo en que están (por ejemplo,
+            1º SMX A).</li>
+        <li><strong>Ordenadores:</strong> la dirección IP, que es siempre la misma para un mismo ordenador
+            (<code>192.168.1.100</code>); la dirección MAC de su tarjeta de red (<code>60:02:80:a2:1c:f1</code>); su
+            nombre en la red (<code>info2-03</code>); el procesador (<code>i5</code>) y la memoria RAM (8 GB).</li>
+    </ul>
+    <p>Se quiere saber en qué aula está cada ordenador y, de cada alumno, por qué aulas pasa y qué ordenadores usa. Un
+        alumno puede usar varias aulas a lo largo de la semana, pero <strong>siempre que esté en una misma aula usará
+            el mismo ordenador</strong>. Y un ordenador lo pueden usar varios alumnos, en horarios distintos.</p>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-info-circle"></i>Escribe tu respuesta de cada paso antes de abrir la
+        solución. En diseño de bases de datos a veces hay más de una respuesta buena: si la tuya es distinta, piensa si
+        guarda los mismos datos sin repetirlos.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Lista las entidades</h3>
+            <p>¿De qué cosas quieres guardar datos? Escribe el nombre de cada entidad en mayúsculas y en singular.</p>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>El proyector y el aire
+                acondicionado, ¿son entidades? Pregúntate si quieres guardar datos <em>de ellos</em> (marca, modelo…) o
+                solo saber si el aula los tiene.</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <p class="mt-2">Hay tres entidades: <strong>AULA</strong>, <strong>ALUMNO</strong> y
+                    <strong>ORDENADOR</strong>.</p>
+                <p>El proyector y el aire acondicionado no son entidades: del aula solo queremos saber si los tiene o
+                    no. Son atributos de AULA.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Decide los atributos de cada entidad</h3>
+            <p>Escribe los atributos de cada entidad y marca su clave primaria.</p>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Relee lo que dice el caso
+                de la IP: «siempre será la misma para un mismo ordenador». ¿Qué dato no se repite nunca en un aula? Y
+                el número de ordenadores del aula, ¿hace falta escribirlo o se puede contar?</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <table class="table table-sm table-bordered mt-2">
+                    <thead>
+                        <tr>
+                            <th>Entidad</th>
+                            <th>Atributos</th>
+                            <th>Clave primaria</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>AULA</td>
+                            <td>nombre, capacidad, superficie, num_ordenadores, proyector, aire_acondicionado</td>
+                            <td>nombre</td>
+                        </tr>
+                        <tr>
+                            <td>ALUMNO</td>
+                            <td>DNI, nombre, apellidos, curso, ciclo, grupo</td>
+                            <td>DNI</td>
+                        </tr>
+                        <tr>
+                            <td>ORDENADOR</td>
+                            <td>IP, MAC, nombre_red, procesador, memoria</td>
+                            <td>IP</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul>
+                    <li>La <strong>MAC</strong> también es única, así que también podría ser la clave. Elegimos la IP
+                        porque el caso dice que identifica al ordenador. La MAC queda como <em>clave
+                            alternativa</em>.</li>
+                    <li><strong>num_ordenadores</strong> se puede calcular contando los ordenadores que están en esa
+                        aula: es un <strong>atributo derivado</strong> (elipse discontinua). Si lo pones como atributo
+                        normal, también vale, pero habría que cambiarlo a mano cada vez que se añade o se quita un
+                        ordenador.</li>
+                    <li>«1º SMX A» se puede guardar en un solo atributo, pero separarlo en curso, ciclo y grupo
+                        permite buscar, por ejemplo, todos los alumnos de SMX.</li>
+                </ul>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Elige el tipo de dato de cada atributo</h3>
+            <p>Escribe el tipo de dato de MySQL de cada atributo.</p>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>«¿Tiene proyector?» solo
+                puede ser sí o no: para eso está el tipo <code>BOOLEAN</code>. La IP tiene puntos y la MAC, dos puntos:
+                ¿son números de verdad? Pregúntate si alguna vez harías una suma con ellas.</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <table class="table table-sm table-bordered mt-2">
+                    <thead>
+                        <tr>
+                            <th>Entidad</th>
+                            <th>Atributo</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="6">AULA</td>
+                            <td>nombre</td>
+                            <td><code>VARCHAR(10)</code></td>
+                        </tr>
+                        <tr>
+                            <td>capacidad</td>
+                            <td><code>INT</code></td>
+                        </tr>
+                        <tr>
+                            <td>superficie</td>
+                            <td><code>DECIMAL(5,2)</code> (puede tener decimales: 32,50 m²)</td>
+                        </tr>
+                        <tr>
+                            <td>num_ordenadores</td>
+                            <td><code>INT</code></td>
+                        </tr>
+                        <tr>
+                            <td>proyector</td>
+                            <td><code>BOOLEAN</code></td>
+                        </tr>
+                        <tr>
+                            <td>aire_acondicionado</td>
+                            <td><code>BOOLEAN</code></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="6">ALUMNO</td>
+                            <td>DNI</td>
+                            <td><code>CHAR(9)</code></td>
+                        </tr>
+                        <tr>
+                            <td>nombre</td>
+                            <td><code>VARCHAR(50)</code></td>
+                        </tr>
+                        <tr>
+                            <td>apellidos</td>
+                            <td><code>VARCHAR(80)</code></td>
+                        </tr>
+                        <tr>
+                            <td>curso</td>
+                            <td><code>INT</code> (1 o 2)</td>
+                        </tr>
+                        <tr>
+                            <td>ciclo</td>
+                            <td><code>VARCHAR(10)</code> (<code>SMX</code>, <code>DAM</code>…)</td>
+                        </tr>
+                        <tr>
+                            <td>grupo</td>
+                            <td><code>CHAR(1)</code> (<code>A</code>, <code>B</code>…)</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5">ORDENADOR</td>
+                            <td>IP</td>
+                            <td><code>VARCHAR(15)</code> (la más larga, <code>255.255.255.255</code>, tiene 15
+                                caracteres)</td>
+                        </tr>
+                        <tr>
+                            <td>MAC</td>
+                            <td><code>CHAR(17)</code> (siempre 17 caracteres)</td>
+                        </tr>
+                        <tr>
+                            <td>nombre_red</td>
+                            <td><code>VARCHAR(20)</code></td>
+                        </tr>
+                        <tr>
+                            <td>procesador</td>
+                            <td><code>VARCHAR(30)</code></td>
+                        </tr>
+                        <tr>
+                            <td>memoria</td>
+                            <td><code>INT</code> (en GB)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>La IP y la MAC parecen números, pero llevan puntos o letras y nunca se hacen cuentas con ellas: son
+                    texto.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Decide qué relaciones hay</h3>
+            <p>Escribe las relaciones entre las entidades, cada una con un verbo (por ejemplo, «ALUMNO usa…»).</p>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Relee el último párrafo del
+                caso. Si ya sabes qué ordenador usa un alumno, ¿sabes también en qué aula está? Entonces, ¿hace falta
+                unir ALUMNO directamente con AULA?</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <p class="mt-2">Hay dos relaciones:</p>
+                <ul>
+                    <li><strong>ORDENADOR está en AULA</strong>: dice en qué aula está cada ordenador.</li>
+                    <li><strong>ALUMNO usa ORDENADOR</strong>: dice qué ordenadores usa cada alumno.</li>
+                </ul>
+                <p>No hace falta una relación entre ALUMNO y AULA: el aula se deduce del ordenador (alumno → ordenador →
+                    aula). Si la añadieras, el mismo dato estaría guardado dos veces y podría contradecirse (por
+                    ejemplo, que un alumno «esté» en Info1 pero use un ordenador de Info2).</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Pon la cardinalidad de cada relación</h3>
+            <p>Para cada relación, escribe si es 1:1, 1:N o N:M, con una frase en cada sentido.</p>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Un ordenador ¿puede estar en
+                dos aulas a la vez? Y para «usa», fíjate en dos frases del caso: el alumno pasa por varias aulas (y en
+                cada una tiene un ordenador), y un ordenador lo usan varios alumnos.</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <table class="table table-sm table-bordered mt-2">
+                    <thead>
+                        <tr>
+                            <th>Relación</th>
+                            <th>Cardinalidad</th>
+                            <th>Por qué</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ORDENADOR está en AULA</td>
+                            <td>N:1</td>
+                            <td>Un aula tiene muchos ordenadores. Un ordenador está en una sola aula.</td>
+                        </tr>
+                        <tr>
+                            <td>ALUMNO usa ORDENADOR</td>
+                            <td>N:M</td>
+                            <td>Un alumno usa varios ordenadores (uno en cada aula por la que pasa). Un ordenador lo
+                                usan varios alumnos en horarios distintos.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>¿Y la regla «en una misma aula, siempre el mismo ordenador»? Este diagrama no la impide por sí solo:
+                    nada evita apuntar a un alumno en dos ordenadores de Info1. Es una regla que tendrá que vigilar quien
+                    meta los datos (o el programa que use la base de datos).</p>
+                <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i><strong>Otra solución
+                        válida:</strong> una relación <strong>ternaria</strong> (entre tres entidades) «trabaja en»
+                    que une ALUMNO, AULA y ORDENADOR, con cardinalidad N para ALUMNO, M para AULA y 1 para ORDENADOR:
+                    para un alumno y un aula concretos, hay un solo ordenador. Expresa mejor la regla, pero guarda el
+                    aula dos veces (también la sabes por el ordenador). Si la has elegido y la has razonado, está
+                    bien.</div>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Dibuja el diagrama E-R</h3>
+            <p>Dibuja las tres entidades con sus atributos (claves subrayadas, el derivado con la elipse discontinua),
+                los rombos de las relaciones y la cardinalidad en cada línea.</p>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Con tantos atributos, el
+                dibujo se llena enseguida. Coloca las entidades en forma de L (ALUMNO y ORDENADOR arriba, AULA debajo de
+                ORDENADOR) y reparte las elipses por el lado de fuera.</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <figure class="diagrama">
+<svg class="er" viewBox="-231 -137 985 649" role="img" aria-label="Diagrama E-R de las aulas de informática">
+<line x1="0" y1="0" x2="-95" y2="-75"/>
+<line x1="0" y1="0" x2="15" y2="-95"/>
+<line x1="0" y1="0" x2="-165" y2="0"/>
+<line x1="0" y1="0" x2="-95" y2="75"/>
+<line x1="0" y1="0" x2="15" y2="95"/>
+<line x1="0" y1="0" x2="110" y2="80"/>
+<line x1="480" y1="0" x2="420" y2="-90"/>
+<line x1="480" y1="0" x2="525" y2="-100"/>
+<line x1="480" y1="0" x2="645" y2="-60"/>
+<line x1="480" y1="0" x2="670" y2="10"/>
+<line x1="480" y1="0" x2="645" y2="80"/>
+<line x1="480" y1="370" x2="310" y2="325"/>
+<line x1="480" y1="370" x2="295" y2="405"/>
+<line x1="480" y1="370" x2="370" y2="470"/>
+<line x1="480" y1="370" x2="540" y2="475"/>
+<line x1="480" y1="370" x2="665" y2="405"/>
+<line x1="480" y1="370" x2="655" y2="325"/>
+<line x1="240" y1="0" x2="0" y2="0"/>
+<line x1="240" y1="0" x2="480" y2="0"/>
+<line x1="480" y1="185" x2="480" y2="0"/>
+<line x1="480" y1="185" x2="480" y2="370"/>
+<g class="atributo clave"><ellipse cx="-95" cy="-75" rx="36" ry="17"/><text x="-95" y="-75">DNI</text><line x1="-105" y1="-66" x2="-85" y2="-66" style="stroke:#1d2733;stroke-width:1.2"/></g>
+<g class="atributo"><ellipse cx="15" cy="-95" rx="36" ry="17"/><text x="15" y="-95">nombre</text></g>
+<g class="atributo"><ellipse cx="-165" cy="0" rx="46" ry="17"/><text x="-165" y="0">apellidos</text></g>
+<g class="atributo"><ellipse cx="-95" cy="75" rx="36" ry="17"/><text x="-95" y="75">curso</text></g>
+<g class="atributo"><ellipse cx="15" cy="95" rx="36" ry="17"/><text x="15" y="95">ciclo</text></g>
+<g class="atributo"><ellipse cx="110" cy="80" rx="36" ry="17"/><text x="110" y="80">grupo</text></g>
+<g class="entidad"><rect x="-55" y="-22.0" width="110" height="44" rx="3"/><text x="0" y="0">ALUMNO</text></g>
+<g class="atributo clave"><ellipse cx="420" cy="-90" rx="36" ry="17"/><text x="420" y="-90">IP</text><line x1="413" y1="-81" x2="427" y2="-81" style="stroke:#1d2733;stroke-width:1.2"/></g>
+<g class="atributo"><ellipse cx="525" cy="-100" rx="36" ry="17"/><text x="525" y="-100">MAC</text></g>
+<g class="atributo"><ellipse cx="645" cy="-60" rx="50" ry="17"/><text x="645" y="-60">nombre_red</text></g>
+<g class="atributo"><ellipse cx="670" cy="10" rx="50" ry="17"/><text x="670" y="10">procesador</text></g>
+<g class="atributo"><ellipse cx="645" cy="80" rx="39" ry="17"/><text x="645" y="80">memoria</text></g>
+<g class="entidad"><rect x="420" y="-22.0" width="120" height="44" rx="3"/><text x="480" y="0">ORDENADOR</text></g>
+<g class="atributo clave"><ellipse cx="310" cy="325" rx="36" ry="17"/><text x="310" y="325">nombre</text><line x1="290" y1="334" x2="330" y2="334" style="stroke:#1d2733;stroke-width:1.2"/></g>
+<g class="atributo"><ellipse cx="295" cy="405" rx="46" ry="17"/><text x="295" y="405">capacidad</text></g>
+<g class="atributo"><ellipse cx="370" cy="470" rx="50" ry="17"/><text x="370" y="470">superficie</text></g>
+<g class="atributo derivado"><ellipse cx="540" cy="475" rx="68" ry="17"/><text x="540" y="475">num_ordenadores</text></g>
+<g class="atributo"><ellipse cx="665" cy="405" rx="46" ry="17"/><text x="665" y="405">proyector</text></g>
+<g class="atributo"><ellipse cx="655" cy="325" rx="79" ry="17"/><text x="655" y="325">aire_acondicionado</text></g>
+<g class="entidad"><rect x="425" y="348.0" width="110" height="44" rx="3"/><text x="480" y="370">AULA</text></g>
+<g class="relacion"><polygon points="240,-32.0 295.0,0 240,32.0 185.0,0"/><text x="240" y="0">usa</text></g>
+<g class="relacion"><polygon points="480,153.0 536.0,185 480,217.0 424.0,185"/><text x="480" y="185">está en</text></g>
+<text class="card" x="75" y="-12">N</text>
+<text class="card" x="400" y="-12">M</text>
+<text class="card" x="468" y="42">N</text>
+<text class="card" x="468" y="328">1</text>
+</svg>
+<figcaption>Diagrama E-R de las aulas de informática</figcaption>
+</figure>
+                <p>Si lo pasas a tablas (lo verás en la actividad 6.3), la relación N:1 deja la clave del aula en la
+                    tabla ORDENADOR, y la N:M se convierte en una tabla nueva:</p>
+                <div class="esquema">
+                    <p>AULA (<u>nombre</u>, capacidad, superficie, proyector, aire_acondicionado)</p>
+                    <p>ORDENADOR (<u>IP</u>, MAC, nombre_red, procesador, memoria, <em>aula</em>)</p>
+                    <p>ALUMNO (<u>DNI</u>, nombre, apellidos, curso, ciclo, grupo)</p>
+                    <p>USA (<u><em>DNI</em></u>, <u><em>IP</em></u>)</p>
+                </div>
+                <p><code>num_ordenadores</code> no aparece en AULA porque es derivado: se calcula contando las filas
+                    de ORDENADOR de esa aula.</p>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="6-2">
+        <li><label><input type="checkbox"><span>El documento es un PDF y se llama
+                    <code>ApellidoNombre_AO_Actividad6.2</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Hay tres entidades (AULA, ALUMNO y ORDENADOR), cada una con su clave
+                    primaria subrayada.</span></label></li>
+        <li><label><input type="checkbox"><span>El proyector y el aire acondicionado son atributos
+                    <code>BOOLEAN</code> de AULA.</span></label></li>
+        <li><label><input type="checkbox"><span>La IP y la MAC son de tipo texto (<code>VARCHAR</code> o
+                    <code>CHAR</code>).</span></label></li>
+        <li><label><input type="checkbox"><span>ORDENADOR y AULA están unidos por una relación N:1.</span></label></li>
+        <li><label><input type="checkbox"><span>ALUMNO y ORDENADOR están unidos por una relación N:M (o hay una
+                    ternaria explicada).</span></label></li>
+        <li><label><input type="checkbox"><span>Cada línea del diagrama tiene escrita su cardinalidad.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-6/actividades/6-1"><i class="bi bi-arrow-left me-1"></i>Anterior: 6.1</a>
+        <a class="btn btn-primary" href="#/Unidad-6/actividades/6-3">Siguiente: 6.3. Del diagrama a las tablas <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

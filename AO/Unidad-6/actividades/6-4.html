@@ -1,0 +1,492 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-6/index">Unidad 6</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-6/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">6.4</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 6.4. Normalizar una hoja de préstamos</h1>
+    <p class="lead">La biblioteca del instituto apunta los préstamos en una sola hoja de cálculo. Funciona, pero
+        repite muchos datos y da problemas. Vas a encontrar esos problemas y a repartir los datos en tablas, paso a
+        paso, hasta la tercera forma normal.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Detectar datos repetidos (redundancia)</li>
+                    <li>Las anomalías de inserción, modificación y borrado</li>
+                    <li>Primera, segunda y tercera forma normal (1FN, 2FN y 3FN)</li>
+                    <li>Escribir el esquema relacional final</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-6/teoria-diseno?sec=6-normalizacion">6. Normalización</a></li>
+                    <li>Cómo se escribe un esquema: <a
+                            href="#/Unidad-6/teoria-diseno?sec=4-del-diagrama-a-las-tablas">4. Del diagrama a las
+                            tablas</a> (o el primer paso de la <a href="#/Unidad-6/actividades/6-3">actividad
+                            6.3</a>)</li>
+                    <li>Las tablas las puedes hacer en el procesador de textos o en una hoja de cálculo.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad6.4</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Formato</th>
+                <td>Un documento PDF</td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Las respuestas de los pasos 1 y 2 y, para cada forma normal, el esquema de las tablas (y sus datos,
+                    si te ayuda a verlo). Al final, el esquema definitivo.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-3 text-primary">La hoja de partida</h2>
+    <p>Cada fila es un préstamo. Los nombres son inventados.</p>
+    <div class="sql-tabla-wrap mb-4">
+        <table class="sql-tabla">
+            <thead>
+                <tr>
+                    <th>DNI</th>
+                    <th>Alumno</th>
+                    <th>Teléfonos</th>
+                    <th>Grupo</th>
+                    <th>Tutor</th>
+                    <th>Cód. libro</th>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Fecha préstamo</th>
+                    <th>Fecha devolución</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>45123456K</td>
+                    <td>Lucía Marín Ferrer</td>
+                    <td>600 111 222, 971 300 400</td>
+                    <td>1º SMX A</td>
+                    <td>Marta Ruiz</td>
+                    <td>L01</td>
+                    <td>El Hobbit</td>
+                    <td>J. R. R. Tolkien</td>
+                    <td>01/10/2026</td>
+                    <td>15/10/2026</td>
+                </tr>
+                <tr>
+                    <td>45123456K</td>
+                    <td>Lucía Marín Ferrer</td>
+                    <td>600 111 222, 971 300 400</td>
+                    <td>1º SMX A</td>
+                    <td>Marta Ruiz</td>
+                    <td>L07</td>
+                    <td>Manolito Gafotas</td>
+                    <td>Elvira Lindo</td>
+                    <td>16/10/2026</td>
+                    <td>30/10/2026</td>
+                </tr>
+                <tr>
+                    <td>45234567L</td>
+                    <td>Hugo Torres Vidal</td>
+                    <td>611 222 333</td>
+                    <td>1º SMX A</td>
+                    <td>Marta Ruiz</td>
+                    <td>L01</td>
+                    <td>El Hobbit</td>
+                    <td>J. R. R. Tolkien</td>
+                    <td>20/10/2026</td>
+                    <td>03/11/2026</td>
+                </tr>
+                <tr>
+                    <td>45345678M</td>
+                    <td>Nerea Serra Puig</td>
+                    <td>622 333 444, 971 555 666</td>
+                    <td>2º SMX B</td>
+                    <td>Jordi Costa</td>
+                    <td>L12</td>
+                    <td>La sombra del viento</td>
+                    <td>Carlos Ruiz Zafón</td>
+                    <td>02/10/2026</td>
+                    <td>16/10/2026</td>
+                </tr>
+                <tr>
+                    <td>45345678M</td>
+                    <td>Nerea Serra Puig</td>
+                    <td>622 333 444, 971 555 666</td>
+                    <td>2º SMX B</td>
+                    <td>Jordi Costa</td>
+                    <td>L07</td>
+                    <td>Manolito Gafotas</td>
+                    <td>Elvira Lindo</td>
+                    <td>02/11/2026</td>
+                    <td>16/11/2026</td>
+                </tr>
+                <tr>
+                    <td>45456789N</td>
+                    <td>Marc Ribas Ortiz</td>
+                    <td>633 444 555</td>
+                    <td>2º SMX B</td>
+                    <td>Jordi Costa</td>
+                    <td>L12</td>
+                    <td>La sombra del viento</td>
+                    <td>Carlos Ruiz Zafón</td>
+                    <td>22/10/2026</td>
+                    <td>05/11/2026</td>
+                </tr>
+                <tr>
+                    <td>45234567L</td>
+                    <td>Hugo Torres Vidal</td>
+                    <td>611 222 333</td>
+                    <td>1º SMX A</td>
+                    <td>Marta Ruiz</td>
+                    <td>L15</td>
+                    <td>Harry Potter y la piedra filosofal</td>
+                    <td>J. K. Rowling</td>
+                    <td>27/10/2026</td>
+                    <td>10/11/2026</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-info-circle"></i>Haz cada paso en tu documento antes de abrir la solución:
+        cada forma normal parte de la anterior, así que compara al terminar cada una.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Busca los datos repetidos</h3>
+            <p>Mira la hoja con calma y responde:</p>
+            <ul>
+                <li>¿Cuántas veces está escrito el nombre de Lucía? ¿Y el título <em>La sombra del viento</em>? ¿Y
+                    que la tutora de 1º SMX A es Marta Ruiz?</li>
+                <li>¿Hay alguna celda que tenga más de un valor?</li>
+            </ul>
+            <details>
+                <summary>Ver la solución</summary>
+                <ul class="mt-2">
+                    <li>Los datos de cada alumno (nombre, teléfonos, grupo y tutor) se repiten en
+                        <strong>cada préstamo</strong> que hace: Lucía está escrita dos veces; Hugo, dos; Nerea,
+                        dos.</li>
+                    <li>Los datos de cada libro (título y autor) se repiten cada vez que se presta: <em>La sombra del
+                            viento</em> está dos veces, igual que <em>El Hobbit</em> y <em>Manolito Gafotas</em>.</li>
+                    <li>Que Marta Ruiz es la tutora de 1º SMX A está escrito cuatro veces, una por cada préstamo de un
+                        alumno de ese grupo.</li>
+                    <li>La columna <strong>Teléfonos</strong> tiene celdas con dos valores (Lucía y Nerea).</li>
+                </ul>
+                <p>Guardar lo mismo varias veces se llama <strong>redundancia</strong>. Ocupa más y, sobre todo,
+                    provoca los problemas del paso siguiente.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Encuentra las anomalías</h3>
+            <p>Una <strong>anomalía</strong> es un problema que aparece al cambiar los datos por culpa de un mal
+                diseño. Pon un ejemplo de cada una con los datos de esta hoja:</p>
+            <ul>
+                <li><strong>Inserción:</strong> algo que no puedes apuntar sin inventarte otros datos.</li>
+                <li><strong>Modificación:</strong> un cambio que te obliga a tocar varias filas.</li>
+                <li><strong>Borrado:</strong> al borrar una fila, pierdes información que querías conservar.</li>
+            </ul>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Imagina que la biblioteca
+                compra un libro nuevo, que Lucía cambia de móvil y que se borra el préstamo de <em>Harry
+                    Potter</em>.</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <ul class="mt-2">
+                    <li><strong>Inserción:</strong> la biblioteca compra un libro nuevo. No se puede apuntar hasta que
+                        alguien se lo lleve, porque cada fila es un préstamo: habría que dejar vacíos el DNI, el alumno
+                        y las fechas. Lo mismo con un alumno que todavía no ha pedido ningún libro.</li>
+                    <li><strong>Modificación:</strong> Lucía cambia de móvil. Hay que corregirlo en sus dos filas. Si te
+                        olvidas de una, la hoja tendrá dos teléfonos distintos para la misma persona y no sabrás cuál es
+                        el bueno. Lo mismo pasa si 1º SMX A cambia de tutora: hay que tocar cuatro filas.</li>
+                    <li><strong>Borrado:</strong> si se borra el préstamo de <em>Harry Potter</em> (la última fila), se
+                        pierde que la biblioteca tiene ese libro y quién es su autor, porque no aparece en ninguna otra
+                        fila.</li>
+                </ul>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Pasa a primera forma normal (1FN)</h3>
+            <p>Una tabla está en <strong>1FN</strong> cuando en cada celda hay un solo valor y no hay grupos de datos
+                que se repitan dentro de una fila. Haz dos cosas:</p>
+            <ol>
+                <li>Arregla la columna de los teléfonos.</li>
+                <li>Elige la clave primaria de la tabla de préstamos: las columnas que identifican cada fila.</li>
+            </ol>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Para los teléfonos, piensa
+                en lo que hace un atributo multivaluado al pasar a tablas. Para la clave: ¿basta el DNI? (Lucía sale
+                dos veces). ¿Y el DNI más el código del libro? ¿Podría un alumno llevarse el mismo libro otro día?</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <p class="mt-2">Los teléfonos van a una tabla aparte, con una fila por teléfono. La tabla de préstamos
+                    se queda con el resto de columnas:</p>
+                <div class="esquema">
+                    <p>TELEFONO (<u><em>DNI</em></u>, <u>telefono</u>)</p>
+                    <p>PRESTAMO (<u>DNI</u>, <u>codigo_libro</u>, <u>fecha_prestamo</u>, alumno, grupo, tutor,
+                        titulo, autor, fecha_devolucion)</p>
+                </div>
+                <div class="sql-tabla-wrap mb-3">
+                    <table class="sql-tabla">
+                        <thead>
+                            <tr>
+                                <th class="pk fk">DNI</th>
+                                <th class="pk">telefono</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>45123456K</td>
+                                <td>600 111 222</td>
+                            </tr>
+                            <tr>
+                                <td>45123456K</td>
+                                <td>971 300 400</td>
+                            </tr>
+                            <tr>
+                                <td>45234567L</td>
+                                <td>611 222 333</td>
+                            </tr>
+                            <tr>
+                                <td>45345678M</td>
+                                <td>622 333 444</td>
+                            </tr>
+                            <tr>
+                                <td>45345678M</td>
+                                <td>971 555 666</td>
+                            </tr>
+                            <tr>
+                                <td>45456789N</td>
+                                <td>633 444 555</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>La clave de PRESTAMO es <strong>compuesta</strong>: DNI + código del libro + fecha del préstamo. Con
+                    solo DNI y código no basta, porque un alumno puede volver a llevarse el mismo libro otro día.</p>
+                <p>¿Por qué no poner dos columnas, <code>telefono1</code> y <code>telefono2</code>? Porque si alguien
+                    tiene tres, no cabe, y la mayoría dejaría <code>telefono2</code> vacío. Tampoco conviene repetir la
+                    fila del préstamo una vez por teléfono: duplicaría aún más los datos.</p>
+                <p>Muchos diseñadores también separan el nombre y los apellidos en dos columnas en este paso, para que
+                    cada celda guarde un solo dato. Si lo has hecho, está bien.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Pasa a segunda forma normal (2FN)</h3>
+            <p>Una tabla está en <strong>2FN</strong> cuando está en 1FN y cada columna que no es clave depende de la
+                clave <strong>entera</strong>, no solo de una parte. Esto solo puede fallar cuando la clave es
+                compuesta, como la de PRESTAMO.</p>
+            <p>Para cada columna de PRESTAMO que no es clave, pregúntate: ¿qué necesito saber para conocer este dato?
+                Las columnas que dependen solo de una parte de la clave se van a otra tabla.</p>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>¿El título de un libro
+                cambia según quién se lo lleve? ¿El nombre del alumno depende del libro que pide? ¿Y la fecha de
+                devolución?</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <ul class="mt-2">
+                    <li><code>alumno</code>, <code>grupo</code> y <code>tutor</code> dependen solo del
+                        <strong>DNI</strong> → tabla ALUMNO (donde la columna <code>alumno</code> pasa a llamarse
+                        <code>nombre</code>).</li>
+                    <li><code>titulo</code> y <code>autor</code> dependen solo del <strong>código del libro</strong> →
+                        tabla LIBRO.</li>
+                    <li><code>fecha_devolucion</code> depende del préstamo entero (quién, qué libro y qué día) → se
+                        queda en PRESTAMO.</li>
+                </ul>
+                <div class="esquema">
+                    <p>ALUMNO (<u>DNI</u>, nombre, grupo, tutor)</p>
+                    <p>TELEFONO (<u><em>DNI</em></u>, <u>telefono</u>)</p>
+                    <p>LIBRO (<u>codigo</u>, titulo, autor)</p>
+                    <p>PRESTAMO (<u><em>DNI</em></u>, <u><em>codigo_libro</em></u>, <u>fecha_prestamo</u>,
+                        fecha_devolucion)</p>
+                </div>
+                <div class="sql-tabla-wrap mb-3">
+                    <table class="sql-tabla">
+                        <thead>
+                            <tr>
+                                <th class="pk">DNI</th>
+                                <th>nombre</th>
+                                <th>grupo</th>
+                                <th>tutor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>45123456K</td>
+                                <td>Lucía Marín Ferrer</td>
+                                <td>1º SMX A</td>
+                                <td>Marta Ruiz</td>
+                            </tr>
+                            <tr>
+                                <td>45234567L</td>
+                                <td>Hugo Torres Vidal</td>
+                                <td>1º SMX A</td>
+                                <td>Marta Ruiz</td>
+                            </tr>
+                            <tr>
+                                <td>45345678M</td>
+                                <td>Nerea Serra Puig</td>
+                                <td>2º SMX B</td>
+                                <td>Jordi Costa</td>
+                            </tr>
+                            <tr>
+                                <td>45456789N</td>
+                                <td>Marc Ribas Ortiz</td>
+                                <td>2º SMX B</td>
+                                <td>Jordi Costa</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="sql-tabla-wrap mb-3">
+                    <table class="sql-tabla">
+                        <thead>
+                            <tr>
+                                <th class="pk">codigo</th>
+                                <th>titulo</th>
+                                <th>autor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>L01</td>
+                                <td>El Hobbit</td>
+                                <td>J. R. R. Tolkien</td>
+                            </tr>
+                            <tr>
+                                <td>L07</td>
+                                <td>Manolito Gafotas</td>
+                                <td>Elvira Lindo</td>
+                            </tr>
+                            <tr>
+                                <td>L12</td>
+                                <td>La sombra del viento</td>
+                                <td>Carlos Ruiz Zafón</td>
+                            </tr>
+                            <tr>
+                                <td>L15</td>
+                                <td>Harry Potter y la piedra filosofal</td>
+                                <td>J. K. Rowling</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Cada alumno y cada libro aparecen ya una sola vez. PRESTAMO se queda con siete filas, pero solo con
+                    DNI, código del libro y fechas.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Pasa a tercera forma normal (3FN)</h3>
+            <p>Una tabla está en <strong>3FN</strong> cuando está en 2FN y ninguna columna que no es clave depende de
+                otra columna que tampoco es clave. Revisa las cuatro tablas del paso anterior.</p>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Mira la tabla ALUMNO. En la
+                hoja de partida, ¿la tutora de Lucía y la de Hugo es la misma por casualidad? ¿De qué depende de
+                verdad el tutor: del alumno o de su grupo?</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <p class="mt-2">En ALUMNO, el <code>tutor</code> no depende del DNI, sino del <code>grupo</code>: todos
+                    los alumnos de 1º SMX A tienen la misma tutora. Esto todavía repite datos (Marta Ruiz sale dos
+                    veces) y si cambia la tutora hay que tocar varias filas. Se saca a una tabla GRUPO:</p>
+                <div class="esquema">
+                    <p>GRUPO (<u>grupo</u>, tutor)</p>
+                    <p>ALUMNO (<u>DNI</u>, nombre, <em>grupo</em>)</p>
+                </div>
+                <div class="sql-tabla-wrap mb-3">
+                    <table class="sql-tabla">
+                        <thead>
+                            <tr>
+                                <th class="pk">grupo</th>
+                                <th>tutor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1º SMX A</td>
+                                <td>Marta Ruiz</td>
+                            </tr>
+                            <tr>
+                                <td>2º SMX B</td>
+                                <td>Jordi Costa</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>Las otras tablas ya estaban en 3FN: en LIBRO, el autor depende del código del libro; en TELEFONO y
+                    PRESTAMO no hay columnas que dependan de otras que no son clave.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Escribe el esquema final y compruébalo</h3>
+            <p>Escribe el esquema definitivo con todas las tablas, las claves primarias subrayadas y las claves ajenas
+                en cursiva, y di a qué tabla apunta cada clave ajena. Después vuelve a las tres anomalías del paso 2:
+                ¿siguen pasando?</p>
+            <details>
+                <summary>Ver la solución</summary>
+                <div class="esquema">
+                    <p>GRUPO (<u>grupo</u>, tutor)</p>
+                    <p>ALUMNO (<u>DNI</u>, nombre, <em>grupo</em>)</p>
+                    <p>TELEFONO (<u><em>DNI</em></u>, <u>telefono</u>)</p>
+                    <p>LIBRO (<u>codigo</u>, titulo, autor)</p>
+                    <p>PRESTAMO (<u><em>DNI</em></u>, <u><em>codigo_libro</em></u>, <u>fecha_prestamo</u>,
+                        fecha_devolucion)</p>
+                </div>
+                <ul>
+                    <li><code>ALUMNO.grupo</code> → GRUPO</li>
+                    <li><code>TELEFONO.DNI</code> → ALUMNO</li>
+                    <li><code>PRESTAMO.DNI</code> → ALUMNO y <code>PRESTAMO.codigo_libro</code> → LIBRO</li>
+                </ul>
+                <p>Las anomalías han desaparecido:</p>
+                <ul>
+                    <li>Un libro nuevo se apunta en LIBRO aunque nadie se lo haya llevado.</li>
+                    <li>El móvil de Lucía está en una sola fila de TELEFONO, y la tutora de cada grupo en una sola fila
+                        de GRUPO.</li>
+                    <li>Borrar un préstamo solo quita una fila de PRESTAMO: el libro y el alumno siguen en sus
+                        tablas.</li>
+                </ul>
+                <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En lugar de la clave de
+                    tres columnas, PRESTAMO podría tener un número de préstamo (<code>id_prestamo</code>) como clave,
+                    como en la <a href="#/Unidad-6/actividades/6-1">actividad 6.1</a>. Las dos soluciones son
+                    válidas.</div>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="6-4">
+        <li><label><input type="checkbox"><span>El documento es un PDF y se llama
+                    <code>ApellidoNombre_AO_Actividad6.4</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Hay un ejemplo de cada anomalía (inserción, modificación y borrado)
+                    con datos de la hoja.</span></label></li>
+        <li><label><input type="checkbox"><span>En 1FN ya no queda ninguna celda con dos teléfonos.</span></label></li>
+        <li><label><input type="checkbox"><span>En 2FN los datos del alumno y los del libro están en tablas distintas
+                    de la de préstamos.</span></label></li>
+        <li><label><input type="checkbox"><span>En 3FN el tutor está en una tabla de grupos, no en la de
+                    alumnos.</span></label></li>
+        <li><label><input type="checkbox"><span>El esquema final tiene cinco tablas, con las claves primarias
+                    subrayadas y las ajenas en cursiva.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-6/actividades/6-3"><i class="bi bi-arrow-left me-1"></i>Anterior: 6.3</a>
+        <a class="btn btn-primary" href="#/Unidad-6/actividades/6-5">Siguiente: 6.5. Tienda de informática: crear las tablas <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

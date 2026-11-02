@@ -1,0 +1,280 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-6/index">Unidad 6</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-6/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">6.9</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 6.9. Consultas con varias tablas</h1>
+    <p class="lead">En <code>Articulos</code> cada artículo guarda solo el <strong>código</strong> de su fabricante.
+        Para ver el <strong>nombre</strong> hay que juntar las dos tablas con <code>JOIN</code>. Es lo que vas a hacer
+        en esta actividad, junto con todo lo que ya sabes: <code>WHERE</code>, <code>GROUP BY</code>,
+        <code>HAVING</code> y <code>ORDER BY</code>.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Composición interna: <code>INNER JOIN … ON</code></li>
+                    <li>Alias de tabla (<code>Articulos A</code>, <code>Fabricante F</code>)</li>
+                    <li><code>LEFT JOIN</code> para que salgan también las filas sin pareja</li>
+                    <li><code>JOIN</code> con <code>GROUP BY</code>, <code>HAVING</code> y funciones</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-6/teoria-sql?sec=6-consultas-con-varias-tablas">6. Consultas con
+                            varias tablas</a></li>
+                    <li>Repasa también <a href="#/Unidad-6/teoria-sql?sec=5-funciones-y-agrupacion">5. Funciones y
+                            agrupación</a>.</li>
+                    <li>Todos los editores tienen la tienda completa. Para phpMyAdmin, descarga <a
+                            href="../AO/Unidad-6/bd/tienda.sql" download>tienda.sql</a>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad6.9.sql</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Un archivo de texto con todas tus consultas, en orden. Antes de cada una, escribe un comentario:
+                    <code>-- Paso 1</code>, <code>-- Paso 2</code>, <code>-- Paso 5a</code>…</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-info-circle"></i>Recuerda los datos: hay 10 fabricantes y 31 artículos.
+        Dos artículos no tienen fabricante y dos fabricantes (Alcatel y Sony) no tienen artículos. Pulsa
+        <strong>Ver tablas</strong> para comprobarlo. Lo que escribes se guarda en este navegador.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Junta las dos tablas</h3>
+            <p>Obtén un listado de artículos con el <strong>nombre del artículo</strong>, su <strong>precio</strong> y
+                el <strong>nombre de su fabricante</strong>.</p>
+            <p>La unión se hace por la clave ajena: <code>Articulos.Fabricante</code> tiene que ser igual a
+                <code>Fabricante.Codigo</code>. Para no escribir tanto, ponle un alias corto a cada tabla en el
+                <code>FROM</code>:</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Nombre del artículo, precio y nombre del fabricante
+SELECT A.Nombre, A.Precio, F.Nombre
+FROM Articulos A
+</textarea>
+                <script type="text/plain" class="solucion">SELECT A.Nombre AS 'Artículo', A.Precio, F.Nombre AS 'Fabricante'
+FROM Articulos A
+INNER JOIN Fabricante F ON A.Fabricante = F.Codigo;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Las dos tablas tienen una
+                columna <code>Nombre</code>, así que hay que decir de cuál es cada una (<code>A.Nombre</code>,
+                <code>F.Nombre</code>); si no, sale el error «ambiguous column». Fíjate también en que salen 29 filas,
+                no 31: <code>INNER JOIN</code> solo saca los artículos que tienen pareja en <code>Fabricante</code>.</div>
+        </li>
+        <li class="paso">
+            <h3>Busca por el nombre del fabricante</h3>
+            <p>Con las tablas juntas ya no hace falta saberse los códigos. Obtén el nombre y el precio de los artículos
+                del fabricante que se llama <strong>Samsung</strong>, escribiendo su nombre en el <code>WHERE</code>.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Artículos de Samsung (por el nombre del fabricante)
+</textarea>
+                <script type="text/plain" class="solucion">SELECT A.Nombre, A.Precio
+FROM Articulos A
+INNER JOIN Fabricante F ON A.Fabricante = F.Codigo
+WHERE F.Nombre = 'Samsung';</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Cuidado:
+                <code>WHERE A.Nombre LIKE '%Samsung%'</code> también da 3 filas aquí, pero es por casualidad (porque
+                los artículos llevan la marca en el nombre). Un «iPhone 15» no lleva «Apple» en el nombre.</div>
+        </li>
+        <li class="paso">
+            <h3>Precio medio de cada fabricante</h3>
+            <p>Obtén el nombre de los fabricantes y el precio medio de sus artículos, pero solo de los que tienen un
+                precio medio <strong>mayor o igual que 100 €</strong>. Ordena de menor a mayor precio medio.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Fabricantes con precio medio de 100 € o más, de menor a mayor
+</textarea>
+                <script type="text/plain" class="solucion">SELECT F.Nombre, AVG(A.Precio) AS 'Precio medio'
+FROM Fabricante F
+INNER JOIN Articulos A ON F.Codigo = A.Fabricante
+GROUP BY F.Nombre
+HAVING AVG(A.Precio) >= 100
+ORDER BY AVG(A.Precio) ASC;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Cuántos artículos tiene cada fabricante</h3>
+            <p>Obtén el nombre de <strong>todos</strong> los fabricantes y cuántos artículos tiene cada uno, en una
+                columna llamada <strong>Número de Artículos</strong>. Ordena de más a menos artículos y, si empatan,
+                por nombre. Tienen que salir los 10 fabricantes, también los que tienen 0.</p>
+            <div class="sql-editor" data-bd="tienda" data-columnas>
+                <textarea>-- Los 10 fabricantes con su número de artículos
+SELECT F.Nombre, COUNT(A.Codigo) AS 'Número de Artículos'
+FROM Fabricante F
+</textarea>
+                <script type="text/plain" class="solucion">SELECT F.Nombre, COUNT(A.Codigo) AS 'Número de Artículos'
+FROM Fabricante F
+LEFT JOIN Articulos A ON F.Codigo = A.Fabricante
+GROUP BY F.Nombre
+ORDER BY COUNT(A.Codigo) DESC, F.Nombre;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Si te salen 8
+                fabricantes, es que has usado <code>INNER JOIN</code>, que deja fuera a Alcatel y Sony.
+                <code>LEFT JOIN</code> saca <strong>todas</strong> las filas de la tabla de la izquierda (la del
+                <code>FROM</code>), tengan pareja o no. Y cuenta <code>COUNT(A.Codigo)</code>, no
+                <code>COUNT(*)</code>: con <code>COUNT(*)</code> Alcatel y Sony saldrían con 1.</div>
+        </li>
+        <li class="paso">
+            <h3>Lo que se queda sin pareja</h3>
+            <p><strong>a)</strong> Obtén todos los datos de los artículos que no tienen fabricante.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Artículos sin fabricante
+</textarea>
+                <script type="text/plain" class="solucion">SELECT * FROM Articulos WHERE Fabricante IS NULL;</script>
+            </div>
+            <p><strong>b)</strong> Obtén el nombre de los fabricantes que no tienen ningún artículo, ordenados por
+                nombre. Usa <code>LEFT JOIN</code>.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Fabricantes sin artículos, por orden alfabético
+</textarea>
+                <script type="text/plain" class="solucion">SELECT F.Nombre
+FROM Fabricante F
+LEFT JOIN Articulos A ON F.Codigo = A.Fabricante
+WHERE A.Codigo IS NULL
+ORDER BY F.Nombre;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>El a) no necesita
+                <code>JOIN</code>: el dato está en la propia tabla <code>Articulos</code>. En el b), el
+                <code>LEFT JOIN</code> rellena con <code>NULL</code> las columnas de <code>Articulos</code> cuando un
+                fabricante no tiene pareja; esas son las filas que buscas.</div>
+        </li>
+        <li class="paso">
+            <h3>Precio máximo y mínimo de cada fabricante</h3>
+            <p>Obtén el nombre de cada fabricante con el precio de su artículo más caro y el de su artículo más
+                barato.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Nombre del fabricante, precio máximo y precio mínimo
+</textarea>
+                <script type="text/plain" class="solucion">SELECT F.Nombre, MAX(A.Precio) AS 'Precio máximo', MIN(A.Precio) AS 'Precio mínimo'
+FROM Fabricante F
+INNER JOIN Articulos A ON F.Codigo = A.Fabricante
+GROUP BY F.Nombre;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Fabricantes con artículos de más de 2000 €</h3>
+            <p>Obtén el nombre de los fabricantes que tienen algún artículo con un precio mayor que 2000 €. Cada
+                fabricante tiene que salir una sola vez.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Fabricantes con algún artículo de más de 2000 €
+</textarea>
+                <script type="text/plain" class="solucion">SELECT DISTINCT F.Nombre
+FROM Fabricante F
+INNER JOIN Articulos A ON F.Codigo = A.Fabricante
+WHERE A.Precio > 2000;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Con estos datos cada uno
+                tiene un solo artículo de más de 2000 €, pero si tuviera dos saldría repetido. Por eso conviene
+                <code>DISTINCT</code>. Prueba a cambiar el 2000 por 1000 con y sin <code>DISTINCT</code>.</div>
+        </li>
+        <li class="paso">
+            <h3>Fabricantes con más de 5 artículos</h3>
+            <p>Obtén el nombre de los fabricantes junto con el número de artículos que tienen, pero solo de los que
+                tienen <strong>más de 5</strong>.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Fabricantes con más de 5 artículos
+</textarea>
+                <script type="text/plain" class="solucion">SELECT F.Nombre, COUNT(A.Codigo) AS 'Número de Artículos'
+FROM Fabricante F
+INNER JOIN Articulos A ON F.Codigo = A.Fabricante
+GROUP BY F.Nombre
+HAVING COUNT(A.Codigo) > 5;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Cuántos fabricantes no tienen artículos</h3>
+            <p>Obtén el <strong>número</strong> de fabricantes que no tienen artículos, en una columna llamada
+                <strong>Cantidad de fabricantes sin productos</strong>. Parte de la consulta del paso 5 b).</p>
+            <div class="sql-editor" data-bd="tienda" data-columnas>
+                <textarea>-- Número de fabricantes sin artículos
+</textarea>
+                <script type="text/plain" class="solucion">SELECT COUNT(*) AS 'Cantidad de fabricantes sin productos'
+FROM Fabricante F
+LEFT JOIN Articulos A ON F.Codigo = A.Fabricante
+WHERE A.Codigo IS NULL;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Ordena por dos columnas</h3>
+            <p><strong>a)</strong> Obtén el nombre y el precio de los artículos que cuestan <strong>800 € o
+                    más</strong>, ordenados por precio de mayor a menor y, cuando el precio es el mismo, por nombre
+                de la A a la Z.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Artículos de 800 € o más: precio descendente y nombre ascendente
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Precio
+FROM Articulos
+WHERE Precio >= 800
+ORDER BY Precio DESC, Nombre ASC;</script>
+            </div>
+            <p><strong>b)</strong> Repite la consulta añadiendo una tercera columna con el nombre del fabricante de
+                cada artículo.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- La misma consulta con el nombre del fabricante
+</textarea>
+                <script type="text/plain" class="solucion">SELECT A.Nombre, A.Precio, F.Nombre AS 'Fabricante'
+FROM Articulos A
+INNER JOIN Fabricante F ON A.Fabricante = F.Codigo
+WHERE A.Precio >= 800
+ORDER BY A.Precio DESC, A.Nombre ASC;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>El segundo criterio del
+                <code>ORDER BY</code> solo se usa para desempatar: mira los tres artículos de 899 €, que salen por
+                orden alfabético.</div>
+        </li>
+        <li class="paso">
+            <h3>Junta todo en tu archivo</h3>
+            <p>Copia en un archivo de texto, en orden, las consultas de los pasos 1 a 10, cada una con su comentario
+                (<code>-- Paso 1</code>, <code>-- Paso 2</code>, <code>-- Paso 5a</code>…), y guárdalo como
+                <code>ApellidoNombre_AO_Actividad6.9.sql</code>.</p>
+            <p>Si tienes XAMPP, importa <a href="../AO/Unidad-6/bd/tienda.sql" download>tienda.sql</a> en phpMyAdmin
+                y prueba tus consultas en la pestaña <span class="ruta-menu">SQL</span>.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="6-9">
+        <li><label><input type="checkbox"><span>El archivo se llama <code>ApellidoNombre_AO_Actividad6.9.sql</code> y
+                    tiene un comentario antes de cada consulta.</span></label></li>
+        <li><label><input type="checkbox"><span>Cada <code>JOIN</code> lleva su <code>ON</code> con la clave ajena:
+                    <code>A.Fabricante = F.Codigo</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Las columnas que se repiten en las dos tablas (<code>Nombre</code>,
+                    <code>Codigo</code>) llevan delante el alias de su tabla.</span></label></li>
+        <li><label><input type="checkbox"><span>Uso <code>LEFT JOIN</code> cuando tienen que salir también los
+                    fabricantes sin artículos.</span></label></li>
+        <li><label><input type="checkbox"><span>Las columnas con nombre se llaman exactamente <em>Número de
+                        Artículos</em> y <em>Cantidad de fabricantes sin productos</em>.</span></label></li>
+        <li><label><input type="checkbox"><span>Todas las consultas dan «¡Correcto!» al pulsar Comprobar.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-6/actividades/6-8"><i class="bi bi-arrow-left me-1"></i>Anterior: 6.8</a>
+        <a class="btn btn-primary" href="#/Unidad-6/actividades/6-10">Siguiente: 6.10. Agencia de viajes <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

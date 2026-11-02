@@ -1,0 +1,1429 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Unidad 6. SQL: crear y consultar bases de datos</h1>
+
+    <div data-indice></div>
+
+    <div class="alert alert-primary d-flex align-items-center gap-2">
+        <i class="bi bi-list-check fs-4"></i>
+        <div>La parte de SQL tiene <strong>5 actividades guiadas</strong> y <strong>2 de repaso</strong>. <a
+                href="#/Unidad-6/actividades/index">Ver las actividades</a></div>
+    </div>
+    <p>Antes de empezar, conviene haber leído la <a href="#/Unidad-6/teoria-diseno">teoría de diseño de bases de
+            datos</a>: aquí se da por sabido qué son una tabla, una clave primaria y una clave ajena.</p>
+
+    <!-- ============================================================ 1 ============================================================ -->
+    <h2 class="mb-4 text-primary">1. Qué es SQL y cómo vas a practicar</h2>
+
+    <p><strong>SQL</strong> (<em>Structured Query Language</em>, lenguaje de consulta estructurado) es el lenguaje con
+        el que se habla con un sistema gestor de bases de datos (<strong>SGBD</strong>) como MySQL, MariaDB,
+        PostgreSQL, SQLite, Oracle o SQL Server. Con SQL creas las tablas, guardas datos, los cambias y, sobre todo,
+        le haces preguntas a la base de datos: «¿qué artículos cuestan menos de 20 €?».</p>
+    <p>Cada orden de SQL se llama <strong>sentencia</strong>, y se parece bastante al inglés:
+        <code>SELECT Nombre FROM Articulos WHERE Precio &lt; 20;</code> se lee «selecciona el nombre de los artículos
+        donde el precio es menor que 20». Casi todo lo que vas a aprender sirve en cualquier SGBD. En clase usamos
+        MySQL, que es de los más usados en páginas web.</p>
+
+    <h3 class="mb-3 text-primary">Los tipos de sentencias</h3>
+    <p>Las sentencias de SQL se suelen agrupar según para qué sirven:</p>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Grupo</th>
+                    <th scope="col">Para qué sirve</th>
+                    <th scope="col">Órdenes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>DDL</strong> (<em>Data Definition Language</em>, definición de datos)</td>
+                    <td>Crear, cambiar y borrar la <strong>estructura</strong>: bases de datos y tablas.</td>
+                    <td><code>CREATE</code>, <code>ALTER</code>, <code>DROP</code>, <code>TRUNCATE</code></td>
+                </tr>
+                <tr>
+                    <td><strong>DML</strong> (<em>Data Manipulation Language</em>, manipulación de datos)</td>
+                    <td>Añadir, cambiar y borrar <strong>filas</strong>.</td>
+                    <td><code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code></td>
+                </tr>
+                <tr>
+                    <td><strong>DQL</strong> (<em>Data Query Language</em>, consulta de datos)</td>
+                    <td><strong>Consultar</strong> los datos.</td>
+                    <td><code>SELECT</code></td>
+                </tr>
+                <tr>
+                    <td><strong>DCL</strong> (<em>Data Control Language</em>, control de datos)</td>
+                    <td>Dar o quitar <strong>permisos</strong> a los usuarios.</td>
+                    <td><code>GRANT</code>, <code>REVOKE</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>Muchos libros (y el manual de clase) meten <code>SELECT</code> dentro del DML y hablan solo de tres grupos.
+        Las dos formas son correctas: lo importante es saber qué hace cada orden. Las de DCL no las vas a usar en esta
+        unidad.</p>
+
+    <h3 class="mb-3 text-primary">Reglas para escribir SQL</h3>
+    <ul>
+        <li>Cada sentencia termina en <strong>punto y coma</strong> (<code>;</code>). Así se pueden escribir varias
+            seguidas.</li>
+        <li>A SQL le dan igual las mayúsculas en sus palabras (<code>select</code> o <code>SELECT</code>), pero se
+            escriben en <strong>MAYÚSCULAS</strong> para distinguirlas de los nombres de tablas y columnas.</li>
+        <li>Escribe los nombres de tablas y columnas <strong>siempre igual que se crearon</strong>. En Windows MySQL no
+            distingue <code>articulos</code> de <code>Articulos</code>, pero en un servidor Linux son dos tablas
+            distintas. Evita los espacios y las tildes en los nombres: <code>PrecioVenta</code>,
+            <code>Fecha_alta</code>.</li>
+        <li>Los <strong>textos y las fechas</strong> van entre <strong>comillas simples</strong>: <code>'Nokia'</code>,
+            <code>'2025-03-12'</code>. Las fechas, con el formato año-mes-día. Los <strong>números</strong>, sin
+            comillas y con punto decimal: <code>149.99</code>.</li>
+        <li>Una sentencia puede ocupar varias líneas: los espacios y los saltos de línea dan igual, así que úsalos para
+            que se lea bien.</li>
+        <li>Los <strong>comentarios</strong> son notas que SQL no ejecuta. Con <code>--</code> (dos guiones y un
+            espacio) el comentario llega hasta el final de la línea. Con <code>/* … */</code> puede ocupar varias
+            líneas.</li>
+    </ul>
+    <pre><code class="language-sql">-- Artículos baratos (esto es un comentario)
+SELECT Nombre, Precio
+FROM Articulos
+WHERE Precio &lt; 20;   /* esto también */</code></pre>
+
+    <h3 class="mb-3 text-primary">La base de datos de la tienda</h3>
+    <p>Casi todos los ejemplos usan la base de datos de una tienda de informática, la misma de las actividades 6.5 a
+        6.9. Tiene dos tablas (la clave primaria está subrayada y la clave ajena, en cursiva):</p>
+    <div class="esquema">
+        <p>Fabricante (<u>Codigo</u>, Nombre)</p>
+        <p>Articulos (<u>Codigo</u>, Nombre, Precio, <em>Fabricante</em>)</p>
+    </div>
+    <p>Hay 10 fabricantes y 31 artículos. La columna <code>Fabricante</code> de <code>Articulos</code> guarda el código
+        del fabricante de cada artículo. Fíjate en dos detalles que saldrán en los ejemplos: dos fabricantes (Alcatel y
+        Sony) no tienen ningún artículo, y dos artículos (un cable HDMI y una alfombrilla) no tienen fabricante: en su
+        columna <code>Fabricante</code> pone <code>NULL</code>, que significa «vacío, sin valor».</p>
+
+    <h3 class="mb-3 text-primary">El editor de esta web</h3>
+    <p>En esta página y en las actividades hay editores como el de abajo, que funcionan en el navegador sin instalar
+        nada. Escribe SQL en el recuadro y usa los botones:</p>
+    <ul>
+        <li><span class="ruta-menu">Ejecutar</span> (o <kbd>Ctrl</kbd> + <kbd>Intro</kbd>): ejecuta todo lo que hay en
+            el recuadro, sentencia a sentencia, y enseña debajo el resultado de cada una. Si una da error, se para ahí y
+            te lo explica en castellano.</li>
+        <li><span class="ruta-menu">Comprobar</span>: solo sale en los ejercicios. Compara lo que hace tu código con la
+            solución y te dice si está bien. Debajo aparece también <em>Ver la solución</em>.</li>
+        <li><span class="ruta-menu">Ver tablas</span>: enseña las tablas que hay y sus datos, tal como están al
+            empezar.</li>
+        <li><span class="ruta-menu">Empezar de nuevo</span>: deja el recuadro como estaba al principio.</li>
+    </ul>
+    <p>Lo que escribes <strong>se guarda en este navegador</strong>: si cierras la página y vuelves, lo encontrarás. Y
+        cada vez que pulsas Ejecutar, la base de datos <strong>empieza de cero</strong>, con los datos originales. Puedes
+        borrar o estropear lo que quieras: la próxima vez todo estará como al principio. Por eso, si quieres ver qué ha
+        hecho un <code>INSERT</code>, escribe el <code>SELECT</code> detrás, en el mismo recuadro.</p>
+    <p>Pruébalo: este editor enseña las tablas que hay (<code>SHOW TABLES</code>), cómo es la tabla
+        <code>Articulos</code> (<code>DESCRIBE</code>) y todos sus datos (<code>SELECT *</code>).</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SHOW TABLES;
+DESCRIBE Articulos;
+SELECT * FROM Articulos;</textarea>
+    </div>
+    <p><code>DESCRIBE</code> enseña una fila por columna: su nombre (<em>Field</em>), su tipo (<em>Type</em>), si
+        puede quedar vacía (<em>Null</em>), si es clave (<em>Key</em>: <code>PRI</code> es clave primaria y
+        <code>MUL</code>, clave ajena), su valor por defecto (<em>Default</em>) y otras opciones (<em>Extra</em>).</p>
+    <div class="alert alert-warning small">
+        <i class="bi bi-exclamation-triangle me-1"></i><strong>El editor no es MySQL.</strong> Por dentro usa SQLite,
+        un SGBD pequeño que funciona dentro del navegador, y traduce las órdenes de MySQL que se ven en clase. Casi todo
+        da el mismo resultado, pero hay algunas diferencias: la división entre dos números enteros da un entero
+        (<code>5 / 2</code> da 2, y en MySQL da 2.5; escribe <code>5.0 / 2</code> si lo necesitas),
+        <code>CREATE DATABASE</code> y <code>USE</code> no hacen nada (ya estás dentro de una base de datos) y algunas
+        funciones de MySQL no existen. Si algo te sale distinto, manda MySQL: pruébalo en phpMyAdmin.
+    </div>
+
+    <h3 class="mb-3 text-primary">MySQL de verdad con XAMPP y phpMyAdmin</h3>
+    <p>Para trabajar como en una empresa, instala <strong>XAMPP</strong>, un paquete gratuito que trae un servidor web
+        (Apache), el SGBD y <strong>phpMyAdmin</strong>, una página web para manejar las bases de datos. El SGBD de XAMPP
+        es <strong>MariaDB</strong>, una versión libre de MySQL que se maneja exactamente igual (en XAMPP aparece con
+        el nombre «MySQL»).</p>
+    <ol>
+        <li><strong>Descarga.</strong> Entra en <a href="https://www.apachefriends.org/es/index.html" target="_blank"
+                rel="noopener noreferrer">apachefriends.org</a> y descarga XAMPP para Windows (también lo hay para Linux
+            y macOS).</li>
+        <li><strong>Instala.</strong> Abre el instalador. Si Windows avisa del Control de cuentas de usuario, acepta y
+            deja la carpeta que propone (<code>C:\xampp</code>), no la cambies a «Archivos de programa». En la lista de
+            componentes, deja marcados al menos <span class="ruta-menu">Apache</span>, <span
+                class="ruta-menu">MySQL</span> y <span class="ruta-menu">phpMyAdmin</span>.</li>
+        <li><strong>Abre el panel.</strong> Al terminar, abre el <span class="ruta-menu">XAMPP Control Panel</span>
+            (Panel de control de XAMPP) desde el menú Inicio.</li>
+        <li><strong>Arranca los servicios.</strong> Pulsa <span class="ruta-menu">Start</span> en la fila de Apache y en
+            la de MySQL. Cuando están en marcha, su nombre se pone en verde. Si el cortafuegos de Windows pregunta,
+            permite el acceso en redes privadas.</li>
+        <li><strong>Abre phpMyAdmin.</strong> En el navegador, escribe <code>http://localhost/phpmyadmin</code> (o pulsa
+            <span class="ruta-menu">Admin</span> en la fila de MySQL). A la izquierda verás la lista de bases de datos.
+        </li>
+        <li><strong>Escribe SQL.</strong> Pulsa la pestaña <span class="ruta-menu">SQL</span>, escribe o pega tus
+            sentencias y pulsa <span class="ruta-menu">Continuar</span>. Si antes eliges una base de datos en la lista
+            de la izquierda, las sentencias se ejecutan dentro de ella.</li>
+    </ol>
+    <p><strong>Las bases de datos de práctica.</strong> Las mismas que usan los editores están en estos archivos:</p>
+    <ul>
+        <li><a href="../AO/Unidad-6/bd/tienda.sql" download><i class="bi bi-download me-1"></i>tienda.sql</a>: tienda
+            de informática (Fabricante y Articulos).</li>
+        <li><a href="../AO/Unidad-6/bd/agencia.sql" download><i class="bi bi-download me-1"></i>agencia.sql</a>:
+            agencia de viajes (Destinos y Paquetes).</li>
+        <li><a href="../AO/Unidad-6/bd/biblioteca.sql" download><i class="bi bi-download me-1"></i>biblioteca.sql</a>:
+            biblioteca escolar (Autor y Libros).</li>
+    </ul>
+    <p>Para cargarlas en MySQL, en phpMyAdmin pulsa la pestaña <span class="ruta-menu">Importar</span>, después <span
+            class="ruta-menu">Seleccionar archivo</span> (o <em>Examinar</em>), elige el archivo <code>.sql</code> y
+        pulsa <span class="ruta-menu">Importar</span> al final de la página (en versiones antiguas, <span
+            class="ruta-menu">Continuar</span>). Cada archivo crea su base de datos (<code>tienda</code>,
+        <code>AgenciaViajes</code> o <code>BibliotecaEscolar</code>) con sus tablas y datos. Si la importas otra vez,
+        vuelve a quedar como al principio.</p>
+    <div class="alert alert-light border small">
+        <i class="bi bi-wrench me-1"></i><strong>Si MySQL no arranca.</strong> Lee el mensaje en rojo de la parte de
+        abajo del panel. Si dice que el <strong>puerto 3306</strong> está ocupado, es que hay otro MySQL (u otro
+        programa) usando ese puerto: ciérralo o detén su servicio. Si MySQL arranca y se para enseguida, suele ser
+        porque el ordenador se apagó con XAMPP encendido: pulsa <span class="ruta-menu">Logs</span> para ver el error
+        y pide ayuda antes de borrar ninguna carpeta. Sin Apache en marcha, phpMyAdmin no abre.
+    </div>
+
+    <!-- ============================================================ 2 ============================================================ -->
+    <h2 class="mb-4 text-primary">2. Crear y modificar tablas</h2>
+
+    <p>Las órdenes de este apartado (DDL) no tocan los datos: crean, cambian o borran la estructura de la base de
+        datos, es decir, las tablas y sus columnas.</p>
+
+    <h3 class="mb-3 text-primary">Crear y elegir la base de datos</h3>
+    <pre><code class="language-sql">CREATE DATABASE TiendaInformatica;   -- crea una base de datos vacía
+SHOW DATABASES;                      -- lista las bases de datos que hay
+USE TiendaInformatica;               -- entra en ella: lo siguiente se hace dentro</code></pre>
+    <p>En MySQL, después de <code>USE</code>, todas las tablas que crees se guardan en esa base de datos. En el editor
+        de esta web ya estás dentro de una base de datos, así que estas órdenes no cambian nada (pero en tus archivos
+        <code>.sql</code> ponlas siempre al principio). Para ver las tablas de la base de datos en la que estás:
+        <code>SHOW TABLES;</code>.</p>
+
+    <h3 class="mb-3 text-primary">Crear una tabla: CREATE TABLE</h3>
+    <p>Para crear una tabla se escribe su nombre y, entre paréntesis y separadas por comas, sus columnas. De cada
+        columna se pone el nombre, el tipo de dato y, si hace falta, algunas opciones. Lo que va entre corchetes es
+        opcional (los corchetes no se escriben):</p>
+    <pre><code class="language-sql">CREATE TABLE NombreTabla (
+    columna1 TIPO [NOT NULL] [DEFAULT valor] [AUTO_INCREMENT] [PRIMARY KEY] [COMMENT 'nota'],
+    columna2 TIPO [opciones],
+    ...
+);</code></pre>
+    <p>Los tipos de datos que más vas a usar (los tienes explicados en <a
+            href="#/Unidad-6/teoria-diseno?sec=5-tipos-de-datos">la teoría de diseño</a>):</p>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Qué guarda</th>
+                    <th scope="col">Ejemplo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>INT</code></td>
+                    <td>Números enteros</td>
+                    <td>Códigos, unidades, edad</td>
+                </tr>
+                <tr>
+                    <td><code>DECIMAL(8,2)</code></td>
+                    <td>Números con decimales exactos: 8 cifras en total, 2 de ellas decimales (hasta 999999.99)</td>
+                    <td>Precios, notas</td>
+                </tr>
+                <tr>
+                    <td><code>VARCHAR(n)</code></td>
+                    <td>Texto de hasta <em>n</em> caracteres</td>
+                    <td>Nombres, correos</td>
+                </tr>
+                <tr>
+                    <td><code>CHAR(n)</code></td>
+                    <td>Texto de longitud fija</td>
+                    <td>DNI: <code>CHAR(9)</code></td>
+                </tr>
+                <tr>
+                    <td><code>TEXT</code></td>
+                    <td>Textos largos</td>
+                    <td>Descripciones, observaciones</td>
+                </tr>
+                <tr>
+                    <td><code>DATE</code> / <code>DATETIME</code></td>
+                    <td>Fecha (<code>'2025-03-12'</code>) / fecha y hora (<code>'2025-03-12 09:30:00'</code>)</td>
+                    <td>Fecha de alta, de un pedido</td>
+                </tr>
+                <tr>
+                    <td><code>BOOLEAN</code></td>
+                    <td>Sí o no (MySQL lo guarda como 1 o 0)</td>
+                    <td>¿Está en oferta?</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>Y las opciones de cada columna:</p>
+    <ul>
+        <li><code>NOT NULL</code>: la columna es <strong>obligatoria</strong>, no puede quedar vacía. Si no lo pones,
+            se permite <code>NULL</code>.</li>
+        <li><code>DEFAULT valor</code>: el <strong>valor por defecto</strong>, el que se guarda si al añadir una fila no
+            se indica otro.</li>
+        <li><code>PRIMARY KEY</code>: la <strong>clave primaria</strong>. Sus valores no se pueden repetir ni quedar
+            vacíos. Solo hay una por tabla.</li>
+        <li><code>AUTO_INCREMENT</code>: solo para enteros, y casi siempre en la clave primaria. Si al añadir una fila
+            no le das valor, MySQL pone el siguiente número (1, 2, 3…).</li>
+        <li><code>COMMENT 'nota'</code>: una explicación de la columna para quien la lea. No cambia nada.</li>
+    </ul>
+    <p>Ejemplo: una tabla de clientes. Ejecútalo y mira el resultado del <code>DESCRIBE</code>.</p>
+    <div class="sql-editor">
+        <textarea>CREATE TABLE Clientes (
+    Codigo INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL,
+    Email VARCHAR(80),
+    Ciudad VARCHAR(40) DEFAULT 'Madrid',
+    Alta DATE COMMENT 'Fecha en que se dio de alta'
+);
+SHOW TABLES;
+DESCRIBE Clientes;</textarea>
+    </div>
+
+    <p class="mb-2"><i class="bi bi-pencil me-1"></i><strong>Prueba a…</strong> crear la tabla
+        <code>Proveedores</code> con estas columnas, en este orden: <code>Codigo</code> (entero, autoincrementado y
+        clave primaria), <code>Nombre</code> (texto de hasta 60 caracteres, obligatorio), <code>Telefono</code> (texto
+        de hasta 15) y <code>Pais</code> (texto de hasta 40, con <code>'España'</code> por defecto).</p>
+    <div class="sql-editor">
+        <textarea>-- Escribe aquí el CREATE TABLE
+</textarea>
+        <script type="text/plain" class="solucion">CREATE TABLE Proveedores (
+    Codigo INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(60) NOT NULL,
+    Telefono VARCHAR(15),
+    Pais VARCHAR(40) DEFAULT 'España'
+);
+DESCRIBE Proveedores;</script>
+        <script type="text/plain" class="comprobar">ESTRUCTURA Proveedores</script>
+    </div>
+
+    <h3 class="mb-3 text-primary">Clave primaria compuesta</h3>
+    <p>A veces ninguna columna sola sirve para identificar cada fila, pero dos juntas sí. Por ejemplo, en una tabla de
+        notas un alumno tiene muchas notas (una por módulo) y un módulo tiene notas de muchos alumnos, pero la pareja
+        alumno + módulo no se repite nunca. Entonces la clave primaria es <strong>compuesta</strong> y se escribe al
+        final, después de las columnas:</p>
+    <pre><code class="language-sql">PRIMARY KEY (columna1, columna2)</code></pre>
+    <p>En el ejemplo, el tercer <code>INSERT</code> da error porque repite la pareja (1, 'AO'). Cambia el módulo por
+        otro y vuelve a ejecutar.</p>
+    <div class="sql-editor">
+        <textarea>CREATE TABLE Notas (
+    Alumno INT,
+    Modulo VARCHAR(10),
+    Nota DECIMAL(4,2),
+    PRIMARY KEY (Alumno, Modulo)
+);
+DESCRIBE Notas;
+INSERT INTO Notas VALUES (1, 'AO', 7.5);
+INSERT INTO Notas VALUES (1, 'SO', 6);
+INSERT INTO Notas VALUES (1, 'AO', 9);
+SELECT * FROM Notas;</textarea>
+    </div>
+    <p>Esta forma de escribir la clave al final también vale para una clave de una sola columna:
+        <code>PRIMARY KEY (Codigo)</code>.</p>
+
+    <h3 class="mb-3 text-primary">Borrar una tabla: DROP TABLE</h3>
+    <pre><code class="language-sql">DROP TABLE Clientes;             -- borra la tabla con todos sus datos
+DROP TABLE IF EXISTS Clientes;   -- igual, pero sin error si la tabla no existe</code></pre>
+    <p><code>DROP TABLE</code> no pide confirmación y no se puede deshacer. Con <code>DROP DATABASE nombre;</code> se
+        borra la base de datos entera, con todas sus tablas.</p>
+
+    <h3 class="mb-3 text-primary">Cambiar una tabla: ALTER TABLE</h3>
+    <p>Si la tabla ya existe y tiene datos, no hace falta borrarla para cambiarla: se usa <code>ALTER TABLE</code>
+        seguido de lo que quieres cambiar.</p>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Sentencia</th>
+                    <th scope="col">Qué hace</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>ALTER TABLE Clientes RENAME TO Compradores;</code></td>
+                    <td>Cambia el nombre de la tabla.</td>
+                </tr>
+                <tr>
+                    <td><code>ALTER TABLE Clientes ADD Telefono VARCHAR(15);</code></td>
+                    <td>Añade una columna al final.</td>
+                </tr>
+                <tr>
+                    <td><code>ALTER TABLE Clientes ADD Dni CHAR(9) FIRST;</code></td>
+                    <td>Añade una columna al principio.</td>
+                </tr>
+                <tr>
+                    <td><code>ALTER TABLE Clientes ADD Telefono VARCHAR(15) AFTER Nombre;</code></td>
+                    <td>Añade una columna detrás de otra.</td>
+                </tr>
+                <tr>
+                    <td><code>ALTER TABLE Clientes DROP COLUMN Email;</code></td>
+                    <td>Borra una columna con todos sus datos.</td>
+                </tr>
+                <tr>
+                    <td><code>ALTER TABLE Clientes ADD PRIMARY KEY (Codigo);</code></td>
+                    <td>Hace que una columna (o varias) sea la clave primaria.</td>
+                </tr>
+                <tr>
+                    <td><code>ALTER TABLE Clientes DROP PRIMARY KEY;</code></td>
+                    <td>Quita la clave primaria (la columna se queda). Si es <code>AUTO_INCREMENT</code>, antes hay que
+                        quitárselo con <code>MODIFY</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>ALTER TABLE Clientes MODIFY Nombre VARCHAR(100) NOT NULL;</code></td>
+                    <td>Cambia el tipo o las opciones de una columna, sin cambiarle el nombre.</td>
+                </tr>
+                <tr>
+                    <td><code>ALTER TABLE Clientes CHANGE Email Correo VARCHAR(80);</code></td>
+                    <td>Cambia el nombre de una columna (y, si quieres, su tipo).</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>Con <code>MODIFY</code> y <code>CHANGE</code> hay que escribir la definición completa de la columna: lo que no
+        pongas (<code>NOT NULL</code>, <code>DEFAULT</code>…) se pierde. Puedes hacer varios cambios en un solo
+        <code>ALTER TABLE</code> separándolos con comas:
+        <code>ALTER TABLE Clientes DROP COLUMN Email, ADD Movil VARCHAR(15);</code></p>
+    <div class="sql-editor">
+        <textarea>CREATE TABLE Clientes (
+    Codigo INT,
+    Nombre VARCHAR(50),
+    Email VARCHAR(80)
+);
+ALTER TABLE Clientes ADD PRIMARY KEY (Codigo);
+ALTER TABLE Clientes ADD Telefono VARCHAR(15) AFTER Nombre;
+ALTER TABLE Clientes CHANGE Email Correo VARCHAR(100);
+ALTER TABLE Clientes MODIFY Nombre VARCHAR(80) NOT NULL;
+DESCRIBE Clientes;</textarea>
+    </div>
+
+    <p class="mb-2"><i class="bi bi-pencil me-1"></i><strong>Prueba a…</strong> cambiar la tabla
+        <code>Proveedores</code> (ya está creada, como en el ejercicio anterior): añade una columna <code>Email</code>
+        (texto de hasta 80) detrás de <code>Nombre</code>, borra la columna <code>Pais</code> y cambia el nombre de
+        <code>Telefono</code> por <code>Movil</code> (mismo tipo).</p>
+    <div class="sql-editor">
+        <textarea>DESCRIBE Proveedores;
+-- Escribe aquí los cambios
+</textarea>
+        <script type="text/plain" class="previo">CREATE TABLE Proveedores (
+    Codigo INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(60) NOT NULL,
+    Telefono VARCHAR(15),
+    Pais VARCHAR(40) DEFAULT 'España'
+);</script>
+        <script type="text/plain" class="solucion">ALTER TABLE Proveedores ADD Email VARCHAR(80) AFTER Nombre;
+ALTER TABLE Proveedores DROP COLUMN Pais;
+ALTER TABLE Proveedores CHANGE Telefono Movil VARCHAR(15);
+DESCRIBE Proveedores;</script>
+        <script type="text/plain" class="comprobar">ESTRUCTURA Proveedores</script>
+    </div>
+
+    <h3 class="mb-3 text-primary">Relacionar tablas: FOREIGN KEY</h3>
+    <p>Una <strong>clave ajena</strong> (o foránea, <em>foreign key</em>) es una columna que guarda la clave primaria
+        de otra tabla. En la tienda, <code>Articulos.Fabricante</code> guarda el código de un fabricante. Al declararla
+        con <code>FOREIGN KEY</code>, MySQL vigila que siempre apunte a algo que existe: no deja guardar un artículo
+        de un fabricante que no está en la tabla <code>Fabricante</code>.</p>
+    <pre><code class="language-sql">CREATE TABLE TablaHija (
+    ...,
+    columna TIPO,
+    FOREIGN KEY (columna) REFERENCES TablaPadre(clave_primaria)
+        ON DELETE opción
+        ON UPDATE opción
+);
+
+-- O, si la tabla ya existe:
+ALTER TABLE TablaHija ADD FOREIGN KEY (columna) REFERENCES TablaPadre(clave_primaria);</code></pre>
+    <p>La tabla a la que se apunta (la «padre») tiene que existir antes, y las dos columnas deben ser del mismo tipo.
+        En MySQL las claves ajenas solo funcionan en tablas de tipo <em>InnoDB</em>, que es el que se usa por defecto;
+        por eso en algunos manuales verás <code>ENGINE=InnoDB</code> al final del <code>CREATE TABLE</code>.</p>
+    <p><code>ON DELETE</code> y <code>ON UPDATE</code> dicen qué pasa con las filas hijas cuando se borra la fila padre
+        o se cambia su clave. Imagina que la tienda deja de trabajar con Nokia y borra ese fabricante, que tiene dos
+        artículos:</p>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Opción</th>
+                    <th scope="col">Qué pasa al borrar Nokia</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>RESTRICT</code> (es la que se aplica si no escribes nada; <code>NO ACTION</code> hace lo
+                        mismo)</td>
+                    <td>No deja borrarlo: da error mientras tenga artículos.</td>
+                </tr>
+                <tr>
+                    <td><code>CASCADE</code></td>
+                    <td>Borra Nokia y también sus dos artículos. Con <code>ON UPDATE CASCADE</code>, si cambias el código
+                        de Nokia, sus artículos se actualizan solos.</td>
+                </tr>
+                <tr>
+                    <td><code>SET NULL</code></td>
+                    <td>Borra Nokia y sus artículos se quedan, pero sin fabricante (<code>NULL</code>). La columna no
+                        puede ser <code>NOT NULL</code>.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>Ejecuta el ejemplo con <code>CASCADE</code>. Después cambia las dos palabras <code>CASCADE</code> por
+        <code>SET NULL</code> y vuelve a ejecutar; luego, por <code>RESTRICT</code>.</p>
+    <div class="sql-editor">
+        <textarea>CREATE TABLE Fabricante (
+    Codigo INT PRIMARY KEY,
+    Nombre VARCHAR(100) NOT NULL
+);
+CREATE TABLE Articulos (
+    Codigo INT PRIMARY KEY,
+    Nombre VARCHAR(100) NOT NULL,
+    Precio DECIMAL(8,2),
+    Fabricante INT,
+    FOREIGN KEY (Fabricante) REFERENCES Fabricante(Codigo)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+INSERT INTO Fabricante VALUES (1, 'Nokia'), (2, 'Xiaomi');
+INSERT INTO Articulos VALUES (1, 'Nokia G21', 149.99, 1),
+    (2, 'Nokia Lumia Pro 950', 299.99, 1),
+    (3, 'Xiaomi Mi 11', 749.99, 2);
+DELETE FROM Fabricante WHERE Codigo = 1;
+SELECT * FROM Articulos;</textarea>
+    </div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-6/actividades/6-5"><strong>Actividad 6.5</strong>. Tienda de
+                informática: crear las tablas</a></div>
+    </div>
+
+    <!-- ============================================================ 3 ============================================================ -->
+    <h2 class="mb-4 text-primary">3. Insertar, modificar y borrar datos</h2>
+
+    <p>Con la tabla creada, toca llenarla. Las órdenes de este apartado (DML) trabajan con las filas: añadirlas
+        (<code>INSERT</code>), cambiarlas (<code>UPDATE</code>) y borrarlas (<code>DELETE</code>).</p>
+
+    <h3 class="mb-3 text-primary">Añadir filas: INSERT</h3>
+    <pre><code class="language-sql">-- Indicando las columnas (la forma recomendada)
+INSERT INTO Tabla (columna1, columna2, ...) VALUES (valor1, valor2, ...);
+
+-- Sin indicar las columnas: hay que dar un valor para cada una, en su orden
+INSERT INTO Tabla VALUES (valor1, valor2, ...);
+
+-- Varias filas a la vez
+INSERT INTO Tabla (columna1, columna2) VALUES (...), (...), (...);
+
+-- Con SET (solo en MySQL)
+INSERT INTO Tabla SET columna1 = valor1, columna2 = valor2;</code></pre>
+    <p>Si indicas las columnas, puedes ponerlas en el orden que quieras y saltarte algunas: las que no pongas se quedan
+        con su valor por defecto, con <code>NULL</code> o, si son <code>AUTO_INCREMENT</code>, con el número
+        siguiente. Si no las indicas, tienes que conocer el orden de las columnas (míralo con <code>DESCRIBE</code>).
+    </p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>INSERT INTO Fabricante VALUES (11, 'Asus');
+INSERT INTO Fabricante SET Codigo = 12, Nombre = 'Acer';
+INSERT INTO Articulos (Codigo, Nombre, Precio, Fabricante) VALUES
+    (32, 'Portátil Asus Vivobook 15', 599.00, 11),
+    (33, 'Monitor Acer 24', 119.00, 12);
+INSERT INTO Articulos (Codigo, Nombre) VALUES (34, 'Funda para portátil');
+SELECT * FROM Articulos WHERE Codigo > 30;</textarea>
+    </div>
+    <p>El artículo 34 se queda sin precio ni fabricante (<code>NULL</code>). Los errores más habituales al insertar:
+        repetir una clave primaria (prueba a cambiar el 34 por 1), olvidar las comillas de un texto, poner más o menos
+        valores que columnas, o usar un fabricante que no existe (prueba con 99 en lugar de 12).</p>
+
+    <p class="mb-2"><i class="bi bi-pencil me-1"></i><strong>Prueba a…</strong> añadir el fabricante TP-Link con el
+        código 11 y su artículo «Router TP-Link Archer AX55», con el código 32 y un precio de 79.90 €.</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>-- Escribe aquí los INSERT
+</textarea>
+        <script type="text/plain" class="solucion">INSERT INTO Fabricante (Codigo, Nombre) VALUES (11, 'TP-Link');
+INSERT INTO Articulos (Codigo, Nombre, Precio, Fabricante) VALUES (32, 'Router TP-Link Archer AX55', 79.90, 11);
+SELECT * FROM Articulos WHERE Codigo = 32;</script>
+        <script type="text/plain" class="comprobar">SELECT A.Codigo, A.Nombre, A.Precio, F.Nombre
+FROM Articulos A LEFT JOIN Fabricante F ON A.Fabricante = F.Codigo
+ORDER BY A.Codigo;</script>
+    </div>
+
+    <h3 class="mb-3 text-primary">Cambiar datos: UPDATE</h3>
+    <pre><code class="language-sql">UPDATE Tabla
+SET columna1 = valor1, columna2 = valor2
+WHERE condición;</code></pre>
+    <p><code>SET</code> dice qué columnas cambian y <code>WHERE</code>, en qué filas. El nuevo valor puede calcularse
+        a partir del antiguo: <code>SET Precio = Precio * 0.90</code> rebaja un 10 %.</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>-- Nuevo precio para el artículo 2
+UPDATE Articulos SET Precio = 139.99 WHERE Codigo = 2;
+-- Un 10 % de descuento en todo lo de MSI (fabricante 4)
+UPDATE Articulos SET Precio = Precio * 0.90 WHERE Fabricante = 4;
+SELECT * FROM Articulos WHERE Codigo = 2 OR Fabricante = 4;</textarea>
+    </div>
+    <div class="alert alert-danger">
+        <i class="bi bi-exclamation-octagon-fill me-1"></i><strong>Sin <code>WHERE</code>, <code>UPDATE</code> cambia
+            TODAS las filas de la tabla.</strong> <code>UPDATE Articulos SET Precio = 0;</code> deja gratis toda la
+        tienda, y en MySQL no hay botón de deshacer. Un buen truco: antes de un <code>UPDATE</code> o un
+        <code>DELETE</code>, ejecuta un <code>SELECT</code> con el mismo <code>WHERE</code> para ver qué filas vas a
+        cambiar.
+    </div>
+
+    <h3 class="mb-3 text-primary">Borrar filas: DELETE y TRUNCATE</h3>
+    <pre><code class="language-sql">DELETE FROM Tabla WHERE condición;   -- borra las filas que cumplen la condición
+DELETE FROM Tabla;                   -- borra TODAS las filas (la tabla se queda, vacía)
+TRUNCATE Tabla;                      -- vacía la tabla de golpe</code></pre>
+    <p>Igual que con <code>UPDATE</code>: <strong>sin <code>WHERE</code>, <code>DELETE</code> borra todas las
+            filas</strong>. <code>TRUNCATE</code> también vacía la tabla, pero es más rápido (borra la tabla y la vuelve
+        a crear vacía) y además reinicia el contador de <code>AUTO_INCREMENT</code>, que vuelve a empezar por 1. No
+        confundas estas órdenes con <code>DROP TABLE</code>, que borra la tabla misma.</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>DELETE FROM Articulos WHERE Codigo = 30;
+DELETE FROM Articulos WHERE Precio &lt; 15;
+SELECT * FROM Articulos ORDER BY Precio;</textarea>
+    </div>
+
+    <h3 class="mb-3 text-primary">Borrar cuando hay claves ajenas</h3>
+    <p>En la tienda, la clave ajena de <code>Articulos</code> no tiene <code>ON DELETE</code>, así que se aplica
+        <code>RESTRICT</code>: se puede borrar un fabricante sin artículos (Alcatel, el 3), pero no uno que los tiene
+        (Nokia, el 1). Ejecuta el ejemplo: la segunda sentencia da error.</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>DELETE FROM Fabricante WHERE Codigo = 3;
+DELETE FROM Fabricante WHERE Codigo = 1;
+SELECT * FROM Fabricante;</textarea>
+    </div>
+    <p>Para borrar Nokia, primero hay que borrar sus artículos (<code>DELETE FROM Articulos WHERE Fabricante = 1;</code>)
+        o cambiarlos de fabricante con un <code>UPDATE</code>. Añade una de las dos cosas antes del segundo
+        <code>DELETE</code> y vuelve a ejecutar. Por la misma razón, MySQL no deja hacer <code>TRUNCATE</code> de una
+        tabla a la que apunta una clave ajena, como <code>Fabricante</code>.</p>
+
+    <p class="mb-2"><i class="bi bi-pencil me-1"></i><strong>Prueba a…</strong> subir 5 € el precio de todos los
+        artículos de Logitech (fabricante 9) y borrar el artículo 31.</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>-- Escribe aquí el UPDATE y el DELETE
+</textarea>
+        <script type="text/plain" class="solucion">UPDATE Articulos SET Precio = Precio + 5 WHERE Fabricante = 9;
+DELETE FROM Articulos WHERE Codigo = 31;
+SELECT * FROM Articulos;</script>
+        <script type="text/plain" class="comprobar">SELECT Codigo, Precio FROM Articulos ORDER BY Codigo;</script>
+    </div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-6/actividades/6-6"><strong>Actividad 6.6</strong>. Insertar,
+                modificar y borrar</a></div>
+    </div>
+
+    <!-- ============================================================ 4 ============================================================ -->
+    <h2 class="mb-4 text-primary">4. Consultas a una tabla</h2>
+
+    <p>Consultar es lo que más se hace con una base de datos. Una consulta empieza siempre por <code>SELECT</code> y no
+        cambia nada: solo enseña datos. Su forma básica es esta (solo son obligatorias las dos primeras líneas):</p>
+    <pre><code class="language-sql">SELECT columnas
+FROM tabla
+WHERE condición
+ORDER BY columna [ASC | DESC]
+LIMIT cantidad;</code></pre>
+
+    <h3 class="mb-3 text-primary">Elegir las columnas</h3>
+    <ul>
+        <li><code>SELECT * FROM Articulos;</code>: el asterisco significa «todas las columnas».</li>
+        <li><code>SELECT Nombre, Precio FROM Articulos;</code>: solo las columnas que pongas, en ese orden.</li>
+        <li><strong>Columnas calculadas</strong>: puedes operar con las columnas. <code>Precio * 1.21</code> da el
+            precio con IVA. La tabla no cambia: el cálculo solo se enseña.</li>
+        <li><code>AS</code> cambia el título de una columna en el resultado: <code>Precio * 1.21 AS PrecioIVA</code>.
+            Si el nuevo nombre lleva espacios, ponlo entre comillas: <code>AS 'Precio con IVA'</code>.</li>
+        <li><code>DISTINCT</code> quita las filas repetidas del resultado.</li>
+    </ul>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT Nombre, Precio FROM Articulos;
+SELECT Nombre AS Articulo, Precio * 1.21 AS 'Precio con IVA' FROM Articulos;
+-- Códigos de fabricante que aparecen en Articulos, sin repetir
+SELECT DISTINCT Fabricante FROM Articulos;</textarea>
+    </div>
+
+    <h3 class="mb-3 text-primary">Filtrar filas con WHERE</h3>
+    <p><code>WHERE</code> se queda solo con las filas que cumplen una condición. Para escribir condiciones se usan los
+        <strong>operadores de comparación</strong>: <code>=</code> (igual), <code>&lt;&gt;</code> o <code>!=</code>
+        (distinto), <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code> y <code>&gt;=</code>. Sirven para números,
+        para textos (por orden alfabético) y para fechas.</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT Nombre, Precio FROM Articulos WHERE Precio &lt; 20;
+SELECT * FROM Articulos WHERE Fabricante = 6;
+SELECT * FROM Fabricante WHERE Nombre = 'HP';</textarea>
+    </div>
+    <p>Para juntar varias condiciones se usan los <strong>operadores lógicos</strong>:</p>
+    <ul>
+        <li><code>AND</code> (y): se tienen que cumplir las dos. <code>WHERE Fabricante = 8 AND Precio &lt; 100</code>
+        </li>
+        <li><code>OR</code> (o): basta con que se cumpla una. <code>WHERE Fabricante = 2 OR Fabricante = 5</code></li>
+        <li><code>NOT</code> (no): da la vuelta a la condición. <code>WHERE NOT Fabricante = 4</code></li>
+    </ul>
+    <p>Si mezclas <code>AND</code> y <code>OR</code>, usa paréntesis: <code>AND</code> se calcula antes que
+        <code>OR</code>, igual que en matemáticas se multiplica antes de sumar. Compara estas dos consultas:</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>-- Artículos de MSI o de HP que cuestan menos de 100 €
+SELECT * FROM Articulos WHERE (Fabricante = 4 OR Fabricante = 8) AND Precio &lt; 100;
+-- Sin paréntesis significa otra cosa: todo lo de MSI, y lo de HP de menos de 100 €
+SELECT * FROM Articulos WHERE Fabricante = 4 OR Fabricante = 8 AND Precio &lt; 100;</textarea>
+    </div>
+
+    <h3 class="mb-3 text-primary">BETWEEN, IN y LIKE</h3>
+    <ul>
+        <li><code>BETWEEN a AND b</code>: entre dos valores, <strong>incluidos</strong> los dos.
+            <code>WHERE Precio BETWEEN 100 AND 200</code> es lo mismo que
+            <code>WHERE Precio &gt;= 100 AND Precio &lt;= 200</code>.</li>
+        <li><code>IN (lista)</code>: igual a alguno de los valores de la lista.
+            <code>WHERE Fabricante IN (2, 5, 6)</code> ahorra escribir tres <code>OR</code>.</li>
+        <li><code>LIKE</code>: textos que siguen un patrón. El <code>%</code> vale por cualquier cantidad de caracteres
+            (también ninguno) y el <code>_</code>, por exactamente uno. <code>'Monitor%'</code>: empieza por
+            «Monitor»; <code>'%Pro%'</code>: contiene «Pro»; <code>'iPhone __'</code>: «iPhone», un espacio y dos
+            caracteres más. En MySQL, <code>LIKE</code> no distingue mayúsculas de minúsculas.</li>
+        <li>Delante de los tres se puede poner <code>NOT</code>: <code>NOT BETWEEN</code>, <code>NOT IN</code>,
+            <code>NOT LIKE</code>.</li>
+    </ul>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT Nombre, Precio FROM Articulos WHERE Precio BETWEEN 100 AND 200;
+SELECT Nombre, Fabricante FROM Articulos WHERE Fabricante IN (2, 5, 6);
+SELECT Nombre FROM Articulos WHERE Nombre LIKE 'Portátil%';
+SELECT Nombre FROM Articulos WHERE Nombre LIKE '%Pro%';</textarea>
+    </div>
+
+    <h3 class="mb-3 text-primary">Valores vacíos: IS NULL</h3>
+    <p><code>NULL</code> no es cero ni un texto vacío: significa «sin valor, no se sabe». Por eso no se puede comparar
+        con <code>=</code> (<code>WHERE Fabricante = NULL</code> no devuelve nada nunca). Se usa <code>IS NULL</code> o
+        <code>IS NOT NULL</code>. Ojo también con <code>&lt;&gt;</code>: <code>WHERE Fabricante &lt;&gt; 8</code> no
+        devuelve los artículos sin fabricante, porque de un valor desconocido no se puede decir que sea distinto de 8.
+    </p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT * FROM Articulos WHERE Fabricante IS NULL;
+SELECT COUNT(*) FROM Articulos WHERE Fabricante IS NOT NULL;</textarea>
+    </div>
+
+    <h3 class="mb-3 text-primary">Ordenar y limitar: ORDER BY y LIMIT</h3>
+    <ul>
+        <li><code>ORDER BY columna</code> ordena el resultado de menor a mayor (<code>ASC</code>, la opción por
+            defecto) o de mayor a menor (<code>DESC</code>). Los textos se ordenan alfabéticamente.</li>
+        <li>Puedes ordenar por varias columnas: <code>ORDER BY Fabricante, Precio DESC</code> ordena por fabricante y,
+            dentro de cada fabricante, del más caro al más barato.</li>
+        <li><code>LIMIT n</code> enseña solo las <em>n</em> primeras filas. <code>LIMIT inicio, cantidad</code> se
+            salta las primeras: <code>LIMIT 5, 10</code> enseña 10 filas a partir de la sexta (se empieza a contar en
+            0). Así se hacen las páginas de resultados de una tienda online.</li>
+        <li>Sin <code>ORDER BY</code>, el orden de las filas no está garantizado. Y <code>LIMIT</code> va siempre al
+            final.</li>
+    </ul>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT Nombre, Precio FROM Articulos ORDER BY Precio DESC;
+SELECT Fabricante, Nombre, Precio FROM Articulos ORDER BY Fabricante, Precio DESC;
+-- Los 5 más baratos
+SELECT Nombre, Precio FROM Articulos ORDER BY Precio LIMIT 5;
+-- Los 5 siguientes
+SELECT Nombre, Precio FROM Articulos ORDER BY Precio LIMIT 5, 5;</textarea>
+    </div>
+
+    <h3 class="mb-3 text-primary">Resumen de operadores</h3>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Operadores</th>
+                    <th scope="col">Ejemplo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Aritméticos</td>
+                    <td><code>+</code> <code>-</code> <code>*</code> <code>/</code> <code>%</code> (resto de la
+                        división) <code>DIV</code> (división entera)</td>
+                    <td><code>Precio * 1.21</code></td>
+                </tr>
+                <tr>
+                    <td>Comparación</td>
+                    <td><code>=</code> <code>&lt;&gt;</code> <code>!=</code> <code>&lt;</code> <code>&gt;</code>
+                        <code>&lt;=</code> <code>&gt;=</code></td>
+                    <td><code>Precio &gt;= 100</code></td>
+                </tr>
+                <tr>
+                    <td>Lógicos</td>
+                    <td><code>AND</code> <code>OR</code> <code>NOT</code></td>
+                    <td><code>Fabricante = 8 AND Precio &lt; 100</code></td>
+                </tr>
+                <tr>
+                    <td>Rango</td>
+                    <td><code>BETWEEN … AND …</code></td>
+                    <td><code>Precio BETWEEN 100 AND 200</code></td>
+                </tr>
+                <tr>
+                    <td>Lista</td>
+                    <td><code>IN (…)</code> <code>NOT IN (…)</code></td>
+                    <td><code>Fabricante IN (2, 5, 6)</code></td>
+                </tr>
+                <tr>
+                    <td>Patrón</td>
+                    <td><code>LIKE</code> con <code>%</code> y <code>_</code></td>
+                    <td><code>Nombre LIKE 'Monitor%'</code></td>
+                </tr>
+                <tr>
+                    <td>Vacío</td>
+                    <td><code>IS NULL</code> <code>IS NOT NULL</code></td>
+                    <td><code>Fabricante IS NULL</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="mb-2"><i class="bi bi-pencil me-1"></i><strong>Prueba a…</strong> sacar el nombre y el precio de los
+        artículos que cuestan entre 100 y 200 €, del más barato al más caro.</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT Nombre, Precio FROM Articulos;</textarea>
+        <script type="text/plain" class="solucion">SELECT Nombre, Precio
+FROM Articulos
+WHERE Precio BETWEEN 100 AND 200
+ORDER BY Precio;</script>
+    </div>
+    <p class="mb-2"><i class="bi bi-pencil me-1"></i><strong>Prueba a…</strong> sacar el nombre y el precio de los
+        tres artículos más caros de la tienda.</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT Nombre, Precio FROM Articulos;</textarea>
+        <script type="text/plain" class="solucion">SELECT Nombre, Precio
+FROM Articulos
+ORDER BY Precio DESC
+LIMIT 3;</script>
+    </div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-6/actividades/6-7"><strong>Actividad 6.7</strong>. Consultas a
+                una tabla</a></div>
+    </div>
+
+    <!-- ============================================================ 5 ============================================================ -->
+    <h2 class="mb-4 text-primary">5. Funciones y agrupación</h2>
+
+    <p>Hasta ahora cada fila del resultado era una fila de la tabla. Con las <strong>funciones de resumen</strong> la
+        base de datos hace cuentas con muchas filas a la vez: cuántos artículos hay, cuál es el precio medio… Y con
+        <code>GROUP BY</code>, esas cuentas se hacen por grupos: por ejemplo, por fabricante.</p>
+
+    <h3 class="mb-3 text-primary">Funciones de resumen</h3>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Función</th>
+                    <th scope="col">Qué devuelve</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>COUNT(*)</code></td>
+                    <td>Cuántas filas hay.</td>
+                </tr>
+                <tr>
+                    <td><code>COUNT(columna)</code></td>
+                    <td>Cuántas filas tienen un valor en esa columna (no cuenta los <code>NULL</code>).</td>
+                </tr>
+                <tr>
+                    <td><code>COUNT(DISTINCT columna)</code></td>
+                    <td>Cuántos valores distintos hay en esa columna.</td>
+                </tr>
+                <tr>
+                    <td><code>SUM(columna)</code></td>
+                    <td>La suma.</td>
+                </tr>
+                <tr>
+                    <td><code>AVG(columna)</code></td>
+                    <td>La media (<em>average</em>).</td>
+                </tr>
+                <tr>
+                    <td><code>MAX(columna)</code> / <code>MIN(columna)</code></td>
+                    <td>El valor más alto / más bajo.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>Todas se saltan los <code>NULL</code>. Sin <code>GROUP BY</code>, una consulta con estas funciones devuelve
+        <strong>una sola fila</strong>. Para que la media no salga con muchos decimales, usa
+        <code>ROUND(número, decimales)</code>. Si hay <code>WHERE</code>, las cuentas se hacen solo con las filas que lo
+        cumplen.</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT COUNT(*), COUNT(Fabricante), COUNT(DISTINCT Fabricante) FROM Articulos;
+SELECT MIN(Precio), MAX(Precio), ROUND(AVG(Precio), 2) AS Media, SUM(Precio) FROM Articulos;
+SELECT COUNT(*) AS Caros FROM Articulos WHERE Precio > 1000;</textarea>
+    </div>
+    <p>En el primer resultado sale 31, 29 y 8: hay 31 artículos, 29 tienen fabricante y entre todos son de 8 fabricantes
+        distintos. Una trampa habitual: <code>SELECT Nombre, MAX(Precio) FROM Articulos;</code> <strong>no</strong> da
+        el nombre del artículo más caro. Según la versión de MySQL, da error o un nombre cualquiera. Para eso, ordena y
+        usa <code>LIMIT 1</code>, o una subconsulta (apartado 7).</p>
+
+    <h3 class="mb-3 text-primary">Agrupar filas: GROUP BY</h3>
+    <p><code>GROUP BY columna</code> junta en un grupo todas las filas que tienen el mismo valor en esa columna y
+        calcula las funciones de resumen para cada grupo. El resultado tiene una fila por grupo.</p>
+    <pre><code class="language-sql">SELECT columna, FUNCIÓN(...)
+FROM tabla
+GROUP BY columna;</code></pre>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT Fabricante, COUNT(*) AS NumArticulos, ROUND(AVG(Precio), 2) AS PrecioMedio
+FROM Articulos
+GROUP BY Fabricante;</textarea>
+    </div>
+    <p>Los artículos sin fabricante forman su propio grupo, el de <code>NULL</code>. La regla de oro: en el
+        <code>SELECT</code> de una consulta con <code>GROUP BY</code> solo puede haber columnas que estén en el
+        <code>GROUP BY</code> y funciones de resumen.</p>
+
+    <h3 class="mb-3 text-primary">Filtrar grupos: HAVING</h3>
+    <p><code>HAVING</code> es como un <code>WHERE</code> para los grupos: va después del <code>GROUP BY</code> y puede
+        usar funciones de resumen. Por ejemplo, los fabricantes con más de 3 artículos:</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT Fabricante, COUNT(*) AS NumArticulos
+FROM Articulos
+GROUP BY Fabricante
+HAVING COUNT(*) > 3;
+
+-- WHERE y HAVING juntos: fabricantes con 3 o más artículos de más de 100 €
+SELECT Fabricante, COUNT(*) AS NumArticulos
+FROM Articulos
+WHERE Precio > 100
+GROUP BY Fabricante
+HAVING COUNT(*) >= 3;</textarea>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col"><code>WHERE</code></th>
+                    <th scope="col"><code>HAVING</code></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Filtra <strong>filas</strong>, antes de agrupar.</td>
+                    <td>Filtra <strong>grupos</strong>, después de agrupar.</td>
+                </tr>
+                <tr>
+                    <td>No puede usar <code>COUNT</code>, <code>SUM</code>, <code>AVG</code>…</td>
+                    <td>Se usa justo con esas funciones: <code>HAVING COUNT(*) &gt; 3</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>WHERE Precio &gt; 100</code>: solo cuentan los artículos de más de 100 €.</td>
+                    <td><code>HAVING AVG(Precio) &gt; 100</code>: solo salen los fabricantes cuya media pasa de 100 €.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3 class="mb-3 text-primary">El orden de las cláusulas</h3>
+    <p>Las partes de un <code>SELECT</code> se escriben siempre en este orden. Ninguna es obligatoria salvo las dos
+        primeras, pero las que pongas tienen que ir en su sitio:</p>
+    <pre><code class="language-sql">SELECT    columnas y funciones
+FROM      tabla
+WHERE     condición sobre las filas
+GROUP BY  columnas para agrupar
+HAVING    condición sobre los grupos
+ORDER BY  columnas para ordenar
+LIMIT     cantidad;</code></pre>
+
+    <h3 class="mb-3 text-primary">Otras funciones útiles</h3>
+    <p>Además de las de resumen, MySQL tiene muchas funciones que trabajan fila a fila. Algunas que te pueden venir
+        bien:</p>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Función</th>
+                    <th scope="col">Qué hace</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>CONCAT(a, b, …)</code></td>
+                    <td>Junta textos: <code>CONCAT(Nombre, ' (', Precio, ' €)')</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>UPPER(texto)</code> / <code>LOWER(texto)</code></td>
+                    <td>Pasa a mayúsculas / minúsculas.</td>
+                </tr>
+                <tr>
+                    <td><code>LENGTH(texto)</code></td>
+                    <td>Longitud de un texto. En MySQL cuenta bytes (una letra con tilde cuenta 2); para contar letras
+                        está <code>CHAR_LENGTH</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>ROUND(número, decimales)</code></td>
+                    <td>Redondea.</td>
+                </tr>
+                <tr>
+                    <td><code>NOW()</code> / <code>CURDATE()</code></td>
+                    <td>Fecha y hora de ahora / fecha de hoy.</td>
+                </tr>
+                <tr>
+                    <td><code>YEAR(fecha)</code> / <code>MONTH(fecha)</code></td>
+                    <td>El año / el mes de una fecha: <code>WHERE YEAR(Alta) = 2025</code>.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT CONCAT(Nombre, ' (', Precio, ' €)') AS Etiqueta, UPPER(Nombre), LENGTH(Nombre)
+FROM Articulos
+LIMIT 5;
+SELECT NOW(), CURDATE(), YEAR(CURDATE());</textarea>
+    </div>
+
+    <p class="mb-2"><i class="bi bi-pencil me-1"></i><strong>Prueba a…</strong> contar cuántos artículos cuestan
+        más de 500 €.</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT COUNT(*) FROM Articulos;</textarea>
+        <script type="text/plain" class="solucion">SELECT COUNT(*) FROM Articulos WHERE Precio > 500;</script>
+    </div>
+    <p class="mb-2"><i class="bi bi-pencil me-1"></i><strong>Prueba a…</strong> sacar, para cada fabricante (su
+        código), cuántos artículos tiene y el precio de su artículo más caro, pero solo de los fabricantes que tienen
+        3 artículos o más.</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT Fabricante FROM Articulos;</textarea>
+        <script type="text/plain" class="solucion">SELECT Fabricante, COUNT(*), MAX(Precio)
+FROM Articulos
+GROUP BY Fabricante
+HAVING COUNT(*) >= 3;</script>
+    </div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-6/actividades/6-8"><strong>Actividad 6.8</strong>. Funciones y
+                agrupación</a></div>
+    </div>
+
+    <!-- ============================================================ 6 ============================================================ -->
+    <h2 class="mb-4 text-primary">6. Consultas con varias tablas</h2>
+
+    <p>En la tabla <code>Articulos</code> no está el nombre del fabricante, solo su código: el nombre está en
+        <code>Fabricante</code>. Es lo normal en una base de datos bien diseñada, porque así cada dato se guarda una
+        sola vez. Para sacar «nombre del artículo y nombre de su fabricante» hay que <strong>unir</strong> (en inglés,
+        <em>join</em>) las dos tablas.</p>
+
+    <h3 class="mb-3 text-primary">El producto cartesiano</h3>
+    <p>Si pones dos tablas en el <code>FROM</code> separadas por una coma, sin más, SQL combina <strong>cada fila de la
+            primera con cada fila de la segunda</strong>. Es el producto cartesiano: 31 artículos × 10 fabricantes = 310
+        filas, casi todas sin sentido (el iPhone con Nokia, con Xiaomi, con Alcatel…).</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT COUNT(*) FROM Articulos, Fabricante;
+SELECT Articulos.Nombre, Fabricante.Nombre FROM Articulos, Fabricante LIMIT 12;</textarea>
+    </div>
+    <p>De todas esas combinaciones solo interesan las que emparejan cada artículo con <em>su</em> fabricante: aquellas
+        en las que <code>Articulos.Fabricante = Fabricante.Codigo</code>. Esa condición es la que pone el
+        <code>JOIN</code>.</p>
+
+    <h3 class="mb-3 text-primary">Unir dos tablas: INNER JOIN</h3>
+    <pre><code class="language-sql">SELECT columnas
+FROM Tabla1
+INNER JOIN Tabla2 ON Tabla1.columna = Tabla2.columna;</code></pre>
+    <p>Después de <code>ON</code> va la condición que empareja las filas: casi siempre, clave ajena = clave primaria.
+        Como las dos tablas tienen columnas que se llaman igual (<code>Codigo</code> y <code>Nombre</code>), hay que
+        poner delante el nombre de la tabla y un punto: <code>Fabricante.Nombre</code>. La palabra <code>INNER</code>
+        se puede omitir: <code>JOIN</code> a secas es lo mismo.</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT Articulos.Nombre, Articulos.Precio, Fabricante.Nombre AS Marca
+FROM Articulos
+INNER JOIN Fabricante ON Articulos.Fabricante = Fabricante.Codigo;</textarea>
+    </div>
+    <p>Salen 29 filas, no 31: <code>INNER JOIN</code> solo devuelve las filas que tienen pareja en la otra tabla, y el
+        cable y la alfombrilla no tienen fabricante. También verás escrita la unión a la antigua, con coma y
+        <code>WHERE</code>: <code>FROM Articulos, Fabricante WHERE Articulos.Fabricante = Fabricante.Codigo</code>. Da
+        el mismo resultado, pero con <code>JOIN</code> se lee mejor.</p>
+
+    <h3 class="mb-3 text-primary">Alias de tablas</h3>
+    <p>Para no escribir tantas veces el nombre de las tablas, se les da un nombre corto (un <strong>alias</strong>)
+        en el <code>FROM</code>, con o sin <code>AS</code>: <code>FROM Articulos A</code>. A partir de ahí se escribe
+        <code>A.Nombre</code>. Con la unión hecha, puedes añadir <code>WHERE</code>, <code>ORDER BY</code> y todo lo
+        demás, y usar columnas de las dos tablas:</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>-- Artículos de Apple, del más caro al más barato
+SELECT A.Nombre, A.Precio
+FROM Articulos A
+JOIN Fabricante F ON A.Fabricante = F.Codigo
+WHERE F.Nombre = 'Apple'
+ORDER BY A.Precio DESC;</textarea>
+    </div>
+
+    <h3 class="mb-3 text-primary">LEFT JOIN y RIGHT JOIN</h3>
+    <p>A veces interesan también las filas que <strong>no tienen pareja</strong>: los fabricantes sin artículos o los
+        artículos sin fabricante. Para eso están las uniones externas. <code>LEFT</code> (izquierda) es la tabla que
+        está antes del <code>JOIN</code> y <code>RIGHT</code> (derecha), la de después.</p>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Unión</th>
+                    <th scope="col">Qué devuelve</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>Fabricante F INNER JOIN Articulos A</code></td>
+                    <td>Solo las parejas fabricante-artículo. Ni Alcatel ni Sony ni el cable ni la alfombrilla.</td>
+                </tr>
+                <tr>
+                    <td><code>Fabricante F LEFT JOIN Articulos A</code></td>
+                    <td>Las parejas y, además, <strong>todos los fabricantes</strong>: Alcatel y Sony salen una vez,
+                        con las columnas del artículo a <code>NULL</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>Fabricante F RIGHT JOIN Articulos A</code></td>
+                    <td>Las parejas y, además, <strong>todos los artículos</strong>: el cable y la alfombrilla salen
+                        con las columnas del fabricante a <code>NULL</code>.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>Y aquí está el truco: como lo que no tiene pareja sale con <code>NULL</code>, si añades
+        <code>WHERE … IS NULL</code> te quedas <strong>solo</strong> con lo que no tiene pareja.</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>-- Todos los fabricantes, tengan artículos o no
+SELECT F.Nombre, A.Nombre
+FROM Fabricante F
+LEFT JOIN Articulos A ON A.Fabricante = F.Codigo;
+
+-- Fabricantes sin artículos
+SELECT F.Nombre
+FROM Fabricante F
+LEFT JOIN Articulos A ON A.Fabricante = F.Codigo
+WHERE A.Codigo IS NULL;
+
+-- Artículos sin fabricante
+SELECT A.Nombre
+FROM Fabricante F
+RIGHT JOIN Articulos A ON A.Fabricante = F.Codigo
+WHERE F.Codigo IS NULL;</textarea>
+    </div>
+    <p>Un <code>RIGHT JOIN</code> siempre se puede escribir como <code>LEFT JOIN</code> cambiando el orden de las
+        tablas: <code>FROM Articulos A LEFT JOIN Fabricante F …</code> da lo mismo que el último ejemplo.</p>
+
+    <h3 class="mb-3 text-primary">Unir y agrupar</h3>
+    <p>Las uniones se combinan con <code>GROUP BY</code>. Por ejemplo, cuántos artículos tiene cada fabricante, con su
+        nombre:</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT F.Nombre, COUNT(A.Codigo) AS NumArticulos
+FROM Fabricante F
+LEFT JOIN Articulos A ON A.Fabricante = F.Codigo
+GROUP BY F.Codigo, F.Nombre
+ORDER BY NumArticulos DESC;</textarea>
+    </div>
+    <p>Con <code>LEFT JOIN</code> salen también Alcatel y Sony, con 0. Fíjate en que se cuenta
+        <code>COUNT(A.Codigo)</code> y no <code>COUNT(*)</code>: la fila de Alcatel existe (con el artículo a
+        <code>NULL</code>), así que <code>COUNT(*)</code> contaría 1. Cámbialo y compruébalo.</p>
+
+    <div class="alert alert-light border small">
+        <i class="bi bi-lightbulb me-1"></i><strong>NATURAL JOIN.</strong> MySQL tiene también
+        <code>NATURAL JOIN</code>, que une las tablas por todas las columnas que se llaman igual, sin escribir el
+        <code>ON</code>. Parece cómodo, pero es peligroso: en la tienda, <code>Articulos NATURAL JOIN Fabricante</code>
+        exigiría que coincidieran <code>Codigo</code> y <code>Nombre</code> de las dos tablas, y no devuelve ninguna
+        fila. Mejor escribe siempre el <code>ON</code>.
+    </div>
+
+    <p class="mb-2"><i class="bi bi-pencil me-1"></i><strong>Prueba a…</strong> sacar el nombre, el precio y el
+        nombre del fabricante de los artículos que cuestan menos de 50 € (solo los que tienen fabricante), del más
+        barato al más caro.</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT Nombre, Precio FROM Articulos WHERE Precio &lt; 50;</textarea>
+        <script type="text/plain" class="solucion">SELECT A.Nombre, A.Precio, F.Nombre
+FROM Articulos A
+JOIN Fabricante F ON A.Fabricante = F.Codigo
+WHERE A.Precio < 50
+ORDER BY A.Precio;</script>
+    </div>
+    <p class="mb-2"><i class="bi bi-pencil me-1"></i><strong>Prueba a…</strong> sacar, para cada fabricante que
+        tiene artículos, su nombre y el precio medio de sus artículos redondeado a 2 decimales.</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT Fabricante, AVG(Precio) FROM Articulos GROUP BY Fabricante;</textarea>
+        <script type="text/plain" class="solucion">SELECT F.Nombre, ROUND(AVG(A.Precio), 2) AS PrecioMedio
+FROM Articulos A
+JOIN Fabricante F ON A.Fabricante = F.Codigo
+GROUP BY F.Codigo, F.Nombre;</script>
+    </div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-6/actividades/6-9"><strong>Actividad 6.9</strong>. Consultas
+                con varias tablas</a>. Y para repasar toda la parte de SQL: <a
+                href="#/Unidad-6/actividades/6-10"><strong>Actividad 6.10</strong>. Agencia de viajes</a> · <a
+                href="#/Unidad-6/actividades/6-11"><strong>Actividad 6.11</strong>. Biblioteca: autores y libros</a>
+        </div>
+    </div>
+
+    <!-- ============================================================ 7 ============================================================ -->
+    <h2 class="mb-4 text-primary">7. Subconsultas</h2>
+
+    <p class="nota-version"><i class="bi bi-rocket-takeoff"></i><strong>Para ir más allá.</strong>&nbsp;Las
+        subconsultas no son imprescindibles para empezar, pero resuelven de forma sencilla preguntas que de otra manera
+        serían difíciles.</p>
+
+    <p>Una <strong>subconsulta</strong> es un <code>SELECT</code> metido dentro de otro, entre paréntesis. Primero se
+        calcula la subconsulta y su resultado se usa en la consulta principal, casi siempre en el <code>WHERE</code>.
+        Por ejemplo, para saber qué artículos cuestan más que la media hay dos pasos: calcular la media y comparar
+        cada precio con ella. Con una subconsulta se hacen los dos a la vez:</p>
+    <pre><code class="language-sql">SELECT Nombre, Precio
+FROM Articulos
+WHERE Precio > (SELECT AVG(Precio) FROM Articulos);</code></pre>
+    <p>Hay dos casos:</p>
+    <ul>
+        <li>Si la subconsulta devuelve <strong>un solo valor</strong> (una fila y una columna, como una media o un
+            máximo), se compara con <code>=</code>, <code>&gt;</code>, <code>&lt;</code>…</li>
+        <li>Si devuelve <strong>una lista de valores</strong> (una columna con varias filas), se usa <code>IN</code> o
+            <code>NOT IN</code>. (También existen <code>ANY</code> y <code>ALL</code>, que no vas a necesitar.)</li>
+    </ul>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>-- Artículos más caros que la media
+SELECT Nombre, Precio FROM Articulos
+WHERE Precio > (SELECT AVG(Precio) FROM Articulos);
+
+-- El artículo más caro (con su nombre)
+SELECT Nombre, Precio FROM Articulos
+WHERE Precio = (SELECT MAX(Precio) FROM Articulos);
+
+-- Artículos de los fabricantes cuyo nombre empieza por S
+SELECT Nombre FROM Articulos
+WHERE Fabricante IN (SELECT Codigo FROM Fabricante WHERE Nombre LIKE 'S%');
+
+-- Fabricantes que no tienen ningún artículo
+SELECT Nombre FROM Fabricante
+WHERE Codigo NOT IN (SELECT Fabricante FROM Articulos WHERE Fabricante IS NOT NULL);</textarea>
+    </div>
+    <p>En el último ejemplo, el <code>WHERE Fabricante IS NOT NULL</code> de la subconsulta hace falta: si en la lista
+        de un <code>NOT IN</code> hay algún <code>NULL</code>, la consulta no devuelve nada (no se puede asegurar que un
+        valor sea distinto de uno desconocido). Quítalo y verás. Muchas consultas se pueden hacer con subconsulta o con
+        <code>JOIN</code>: usa la que entiendas mejor.</p>
+
+    <p class="mb-2"><i class="bi bi-pencil me-1"></i><strong>Prueba a…</strong> sacar el nombre y el precio de los
+        artículos de HP con una subconsulta: no escribas el código de HP, búscalo en la tabla <code>Fabricante</code>
+        por su nombre.</p>
+    <div class="sql-editor" data-bd="tienda">
+        <textarea>SELECT Nombre, Precio FROM Articulos;</textarea>
+        <script type="text/plain" class="solucion">SELECT Nombre, Precio
+FROM Articulos
+WHERE Fabricante = (SELECT Codigo FROM Fabricante WHERE Nombre = 'HP');</script>
+    </div>
+
+    <!-- ============================================================ 8 ============================================================ -->
+    <h2 class="mb-4 text-primary">8. Chuleta de SQL</h2>
+
+    <p>Todo lo de esta página en una hoja, para consultarla mientras haces las actividades. <code>T</code> es una tabla
+        y <code>c</code>, una columna.</p>
+
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <caption class="caption-top fw-bold">Crear</caption>
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Orden</th>
+                    <th scope="col">Para qué</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>CREATE DATABASE bd;</code> · <code>USE bd;</code></td>
+                    <td>Crear una base de datos y entrar en ella</td>
+                </tr>
+                <tr>
+                    <td><code>SHOW DATABASES;</code> · <code>SHOW TABLES;</code></td>
+                    <td>Ver las bases de datos / las tablas</td>
+                </tr>
+                <tr>
+                    <td><code>CREATE TABLE T (c TIPO opciones, …);</code></td>
+                    <td>Crear una tabla</td>
+                </tr>
+                <tr>
+                    <td><code>NOT NULL</code> · <code>DEFAULT v</code> · <code>AUTO_INCREMENT</code> ·
+                        <code>PRIMARY KEY</code> · <code>COMMENT 'nota'</code></td>
+                    <td>Opciones de una columna</td>
+                </tr>
+                <tr>
+                    <td><code>PRIMARY KEY (c1, c2)</code></td>
+                    <td>Clave primaria compuesta (al final del <code>CREATE TABLE</code>)</td>
+                </tr>
+                <tr>
+                    <td><code>FOREIGN KEY (c) REFERENCES T2(c2)</code><br><code>ON DELETE … ON UPDATE …</code></td>
+                    <td>Clave ajena. Opciones: <code>RESTRICT</code> (por defecto), <code>CASCADE</code>,
+                        <code>SET NULL</code></td>
+                </tr>
+                <tr>
+                    <td><code>DESCRIBE T;</code></td>
+                    <td>Ver la estructura de una tabla</td>
+                </tr>
+                <tr>
+                    <td><code>DROP TABLE T;</code> · <code>DROP DATABASE bd;</code></td>
+                    <td>Borrar una tabla / una base de datos</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <caption class="caption-top fw-bold">Modificar la estructura (<code>ALTER TABLE T …</code>)</caption>
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Orden</th>
+                    <th scope="col">Para qué</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>RENAME TO T2</code></td>
+                    <td>Cambiar el nombre de la tabla</td>
+                </tr>
+                <tr>
+                    <td><code>ADD c TIPO</code> · <code>… FIRST</code> · <code>… AFTER c2</code></td>
+                    <td>Añadir una columna al final / al principio / detrás de otra</td>
+                </tr>
+                <tr>
+                    <td><code>DROP COLUMN c</code></td>
+                    <td>Borrar una columna</td>
+                </tr>
+                <tr>
+                    <td><code>MODIFY c TIPO opciones</code></td>
+                    <td>Cambiar el tipo o las opciones de una columna</td>
+                </tr>
+                <tr>
+                    <td><code>CHANGE c nuevo TIPO opciones</code></td>
+                    <td>Cambiar el nombre (y el tipo) de una columna</td>
+                </tr>
+                <tr>
+                    <td><code>ADD PRIMARY KEY (c)</code> · <code>DROP PRIMARY KEY</code></td>
+                    <td>Poner / quitar la clave primaria</td>
+                </tr>
+                <tr>
+                    <td><code>ADD FOREIGN KEY (c) REFERENCES T2(c2)</code></td>
+                    <td>Añadir una clave ajena</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <caption class="caption-top fw-bold">Datos</caption>
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Orden</th>
+                    <th scope="col">Para qué</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>INSERT INTO T (c1, c2) VALUES (v1, v2), (v3, v4);</code></td>
+                    <td>Añadir filas</td>
+                </tr>
+                <tr>
+                    <td><code>INSERT INTO T SET c1 = v1, c2 = v2;</code></td>
+                    <td>Añadir una fila (solo MySQL)</td>
+                </tr>
+                <tr>
+                    <td><code>UPDATE T SET c = v WHERE condición;</code></td>
+                    <td>Cambiar datos (¡sin <code>WHERE</code> cambia todas las filas!)</td>
+                </tr>
+                <tr>
+                    <td><code>DELETE FROM T WHERE condición;</code></td>
+                    <td>Borrar filas (¡sin <code>WHERE</code> borra todas!)</td>
+                </tr>
+                <tr>
+                    <td><code>TRUNCATE T;</code></td>
+                    <td>Vaciar la tabla y reiniciar el <code>AUTO_INCREMENT</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <caption class="caption-top fw-bold">Consultas</caption>
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Orden</th>
+                    <th scope="col">Para qué</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>SELECT * FROM T;</code> · <code>SELECT c1, c2 FROM T;</code></td>
+                    <td>Ver todas las columnas / algunas</td>
+                </tr>
+                <tr>
+                    <td><code>c AS nombre</code> · <code>Precio * 1.21 AS PrecioIVA</code></td>
+                    <td>Cambiar el título de una columna / columna calculada</td>
+                </tr>
+                <tr>
+                    <td><code>SELECT DISTINCT c FROM T;</code></td>
+                    <td>Sin filas repetidas</td>
+                </tr>
+                <tr>
+                    <td><code>WHERE c = v</code> · <code>&lt;&gt;</code> <code>&lt;</code> <code>&gt;</code>
+                        <code>&lt;=</code> <code>&gt;=</code> · <code>AND</code> <code>OR</code> <code>NOT</code></td>
+                    <td>Filtrar filas</td>
+                </tr>
+                <tr>
+                    <td><code>BETWEEN a AND b</code> · <code>IN (a, b)</code> · <code>LIKE 'A%'</code> ·
+                        <code>IS NULL</code></td>
+                    <td>Rango (incluido) / lista / patrón (<code>%</code> varios caracteres, <code>_</code> uno) /
+                        vacío</td>
+                </tr>
+                <tr>
+                    <td><code>ORDER BY c1, c2 DESC</code></td>
+                    <td>Ordenar (<code>ASC</code> de menor a mayor, por defecto; <code>DESC</code> al revés)</td>
+                </tr>
+                <tr>
+                    <td><code>LIMIT n</code> · <code>LIMIT inicio, n</code></td>
+                    <td>Solo <em>n</em> filas / <em>n</em> filas saltándose las primeras</td>
+                </tr>
+                <tr>
+                    <td><code>COUNT(*)</code> <code>COUNT(DISTINCT c)</code> <code>SUM</code> <code>AVG</code>
+                        <code>MAX</code> <code>MIN</code> · <code>ROUND(x, 2)</code></td>
+                    <td>Funciones de resumen / redondear</td>
+                </tr>
+                <tr>
+                    <td><code>GROUP BY c</code> · <code>HAVING COUNT(*) &gt; 3</code></td>
+                    <td>Agrupar / filtrar grupos</td>
+                </tr>
+                <tr>
+                    <td><code>SELECT … FROM … WHERE … GROUP BY … HAVING … ORDER BY … LIMIT …</code></td>
+                    <td>Orden de las cláusulas</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <caption class="caption-top fw-bold">Varias tablas</caption>
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Orden</th>
+                    <th scope="col">Para qué</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>FROM T1 JOIN T2 ON T1.c = T2.c</code></td>
+                    <td>Unir: solo las filas que tienen pareja</td>
+                </tr>
+                <tr>
+                    <td><code>FROM Articulos A JOIN Fabricante F ON …</code></td>
+                    <td>Alias de tablas: después se escribe <code>A.Nombre</code></td>
+                </tr>
+                <tr>
+                    <td><code>FROM T1 LEFT JOIN T2 ON …</code></td>
+                    <td>Todas las filas de T1, tengan pareja o no</td>
+                </tr>
+                <tr>
+                    <td><code>FROM T1 RIGHT JOIN T2 ON …</code></td>
+                    <td>Todas las filas de T2, tengan pareja o no</td>
+                </tr>
+                <tr>
+                    <td><code>… LEFT JOIN T2 ON … WHERE T2.c IS NULL</code></td>
+                    <td>Solo las filas de T1 que no tienen pareja</td>
+                </tr>
+                <tr>
+                    <td><code>WHERE c &gt; (SELECT AVG(c) FROM T)</code> · <code>WHERE c IN (SELECT …)</code></td>
+                    <td>Subconsulta que devuelve un valor / una lista</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="fuente"><i class="bi bi-info-circle me-1"></i>Basado en el manual de MySQL de clase, que usa el curso
+        «MySQL con clase» (<a href="http://mysql.conclase.net/curso/" target="_blank"
+            rel="noopener noreferrer">mysql.conclase.net</a>) y el manual de referencia de MySQL (<a
+            href="https://dev.mysql.com/doc/refman/8.0/en/" target="_blank" rel="noopener noreferrer">dev.mysql.com</a>).
+    </p>
+</div>

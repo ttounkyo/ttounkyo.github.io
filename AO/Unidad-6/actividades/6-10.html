@@ -1,0 +1,591 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-6/index">Unidad 6</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-6/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">6.10</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 6.10. Agencia de viajes</h1>
+    <p class="lead">Una agencia de viajes guarda sus <strong>destinos</strong> y los <strong>paquetes</strong> que vende
+        a cada destino. Vas a crear su base de datos desde cero, a llenarla, a cambiar sus datos y a sacar información
+        con consultas: todo lo que has hecho en las actividades 6.5 a 6.9, junto.</p>
+
+    <div class="alert alert-info"><i class="bi bi-arrow-repeat me-1"></i><strong>Actividad de repaso.</strong> Los
+        pasos solo dicen qué hay que hacer, no cómo. Intenta hacerla sin mirar la teoría ni las soluciones: pulsa
+        <strong>Comprobar</strong> y, si falla, piensa por qué antes de abrir <strong>Ver la solución</strong>. Así
+        sabrás qué dominas y qué tienes que repasar.</div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li><code>CREATE TABLE</code> y <code>ALTER TABLE</code>, con clave primaria y clave ajena</li>
+                    <li><code>INSERT</code>, <code>UPDATE</code> y <code>DELETE</code></li>
+                    <li><code>SELECT</code> con <code>WHERE</code>, <code>ORDER BY</code>, <code>LIKE</code> y
+                        <code>AS</code></li>
+                    <li><code>JOIN</code>, <code>LEFT JOIN</code>, <code>GROUP BY</code> y <code>HAVING</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Si te atascas, la teoría está en
+                        <a href="#/Unidad-6/teoria-sql?sec=2-crear-y-modificar-tablas">2. Crear y modificar tablas</a>,
+                        <a href="#/Unidad-6/teoria-sql?sec=3-insertar-modificar-y-borrar-datos">3. Insertar, modificar
+                            y borrar</a>,
+                        <a href="#/Unidad-6/teoria-sql?sec=4-consultas-a-una-tabla">4. Consultas a una tabla</a>,
+                        <a href="#/Unidad-6/teoria-sql?sec=5-funciones-y-agrupacion">5. Funciones y agrupación</a> y
+                        <a href="#/Unidad-6/teoria-sql?sec=6-consultas-con-varias-tablas">6. Consultas con varias
+                            tablas</a>. Lo tienes todo resumido en la
+                        <a href="#/Unidad-6/teoria-sql?sec=8-chuleta-de-sql">chuleta de SQL</a>.</li>
+                    <li>Base de datos para phpMyAdmin:
+                        <a href="../AO/Unidad-6/bd/agencia.sql" download><i class="bi bi-download me-1"></i>agencia.sql</a>
+                        (10 destinos y 18 paquetes).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad6.10.sql</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Un archivo de texto con todas tus sentencias, en orden. Antes de cada apartado, escribe un
+                    comentario con el número del bloque y del paso: <code>-- 1.2</code>, <code>-- 1.3</code>…
+                    <code>-- 6.10</code>.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p class="nota-version"><i class="bi bi-info-circle"></i>Cada editor ya tiene hecho lo que necesita: en los
+        bloques 1 y 2, las tablas de los pasos anteriores; desde el bloque 3, la base de datos completa de
+        <code>agencia.sql</code>. Cada editor empieza siempre desde esos datos, aunque en otro hayas borrado o cambiado
+        filas. Pulsa <strong>Ver tablas</strong> para ver qué hay dentro.</p>
+
+    <h2 class="mb-4 text-primary">1. Crear la base de datos y las tablas</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea la base de datos</h3>
+            <p>Crea la base de datos <code>AgenciaViajes</code> y entra en ella.</p>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En los editores ya
+                trabajas dentro de una base de datos vacía, así que este paso no tiene editor. Escríbelo al principio
+                de tu archivo <code>.sql</code>: en phpMyAdmin sí hace falta.</div>
+        </li>
+        <li class="paso">
+            <h3>Crea la tabla Destinos</h3>
+            <p>Crea la tabla <code>Destinos</code> con dos columnas: <code>Codigo</code> (número entero) y
+                <code>Nombre</code> (texto de hasta 100 caracteres). Sin clave primaria: la añadirás en el paso
+                siguiente.</p>
+            <div class="sql-editor">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">CREATE TABLE Destinos (
+    Codigo INT,
+    Nombre VARCHAR(100)
+);
+DESCRIBE Destinos;</script>
+                <script type="text/plain" class="comprobar">ESTRUCTURA Destinos</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Clave primaria y país de Destinos</h3>
+            <p>Con <code>ALTER TABLE</code>, haz que <code>Codigo</code> sea la clave primaria de
+                <code>Destinos</code> y añade al final la columna <code>Pais</code> (texto de hasta 50 caracteres).</p>
+            <div class="sql-editor">
+                <textarea>-- La tabla Destinos ya está creada (paso 1.2)
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Destinos (Codigo INT, Nombre VARCHAR(100));</script>
+                <script type="text/plain" class="solucion">ALTER TABLE Destinos
+ADD PRIMARY KEY (Codigo),
+ADD COLUMN Pais VARCHAR(50);
+DESCRIBE Destinos;</script>
+                <script type="text/plain" class="comprobar">ESTRUCTURA Destinos</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Puedes usar dos
+                <code>ALTER TABLE</code> o uno solo con los dos cambios separados por una coma.</div>
+        </li>
+        <li class="paso">
+            <h3>Crea la tabla Paquetes</h3>
+            <p>Crea la tabla <code>Paquetes</code> con <code>Codigo</code> (entero y clave primaria, dentro del
+                propio <code>CREATE TABLE</code>) y <code>Nombre</code> (texto de hasta 150 caracteres).</p>
+            <div class="sql-editor">
+                <textarea>-- La tabla Destinos ya está terminada (pasos 1.2 y 1.3)
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Destinos (Codigo INT PRIMARY KEY, Nombre VARCHAR(100), Pais VARCHAR(50));</script>
+                <script type="text/plain" class="solucion">CREATE TABLE Paquetes (
+    Codigo INT PRIMARY KEY,
+    Nombre VARCHAR(150)
+);
+DESCRIBE Paquetes;</script>
+                <script type="text/plain" class="comprobar">ESTRUCTURA Paquetes</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Añade DestinoID y Precio</h3>
+            <p>Con <code>ALTER TABLE</code>, añade a <code>Paquetes</code> dos columnas:</p>
+            <ol>
+                <li>Primero <code>DestinoID</code>, un número entero.</li>
+                <li>Después <code>Precio</code>, un decimal con dos decimales (<code>DECIMAL(10,2)</code>), que tiene
+                    que quedar <strong>antes</strong> de <code>DestinoID</code>.</li>
+            </ol>
+            <p>Al final, las columnas de <code>Paquetes</code> deben quedar en este orden: <code>Codigo</code>,
+                <code>Nombre</code>, <code>Precio</code>, <code>DestinoID</code>.</p>
+            <div class="sql-editor">
+                <textarea>-- Las tablas Destinos y Paquetes ya están creadas
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Destinos (Codigo INT PRIMARY KEY, Nombre VARCHAR(100), Pais VARCHAR(50));
+CREATE TABLE Paquetes (Codigo INT PRIMARY KEY, Nombre VARCHAR(150));</script>
+                <script type="text/plain" class="solucion">ALTER TABLE Paquetes
+ADD COLUMN Precio DECIMAL(10,2) AFTER Nombre,
+ADD COLUMN DestinoID INT;
+DESCRIBE Paquetes;</script>
+                <script type="text/plain" class="comprobar">ESTRUCTURA Paquetes</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Relaciona Paquetes con Destinos</h3>
+            <p>Haz que <code>DestinoID</code> de <code>Paquetes</code> sea una clave ajena que apunte a
+                <code>Codigo</code> de <code>Destinos</code>.</p>
+            <div class="sql-editor">
+                <textarea>-- Las dos tablas ya tienen todas sus columnas
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Destinos (Codigo INT PRIMARY KEY, Nombre VARCHAR(100), Pais VARCHAR(50));
+CREATE TABLE Paquetes (Codigo INT PRIMARY KEY, Nombre VARCHAR(150), Precio DECIMAL(10,2), DestinoID INT);</script>
+                <script type="text/plain" class="solucion">ALTER TABLE Paquetes
+ADD CONSTRAINT FK_Paquetes_Destinos
+FOREIGN KEY (DestinoID) REFERENCES Destinos(Codigo);
+DESCRIBE Paquetes;</script>
+                <script type="text/plain" class="comprobar">CLAVES_AJENAS Paquetes</script>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">2. Insertar datos</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Inserta cuatro destinos</h3>
+            <p>Las tablas están vacías. Inserta estos destinos en <code>Destinos</code>:</p>
+            <table class="table table-sm table-bordered ajustes">
+                <thead>
+                    <tr><th scope="col">Codigo</th><th scope="col">Nombre</th><th scope="col">Pais</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>París</td><td>Francia</td></tr>
+                    <tr><td>2</td><td>Roma</td><td>Italia</td></tr>
+                    <tr><td>3</td><td>Nueva York</td><td>Estados Unidos</td></tr>
+                    <tr><td>4</td><td>Tokio</td><td>Japón</td></tr>
+                </tbody>
+            </table>
+            <div class="sql-editor">
+                <textarea>-- Las tablas están creadas y vacías
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Destinos (Codigo INT PRIMARY KEY, Nombre VARCHAR(100), Pais VARCHAR(50));
+CREATE TABLE Paquetes (Codigo INT PRIMARY KEY, Nombre VARCHAR(150), Precio DECIMAL(10,2), DestinoID INT,
+    CONSTRAINT FK_Paquetes_Destinos FOREIGN KEY (DestinoID) REFERENCES Destinos(Codigo));</script>
+                <script type="text/plain" class="solucion">INSERT INTO Destinos (Codigo, Nombre, Pais) VALUES
+(1, 'París', 'Francia'),
+(2, 'Roma', 'Italia'),
+(3, 'Nueva York', 'Estados Unidos'),
+(4, 'Tokio', 'Japón');
+SELECT * FROM Destinos;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Destinos ORDER BY Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Inserta dos paquetes</h3>
+            <p>Los cuatro destinos ya están guardados. Inserta estos dos paquetes en <code>Paquetes</code>:</p>
+            <table class="table table-sm table-bordered ajustes">
+                <thead>
+                    <tr><th scope="col">Codigo</th><th scope="col">Nombre</th><th scope="col">Precio</th><th scope="col">Destino</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Escapada romántica a París</td><td>599,99</td><td>París</td></tr>
+                    <tr><td>2</td><td>Aventura en Roma</td><td>499,99</td><td><em>Sin destino</em> (<code>NULL</code>)</td></tr>
+                </tbody>
+            </table>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En
+                <code>DestinoID</code> no va el nombre del destino, sino su <code>Codigo</code>. Y en SQL los decimales
+                se escriben con punto.</div>
+            <div class="sql-editor">
+                <textarea>-- Los destinos del paso 2.1 ya están insertados
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Destinos (Codigo INT PRIMARY KEY, Nombre VARCHAR(100), Pais VARCHAR(50));
+CREATE TABLE Paquetes (Codigo INT PRIMARY KEY, Nombre VARCHAR(150), Precio DECIMAL(10,2), DestinoID INT,
+    CONSTRAINT FK_Paquetes_Destinos FOREIGN KEY (DestinoID) REFERENCES Destinos(Codigo));
+INSERT INTO Destinos VALUES (1, 'París', 'Francia'), (2, 'Roma', 'Italia'), (3, 'Nueva York', 'Estados Unidos'), (4, 'Tokio', 'Japón');</script>
+                <script type="text/plain" class="solucion">INSERT INTO Paquetes (Codigo, Nombre, Precio, DestinoID) VALUES
+(1, 'Escapada romántica a París', 599.99, 1),
+(2, 'Aventura en Roma', 499.99, NULL);
+SELECT * FROM Paquetes;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Paquetes ORDER BY Codigo;</script>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">3. Consultar datos</h2>
+    <p>Desde aquí, los editores tienen la base de datos completa de <code>agencia.sql</code>. Si lo haces también en
+        phpMyAdmin, importa antes ese archivo: borra las tablas que has creado y las vuelve a crear con todos los
+        datos.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Nombres de los paquetes</h3>
+            <p>Obtén los nombres de todos los paquetes turísticos de la agencia.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre FROM Paquetes;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Todos los destinos</h3>
+            <p>Obtén todos los destinos de la agencia, con todas sus columnas.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT * FROM Destinos;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Paquetes del más caro al más barato</h3>
+            <p>Obtén el nombre y el precio de los paquetes, ordenados por precio de mayor a menor.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Precio
+FROM Paquetes
+ORDER BY Precio DESC;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Destinos por orden alfabético</h3>
+            <p>Obtén el nombre y el código de los destinos, ordenados alfabéticamente por nombre.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Codigo
+FROM Destinos
+ORDER BY Nombre ASC;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Precio con impuestos</h3>
+            <p>Obtén el nombre, el precio y el precio con impuestos (un 15 % más) de cada paquete. La última columna
+                se tiene que llamar <code>Precio Total</code>.</p>
+            <div class="sql-editor" data-bd="agencia" data-columnas>
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Precio, Precio * 1.15 AS 'Precio Total'
+FROM Paquetes;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Sumar un 15 % es lo mismo
+                que multiplicar por 1,15.</div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">4. Modificar datos</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Cambia el nombre del destino 2</h3>
+            <p>El destino con código 2 ahora se llama <code>Roma Antigua</code>. Cámbialo.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">UPDATE Destinos SET Nombre = 'Roma Antigua' WHERE Codigo = 2;
+SELECT * FROM Destinos;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Destinos ORDER BY Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Sube 50 € los paquetes baratos</h3>
+            <p>Aumenta en 50 € el precio de todos los paquetes que cuestan menos de 500 €.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">UPDATE Paquetes SET Precio = Precio + 50 WHERE Precio < 500;
+SELECT * FROM Paquetes;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Paquetes ORDER BY Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Baja 100 € los paquetes caros</h3>
+            <p>Reduce en 100 € el precio de todos los paquetes que cuestan más de 700 €.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">UPDATE Paquetes SET Precio = Precio - 100 WHERE Precio > 700;
+SELECT * FROM Paquetes;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Paquetes ORDER BY Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Da destino a los paquetes que no tienen</h3>
+            <p>Hay un paquete sin destino: «Aventura en Roma». A todos los paquetes que no tienen destino, asígnales
+                el destino Roma.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">UPDATE Paquetes SET DestinoID = 2 WHERE DestinoID IS NULL;
+SELECT * FROM Paquetes;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Paquetes ORDER BY Codigo;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Mira en la tabla
+                <code>Destinos</code> qué código tiene Roma.</div>
+        </li>
+        <li class="paso">
+            <h3>Sube un 20 % los paquetes Premium</h3>
+            <p>Aumenta un 20 % el precio de todos los paquetes que llevan la palabra <code>Premium</code> en el
+                nombre.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">UPDATE Paquetes SET Precio = Precio * 1.20 WHERE Nombre LIKE '%Premium%';
+SELECT * FROM Paquetes;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Paquetes ORDER BY Codigo;</script>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">5. Borrar datos</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Borra el destino Nueva York</h3>
+            <p>Elimina el destino Nueva York. Búscalo por su <code>Codigo</code>, no por el nombre.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">DELETE FROM Destinos WHERE Codigo = 3;
+SELECT * FROM Destinos;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Destinos ORDER BY Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Borra los paquetes de más de 899,99 €</h3>
+            <p>Elimina todos los paquetes que cuestan más de 899,99 €.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">DELETE FROM Paquetes WHERE Precio > 899.99;
+SELECT * FROM Paquetes;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Paquetes ORDER BY Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Borra los paquetes de entre 400 y 500 €</h3>
+            <p>Elimina todos los paquetes que cuestan entre 400 y 500 €.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">DELETE FROM Paquetes WHERE Precio BETWEEN 400 AND 500;
+SELECT * FROM Paquetes;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Paquetes ORDER BY Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Borra los paquetes sin destino</h3>
+            <p>Elimina los paquetes que no tienen destino.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">DELETE FROM Paquetes WHERE DestinoID IS NULL;
+SELECT * FROM Paquetes;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Paquetes ORDER BY Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Borra los paquetes con «tour»</h3>
+            <p>Elimina todos los paquetes que llevan la palabra <code>tour</code> en el nombre (da igual que esté
+                en mayúsculas o en minúsculas).</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu sentencia
+</textarea>
+                <script type="text/plain" class="solucion">DELETE FROM Paquetes WHERE Nombre LIKE '%tour%';
+SELECT * FROM Paquetes;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Paquetes ORDER BY Codigo;</script>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-4 text-primary">6. Consultas con varias tablas</h2>
+    <p>Diez consultas sobre los datos completos de <code>agencia.sql</code>. En casi todas necesitas juntar
+        <code>Paquetes</code> y <code>Destinos</code>.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Paquetes con el nombre de su destino</h3>
+            <p>Obtén un listado de los paquetes con su nombre, su precio y el nombre de su destino. Los paquetes sin
+                destino no salen.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT P.Nombre AS Paquete, P.Precio, D.Nombre AS Destino
+FROM Paquetes P
+INNER JOIN Destinos D ON P.DestinoID = D.Codigo;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Destinos con un precio medio de 600 € o más</h3>
+            <p>Obtén el nombre y el precio medio de sus paquetes de los destinos cuyo precio medio es mayor o igual a
+                600 €. Ordénalos por precio medio, de menor a mayor.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT D.Nombre, AVG(P.Precio) AS 'Precio Medio'
+FROM Destinos D
+INNER JOIN Paquetes P ON D.Codigo = P.DestinoID
+GROUP BY D.Nombre
+HAVING AVG(P.Precio) >= 600
+ORDER BY AVG(P.Precio) ASC;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Una condición sobre un
+                resultado de <code>AVG</code> no va en el <code>WHERE</code>.</div>
+        </li>
+        <li class="paso">
+            <h3>Número de paquetes de cada destino</h3>
+            <p>Obtén cuántos paquetes tiene cada destino, también los que no tienen ninguno. Dos columnas:
+                <code>Nombre</code> (del destino) y <code>Número de Paquetes</code>. Ordena de más a menos paquetes
+                y, si dos destinos tienen los mismos, por nombre.</p>
+            <div class="sql-editor" data-bd="agencia" data-columnas>
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT D.Nombre, COUNT(P.Codigo) AS 'Número de Paquetes'
+FROM Destinos D
+LEFT JOIN Paquetes P ON D.Codigo = P.DestinoID
+GROUP BY D.Nombre
+ORDER BY COUNT(P.Codigo) DESC, D.Nombre ASC;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Para que salgan también
+                los destinos sin paquetes no vale un <code>INNER JOIN</code>.</div>
+        </li>
+        <li class="paso">
+            <h3>Paquetes sin destino</h3>
+            <p>Obtén todos los datos de los paquetes que no tienen destino asignado.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT *
+FROM Paquetes
+WHERE DestinoID IS NULL;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Destinos sin paquetes</h3>
+            <p>Obtén el nombre de los destinos que no tienen ningún paquete, ordenados por nombre.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT D.Nombre
+FROM Destinos D
+LEFT JOIN Paquetes P ON D.Codigo = P.DestinoID
+WHERE P.Codigo IS NULL
+ORDER BY D.Nombre;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Precio máximo y mínimo de cada destino</h3>
+            <p>Obtén, para cada destino con paquetes, su nombre, el precio del paquete más caro y el del más
+                barato.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT D.Nombre,
+       MAX(P.Precio) AS 'Precio Máximo',
+       MIN(P.Precio) AS 'Precio Mínimo'
+FROM Destinos D
+INNER JOIN Paquetes P ON D.Codigo = P.DestinoID
+GROUP BY D.Nombre;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Destinos con paquetes de más de 800 €</h3>
+            <p>Obtén el nombre de los destinos que tienen algún paquete de más de 800 €, sin que se repita
+                ninguno.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT DISTINCT D.Nombre
+FROM Destinos D
+INNER JOIN Paquetes P ON D.Codigo = P.DestinoID
+WHERE P.Precio > 800;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Destinos con más de 3 paquetes</h3>
+            <p>Obtén el nombre de los destinos y su número de paquetes, pero solo de los que tienen más de 3.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT D.Nombre, COUNT(P.Codigo) AS 'Número de Paquetes'
+FROM Destinos D
+INNER JOIN Paquetes P ON D.Codigo = P.DestinoID
+GROUP BY D.Nombre
+HAVING COUNT(P.Codigo) > 3;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Cuántos destinos no tienen paquetes</h3>
+            <p>Obtén el número de destinos que no tienen ningún paquete. La columna se tiene que llamar
+                <code>Cantidad de destinos sin paquetes</code>.</p>
+            <div class="sql-editor" data-bd="agencia" data-columnas>
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT COUNT(*) AS 'Cantidad de destinos sin paquetes'
+FROM Destinos D
+LEFT JOIN Paquetes P ON D.Codigo = P.DestinoID
+WHERE P.Codigo IS NULL;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Paquetes de 500 € o más, ordenados</h3>
+            <p>Obtén el nombre y el precio de los paquetes que cuestan 500 € o más. Ordénalos por precio de mayor a
+                menor y, si dos cuestan lo mismo, por nombre de la A a la Z.</p>
+            <div class="sql-editor" data-bd="agencia">
+                <textarea>-- Escribe aquí tu consulta
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Precio
+FROM Paquetes
+WHERE Precio >= 500
+ORDER BY Precio DESC, Nombre ASC;</script>
+            </div>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="6-10">
+        <li><label><input type="checkbox"><span>El archivo se llama <code>ApellidoNombre_AO_Actividad6.10.sql</code> y
+                    tiene un comentario antes de cada apartado.</span></label></li>
+        <li><label><input type="checkbox"><span>Empieza con <code>CREATE DATABASE AgenciaViajes</code> y
+                    <code>USE</code>.</span></label></li>
+        <li><label><input type="checkbox"><span><code>Paquetes</code> queda con las columnas en este orden:
+                    <code>Codigo</code>, <code>Nombre</code>, <code>Precio</code>, <code>DestinoID</code>, y
+                    <code>DestinoID</code> es una clave ajena a <code>Destinos</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Los textos van entre comillas simples y los decimales, con
+                    punto.</span></label></li>
+        <li><label><input type="checkbox"><span>Ningún <code>UPDATE</code> ni <code>DELETE</code> se ha quedado sin
+                    su <code>WHERE</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Todos los editores dan «¡Correcto!» al pulsar Comprobar, y los que
+                    no te salieron a la primera los has repasado en la teoría.</span></label></li>
+    </ul>
+
+    <p class="mb-5">¿Quieres repasar también la teoría? Las preguntas de definiciones y tipos de relaciones están en la
+        <a href="#/Unidad-6/actividades/6-12">actividad 6.12. Preguntas de teoría</a>.</p>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-6/actividades/6-9"><i class="bi bi-arrow-left me-1"></i>Anterior: 6.9</a>
+        <a class="btn btn-primary" href="#/Unidad-6/actividades/6-11">Siguiente: 6.11. Biblioteca: autores y libros <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

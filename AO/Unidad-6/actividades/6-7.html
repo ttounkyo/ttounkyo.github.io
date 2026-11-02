@@ -1,0 +1,300 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-6/index">Unidad 6</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-6/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">6.7</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 6.7. Consultas a una tabla</h1>
+    <p class="lead">La tienda de informática ya tiene datos: 10 fabricantes y 31 artículos. Vas a sacar información de
+        ella con <code>SELECT</code>: elegir columnas, ordenar, calcular y, sobre todo, filtrar las filas con
+        <code>WHERE</code>.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li><code>SELECT</code> con columnas concretas o con <code>*</code></li>
+                    <li><code>ORDER BY</code>, <code>ASC</code> y <code>DESC</code></li>
+                    <li>Columnas calculadas y nombres de columna con <code>AS</code></li>
+                    <li><code>WHERE</code> con comparaciones, <code>AND</code>, <code>OR</code>, <code>BETWEEN</code>,
+                        <code>IN</code>, <code>LIKE</code> e <code>IS NULL</code></li>
+                    <li><code>DISTINCT</code> y <code>LIMIT</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-6/teoria-sql?sec=4-consultas-a-una-tabla">4. Consultas a una
+                            tabla</a></li>
+                    <li>Todos los editores tienen la tienda completa. Pulsa <strong>Ver tablas</strong> en cualquiera
+                        para ver los datos.</li>
+                    <li>Para hacerlo en phpMyAdmin, descarga <a href="../AO/Unidad-6/bd/tienda.sql"
+                            download>tienda.sql</a> e impórtalo.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad6.7.sql</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Un archivo de texto con todas tus consultas, en orden. Antes de cada una, escribe un comentario:
+                    <code>-- Paso 1a</code>, <code>-- Paso 1b</code>, <code>-- Paso 2a</code>…</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-info-circle"></i>Una consulta <code>SELECT</code> no cambia los datos:
+        puedes ejecutar todas las veces que quieras. Pulsa <strong>Ejecutar</strong> para ver el resultado y
+        <strong>Comprobar</strong> para saber si es el que se pide. Lo que escribes se guarda en este navegador.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Tus primeras consultas</h3>
+            <p><strong>a)</strong> Obtén los nombres de todos los artículos de la tienda (solo la columna
+                <code>Nombre</code>).</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Nombres de los artículos
+SELECT </textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre FROM Articulos;</script>
+            </div>
+            <p><strong>b)</strong> Obtén todos los fabricantes de la tienda, con todas sus columnas.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Todos los fabricantes
+</textarea>
+                <script type="text/plain" class="solucion">SELECT * FROM Fabricante;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>El asterisco
+                <code>*</code> quiere decir «todas las columnas». Es cómodo para echar un vistazo, pero cuando solo
+                necesitas algunas, escríbelas separadas por comas.</div>
+        </li>
+        <li class="paso">
+            <h3>Ordena los resultados</h3>
+            <p><strong>a)</strong> Obtén el nombre y el precio de los artículos, ordenados por precio <strong>de mayor
+                    a menor</strong>. Ordena solo por el precio.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Nombre y precio, del más caro al más barato
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Precio FROM Articulos ORDER BY Precio DESC;</script>
+            </div>
+            <p><strong>b)</strong> Obtén el nombre y el código de los fabricantes (en ese orden de columnas),
+                ordenados alfabéticamente por nombre.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Nombre y código de los fabricantes, de la A a la Z
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Codigo FROM Fabricante ORDER BY Nombre ASC;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i><code>ASC</code>
+                (ascendente: de menor a mayor, de la A a la Z) es el orden por defecto, así que se puede omitir.
+                Para el orden contrario hay que escribir <code>DESC</code>.</div>
+        </li>
+        <li class="paso">
+            <h3>Calcula columnas nuevas</h3>
+            <p>En el <code>SELECT</code> puedes poner operaciones (<code>+</code>, <code>-</code>, <code>*</code>,
+                <code>/</code>). Con <code>AS</code> le das a la columna el nombre que quieras; si lleva espacios,
+                escríbelo entre comillas.</p>
+            <p><strong>a)</strong> Obtén el nombre, el precio y el precio multiplicado por 100 (lo que costarían 100
+                unidades). Esa tercera columna tiene que llamarse <strong>Precio Total</strong>.</p>
+            <div class="sql-editor" data-bd="tienda" data-columnas>
+                <textarea>-- Nombre, Precio y Precio Total (precio x 100)
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Precio, Precio * 100 AS 'Precio Total' FROM Articulos;</script>
+            </div>
+            <p><strong>b)</strong> Los precios de la tienda no llevan IVA. Obtén el nombre, el precio y el precio con
+                el 21 % de IVA (multiplicar por 1,21) en una columna llamada <strong>Precio con IVA</strong>.</p>
+            <div class="sql-editor" data-bd="tienda" data-columnas>
+                <textarea>-- Nombre, Precio y Precio con IVA
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Precio, Precio * 1.21 AS 'Precio con IVA' FROM Articulos;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Estas columnas calculadas
+                solo existen en el resultado de la consulta: la tabla <code>Articulos</code> no cambia.</div>
+        </li>
+        <li class="paso">
+            <h3>Filtra filas con WHERE</h3>
+            <p><code>WHERE</code> se queda solo con las filas que cumplen una condición. Para comparar tienes
+                <code>=</code>, <code>&lt;&gt;</code> (distinto), <code>&lt;</code>, <code>&gt;</code>,
+                <code>&lt;=</code> y <code>&gt;=</code>.</p>
+            <p><strong>a)</strong> Obtén el nombre y el precio de los artículos que cuestan <strong>menos de
+                    100 €</strong>.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Artículos de menos de 100 €
+SELECT Nombre, Precio FROM Articulos
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Precio FROM Articulos WHERE Precio < 100;</script>
+            </div>
+            <p><strong>b)</strong> Obtén el nombre y el precio de los artículos del fabricante 4 (MSI), ordenados por
+                precio de menor a mayor.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Artículos de MSI, del más barato al más caro
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Precio FROM Articulos WHERE Fabricante = 4 ORDER BY Precio;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>El orden de las partes es
+                siempre el mismo: <code>SELECT</code> … <code>FROM</code> … <code>WHERE</code> …
+                <code>ORDER BY</code> … Si pones el <code>ORDER BY</code> antes del <code>WHERE</code>, da error.</div>
+        </li>
+        <li class="paso">
+            <h3>Junta condiciones con AND y OR</h3>
+            <p>Con <code>AND</code> se tienen que cumplir las dos condiciones; con <code>OR</code>, basta con que se
+                cumpla una.</p>
+            <p><strong>a)</strong> Obtén el nombre y el precio de los artículos del fabricante 8 (HP) que cuestan menos
+                de 100 €.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Artículos de HP de menos de 100 €
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Precio FROM Articulos WHERE Fabricante = 8 AND Precio < 100;</script>
+            </div>
+            <p><strong>b)</strong> Obtén el nombre y el precio de los artículos «extremos»: los que cuestan menos de
+                20 € o más de 2000 €.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Artículos de menos de 20 € o de más de 2000 €
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Precio FROM Articulos WHERE Precio < 20 OR Precio > 2000;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En el b), con
+                <code>AND</code> no saldría nada: ningún precio es a la vez menor que 20 y mayor que 2000. Pruébalo.</div>
+        </li>
+        <li class="paso">
+            <h3>Rangos y listas: BETWEEN e IN</h3>
+            <p><strong>a)</strong> Obtén el nombre y el precio de los artículos que cuestan entre 100 y 300 €
+                (incluidos). Usa <code>BETWEEN</code>.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Artículos entre 100 y 300 €
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Precio FROM Articulos WHERE Precio BETWEEN 100 AND 300;</script>
+            </div>
+            <p><strong>b)</strong> Obtén el nombre y el código de fabricante de los artículos de Nokia, Xiaomi y Apple
+                (fabricantes 1, 2 y 6). Usa <code>IN</code>.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Artículos de los fabricantes 1, 2 y 6
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Fabricante FROM Articulos WHERE Fabricante IN (1, 2, 6);</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i><code>Fabricante IN (1, 2,
+                    6)</code> es una forma corta de escribir <code>Fabricante = 1 OR Fabricante = 2 OR Fabricante =
+                    6</code>.</div>
+        </li>
+        <li class="paso">
+            <h3>Busca por partes del texto con LIKE</h3>
+            <p>En <code>LIKE</code>, <code>%</code> vale por «cualquier texto» (también ninguno) y <code>_</code> por
+                «un carácter cualquiera».</p>
+            <p><strong>a)</strong> Obtén el nombre y el precio de los artículos cuyo nombre <strong>empieza
+                    por</strong> «Portátil».</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Artículos que empiezan por Portátil
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Precio FROM Articulos WHERE Nombre LIKE 'Portátil%';</script>
+            </div>
+            <p><strong>b)</strong> Obtén el nombre de todos los artículos que tienen la palabra «ratón» en
+                cualquier parte del nombre.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Artículos con 'ratón' en el nombre
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre FROM Articulos WHERE Nombre LIKE '%ratón%';</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Tienen que salir 4: los
+                tres ratones y la alfombrilla de ratón. <code>LIKE</code> no distingue mayúsculas de minúsculas, así
+                que <code>'%ratón%'</code> también encuentra «Ratón». Si te salen 3, revisa dónde has puesto los
+                <code>%</code>.</div>
+        </li>
+        <li class="paso">
+            <h3>Busca valores vacíos con IS NULL</h3>
+            <p><strong>a)</strong> Obtén todos los datos de los artículos que no tienen fabricante.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Artículos sin fabricante
+</textarea>
+                <script type="text/plain" class="solucion">SELECT * FROM Articulos WHERE Fabricante IS NULL;</script>
+            </div>
+            <p><strong>b)</strong> Obtén el nombre y el precio de los artículos que <strong>sí tienen</strong>
+                fabricante y cuestan menos de 15 €.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Artículos con fabricante y de menos de 15 €
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Precio FROM Articulos WHERE Fabricante IS NOT NULL AND Precio < 15;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i><code>WHERE Fabricante =
+                    NULL</code> no da error, pero devuelve 0 filas: un valor vacío no es igual a nada, ni siquiera a
+                otro vacío. Usa siempre <code>IS NULL</code> o <code>IS NOT NULL</code>.</div>
+        </li>
+        <li class="paso">
+            <h3>Quita repetidos con DISTINCT</h3>
+            <p>¿Qué fabricantes tienen algún artículo de más de 1000 €? Obtén solo la columna
+                <code>Fabricante</code> de <code>Articulos</code>, <strong>sin repetir</strong> ningún código.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Códigos de fabricante con artículos de más de 1000 €, sin repetir
+SELECT Fabricante FROM Articulos WHERE Precio > 1000;</textarea>
+                <script type="text/plain" class="solucion">SELECT DISTINCT Fabricante FROM Articulos WHERE Precio > 1000;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Ejecuta primero la consulta
+                tal como está: el 4 y el 6 salen dos veces porque MSI y Apple tienen dos artículos de más de 1000 €.
+                <code>DISTINCT</code> va justo después de <code>SELECT</code>.</div>
+        </li>
+        <li class="paso">
+            <h3>Quédate con los primeros con LIMIT</h3>
+            <p><code>LIMIT n</code>, al final de la consulta, se queda con las <em>n</em> primeras filas. Junto con
+                <code>ORDER BY</code> sirve para sacar «los más caros» o «el más barato».</p>
+            <p><strong>a)</strong> Obtén el nombre y el precio de los <strong>3 artículos más caros</strong>.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Los 3 más caros
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Precio FROM Articulos ORDER BY Precio DESC LIMIT 3;</script>
+            </div>
+            <p><strong>b)</strong> Obtén el nombre y el precio del artículo <strong>más barato</strong> de la
+                tienda.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- El más barato
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Nombre, Precio FROM Articulos ORDER BY Precio ASC LIMIT 1;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Sin <code>ORDER BY</code>,
+                <code>LIMIT 3</code> te da 3 filas cualquiera (las primeras que encuentre), no las 3 más caras.</div>
+        </li>
+        <li class="paso">
+            <h3>Junta todo en tu archivo</h3>
+            <p>Copia en un archivo de texto, en orden, las consultas de los pasos 1 a 10, cada una con su comentario
+                (<code>-- Paso 1a</code>, <code>-- Paso 1b</code>…), y guárdalo como
+                <code>ApellidoNombre_AO_Actividad6.7.sql</code>.</p>
+            <p>Si tienes XAMPP, importa <a href="../AO/Unidad-6/bd/tienda.sql" download>tienda.sql</a> en phpMyAdmin
+                y pega tus consultas en la pestaña <span class="ruta-menu">SQL</span>: tienen que dar los mismos
+                resultados que aquí.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="6-7">
+        <li><label><input type="checkbox"><span>El archivo se llama <code>ApellidoNombre_AO_Actividad6.7.sql</code> y
+                    tiene un comentario antes de cada consulta.</span></label></li>
+        <li><label><input type="checkbox"><span>Cada consulta pide solo las columnas que se piden, en el mismo
+                    orden.</span></label></li>
+        <li><label><input type="checkbox"><span>Las columnas calculadas se llaman exactamente <em>Precio Total</em> y
+                    <em>Precio con IVA</em>.</span></label></li>
+        <li><label><input type="checkbox"><span>Las partes van en orden: <code>SELECT</code>, <code>FROM</code>,
+                    <code>WHERE</code>, <code>ORDER BY</code>, <code>LIMIT</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Uso <code>IS NULL</code> para buscar valores vacíos.</span></label></li>
+        <li><label><input type="checkbox"><span>Todas las consultas dan «¡Correcto!» al pulsar Comprobar.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-6/actividades/6-6"><i class="bi bi-arrow-left me-1"></i>Anterior: 6.6</a>
+        <a class="btn btn-primary" href="#/Unidad-6/actividades/6-8">Siguiente: 6.8. Funciones y agrupación <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

@@ -1,0 +1,316 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-6/index">Unidad 6</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-6/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">6.1</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 6.1. Biblioteca escolar: diagrama E-R</h1>
+    <p class="lead">Vas a diseñar la base de datos de la biblioteca del instituto: qué datos hay que guardar, de qué
+        tipo es cada uno y cómo se relacionan. Al final lo dibujarás en un diagrama entidad-relación.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Encontrar las entidades y los atributos en un enunciado</li>
+                    <li>Elegir la clave primaria de cada entidad</li>
+                    <li>Elegir el tipo de dato de MySQL de cada atributo</li>
+                    <li>Relaciones y cardinalidad (1:N, N:M)</li>
+                    <li>Dibujar un diagrama E-R con la notación de Chen</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-6/teoria-diseno?sec=3-el-modelo-entidad-relacion">3. El modelo
+                            entidad-relación</a> y <a href="#/Unidad-6/teoria-diseno?sec=5-tipos-de-datos">5. Tipos de
+                            datos</a></li>
+                    <li>Para el último paso: <a href="#/Unidad-6/teoria-diseno?sec=4-del-diagrama-a-las-tablas">4. Del
+                            diagrama a las tablas</a></li>
+                    <li>Para dibujar: papel y lápiz, o <a href="https://app.diagrams.net/" target="_blank"
+                            rel="noopener">draw.io (diagrams.net)</a>, gratis y sin instalar nada.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad6.1</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Formato</th>
+                <td>Un documento PDF</td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Las respuestas de los pasos 1 a 4 y el diagrama E-R del paso 5: una foto del dibujo hecho a mano
+                    o la imagen exportada de draw.io.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-3 text-primary">El caso</h2>
+    <p>Un instituto quiere llevar el control de los libros que la biblioteca presta a los alumnos. Necesita una base
+        de datos pequeña con esta información:</p>
+    <ul>
+        <li><strong>Alumnos:</strong> nombre, apellidos y un número que identifica a cada alumno (el DNI o el número de
+            estudiante).</li>
+        <li><strong>Libros:</strong> título, autor y un código único para cada libro.</li>
+        <li><strong>Préstamos:</strong> qué alumno se ha llevado qué libro, en qué fecha se lo ha llevado y cuándo
+            tiene que devolverlo.</li>
+    </ul>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-info-circle"></i>Escribe tu respuesta de cada paso en el documento
+        <strong>antes</strong> de abrir la solución. Si la tuya es distinta, no la borres: corrígela al lado y anota
+        por qué.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Identifica las entidades</h3>
+            <p>Una <strong>entidad</strong> es una cosa de la que quieres guardar datos y de la que habrá muchos
+                ejemplares: muchos alumnos, muchos libros… Busca los sustantivos importantes del caso.</p>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Piensa en el préstamo: ¿es
+                una cosa que existe por sí sola, o es algo que <em>pasa</em> entre un alumno y un libro?</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <p class="mt-2">Hay dos entidades: <strong>ALUMNO</strong> y <strong>LIBRO</strong>.</p>
+                <p>El préstamo no existe sin un alumno y un libro: es lo que <em>une</em> a los dos. Por eso en el
+                    diagrama E-R se dibuja como una <strong>relación</strong> (un rombo) llamada PRÉSTAMO, que además
+                    tiene sus propios datos: las fechas.</p>
+                <p>Si has puesto PRÉSTAMO como tercera entidad, no es un error grave: cuando pases el diseño a tablas,
+                    el préstamo acabará teniendo su propia tabla (lo verás en el paso 5).</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Decide los atributos de cada entidad</h3>
+            <p>Los <strong>atributos</strong> son los datos que guardas de cada entidad. Escribe la lista de cada una y
+                marca cuál es su <strong>clave primaria</strong>: el dato que distingue a un ejemplar de todos los
+                demás.</p>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Dos alumnos pueden
+                llamarse igual, pero ¿pueden tener el mismo DNI? Y las fechas, ¿son de un alumno, de un libro o del
+                préstamo?</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <table class="table table-sm table-bordered mt-2">
+                    <thead>
+                        <tr>
+                            <th>Entidad o relación</th>
+                            <th>Atributos</th>
+                            <th>Clave primaria</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ALUMNO</td>
+                            <td>DNI, nombre, apellidos</td>
+                            <td>DNI (o el número de estudiante)</td>
+                        </tr>
+                        <tr>
+                            <td>LIBRO</td>
+                            <td>código, título, autor</td>
+                            <td>código</td>
+                        </tr>
+                        <tr>
+                            <td>PRÉSTAMO (relación)</td>
+                            <td>fecha_préstamo, fecha_devolución</td>
+                            <td>—</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Las fechas no pueden ir en ALUMNO: un alumno se lleva libros muchas veces, cada vez en una fecha
+                    distinta. Tampoco en LIBRO, por lo mismo. Las fechas son de cada préstamo, así que son atributos de
+                    la relación.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Elige el tipo de dato de cada atributo</h3>
+            <p>Para cada atributo, escribe el tipo de dato de MySQL que usarías y, si es un texto, cuántos caracteres
+                como máximo.</p>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En MySQL no existe un tipo
+                «string»: un texto es <code>CHAR</code>, <code>VARCHAR</code> o <code>TEXT</code>. El DNI lleva una
+                letra, así que no es un número. ¿Y para las fechas?</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <table class="table table-sm table-bordered mt-2">
+                    <thead>
+                        <tr>
+                            <th>Atributo</th>
+                            <th>Tipo</th>
+                            <th>Por qué</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>DNI</td>
+                            <td><code>CHAR(9)</code></td>
+                            <td>Siempre 8 números y una letra: 9 caracteres fijos.</td>
+                        </tr>
+                        <tr>
+                            <td>nombre</td>
+                            <td><code>VARCHAR(50)</code></td>
+                            <td>Texto de largo variable.</td>
+                        </tr>
+                        <tr>
+                            <td>apellidos</td>
+                            <td><code>VARCHAR(80)</code></td>
+                            <td>Texto de largo variable (dos apellidos).</td>
+                        </tr>
+                        <tr>
+                            <td>código</td>
+                            <td><code>VARCHAR(10)</code></td>
+                            <td>Códigos como <code>L0001</code>. Si solo fueran números, valdría <code>INT</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>título</td>
+                            <td><code>VARCHAR(150)</code></td>
+                            <td>Hay títulos largos.</td>
+                        </tr>
+                        <tr>
+                            <td>autor</td>
+                            <td><code>VARCHAR(100)</code></td>
+                            <td>Nombre y apellidos del autor.</td>
+                        </tr>
+                        <tr>
+                            <td>fecha_préstamo, fecha_devolución</td>
+                            <td><code>DATE</code></td>
+                            <td>Solo hace falta el día, no la hora.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Los tamaños son orientativos: <code>VARCHAR(40)</code> o <code>VARCHAR(60)</code> para el nombre
+                    también están bien. Lo importante es elegir bien la familia (texto, número o fecha).</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Establece las relaciones y su cardinalidad</h3>
+            <p>Escribe qué entidades se relacionan, con qué verbo o nombre, y la <strong>cardinalidad</strong> (1:1,
+                1:N o N:M). Explícala con una frase en cada sentido.</p>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Hazte dos preguntas: a lo
+                largo del curso, ¿cuántos libros puede llevarse un alumno? ¿Y cuántos alumnos distintos pueden llevarse
+                el mismo libro, uno detrás de otro?</div>
+            <details>
+                <summary>Ver la solución</summary>
+                <p class="mt-2">Hay una relación, <strong>PRÉSTAMO</strong>, entre ALUMNO y LIBRO. Su cardinalidad es
+                    <strong>N:M</strong> (muchos a muchos):</p>
+                <ul>
+                    <li>Un alumno puede llevarse <strong>muchos</strong> libros (en distintas fechas).</li>
+                    <li>Un libro puede prestarse a <strong>muchos</strong> alumnos (uno detrás de otro).</li>
+                </ul>
+                <p>La relación tiene dos atributos: <code>fecha_préstamo</code> y <code>fecha_devolución</code>.</p>
+                <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En un momento concreto,
+                    un libro solo lo tiene un alumno. Pero la base de datos guarda el <strong>historial</strong> de
+                    préstamos, y con el tiempo el mismo libro pasa por muchas manos. Por eso es N:M y no 1:N.</div>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Dibuja el diagrama E-R</h3>
+            <p>Dibuja el diagrama con la notación de Chen: entidades en <strong>rectángulos</strong>, relaciones en
+                <strong>rombos</strong> y atributos en <strong>elipses</strong>, con la clave primaria subrayada.
+                Escribe la cardinalidad junto a cada entidad, en la línea que la une con el rombo.</p>
+            <p>Puedes hacerlo a mano (con regla, y luego una foto bien enfocada y derecha) o con draw.io:</p>
+            <ol>
+                <li>Entra en <a href="https://app.diagrams.net/" target="_blank" rel="noopener">app.diagrams.net</a>,
+                    elige guardar en <span class="ruta-menu">Dispositivo</span> y crea un <span
+                        class="ruta-menu">Diagrama en blanco</span>.</li>
+                <li>Abajo a la izquierda pulsa <span class="ruta-menu">+ Más formas</span>, marca <span
+                        class="ruta-menu">Entidad Relación</span> (<em>Entity Relation</em>) y pulsa <span
+                        class="ruta-menu">Aplicar</span>. Aparece un grupo de formas con la entidad, la relación, el
+                    atributo, el atributo multivaluado…</li>
+                <li>Arrastra las formas al lienzo y haz doble clic para escribir el texto. Para subrayar la clave,
+                    selecciona el texto y pulsa <kbd>Ctrl</kbd>+<kbd>U</kbd>.</li>
+                <li>Para unir dos formas, pasa el ratón por encima de una y arrastra la flechita azul hasta la otra.
+                    En el panel de la derecha puedes quitar la punta de flecha. Para la cardinalidad, haz doble clic
+                    sobre la línea y escribe <code>1</code>, <code>N</code> o <code>M</code>.</li>
+                <li>Exporta con <span class="ruta-menu">Archivo → Exportar como → PNG</span> y pega la imagen en tu
+                    documento.</li>
+            </ol>
+            <p class="nota-version"><i class="bi bi-arrow-repeat"></i>draw.io se actualiza a menudo y algún menú
+                puede cambiar de nombre. Si no encuentras las formas, usa el rectángulo, el rombo y la elipse del grupo
+                <em>General</em>: valen igual.</p>
+            <details>
+                <summary>Ver la solución</summary>
+                <figure class="diagrama">
+<svg class="er" viewBox="-141 -132 732 264" role="img" aria-label="Diagrama E-R de la biblioteca escolar">
+<line x1="0" y1="0" x2="-75" y2="-80"/>
+<line x1="0" y1="0" x2="35" y2="-95"/>
+<line x1="0" y1="0" x2="-75" y2="80"/>
+<line x1="460" y1="0" x2="535" y2="-80"/>
+<line x1="460" y1="0" x2="425" y2="-95"/>
+<line x1="460" y1="0" x2="535" y2="80"/>
+<line x1="230" y1="0" x2="0" y2="0"/>
+<line x1="230" y1="0" x2="460" y2="0"/>
+<line x1="230" y1="0" x2="150" y2="95"/>
+<line x1="230" y1="0" x2="315" y2="95"/>
+<g class="atributo clave"><ellipse cx="-75" cy="-80" rx="36" ry="17"/><text x="-75" y="-80">DNI</text><line x1="-85" y1="-71" x2="-65" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+<g class="atributo"><ellipse cx="35" cy="-95" rx="36" ry="17"/><text x="35" y="-95">nombre</text></g>
+<g class="atributo"><ellipse cx="-75" cy="80" rx="46" ry="17"/><text x="-75" y="80">apellidos</text></g>
+<g class="entidad"><rect x="-55" y="-22.0" width="110" height="44" rx="3"/><text x="0" y="0">ALUMNO</text></g>
+<g class="atributo clave"><ellipse cx="535" cy="-80" rx="36" ry="17"/><text x="535" y="-80">código</text><line x1="515" y1="-71" x2="555" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+<g class="atributo"><ellipse cx="425" cy="-95" rx="36" ry="17"/><text x="425" y="-95">título</text></g>
+<g class="atributo"><ellipse cx="535" cy="80" rx="36" ry="17"/><text x="535" y="80">autor</text></g>
+<g class="entidad"><rect x="405" y="-22.0" width="110" height="44" rx="3"/><text x="460" y="0">LIBRO</text></g>
+<g class="atributo"><ellipse cx="150" cy="95" rx="64" ry="17"/><text x="150" y="95">fecha_préstamo</text></g>
+<g class="atributo"><ellipse cx="315" cy="95" rx="72" ry="17"/><text x="315" y="95">fecha_devolución</text></g>
+<g class="relacion"><polygon points="230,-32.0 290.0,0 230,32.0 170.0,0"/><text x="230" y="0">PRÉSTAMO</text></g>
+<text class="card" x="75" y="-12">N</text>
+<text class="card" x="385" y="-12">M</text>
+</svg>
+<figcaption>Diagrama E-R de la biblioteca escolar en notación de Chen</figcaption>
+</figure>
+                <p>Se lee así: «un alumno (N) toma prestados libros (M); cada préstamo tiene una fecha de préstamo y
+                    una de devolución».</p>
+                <h4 class="h6 mt-4">Y después: las tablas</h4>
+                <p>Cuando pases este diagrama a tablas, una relación N:M se convierte en <strong>una tabla
+                        propia</strong>. Así el préstamo, que en el diagrama es un rombo, acaba siendo la tabla
+                    PRESTAMO, con las claves de las otras dos tablas como claves ajenas y con las fechas:</p>
+                <div class="esquema">
+                    <p>ALUMNO (<u>DNI</u>, nombre, apellidos)</p>
+                    <p>LIBRO (<u>codigo</u>, titulo, autor)</p>
+                    <p>PRESTAMO (<u>id_prestamo</u>, <em>DNI_alumno</em>, <em>codigo_libro</em>, fecha_prestamo,
+                        fecha_devolucion)</p>
+                </div>
+                <p>Subrayado: clave primaria. En cursiva: clave ajena. ¿Por qué un <code>id_prestamo</code> y no la
+                    pareja DNI + código? Porque un alumno puede volver a llevarse el mismo libro otro día, y entonces
+                    esa pareja se repetiría. Otra opción válida es usar como clave
+                    (<code>DNI_alumno</code>, <code>codigo_libro</code>, <code>fecha_prestamo</code>).</p>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="6-1">
+        <li><label><input type="checkbox"><span>El documento es un PDF y se llama
+                    <code>ApellidoNombre_AO_Actividad6.1</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Están las dos entidades, ALUMNO y LIBRO, y el préstamo aparece como
+                    relación entre ellas.</span></label></li>
+        <li><label><input type="checkbox"><span>Cada entidad tiene su clave primaria (DNI y código) subrayada en el
+                    diagrama.</span></label></li>
+        <li><label><input type="checkbox"><span>Los tipos de datos son de MySQL (<code>CHAR</code>,
+                    <code>VARCHAR</code>, <code>DATE</code>…), no «string».</span></label></li>
+        <li><label><input type="checkbox"><span>La relación tiene escrita su cardinalidad (N y M) y las dos fechas
+                    como atributos.</span></label></li>
+        <li><label><input type="checkbox"><span>El diagrama usa rectángulos, rombos y elipses, y se lee bien en el
+                    PDF.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-6/actividades/index"><i class="bi bi-list-check me-1"></i>Todas las actividades</a>
+        <a class="btn btn-primary" href="#/Unidad-6/actividades/6-2">Siguiente: 6.2. Aulas de informática <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

@@ -1,0 +1,959 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Unidad 6. Diseño de bases de datos</h1>
+
+    <div data-indice></div>
+
+    <div class="alert alert-primary d-flex align-items-center gap-2">
+        <i class="bi bi-list-check fs-4"></i>
+        <div>La parte de diseño tiene <strong>4 actividades</strong>. <a href="#/Unidad-6/actividades/index">Ver las actividades</a></div>
+    </div>
+
+    <p>En esta primera parte de la unidad vas a aprender a <strong>diseñar</strong> una base de datos: decidir qué
+        datos hay que guardar, cómo se reparten en tablas y cómo se relacionan esas tablas entre sí. Se hace con papel
+        y lápiz (o con un programa de dibujo), antes de tocar el ordenador. La segunda parte de la unidad es la
+        <a href="#/Unidad-6/teoria-sql">teoría de SQL</a>: ahí crearás esas tablas y harás consultas sobre ellas.</p>
+
+    <!-- ===================================================================== -->
+    <h2 class="mb-4 text-primary">1. ¿Qué es una base de datos?</h2>
+
+    <p>Una <strong>base de datos</strong> es un conjunto de datos relacionados entre sí y organizados para que se
+        puedan guardar, buscar y modificar con facilidad. Además, la pueden usar muchas personas y programas a la
+        vez.</p>
+    <p>Las usas todos los días aunque no las veas: la secretaría del instituto guarda en una base de datos el
+        alumnado, las matrículas y las notas; una tienda online, sus productos, clientes y pedidos; tu móvil, los
+        contactos; y cualquier red social, los usuarios, las publicaciones y los «me gusta».</p>
+
+    <h3 class="mb-4 text-primary">Dato e información</h3>
+    <ul>
+        <li>Un <strong>dato</strong> es un valor suelto, sin contexto: <code>7</code>, <code>Laura</code>,
+            <code>2025-10-14</code>. Por sí solo no dice gran cosa.</li>
+        <li>La <strong>información</strong> es lo que obtienes al juntar y ordenar los datos para que tengan
+            sentido: «Laura Gómez sacó un 7 en Aplicaciones Ofimáticas el 14 de octubre de 2025».</li>
+    </ul>
+    <p>La base de datos guarda datos; cuando haces una consulta, te devuelve información.</p>
+
+    <h3 class="mb-4 text-primary">Tablas, filas y columnas</h3>
+    <p>En las bases de datos <strong>relacionales</strong>, que son las más usadas y las que vas a ver en esta
+        unidad, los datos se guardan en <strong>tablas</strong>. Esta es la tabla <code>ALUMNO</code> de un
+        instituto:</p>
+    <div class="sql-tabla-wrap my-3">
+        <table class="sql-tabla">
+            <thead>
+                <tr><th class="pk">DNI</th><th>nombre</th><th>apellidos</th><th>grupo</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>12345678A</td><td>Laura</td><td>Gómez Ruiz</td><td>1SMXA</td></tr>
+                <tr><td>23456789B</td><td>Pablo</td><td>Martín Sanz</td><td>1SMXA</td></tr>
+                <tr><td>34567890C</td><td>Irene</td><td>López Vidal</td><td>1SMXB</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <ul>
+        <li><strong>Tabla</strong>: guarda los datos de un solo tipo de cosa (alumnos, libros, pedidos…). Una base
+            de datos suele tener muchas tablas.</li>
+        <li><strong>Fila</strong> o <strong>registro</strong>: cada elemento de la tabla. Aquí, cada alumno. La tabla
+            tiene 3 filas.</li>
+        <li><strong>Columna</strong> o <strong>campo</strong>: cada dato que se guarda de todos los elementos. Aquí,
+            el DNI, el nombre, los apellidos y el grupo. La tabla tiene 4 columnas.</li>
+        <li>Cada <strong>celda</strong> (cruce de fila y columna) guarda un solo valor: el nombre de Pablo es
+            <code>Pablo</code>.</li>
+    </ul>
+    <p>Se parece a una hoja de cálculo, pero con tres diferencias importantes: cada columna tiene un tipo de dato
+        fijo (en una columna de fechas solo caben fechas), cada fila se distingue de las demás por una
+        <strong>clave</strong> (aquí, el DNI, que está subrayado) y las tablas se relacionan entre sí.</p>
+
+    <h3 class="mb-4 text-primary">¿Por qué no basta con una hoja de cálculo?</h3>
+    <p>Imagina un instituto sin base de datos. Secretaría tiene una hoja de cálculo con los datos del alumnado; cada
+        tutor, otra con los alumnos de su grupo y sus teléfonos; y la biblioteca, otra con los préstamos, donde
+        también apunta el nombre y el teléfono de quien se lleva cada libro. Laura cambia de móvil y lo dice en
+        secretaría. ¿Qué pasa?</p>
+    <ul>
+        <li><strong>Redundancia</strong>: el mismo dato está repetido en varios sitios. Ocupa más y, cuando cambia,
+            hay que cambiarlo en todos.</li>
+        <li><strong>Inconsistencia</strong>: como nadie avisa a la biblioteca ni al tutor, ahora hay tres teléfonos
+            distintos de Laura. ¿Cuál es el bueno?</li>
+        <li><strong>Varias personas a la vez</strong>: si dos personas abren el mismo archivo para cambiarlo, una se
+            encuentra el archivo bloqueado o los cambios de una borran los de la otra.</li>
+        <li><strong>Seguridad</strong>: quien tiene el archivo lo ve todo. No puedes dejar que la biblioteca vea los
+            teléfonos pero no las notas.</li>
+        <li><strong>Datos incorrectos</strong>: nada impide escribir «dieciséis» en la columna de la edad o un 31 de
+            febrero en una fecha.</li>
+    </ul>
+    <p>Con una base de datos, el teléfono de Laura se guarda <strong>una sola vez</strong>, en un único sitio.
+        Secretaría, el tutor y la biblioteca consultan ese mismo dato, cada uno con los permisos que le tocan. Si
+        cambia, se cambia una vez y todos ven el nuevo.</p>
+
+    <h3 class="mb-4 text-primary">Características de una base de datos</h3>
+    <ul>
+        <li><strong>Datos organizados y relacionados</strong>: en tablas que se relacionan unas con otras.</li>
+        <li><strong>Redundancia mínima</strong>: cada dato se guarda, en principio, una sola vez.</li>
+        <li><strong>Compartida</strong>: muchos usuarios y programas la usan al mismo tiempo (a esto se le llama
+            <em>acceso concurrente</em>).</li>
+        <li><strong>Integridad</strong>: tiene reglas (tipos de datos, claves, campos obligatorios) que impiden
+            guardar datos incorrectos.</li>
+        <li><strong>Seguridad</strong>: cada usuario tiene sus permisos: solo leer, leer y modificar, ver solo
+            algunas tablas…</li>
+        <li><strong>Independencia de los programas</strong>: los datos no están metidos dentro de un programa
+            concreto. Puedes añadir una columna sin rehacer todos los programas que la usan.</li>
+        <li><strong>Se describe a sí misma</strong>: además de los datos, guarda la descripción de sus tablas y
+            columnas (los <em>metadatos</em>, «datos sobre los datos»).</li>
+    </ul>
+
+    <h3 class="mb-4 text-primary">Ventajas de usar una base de datos</h3>
+    <ul>
+        <li>Menos datos repetidos y, por tanto, menos errores y menos espacio.</li>
+        <li>Datos coherentes: un cambio se hace una vez y lo ve todo el mundo.</li>
+        <li>Búsquedas muy rápidas y cruces de datos («¿qué alumnos de 1SMXA tienen libros sin devolver?»).</li>
+        <li>Trabajo de muchas personas a la vez sin pisarse.</li>
+        <li>Control de quién puede ver o cambiar cada cosa.</li>
+        <li>Copias de seguridad y recuperación de los datos si algo falla.</li>
+    </ul>
+    <p>El inconveniente es que hay que diseñarla bien antes de empezar y necesitas un programa especial para
+        gestionarla: el SGBD.</p>
+
+    <!-- ===================================================================== -->
+    <h2 class="mb-4 text-primary">2. Sistemas gestores de bases de datos</h2>
+
+    <p>Un <strong>sistema gestor de bases de datos</strong> (<strong>SGBD</strong>; en inglés, <em>DBMS</em>) es el
+        programa que crea y gestiona las bases de datos. Hace de intermediario: ni las personas ni los programas tocan
+        los archivos de la base de datos directamente, sino que le piden al SGBD lo que necesitan (normalmente en el
+        lenguaje SQL) y él se encarga.</p>
+    <p>Un SGBD sirve para:</p>
+    <ul>
+        <li>Crear bases de datos y tablas, y cambiar su estructura.</li>
+        <li>Guardar, modificar, borrar y consultar los datos.</li>
+        <li>Comprobar que los datos cumplen las reglas (tipos, claves, campos obligatorios).</li>
+        <li>Controlar los usuarios y sus permisos.</li>
+        <li>Dejar que muchos usuarios trabajen a la vez sin estropear los datos.</li>
+        <li>Hacer copias de seguridad y recuperar los datos después de un fallo.</li>
+    </ul>
+
+    <h3 class="mb-4 text-primary">Ejemplos de SGBD</h3>
+    <table class="table table-bordered table-sm my-4">
+        <thead class="table-light">
+            <tr><th>SGBD</th><th>Licencia</th><th>Dónde lo encontrarás</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>MySQL</strong></td><td>Libre (con versión comercial)</td><td>Muchísimas páginas web (por
+                    ejemplo, las hechas con WordPress). Es el que se usa en esta unidad.</td></tr>
+            <tr><td><strong>MariaDB</strong></td><td>Libre</td><td>Nació a partir de MySQL y funciona casi igual. Es el
+                    que trae XAMPP.</td></tr>
+            <tr><td><strong>PostgreSQL</strong></td><td>Libre</td><td>Aplicaciones grandes y profesionales.</td></tr>
+            <tr><td><strong>SQLite</strong></td><td>Libre</td><td>Toda la base de datos en un solo archivo, sin
+                    servidor. Va dentro de los móviles, los navegadores y muchas aplicaciones.</td></tr>
+            <tr><td><strong>Oracle Database</strong></td><td>Comercial</td><td>Grandes empresas, bancos,
+                    administraciones.</td></tr>
+            <tr><td><strong>Microsoft SQL Server</strong></td><td>Comercial (con una versión gratuita)</td><td>Empresas
+                    que trabajan con Windows.</td></tr>
+            <tr><td><strong>Microsoft Access</strong></td><td>Comercial (en Microsoft 365)</td><td>Bases de datos
+                    pequeñas en un ordenador, con formularios e informes.</td></tr>
+            <tr><td><strong>LibreOffice Base</strong></td><td>Libre</td><td>Lo mismo que Access, dentro del paquete
+                    ofimático LibreOffice.</td></tr>
+        </tbody>
+    </table>
+
+    <h3 class="mb-4 text-primary">Clasificación de los SGBD</h3>
+    <ul>
+        <li><strong>Según el modelo de datos</strong> (cómo organizan los datos):
+            <ul>
+                <li><strong>Relacional</strong>: tablas relacionadas entre sí. Es el más usado (MySQL, Oracle,
+                    PostgreSQL, Access…).</li>
+                <li><strong>Jerárquico</strong>: los datos forman un árbol, como las carpetas de tu ordenador. Es
+                    antiguo.</li>
+                <li><strong>En red</strong>: como el jerárquico, pero un registro puede colgar de varios. También es
+                    antiguo.</li>
+                <li><strong>Orientado a objetos</strong>: guarda los datos como los objetos de un lenguaje de
+                    programación. Se usa poco.</li>
+                <li><strong>NoSQL</strong>: no usa tablas, sino documentos, pares clave-valor, grafos… Se usa en webs
+                    con muchísimos datos (MongoDB, Redis).</li>
+            </ul>
+        </li>
+        <li><strong>Según el número de usuarios</strong>: <strong>monousuario</strong>, para una sola persona cada
+            vez (Access o Base en tu ordenador), o <strong>multiusuario</strong>, para muchas a la vez (MySQL,
+            Oracle).</li>
+        <li><strong>Según dónde están los datos</strong>: <strong>centralizada</strong>, todo en un mismo ordenador o
+            servidor, o <strong>distribuida</strong>, repartida entre varios ordenadores conectados en red.</li>
+    </ul>
+
+    <h3 class="mb-4 text-primary">Tipos de usuarios</h3>
+    <ul>
+        <li><strong>Usuario final</strong>: usa la base de datos a través de un programa o una web, a menudo sin
+            saber que hay una detrás (tú, cuando consultas tus notas en la plataforma del instituto).</li>
+        <li><strong>Usuario avanzado</strong>: hace sus propias consultas, en SQL o con programas como Access o
+            Base.</li>
+        <li><strong>Desarrollador</strong>: programa las aplicaciones y webs que usan la base de datos.</li>
+        <li><strong>Administrador de la base de datos</strong> (<em>DBA</em>): instala y mantiene el SGBD, da los
+            permisos, vigila que todo vaya rápido y hace las copias de seguridad.</li>
+    </ul>
+
+    <!-- ===================================================================== -->
+    <h2 class="mb-4 text-primary">3. El modelo entidad-relación</h2>
+
+    <p>Antes de crear las tablas hay que pensar qué se va a guardar. Para eso se dibuja un <strong>diagrama
+            entidad-relación</strong> (<strong>diagrama E-R</strong>): un esquema que muestra de qué cosas hay que
+        guardar datos, qué datos de cada una y cómo se relacionan entre ellas. No depende del SGBD: el mismo diagrama
+        sirve para MySQL, Oracle o Access.</p>
+    <p>El modelo entidad-relación lo propuso Peter Chen en 1976 y se basa en <strong>tres conceptos</strong>:
+        <strong>entidad</strong>, <strong>atributo</strong> y <strong>relación</strong>. En esta web usamos la
+        notación de Chen:</p>
+    <table class="table table-bordered table-sm my-4">
+        <thead class="table-light">
+            <tr><th>Se dibuja con…</th><th>Representa</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Rectángulo</td><td>Una entidad</td></tr>
+            <tr><td>Rombo</td><td>Una relación</td></tr>
+            <tr><td>Elipse</td><td>Un atributo</td></tr>
+            <tr><td>Elipse con el nombre subrayado</td><td>El atributo clave</td></tr>
+            <tr><td>Doble elipse</td><td>Un atributo multivaluado</td></tr>
+            <tr><td>Elipse discontinua</td><td>Un atributo derivado</td></tr>
+            <tr><td>1, N, M junto a las líneas</td><td>La cardinalidad de la relación</td></tr>
+        </tbody>
+    </table>
+
+    <h3 class="mb-4 text-primary">Entidades</h3>
+    <p>Una <strong>entidad</strong> es cualquier cosa del mundo real de la que queremos guardar datos y que se puede
+        distinguir de las demás: una persona (ALUMNO, PROFESOR), un objeto (LIBRO, ORDENADOR), un lugar (AULA) o un
+        hecho (PRÉSTAMO, MATRÍCULA). Se escriben en mayúsculas y en singular.</p>
+    <p>No confundas la entidad con sus <strong>ejemplares</strong>: ALUMNO es la entidad; Laura Gómez y Pablo Martín
+        son ejemplares de ALUMNO. Cuando pases a tablas, la entidad será una tabla y cada ejemplar, una fila.</p>
+
+    <h3 class="mb-4 text-primary">Atributos</h3>
+    <p>Los <strong>atributos</strong> son las características que guardamos de cada entidad: de un alumno, su DNI, su
+        nombre, sus apellidos… Hay varios tipos:</p>
+    <figure class="diagrama">
+    <svg class="er" style="max-width: 32rem" viewBox="-226 -137 508 249" role="img" aria-label="Entidad ALUMNO con distintos tipos de atributo">
+    <line x1="0" y1="0" x2="-170" y2="-55"/>
+    <line x1="0" y1="0" x2="-70" y2="-100"/>
+    <line x1="0" y1="0" x2="70" y2="-100"/>
+    <line x1="0" y1="0" x2="190" y2="-45"/>
+    <line x1="0" y1="0" x2="170" y2="70"/>
+    <line x1="0" y1="0" x2="-150" y2="75"/>
+    <g class="atributo clave"><ellipse cx="-170" cy="-55" rx="36" ry="17"/><text x="-170" y="-55">DNI</text><line x1="-180" y1="-46" x2="-160" y2="-46" style="stroke:#1d2733;stroke-width:1.2"/></g>
+    <g class="atributo"><ellipse cx="-70" cy="-100" rx="36" ry="17"/><text x="-70" y="-100">nombre</text></g>
+    <g class="atributo"><ellipse cx="70" cy="-100" rx="46" ry="17"/><text x="70" y="-100">apellidos</text></g>
+    <g class="atributo"><ellipse cx="190" cy="-45" rx="72" ry="17"/><text x="190" y="-45">fecha_nacimiento</text></g>
+    <g class="atributo derivado"><ellipse cx="170" cy="70" rx="36" ry="17"/><text x="170" y="70">edad</text></g>
+    <g class="atributo"><ellipse cx="-150" cy="75" rx="46" ry="17"/><ellipse cx="-150" cy="75" rx="41" ry="12"/><text x="-150" y="75">teléfonos</text></g>
+    <g class="entidad"><rect x="-55" y="-22.0" width="110" height="44" rx="3"/><text x="0" y="0">ALUMNO</text></g>
+    </svg>
+    <figcaption>Entidad ALUMNO: DNI es el atributo clave, teléfonos es multivaluado y edad es derivado</figcaption>
+    </figure>
+    <ul>
+        <li><strong>Atributo clave</strong> (o identificador): su valor no se repite, así que identifica a cada
+            ejemplar. Dos alumnos pueden llamarse igual, pero no tener el mismo DNI. Se dibuja
+            <u>subrayado</u>. Toda entidad necesita uno; si no hay ninguno natural, se inventa un código (código de
+            libro, número de expediente…).</li>
+        <li><strong>Univaluado</strong>: tiene un solo valor para cada ejemplar. Un alumno tiene un nombre y una
+            fecha de nacimiento. Son la mayoría.</li>
+        <li><strong>Multivaluado</strong>: puede tener varios valores para el mismo ejemplar. Un alumno puede tener
+            varios teléfonos (el suyo, el de su madre, el de su padre). Se dibuja con doble elipse.</li>
+        <li><strong>Derivado</strong>: se calcula a partir de otros, así que no hace falta guardarlo. La edad se
+            calcula con la fecha de nacimiento; el total de una factura, sumando sus líneas. Se dibuja con la elipse
+            discontinua.</li>
+        <li><strong>Compuesto</strong>: se puede dividir en partes con sentido propio. La dirección se divide en calle,
+            número, código postal y localidad. Si vas a buscar por localidad, guárdala en un atributo aparte.</li>
+    </ul>
+
+    <h3 class="mb-4 text-primary">Relaciones</h3>
+    <p>Una <strong>relación</strong> es una asociación entre entidades. Se nombra con un verbo: un alumno
+        <em>cursa</em> módulos, un fabricante <em>fabrica</em> artículos, un profesor <em>es tutor de</em> un grupo. Se
+        dibuja con un rombo unido por líneas a las entidades que relaciona.</p>
+    <p>Casi todas las relaciones unen dos entidades (relaciones <strong>binarias</strong>). Más abajo verás también
+        las relaciones <strong>reflexivas</strong> (una entidad consigo misma) y las <strong>ternarias</strong> (tres
+        entidades).</p>
+
+    <h3 class="mb-4 text-primary">Cardinalidad: 1:1, 1:N y N:M</h3>
+    <p>La <strong>cardinalidad</strong> dice con cuántos ejemplares de una entidad se puede relacionar cada ejemplar
+        de la otra. Para averiguarla, hazte la pregunta en los dos sentidos y quédate con la respuesta máxima:
+        <strong>uno</strong> o <strong>muchos</strong>. El número se escribe junto a cada entidad.</p>
+
+    <p><strong>Uno a uno (1:1).</strong> ¿De cuántos grupos es tutor un profesor? De uno. ¿Cuántos tutores tiene un
+        grupo? Uno. Es la menos frecuente.</p>
+    <figure class="diagrama">
+    <svg class="er" viewBox="-116 -117 692 169" role="img" aria-label="Relación 1:1 entre PROFESOR y GRUPO">
+    <line x1="0" y1="0" x2="-60" y2="-80"/>
+    <line x1="0" y1="0" x2="60" y2="-80"/>
+    <line x1="460" y1="0" x2="400" y2="-80"/>
+    <line x1="460" y1="0" x2="520" y2="-80"/>
+    <line x1="230" y1="0" x2="0" y2="0"/>
+    <line x1="230" y1="0" x2="460" y2="0"/>
+    <g class="atributo clave"><ellipse cx="-60" cy="-80" rx="36" ry="17"/><text x="-60" y="-80">DNI</text><line x1="-70" y1="-71" x2="-50" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+    <g class="atributo"><ellipse cx="60" cy="-80" rx="36" ry="17"/><text x="60" y="-80">nombre</text></g>
+    <g class="entidad"><rect x="-55" y="-22.0" width="110" height="44" rx="3"/><text x="0" y="0">PROFESOR</text></g>
+    <g class="atributo clave"><ellipse cx="400" cy="-80" rx="36" ry="17"/><text x="400" y="-80">código</text><line x1="380" y1="-71" x2="420" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+    <g class="atributo"><ellipse cx="520" cy="-80" rx="36" ry="17"/><text x="520" y="-80">aula</text></g>
+    <g class="entidad"><rect x="405" y="-22.0" width="110" height="44" rx="3"/><text x="460" y="0">GRUPO</text></g>
+    <g class="relacion"><polygon points="230,-32.0 302.0,0 230,32.0 158.0,0"/><text x="230" y="0">es tutor de</text></g>
+    <text class="card" x="75" y="-12">1</text>
+    <text class="card" x="385" y="-12">1</text>
+    </svg>
+    <figcaption>Relación 1:1: un profesor es tutor de un grupo y cada grupo tiene un tutor</figcaption>
+    </figure>
+
+    <p><strong>Uno a muchos (1:N).</strong> ¿Cuántos artículos fabrica un fabricante? Muchos. ¿Cuántos fabricantes
+        tiene un artículo? Uno. Es la más habitual. Fíjate en que la <strong>N</strong> va junto a ARTÍCULO: un
+        fabricante se relaciona con N artículos.</p>
+    <figure class="diagrama">
+    <svg class="er" viewBox="-116 -127 762 179" role="img" aria-label="Relación 1:N entre FABRICANTE y ARTÍCULO">
+    <line x1="0" y1="0" x2="-60" y2="-80"/>
+    <line x1="0" y1="0" x2="60" y2="-80"/>
+    <line x1="460" y1="0" x2="390" y2="-80"/>
+    <line x1="460" y1="0" x2="510" y2="-90"/>
+    <line x1="460" y1="0" x2="590" y2="-45"/>
+    <line x1="230" y1="0" x2="0" y2="0"/>
+    <line x1="230" y1="0" x2="460" y2="0"/>
+    <g class="atributo clave"><ellipse cx="-60" cy="-80" rx="36" ry="17"/><text x="-60" y="-80">código</text><line x1="-80" y1="-71" x2="-40" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+    <g class="atributo"><ellipse cx="60" cy="-80" rx="36" ry="17"/><text x="60" y="-80">nombre</text></g>
+    <g class="entidad"><rect x="-64" y="-22.0" width="129" height="44" rx="3"/><text x="0" y="0">FABRICANTE</text></g>
+    <g class="atributo clave"><ellipse cx="390" cy="-80" rx="36" ry="17"/><text x="390" y="-80">código</text><line x1="370" y1="-71" x2="410" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+    <g class="atributo"><ellipse cx="510" cy="-90" rx="36" ry="17"/><text x="510" y="-90">nombre</text></g>
+    <g class="atributo"><ellipse cx="590" cy="-45" rx="36" ry="17"/><text x="590" y="-45">precio</text></g>
+    <g class="entidad"><rect x="405" y="-22.0" width="110" height="44" rx="3"/><text x="460" y="0">ARTÍCULO</text></g>
+    <g class="relacion"><polygon points="230,-32.0 286.0,0 230,32.0 174.0,0"/><text x="230" y="0">fabrica</text></g>
+    <text class="card" x="84" y="-12">1</text>
+    <text class="card" x="385" y="-12">N</text>
+    </svg>
+    <figcaption>Relación 1:N: un fabricante fabrica muchos artículos y cada artículo es de un fabricante</figcaption>
+    </figure>
+
+    <p><strong>Muchos a muchos (N:M).</strong> ¿Cuántos módulos cursa un alumno? Muchos. ¿Cuántos alumnos hay en un
+        módulo? Muchos.</p>
+    <figure class="diagrama">
+    <svg class="er" viewBox="-116 -117 692 239" role="img" aria-label="Relación N:M entre ALUMNO y MÓDULO, con el atributo nota">
+    <line x1="0" y1="0" x2="-60" y2="-80"/>
+    <line x1="0" y1="0" x2="60" y2="-80"/>
+    <line x1="460" y1="0" x2="400" y2="-80"/>
+    <line x1="460" y1="0" x2="520" y2="-80"/>
+    <line x1="230" y1="0" x2="0" y2="0"/>
+    <line x1="230" y1="0" x2="460" y2="0"/>
+    <line x1="230" y1="0" x2="230" y2="85"/>
+    <g class="atributo clave"><ellipse cx="-60" cy="-80" rx="36" ry="17"/><text x="-60" y="-80">DNI</text><line x1="-70" y1="-71" x2="-50" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+    <g class="atributo"><ellipse cx="60" cy="-80" rx="36" ry="17"/><text x="60" y="-80">nombre</text></g>
+    <g class="entidad"><rect x="-55" y="-22.0" width="110" height="44" rx="3"/><text x="0" y="0">ALUMNO</text></g>
+    <g class="atributo clave"><ellipse cx="400" cy="-80" rx="36" ry="17"/><text x="400" y="-80">código</text><line x1="380" y1="-71" x2="420" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+    <g class="atributo"><ellipse cx="520" cy="-80" rx="36" ry="17"/><text x="520" y="-80">nombre</text></g>
+    <g class="entidad"><rect x="405" y="-22.0" width="110" height="44" rx="3"/><text x="460" y="0">MÓDULO</text></g>
+    <g class="atributo"><ellipse cx="230" cy="85" rx="36" ry="17"/><text x="230" y="85">nota</text></g>
+    <g class="relacion"><polygon points="230,-32.0 285.0,0 230,32.0 175.0,0"/><text x="230" y="0">cursa</text></g>
+    <text class="card" x="75" y="-12">N</text>
+    <text class="card" x="385" y="-12">M</text>
+    </svg>
+    <figcaption>Relación N:M: un alumno cursa muchos módulos y en cada módulo hay muchos alumnos</figcaption>
+    </figure>
+    <p>Las relaciones también pueden tener atributos. ¿De quién es la nota? No es del alumno (tiene una nota en cada
+        módulo) ni del módulo (cada alumno tiene la suya): es de la pareja alumno-módulo, así que va en la relación
+        <em>cursa</em>.</p>
+
+    <table class="table table-bordered table-sm my-4">
+        <thead class="table-light">
+            <tr><th>Tipo</th><th>Una A se relaciona con…</th><th>Una B se relaciona con…</th><th>Ejemplo</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>1:1</td><td>una B</td><td>una A</td><td>PROFESOR es tutor de GRUPO</td></tr>
+            <tr><td>1:N</td><td>muchas B</td><td>una A</td><td>FABRICANTE fabrica ARTÍCULO</td></tr>
+            <tr><td>N:M</td><td>muchas B</td><td>muchas A</td><td>ALUMNO cursa MÓDULO</td></tr>
+        </tbody>
+    </table>
+    <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En otros libros verás la
+        cardinalidad escrita con dos números, como <code>(0,N)</code> o <code>(1,1)</code>: el primero es el mínimo y
+        el segundo, el máximo. En esta unidad basta con el máximo: 1, N o M.</div>
+
+    <h3 class="mb-4 text-primary">Relaciones reflexivas</h3>
+    <p>Una relación es <strong>reflexiva</strong> cuando relaciona una entidad consigo misma. Por ejemplo, en una
+        empresa, un empleado es jefe de otros empleados: un jefe tiene muchos empleados a su cargo y cada empleado
+        tiene un solo jefe (1:N). Otros ejemplos: un alumno es delegado de sus compañeros; un módulo es requisito de
+        otro módulo.</p>
+    <figure class="diagrama">
+    <svg class="er" style="max-width: 30rem" viewBox="-116 -117 474 222" role="img" aria-label="Relación reflexiva: un EMPLEADO es jefe de otros EMPLEADOS">
+    <line x1="0" y1="0" x2="-60" y2="-80"/>
+    <line x1="0" y1="0" x2="60" y2="-80"/>
+    <line x1="270" y1="0" x2="0" y2="0"/>
+    <path class="linea" d="M270 32 V85 H0 V22"/>
+    <g class="atributo clave"><ellipse cx="-60" cy="-80" rx="36" ry="17"/><text x="-60" y="-80">DNI</text><line x1="-70" y1="-71" x2="-50" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+    <g class="atributo"><ellipse cx="60" cy="-80" rx="36" ry="17"/><text x="60" y="-80">nombre</text></g>
+    <g class="entidad"><rect x="-55" y="-22.0" width="110" height="44" rx="3"/><text x="0" y="0">EMPLEADO</text></g>
+    <g class="relacion"><polygon points="270,-32.0 338.0,0 270,32.0 202.0,0"/><text x="270" y="0">es jefe de</text></g>
+    <text class="card" x="75" y="-12">1</text>
+    <text class="card" x="-12" y="42">N</text>
+    </svg>
+    <figcaption>Relación reflexiva 1:N: un empleado es jefe de varios empleados</figcaption>
+    </figure>
+
+    <h3 class="mb-4 text-primary">Relaciones ternarias</h3>
+    <p>A veces un dato solo tiene sentido cuando se juntan tres entidades. En un instituto, un mismo profesor imparte
+        varios módulos, a varios grupos, y cada módulo lo pueden dar distintos profesores según el grupo. Para saber
+        cuántas horas da Marta de Aplicaciones Ofimáticas en 1SMXA hacen falta las tres cosas: profesor, módulo y
+        grupo.</p>
+    <figure class="diagrama">
+    <svg class="er" viewBox="-116 -122 692 349" role="img" aria-label="Relación ternaria entre PROFESOR, MÓDULO y GRUPO">
+    <line x1="0" y1="0" x2="-60" y2="-80"/>
+    <line x1="0" y1="0" x2="60" y2="-80"/>
+    <line x1="460" y1="0" x2="400" y2="-80"/>
+    <line x1="460" y1="0" x2="520" y2="-80"/>
+    <line x1="230" y1="170" x2="80" y2="190"/>
+    <line x1="230" y1="170" x2="370" y2="190"/>
+    <line x1="230" y1="0" x2="0" y2="0"/>
+    <line x1="230" y1="0" x2="460" y2="0"/>
+    <line x1="230" y1="0" x2="230" y2="170"/>
+    <line x1="230" y1="0" x2="230" y2="-85"/>
+    <g class="atributo clave"><ellipse cx="-60" cy="-80" rx="36" ry="17"/><text x="-60" y="-80">DNI</text><line x1="-70" y1="-71" x2="-50" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+    <g class="atributo"><ellipse cx="60" cy="-80" rx="36" ry="17"/><text x="60" y="-80">nombre</text></g>
+    <g class="entidad"><rect x="-55" y="-22.0" width="110" height="44" rx="3"/><text x="0" y="0">PROFESOR</text></g>
+    <g class="atributo clave"><ellipse cx="400" cy="-80" rx="36" ry="17"/><text x="400" y="-80">código</text><line x1="380" y1="-71" x2="420" y2="-71" style="stroke:#1d2733;stroke-width:1.2"/></g>
+    <g class="atributo"><ellipse cx="520" cy="-80" rx="36" ry="17"/><text x="520" y="-80">nombre</text></g>
+    <g class="entidad"><rect x="405" y="-22.0" width="110" height="44" rx="3"/><text x="460" y="0">MÓDULO</text></g>
+    <g class="atributo clave"><ellipse cx="80" cy="190" rx="36" ry="17"/><text x="80" y="190">código</text><line x1="60" y1="199" x2="100" y2="199" style="stroke:#1d2733;stroke-width:1.2"/></g>
+    <g class="atributo"><ellipse cx="370" cy="190" rx="36" ry="17"/><text x="370" y="190">aula</text></g>
+    <g class="entidad"><rect x="175" y="148.0" width="110" height="44" rx="3"/><text x="230" y="170">GRUPO</text></g>
+    <g class="atributo"><ellipse cx="230" cy="-85" rx="36" ry="17"/><text x="230" y="-85">horas</text></g>
+    <g class="relacion"><polygon points="230,-32.0 286.0,0 230,32.0 174.0,0"/><text x="230" y="0">imparte</text></g>
+    <text class="card" x="75" y="-12">N</text>
+    <text class="card" x="385" y="-12">M</text>
+    <text class="card" x="218" y="128">P</text>
+    </svg>
+    <figcaption>Relación ternaria: qué profesor imparte qué módulo a qué grupo</figcaption>
+    </figure>
+
+    <h3 class="mb-4 text-primary">Cómo hacer un diagrama E-R a partir de un enunciado</h3>
+    <div class="alert alert-light border">
+        <strong>Enunciado.</strong> Un gimnasio quiere guardar los datos de sus socios (DNI, nombre y teléfono) y de
+        las actividades que ofrece (un código, el nombre y el precio al mes). Cada socio se puede apuntar a varias
+        actividades y en cada actividad hay muchos socios. Cada actividad la imparte un monitor, del que se guarda el
+        DNI y el nombre; un monitor puede impartir varias actividades.
+    </div>
+    <ol>
+        <li><strong>Lee el enunciado entero y subraya los sustantivos</strong>: gimnasio, socios, DNI, nombre,
+            teléfono, actividades, código, precio, monitor. Son las candidatas a entidades o atributos.</li>
+        <li><strong>Separa entidades y atributos.</strong> Si de esa cosa se guardan varios datos y hay muchas, es una
+            entidad: SOCIO, ACTIVIDAD, MONITOR. Si es solo un dato de otra cosa, es un atributo: el teléfono es un
+            atributo de SOCIO. El gimnasio no es una entidad: es el lugar donde se usa la base de datos y solo hay
+            uno.</li>
+        <li><strong>Busca la clave de cada entidad</strong>: el DNI para SOCIO y MONITOR, el código para
+            ACTIVIDAD.</li>
+        <li><strong>Busca los verbos que unen dos entidades</strong>: son las relaciones. Un socio <em>se apunta
+                a</em> actividades; un monitor <em>imparte</em> actividades.</li>
+        <li><strong>Pon la cardinalidad</strong> haciendo la pregunta en los dos sentidos. Socio-actividad: varias y
+            muchos, N:M. Monitor-actividad: un monitor imparte varias, cada actividad tiene un monitor, 1:N.</li>
+        <li><strong>Mira si alguna relación tiene atributos</strong> (fechas, cantidades, notas…). Aquí no hay
+            ninguno; si el enunciado pidiera la fecha de alta en cada actividad, iría en <em>se apunta a</em>.</li>
+        <li><strong>Dibuja y repasa</strong>: cada dato del enunciado aparece una sola vez y cada entidad tiene su
+            clave.</li>
+    </ol>
+    <figure class="diagrama">
+    <svg class="er" viewBox="-143 -132 809 464" role="img" aria-label="Diagrama E-R del gimnasio">
+    <line x1="0" y1="0" x2="-80" y2="-75"/>
+    <line x1="0" y1="0" x2="40" y2="-95"/>
+    <line x1="0" y1="0" x2="-80" y2="80"/>
+    <line x1="470" y1="0" x2="420" y2="-95"/>
+    <line x1="470" y1="0" x2="550" y2="-80"/>
+    <line x1="470" y1="0" x2="610" y2="40"/>
+    <line x1="470" y1="290" x2="330" y2="270"/>
+    <line x1="470" y1="290" x2="610" y2="270"/>
+    <line x1="235" y1="0" x2="0" y2="0"/>
+    <line x1="235" y1="0" x2="470" y2="0"/>
+    <line x1="470" y1="145" x2="470" y2="290"/>
+    <line x1="470" y1="145" x2="470" y2="0"/>
+    <g class="atributo clave"><ellipse cx="-80" cy="-75" rx="36" ry="17"/><text x="-80" y="-75">DNI</text><line x1="-90" y1="-66" x2="-70" y2="-66" style="stroke:#1d2733;stroke-width:1.2"/></g>
+    <g class="atributo"><ellipse cx="40" cy="-95" rx="36" ry="17"/><text x="40" y="-95">nombre</text></g>
+    <g class="atributo"><ellipse cx="-80" cy="80" rx="43" ry="17"/><text x="-80" y="80">teléfono</text></g>
+    <g class="entidad"><rect x="-55" y="-22.0" width="110" height="44" rx="3"/><text x="0" y="0">SOCIO</text></g>
+    <g class="atributo clave"><ellipse cx="420" cy="-95" rx="36" ry="17"/><text x="420" y="-95">código</text><line x1="400" y1="-86" x2="440" y2="-86" style="stroke:#1d2733;stroke-width:1.2"/></g>
+    <g class="atributo"><ellipse cx="550" cy="-80" rx="36" ry="17"/><text x="550" y="-80">nombre</text></g>
+    <g class="atributo"><ellipse cx="610" cy="40" rx="36" ry="17"/><text x="610" y="40">precio</text></g>
+    <g class="entidad"><rect x="410" y="-22.0" width="120" height="44" rx="3"/><text x="470" y="0">ACTIVIDAD</text></g>
+    <g class="atributo clave"><ellipse cx="330" cy="270" rx="36" ry="17"/><text x="330" y="270">DNI</text><line x1="320" y1="279" x2="340" y2="279" style="stroke:#1d2733;stroke-width:1.2"/></g>
+    <g class="atributo"><ellipse cx="610" cy="270" rx="36" ry="17"/><text x="610" y="270">nombre</text></g>
+    <g class="entidad"><rect x="415" y="268.0" width="110" height="44" rx="3"/><text x="470" y="290">MONITOR</text></g>
+    <g class="relacion"><polygon points="235,-32.0 307.0,0 235,32.0 163.0,0"/><text x="235" y="0">se apunta a</text></g>
+    <g class="relacion"><polygon points="470,113.0 526.0,145 470,177.0 414.0,145"/><text x="470" y="145">imparte</text></g>
+    <text class="card" x="75" y="-12">N</text>
+    <text class="card" x="390" y="-12">M</text>
+    <text class="card" x="458" y="248">1</text>
+    <text class="card" x="458" y="42">N</text>
+    </svg>
+    <figcaption>Diagrama E-R del gimnasio</figcaption>
+    </figure>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-6/actividades/6-1"><strong>Actividad 6.1</strong>. Biblioteca escolar: diagrama E-R</a> · <a href="#/Unidad-6/actividades/6-2"><strong>Actividad 6.2</strong>. Aulas de informática</a></div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <h2 class="mb-4 text-primary">4. Del diagrama a las tablas</h2>
+
+    <p>El diagrama E-R es el plano. Para crear la base de datos en un SGBD relacional hay que convertirlo en
+        <strong>tablas</strong>. Antes de escribir nada en SQL, las tablas se escriben como un <strong>esquema
+            relacional</strong>: una línea por tabla, con su nombre y sus columnas entre paréntesis. La clave primaria
+        va <u>subrayada</u> y las claves ajenas, en <em>cursiva</em> (aquí, además, con subrayado discontinuo):</p>
+    <div class="esquema">
+        <p>FABRICANTE (<u>codigo</u>, nombre)</p>
+        <p>ARTICULO (<u>codigo</u>, nombre, precio, <em>fabricante</em>)</p>
+    </div>
+    <p>En los nombres de tablas y columnas, mejor sin tildes, sin eñes y sin espacios (<code>codigo_libro</code>,
+        no <code>código libro</code>): te ahorrarás problemas en SQL.</p>
+
+    <h3 class="mb-4 text-primary">Las claves</h3>
+    <ul>
+        <li><strong>Clave candidata</strong>: una columna (o un grupo de columnas) que podría identificar cada fila
+            porque nunca se repite. En la tabla de alumnos, el DNI, el número de expediente y el correo del instituto
+            son claves candidatas.</li>
+        <li><strong>Clave primaria</strong> (<code>PRIMARY KEY</code>): la clave candidata que eliges para
+            identificar las filas. No se puede repetir ni quedar vacía, y cada tabla tiene una. Elige una que sea
+            corta y que no cambie con el tiempo.</li>
+        <li><strong>Clave alternativa</strong>: las candidatas que no has elegido. En SQL se marcan como
+            <code>UNIQUE</code> para que tampoco se repitan.</li>
+        <li><strong>Clave compuesta</strong>: una clave formada por varias columnas, porque ninguna sola basta. En la
+            tabla de notas, ni el alumno ni el módulo se repiten solos, pero la pareja alumno-módulo sí identifica
+            cada nota.</li>
+        <li><strong>Clave ajena</strong> (o foránea, en inglés <em>foreign key</em>): una columna que guarda el valor
+            de la clave primaria de <strong>otra tabla</strong>, para relacionarlas. En ARTICULO, la columna
+            <code>fabricante</code> guarda el código del fabricante. Sí se puede repetir (muchos artículos del mismo
+            fabricante) y el SGBD comprueba que el valor exista en la otra tabla: no te dejará poner el fabricante 9
+            si no hay ningún fabricante con ese código.</li>
+    </ul>
+    <div class="row g-3 my-2">
+        <div class="col-md-5">
+            <p class="small fw-bold mb-1">FABRICANTE</p>
+            <div class="sql-tabla-wrap">
+                <table class="sql-tabla">
+                    <thead><tr><th class="pk">codigo</th><th>nombre</th></tr></thead>
+                    <tbody>
+                        <tr><td class="num">1</td><td>Nokia</td></tr>
+                        <tr><td class="num">2</td><td>Xiaomi</td></tr>
+                        <tr><td class="num">3</td><td>MSI</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <p class="small fw-bold mb-1">ARTICULO</p>
+            <div class="sql-tabla-wrap">
+                <table class="sql-tabla">
+                    <thead><tr><th class="pk">codigo</th><th>nombre</th><th>precio</th><th class="fk">fabricante</th></tr></thead>
+                    <tbody>
+                        <tr><td class="num">10</td><td>Xiaomi Redmi Note 13</td><td class="num">199.99</td><td class="num">2</td></tr>
+                        <tr><td class="num">11</td><td>MSI Modern 15</td><td class="num">549.00</td><td class="num">3</td></tr>
+                        <tr><td class="num">12</td><td>Xiaomi Pad 6</td><td class="num">299.00</td><td class="num">2</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <p>Para saber de qué fabricante es el artículo 12, miras su clave ajena (<code>2</code>) y buscas el
+        <code>2</code> en la tabla FABRICANTE: Xiaomi.</p>
+
+    <h3 class="mb-4 text-primary">Reglas para pasar a tablas</h3>
+    <ol>
+        <li><strong>Cada entidad se convierte en una tabla.</strong> Sus atributos son las columnas y el atributo clave
+            es la clave primaria. Además:
+            <ul>
+                <li>Un atributo <strong>multivaluado</strong> va a una tabla aparte, porque en cada celda solo cabe un
+                    valor: una tabla para los teléfonos, con el DNI del alumno como clave ajena:
+                    <div class="esquema"><p>TELEFONO (<u><em>DNI</em></u>, <u>telefono</u>)</p></div></li>
+                <li>Un atributo <strong>derivado</strong> no se guarda: se calcula cuando haga falta (la edad, con
+                    la fecha de nacimiento).</li>
+                <li>Un atributo <strong>compuesto</strong> se guarda en una columna por cada parte.</li>
+            </ul>
+        </li>
+        <li><strong>Relación 1:N: la clave primaria del lado 1 pasa como clave ajena a la tabla del lado N.</strong>
+            Cada artículo tiene un solo fabricante, así que cabe en una columna de ARTICULO. Al revés no funcionaría:
+            el fabricante tendría que guardar todos sus artículos en una celda.
+            <div class="esquema">
+                <p>FABRICANTE (<u>codigo</u>, nombre)</p>
+                <p>ARTICULO (<u>codigo</u>, nombre, precio, <em>fabricante</em>)</p>
+            </div>
+        </li>
+        <li><strong>Relación N:M: se crea una tabla nueva</strong> con las claves primarias de las dos entidades, que
+            son claves ajenas y, juntas, forman su clave primaria. Los atributos de la relación van en esta tabla.
+            <div class="esquema">
+                <p>ALUMNO (<u>DNI</u>, nombre)</p>
+                <p>MODULO (<u>codigo</u>, nombre)</p>
+                <p>CURSA (<u><em>DNI</em></u>, <u><em>codigo_modulo</em></u>, nota)</p>
+            </div>
+        </li>
+        <li><strong>Relación 1:1: la clave primaria de una de las dos pasa como clave ajena a la otra.</strong> Suele
+            ir en la tabla que siempre tiene pareja: todo grupo tiene tutor, pero no todo profesor es tutor.
+            <div class="esquema">
+                <p>PROFESOR (<u>DNI</u>, nombre)</p>
+                <p>GRUPO (<u>codigo</u>, aula, <em>DNI_tutor</em>)</p>
+            </div>
+        </li>
+        <li><strong>Relación reflexiva 1:N: la clave ajena apunta a la misma tabla.</strong> Y una
+            <strong>ternaria</strong> se convierte en una tabla nueva con las tres claves.
+            <div class="esquema">
+                <p>EMPLEADO (<u>DNI</u>, nombre, <em>DNI_jefe</em>)</p>
+                <p>IMPARTE (<u><em>DNI_profesor</em></u>, <u><em>codigo_modulo</em></u>, <u><em>codigo_grupo</em></u>, horas)</p>
+            </div>
+        </li>
+    </ol>
+
+    <h3 class="mb-4 text-primary">Ejemplo resuelto: la biblioteca del instituto</h3>
+    <p>La biblioteca guarda los alumnos (DNI, nombre y apellidos), los libros (código, título y autor) y los
+        préstamos: qué alumno se lleva qué libro, en qué fecha y cuándo lo tiene que devolver. Un alumno se puede
+        llevar muchos libros a lo largo del curso y un libro lo pueden llevar muchos alumnos, uno detrás de otro.
+        En el diagrama hay dos entidades, ALUMNO y LIBRO, unidas por una relación N:M, PRÉSTAMO, con dos atributos: la
+        fecha de préstamo y la de devolución.</p>
+    <p><strong>Paso 1. Las entidades son tablas:</strong> ALUMNO y LIBRO.</p>
+    <p><strong>Paso 2. La relación N:M es una tabla nueva</strong> con las dos claves y los atributos de la
+        relación:</p>
+    <div class="esquema">
+        <p>PRESTAMO (<u><em>DNI_alumno</em></u>, <u><em>codigo_libro</em></u>, fecha_prestamo, fecha_devolucion)</p>
+    </div>
+    <p><strong>Paso 3. Comprueba la clave.</strong> Si Laura se lleva el mismo libro en octubre y otra vez en marzo,
+        la pareja (DNI_alumno, codigo_libro) se repite, y una clave primaria no se puede repetir. Hay dos arreglos:
+        añadir <code>fecha_prestamo</code> a la clave o, más sencillo, dar a cada préstamo su propio número. Nos
+        quedamos con el segundo:</p>
+    <div class="esquema">
+        <p>ALUMNO (<u>DNI</u>, nombre, apellidos)</p>
+        <p>LIBRO (<u>codigo</u>, titulo, autor)</p>
+        <p>PRESTAMO (<u>id_prestamo</u>, <em>DNI_alumno</em>, <em>codigo_libro</em>, fecha_prestamo, fecha_devolucion)</p>
+    </div>
+    <p>Es lo mismo que obtendrías si dibujaras PRÉSTAMO como una entidad con dos relaciones 1:N (un alumno hace muchos
+        préstamos; un libro aparece en muchos préstamos): las dos formas de verlo llevan a las mismas tablas. Así
+        quedan con algunos datos:</p>
+    <div class="row g-3 my-2">
+        <div class="col-md-6">
+            <p class="small fw-bold mb-1">ALUMNO</p>
+            <div class="sql-tabla-wrap">
+                <table class="sql-tabla">
+                    <thead><tr><th class="pk">DNI</th><th>nombre</th><th>apellidos</th></tr></thead>
+                    <tbody>
+                        <tr><td>12345678A</td><td>Laura</td><td>Gómez Ruiz</td></tr>
+                        <tr><td>23456789B</td><td>Pablo</td><td>Martín Sanz</td></tr>
+                        <tr><td>34567890C</td><td>Irene</td><td>López Vidal</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <p class="small fw-bold mb-1">LIBRO</p>
+            <div class="sql-tabla-wrap">
+                <table class="sql-tabla">
+                    <thead><tr><th class="pk">codigo</th><th>titulo</th><th>autor</th></tr></thead>
+                    <tbody>
+                        <tr><td>L01</td><td>Marianela</td><td>Benito Pérez Galdós</td></tr>
+                        <tr><td>L02</td><td>La casa de Bernarda Alba</td><td>Federico García Lorca</td></tr>
+                        <tr><td>L03</td><td>Campos de Castilla</td><td>Antonio Machado</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <p class="small fw-bold mb-1 mt-3">PRESTAMO</p>
+    <div class="sql-tabla-wrap mb-3">
+        <table class="sql-tabla">
+            <thead><tr><th class="pk">id_prestamo</th><th class="fk">DNI_alumno</th><th class="fk">codigo_libro</th><th>fecha_prestamo</th><th>fecha_devolucion</th></tr></thead>
+            <tbody>
+                <tr><td class="num">1</td><td>12345678A</td><td>L02</td><td>2025-10-06</td><td>2025-10-20</td></tr>
+                <tr><td class="num">2</td><td>23456789B</td><td>L01</td><td>2025-10-08</td><td>2025-10-22</td></tr>
+                <tr><td class="num">3</td><td>12345678A</td><td>L03</td><td>2025-11-03</td><td>2025-11-17</td></tr>
+                <tr><td class="num">4</td><td>34567890C</td><td>L02</td><td>2025-11-05</td><td>2025-11-19</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <p>El préstamo 3 dice que la alumna <code>12345678A</code> (Laura) se llevó el libro <code>L03</code>
+        (<em>Campos de Castilla</em>). Los datos de Laura y del libro no se repiten: solo aparecen sus claves.</p>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-6/actividades/6-3"><strong>Actividad 6.3</strong>. Del diagrama a las tablas</a></div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <h2 class="mb-4 text-primary">5. Tipos de datos</h2>
+
+    <p>Cuando se crea una tabla, cada columna tiene un <strong>tipo de dato</strong>: la clase de valores que puede
+        guardar (números enteros, texto, fechas…). Sirve para tres cosas: impedir datos incorrectos (no podrás guardar
+        <code>hola</code> en el precio), ocupar solo el espacio necesario y poder operar con los valores (sumar
+        precios, ordenar fechas). Estos son los tipos de MySQL que más vas a usar:</p>
+    <table class="table table-bordered table-sm my-4">
+        <thead class="table-light">
+            <tr><th>Tipo</th><th>Qué guarda</th><th>Ejemplo</th><th>Cuándo usarlo</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>INT</code></td><td>Números enteros</td><td><code>25</code>, <code>-3</code></td><td>Cantidades,
+                    edades, unidades en stock, códigos numéricos</td></tr>
+            <tr><td><code>DECIMAL(p,s)</code></td><td>Números con decimales exactos: <code>p</code> cifras en total,
+                    <code>s</code> de ellas decimales</td><td><code>DECIMAL(8,2)</code>: <code>299.99</code></td><td>Precios,
+                    sueldos, notas con decimales</td></tr>
+            <tr><td><code>VARCHAR(n)</code></td><td>Texto de hasta <code>n</code> caracteres (ocupa lo que mide el
+                    texto)</td><td><code>VARCHAR(50)</code>: <code>'Laura'</code></td><td>Nombres, correos, direcciones,
+                    DNI, teléfonos</td></tr>
+            <tr><td><code>CHAR(n)</code></td><td>Texto de exactamente <code>n</code> caracteres</td><td><code>CHAR(5)</code>:
+                    <code>'08001'</code></td><td>Códigos que siempre miden lo mismo: código postal, DNI</td></tr>
+            <tr><td><code>TEXT</code></td><td>Texto largo</td><td>La descripción de un producto</td><td>Comentarios,
+                    descripciones, observaciones</td></tr>
+            <tr><td><code>DATE</code></td><td>Una fecha, en formato año-mes-día</td><td><code>'2025-10-14'</code></td><td>Fecha
+                    de nacimiento, de préstamo, de alta</td></tr>
+            <tr><td><code>TIME</code></td><td>Una hora</td><td><code>'08:30:00'</code></td><td>Hora de inicio de una
+                    clase o de una cita</td></tr>
+            <tr><td><code>DATETIME</code></td><td>Fecha y hora juntas</td><td><code>'2025-10-14 08:30:00'</code></td><td>Momento
+                    exacto de un pedido o de un acceso</td></tr>
+            <tr><td><code>BOOLEAN</code></td><td>Verdadero o falso (MySQL lo guarda como 1 o 0)</td><td><code>TRUE</code></td><td>Preguntas
+                    de sí o no: ¿tiene proyector?, ¿está pagado?</td></tr>
+        </tbody>
+    </table>
+    <p>Fíjate en dos detalles: en SQL los decimales se escriben con <strong>punto</strong> (<code>299.99</code>), no
+        con coma, y las fechas van <strong>entre comillas</strong> y en orden año-mes-día.</p>
+    <p>Hay más tipos que verás en manuales: <code>SMALLINT</code> y <code>BIGINT</code> (enteros más pequeños o más
+        grandes), <code>FLOAT</code> y <code>DOUBLE</code> (decimales aproximados: no los uses para dinero),
+        <code>TIMESTAMP</code> (fecha y hora en que se cambia una fila) y <code>BLOB</code> (archivos, como imágenes;
+        aunque normalmente se guarda solo la ruta del archivo).</p>
+
+    <h3 class="mb-4 text-primary">Restricciones: no son tipos de datos</h3>
+    <p>Al definir una columna, además del tipo puedes añadir <strong>restricciones</strong> o propiedades: reglas
+        que deben cumplir sus valores. Algunos apuntes las mezclan con los tipos, pero no lo son: una columna es
+        <code>INT</code> (tipo) y, además, puede ser <code>PRIMARY KEY</code> (restricción).</p>
+    <table class="table table-bordered table-sm my-4">
+        <thead class="table-light">
+            <tr><th>Restricción</th><th>Qué hace</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><code>PRIMARY KEY</code></td><td>Es la clave primaria: no se repite y no puede quedar vacía.</td></tr>
+            <tr><td><code>NOT NULL</code></td><td>Es obligatoria: no puede quedar vacía.</td></tr>
+            <tr><td><code>UNIQUE</code></td><td>No se puede repetir (una clave alternativa, como el correo).</td></tr>
+            <tr><td><code>DEFAULT valor</code></td><td>Valor que se pone si no se escribe ninguno.</td></tr>
+            <tr><td><code>AUTO_INCREMENT</code></td><td>En una columna <code>INT</code>, el SGBD pone él solo el
+                    siguiente número: 1, 2, 3…</td></tr>
+        </tbody>
+    </table>
+    <pre><code class="language-sql">CREATE TABLE Alumno (
+    DNI VARCHAR(9) PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    fecha_nacimiento DATE,
+    repetidor BOOLEAN DEFAULT FALSE
+);</code></pre>
+    <p>Cómo se escriben estas sentencias lo verás en la teoría de SQL, en el apartado
+        <a href="#/Unidad-6/teoria-sql?sec=2-crear-y-modificar-tablas">Crear y modificar tablas</a>.</p>
+    <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i><strong>DNI, teléfono y código
+            postal, siempre como texto</strong> (<code>VARCHAR</code> o <code>CHAR</code>). Con ellos no se hacen
+        cuentas, el DNI lleva una letra, un teléfono puede llevar el prefijo <code>+34</code> y un código postal como
+        <code>08001</code> perdería el cero si lo guardaras como número (se quedaría en <code>8001</code>). Regla
+        práctica: si no vas a hacer cuentas con un dato, guárdalo como texto.</div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-6/actividades/6-3"><strong>Actividad 6.3</strong>. Del diagrama a las tablas</a> · <a href="#/Unidad-6/actividades/6-5"><strong>Actividad 6.5</strong>. Tienda de informática: crear las tablas</a></div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <h2 class="mb-4 text-primary">6. Normalización</h2>
+
+    <p>Si partes de un buen diagrama E-R, las tablas suelen salir bien. Pero muchas veces te encontrarás tablas ya
+        hechas, como una hoja de cálculo que lleva años creciendo, llenas de datos repetidos.
+        <strong>Normalizar</strong> es dividir esas tablas en otras más pequeñas, siguiendo unas reglas llamadas
+        <strong>formas normales</strong>, para que cada dato se guarde una sola vez.</p>
+
+    <h3 class="mb-4 text-primary">El problema: datos repetidos y anomalías</h3>
+    <p>Esta es la hoja con la que la biblioteca apuntaba los préstamos:</p>
+    <div class="sql-tabla-wrap my-3">
+        <table class="sql-tabla">
+            <thead><tr><th>DNI</th><th>alumno</th><th>grupo</th><th>codigo_libro</th><th>titulo</th><th>fecha_prestamo</th></tr></thead>
+            <tbody>
+                <tr><td>12345678A</td><td>Laura Gómez</td><td>1SMXA</td><td>L02</td><td>La casa de Bernarda Alba</td><td>2025-10-06</td></tr>
+                <tr><td>23456789B</td><td>Pablo Martín</td><td>1SMXA</td><td>L01</td><td>Marianela</td><td>2025-10-08</td></tr>
+                <tr><td>12345678A</td><td>Laura Gómez</td><td>1SMXA</td><td>L03</td><td>Campos de Castilla</td><td>2025-11-03</td></tr>
+                <tr><td>12345678A</td><td>Laura Gómez</td><td>1SMXA</td><td>L01</td><td>Marianela</td><td>2025-11-24</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <p>Los datos de Laura aparecen tres veces y el título <em>Marianela</em>, dos. Esa repetición provoca tres
+        problemas, llamados <strong>anomalías</strong>:</p>
+    <ul>
+        <li><strong>Anomalía de modificación</strong>: Laura se cambia a 1SMXB. Hay que cambiarlo en tres filas; si se
+            olvida una, la tabla dice a la vez que Laura está en dos grupos.</li>
+        <li><strong>Anomalía de inserción</strong>: llega a la biblioteca un libro nuevo. No se puede apuntar hasta que
+            alguien se lo lleve, porque cada fila es un préstamo (habría que dejar vacías las columnas del
+            alumno).</li>
+        <li><strong>Anomalía de borrado</strong>: se borra el préstamo de Pablo (por ejemplo, porque se apuntó por error).
+            Como era su única fila, desaparece también que Pablo existe y en qué grupo está.</li>
+    </ul>
+    <p>La solución es separar los alumnos, los libros y los préstamos en tablas distintas. Eso es lo que hace la
+        normalización, paso a paso.</p>
+
+    <h3 class="mb-4 text-primary">Las tres formas normales</h3>
+    <p>Antes, una expresión que vas a usar mucho: una columna <strong>depende de</strong> otra cuando, sabiendo el
+        valor de la segunda, sabes el de la primera. El nombre depende del DNI: si sabes el DNI, sabes de quién se
+        trata y cómo se llama.</p>
+    <ul>
+        <li><strong>Primera forma normal (1FN)</strong>: en cada celda hay un solo valor. No hay listas dentro de una
+            celda ni grupos de columnas que se repiten (<code>libro1</code>, <code>libro2</code>,
+            <code>libro3</code>…).</li>
+        <li><strong>Segunda forma normal (2FN)</strong>: está en 1FN y cada columna depende de <strong>toda</strong> la
+            clave primaria, no solo de una parte. Solo puede fallar si la clave es compuesta: una tabla en 1FN con
+            clave de una sola columna ya está en 2FN.</li>
+        <li><strong>Tercera forma normal (3FN)</strong>: está en 2FN y ninguna columna depende de otra columna que no
+            sea la clave.</li>
+    </ul>
+    <p>Dicho de forma corta: cada columna tiene que depender <em>de la clave, de toda la clave y de nada más que la
+            clave</em>. Existen más formas normales, pero en la práctica basta con llegar a la tercera.</p>
+
+    <h3 class="mb-4 text-primary">Ejemplo resuelto: las notas del instituto</h3>
+    <p>Jefatura de estudios tiene esta hoja con las notas de la primera evaluación. Vamos a normalizarla.</p>
+    <p class="small fw-bold mb-1">Sin normalizar</p>
+    <div class="sql-tabla-wrap mb-3">
+        <table class="sql-tabla">
+            <thead><tr><th>expediente</th><th>alumno</th><th>grupo</th><th>tutor</th><th>cod_modulo</th><th>modulo</th><th>nota</th></tr></thead>
+            <tbody>
+                <tr><td class="num">101</td><td>Laura Gómez</td><td>1SMXA</td><td>Marta Ruiz</td><td>AO, RL</td><td>Aplicaciones Ofimáticas, Redes Locales</td><td>7, 8</td></tr>
+                <tr><td class="num">102</td><td>Pablo Martín</td><td>1SMXA</td><td>Marta Ruiz</td><td>AO, RL, FOL</td><td>Aplicaciones Ofimáticas, Redes Locales, Formación y Orientación Laboral</td><td>5, 6, 9</td></tr>
+                <tr><td class="num">103</td><td>Irene López</td><td>1SMXB</td><td>Javier Sanz</td><td>AO, FOL</td><td>Aplicaciones Ofimáticas, Formación y Orientación Laboral</td><td>8, 6</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p><strong>Paso 1. Primera forma normal: un valor en cada celda.</strong> Las columnas <code>cod_modulo</code>,
+        <code>modulo</code> y <code>nota</code> tienen listas. Así no se puede buscar quién tiene un 8 ni calcular la
+        media de un módulo. Se arregla poniendo una fila por cada alumno y módulo, y copiando el resto de datos. La
+        clave primaria pasa a ser compuesta: <code>expediente</code> + <code>cod_modulo</code>.</p>
+    <div class="esquema">
+        <p>NOTAS (<u>expediente</u>, alumno, grupo, tutor, <u>cod_modulo</u>, modulo, nota)</p>
+    </div>
+    <div class="sql-tabla-wrap mb-3">
+        <table class="sql-tabla">
+            <thead><tr><th class="pk">expediente</th><th>alumno</th><th>grupo</th><th>tutor</th><th class="pk">cod_modulo</th><th>modulo</th><th>nota</th></tr></thead>
+            <tbody>
+                <tr><td class="num">101</td><td>Laura Gómez</td><td>1SMXA</td><td>Marta Ruiz</td><td>AO</td><td>Aplicaciones Ofimáticas</td><td class="num">7</td></tr>
+                <tr><td class="num">101</td><td>Laura Gómez</td><td>1SMXA</td><td>Marta Ruiz</td><td>RL</td><td>Redes Locales</td><td class="num">8</td></tr>
+                <tr><td class="num">102</td><td>Pablo Martín</td><td>1SMXA</td><td>Marta Ruiz</td><td>AO</td><td>Aplicaciones Ofimáticas</td><td class="num">5</td></tr>
+                <tr><td class="num">102</td><td>Pablo Martín</td><td>1SMXA</td><td>Marta Ruiz</td><td>RL</td><td>Redes Locales</td><td class="num">6</td></tr>
+                <tr><td class="num">102</td><td>Pablo Martín</td><td>1SMXA</td><td>Marta Ruiz</td><td>FOL</td><td>Formación y Orientación Laboral</td><td class="num">9</td></tr>
+                <tr><td class="num">103</td><td>Irene López</td><td>1SMXB</td><td>Javier Sanz</td><td>AO</td><td>Aplicaciones Ofimáticas</td><td class="num">8</td></tr>
+                <tr><td class="num">103</td><td>Irene López</td><td>1SMXB</td><td>Javier Sanz</td><td>FOL</td><td>Formación y Orientación Laboral</td><td class="num">6</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <p>Ahora hay todavía más repeticiones. Es normal: los dos pasos siguientes las quitan.</p>
+
+    <p><strong>Paso 2. Segunda forma normal: todo depende de la clave entera.</strong> Pregúntate, columna por
+        columna, si para saber su valor te hace falta la clave completa (expediente y módulo) o solo una parte:</p>
+    <ul>
+        <li><code>alumno</code>, <code>grupo</code> y <code>tutor</code> dependen solo del expediente: Laura se llama
+            igual en todos sus módulos.</li>
+        <li><code>modulo</code> depende solo de <code>cod_modulo</code>: AO es Aplicaciones Ofimáticas sea quien sea el
+            alumno.</li>
+        <li><code>nota</code> depende de las dos cosas: es la nota de un alumno concreto en un módulo concreto.</li>
+    </ul>
+    <p>Cada grupo de columnas se va a su propia tabla, con la parte de la clave de la que depende:</p>
+    <div class="esquema">
+        <p>ALUMNO (<u>expediente</u>, alumno, grupo, tutor)</p>
+        <p>MODULO (<u>cod_modulo</u>, modulo)</p>
+        <p>NOTA (<u><em>expediente</em></u>, <u><em>cod_modulo</em></u>, nota)</p>
+    </div>
+    <div class="row g-3 my-2">
+        <div class="col-md-7">
+            <p class="small fw-bold mb-1">ALUMNO</p>
+            <div class="sql-tabla-wrap">
+                <table class="sql-tabla">
+                    <thead><tr><th class="pk">expediente</th><th>alumno</th><th>grupo</th><th>tutor</th></tr></thead>
+                    <tbody>
+                        <tr><td class="num">101</td><td>Laura Gómez</td><td>1SMXA</td><td>Marta Ruiz</td></tr>
+                        <tr><td class="num">102</td><td>Pablo Martín</td><td>1SMXA</td><td>Marta Ruiz</td></tr>
+                        <tr><td class="num">103</td><td>Irene López</td><td>1SMXB</td><td>Javier Sanz</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <p class="small fw-bold mb-1">MODULO</p>
+            <div class="sql-tabla-wrap">
+                <table class="sql-tabla">
+                    <thead><tr><th class="pk">cod_modulo</th><th>modulo</th></tr></thead>
+                    <tbody>
+                        <tr><td>AO</td><td>Aplicaciones Ofimáticas</td></tr>
+                        <tr><td>RL</td><td>Redes Locales</td></tr>
+                        <tr><td>FOL</td><td>Formación y Orientación Laboral</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <p>La tabla NOTA tiene las columnas <code>expediente</code>, <code>cod_modulo</code> y <code>nota</code> de las
+        siete filas del paso 1 (la verás completa al final).</p>
+
+    <p><strong>Paso 3. Tercera forma normal: nada depende de una columna que no sea la clave.</strong> Mira la tabla
+        ALUMNO: el tutor no depende del alumno, sino de su <strong>grupo</strong> (todo 1SMXA tiene a Marta Ruiz). Si
+        cambia la tutora de 1SMXA, habría que cambiarla en la fila de cada alumno del grupo. Se saca a una tabla
+        GRUPO, y en ALUMNO el grupo se queda como clave ajena:</p>
+    <div class="esquema">
+        <p>GRUPO (<u>grupo</u>, tutor)</p>
+        <p>ALUMNO (<u>expediente</u>, alumno, <em>grupo</em>)</p>
+        <p>MODULO (<u>cod_modulo</u>, modulo)</p>
+        <p>NOTA (<u><em>expediente</em></u>, <u><em>cod_modulo</em></u>, nota)</p>
+    </div>
+    <div class="row g-3 my-2">
+        <div class="col-md-5">
+            <p class="small fw-bold mb-1">GRUPO</p>
+            <div class="sql-tabla-wrap">
+                <table class="sql-tabla">
+                    <thead><tr><th class="pk">grupo</th><th>tutor</th></tr></thead>
+                    <tbody>
+                        <tr><td>1SMXA</td><td>Marta Ruiz</td></tr>
+                        <tr><td>1SMXB</td><td>Javier Sanz</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <p class="small fw-bold mb-1">ALUMNO</p>
+            <div class="sql-tabla-wrap">
+                <table class="sql-tabla">
+                    <thead><tr><th class="pk">expediente</th><th>alumno</th><th class="fk">grupo</th></tr></thead>
+                    <tbody>
+                        <tr><td class="num">101</td><td>Laura Gómez</td><td>1SMXA</td></tr>
+                        <tr><td class="num">102</td><td>Pablo Martín</td><td>1SMXA</td></tr>
+                        <tr><td class="num">103</td><td>Irene López</td><td>1SMXB</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <p class="small fw-bold mb-1">MODULO</p>
+            <div class="sql-tabla-wrap">
+                <table class="sql-tabla">
+                    <thead><tr><th class="pk">cod_modulo</th><th>modulo</th></tr></thead>
+                    <tbody>
+                        <tr><td>AO</td><td>Aplicaciones Ofimáticas</td></tr>
+                        <tr><td>RL</td><td>Redes Locales</td></tr>
+                        <tr><td>FOL</td><td>Formación y Orientación Laboral</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <p class="small fw-bold mb-1">NOTA</p>
+            <div class="sql-tabla-wrap">
+                <table class="sql-tabla">
+                    <thead><tr><th class="pk">expediente</th><th class="pk">cod_modulo</th><th>nota</th></tr></thead>
+                    <tbody>
+                        <tr><td class="num">101</td><td>AO</td><td class="num">7</td></tr>
+                        <tr><td class="num">101</td><td>RL</td><td class="num">8</td></tr>
+                        <tr><td class="num">102</td><td>AO</td><td class="num">5</td></tr>
+                        <tr><td class="num">102</td><td>RL</td><td class="num">6</td></tr>
+                        <tr><td class="num">102</td><td>FOL</td><td class="num">9</td></tr>
+                        <tr><td class="num">103</td><td>AO</td><td class="num">8</td></tr>
+                        <tr><td class="num">103</td><td>FOL</td><td class="num">6</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <p>Ya está en tercera forma normal. Cada tabla habla de una sola cosa y cada dato aparece una vez: el nombre de
+        la tutora de 1SMXA se cambia en una sola fila, un módulo nuevo se puede dar de alta aunque todavía no tenga
+        notas y, si se borra una nota, no se pierde ni el alumno ni el módulo.</p>
+    <p>Fíjate en que son las mismas tablas que habrías obtenido con un buen diagrama E-R: ALUMNO pertenece a un GRUPO
+        (1:N) y ALUMNO cursa MÓDULO (N:M) con el atributo nota. El diagrama y la normalización son dos caminos que
+        llevan al mismo sitio, y la normalización sirve también para comprobar que un diseño está bien.</p>
+    <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i><strong>Truco para
+            revisar:</strong> lee cada tabla y pregúntate «¿de qué habla esta tabla?». Si la respuesta lleva una «y»
+        (de los alumnos <em>y</em> de sus tutores), probablemente hay que dividirla.</div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-6/actividades/6-4"><strong>Actividad 6.4</strong>. Normalizar una hoja de préstamos</a></div>
+    </div>
+
+    <p class="fuente"><i class="bi bi-info-circle me-1"></i>Algunos apartados (qué es una base de datos, los SGBD y la
+        normalización) adaptan los apuntes de clase, que a su vez se basan en el libro abierto <a
+            href="https://opentextbc.ca/dbdesign01/" rel="noopener noreferrer" target="_blank"><em>Database Design – 2nd
+                Edition</em></a> de Adrienne Watt (BCcampus), con licencia CC BY 4.0.</p>
+</div>

@@ -1,0 +1,258 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-6/index">Unidad 6</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-6/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">6.8</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 6.8. Funciones y agrupación</h1>
+    <p class="lead">Hasta ahora cada consulta devolvía filas de la tabla. Ahora vas a <strong>resumir</strong>:
+        cuántos artículos hay, cuánto cuestan de media, cuál es el más caro… y lo mismo para cada fabricante con
+        <code>GROUP BY</code>.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Las funciones <code>COUNT</code>, <code>SUM</code>, <code>AVG</code>, <code>MAX</code> y
+                        <code>MIN</code></li>
+                    <li>Redondear con <code>ROUND</code></li>
+                    <li>Agrupar filas con <code>GROUP BY</code></li>
+                    <li>Filtrar grupos con <code>HAVING</code> (y en qué se diferencia de <code>WHERE</code>)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-6/teoria-sql?sec=5-funciones-y-agrupacion">5. Funciones y
+                            agrupación</a></li>
+                    <li>Repasa <code>WHERE</code> y <code>ORDER BY</code> en la <a
+                            href="#/Unidad-6/actividades/6-7">actividad 6.7</a>.</li>
+                    <li>Todos los editores tienen la tienda completa. Para phpMyAdmin, descarga <a
+                            href="../AO/Unidad-6/bd/tienda.sql" download>tienda.sql</a>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad6.8.sql</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Un archivo de texto con todas tus consultas, en orden. Antes de cada una, escribe un comentario:
+                    <code>-- Paso 1a</code>, <code>-- Paso 1b</code>, <code>-- Paso 2a</code>…</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-info-circle"></i>En esta actividad todavía no se juntan las dos tablas:
+        los fabricantes aparecen por su código (1 Nokia, 2 Xiaomi, 4 MSI, 8 HP…). En la 6.9 sacarás también sus
+        nombres. Pulsa <strong>Ver tablas</strong> si necesitas mirar los datos. Lo que escribes se guarda en este
+        navegador.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Cuenta filas con COUNT</h3>
+            <p>Una función de agregado (o de grupo) recorre muchas filas y devuelve un solo valor.
+                <code>COUNT(*)</code> cuenta filas.</p>
+            <p><strong>a)</strong> ¿Cuántos artículos hay en la tienda?</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Número de artículos
+SELECT </textarea>
+                <script type="text/plain" class="solucion">SELECT COUNT(*) FROM Articulos;</script>
+            </div>
+            <p><strong>b)</strong> ¿Cuántos artículos <strong>tienen fabricante</strong>? Hazlo con
+                <code>COUNT(Fabricante)</code>, sin <code>WHERE</code>.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Número de artículos que tienen fabricante
+</textarea>
+                <script type="text/plain" class="solucion">SELECT COUNT(Fabricante) FROM Articulos;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i><code>COUNT(*)</code> cuenta
+                todas las filas; <code>COUNT(columna)</code> solo las que tienen algo en esa columna (se salta los
+                <code>NULL</code>). Por eso salen 31 y 29.</div>
+        </li>
+        <li class="paso">
+            <h3>Suma y media: SUM y AVG</h3>
+            <p><strong>a)</strong> ¿Cuánto costaría comprar un artículo de cada? Suma los precios de todos los
+                artículos.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Suma de todos los precios
+</textarea>
+                <script type="text/plain" class="solucion">SELECT SUM(Precio) FROM Articulos;</script>
+            </div>
+            <p><strong>b)</strong> ¿Cuál es el precio medio de los artículos?</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Precio medio
+</textarea>
+                <script type="text/plain" class="solucion">SELECT AVG(Precio) FROM Articulos;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>El más caro y el más barato: MAX y MIN</h3>
+            <p>Con una sola consulta, obtén el precio más alto y el más bajo de la tienda, en dos columnas llamadas
+                <strong>Precio máximo</strong> y <strong>Precio mínimo</strong>.</p>
+            <div class="sql-editor" data-bd="tienda" data-columnas>
+                <textarea>-- Precio máximo y precio mínimo
+</textarea>
+                <script type="text/plain" class="solucion">SELECT MAX(Precio) AS 'Precio máximo', MIN(Precio) AS 'Precio mínimo' FROM Articulos;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>¿Y el
+                <strong>nombre</strong> del más caro? <code>SELECT Nombre, MAX(Precio) FROM Articulos;</code> no es
+                fiable: mezcla una columna normal con una función de grupo, y según la versión de MySQL da error o
+                saca el nombre de un artículo cualquiera. Para eso usa lo que viste en la 6.7: <code>ORDER BY Precio DESC LIMIT 1</code>.</div>
+        </li>
+        <li class="paso">
+            <h3>Funciones con WHERE</h3>
+            <p>Primero <code>WHERE</code> elige las filas y después la función trabaja solo con ellas.</p>
+            <p><strong>a)</strong> ¿Cuántos artículos cuestan más de 500 €?</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Número de artículos de más de 500 €
+</textarea>
+                <script type="text/plain" class="solucion">SELECT COUNT(*) FROM Articulos WHERE Precio > 500;</script>
+            </div>
+            <p><strong>b)</strong> ¿Cuál es el precio medio de los artículos del fabricante 4 (MSI)?</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Precio medio de los artículos de MSI
+</textarea>
+                <script type="text/plain" class="solucion">SELECT AVG(Precio) FROM Articulos WHERE Fabricante = 4;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Redondea con ROUND</h3>
+            <p>La media sale con muchos decimales. <code>ROUND(valor, decimales)</code> redondea:
+                <code>ROUND(AVG(Precio), 2)</code> deja dos decimales y <code>ROUND(AVG(Precio))</code>, ninguno.</p>
+            <p>Obtén el precio medio de todos los artículos <strong>redondeado sin decimales</strong>, en una columna
+                llamada <strong>Precio medio</strong>.</p>
+            <div class="sql-editor" data-bd="tienda" data-columnas>
+                <textarea>-- Precio medio sin decimales
+</textarea>
+                <script type="text/plain" class="solucion">SELECT ROUND(AVG(Precio)) AS 'Precio medio' FROM Articulos;</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Agrupa con GROUP BY</h3>
+            <p><code>GROUP BY Fabricante</code> junta en un grupo todas las filas que tienen el mismo fabricante, y la
+                función se calcula una vez por cada grupo. En el <code>SELECT</code> pon la columna por la que agrupas
+                y la función.</p>
+            <p><strong>a)</strong> Obtén el código de cada fabricante y cuántos artículos tiene.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Fabricante y número de artículos
+SELECT Fabricante, COUNT(*) FROM Articulos
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Fabricante, COUNT(*) FROM Articulos GROUP BY Fabricante;</script>
+            </div>
+            <p><strong>b)</strong> Obtén el código de cada fabricante y el precio medio de sus artículos.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Fabricante y precio medio
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Fabricante, AVG(Precio) FROM Articulos GROUP BY Fabricante;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Fíjate en dos cosas del
+                resultado: hay un grupo con <code>NULL</code> (los 2 artículos sin fabricante) y no salen Alcatel (3)
+                ni Sony (10), porque no tienen ningún artículo. Para que salgan con un 0 hay que juntar las dos tablas:
+                lo harás en la 6.9.</div>
+        </li>
+        <li class="paso">
+            <h3>Filtra grupos con HAVING</h3>
+            <p><code>WHERE</code> filtra <strong>filas</strong> antes de agrupar; <code>HAVING</code> filtra
+                <strong>grupos</strong> después de agrupar, y es donde se ponen las condiciones con
+                <code>COUNT</code>, <code>AVG</code>…</p>
+            <p><strong>a)</strong> Obtén el código y el número de artículos de los fabricantes que tienen <strong>más
+                    de 5 artículos</strong>.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Fabricantes con más de 5 artículos
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Fabricante, COUNT(*) FROM Articulos
+GROUP BY Fabricante
+HAVING COUNT(*) > 5;</script>
+            </div>
+            <p><strong>b)</strong> Obtén el código y el precio medio de los fabricantes cuyo precio medio es
+                <strong>mayor o igual que 500 €</strong>.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Fabricantes con precio medio de 500 € o más
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Fabricante, AVG(Precio) FROM Articulos
+GROUP BY Fabricante
+HAVING AVG(Precio) >= 500;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Prueba a escribir
+                <code>WHERE COUNT(*) &gt; 5</code>: da error, porque cuando se aplica el <code>WHERE</code> todavía no
+                hay grupos que contar.</div>
+        </li>
+        <li class="paso">
+            <h3>Todo junto: WHERE, GROUP BY, HAVING y ORDER BY</h3>
+            <p>Las partes de una consulta van siempre en este orden:</p>
+            <pre><code class="language-sql">SELECT … FROM … WHERE … GROUP BY … HAVING … ORDER BY …</code></pre>
+            <p><strong>a)</strong> Mirando solo los artículos de <strong>menos de 1000 €</strong>, ¿qué fabricantes
+                tienen <strong>al menos 3</strong>? Obtén el código del fabricante y el número de artículos en una
+                columna llamada <strong>Artículos</strong>. Ordena de más a menos artículos y, si empatan, por código
+                de fabricante.</p>
+            <div class="sql-editor" data-bd="tienda" data-columnas>
+                <textarea>-- Fabricantes con 3 o más artículos de menos de 1000 €
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Fabricante, COUNT(*) AS 'Artículos' FROM Articulos
+WHERE Precio < 1000
+GROUP BY Fabricante
+HAVING COUNT(*) >= 3
+ORDER BY COUNT(*) DESC, Fabricante;</script>
+            </div>
+            <p><strong>b)</strong> El «valor del catálogo» de un fabricante es la suma de los precios de sus
+                artículos. Obtén el código de cada fabricante y su valor en una columna llamada
+                <strong>Valor</strong>, solo de los que pasan de 2000 €, ordenados de mayor a menor valor.</p>
+            <div class="sql-editor" data-bd="tienda" data-columnas>
+                <textarea>-- Fabricantes con un catálogo de más de 2000 €
+</textarea>
+                <script type="text/plain" class="solucion">SELECT Fabricante, SUM(Precio) AS Valor FROM Articulos
+GROUP BY Fabricante
+HAVING SUM(Precio) > 2000
+ORDER BY Valor DESC;</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En el a), la condición del
+                precio va en el <code>WHERE</code> (es de cada artículo) y la de «al menos 3» en el
+                <code>HAVING</code> (es del grupo). En el <code>ORDER BY</code> puedes repetir la función o usar el
+                nombre que le has dado con <code>AS</code>.</div>
+        </li>
+        <li class="paso">
+            <h3>Junta todo en tu archivo</h3>
+            <p>Copia en un archivo de texto, en orden, las consultas de los pasos 1 a 8, cada una con su comentario
+                (<code>-- Paso 1a</code>, <code>-- Paso 1b</code>…), y guárdalo como
+                <code>ApellidoNombre_AO_Actividad6.8.sql</code>.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="6-8">
+        <li><label><input type="checkbox"><span>El archivo se llama <code>ApellidoNombre_AO_Actividad6.8.sql</code> y
+                    tiene un comentario antes de cada consulta.</span></label></li>
+        <li><label><input type="checkbox"><span>Sé la diferencia entre <code>COUNT(*)</code> y
+                    <code>COUNT(columna)</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>En las consultas con <code>GROUP BY</code>, el <code>SELECT</code> solo
+                    tiene la columna de agrupar y funciones.</span></label></li>
+        <li><label><input type="checkbox"><span>Las condiciones sobre <code>COUNT</code>, <code>SUM</code> o
+                    <code>AVG</code> van en el <code>HAVING</code>, no en el <code>WHERE</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Las columnas con nombre se llaman exactamente como se pide.</span></label></li>
+        <li><label><input type="checkbox"><span>Todas las consultas dan «¡Correcto!» al pulsar Comprobar.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-6/actividades/6-7"><i class="bi bi-arrow-left me-1"></i>Anterior: 6.7</a>
+        <a class="btn btn-primary" href="#/Unidad-6/actividades/6-9">Siguiente: 6.9. Consultas con varias tablas <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

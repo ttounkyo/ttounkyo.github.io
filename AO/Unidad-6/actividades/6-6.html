@@ -1,0 +1,408 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-6/index">Unidad 6</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-6/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">6.6</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 6.6. Insertar, modificar y borrar</h1>
+    <p class="lead">Las tablas de la tienda de informática ya están creadas. Ahora vas a llenarlas de datos con
+        <code>INSERT</code>, a cambiar precios y nombres con <code>UPDATE</code> y a quitar filas con
+        <code>DELETE</code>.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li><code>INSERT INTO … VALUES</code>, con una fila o con varias</li>
+                    <li><code>UPDATE … SET … WHERE</code> para cambiar datos</li>
+                    <li><code>DELETE FROM … WHERE</code> para borrar filas</li>
+                    <li>Condiciones con <code>LIKE</code>, <code>BETWEEN</code> e <code>IS NULL</code></li>
+                    <li>Qué hace la clave ajena cuando intentas borrar</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-6/teoria-sql?sec=3-insertar-modificar-y-borrar-datos">3. Insertar,
+                            modificar y borrar datos</a></li>
+                    <li>Haz antes la <a href="#/Unidad-6/actividades/6-5">actividad 6.5</a>: aquí se parte de sus
+                        tablas.</li>
+                    <li>Desde el paso 4 se usa la tienda completa. Si quieres los mismos datos en phpMyAdmin, descarga
+                        <a href="../AO/Unidad-6/bd/tienda.sql" download>tienda.sql</a> e impórtalo.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad6.6.sql</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Contenido</th>
+                <td>Un archivo de texto con todas tus sentencias, en orden. Antes de cada paso, escribe un comentario:
+                    <code>-- Paso 1</code>, <code>-- Paso 2</code>…</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-info-circle"></i>Cada editor empieza siempre con los mismos datos, así que
+        puedes hacer los pasos en cualquier orden y ejecutar tu código tantas veces como quieras. Pulsa
+        <strong>Ejecutar</strong> para ver qué hace tu código, <strong>Ver tablas</strong> para ver los datos de
+        partida y <strong>Comprobar</strong> para saber si está bien. Lo que escribes se guarda en este navegador.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Inserta los fabricantes</h3>
+            <p>Las dos tablas de la 6.5 están vacías. Inserta cuatro fabricantes nuevos: <strong>Nokia</strong>,
+                <strong>Xiaomi</strong>, <strong>Alcatel</strong> y <strong>MSI</strong>, con los códigos 1, 2, 3 y 4
+                (en ese orden). Puedes hacerlo con cuatro <code>INSERT</code> o con uno solo que lleve varias filas
+                separadas por comas.</p>
+            <p>Termina con <code>SELECT * FROM Fabricante;</code> para ver cómo ha quedado la tabla.</p>
+            <div class="sql-editor">
+                <textarea>-- Tablas vacías: Fabricante (Codigo, Nombre) y Articulos (Codigo, Nombre, Precio, Fabricante)
+INSERT INTO Fabricante
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Fabricante (Codigo INT PRIMARY KEY, Nombre VARCHAR(100));
+CREATE TABLE Articulos (Codigo INT PRIMARY KEY, Nombre VARCHAR(100), Precio DECIMAL(8,2), Fabricante INT,
+    FOREIGN KEY (Fabricante) REFERENCES Fabricante(Codigo));</script>
+                <script type="text/plain" class="solucion">INSERT INTO Fabricante (Codigo, Nombre) VALUES
+(1, 'Nokia'),
+(2, 'Xiaomi'),
+(3, 'Alcatel'),
+(4, 'MSI');
+SELECT * FROM Fabricante;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Fabricante ORDER BY Codigo</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Inserta los dos primeros artículos</h3>
+            <p>Los cuatro fabricantes ya están dentro. Inserta estos dos artículos en <code>Articulos</code>:</p>
+            <div class="table-responsive">
+                <table class="table table-sm table-bordered w-auto">
+                    <thead>
+                        <tr>
+                            <th scope="col">Codigo</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Fabricante</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Nokia Lumia Pro 950</td>
+                            <td>299,99</td>
+                            <td>Nokia</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Xiaomi Mi 11</td>
+                            <td>749,99</td>
+                            <td>ninguno (<code>NULL</code>)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="sql-editor">
+                <textarea>-- Ya están los fabricantes 1 Nokia, 2 Xiaomi, 3 Alcatel y 4 MSI
+INSERT INTO Articulos
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Fabricante (Codigo INT PRIMARY KEY, Nombre VARCHAR(100));
+CREATE TABLE Articulos (Codigo INT PRIMARY KEY, Nombre VARCHAR(100), Precio DECIMAL(8,2), Fabricante INT,
+    FOREIGN KEY (Fabricante) REFERENCES Fabricante(Codigo));
+INSERT INTO Fabricante VALUES (1, 'Nokia'), (2, 'Xiaomi'), (3, 'Alcatel'), (4, 'MSI');</script>
+                <script type="text/plain" class="solucion">INSERT INTO Articulos (Codigo, Nombre, Precio, Fabricante) VALUES
+(1, 'Nokia Lumia Pro 950', 299.99, 1),
+(2, 'Xiaomi Mi 11', 749.99, NULL);
+SELECT * FROM Articulos;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Articulos ORDER BY Codigo</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Tres trampas: en SQL los
+                decimales se escriben con <strong>punto</strong> (<code>299.99</code>, no <code>299,99</code>); en la
+                columna <code>Fabricante</code> va el <strong>código</strong> del fabricante (1), no su nombre; y
+                <code>NULL</code> se escribe sin comillas (<code>'NULL'</code> sería un texto).</div>
+        </li>
+        <li class="paso">
+            <h3>Inserta indicando las columnas</h3>
+            <p>Si escribes la lista de columnas después del nombre de la tabla, los valores van en el orden de esa
+                lista, que no tiene por qué ser el de la tabla.</p>
+            <p><strong>a)</strong> Con un solo <code>INSERT</code> y las columnas en este orden: <code>(Codigo, Nombre,
+                    Fabricante, Precio)</code>, inserta estos tres artículos:</p>
+            <ul>
+                <li>3, Xiaomi Redmi Note 11, fabricante 2, 229,99 €</li>
+                <li>4, Portátil MSI Modern 14, fabricante 4, 649 €</li>
+                <li>5, Ratón MSI Clutch GM11, fabricante 4, 29,99 €</li>
+            </ul>
+            <div class="sql-editor">
+                <textarea>-- Ya están los 4 fabricantes y los artículos 1 y 2
+INSERT INTO Articulos (Codigo, Nombre, Fabricante, Precio) VALUES
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Fabricante (Codigo INT PRIMARY KEY, Nombre VARCHAR(100));
+CREATE TABLE Articulos (Codigo INT PRIMARY KEY, Nombre VARCHAR(100), Precio DECIMAL(8,2), Fabricante INT,
+    FOREIGN KEY (Fabricante) REFERENCES Fabricante(Codigo));
+INSERT INTO Fabricante VALUES (1, 'Nokia'), (2, 'Xiaomi'), (3, 'Alcatel'), (4, 'MSI');
+INSERT INTO Articulos VALUES (1, 'Nokia Lumia Pro 950', 299.99, 1), (2, 'Xiaomi Mi 11', 749.99, NULL);</script>
+                <script type="text/plain" class="solucion">INSERT INTO Articulos (Codigo, Nombre, Fabricante, Precio) VALUES
+(3, 'Xiaomi Redmi Note 11', 2, 229.99),
+(4, 'Portátil MSI Modern 14', 4, 649.00),
+(5, 'Ratón MSI Clutch GM11', 4, 29.99);
+SELECT * FROM Articulos;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Articulos ORDER BY Codigo</script>
+            </div>
+            <p><strong>b)</strong> Del artículo 6, «Cable HDMI 2 m», todavía no sabes ni el precio ni el fabricante.
+                Insértalo rellenando solo <code>Codigo</code> y <code>Nombre</code>. Las otras dos columnas se quedarán
+                en <code>NULL</code>.</p>
+            <div class="sql-editor">
+                <textarea>-- Ya están los 4 fabricantes y los artículos 1 a 5
+</textarea>
+                <script type="text/plain" class="previo">CREATE TABLE Fabricante (Codigo INT PRIMARY KEY, Nombre VARCHAR(100));
+CREATE TABLE Articulos (Codigo INT PRIMARY KEY, Nombre VARCHAR(100), Precio DECIMAL(8,2), Fabricante INT,
+    FOREIGN KEY (Fabricante) REFERENCES Fabricante(Codigo));
+INSERT INTO Fabricante VALUES (1, 'Nokia'), (2, 'Xiaomi'), (3, 'Alcatel'), (4, 'MSI');
+INSERT INTO Articulos VALUES (1, 'Nokia Lumia Pro 950', 299.99, 1), (2, 'Xiaomi Mi 11', 749.99, NULL),
+(3, 'Xiaomi Redmi Note 11', 229.99, 2), (4, 'Portátil MSI Modern 14', 649.00, 4), (5, 'Ratón MSI Clutch GM11', 29.99, 4);</script>
+                <script type="text/plain" class="solucion">INSERT INTO Articulos (Codigo, Nombre) VALUES (6, 'Cable HDMI 2 m');
+SELECT * FROM Articulos;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Articulos ORDER BY Codigo</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Prueba a ejecutar dos
+                veces el mismo <code>INSERT</code> en el mismo editor: da error porque el <code>Codigo</code> es la
+                clave primaria y no se puede repetir.</div>
+        </li>
+        <li class="paso">
+            <h3>Cambia el nombre de un fabricante</h3>
+            <p><strong>Desde este paso, los editores tienen la tienda completa</strong>: 10 fabricantes y 31 artículos.
+                Pulsa <strong>Ver tablas</strong> para verlos antes de cambiar nada.</p>
+            <p>Actualiza el nombre del fabricante con el <code>Codigo</code> 2: ahora tiene que llamarse
+                <strong>Xiaomi Corporation</strong>.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Cambia el nombre del fabricante 2
+UPDATE Fabricante
+</textarea>
+                <script type="text/plain" class="solucion">UPDATE Fabricante SET Nombre = 'Xiaomi Corporation' WHERE Codigo = 2;
+SELECT * FROM Fabricante;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Fabricante ORDER BY Codigo</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Sube y baja precios</h3>
+            <p>En un <code>SET</code> puedes usar el valor que ya tiene la columna: <code>Precio = Precio + 50</code>
+                quiere decir «el precio nuevo es el de antes más 50».</p>
+            <p><strong>a)</strong> Aumenta en 50 € el precio de todos los artículos que cuestan <strong>menos de
+                    500 €</strong>. Por ejemplo, el Nokia Lumia Pro 950 pasa de 299,99 € a 349,99 €.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- +50 a los artículos de menos de 500
+</textarea>
+                <script type="text/plain" class="solucion">UPDATE Articulos SET Precio = Precio + 50 WHERE Precio < 500;
+SELECT * FROM Articulos;</script>
+                <script type="text/plain" class="comprobar">SELECT Codigo, Nombre, ROUND(Precio, 2) FROM Articulos ORDER BY Codigo</script>
+            </div>
+            <p><strong>b)</strong> Reduce en 100 € el precio de todos los artículos que cuestan <strong>más de
+                    700 €</strong>. Por ejemplo, el Xiaomi Mi 11 pasa de 749,99 € a 649,99 €.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- -100 a los artículos de más de 700
+</textarea>
+                <script type="text/plain" class="solucion">UPDATE Articulos SET Precio = Precio - 100 WHERE Precio > 700;
+SELECT * FROM Articulos;</script>
+                <script type="text/plain" class="comprobar">SELECT Codigo, Nombre, ROUND(Precio, 2) FROM Articulos ORDER BY Codigo</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>«Menos de 500» es
+                <code>&lt; 500</code>: un artículo que cueste justo 500 € no cambia. Si quisieras incluirlo, sería
+                <code>&lt;= 500</code>. Lo mismo con «más de 700»: <code>&gt; 700</code> deja fuera los de 700 €
+                justos.</div>
+        </li>
+        <li class="paso">
+            <h3>Asigna un fabricante a los artículos que no tienen</h3>
+            <p>Hay artículos sin fabricante (su columna <code>Fabricante</code> está en <code>NULL</code>). Asígnales
+                a todos el fabricante 9 (Logitech).</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Los artículos sin fabricante pasan a ser del fabricante 9
+</textarea>
+                <script type="text/plain" class="solucion">UPDATE Articulos SET Fabricante = 9 WHERE Fabricante IS NULL;
+SELECT * FROM Articulos;</script>
+                <script type="text/plain" class="comprobar">SELECT Codigo, Nombre, Fabricante FROM Articulos ORDER BY Codigo</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i><code>WHERE Fabricante =
+                    NULL</code> no da error, pero no cambia ninguna fila: <code>NULL</code> significa «sin valor» y no
+                se compara con <code>=</code>. Se pregunta con <code>IS NULL</code> (o <code>IS NOT NULL</code>).</div>
+        </li>
+        <li class="paso">
+            <h3>Sube un 15 % los artículos «Pro»</h3>
+            <p>Aumenta un 15 % el precio de todos los artículos que tienen <code>Pro</code> en cualquier parte del
+                nombre. Recuerda: subir un 15 % es multiplicar por 1,15.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- +15 % a los artículos que contienen 'Pro'
+</textarea>
+                <script type="text/plain" class="solucion">UPDATE Articulos SET Precio = Precio * 1.15 WHERE Nombre LIKE '%Pro%';
+SELECT * FROM Articulos;</script>
+                <script type="text/plain" class="comprobar">SELECT Codigo, Nombre, ROUND(Precio, 2) FROM Articulos ORDER BY Codigo</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En <code>LIKE</code>, el
+                signo <code>%</code> significa «cualquier texto, también ninguno». <code>'%Pro%'</code> es «tiene Pro
+                en cualquier sitio»; <code>'Pro%'</code> sería «empieza por Pro».</div>
+        </li>
+        <li class="paso">
+            <h3>Cambia dos columnas a la vez</h3>
+            <p>En un mismo <code>UPDATE</code> puedes cambiar varias columnas separándolas con comas en el
+                <code>SET</code>. El artículo 30 ahora es un cable mejor: cambia su nombre a <strong>Cable HDMI 2.1 de
+                    2 m</strong> y su precio a <strong>12,99 €</strong>.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Nombre y precio nuevos para el artículo 30
+</textarea>
+                <script type="text/plain" class="solucion">UPDATE Articulos SET Nombre = 'Cable HDMI 2.1 de 2 m', Precio = 12.99 WHERE Codigo = 30;
+SELECT * FROM Articulos WHERE Codigo = 30;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Articulos ORDER BY Codigo</script>
+            </div>
+        </li>
+        <li class="paso">
+            <h3>Cuidado con olvidar el WHERE</h3>
+            <p>Ejecuta este código tal como está y mira la tabla que sale.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>UPDATE Articulos SET Precio = 0;
+SELECT * FROM Articulos;</textarea>
+            </div>
+            <div class="alert alert-warning small"><i class="bi bi-exclamation-triangle me-1"></i>Sin
+                <code>WHERE</code>, el <code>UPDATE</code> cambia <strong>todas</strong> las filas: los 31 artículos
+                pasan a costar 0 €. Con <code>DELETE FROM Articulos;</code> pasaría lo mismo: se borrarían todos. En
+                este editor no pasa nada (cada vez que ejecutas vuelve a empezar), pero en phpMyAdmin
+                <strong>no se puede deshacer</strong>. Antes de un <code>UPDATE</code> o un <code>DELETE</code>, prueba
+                el <code>WHERE</code> con un <code>SELECT</code> para ver qué filas va a tocar.</div>
+        </li>
+        <li class="paso">
+            <h3>Borra el fabricante Alcatel</h3>
+            <p>Elimina el fabricante Alcatel <strong>usando su <code>Codigo</code></strong>, no su nombre. Si no lo
+                sabes, búscalo antes con un <code>SELECT</code>.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Busca el código de Alcatel y bórralo por su código
+SELECT * FROM Fabricante;
+</textarea>
+                <script type="text/plain" class="solucion">DELETE FROM Fabricante WHERE Codigo = 3;
+SELECT * FROM Fabricante;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Fabricante ORDER BY Codigo</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>¿Por qué por el código?
+                Porque es la clave primaria: no se repite nunca. Puede haber dos fabricantes con el mismo nombre, o el
+                nombre puede estar escrito de otra forma («ALCATEL», «Alcatel »), pero el código señala siempre una
+                sola fila.</div>
+        </li>
+        <li class="paso">
+            <h3>Intenta borrar un fabricante que tiene artículos</h3>
+            <p>Ahora toca borrar el fabricante Nokia (código 1). Ejecuta el código tal como está y lee el error.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>DELETE FROM Fabricante WHERE Codigo = 1;
+SELECT * FROM Fabricante;</textarea>
+                <script type="text/plain" class="solucion">DELETE FROM Articulos WHERE Fabricante = 1;
+DELETE FROM Fabricante WHERE Codigo = 1;
+SELECT * FROM Fabricante;</script>
+                <script type="text/plain" class="comprobar">SELECT 'Fabricante', Codigo FROM Fabricante
+UNION ALL
+SELECT 'Articulos', Codigo FROM Articulos
+ORDER BY 1, 2</script>
+            </div>
+            <details>
+                <summary>Ver la explicación</summary>
+                <p class="mt-2">Nokia tiene dos artículos (el 1 y el 2), y la columna <code>Articulos.Fabricante</code>
+                    es una clave ajena que apunta a <code>Fabricante.Codigo</code>. Si se borrara Nokia, esos dos
+                    artículos apuntarían a un fabricante que ya no existe, así que la base de datos no lo permite (en
+                    MySQL el error es <em>Cannot delete or update a parent row: a foreign key constraint fails</em>).
+                    Con Alcatel funcionó porque no tenía ningún artículo.</p>
+                <p>Hay dos formas de arreglarlo: borrar primero los artículos de Nokia, o cambiarles el fabricante con
+                    un <code>UPDATE</code>.</p>
+            </details>
+            <p class="mt-3">Cambia el código para borrar primero los artículos de Nokia y después el fabricante, y
+                pulsa <strong>Comprobar</strong>.</p>
+        </li>
+        <li class="paso">
+            <h3>Borra artículos por su precio</h3>
+            <p><strong>a)</strong> Elimina todos los artículos que cuestan <strong>más de 599,99 €</strong>.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Borra los de más de 599,99
+</textarea>
+                <script type="text/plain" class="solucion">DELETE FROM Articulos WHERE Precio > 599.99;
+SELECT * FROM Articulos;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Articulos ORDER BY Codigo</script>
+            </div>
+            <p><strong>b)</strong> Elimina todos los artículos con un precio <strong>entre 1600 y 2000 €</strong>
+                (incluidos los extremos). Usa <code>BETWEEN</code>.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Borra los que cuestan entre 1600 y 2000
+</textarea>
+                <script type="text/plain" class="solucion">DELETE FROM Articulos WHERE Precio BETWEEN 1600 AND 2000;
+SELECT * FROM Articulos;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Articulos ORDER BY Codigo</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i><code>BETWEEN 1600 AND
+                    2000</code> es lo mismo que <code>Precio &gt;= 1600 AND Precio &lt;= 2000</code>. El número pequeño
+                va siempre primero.</div>
+        </li>
+        <li class="paso">
+            <h3>Borra artículos sin fabricante y por su nombre</h3>
+            <p><strong>a)</strong> Elimina los artículos que no tienen fabricante.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Borra los artículos sin fabricante
+</textarea>
+                <script type="text/plain" class="solucion">DELETE FROM Articulos WHERE Fabricante IS NULL;
+SELECT * FROM Articulos;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Articulos ORDER BY Codigo</script>
+            </div>
+            <p><strong>b)</strong> Elimina todos los artículos que tienen <strong>más de un «1»</strong> en el nombre
+                (por ejemplo, «Xiaomi Mi 11»). «Nokia G21» tiene solo uno, así que no se borra.</p>
+            <div class="sql-editor" data-bd="tienda">
+                <textarea>-- Borra los que tienen dos o más '1' en el nombre
+</textarea>
+                <script type="text/plain" class="solucion">DELETE FROM Articulos WHERE Nombre LIKE '%1%1%';
+SELECT * FROM Articulos;</script>
+                <script type="text/plain" class="comprobar">SELECT * FROM Articulos ORDER BY Codigo</script>
+            </div>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Piensa qué patrón de
+                <code>LIKE</code> necesitas: <code>'%1%'</code> borraría todo lo que tenga al menos un 1, y
+                <code>'%11%'</code> solo los que tienen dos unos seguidos. Antes de borrar, prueba tu patrón con
+                <code>SELECT Nombre FROM Articulos WHERE Nombre LIKE …;</code></div>
+        </li>
+        <li class="paso">
+            <h3>Junta todo en tu archivo</h3>
+            <p>Copia en un archivo de texto, en orden, las sentencias de los pasos 1 a 13 (con su comentario
+                <code>-- Paso N</code>) y guárdalo como <code>ApellidoNombre_AO_Actividad6.6.sql</code>.</p>
+            <div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Si lo pruebas en
+                phpMyAdmin, ten en cuenta que allí las sentencias se ejecutan una detrás de otra sobre los mismos datos:
+                cada <code>UPDATE</code> y cada <code>DELETE</code> cambia lo que encuentra el siguiente, así que los
+                resultados no serán iguales que en los editores, donde cada paso empieza de cero.</div>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="6-6">
+        <li><label><input type="checkbox"><span>El archivo se llama <code>ApellidoNombre_AO_Actividad6.6.sql</code> y
+                    tiene un comentario antes de cada paso.</span></label></li>
+        <li><label><input type="checkbox"><span>Los precios llevan punto decimal y el «sin fabricante» es
+                    <code>NULL</code> sin comillas.</span></label></li>
+        <li><label><input type="checkbox"><span>Todos los <code>UPDATE</code> y <code>DELETE</code> llevan
+                    <code>WHERE</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Para buscar valores vacíos uso <code>IS NULL</code>, no
+                    <code>= NULL</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Sé explicar por qué no se puede borrar un fabricante que tiene
+                    artículos.</span></label></li>
+        <li><label><input type="checkbox"><span>Todos los pasos dan «¡Correcto!» al pulsar Comprobar.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-6/actividades/6-5"><i class="bi bi-arrow-left me-1"></i>Anterior: 6.5</a>
+        <a class="btn btn-primary" href="#/Unidad-6/actividades/6-7">Siguiente: 6.7. Consultas a una tabla <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

@@ -1306,3 +1306,348 @@ a.tarjeta-unidad:hover {
     display: inline-block;
     margin-top: 0.6rem;
 }
+
+
+/* ==========================================================================
+   UNIDAD 6: EDITOR SQL, TABLAS DE DATOS Y DIAGRAMAS ENTIDAD-RELACIÓN
+   ========================================================================== */
+
+.sql-editor {
+    margin: 1rem 0 1.5rem;
+    padding: 0.75rem;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 0.75rem;
+}
+
+.sql-codigo {
+    display: block;
+    width: 100%;
+    min-height: 4.5rem;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid #2b3445;
+    border-radius: 0.5rem;
+    background-color: #1f2430;
+    color: #e6edf3;
+    caret-color: var(--acento);
+    font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    resize: vertical;
+    overflow: hidden;
+    tab-size: 4;
+}
+
+.sql-codigo:focus {
+    outline: 3px solid var(--acento);
+    outline-offset: 1px;
+}
+
+.sql-botones {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+}
+
+.sql-atajo {
+    margin-left: auto;
+    font-size: 0.78rem;
+    color: var(--texto-suave);
+}
+
+.sql-atajo kbd {
+    font-size: 0.72rem;
+}
+
+.sql-salida:not(:empty) {
+    margin-top: 0.75rem;
+}
+
+.sql-salida>p,
+.sql-salida>div,
+.sql-salida>details {
+    margin-bottom: 0.5rem;
+}
+
+.sql-sentencia {
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+    margin: 0.75rem 0 0.35rem;
+    font-size: 0.8rem;
+}
+
+.sql-sentencia span {
+    flex: none;
+    min-width: 1.4rem;
+    padding: 0 0.35rem;
+    background-color: var(--azul-claro);
+    border-radius: 0.3rem;
+    color: var(--azul);
+    font-weight: 700;
+    text-align: center;
+}
+
+.sql-sentencia code {
+    overflow-wrap: anywhere;
+}
+
+/* Tabla de resultados (también se usa en la teoría para enseñar los datos de una tabla) */
+.sql-tabla-wrap {
+    max-width: 100%;
+    max-height: 24rem;
+    overflow: auto;
+    border: 1px solid var(--borde);
+    border-radius: 0.5rem;
+}
+
+.sql-tabla {
+    border-collapse: collapse;
+    min-width: 100%;
+    background-color: white;
+    font-size: 0.85rem;
+    line-height: 1.35;
+}
+
+.sql-tabla th {
+    position: sticky;
+    top: 0;
+    padding: 0.35rem 0.6rem;
+    background-color: #eef2f7;
+    border-bottom: 1px solid var(--borde);
+    color: var(--azul-osc);
+    font-family: var(--fuente-titulos);
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.sql-tabla td {
+    padding: 0.3rem 0.6rem;
+    border-bottom: 1px solid #eef1f5;
+    white-space: nowrap;
+}
+
+.sql-tabla tbody tr:nth-child(even) td {
+    background-color: #fafbfd;
+}
+
+.sql-tabla td.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.sql-tabla td.nulo {
+    color: #8a94a3;
+    font-style: italic;
+}
+
+/* Clave primaria y clave ajena en las tablas de ejemplo de la teoría */
+.sql-tabla th.pk {
+    text-decoration: underline;
+}
+
+.sql-tabla th.fk {
+    font-style: italic;
+}
+
+.sql-pie,
+.sql-vacio {
+    margin: 0.3rem 0 0;
+    font-size: 0.8rem;
+    color: var(--texto-suave);
+}
+
+.sql-cargando {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    color: var(--texto-suave);
+}
+
+.sql-hecho,
+.sql-aviso {
+    display: flex;
+    gap: 0.45rem;
+    align-items: baseline;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.sql-hecho i {
+    color: var(--verde);
+}
+
+.sql-aviso {
+    color: var(--texto-suave);
+}
+
+.sql-error,
+.sql-correcto,
+.sql-incorrecto {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.5rem;
+    font-size: 0.92rem;
+}
+
+.sql-error>i,
+.sql-correcto>i,
+.sql-incorrecto>i {
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+
+.sql-error small {
+    display: block;
+    margin-top: 0.25rem;
+    color: #7a271a;
+    font-size: 0.78rem;
+    overflow-wrap: anywhere;
+}
+
+.sql-error {
+    background-color: #fdecea;
+    border: 1px solid #f5c2bc;
+    color: #7a271a;
+}
+
+.sql-correcto {
+    background-color: var(--verde-claro);
+    border: 1px solid #c6e6d3;
+    color: #145c3b;
+}
+
+.sql-incorrecto {
+    background-color: #fff6e0;
+    border: 1px solid #f6dfa4;
+    color: #6b4a00;
+}
+
+.sql-ver-solucion,
+.sql-tabla-ver {
+    margin-top: 0.6rem;
+}
+
+.sql-ver-solucion summary,
+.sql-tabla-ver summary {
+    cursor: pointer;
+    color: var(--azul);
+    font-size: 0.92rem;
+}
+
+.sql-ver-solucion pre {
+    margin: 0.5rem 0 0;
+}
+
+.sql-tabla-ver summary {
+    overflow-wrap: anywhere;
+}
+
+.sql-tabla-ver .sql-tabla-wrap {
+    margin-top: 0.4rem;
+}
+
+/* Esquema relacional: ALUMNO (DNI, nombre, apellidos) con la clave primaria subrayada */
+.esquema {
+    margin: 0.75rem 0;
+    padding: 0.75rem 1rem;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 0.5rem;
+    font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+    font-size: 0.9rem;
+    line-height: 1.9;
+}
+
+.esquema p {
+    margin: 0;
+}
+
+.esquema u {
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+}
+
+/* Clave ajena: en cursiva y con subrayado discontinuo */
+.esquema em {
+    text-decoration: underline dashed;
+    text-underline-offset: 3px;
+}
+
+/* Diagramas entidad-relación (SVG dentro de la página) */
+.diagrama {
+    margin: 1.25rem 0;
+    text-align: center;
+}
+
+.diagrama svg {
+    width: 100%;
+    max-width: 44rem;
+    height: auto;
+    padding: 0.5rem;
+    background-color: white;
+    border: 1px solid var(--borde);
+    border-radius: 0.75rem;
+}
+
+.diagrama figcaption {
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+}
+
+.er text {
+    font-family: var(--fuente-texto);
+    font-size: 13px;
+    fill: var(--texto);
+    text-anchor: middle;
+    dominant-baseline: central;
+}
+
+.er .entidad rect {
+    fill: var(--azul-claro);
+    stroke: var(--azul);
+    stroke-width: 2;
+}
+
+.er .entidad text {
+    font-family: var(--fuente-titulos);
+    font-weight: 600;
+    fill: var(--azul-osc);
+}
+
+.er .relacion polygon {
+    fill: #fdf3dc;
+    stroke: #c98a0b;
+    stroke-width: 2;
+}
+
+.er .atributo ellipse {
+    fill: white;
+    stroke: #8a94a3;
+    stroke-width: 1.5;
+}
+
+/* Atributo clave: subrayado (lo dibuja el propio SVG). Multivaluado: doble elipse. Derivado: elipse discontinua */
+.er .derivado ellipse {
+    stroke-dasharray: 5 4;
+}
+
+.er line,
+.er path.linea {
+    fill: none;
+    stroke: #5a6675;
+    stroke-width: 1.5;
+}
+
+.er .card {
+    font-family: var(--fuente-titulos);
+    font-size: 12px;
+    font-weight: 700;
+    fill: #a3550b;
+}
