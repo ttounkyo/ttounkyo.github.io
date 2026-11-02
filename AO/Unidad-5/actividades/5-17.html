@@ -1,0 +1,233 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.17</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.17. Áreas, frutería, sueldos y notas</h1>
+    <p class="lead">Cuatro ejercicios cortos para repasar la primera parte de la unidad: áreas y volúmenes de figuras, las ventas de una frutería, el sueldo con antigüedad de unos empleados y la nota final de un grupo de alumnos.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Fórmulas con operaciones, paréntesis y potencias (<code>^</code>)</li>
+                    <li>Referencias absolutas (<code>$H$5</code>) para arrastrar fórmulas</li>
+                    <li><code>SUMA</code>, <code>MIN</code>, <code>MAX</code> y <code>PROMEDIO</code></li>
+                    <li><code>SI</code> anidados, <code>BUSCARV</code> y <code>SIFECHA</code> con la fecha de hoy</li>
+                    <li>Formato condicional con reglas y con fórmulas personalizadas</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-12-formulas-basicas">5.12. Fórmulas básicas</a> y <a href="#/Unidad-5/index?sec=5-13-funciones">5.13. Funciones</a> y <a href="#/Unidad-5/index?sec=5-14-copiar-formulas-y-funciones-referencias-absolutas-y-relativas">5.14. Referencias absolutas y relativas</a> y <a href="#/Unidad-5/index?sec=5-15-usando-formato-condicional">5.15. Formato condicional</a></li>
+                    <li>Es una actividad de repaso: intenta resolver cada parte sin mirar la solución y compara al terminar.</li>
+                    <li>Cada hoja tiene su enunciado escrito arriba. Las puntuaciones que aparecen solo indican el peso de cada parte.</li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-17-plantilla.xlsx" download><i class="bi bi-file-earmark-spreadsheet me-1"></i>Libro de partida (plantilla)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-17-solucion.xlsx" download><i class="bi bi-file-earmark-check me-1"></i>Solución (para comparar al terminar)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.17</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Hojas</th>
+                <td>Las cuatro del libro: <code>Pregunta 1</code> a <code>Pregunta 4</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Pregunta 1: trapecio, esfera y prisma</h3>
+            <p>En la hoja <code>Pregunta 1</code> tienes seis figuras con su fórmula dibujada y, debajo de cada una, una tabla con las <strong>variables</strong> y sus <strong>valores</strong>. En la celda vacía del resultado (A o V) escribe la fórmula usando las celdas de los valores, nunca los números.</p><ul><li><strong>Trapecio</strong> (B22): área = (B + b) / 2 × h.</li><li><strong>Esfera</strong> (E20): volumen = 4/3 × π × r³. El número π se escribe con la función <code>PI()</code> y el cubo, con <code>^3</code>.</li><li><strong>Prisma triangular</strong> (H22): volumen = b × h × l / 2.</li></ul><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Usa paréntesis: <code>=B19+B20/2*B21</code> divide solo b entre 2 y el resultado sale mal. Lo correcto es <code>=(B19+B20)/2*B21</code>.</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr>
+                        <tr><th>18</th><td style="background-color:#4A86E8">Variables</td><td style="background-color:#4A86E8">Valores</td><td></td><td style="background-color:#4A86E8">Variables</td><td style="background-color:#4A86E8">Valores</td><td></td><td style="background-color:#4A86E8">Variables</td><td style="background-color:#4A86E8">Valores</td></tr>
+                        <tr><th>19</th><td>B:</td><td class="num">15</td><td></td><td>r:</td><td class="num">1</td><td></td><td>b:</td><td class="num">10</td></tr>
+                        <tr><th>20</th><td>b:</td><td class="num">10</td><td></td><td>V:</td><td class="num formula">4,19</td><td></td><td>h:</td><td class="num">15</td></tr>
+                        <tr><th>21</th><td>h:</td><td class="num">8</td><td></td><td></td><td></td><td></td><td>l:</td><td class="num">20</td></tr>
+                        <tr><th>22</th><td>A:</td><td class="num formula">100</td><td></td><td></td><td class="num formula">4,19</td><td></td><td>V:</td><td class="num formula">1.500</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>B22</dt><dd><code>=(B19+B20)/2*B21</code></dd>
+                    <dt>E20</dt><dd><code>=4/3*pi()*E19^3</code></dd>
+                    <dt>H22</dt><dd><code>=(H19*H20*H21)/2</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Pregunta 1: cuadrado, rectángulo y ortoedro</h3>
+            <p>Sigue con las otras tres figuras de la misma hoja:</p><ul><li><strong>Cuadrado</strong> (K20): área = l².</li><li><strong>Rectángulo</strong> (N21): área = b × h.</li><li><strong>Ortoedro</strong> (Q23): volumen = l × w × h.</li></ul><p>Si lo has hecho bien, te saldrán 16, 40 y 24.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>J</th><th>K</th><th>L</th><th>M</th><th>N</th><th>O</th><th>P</th><th>Q</th></tr>
+                        <tr><th>18</th><td style="background-color:#4A86E8">Variables</td><td style="background-color:#4A86E8">Valores</td><td></td><td style="background-color:#4A86E8">Variables</td><td style="background-color:#4A86E8">Valores</td><td></td><td style="background-color:#4A86E8">Variables</td><td style="background-color:#4A86E8">Valores</td></tr>
+                        <tr><th>19</th><td>l:</td><td class="num">4</td><td></td><td>h:</td><td class="num">8</td><td></td><td>w:</td><td class="num">4</td></tr>
+                        <tr><th>20</th><td>A:</td><td class="num formula">16</td><td></td><td>b:</td><td class="num">5</td><td></td><td>h:</td><td class="num">2</td></tr>
+                        <tr><th>21</th><td></td><td></td><td></td><td>A:</td><td class="num formula">40</td><td></td><td>l:</td><td class="num">3</td></tr>
+                        <tr><th>22</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>23</th><td></td><td></td><td></td><td></td><td></td><td></td><td>V:</td><td class="num formula">24</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>K20</dt><dd><code>=K19^2</code></dd>
+                    <dt>N21</dt><dd><code>=N19*N20</code></dd>
+                    <dt>Q23</dt><dd><code>=Q21*Q20*Q19</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Pregunta 2: ventas de la frutería</h3>
+            <p>En la hoja <code>Pregunta 2</code> una frutería apunta cuántas frutas compra cada cliente. El precio de una fruta está en H5 (0,50 €) y el descuento, en H6 (15 % cuando un cliente compra más de 10 frutas).</p><ol><li>En D6 calcula el <strong>precio por cliente</strong>: cantidad × precio de la fruta. Fija H5 con <code>$H$5</code> para poder arrastrar la fórmula hasta D15.</li><li>En E6 calcula el <strong>precio con descuento</strong> con <code>SI</code>: si la cantidad es mayor que 10, resta el 15 % al precio; si no, deja el mismo precio. Arrástrala hasta E15.</li><li>En C18:C21 calcula el total de frutas vendidas (<code>SUMA</code>), la cantidad más pequeña (<code>MIN</code>), la más grande (<code>MAX</code>) y la media (<code>PROMEDIO</code>).</li><li>Resalta en la columna C al cliente que más compra y al que menos: selecciona C6:C15, <span class="ruta-menu">Formato → Formato condicional</span>, <em>La fórmula personalizada es</em> <code>=C6=MAX($C$6:$C$15)</code> con un color, y otra regla con <code>MIN</code> y otro color.</li></ol><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>La solución escribe el 15 % dentro de la fórmula. Es mejor usar <code>$H$6</code>: si cambia el descuento, solo tocas una celda. Si el libro ya trae alguna regla de formato condicional, bórrala y crea las tuyas.</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr>
+                        <tr><th>5</th><td><strong>Clientes</strong></td><td><strong>Cantidad de frutas</strong></td><td><strong>Precio por cliente</strong></td><td><strong>Precio con Descuento</strong></td><td></td><td>Precio por fruta:</td><td class="num">0,50 €</td></tr>
+                        <tr><th>6</th><td>Luis</td><td class="num">7</td><td class="num formula">3,50 €</td><td class="num formula">3,50 €</td><td></td><td>Descuento cuando sea &gt; a 10</td><td class="num">15,00 %</td></tr>
+                        <tr><th>7</th><td>Marta</td><td class="num">2</td><td class="num formula">1,00 €</td><td class="num formula">1,00 €</td><td></td><td></td><td></td></tr>
+                        <tr><th>8</th><td>Carlos</td><td class="num">12</td><td class="num formula">6,00 €</td><td class="num formula">5,10 €</td><td></td><td></td><td></td></tr>
+                        <tr><th>9</th><td>Ana</td><td class="num">4</td><td class="num formula">2,00 €</td><td class="num formula">2,00 €</td><td></td><td></td><td></td></tr>
+                        <tr><th>10</th><td>Juan</td><td class="num">20</td><td class="num formula">10,00 €</td><td class="num formula">8,50 €</td><td></td><td></td><td></td></tr>
+                        <tr><th>11</th><td>Laura</td><td class="num">1</td><td class="num formula">0,50 €</td><td class="num formula">0,50 €</td><td></td><td></td><td></td></tr>
+                        <tr><th>12</th><td>Sergio</td><td class="num">15</td><td class="num formula">7,50 €</td><td class="num formula">6,38 €</td><td></td><td></td><td></td></tr>
+                        <tr><th>13</th><td>Eva</td><td class="num">9</td><td class="num formula">4,50 €</td><td class="num formula">4,50 €</td><td></td><td></td><td></td></tr>
+                        <tr><th>14</th><td>Pedro</td><td class="num">30</td><td class="num formula">15,00 €</td><td class="num formula">12,75 €</td><td></td><td></td><td></td></tr>
+                        <tr><th>15</th><td>Elena</td><td class="num">3</td><td class="num formula">1,50 €</td><td class="num formula">1,50 €</td><td></td><td></td><td></td></tr>
+                        <tr><th>16</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>17</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>18</th><td>Total del día:</td><td class="num formula"><strong>103</strong></td><td></td><td colspan="4">Total del día: Calcula el total de frutas vendidas.</td></tr>
+                        <tr><th>19</th><td>Cantidad más pequeña:</td><td class="num formula"><strong>1</strong></td><td></td><td colspan="4">Cantidad más pequeña: Identifica quién compró la menor cantidad de frutas.</td></tr>
+                        <tr><th>20</th><td>Cantidad más grande:</td><td class="num formula"><strong>30</strong></td><td></td><td colspan="4">Cantidad más grande: Identifica quién compró la mayor cantidad de frutas.</td></tr>
+                        <tr><th>21</th><td>Promedio de ventas:</td><td class="num formula"><strong>10,3</strong></td><td></td><td colspan="4">Promedio de ventas: Calcula la cantidad de frutas vendidas.</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>D6</dt><dd><code>=C6*$H$5</code></dd>
+                    <dt>E6</dt><dd><code>=SI(C6&gt;10;D6-(D6*15/100);D6)</code></dd>
+                    <dt>C18</dt><dd><code>=SUMA(C6:C15)</code></dd>
+                    <dt>C19</dt><dd><code>=MIN(C6:C15)</code></dd>
+                    <dt>C20</dt><dd><code>=MAX(C6:C15)</code></dd>
+                    <dt>C21</dt><dd><code>=PROMEDIO(C6:C15)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Pregunta 3: sueldo con antigüedad</h3>
+            <p>En la hoja <code>Pregunta 3</code> tienes los sueldos de cada categoría (A7:B16) y la lista de empleados con su fecha de ingreso y su categoría. Cada año trabajado suma un complemento de antigüedad (E8: 50 € por año).</p><ol><li>En E7 pon la fecha de hoy con <code>=HOY()</code> (la solución usa <code>=AHORA()</code>, que también lleva la hora).</li><li>En E20 calcula los <strong>años trabajados</strong> con <code>SIFECHA(fecha de ingreso; fecha actual; "Y")</code>. Fija la fecha actual con <code>E$7</code> o <code>$E$7</code>.</li><li>En F20 busca el <strong>sueldo</strong> de su categoría con <code>BUSCARV</code> en la tabla A7:B16, con <code>$</code> y con <code>0</code> al final para buscar el valor exacto.</li><li>En G20 calcula la <strong>antigüedad</strong> (años × E8) y en H20 el <strong>sueldo + antigüedad</strong>. Arrastra las cuatro fórmulas hasta la fila 27.</li></ol><p>Los años trabajados dependen del día en que hagas la actividad: tus números pueden ser algo distintos de los de la vista previa.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr>
+                        <tr><th>19</th><td style="background-color:#C0C0C0"><strong>Nombre</strong></td><td style="background-color:#C0C0C0"><strong>Apellido</strong></td><td style="background-color:#C0C0C0"><strong>Fecha Ingreso</strong></td><td style="background-color:#C0C0C0"><strong>Categoría</strong></td><td style="background-color:#C0C0C0"><strong>Años trabajados</strong></td><td style="background-color:#C0C0C0"><strong>Sueldo</strong></td><td style="background-color:#C0C0C0"><strong>Antigüedad</strong></td><td style="background-color:#C0C0C0"><strong>Sueldo + Antigüedad</strong></td></tr>
+                        <tr><th>20</th><td>Anibal Ernesto</td><td>Insaurralde</td><td>12/05/1998</td><td class="num">8</td><td class="num formula">28</td><td class="num formula">7.748,10 €</td><td class="num formula">1.400,00 €</td><td class="num formula">9.148,10 €</td></tr>
+                        <tr><th>21</th><td>Esteban Ariel</td><td>Gómez</td><td>25/04/1999</td><td class="num">9</td><td class="num formula">27</td><td class="num formula">8.230,69 €</td><td class="num formula">1.350,00 €</td><td class="num formula">9.580,69 €</td></tr>
+                        <tr><th>22</th><td>Susana María</td><td>Ruffini</td><td>03/04/2005</td><td class="num">6</td><td class="num formula">21</td><td class="num formula">6.955,24 €</td><td class="num formula">1.050,00 €</td><td class="num formula">8.005,24 €</td></tr>
+                        <tr><th>23</th><td>Rosana Eva</td><td>Díaz</td><td>14/09/2003</td><td class="num">4</td><td class="num formula">23</td><td class="num formula">5.784,36 €</td><td class="num formula">1.150,00 €</td><td class="num formula">6.934,36 €</td></tr>
+                        <tr><th>24</th><td>Roberto David</td><td>Pérez</td><td>21/05/2010</td><td class="num">1</td><td class="num formula">16</td><td class="num formula">4.502,30 €</td><td class="num formula">800,00 €</td><td class="num formula">5.302,30 €</td></tr>
+                        <tr><th>25</th><td>Mariana Andrea</td><td>Córdoba</td><td>17/05/2001</td><td class="num">4</td><td class="num formula">25</td><td class="num formula">5.784,36 €</td><td class="num formula">1.250,00 €</td><td class="num formula">7.034,36 €</td></tr>
+                        <tr><th>26</th><td>Gonzalo Abel</td><td>Corti</td><td>25/07/1998</td><td class="num">8</td><td class="num formula">28</td><td class="num formula">7.748,10 €</td><td class="num formula">1.400,00 €</td><td class="num formula">9.148,10 €</td></tr>
+                        <tr><th>27</th><td>Edith Norma</td><td>Velazquez</td><td>01/08/2015</td><td class="num">2</td><td class="num formula">11</td><td class="num formula">4.950,00 €</td><td class="num formula">550,00 €</td><td class="num formula">5.500,00 €</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>E7</dt><dd><code>=AHORA()</code></dd>
+                    <dt>E20</dt><dd><code>=SIFECHA(C20;E$7;&quot;Y&quot;)</code></dd>
+                    <dt>F20</dt><dd><code>=BUSCARV(D20;$A$7:$B$16;2;0)</code></dd>
+                    <dt>G20</dt><dd><code>=E20*$E$8</code></dd>
+                    <dt>H20</dt><dd><code>=F20+G20</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Pregunta 3: colores según la antigüedad</h3>
+            <p>Colorea las filas de los empleados (A20:H27) según los años trabajados, con los colores de la leyenda de I7:I9: menos de 10 años, de 10 a 20 años y más de 20. Selecciona A20:H27, <span class="ruta-menu">Formato → Formato condicional</span> y crea tres reglas con <em>La fórmula personalizada es</em>. Si el libro ya trae reglas en ese rango, bórralas y créalas tú.</p><details><summary>Ver la solución</summary><dl class="formulas"><dt>Menos de 10 años</dt><dd><code>=SIFECHA($C20;$E$7;"Y")&lt;10</code></dd><dt>De 10 a 20 años</dt><dd><code>=SIFECHA($C20;$E$7;"Y")&lt;20</code></dd><dt>Más de 20 años</dt><dd><code>=SIFECHA($C20;$E$7;"Y")&gt;=20</code></dd></dl><p>El <code>$</code> delante de la C hace que todas las celdas de la fila miren la misma fecha de ingreso. Google Sheets aplica la primera regla que se cumple, así que la de menos de 10 años tiene que ir arriba. También puedes usar los años ya calculados: <code>=$E20&lt;10</code>.</p></details>
+        </li>
+        <li class="paso">
+            <h3>Pregunta 4: media y calificación final</h3>
+            <p>En la hoja <code>Pregunta 4</code> están las notas de 12 alumnos en Matemáticas, Física y TIC, y los criterios escritos en B5:J12.</p><ol><li>En H16 calcula la <strong>media de selectividad</strong> con <code>PROMEDIO</code>.</li><li>En I16 escribe la <strong>calificación final</strong> con funciones <code>SI</code> anidadas: menos de 3, DEFICIENTE; de 3 a menos de 5, INSUFICIENTE; de 5 a menos de 6, SUFICIENTE; de 6 a menos de 7, BIEN; de 7 a 8, NOTABLE; y más de 8, EXCELENTE.</li><li>Arrastra las dos fórmulas hasta la fila 27.</li><li>Aplica a I16:I27 el formato condicional que piden H6:H11: una regla <em>El texto es exactamente</em> por cada calificación, con su color de fondo y de letra.</li></ol><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Si empiezas por la nota más baja, cada <code>SI</code> ya sabe que la media no es menor que la del anterior y no necesitas <code>Y</code>: <code>=SI(H16&lt;3;"DEFICIENTE";SI(H16&lt;5;"INSUFICIENTE";…))</code>.</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th></tr>
+                        <tr><th>15</th><td style="background-color:#8BC34A"><strong>Ord.</strong></td><td colspan="2" style="background-color:#8BC34A"><strong>Nombre del alumno</strong></td><td style="background-color:#8BC34A"><strong>Matemáticas</strong></td><td style="background-color:#8BC34A"><strong>Física</strong></td><td style="background-color:#8BC34A"><strong>TIC</strong></td><td style="background-color:#8BC34A"><strong>Media Selectividad</strong></td><td style="background-color:#8BC34A"><strong>Calificación Final</strong></td></tr>
+                        <tr><th>16</th><td class="num">1</td><td colspan="2">ALONSO GIL LUCÍA</td><td class="num" style="color:#002060">4</td><td class="num" style="color:#002060">5,6</td><td class="num" style="color:#002060"><strong>4,8</strong></td><td class="num formula">4,80</td><td class="formula">INSUFICIENTE</td></tr>
+                        <tr><th>17</th><td class="num" style="background-color:#EEF7E3">2</td><td colspan="2" style="background-color:#EEF7E3">BENÍTEZ ROJO MARCOS</td><td class="num" style="background-color:#EEF7E3;color:#002060">5,5</td><td class="num" style="background-color:#EEF7E3;color:#002060">5</td><td class="num" style="background-color:#EEF7E3;color:#002060"><strong>5,3</strong></td><td class="num formula" style="background-color:#EEF7E3">5,27</td><td class="formula" style="background-color:#EEF7E3">SUFICIENTE</td></tr>
+                        <tr><th>18</th><td class="num">3</td><td colspan="2">CANO VIDAL IRENE</td><td class="num" style="color:#002060">5</td><td class="num" style="color:#002060">5,9</td><td class="num" style="color:#002060"><strong>5,8</strong></td><td class="num formula">5,57</td><td class="formula">SUFICIENTE</td></tr>
+                        <tr><th>19</th><td class="num" style="background-color:#EEF7E3">4</td><td colspan="2" style="background-color:#EEF7E3">DÍAZ MOLINA PABLO</td><td class="num" style="background-color:#EEF7E3;color:#002060">6,9</td><td class="num" style="background-color:#EEF7E3;color:#002060">10</td><td class="num" style="background-color:#EEF7E3;color:#002060"><strong>6,4</strong></td><td class="num formula" style="background-color:#EEF7E3">7,77</td><td class="formula" style="background-color:#EEF7E3">NOTABLE</td></tr>
+                        <tr><th>20</th><td class="num">5</td><td colspan="2">ESTEBAN RUIZ CLARA</td><td class="num">4</td><td class="num" style="color:#002060">5,1</td><td class="num" style="color:#002060"><strong>4,4</strong></td><td class="num formula">4,50</td><td class="formula">INSUFICIENTE</td></tr>
+                        <tr><th>21</th><td class="num" style="background-color:#EEF7E3">6</td><td colspan="2" style="background-color:#EEF7E3">FUENTES LARA HUGO</td><td class="num" style="background-color:#EEF7E3;color:#002060">6,3</td><td class="num" style="background-color:#EEF7E3;color:#002060">9</td><td class="num" style="background-color:#EEF7E3;color:#002060"><strong>9</strong></td><td class="num formula" style="background-color:#EEF7E3">8,10</td><td class="formula" style="background-color:#EEF7E3">EXCELENTE</td></tr>
+                        <tr><th>22</th><td class="num">7</td><td colspan="2">GARRIDO SOTO NURIA</td><td class="num" style="color:#002060">5,2</td><td class="num" style="color:#002060">4,2</td><td class="num" style="color:#002060"><strong>4,7</strong></td><td class="num formula">4,70</td><td class="formula">INSUFICIENTE</td></tr>
+                        <tr><th>23</th><td class="num" style="background-color:#EEF7E3">8</td><td colspan="2" style="background-color:#EEF7E3">HERRERO PASCUAL ÓSCAR</td><td class="num" style="background-color:#EEF7E3;color:#002060">10</td><td class="num" style="background-color:#EEF7E3;color:#002060">10</td><td class="num" style="background-color:#EEF7E3;color:#002060"><strong>10</strong></td><td class="num formula" style="background-color:#EEF7E3">10,00</td><td class="formula" style="background-color:#EEF7E3">EXCELENTE</td></tr>
+                        <tr><th>24</th><td class="num">9</td><td colspan="2">IBÁÑEZ CORTÉS ALBA</td><td class="num" style="color:#002060">10</td><td class="num" style="color:#002060">5,3</td><td class="num" style="color:#002060"><strong>5,3</strong></td><td class="num formula">6,87</td><td class="formula">BIEN</td></tr>
+                        <tr><th>25</th><td class="num" style="background-color:#EEF7E3">10</td><td colspan="2" style="background-color:#EEF7E3">JIMÉNEZ NAVARRO DIEGO</td><td class="num" style="background-color:#EEF7E3;color:#002060">4,5</td><td class="num" style="background-color:#EEF7E3;color:#002060">5,2</td><td class="num" style="background-color:#EEF7E3;color:#002060"><strong>4,9</strong></td><td class="num formula" style="background-color:#EEF7E3">4,87</td><td class="formula" style="background-color:#EEF7E3">INSUFICIENTE</td></tr>
+                        <tr><th>26</th><td class="num">11</td><td colspan="2">LORENZO PRIETO SARA</td><td class="num" style="color:#002060">4,2</td><td class="num" style="color:#002060">7</td><td class="num" style="color:#002060"><strong>7</strong></td><td class="num formula">6,07</td><td class="formula">BIEN</td></tr>
+                        <tr><th>27</th><td class="num" style="background-color:#EEF7E3">12</td><td colspan="2" style="background-color:#EEF7E3">MÉNDEZ ROMERO IVÁN</td><td class="num" style="background-color:#EEF7E3;color:#002060">4,3</td><td class="num" style="background-color:#EEF7E3;color:#002060">0</td><td class="num" style="background-color:#EEF7E3;color:#002060"><strong>0</strong></td><td class="num formula" style="background-color:#EEF7E3">1,43</td><td class="formula" style="background-color:#EEF7E3">DEFICIENTE</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>H16</dt><dd><code>=PROMEDIO(E16:G16)</code></dd>
+                    <dt>I16</dt><dd><code>=SI(H16&lt;3;&quot;DEFICIENTE&quot;;SI(Y(H16&gt;=3;H16&lt;5);&quot;INSUFICIENTE&quot;;SI(Y(H16&gt;=5;H16&lt;6);&quot;SUFICIENTE&quot;;SI(Y(H16&gt;=6;H16&lt;7);&quot;BIEN&quot;;SI(Y(H16&gt;=7;H16&lt;=8);&quot;NOTABLE&quot;;&quot;EXCELENTE&quot;)))))</code></dd>
+                </dl>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-17">
+        <li><label><input type="checkbox"><span>El libro se llama <code>ApellidoNombre_AO_Actividad5.17</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>En <code>Pregunta 1</code> los seis resultados salen de fórmulas con las celdas de los valores: 100, 4,19 (aprox.), 1500, 16, 40 y 24.</span></label></li>
+        <li><label><input type="checkbox"><span>En <code>Pregunta 2</code> los precios usan <code>$H$5</code>, Pedro paga 12,75 € con el descuento y el total del día es de 103 frutas.</span></label></li>
+        <li><label><input type="checkbox"><span>En <code>Pregunta 3</code> los años salen de <code>SIFECHA</code> con la fecha de hoy y cada sueldo, de <code>BUSCARV</code> (Anibal Ernesto, categoría 8: 7.748,10 €).</span></label></li>
+        <li><label><input type="checkbox"><span>Las filas de los empleados cambian de color según los años trabajados.</span></label></li>
+        <li><label><input type="checkbox"><span>En <code>Pregunta 4</code> BÄUERLE tiene un 8,1 (EXCELENTE) y FARIAS un 1,43 (DEFICIENTE), y cada calificación tiene su color.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-16"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.16</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-18">Siguiente: 5.18. Descuentos, faltas, tareas y gráficos <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

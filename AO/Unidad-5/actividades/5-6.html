@@ -1,0 +1,101 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.6</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.6. La función SI</h1>
+    <p class="lead">Vas a resolver 19 ejercicios cortos con la función SI, repartidos en tres libros de dificultad creciente: primero con una sola condición, después con varios SI anidados y, al final, combinando condiciones con Y y O.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>La función <code>SI</code> con una condición</li>
+                    <li>Operadores de comparación: <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>=</code> y <code>&lt;&gt;</code></li>
+                    <li>Funciones <code>SI</code> anidadas (un <code>SI</code> dentro de otro)</li>
+                    <li>Combinar condiciones con <code>Y</code> y <code>O</code></li>
+                    <li>Condiciones con fechas y la función <code>HOY</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-13-funciones">5.13. Funciones</a> y <a href="#/Unidad-5/index?sec=5-9-uso-avanzado-de-la-hoja-de-calculo">5.9. Uso avanzado</a></li>
+                    <li>Cada libro tiene una pestaña por ejercicio. Los enunciados están en los pasos de esta página.</li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-6-si-basico.xlsx" download><i class="bi bi-download me-1"></i>Libro del nivel básico (5 ejercicios)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-6-si-intermedio.xlsx" download><i class="bi bi-download me-1"></i>Libro del nivel intermedio (7 ejercicios)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-6-si-avanzado.xlsx" download><i class="bi bi-download me-1"></i>Libro del nivel avanzado (7 ejercicios)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.6</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Libros</th>
+                <td>Tres, uno por nivel, con el nivel al final del nombre: <code>ApellidoNombre_AO_Actividad5.6_Basico</code>, <code>…_Intermedio</code> y <code>…_Avanzado</code>.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Cómo se escribe SI</h3>
+            <p>La función <code>SI</code> comprueba una condición y devuelve un valor si se cumple y otro si no se cumple:</p><p><code>=SI(condición; valor_si_verdadero; valor_si_falso)</code></p><p>Por ejemplo, <code>=SI(A2&gt;=5;"Aprobado";"Suspenso")</code> muestra «Aprobado» si A2 vale 5 o más y «Suspenso» en cualquier otro caso. Los textos van entre comillas; los números y las referencias a celdas, sin comillas.</p><p>Importa los tres libros en Google Sheets. Cada pestaña es un ejercicio. Escribe la fórmula en la fila 2 de la columna del resultado y arrástrala hacia abajo hasta la última fila con datos. Si la columna del resultado no tiene encabezado, escríbele uno (por ejemplo, <em>Resultado</em>).</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En Google Sheets en castellano los argumentos se separan con <code>;</code> y los decimales se escriben con coma: <code>4,5</code>, no <code>4.5</code>.</div>
+        </li>
+        <li class="paso">
+            <h3>Nivel básico: una condición</h3>
+            <p>Libro <strong>básico</strong>. El dato está en la columna A; escribe el resultado en la columna B (de B2 a B6).</p><ul><li><strong>Ejercicio 1.</strong> Si la nota es mayor o igual que 5, «Aprobado»; si no, «Suspenso».</li><li><strong>Ejercicio 2.</strong> Si la edad es mayor o igual que 18, «Mayor de edad»; si no, «Menor de edad».</li><li><strong>Ejercicio 3.</strong> Si el importe de la compra es mayor o igual que 35 €, «Envío gratis»; si no, «Envío 5€».</li><li><strong>Ejercicio 4.</strong> Si el porcentaje de asistencia es mayor o igual que 70 %, «Asistencia suficiente»; si no, «Asistencia insuficiente».</li><li><strong>Ejercicio 5.</strong> Si la temperatura es mayor que 30 ºC, «Calor»; si no, «Normal».</li></ul><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En el ejercicio 4 la asistencia está escrita como número (80, 65…), no con formato de porcentaje. Por eso se compara con <code>70</code> y no con <code>70%</code>.</div><details><summary>Ver la solución</summary><dl class="formulas"><dt>Ej. 1 · B2</dt><dd><code>=SI(A2&gt;=5;"Aprobado";"Suspenso")</code><br><span class="small text-muted">Suspenso, Aprobado, Aprobado, Suspenso, Aprobado</span></dd><dt>Ej. 2 · B2</dt><dd><code>=SI(A2&gt;=18;"Mayor de edad";"Menor de edad")</code><br><span class="small text-muted">Menor, Mayor, Menor, Mayor, Mayor de edad</span></dd><dt>Ej. 3 · B2</dt><dd><code>=SI(A2&gt;=35;"Envío gratis";"Envío 5€")</code><br><span class="small text-muted">Solo la compra de 30 € paga envío</span></dd><dt>Ej. 4 · B2</dt><dd><code>=SI(A2&gt;=70;"Asistencia suficiente";"Asistencia insuficiente")</code><br><span class="small text-muted">Solo el 65 es insuficiente (el 70 ya es suficiente)</span></dd><dt>Ej. 5 · B2</dt><dd><code>=SI(A2&gt;30;"Calor";"Normal")</code><br><span class="small text-muted">Calor con 32 y 31; Normal con 28, 25 y 29</span></dd></dl></details>
+        </li>
+        <li class="paso">
+            <h3>Nivel intermedio: SI anidados</h3>
+            <p>Libro <strong>intermedio</strong>. Cuando hay tres resultados posibles, pon un <code>SI</code> dentro de otro: si no se cumple la primera condición, el segundo <code>SI</code> comprueba la siguiente.</p><p><code>=SI(condición1; valor1; SI(condición2; valor2; valor3))</code></p><p>El orden importa: Google Sheets se queda con la primera condición que se cumple. Escribe el resultado en la columna B (en el ejercicio 7, en la C), de la fila 2 a la 8.</p><ul><li><strong>Ejercicio 1.</strong> <em>Clasificación de edad.</em> Menos de 18: «Menor»; de 18 a 64: «Adulto»; 65 o más: «Jubilado».</li><li><strong>Ejercicio 2.</strong> <em>Bonificación por ventas</em> (columna <em>Bono</em>). Ventas de 5000 € o más: bono de 500 €; más de 3000 €: 200 €; si no, 0 €.</li><li><strong>Ejercicio 3.</strong> <em>Control de stock.</em> 5 o menos: «Reponer»; de 6 a 20: «Stock Medio»; más de 20: «Suficiente».</li><li><strong>Ejercicio 4.</strong> <em>Cálculo de descuentos.</em> Compra de más de 100 €: 10 % de descuento; de más de 50 €: 5 %; si no, sin descuento. Calcula el descuento en euros.</li><li><strong>Ejercicio 5.</strong> <em>Horas extras.</em> Más de 40 horas semanales: «Horas extras»; si no, «Normal».</li><li><strong>Ejercicio 6.</strong> <em>Evaluación de productos.</em> Calificación de 4,5 o más: «Excelente»; de 3 o más: «Aceptable»; si no, «Mejorar».</li><li><strong>Ejercicio 7.</strong> <em>Estado de envío</em> (columnas <em>Pago</em> y <em>Envío</em>). Pagado y enviado: «Completado»; pagado pero no enviado: «Pendiente de envío»; no pagado: «Pago pendiente».</li></ul><details><summary>Ver la solución</summary><dl class="formulas"><dt>Ej. 1 · B2</dt><dd><code>=SI(A2&lt;18;"Menor";SI(A2&lt;65;"Adulto";"Jubilado"))</code><br><span class="small text-muted">Menor, Adulto, Jubilado, Adulto, Menor, Jubilado, Adulto</span></dd><dt>Ej. 2 · B2</dt><dd><code>=SI(A2&gt;=5000;500;SI(A2&gt;3000;200;0))</code><br><span class="small text-muted">0, 500, 200, 200, 0, 500, 200 €</span></dd><dt>Ej. 3 · B2</dt><dd><code>=SI(A2&lt;=5;"Reponer";SI(A2&lt;=20;"Stock Medio";"Suficiente"))</code><br><span class="small text-muted">Reponer, Stock Medio, Suficiente, Reponer, Stock Medio, Suficiente, Stock Medio</span></dd><dt>Ej. 4 · B2</dt><dd><code>=SI(A2&gt;100;A2*0,1;SI(A2&gt;50;A2*0,05;0))</code><br><span class="small text-muted">0; 12; 3; 20; 0; 2,75 y 10,50 €</span></dd><dt>Ej. 5 · B2</dt><dd><code>=SI(A2&gt;40;"Horas extras";"Normal")</code><br><span class="small text-muted">40 horas justas es «Normal»</span></dd><dt>Ej. 6 · B2</dt><dd><code>=SI(A2&gt;=4,5;"Excelente";SI(A2&gt;=3;"Aceptable";"Mejorar"))</code><br><span class="small text-muted">Excelente, Aceptable, Mejorar, Aceptable, Excelente, Aceptable, Mejorar</span></dd><dt>Ej. 7 · C2</dt><dd><code>=SI(A2="Pagado";SI(B2="Enviado";"Completado";"Pendiente de envío");"Pago pendiente")</code><br><span class="small text-muted">Completado, Pago pendiente, Pendiente de envío, Completado, Pago pendiente, Pendiente de envío, Completado</span></dd></dl><p class="small mb-0">En el ejercicio 7 también vale <code>=SI(Y(A2="Pagado";B2="Enviado");"Completado";SI(A2="Pagado";"Pendiente de envío";"Pago pendiente"))</code>, con la función <code>Y</code> del nivel avanzado.</p></details>
+        </li>
+        <li class="paso">
+            <h3>Nivel avanzado: SI con Y y O</h3>
+            <p>Libro <strong>avanzado</strong>. Para juntar varias condiciones en una sola usa:</p><ul><li><code>Y(condición1; condición2)</code>: es VERDADERO solo si se cumplen <strong>todas</strong>.</li><li><code>O(condición1; condición2)</code>: es VERDADERO si se cumple <strong>al menos una</strong>.</li></ul><p>Escribe el resultado en la columna C (en el ejercicio 4, en la B; en el 7, en la D), de la fila 2 a la 8.</p><ul><li><strong>Ejercicio 1.</strong> <em>Evaluación del empleado.</em> Más de 160 horas y calificación de 4 o más: «Bonificación». Si cumple solo uno de los dos criterios: «Revisar». Si no cumple ninguno: «Sin bonificación».</li><li><strong>Ejercicio 2.</strong> <em>Descuento.</em> Compra de más de 100 € y cliente «VIP»: 20 % de descuento. Si cumple solo uno de los dos: 10 %. Si no cumple ninguno: sin descuento.</li><li><strong>Ejercicio 3.</strong> <em>Productos por precio y stock.</em> Precio de más de 50 € y stock de menos de 10: «Premium - Bajo Stock». Precio de 50 € o menos y stock de menos de 10: «Económico - Bajo Stock». En otros casos: «Sin prioridad».</li><li><strong>Ejercicio 4.</strong> <em>Comisión variable.</em> Ventas de más de 7000 €: 7 % de comisión; de más de 5000 €: 5 %; de más de 3000 €: 3 %; si no, 0. Calcula la comisión en euros.</li><li><strong>Ejercicio 5.</strong> <em>Estado del proyecto.</em> Si la fecha de entrega ya ha pasado y el estado no es «Finalizado»: «Retrasado». Si el estado es «Finalizado»: «Entregado». Si aún hay tiempo: «En curso».</li><li><strong>Ejercicio 6.</strong> <em>Inventario crítico.</em> Si el stock es menor que 5 o el producto caduca en menos de 30 días: «Crítico». Si no: «Estable».</li><li><strong>Ejercicio 7.</strong> <em>Rentabilidad.</em> Si los ingresos superan a los gastos en más de un 20 %: «Alta rentabilidad»; en más de un 5 %: «Rentable»; si no: «No rentable».</li></ul><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>La fecha de hoy se obtiene con <code>HOY()</code>. «Caduca en menos de 30 días» se escribe <code>B2&lt;HOY()+30</code>. Como las fechas del libro son de 2025, en los ejercicios 5 y 6 todos los plazos ya han pasado: cambia alguna fecha por una futura para ver los otros resultados.</div><details><summary>Ver la solución</summary><dl class="formulas"><dt>Ej. 1 · C2</dt><dd><code>=SI(Y(A2&gt;160;B2&gt;=4);"Bonificación";SI(O(A2&gt;160;B2&gt;=4);"Revisar";"Sin bonificación"))</code><br><span class="small text-muted">Bonificación en las filas 2, 4 y 6; Revisar en la 7 y la 8</span></dd><dt>Ej. 2 · C2</dt><dd><code>=SI(Y(A2&gt;100;B2="VIP");0,2;SI(O(A2&gt;100;B2="VIP");0,1;0))</code><br><span class="small text-muted">20 %, 0 %, 20 %, 0 %, 10 %, 10 %, 20 % (con formato de porcentaje)</span></dd><dt>Ej. 3 · C2</dt><dd><code>=SI(Y(A2&gt;50;B2&lt;10);"Premium - Bajo Stock";SI(Y(A2&lt;=50;B2&lt;10);"Económico - Bajo Stock";"Sin prioridad"))</code><br><span class="small text-muted">Premium - Bajo Stock en las filas 2, 4, 6 y 8; el resto, Sin prioridad</span></dd><dt>Ej. 4 · B2</dt><dd><code>=SI(A2&gt;7000;A2*0,07;SI(A2&gt;5000;A2*0,05;SI(A2&gt;3000;A2*0,03;0)))</code><br><span class="small text-muted">525; 144; 0; 255; 345; 96 y 120 €</span></dd><dt>Ej. 5 · C2</dt><dd><code>=SI(Y(A2&lt;HOY();B2&lt;&gt;"Finalizado");"Retrasado";SI(B2="Finalizado";"Entregado";"En curso"))</code><br><span class="small text-muted">Con las fechas del libro: Retrasado o Entregado</span></dd><dt>Ej. 6 · C2</dt><dd><code>=SI(O(A2&lt;5;B2&lt;HOY()+30);"Crítico";"Estable")</code><br><span class="small text-muted">Con las fechas del libro, todos «Crítico»</span></dd><dt>Ej. 7 · D2</dt><dd><code>=SI((A2-B2)/B2&gt;0,2;"Alta rentabilidad";SI((A2-B2)/B2&gt;0,05;"Rentable";"No rentable"))</code><br><span class="small text-muted">Alta en las filas 2 y 6; No rentable en la 8; el resto, Rentable</span></dd></dl><p class="small mb-0">En el ejercicio 7 la columna C del libro ya calcula otro porcentaje (el beneficio sobre los <em>ingresos</em>). El enunciado compara con los <em>gastos</em>, por eso la fórmula divide entre B2.</p></details>
+        </li>
+        <li class="paso">
+            <h3>Formato y comprobación</h3>
+            <p>Da formato a los resultados que son números: moneda en el bono y el descuento del nivel intermedio y en la comisión del avanzado; porcentaje en el descuento del ejercicio 2 avanzado (<span class="ruta-menu">Formato → Número → Porcentaje</span>).</p><p>Después, cambia algún dato de la columna A en cada libro y comprueba que el resultado cambia solo. Si no cambia, es que has escrito el resultado a mano en lugar de una fórmula.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-6">
+        <li><label><input type="checkbox"><span>Los libros se llaman <code>ApellidoNombre_AO_Actividad5.6</code> con <code>_Basico</code>, <code>_Intermedio</code> y <code>_Avanzado</code> al final.</span></label></li>
+        <li><label><input type="checkbox"><span>En todas las pestañas el resultado sale de una fórmula con <code>SI</code>, arrastrada hasta la última fila de datos.</span></label></li>
+        <li><label><input type="checkbox"><span>Básico, ejercicio 1: salen tres «Aprobado» y dos «Suspenso».</span></label></li>
+        <li><label><input type="checkbox"><span>Intermedio, ejercicio 1: las edades 70 y 65 dan «Jubilado» y la de 16, «Menor».</span></label></li>
+        <li><label><input type="checkbox"><span>Avanzado, ejercicio 1: la fórmula usa <code>Y</code> y <code>O</code> y las filas 7 y 8 dan «Revisar».</span></label></li>
+        <li><label><input type="checkbox"><span>Avanzado, ejercicio 4: la comisión de 7500 € es 525 € y la de 3000 € es 0 €.</span></label></li>
+        <li><label><input type="checkbox"><span>Los importes tienen formato de moneda y los descuentos en tanto por uno, de porcentaje.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-5"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.5</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-7">Siguiente: 5.7. La función SI.CONJUNTO <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

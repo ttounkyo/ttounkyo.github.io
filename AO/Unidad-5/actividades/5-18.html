@@ -1,0 +1,107 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.18</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.18. Descuentos, faltas, tareas y gráficos</h1>
+    <p class="lead">Cinco ejercicios independientes: el precio final según el tipo de cliente, el control de faltas de una clase, una lista de tareas con validaciones, datos importados de una web y un gráfico de barras.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li><code>SI.CONJUNTO</code> con dos condiciones a la vez (<code>Y</code>)</li>
+                    <li>Sumas y mensajes de aviso con <code>SI</code> anidados</li>
+                    <li><code>DIAS</code>, formato condicional y validación de datos</li>
+                    <li>Importar una tabla de una web con <code>IMPORTHTML</code></li>
+                    <li>Tabla dinámica con máximos y gráfico de barras apiladas</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-13-funciones">5.13. Funciones</a> y <a href="#/Unidad-5/index?sec=5-15-usando-formato-condicional">5.15. Formato condicional</a> y <a href="#/Unidad-5/index?sec=5-2-importacion-de-otras-hojas-de-calculo">5.2. Importación de otras hojas de cálculo</a></li>
+                    <li>Es una actividad de repaso: intenta resolver cada parte sin mirar la solución y compara al terminar.</li>
+                    <li>El enunciado de cada ejercicio está dentro de su hoja: en celdas de texto o en una imagen con el resultado que se espera.</li>
+                    <li>Esta actividad no tiene libro de solución: en cada paso tienes las fórmulas clave para comparar.</li>
+                    <li>La hoja <code>Ejercicio 2</code> está en catalán: <em>faltes</em> son faltas; <em>Injust.</em> y <em>Just.</em>, injustificadas y justificadas; <em>Acumulades</em>, <em>Actuals</em> y <em>Totals</em>, acumuladas, actuales y totales; <em>Nom treballador</em>, nombre, y <em>Accions</em>, acciones.</li>
+                    <li>Para el ejercicio 4 necesitas conexión a internet.</li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-18-plantilla.xlsx" download><i class="bi bi-file-earmark-spreadsheet me-1"></i>Libro de partida (plantilla)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.18</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Hojas</th>
+                <td><code>Ejercicio 1</code> a <code>Ejercicio 5</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Ejercicio 1: precio final con SI.CONJUNTO</h3>
+            <p>En la hoja <code>Ejercicio 1</code> calcula en D4 el precio final de cada producto según la categoría del cliente (columna C) y el precio base (columna B):</p><ul><li>Premium: 20 % de descuento.</li><li>Regular con un precio mayor de 1.000 €: 15 %. Regular con 1.000 € o menos: 10 %.</li><li>Nuevo con un precio mayor de 500 €: 5 %.</li><li>En cualquier otro caso, sin descuento.</li></ul><p>Usa una sola fórmula con <code>SI.CONJUNTO</code> y arrástrala hasta D13. Cuando hay dos condiciones a la vez (categoría y precio), júntalas con <code>Y</code>. La última condición, <code>VERDADERO</code>, recoge «cualquier otro caso».</p><details><summary>Ver la solución</summary><dl class="formulas"><dt>D4</dt><dd><code>=SI.CONJUNTO(C4="Premium";B4*0,8;Y(C4="Regular";B4&gt;1000);B4*0,85;Y(C4="Regular";B4&lt;=1000);B4*0,9;Y(C4="Nuevo";B4&gt;500);B4*0,95;VERDADERO;B4)</code></dd></dl><p>Resultados de D4 a D13: 1.200, 270, 150, 80, 585, 120, 144, 144, 130 y 360 €.</p></details>
+        </li>
+        <li class="paso">
+            <h3>Ejercicio 2: control de faltas</h3>
+            <p>En la hoja <code>Ejercicio 2</code> tienes las faltas injustificadas y justificadas de cada alumno: las acumuladas (B y C) y las actuales (D y E). Los máximos permitidos están en D3 (7 injustificadas) y D4 (21 justificadas). El enunciado está en K1.</p><ol><li>En F8 suma las injustificadas (acumuladas + actuales) y en G8 las justificadas. Arrástralas hasta la fila 23.</li><li>En H8 escribe la acción con <code>SI</code> anidados: si supera los dos máximos, «Aprobará¿?»; si solo supera el de injustificadas, «Hablar con los padres»; si solo supera el de justificadas, «Hablar con el alumno»; y si no supera ninguno, deja la celda vacía (<code>""</code>).</li></ol><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Comprueba primero el caso de los dos máximos a la vez: si lo dejas para el final, nunca llega a cumplirse porque antes salta una de las otras condiciones.</div><details><summary>Ver la solución</summary><dl class="formulas"><dt>F8</dt><dd><code>=B8+D8</code></dd><dt>G8</dt><dd><code>=C8+E8</code></dd><dt>H8</dt><dd><code>=SI(Y(F8&gt;$D$3;G8&gt;$D$4);"Aprobará¿?";SI(F8&gt;$D$3;"Hablar con los padres";SI(G8&gt;$D$4;"Hablar con el alumno";"")))</code></dd></dl><p>Castells, Núria (18 injustificadas y 22 justificadas) es la única que supera los dos máximos. Fernández, Blai tiene justo 7 injustificadas: no supera el máximo y no lleva mensaje.</p></details>
+        </li>
+        <li class="paso">
+            <h3>Ejercicio 3: horas de cada tarea</h3>
+            <p>La hoja <code>Ejercicio 3</code> es la lista de tareas de un equipo; el enunciado está en A14. Empieza por la tabla:</p><ol><li>Dale formato: colores, bordes y encabezados que se vean bien.</li><li>Pon en rojo y negrita las tareas con prioridad «Alta»: selecciona A2:H6, <span class="ruta-menu">Formato → Formato condicional</span> y <em>La fórmula personalizada es</em> <code>=$B2="Alta"</code>.</li><li>La columna G (<em>Días estimados</em>) está vacía: calcula los días entre la fecha de asignación y la de entrega con <code>DIAS</code>.</li><li>Añade la columna I, <em>Horas totales</em>: horas por día × días. El resultado nunca puede ser negativo: usa <code>MAX(0;…)</code> o un <code>SI</code>.</li><li>Debajo de la tabla (por ejemplo, en I8) suma todas las horas para saber la duración total del proyecto.</li></ol><details><summary>Ver la solución</summary><dl class="formulas"><dt>G2</dt><dd><code>=DIAS(E2;D2)</code></dd><dt>I2</dt><dd><code>=MAX(0;F2*G2)</code></dd><dt>I8</dt><dd><code>=SUMA(I2:I6)</code></dd></dl><p>Horas de cada tarea: 56, 45, 16, 46 y 45. Total: 208 horas.</p></details>
+        </li>
+        <li class="paso">
+            <h3>Ejercicio 3: validación de datos</h3>
+            <p>Sigue en <code>Ejercicio 3</code> y crea estas reglas con <span class="ruta-menu">Datos → Validación de datos → Añadir regla</span>. En cada una elige <em>Rechazar la entrada</em> para que no deje escribir un valor incorrecto.</p><ul><li><strong>Prioridad</strong> (B2:B): <em>Desplegable</em> con Alta, Media y Baja.</li><li><strong>Fecha de entrega</strong> (E2:E): una fecha válida y posterior a la de asignación, con <em>La fórmula personalizada es</em> <code>=Y(ESNUMERO(E2);E2&gt;D2)</code>.</li><li><strong>Responsable</strong> (C2:C): solo letras y espacios, con <code>=REGEXMATCH(C2;"^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$")</code>.</li><li><strong>Tarea</strong> (A2:A): al menos 10 caracteres, con <code>=LARGO(A2)&gt;=10</code>.</li></ul><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i><code>REGEXMATCH</code> comprueba si un texto sigue un patrón: <code>^</code> es el principio, <code>$</code> el final y <code>[…]+</code> significa «uno o más de estos caracteres». Pruébalo: escribe un responsable con un número y Google Sheets no te dejará.</div>
+        </li>
+        <li class="paso">
+            <h3>Ejercicio 4: datos de una web y tabla dinámica</h3>
+            <p>En la hoja <code>Ejercicio 4</code> tienes la imagen del resultado. Primero, en una hoja nueva, carga la lista de municipios de España por población con <code>IMPORTHTML</code>:</p><p><code>=IMPORTHTML("https://15mpedia.org/wiki/Lista_de_municipios_de_Espa%C3%B1a_por_poblaci%C3%B3n";"table";1)</code></p><p>El último número indica qué tabla de la página quieres: si no sale la de municipios, prueba con 2, 3… Después crea una tabla dinámica con esos datos (<span class="ruta-menu">Insertar → Tabla dinámica</span>) como la de la imagen:</p><ul><li><strong>Filas</strong>: la comunidad autónoma y, dentro, la provincia.</li><li><strong>Valores</strong>: la superficie y la densidad, resumidas por <code>MAX</code> (el máximo de cada comunidad y de cada provincia).</li></ul><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Si los máximos salen a 0, revisa que la superficie y la densidad sean números y no texto: los datos de una web a veces traen puntos de miles o unidades que hay que limpiar.</div>
+        </li>
+        <li class="paso">
+            <h3>Ejercicio 5: gráfico de faltas</h3>
+            <p>En la hoja <code>Ejercicio 5</code> crea el gráfico de la imagen con los datos de <code>Ejercicio 2</code>:</p><ol><li>En <code>Ejercicio 2</code> selecciona los nombres y las cuatro columnas de faltas (A7:E23) y usa <span class="ruta-menu">Insertar → Gráfico</span>.</li><li>En el editor elige <em>Gráfico de barras apiladas</em>: cada alumno tiene una barra con sus cuatro tipos de faltas, una detrás de otra.</li><li>Para que la leyenda distinga las acumuladas de las actuales, como en la imagen, cambia los encabezados de B7:E7 por «Injust. Acumulades», «Just. Acumulades», «Injust. Actual» y «Just. Actual».</li><li>En <span class="ruta-menu">Personalizar → Títulos de gráficos y ejes</span> pon el título «Gráfico de Faltas» y, en el eje vertical, «Nom treballador». Coloca la leyenda arriba y da un color a cada serie.</li><li>Corta el gráfico y pégalo en la hoja <code>Ejercicio 5</code>.</li></ol>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-18">
+        <li><label><input type="checkbox"><span>El libro se llama <code>ApellidoNombre_AO_Actividad5.18</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>D4:D13 de <code>Ejercicio 1</code> usan <code>SI.CONJUNTO</code>: el portátil queda en 1.200 € y el monitor en 270 €.</span></label></li>
+        <li><label><input type="checkbox"><span>En <code>Ejercicio 2</code> los totales salen de una fórmula y la columna H muestra el mensaje correcto (Castells, Núria: «Aprobará¿?»).</span></label></li>
+        <li><label><input type="checkbox"><span>En <code>Ejercicio 3</code> las horas totales nunca pueden dar negativo, el total es de 208 horas y las tareas de prioridad Alta se ven en rojo y negrita.</span></label></li>
+        <li><label><input type="checkbox"><span>Las cuatro validaciones de <code>Ejercicio 3</code> rechazan los datos incorrectos.</span></label></li>
+        <li><label><input type="checkbox"><span>La tabla dinámica del ejercicio 4 muestra la superficie y la densidad máximas por comunidad y provincia.</span></label></li>
+        <li><label><input type="checkbox"><span>El gráfico de barras apiladas de <code>Ejercicio 5</code> tiene título y leyenda.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-17"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.17</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-19">Siguiente: 5.19. Empleados por departamento <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

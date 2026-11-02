@@ -1,0 +1,179 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.13</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.13. Gráficos</h1>
+    <p class="lead">Tienes los ingresos y los gastos de un semestre, de julio a diciembre. Vas a representarlos con cinco gráficos distintos y un cuadro de resultados, cada uno en su propia hoja.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Insertar un gráfico y elegir el tipo: columnas, barras o áreas</li>
+                    <li>Elegir el intervalo de datos, las series y el eje X</li>
+                    <li>Gráficos apilados y apilados al 100 %</li>
+                    <li>Título, leyenda y etiquetas de datos en la pestaña <em>Personalizar</em></li>
+                    <li>Mover un gráfico a su propia hoja y el gráfico de cuadro de resultados</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-9-uso-avanzado-de-la-hoja-de-calculo">5.9. Uso avanzado (5.9.2. Gráficos)</a></li>
+                    <li>Los gráficos no salen en las vistas previas de esta página. Para compararlos, abre la solución en Google Sheets.</li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-13-plantilla.xlsx" download><i class="bi bi-file-earmark-spreadsheet me-1"></i>Libro de partida (plantilla)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-13-solucion.xlsx" download><i class="bi bi-file-earmark-check me-1"></i>Solución (para comparar al terminar)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-13-sparkline.xlsx" download><i class="bi bi-download me-1"></i>Libro para el reto de <code>SPARKLINE</code> (paso 8)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.13</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Hojas</th>
+                <td><code>Ejercicios</code> y una hoja por gráfico: <code>Ingresos por meses</code>, <code>Gastos por meses</code>, <code>Comparativa Ingresos - Gastos</code>, <code>Detalle Ingreso</code>, <code>Detalle Gastos</code> y <code>Resto</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Revisa los datos</h3>
+            <p>Importa el libro de partida. En <code>Ejercicios</code> tienes dos tablas por meses: <strong>INGRESOS</strong> (Trabajo fijo y Comisiones, filas 4 y 5, con el total del mes en la fila 6) y <strong>GASTOS</strong> (13 conceptos de Luz a Otros, filas 11 a 23, con el total en la fila 24). H6 es el total de ingresos del semestre, H24 el de gastos e I14 la diferencia. En A26:A31 está la lista de gráficos que vas a hacer.</p><p>Los totales de las filas 6 y 24 no tienen nombre. Escribe <strong>Total ingresos</strong> en A6 y <strong>Total gastos</strong> en A24: así los gráficos los pondrán en la leyenda.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Los importes se calculan con <code>ALEATORIO.ENTRE</code>, así que cambian cada vez que editas la hoja. Es normal que tus cifras no coincidan con las de la solución.</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th></tr>
+                        <tr><th>1</th><td colspan="7" style="background-color:#0000FF">INGRESOS</td><td></td><td></td></tr>
+                        <tr><th>2</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>3</th><td></td><td style="background-color:#CFE2F3">Julio</td><td style="background-color:#CFE2F3">Agosto</td><td style="background-color:#CFE2F3">Septiembre</td><td style="background-color:#CFE2F3">Octubre</td><td style="background-color:#CFE2F3">Noviembre</td><td style="background-color:#CFE2F3">Diciembre</td><td></td><td></td></tr>
+                        <tr><th>4</th><td style="background-color:#CFE2F3">Trabajo fijo</td><td class="num formula" style="background-color:#FFF2CC">1.077,00 €</td><td class="num formula" style="background-color:#FFF2CC">1.292,00 €</td><td class="num formula" style="background-color:#FFF2CC">1.200,00 €</td><td class="num formula" style="background-color:#FFF2CC">1.306,00 €</td><td class="num formula" style="background-color:#FFF2CC">1.495,00 €</td><td class="num formula" style="background-color:#FFF2CC">1.066,00 €</td><td></td><td></td></tr>
+                        <tr><th>5</th><td style="background-color:#CFE2F3">Comisiones</td><td class="num formula" style="background-color:#FFF2CC">217,00 €</td><td class="num formula" style="background-color:#FFF2CC">479,00 €</td><td class="num formula" style="background-color:#FFF2CC">255,00 €</td><td class="num formula" style="background-color:#FFF2CC">309,00 €</td><td class="num formula" style="background-color:#FFF2CC">403,00 €</td><td class="num formula" style="background-color:#FFF2CC">289,00 €</td><td></td><td></td></tr>
+                        <tr><th>6</th><td></td><td class="num formula">1.294,00 €</td><td class="num formula">1.771,00 €</td><td class="num formula">1.455,00 €</td><td class="num formula">1.615,00 €</td><td class="num formula">1.898,00 €</td><td class="num formula">1.355,00 €</td><td class="num formula">9.388,00 €</td><td></td></tr>
+                        <tr><th>7</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>8</th><td colspan="7" style="background-color:#0000FF">GASTOS</td><td></td><td></td></tr>
+                        <tr><th>9</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>10</th><td></td><td style="background-color:#CFE2F3">Julio</td><td style="background-color:#CFE2F3">Agosto</td><td style="background-color:#CFE2F3">Septiembre</td><td style="background-color:#CFE2F3">Octubre</td><td style="background-color:#CFE2F3">Noviembre</td><td style="background-color:#CFE2F3">Diciembre</td><td></td><td></td></tr>
+                        <tr><th>11</th><td style="background-color:#CFE2F3">Luz</td><td class="num formula" style="background-color:#FFF2CC">95,00 €</td><td class="num formula" style="background-color:#FFF2CC">88,00 €</td><td class="num formula" style="background-color:#FFF2CC">64,00 €</td><td class="num formula" style="background-color:#FFF2CC">59,00 €</td><td class="num formula" style="background-color:#FFF2CC">80,00 €</td><td class="num formula" style="background-color:#FFF2CC">84,00 €</td><td></td><td></td></tr>
+                        <tr><th>12</th><td style="background-color:#CFE2F3">Gas</td><td class="num formula" style="background-color:#FFF2CC">29,00 €</td><td class="num formula" style="background-color:#FFF2CC">20,00 €</td><td class="num formula" style="background-color:#FFF2CC">29,00 €</td><td class="num formula" style="background-color:#FFF2CC">15,00 €</td><td class="num formula" style="background-color:#FFF2CC">12,00 €</td><td class="num formula" style="background-color:#FFF2CC">19,00 €</td><td></td><td></td></tr>
+                        <tr><th>13</th><td style="background-color:#CFE2F3">Internet</td><td class="num formula" style="background-color:#FFF2CC">18,00 €</td><td class="num formula" style="background-color:#FFF2CC">19,00 €</td><td class="num formula" style="background-color:#FFF2CC">18,00 €</td><td class="num formula" style="background-color:#FFF2CC">17,00 €</td><td class="num formula" style="background-color:#FFF2CC">16,00 €</td><td class="num formula" style="background-color:#FFF2CC">17,00 €</td><td></td><td></td></tr>
+                        <tr><th>14</th><td style="background-color:#CFE2F3">Agua</td><td class="num formula" style="background-color:#FFF2CC">71,00 €</td><td class="num formula" style="background-color:#FFF2CC">78,00 €</td><td class="num formula" style="background-color:#FFF2CC">52,00 €</td><td class="num formula" style="background-color:#FFF2CC">56,00 €</td><td class="num formula" style="background-color:#FFF2CC">51,00 €</td><td class="num formula" style="background-color:#FFF2CC">79,00 €</td><td></td><td class="num formula">3.051,00 €</td></tr>
+                        <tr><th>15</th><td style="background-color:#CFE2F3">Alarma</td><td class="num formula" style="background-color:#FFF2CC">20,00 €</td><td class="num formula" style="background-color:#FFF2CC">28,00 €</td><td class="num formula" style="background-color:#FFF2CC">24,00 €</td><td class="num formula" style="background-color:#FFF2CC">30,00 €</td><td class="num formula" style="background-color:#FFF2CC">26,00 €</td><td class="num formula" style="background-color:#FFF2CC">30,00 €</td><td></td><td></td></tr>
+                        <tr><th>16</th><td style="background-color:#CFE2F3">Alquiler</td><td class="num formula" style="background-color:#FFF2CC">600,00 €</td><td class="num formula" style="background-color:#FFF2CC">600,00 €</td><td class="num formula" style="background-color:#FFF2CC">600,00 €</td><td class="num formula" style="background-color:#FFF2CC">600,00 €</td><td class="num formula" style="background-color:#FFF2CC">600,00 €</td><td class="num formula" style="background-color:#FFF2CC">600,00 €</td><td></td><td></td></tr>
+                        <tr><th>17</th><td style="background-color:#CFE2F3">Tarjeta de Credito</td><td class="num formula" style="background-color:#FFF2CC">37,00 €</td><td class="num formula" style="background-color:#FFF2CC">49,00 €</td><td class="num formula" style="background-color:#FFF2CC">142,00 €</td><td class="num formula" style="background-color:#FFF2CC">36,00 €</td><td class="num formula" style="background-color:#FFF2CC">48,00 €</td><td class="num formula" style="background-color:#FFF2CC">151,00 €</td><td></td><td></td></tr>
+                        <tr><th>18</th><td style="background-color:#CFE2F3">Salud</td><td class="num formula" style="background-color:#FFF2CC">16,00 €</td><td class="num formula" style="background-color:#FFF2CC">17,00 €</td><td class="num formula" style="background-color:#FFF2CC">15,00 €</td><td class="num formula" style="background-color:#FFF2CC">17,00 €</td><td class="num formula" style="background-color:#FFF2CC">20,00 €</td><td class="num formula" style="background-color:#FFF2CC">15,00 €</td><td></td><td></td></tr>
+                        <tr><th>19</th><td style="background-color:#CFE2F3">Gasolina</td><td class="num formula" style="background-color:#FFF2CC">97,00 €</td><td class="num formula" style="background-color:#FFF2CC">109,00 €</td><td class="num formula" style="background-color:#FFF2CC">74,00 €</td><td class="num formula" style="background-color:#FFF2CC">91,00 €</td><td class="num formula" style="background-color:#FFF2CC">64,00 €</td><td class="num formula" style="background-color:#FFF2CC">92,00 €</td><td></td><td></td></tr>
+                        <tr><th>20</th><td style="background-color:#CFE2F3">Seguros</td><td class="num formula" style="background-color:#FFF2CC">17,00 €</td><td class="num formula" style="background-color:#FFF2CC">18,00 €</td><td class="num formula" style="background-color:#FFF2CC">20,00 €</td><td class="num formula" style="background-color:#FFF2CC">16,00 €</td><td class="num formula" style="background-color:#FFF2CC">16,00 €</td><td class="num formula" style="background-color:#FFF2CC">17,00 €</td><td></td><td></td></tr>
+                        <tr><th>21</th><td style="background-color:#CFE2F3">Movil</td><td class="num formula" style="background-color:#FFF2CC">13,00 €</td><td class="num formula" style="background-color:#FFF2CC">10,00 €</td><td class="num formula" style="background-color:#FFF2CC">15,00 €</td><td class="num formula" style="background-color:#FFF2CC">20,00 €</td><td class="num formula" style="background-color:#FFF2CC">11,00 €</td><td class="num formula" style="background-color:#FFF2CC">18,00 €</td><td></td><td></td></tr>
+                        <tr><th>22</th><td style="background-color:#CFE2F3">Netflix</td><td class="num formula" style="background-color:#FFF2CC">18,00 €</td><td class="num formula" style="background-color:#FFF2CC">18,00 €</td><td class="num formula" style="background-color:#FFF2CC">18,00 €</td><td class="num formula" style="background-color:#FFF2CC">18,00 €</td><td class="num formula" style="background-color:#FFF2CC">18,00 €</td><td class="num formula" style="background-color:#FFF2CC">18,00 €</td><td></td><td></td></tr>
+                        <tr><th>23</th><td style="background-color:#CFE2F3">Otros</td><td class="num formula" style="background-color:#FFF2CC">15,00 €</td><td class="num formula" style="background-color:#FFF2CC">19,00 €</td><td class="num formula" style="background-color:#FFF2CC">17,00 €</td><td class="num formula" style="background-color:#FFF2CC">19,00 €</td><td class="num formula" style="background-color:#FFF2CC">18,00 €</td><td class="num formula" style="background-color:#FFF2CC">16,00 €</td><td></td><td></td></tr>
+                        <tr><th>24</th><td></td><td class="num formula">1.046,00 €</td><td class="num formula">1.073,00 €</td><td class="num formula">1.088,00 €</td><td class="num formula">994,00 €</td><td class="num formula">980,00 €</td><td class="num formula">1.156,00 €</td><td class="num formula">6.337,00 €</td><td></td></tr>
+                        <tr><th>25</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>26</th><td>Ejercicios</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>27</th><td>Gráfico de Ingresos por meses</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>28</th><td>Gráfico de Gastos por meses</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>29</th><td>Gráfico comparativo entre ingresos y gastos (Meses)</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>30</th><td>Gráfico detallado de ingreso</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>31</th><td>Gráfico detallado de gastos</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Gráfico de ingresos por meses</h3>
+            <p>Selecciona A3:G5 y ve a <span class="ruta-menu">Insertar → Gráfico</span>. En el editor de la derecha, pestaña <em>Configuración</em>, elige <strong>Gráfico de columnas</strong>. Comprueba que el eje X son los meses y que hay dos series, Trabajo fijo y Comisiones: cada mes tendrá dos columnas, una al lado de la otra. Si salen al revés, marca <em>Cambiar filas/columnas</em>.</p><p>En <em>Personalizar → Títulos de gráfico y de ejes</em> escribe el título <strong>INGRESOS POR MESES</strong> y deja la leyenda a la derecha.</p><p>Cuando esté listo, abre el menú del gráfico (los tres puntos de la esquina) y elige <strong>Mover a hoja propia</strong>. Cambia el nombre de la hoja nueva a <code>Ingresos por meses</code>.</p>
+        </li>
+        <li class="paso">
+            <h3>Gráfico de gastos por meses</h3>
+            <p>Selecciona A10:G23 y crea un <strong>Gráfico de columnas apiladas</strong>. Cada mes es una sola columna formada por trozos de colores, uno por concepto (Luz, Gas, Internet…): la altura de la columna es el gasto total del mes.</p><p>Título: <strong>GASTOS POR MESES</strong>.</p><p>Cuando esté listo, abre el menú del gráfico (los tres puntos de la esquina) y elige <strong>Mover a hoja propia</strong>. Cambia el nombre de la hoja nueva a <code>Gastos por meses</code>.</p>
+        </li>
+        <li class="paso">
+            <h3>Comparativa de ingresos y gastos</h3>
+            <p>Ahora compara los totales de cada mes. Selecciona A3:G3 y, manteniendo pulsado <kbd>Ctrl</kbd>, A6:G6 y A24:G24. Crea un <strong>Gráfico de áreas</strong> con los meses en el eje X y dos series: Total ingresos y Total gastos.</p><p>En <em>Personalizar → Series</em> elige la serie Total ingresos y marca <em>Etiquetas de datos</em> para ver el importe de cada mes. Título: <strong>COMPARATIVA GASTOS &lt;-&gt; INGRESOS</strong>.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Usa el gráfico de áreas normal, no el de áreas apiladas: en el apilado el área de los gastos se dibuja encima de la de los ingresos y se suman, y ya no se ve cuál es mayor.</div><p>Cuando esté listo, abre el menú del gráfico (los tres puntos de la esquina) y elige <strong>Mover a hoja propia</strong>. Cambia el nombre de la hoja nueva a <code>Comparativa Ingresos - Gastos</code>.</p>
+        </li>
+        <li class="paso">
+            <h3>Gráfico detallado de ingresos</h3>
+            <p>Selecciona otra vez A3:G5 y crea un <strong>Gráfico de barras apiladas</strong>. Es como el de columnas apiladas pero con barras horizontales: cada mes es una barra dividida en Trabajo fijo y Comisiones, y su longitud es el ingreso total del mes.</p><p>Título: <strong>GRÁFICO DETALLADO INGRESO</strong>.</p><p>Cuando esté listo, abre el menú del gráfico (los tres puntos de la esquina) y elige <strong>Mover a hoja propia</strong>. Cambia el nombre de la hoja nueva a <code>Detalle Ingreso</code>.</p>
+        </li>
+        <li class="paso">
+            <h3>Gráfico detallado de gastos</h3>
+            <p>Selecciona A10:G23 y crea un <strong>Gráfico de barras apiladas al 100 %</strong>. Marca <em>Cambiar filas/columnas</em> para que cada barra sea un <strong>concepto de gasto</strong> y los trozos sean los meses. Todas las barras miden lo mismo (el 100 %) y cada trozo muestra qué parte de ese gasto corresponde a cada mes: el Alquiler, por ejemplo, queda dividido en seis partes iguales.</p><p>Título: <strong>GRÁFICO GASTOS DETALLADOS</strong>.</p><p>Cuando esté listo, abre el menú del gráfico (los tres puntos de la esquina) y elige <strong>Mover a hoja propia</strong>. Cambia el nombre de la hoja nueva a <code>Detalle Gastos</code>.</p>
+        </li>
+        <li class="paso">
+            <h3>Cuadro de resultados</h3>
+            <p>Crea una hoja llamada <code>Resto</code>. Ve a <span class="ruta-menu">Insertar → Gráfico</span> y elige el tipo <strong>Gráfico de cuadro de resultados</strong>. En <em>Configuración</em>, pon como <strong>Valor clave</strong> <code>Ejercicios!H6</code> (total de ingresos) y como <strong>Valor de referencia</strong> <code>Ejercicios!H24</code> (total de gastos).</p><p>El cuadro muestra en grande el total de ingresos y, debajo, en verde y con una flecha hacia arriba, cuánto superan a los gastos: el mismo resultado que I14. En la solución se ve <strong>9.388,00 €</strong> y <strong>↑ 3.051,00 €</strong>. Dale formato de moneda en <em>Personalizar → Valor clave</em>.</p>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>H6</dt><dd><code>=SUMA(B6:G6)</code></dd>
+                    <dt>H24</dt><dd><code>=SUMA(B24:G24)</code></dd>
+                    <dt>I14</dt><dd><code>=H6-H24</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Reto opcional: minigráficos con SPARKLINE</h3>
+            <p>La función <code>SPARKLINE</code> dibuja un gráfico pequeño <strong>dentro de una celda</strong>. Descarga el libro del reto: tiene una lista de tareas con su progreso de 0 a 100 (columna B) y un color para cada una (columna D).</p><p>En C2 dibuja una barra de progreso y arrástrala hasta C8. En E2 escribe con <code>SI.CONJUNTO</code> el estado: <em>No empezado</em> si el progreso es 0, <em>En proceso</em> si es menor que 100 y <em>Terminado</em> si es 100. Después, añade un formato condicional que coloree la columna E según el estado.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Las opciones de <code>SPARKLINE</code> van entre llaves, por parejas. En Google Sheets en castellano, el nombre y el valor de cada opción se separan con <code>\</code> y las parejas, con <code>;</code>.</div><details><summary>Ver la solución</summary><dl class="formulas"><dt>C2</dt><dd><code>=SPARKLINE(B2;{"charttype"\"bar";"max"\100;"color1"\D2})</code></dd></dl></details>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+                        <tr><th>1</th><td><strong>TAREA</strong></td><td><strong>PROGRESO</strong></td><td><strong>BARRA DE PROGRESO</strong></td><td><strong>Color</strong></td><td><strong>ESTADO</strong></td></tr>
+                        <tr><th>2</th><td>Análisis de resultados</td><td class="num">100</td><td class="formula"></td><td>#016aed</td><td class="formula">Terminado</td></tr>
+                        <tr><th>3</th><td>Creación del modelo</td><td class="num">75</td><td class="formula"></td><td>#2fff80</td><td class="formula">En proceso</td></tr>
+                        <tr><th>4</th><td>Programación de la interfaz</td><td class="num">70</td><td class="formula"></td><td>red</td><td class="formula">En proceso</td></tr>
+                        <tr><th>5</th><td>Creación de pruebas</td><td class="num">35</td><td class="formula"></td><td>green</td><td class="formula">En proceso</td></tr>
+                        <tr><th>6</th><td>Campaña de marketing</td><td class="num">50</td><td class="formula"></td><td>pink</td><td class="formula">En proceso</td></tr>
+                        <tr><th>7</th><td>Diseño de componentes</td><td class="num">0</td><td class="formula"></td><td>black</td><td class="formula">No empezado</td></tr>
+                        <tr><th>8</th><td></td><td class="num">10</td><td class="formula"></td><td></td><td class="formula">En proceso</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>E2</dt><dd><code>=SI.CONJUNTO(B2=0;&quot;No empezado&quot;;B2&lt;100;&quot;En proceso&quot;;B2=100;&quot;Terminado&quot;)</code></dd>
+                </dl>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-13">
+        <li><label><input type="checkbox"><span>El libro se llama <code>ApellidoNombre_AO_Actividad5.13</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Hay una hoja por gráfico con los nombres de la tabla de arriba, y cada gráfico tiene título y leyenda.</span></label></li>
+        <li><label><input type="checkbox"><span><code>Ingresos por meses</code> es un gráfico de columnas y <code>Gastos por meses</code>, de columnas apiladas.</span></label></li>
+        <li><label><input type="checkbox"><span>La comparativa es un gráfico de áreas con el total de ingresos y el de gastos, y etiquetas de datos en los ingresos.</span></label></li>
+        <li><label><input type="checkbox"><span><code>Detalle Ingreso</code> es de barras apiladas y <code>Detalle Gastos</code>, de barras apiladas al 100 % con una barra por concepto.</span></label></li>
+        <li><label><input type="checkbox"><span>La hoja <code>Resto</code> tiene un cuadro de resultados con el total de ingresos y la diferencia con los gastos.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-12"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.12</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-14">Siguiente: 5.14. Tablas dinámicas <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

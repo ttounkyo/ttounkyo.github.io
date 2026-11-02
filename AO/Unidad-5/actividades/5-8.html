@@ -1,0 +1,100 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.8</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.8. La función CAMBIAR</h1>
+    <p class="lead">CAMBIAR mira el valor de una celda y devuelve el resultado que corresponde a ese valor, como una lista de casos. Vas a resolver 13 ejercicios en tres libros: básico, intermedio y avanzado.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>La función <code>CAMBIAR</code> (<code>SWITCH</code> en inglés) con casos de texto y de número</li>
+                    <li>El valor predeterminado para los casos que no están en la lista</li>
+                    <li>Usar <code>CAMBIAR</code> dentro de una operación y con <code>SI</code> dentro</li>
+                    <li>El truco <code>CAMBIAR(VERDADERO; …)</code> con <code>Y</code> y <code>O</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-13-funciones">5.13. Funciones</a> y <a href="#/Unidad-5/index?sec=5-9-uso-avanzado-de-la-hoja-de-calculo">5.9. Uso avanzado</a></li>
+                    <li>Conviene haber hecho antes las actividades 5.6 (<code>SI</code>) y 5.7 (<code>SI.CONJUNTO</code>).</li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-8-cambiar-basico.xlsx" download><i class="bi bi-download me-1"></i>Libro del nivel básico (5 ejercicios)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-8-cambiar-intermedio.xlsx" download><i class="bi bi-download me-1"></i>Libro del nivel intermedio (5 ejercicios)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-8-cambiar-avanzado.xlsx" download><i class="bi bi-download me-1"></i>Libro del nivel avanzado (3 ejercicios)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.8</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Libros</th>
+                <td>Tres, uno por nivel, con el nivel al final del nombre: <code>ApellidoNombre_AO_Actividad5.8_Basico</code>, <code>…_Intermedio</code> y <code>…_Avanzado</code>.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Cómo se escribe CAMBIAR</h3>
+            <p><code>CAMBIAR</code> compara una celda con una lista de casos y devuelve el valor del caso que coincide:</p><p><code>=CAMBIAR(celda; caso1; valor1; caso2; valor2; …; predeterminado)</code></p><p>Por ejemplo, <code>=CAMBIAR(A2;"A";"Electrónica";"B";"Hogar";"Otros")</code> devuelve «Electrónica» si A2 es «A», «Hogar» si es «B» y «Otros» en cualquier otro caso. El último valor, sin caso delante, es el <strong>predeterminado</strong>. Si no lo pones y la celda no coincide con ningún caso, sale <code>#N/A</code>.</p><p><code>CAMBIAR</code> solo compara si es <strong>igual</strong>: no sirve directamente para «mayor que» o «entre 10 y 20». Para eso está <code>SI.CONJUNTO</code> o el truco del nivel avanzado.</p><p>Importa los tres libros en Google Sheets. Cada pestaña es un ejercicio. Escribe la fórmula en la fila 2 de la columna del resultado y arrástrala hacia abajo hasta la última fila con datos. Si la columna del resultado no tiene encabezado, escríbele uno (por ejemplo, <em>Resultado</em>).</p>
+        </li>
+        <li class="paso">
+            <h3>Nivel básico: un caso para cada valor</h3>
+            <p>Libro <strong>básico</strong>. La columna del resultado ya tiene encabezado: es la primera vacía de cada pestaña.</p><ul><li><strong>Ejercicio 1.</strong> <em>Categoría</em> (columna C) según el código de la columna A: «A» Electrónica, «B» Hogar, «C» Jardín, «D» Oficina; cualquier otro código, «Otros».</li><li><strong>Ejercicio 2.</strong> <em>Tipo de día</em> (columna B) según el número de la columna A: del 1 al 5 (lunes a viernes), «Laborable»; 6 y 7, «Fin de semana».</li><li><strong>Ejercicio 3.</strong> <em>Icono</em> (columna C) según el método de pago de la columna B: Efectivo «💶», Tarjeta «💳», Transferencia «🏦», PayPal «📱»; cualquier otro, «❓».</li><li><strong>Ejercicio 4.</strong> <em>Trimestre</em> (columna B) según el mes de la columna A: 1-3 «Primer Trimestre», 4-6 «Segundo Trimestre», 7-9 «Tercer Trimestre», 10-12 «Cuarto Trimestre».</li><li><strong>Ejercicio 5.</strong> <em>Coste de envío</em> (columna C) según la zona de la columna B: Local 2,50 €, Nacional 4,95 €, Europa 9,95 €, América 15,95 €, Asia/Oceanía 19,95 €.</li></ul><details><summary>Ver la solución</summary><dl class="formulas"><dt>Ej. 1 · C2</dt><dd><code>=CAMBIAR(A2;"A";"Electrónica";"B";"Hogar";"C";"Jardín";"D";"Oficina";"Otros")</code><br><span class="small text-muted">La piscina (código E) sale como «Otros»</span></dd><dt>Ej. 2 · B2</dt><dd><code>=CAMBIAR(A2;6;"Fin de semana";7;"Fin de semana";"Laborable")</code><br><span class="small text-muted">Los días 1 a 5 entran por el valor predeterminado</span></dd><dt>Ej. 3 · C2</dt><dd><code>=CAMBIAR(B2;"Efectivo";"💶";"Tarjeta";"💳";"Transferencia";"🏦";"PayPal";"📱";"❓")</code><br><span class="small text-muted">Bizum no está en la lista: «❓»</span></dd><dt>Ej. 4 · B2</dt><dd><code>=CAMBIAR(A2;1;"Primer Trimestre";2;"Primer Trimestre";3;"Primer Trimestre";4;"Segundo Trimestre";5;"Segundo Trimestre";6;"Segundo Trimestre";7;"Tercer Trimestre";8;"Tercer Trimestre";9;"Tercer Trimestre";10;"Cuarto Trimestre";11;"Cuarto Trimestre";12;"Cuarto Trimestre")</code></dd><dt>Ej. 4 (corta)</dt><dd><code>=CAMBIAR(REDONDEAR.MAS(A2/3;0);1;"Primer Trimestre";2;"Segundo Trimestre";3;"Tercer Trimestre";4;"Cuarto Trimestre")</code><br><span class="small text-muted">El mes entre 3, redondeado hacia arriba, da directamente el número de trimestre</span></dd><dt>Ej. 5 · C2</dt><dd><code>=CAMBIAR(B2;"Local";2,5;"Nacional";4,95;"Europa";9,95;"América";15,95;"Asia/Oceanía";19,95)</code><br><span class="small text-muted">Con formato de moneda</span></dd></dl></details>
+        </li>
+        <li class="paso">
+            <h3>Nivel intermedio: CAMBIAR dentro de una operación</h3>
+            <p>Libro <strong>intermedio</strong>. <code>CAMBIAR</code> puede devolver un número que luego usas en una operación, por ejemplo <code>=B2*CAMBIAR(…)</code>, y cada valor puede ser otra función, como un <code>SI</code>.</p><ul><li><strong>Ejercicio 1.</strong> <em>Descuento por temporada</em> (columna C) según la temporada de la columna B: Verano 10 %, Invierno 15 %, Primavera 8 %, Otoño 12 %.</li><li><strong>Ejercicio 2.</strong> <em>Precio final</em> (columna D) según el método de pago de la columna C, con recargo sobre el precio de la columna B: Efectivo sin recargo, Tarjeta +1 %, Financiado +5 %, PayPal +2 %. Si el método no está en la lista, el precio base.</li><li><strong>Ejercicio 3.</strong> <em>Categoría del cliente</em> (columna D) según los años (B) y las compras (C): 1 año, «Nuevo». 3 años: «Regular Plus» si las compras pasan de 2000 €; si no, «Regular». 5 años: «VIP» si pasan de 4000 €; si no, «Premium». En otro caso, «Estándar».</li><li><strong>Ejercicio 4.</strong> <em>Evaluación</em> (columna D) según el departamento (B) y el % de objetivos (C): es «Excelente» si llega al 90 % en Ventas, al 85 % en Marketing o al 85 % en Atención. Si no, «Normal».</li><li><strong>Ejercicio 5.</strong> <em>Impuesto en euros</em> (columna D) según el país (B), sobre el valor de la columna C: España 21 %, Francia 20 %, Alemania 19 %, Italia 22 %, Portugal 23 %; cualquier otro país, 25 %.</li></ul><details><summary>Ver la solución</summary><dl class="formulas"><dt>Ej. 1 · C2</dt><dd><code>=CAMBIAR(B2;"Verano";0,1;"Invierno";0,15;"Primavera";0,08;"Otoño";0,12)</code><br><span class="small text-muted">10 %, 15 %, 8 %, 12 %, 10 % (formato de porcentaje)</span></dd><dt>Ej. 2 · D2</dt><dd><code>=B2*CAMBIAR(C2;"Efectivo";1;"Tarjeta";1,01;"Financiado";1,05;"PayPal";1,02;1)</code><br><span class="small text-muted">499; 656,50; 451,50; 304,98 y 199 €</span></dd><dt>Ej. 3 · D2</dt><dd><code>=CAMBIAR(B2;1;"Nuevo";3;SI(C2&gt;2000;"Regular Plus";"Regular");5;SI(C2&gt;4000;"VIP";"Premium");"Estándar")</code><br><span class="small text-muted">Nuevo, Regular Plus, Regular, VIP, Premium</span></dd><dt>Ej. 4 · D2</dt><dd><code>=CAMBIAR(B2;"Ventas";SI(C2&gt;=90;"Excelente";"Normal");"Marketing";SI(C2&gt;=85;"Excelente";"Normal");"Atención";SI(C2&gt;=85;"Excelente";"Normal");"Normal")</code><br><span class="small text-muted">Excelente, Normal, Excelente, Excelente, Normal</span></dd><dt>Ej. 5 · D2</dt><dd><code>=C2*CAMBIAR(B2;"España";0,21;"Francia";0,2;"Alemania";0,19;"Italia";0,22;"Portugal";0,23;0,25)</code><br><span class="small text-muted">42; 30; 57; 55 y 41,40 €</span></dd></dl></details>
+        </li>
+        <li class="paso">
+            <h3>Nivel avanzado: CAMBIAR con Y y O</h3>
+            <p>Libro <strong>avanzado</strong>. Para comprobar condiciones con <code>CAMBIAR</code> hay un truco: compara con <code>VERDADERO</code> y pon las condiciones como casos.</p><p><code>=CAMBIAR(VERDADERO; condición1; valor1; condición2; valor2; …; predeterminado)</code></p><p>Devuelve el valor de la primera condición que sea VERDADERO, igual que <code>SI.CONJUNTO</code>.</p><ul><li><strong>Ejercicio 1.</strong> <em>Precio final</em> (columna E) según la temporada (B), el tipo de cliente (C) y el precio base (D): Alta + Premium, 5 % de descuento; Alta + Regular, 5 % de aumento; Media + Premium, 10 % de descuento; Media + Regular, sin cambios; Baja + Premium, 20 % de descuento; Baja + Regular, 15 % de descuento.</li><li><strong>Ejercicio 2.</strong> <em>Clasificación del préstamo</em> (columna E) según el importe (B), los años (C) y el riesgo (D). «Hipoteca Premium»: importe ≥ 200.000 €, plazo ≥ 25 años y riesgo bajo. «Hipoteca Estándar»: importe ≥ 150.000 € y, además, plazo ≥ 15 años o riesgo bajo. «Personal Prioritario»: importe entre 20.000 y 60.000 €, plazo de 5 años o menos y riesgo bajo. «Personal Con Garantías»: importe &lt; 20.000 € y riesgo alto. «Personal Evaluación»: importe entre 20.000 y 100.000 € y, además, plazo &gt; 5 años o riesgo medio. «Requiere Análisis»: ninguna de las anteriores.</li><li><strong>Ejercicio 3.</strong> <em>Comisión en euros</em> (columna F) según el departamento (B), las ventas (C) y los clientes nuevos (D). Tecnología: 9 % si ventas &gt; 80.000 € y más de 10 clientes nuevos; 8 % si ventas &gt; 70.000 € o más de 8 clientes; 7 % en otros casos. Hogar: 7 % si ventas &gt; 40.000 € y más de 6 clientes; 5 % si ventas &gt; 30.000 € o más de 5 clientes; 3,5 % en otros casos. Moda: 10 % si ventas &gt; 50.000 € y más de 12 clientes; 7 % si ventas &gt; 40.000 € o más de 9 clientes; 5 % en otros casos.</li></ul><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En el ejercicio 3 el departamento es un valor exacto, así que puedes usar <code>CAMBIAR(B2; …)</code> normal y poner un <code>SI</code> en cada departamento. La columna <em>Antigüedad</em> no interviene en el cálculo.</div><details><summary>Ver la solución</summary><dl class="formulas"><dt>Ej. 1 · E2</dt><dd><code>=D2*CAMBIAR(VERDADERO;Y(B2="Alta";C2="Premium");0,95;Y(B2="Alta";C2="Regular");1,05;Y(B2="Media";C2="Premium");0,9;Y(B2="Media";C2="Regular");1;Y(B2="Baja";C2="Premium");0,8;Y(B2="Baja";C2="Regular");0,85)</code><br><span class="small text-muted">332,50; 102; 162; 262,50 y 120 €</span></dd><dt>Ej. 2 · E2</dt><dd><code>=CAMBIAR(VERDADERO;Y(B2&gt;=200000;C2&gt;=25;D2="Bajo");"Hipoteca Premium";Y(B2&gt;=150000;O(C2&gt;=15;D2="Bajo"));"Hipoteca Estándar";Y(B2&gt;=20000;B2&lt;=60000;C2&lt;=5;D2="Bajo");"Personal Prioritario";Y(B2&lt;20000;D2="Alto");"Personal Con Garantías";Y(B2&gt;=20000;B2&lt;=100000;O(C2&gt;5;D2="Medio"));"Personal Evaluación";"Requiere Análisis")</code><br><span class="small text-muted">Ana, Hipoteca Premium · Carlos, Hipoteca Estándar · Laura, Personal Prioritario · Pablo, Personal Con Garantías · Elena, Personal Evaluación</span></dd><dt>Ej. 3 · F2</dt><dd><code>=C2*CAMBIAR(B2;"Tecnología";SI(Y(C2&gt;80000;D2&gt;10);0,09;SI(O(C2&gt;70000;D2&gt;8);0,08;0,07));"Hogar";SI(Y(C2&gt;40000;D2&gt;6);0,07;SI(O(C2&gt;30000;D2&gt;5);0,05;0,035));"Moda";SI(Y(C2&gt;50000;D2&gt;12);0,1;SI(O(C2&gt;40000;D2&gt;9);0,07;0,05)))</code><br><span class="small text-muted">Miguel 7.650 € · Sara 3.150 € · Javier 6.000 € · Lucía 7.360 € · Alberto 3.360 €</span></dd></dl><p class="small mb-0">En el ejercicio 1 también vale anidar dos <code>CAMBIAR</code> sin usar <code>Y</code>: <code>=D2*CAMBIAR(B2;"Alta";CAMBIAR(C2;"Premium";0,95;"Regular";1,05);"Media";CAMBIAR(C2;"Premium";0,9;"Regular";1);"Baja";CAMBIAR(C2;"Premium";0,8;"Regular";0,85))</code>.</p></details>
+        </li>
+        <li class="paso">
+            <h3>Formato y comprobación</h3>
+            <p>Da formato de moneda a los costes, precios, impuestos y comisiones, y de porcentaje a los descuentos del ejercicio 1 intermedio.</p><p>Para comprobar el valor predeterminado, añade una fila nueva en alguna pestaña con un valor que no esté en la lista (por ejemplo, el país «Suecia» en el ejercicio 5 intermedio: el impuesto debe ser del 25 %). Copia la fórmula a esa fila y mira el resultado.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-8">
+        <li><label><input type="checkbox"><span>Los libros se llaman <code>ApellidoNombre_AO_Actividad5.8</code> con <code>_Basico</code>, <code>_Intermedio</code> y <code>_Avanzado</code> al final.</span></label></li>
+        <li><label><input type="checkbox"><span>Todos los resultados se calculan con <code>CAMBIAR</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Básico: el código E sale como «Otros» y el pago con Bizum, como «❓».</span></label></li>
+        <li><label><input type="checkbox"><span>Intermedio, ejercicio 2: los precios finales son 499; 656,50; 451,50; 304,98 y 199 €.</span></label></li>
+        <li><label><input type="checkbox"><span>Intermedio, ejercicio 3: salen Nuevo, Regular Plus, Regular, VIP y Premium.</span></label></li>
+        <li><label><input type="checkbox"><span>Avanzado, ejercicio 2: cada uno de los cinco préstamos tiene una clasificación distinta.</span></label></li>
+        <li><label><input type="checkbox"><span>Los importes tienen formato de moneda y los descuentos, de porcentaje.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-7"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.7</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-9">Siguiente: 5.9. BUSCARV y BUSCARH <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

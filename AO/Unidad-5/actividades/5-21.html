@@ -1,0 +1,255 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.21</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.21. Gestión de clientes</h1>
+    <p class="lead">La actividad más completa de la unidad. Con la lista de clientes de una tienda vas a calcular cuánto tiempo llevan comprando, validar los datos, resumirlos por categoría, detectar clientes en riesgo, crear filtros e índices, una tabla dinámica, un formulario para clientes nuevos y un gráfico.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Fechas con <code>SIFECHA</code> y <code>HOY</code>, y control de errores con <code>SI.ERROR</code></li>
+                    <li>Validación de datos de todo tipo: longitud, listas, fechas, importes y correos</li>
+                    <li><code>UNIQUE</code>, <code>CONTAR.SI</code>, <code>SUMAR.SI</code> y <code>FILTER</code> que se amplían solos</li>
+                    <li><code>INDICE</code>, <code>BUSCARV</code> y <code>TRANSPONER</code></li>
+                    <li>Formato condicional con fórmulas personalizadas y vistas de filtro</li>
+                    <li>Tabla dinámica, macro para registrar datos y gráfico con línea de tendencia</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-13-funciones">5.13. Funciones</a> y <a href="#/Unidad-5/index?sec=5-15-usando-formato-condicional">5.15. Formato condicional</a> y <a href="#/Unidad-5/index?sec=5-2-importacion-de-otras-hojas-de-calculo">5.2. Importación de otras hojas de cálculo</a></li>
+                    <li>Es una actividad de repaso: intenta resolver cada parte sin mirar la solución y compara al terminar.</li>
+                    <li>El enunciado original pide importar un CSV: en su lugar, importa el libro de partida, que trae la hoja <code>Clientes</code>.</li>
+                    <li>La fila 12 de <code>Clientes</code> tiene datos incompletos y las fechas al revés (la última compra es anterior a la primera): tus fórmulas tienen que soportarlo sin mostrar errores.</li>
+                    <li>No cambies el formato de número ni de fecha de los datos importados: da formato solo a las celdas que añadas tú.</li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-21-plantilla.xlsx" download><i class="bi bi-file-earmark-spreadsheet me-1"></i>Libro de partida (plantilla)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-21-solucion.xlsx" download><i class="bi bi-file-earmark-check me-1"></i>Solución (para comparar al terminar)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.21</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Hojas</th>
+                <td><code>Clientes</code>, <code>Resumen Clientes</code>, <code>Riesgo Clientes</code>, <code>Filtro Clientes</code>, <code>Índice Clientes</code>, <code>Datos Dinámicos</code>, <code>Nuevo Cliente</code> y <code>Gráfico Gasto Promedio por Categoría</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Clientes: formato y días de relación</h3>
+            <p>Importa el libro de partida. En <code>Clientes</code> tienes el ID, el nombre, las fechas de primera y última compra, la categoría, las compras totales y el correo de cada cliente. La columna E (<em>Dias</em>) está vacía.</p><ol><li>Da formato a la tabla (colores, bordes, estilos de celda). Haz lo mismo en todas las hojas que crees.</li><li>Resalta los clientes con <strong>más de 100 €</strong> en compras con letra blanca y fondo azul: rango A2:H20, <em>La fórmula personalizada es</em> <code>=$G2&gt;100</code>.</li><li>En E2 calcula los días entre la primera y la última compra con <code>SIFECHA(…; …; "D")</code>. Deja la celda vacía si falta una fecha (con <code>SI</code>) y envuelve todo en <code>SI.ERROR</code> por si las fechas están al revés, como en la fila 12. Arrastra la fórmula hasta la fila 20 para que sirva también para los clientes nuevos.</li></ol>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr>
+                        <tr><th>1</th><td>ID Cliente</td><td>Nombre2</td><td>Fecha Primera Compra</td><td>Fecha Última Compra</td><td>Dias</td><td>Categoría</td><td>Compras Totales (€)</td><td>Correo Electrónico</td></tr>
+                        <tr><th>2</th><td>C001</td><td>Juan Pérez</td><td>15/06/2018</td><td>20/01/2024</td><td class="num formula" style="background-color:#00FF00">2045</td><td>VIP</td><td class="num">32,50 €</td><td>juan.perez@email.com</td></tr>
+                        <tr><th>3</th><td>C002</td><td>María López</td><td>10/03/2021</td><td>25/11/2023</td><td class="num formula" style="background-color:#00FF00">990</td><td>Frecuente</td><td class="num">125,20 €</td><td>maria.lopez@email.com</td></tr>
+                        <tr><th>4</th><td>C003</td><td>Carlos Sánchez</td><td>22/09/2019</td><td>30/07/2022</td><td class="num formula" style="background-color:#00FF00">1042</td><td>Nuevo</td><td class="num">7,80 €</td><td>carlos.sanchez@email.com</td></tr>
+                        <tr><th>5</th><td>C004</td><td>Laura Martín</td><td>01/12/2015</td><td>12/09/2023</td><td class="num formula" style="background-color:#00FF00">2842</td><td>VIP</td><td class="num">45,00 €</td><td>laura.martin@email.com</td></tr>
+                        <tr><th>6</th><td>C005</td><td>Pedro Ramírez</td><td>05/08/2022</td><td>01/02/2024</td><td class="num formula" style="background-color:#00FF00">545</td><td>Frecuente</td><td class="num">9,50 €</td><td>pedro.ramirez@email.com</td></tr>
+                        <tr><th>7</th><td>C006</td><td>Ana Fernández</td><td>17/01/2023</td><td>11/12/2023</td><td class="num formula" style="background-color:#00FF00">328</td><td>Nuevo</td><td class="num">6,20 €</td><td>ana.fernandez@email.com</td></tr>
+                        <tr><th>8</th><td>C007</td><td>David Gómez</td><td>23/05/2010</td><td>02/06/2012</td><td class="num formula" style="background-color:#00FF00">741</td><td>VIP</td><td class="num">38,90 €</td><td>david.gomez@email.com</td></tr>
+                        <tr><th>9</th><td>C008</td><td>Sonia Ortega</td><td>09/07/2020</td><td>05/01/2024</td><td class="num formula" style="background-color:#00FF00">1275</td><td>Frecuente</td><td class="num">12,40 €</td><td>sonia.ortega@email.com</td></tr>
+                        <tr><th>10</th><td>C009</td><td>Miguel Torres</td><td>18/04/2017</td><td>29/03/2022</td><td class="num formula" style="background-color:#00FF00">1806</td><td>Nuevo</td><td class="num">8,60 €</td><td>miguel.torres@email.com</td></tr>
+                        <tr><th>11</th><td>C010</td><td>Elena Rodríguez</td><td>30/11/2019</td><td>15/10/2023</td><td class="num formula" style="background-color:#00FF00">1415</td><td>Frecuente</td><td class="num">14,70 €</td><td>elena.rodriguez@email.com</td></tr>
+                        <tr><th>12</th><td></td><td></td><td>30/11/2019</td><td>15/10/2018</td><td class="formula" style="background-color:#00FF00">Revisar fechas</td><td>Trabajador</td><td></td><td></td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>E2</dt><dd><code>=SI.ERROR(SI(O(C2=&quot;&quot;;D2=&quot;&quot;);&quot;&quot;;SIFECHA(C2;D2;&quot;d&quot;));&quot;Revisar fechas&quot;)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Validación de datos</h3>
+            <p>Configura estas reglas en <code>Clientes</code> (<span class="ruta-menu">Datos → Validación de datos → Añadir regla</span>) de la fila 2 a la 20:</p><ul><li><strong>ID Cliente</strong> (A): 4 caracteres, <code>=LARGO(A2)=4</code>.</li><li><strong>Nombre</strong> (B): al menos 10 caracteres, <code>=LARGO(B2)&gt;=10</code>.</li><li><strong>Categoría</strong> (F): <em>Desplegable</em> con Nuevo, Frecuente y VIP.</li><li><strong>Fecha de primera compra</strong> (C): criterio <em>La fecha es igual o anterior a</em> → <em>hoy</em>.</li><li><strong>Fecha de última compra</strong> (D): no puede ser anterior a la primera, <code>=D2&gt;=C2</code>.</li><li><strong>Compras totales</strong> (G): <em>Está entre</em> 10 y 500.</li><li><strong>Correo electrónico</strong> (H): criterio <em>El texto es un correo electrónico válido</em>.</li></ul><p>La solución solo trae la regla del ID: las demás tienes que crearlas tú. Varios clientes tienen compras de menos de 10 € y la fila 12 no cumple casi ninguna regla, así que Google Sheets los marcará.</p>
+        </li>
+        <li class="paso">
+            <h3>Resumen por categoría</h3>
+            <p>Crea la hoja <code>Resumen Clientes</code>:</p><ol><li>En A2 saca las categorías sin repetir con una fórmula: <code>=UNIQUE(Clientes!F2:F21)</code>. Si aparece una categoría nueva en <code>Clientes</code>, saldrá sola.</li><li>En B, C, D, E y F calcula por categoría el número de clientes (<code>CONTAR.SI</code>), el total de compras (<code>SUMAR.SI</code>) y el máximo, el mínimo y la media de días de relación (<code>MAX</code>, <code>MIN</code> y <code>PROMEDIO</code> con <code>FILTER</code>).</li><li>Para que funcione con más categorías, copia las fórmulas hasta la fila 20 y envuélvelas en <code>SI(A2="";"";…)</code>: si no hay categoría, la fila se queda en blanco.</li></ol><p>La fila de «Trabajador» sale con días negativos porque sus fechas están al revés.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>La solución resta las fechas dentro de <code>FILTER</code>. También puedes filtrar la columna E, que ya tiene los días: <code>=MAX(FILTER(Clientes!$E$2:$E$20;Clientes!$F$2:$F$20=A2))</code>.</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr>
+                        <tr><th>1</th><td><strong>Categorías</strong></td><td><strong>Clientes por categoría</strong></td><td><strong>Compras por categoría</strong></td><td><strong>Máximo de días por compra</strong></td><td><strong>Mínimo de días por compra</strong></td><td><strong>Promedio de días por compra</strong></td></tr>
+                        <tr><th>2</th><td>VIP</td><td class="num formula">3</td><td class="num formula">116,40 €</td><td class="num formula">2842</td><td class="num formula">741</td><td class="num formula">1876</td></tr>
+                        <tr><th>3</th><td>Frecuente</td><td class="num formula">4</td><td class="num formula">161,80 €</td><td class="num formula">1415</td><td class="num formula">545</td><td class="num formula">1056,25</td></tr>
+                        <tr><th>4</th><td>Nuevo</td><td class="num formula">3</td><td class="num formula">22,60 €</td><td class="num formula">1806</td><td class="num formula">328</td><td class="num formula">1058,67</td></tr>
+                        <tr><th>5</th><td>Trabajador</td><td class="num formula">1</td><td class="num formula">0,00 €</td><td class="num formula">-411</td><td class="num formula">-411</td><td class="num formula">-411</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>B2</dt><dd><code>=SI(A2=&quot;&quot;;&quot;&quot;;CONTAR.SI(Clientes!F:F;A2))</code></dd>
+                    <dt>C2</dt><dd><code>=SI(A2=&quot;&quot;;&quot;&quot;;SUMAR.SI(Clientes!F:F;A2;Clientes!G:G))</code></dd>
+                    <dt>D2</dt><dd><code>=SI(A2=&quot;&quot;;&quot;&quot;;MAX(FILTER(FECHANUMERO(Clientes!$D:$D) - FECHANUMERO(Clientes!$C:$C); Clientes!$F:$F=$A2)))</code></dd>
+                    <dt>E2</dt><dd><code>=SI(A2=&quot;&quot;;&quot;&quot;;MIN(FILTER(FECHANUMERO(Clientes!$D:$D) - FECHANUMERO(Clientes!$C:$C); Clientes!$F:$F=$A2)))</code></dd>
+                    <dt>F2</dt><dd><code>=SI(A2=&quot;&quot;;&quot;&quot;;PROMEDIO(FILTER(FECHANUMERO(Clientes!$D:$D) - FECHANUMERO(Clientes!$C:$C); Clientes!$F:$F=$A2)))</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Clientes en riesgo</h3>
+            <p>Crea la hoja <code>Riesgo Clientes</code> (en la solución se llama <code>Riesgos</code>):</p><ol><li>En A2 trae todos los nombres de <code>Clientes</code> con <code>=INDICE(Clientes!B2:B21;0)</code>: si se añaden clientes, aparecen solos.</li><li>En B calcula los días que lleva cada cliente sin comprar (de la última compra a hoy) y en C escribe «Riesgo Alto» si son más de 2 años y medio (365 × 2,5 días) o «Activo» si no. Con <code>SI.ERROR</code>, muestra un aviso cuando el cliente no exista.</li><li>En D y E trae la categoría y las compras con <code>BUSCARV</code> y <code>SI.ERROR</code> («No hay datos» y 0).</li><li>Al lado, cuenta los clientes de una categoría (<code>CONTAR.SI</code>), suma las compras de una categoría (<code>SUMAR.SI</code>) y suma las compras de los clientes con más de 2 años y medio o con compras superiores a 100 € (<code>FILTER</code> con las dos condiciones sumadas). En la solución, la categoría se elige con un desplegable en I2 e I6.</li><li>Aplica formato condicional para avisar de los huecos: nombre vacío (<em>La celda está vacía</em>), duración «No está en cliente», riesgo «No Existe», estado «No hay datos» y compras iguales a 0. Comprueba que ninguna celda muestra un error.</li></ol><p>Los días dependen de la fecha de hoy: tus números pueden ser mayores que los de la vista previa.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+                        <tr><th>1</th><td><strong>Nombre</strong></td><td><strong>Duración (Días)</strong></td><td><strong>Riesgo</strong></td><td><strong>Estado</strong></td><td><strong>Compras</strong></td></tr>
+                        <tr><th>2</th><td>Juan Pérez</td><td class="num formula">1017</td><td class="formula">Riesgo Alto</td><td class="formula">VIP</td><td class="num formula">32,50 €</td></tr>
+                        <tr><th>3</th><td>María López</td><td class="num formula">1073</td><td class="formula">Riesgo Alto</td><td class="formula">Frecuente</td><td class="num formula">125,20 €</td></tr>
+                        <tr><th>4</th><td>Carlos Sánchez</td><td class="num formula">1556</td><td class="formula">Riesgo Alto</td><td class="formula">Nuevo</td><td class="num formula">7,80 €</td></tr>
+                        <tr><th>5</th><td>Laura Martín</td><td class="num formula">1147</td><td class="formula">Riesgo Alto</td><td class="formula">VIP</td><td class="num formula">45,00 €</td></tr>
+                        <tr><th>6</th><td>Pedro Ramírez</td><td class="num formula">1005</td><td class="formula">Riesgo Alto</td><td class="formula">Frecuente</td><td class="num formula">9,50 €</td></tr>
+                        <tr><th>7</th><td>Ana Fernández</td><td class="num formula">1057</td><td class="formula">Riesgo Alto</td><td class="formula">Nuevo</td><td class="num formula">6,20 €</td></tr>
+                        <tr><th>8</th><td>David Gómez</td><td class="num formula">5266</td><td class="formula">Riesgo Alto</td><td class="formula">VIP</td><td class="num formula">38,90 €</td></tr>
+                        <tr><th>9</th><td>Sonia Ortega</td><td class="num formula">1032</td><td class="formula">Riesgo Alto</td><td class="formula">Frecuente</td><td class="num formula">12,40 €</td></tr>
+                        <tr><th>10</th><td>Miguel Torres</td><td class="num formula">1679</td><td class="formula">Riesgo Alto</td><td class="formula">Nuevo</td><td class="num formula">8,60 €</td></tr>
+                        <tr><th>11</th><td>Elena Rodríguez</td><td class="num formula">1114</td><td class="formula">Riesgo Alto</td><td class="formula">Frecuente</td><td class="num formula">14,70 €</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>B2</dt><dd><code>=SI.ERROR(FILTER(HOY()- FECHANUMERO(Clientes!D$2:D$20); Clientes!B$2:B$20=A2);&quot;No está en cliente&quot;)</code></dd>
+                    <dt>C2</dt><dd><code>=SI.ERROR(SI(FILTER(HOY()- FECHANUMERO(Clientes!$D:$D); Clientes!$B:$B=$A2)&gt;(365*2,5);&quot;Riesgo Alto&quot;;&quot;Activo&quot;);&quot;No Existe&quot;)</code></dd>
+                    <dt>D2</dt><dd><code>=SI.ERROR(BUSCARV(A2;Clientes!B$2:H$20;5;0);&quot;No hay datos&quot;)</code></dd>
+                    <dt>E2</dt><dd><code>=SI.ERROR(BUSCARV(A2;Clientes!B:H;6;0);0)</code></dd>
+                    <dt>J2</dt><dd><code>=CONTAR.SI(D:D;I2)</code></dd>
+                    <dt>J6</dt><dd><code>=SUMAR.SI(D:D;I6;E:E)</code></dd>
+                    <dt>I12</dt><dd><code>=SUMA(FILTER(E:E ;(B:B&gt;912) + (E:E&gt;100)))</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Filtro por categoría y vistas de filtro</h3>
+            <p>Crea la hoja <code>Filtro Clientes</code> (en la solución, <code>Filtro Estado</code>): en A1 «Selecciona una categoría», en B1 un desplegable con las categorías sin repetir y, debajo, un <code>FILTER</code> con los clientes de esa categoría. Pon en rojo los que llevan más de 4 años (1.460 días) en la columna de días: <code>=$E5&gt;1460</code>.</p><p>Después vuelve a <code>Clientes</code> y crea estas vistas de filtro con <span class="ruta-menu">Datos → Vistas de filtro → Crear vista de filtro</span>. Cada vista se guarda con un nombre y no cambia lo que ven los demás:</p><ul><li>Una vista por categoría (Nuevo, Frecuente y VIP), con el nombre de la categoría.</li><li>Una vista ordenada por <em>Fecha Última Compra</em> de la más reciente a la más antigua (<em>Ordenar Z → A</em>).</li><li>Una vista con un filtro por nombre de cliente. Explica en una nota o un comentario qué hace.</li></ul>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr>
+                        <tr><th>1</th><td>Selecciona una categoría</td><td><strong>VIP</strong></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>2</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>3</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>4</th><td>ID Cliente</td><td>Nombre</td><td>Fecha Primera Compra</td><td>Fecha Última Compra</td><td>Dias</td><td>Categoría</td><td>Compras Totales (€)</td><td>Correo Electrónico</td></tr>
+                        <tr><th>5</th><td class="formula">C001</td><td class="formula">Juan Pérez</td><td class="formula">15/06/2018</td><td class="formula">20/01/2024</td><td class="num formula">2045</td><td class="formula">VIP</td><td class="num formula">32,50 €</td><td class="formula">juan.perez@email.com</td></tr>
+                        <tr><th>6</th><td class="formula">C004</td><td class="formula">Laura Martín</td><td class="formula">01/12/2015</td><td class="formula">12/09/2023</td><td class="num formula">2842</td><td class="formula">VIP</td><td class="num formula">45,00 €</td><td class="formula">laura.martin@email.com</td></tr>
+                        <tr><th>7</th><td class="formula">C007</td><td class="formula">David Gómez</td><td class="formula">23/05/2010</td><td class="formula">02/06/2012</td><td class="num formula">741</td><td class="formula">VIP</td><td class="num formula">38,90 €</td><td class="formula">david.gomez@email.com</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>A5</dt><dd><code>=FILTER(Clientes!A:H;Clientes!F:F=B1)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Índice de clientes</h3>
+            <p>Crea la hoja <code>Índice Clientes</code> (en la solución, <code>Índice</code>) y en A1 trae todos los clientes con sus datos: <code>=INDICE(Clientes!A:H;0)</code>. Después colorea <strong>toda la fila</strong> con formato condicional y fórmulas personalizadas (rango A2:H20):</p><ul><li>«Nuevo» y menos de 500 días → amarillo: <code>=Y($F2="Nuevo";$E2&lt;500)</code>.</li><li>«Frecuente» y más de 600 días → naranja.</li><li>«VIP» y más de 2.500 días → verde.</li><li>Si una fila con datos no cumple ninguna de las tres → fondo gris y letra blanca.</li><li>Compras superiores a 120 € → rojo.</li></ul><details><summary>Ver la solución</summary><dl class="formulas"><dt>Naranja</dt><dd><code>=Y($F2="Frecuente";$E2&gt;600)</code></dd><dt>Verde</dt><dd><code>=Y($F2="VIP";$E2&gt;2500)</code></dd><dt>Gris</dt><dd><code>=Y($A2&lt;&gt;"";NO(O(Y($F2="Nuevo";$E2&lt;500);Y($F2="Frecuente";$E2&gt;600);Y($F2="VIP";$E2&gt;2500))))</code></dd><dt>Rojo</dt><dd><code>=$G2&gt;120</code></dd></dl><p>Pon la regla roja la primera para que se vea aunque la fila tenga otro color. La solución hace la gris con <code>O(Y($F2="Nuevo";$E2&gt;500);…)</code>, que deja sin color las filas de otras categorías.</p></details>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr>
+                        <tr><th>1</th><td><strong>ID Cliente</strong></td><td><strong>Nombre2</strong></td><td><strong>Fecha Primera Compra</strong></td><td><strong>Fecha Última Compra</strong></td><td><strong>Dias</strong></td><td><strong>Categoría</strong></td><td><strong>Compras Totales (€)</strong></td><td><strong>Correo Electrónico</strong></td></tr>
+                        <tr><th>2</th><td>C001</td><td>Juan Pérez</td><td>15/06/2018</td><td>20/01/2024</td><td class="num">2045</td><td>VIP</td><td class="num">32,50 €</td><td>juan.perez@email.com</td></tr>
+                        <tr><th>3</th><td>C002</td><td>María López</td><td>10/03/2021</td><td>25/11/2023</td><td class="num">990</td><td>Frecuente</td><td class="num">125,20 €</td><td>maria.lopez@email.com</td></tr>
+                        <tr><th>4</th><td>C003</td><td>Carlos Sánchez</td><td>22/09/2019</td><td>30/07/2022</td><td class="num">1042</td><td>Nuevo</td><td class="num">7,80 €</td><td>carlos.sanchez@email.com</td></tr>
+                        <tr><th>5</th><td>C004</td><td>Laura Martín</td><td>01/12/2015</td><td>12/09/2023</td><td class="num">2842</td><td>VIP</td><td class="num">45,00 €</td><td>laura.martin@email.com</td></tr>
+                        <tr><th>6</th><td>C005</td><td>Pedro Ramírez</td><td>05/08/2022</td><td>01/02/2024</td><td class="num">545</td><td>Frecuente</td><td class="num">9,50 €</td><td>pedro.ramirez@email.com</td></tr>
+                        <tr><th>7</th><td>C006</td><td>Ana Fernández</td><td>17/01/2023</td><td>11/12/2023</td><td class="num">328</td><td>Nuevo</td><td class="num">6,20 €</td><td>ana.fernandez@email.com</td></tr>
+                        <tr><th>8</th><td>C007</td><td>David Gómez</td><td>23/05/2010</td><td>02/06/2012</td><td class="num">741</td><td>VIP</td><td class="num">38,90 €</td><td>david.gomez@email.com</td></tr>
+                        <tr><th>9</th><td>C008</td><td>Sonia Ortega</td><td>09/07/2020</td><td>05/01/2024</td><td class="num">1275</td><td>Frecuente</td><td class="num">12,40 €</td><td>sonia.ortega@email.com</td></tr>
+                        <tr><th>10</th><td>C009</td><td>Miguel Torres</td><td>18/04/2017</td><td>29/03/2022</td><td class="num">1806</td><td>Nuevo</td><td class="num">8,60 €</td><td>miguel.torres@email.com</td></tr>
+                        <tr><th>11</th><td>C010</td><td>Elena Rodríguez</td><td>30/11/2019</td><td>15/10/2023</td><td class="num">1415</td><td>Frecuente</td><td class="num">14,70 €</td><td>elena.rodriguez@email.com</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Tabla dinámica y gráfico</h3>
+            <p>Crea la hoja <code>Datos Dinámicos</code> con una tabla dinámica de <code>Clientes</code>:</p><ul><li><strong>Filas</strong>: <em>Categoría</em>.</li><li><strong>Valores</strong>: <em>Compras Totales</em> resumida por <code>SUM</code> y otra vez por <code>AVERAGE</code>, y <em>Dias</em> por <code>AVERAGE</code> (tiempo medio de relación).</li></ul><p>Por ejemplo, VIP suma 116,40 € de compras, con una media de 38,80 € y 1.876 días de relación de media.</p><p>Luego crea la hoja <code>Gráfico Gasto Promedio por Categoría</code> con un gráfico como el de la solución:</p><ol><li>En <code>Clientes</code> selecciona las columnas <em>Categoría</em> y <em>Compras Totales</em> y crea un <em>Gráfico de columnas</em>.</li><li>En la configuración marca <em>Agregar</em> y elige <em>Promedio</em>: así se agrupa por categoría y cada columna muestra la media (VIP 38,80 €, Frecuente 40,45 €, Nuevo 7,53 €).</li><li>En <span class="ruta-menu">Personalizar → Series</span> añade una <em>Línea de tendencia</em>. Ponle el título «Gasto Promedio por Categoría» y etiquetas de datos. En la solución las columnas están en 3D y cada una tiene un color.</li><li>Corta el gráfico y pégalo en su hoja.</li></ol>
+        </li>
+        <li class="paso">
+            <h3>Formulario para clientes nuevos</h3>
+            <p>Crea la hoja <code>Nuevo Cliente</code>:</p><ol><li>En A1 trae los encabezados de <code>Clientes</code> en vertical con <code>=TRANSPONER(Clientes!A1:H1)</code>. Si cambias un encabezado en <code>Clientes</code>, también cambia aquí.</li><li>La columna B es para los datos del cliente nuevo: la fecha de primera compra es la de hoy (<code>HOY()</code>), la de última compra es igual a la primera, los días se calculan solos y la categoría se elige en un desplegable con las categorías que ya existen (<code>Resumen Clientes!A2:A20</code>).</li><li>Copia las validaciones del paso 2 que correspondan (ID, nombre, compras, correo…).</li><li>Para guardar el cliente, prepara en D1 los datos en horizontal (<code>=TRANSPONER(B1:B8)</code>) y graba una macro (<span class="ruta-menu">Extensiones → Macros → Grabar macro</span>): en <code>Clientes</code>, clic derecho en la fila 2 → <em>Insertar 1 fila encima</em>; copia D1:K1 de <code>Nuevo Cliente</code> y pégalo en A2 de <code>Clientes</code> con <span class="ruta-menu">Edición → Pegado especial → Solo valores</span>; borra los datos escritos en B. Guárdala como «Registrar cliente».</li></ol><p>Una fórmula de celda no puede escribir datos en otra hoja: para guardarlos hace falta una macro, que por dentro es una función de Apps Script.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Como la fila nueva se inserta en la fila 2, las fórmulas de otras hojas con rangos que empiezan en la fila 2 (por ejemplo <code>Clientes!F2:F20</code>) se desplazan y dejan fuera el dato nuevo. Usa rangos que empiecen en la fila 1 o columnas completas (<code>Clientes!F:F</code>).</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th></tr>
+                        <tr><th>1</th><td style="background-color:#6AA84F">ID Cliente</td><td></td></tr>
+                        <tr><th>2</th><td style="background-color:#6AA84F">Nombre2</td><td></td></tr>
+                        <tr><th>3</th><td style="background-color:#6AA84F">Fecha Primera Compra</td><td class="formula">02/11/2026</td></tr>
+                        <tr><th>4</th><td style="background-color:#6AA84F">Fecha Última Compra</td><td class="formula">02/11/2026</td></tr>
+                        <tr><th>5</th><td style="background-color:#6AA84F">Dias</td><td class="num formula">0</td></tr>
+                        <tr><th>6</th><td style="background-color:#6AA84F">Categoría</td><td></td></tr>
+                        <tr><th>7</th><td style="background-color:#6AA84F">Compras Totales (€)</td><td></td></tr>
+                        <tr><th>8</th><td style="background-color:#6AA84F">Correo Electrónico</td><td></td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>B3</dt><dd><code>=HOY()</code></dd>
+                    <dt>B4</dt><dd><code>=B3</code></dd>
+                    <dt>B5</dt><dd><code>=B3-B4</code></dd>
+                </dl>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-21">
+        <li><label><input type="checkbox"><span>El libro se llama <code>ApellidoNombre_AO_Actividad5.21</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>La columna E de <code>Clientes</code> calcula los días con <code>SIFECHA</code> y la fila 12 no muestra ningún error.</span></label></li>
+        <li><label><input type="checkbox"><span>Están las siete validaciones y los clientes con más de 100 € de compras se ven con fondo azul.</span></label></li>
+        <li><label><input type="checkbox"><span><code>Resumen Clientes</code> saca las categorías con <code>UNIQUE</code> y sus datos con <code>CONTAR.SI</code>, <code>SUMAR.SI</code> y <code>FILTER</code> (VIP: 3 clientes y 116,40 €).</span></label></li>
+        <li><label><input type="checkbox"><span><code>Riesgo Clientes</code> se completa sola al añadir clientes y no muestra errores.</span></label></li>
+        <li><label><input type="checkbox"><span>El desplegable de <code>Filtro Clientes</code> funciona y en <code>Clientes</code> hay vistas de filtro con nombre.</span></label></li>
+        <li><label><input type="checkbox"><span><code>Índice Clientes</code> colorea filas completas con fórmulas personalizadas.</span></label></li>
+        <li><label><input type="checkbox"><span>Hay una tabla dinámica por categoría, un gráfico con la media de compras y línea de tendencia, y una macro que registra clientes nuevos.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-20"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.20</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/index">Todas las actividades <i class="bi bi-list-check ms-1"></i></a>
+    </nav>
+</div>

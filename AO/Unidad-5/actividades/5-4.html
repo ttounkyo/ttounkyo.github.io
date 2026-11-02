@@ -1,0 +1,285 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.4</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.4. Referencias y la función SI</h1>
+    <p class="lead">Seis ejercicios cortos, uno en cada pestaña: comparar dos tarifas de transporte, una tabla de multiplicar, las ventas de un lanzamiento, unos descuentos, el vencimiento de unas facturas y el control de faltas del personal. Varios libros tienen los textos en catalán.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Referencias absolutas y mixtas con <code>$</code> (<code>C$4</code>, <code>$B9</code>)</li>
+                    <li>Una tabla de doble entrada con una sola fórmula</li>
+                    <li><code>PROMEDIO</code>, <code>MAX</code> y <code>MIN</code></li>
+                    <li>La función <code>SI</code>, sola y con <code>O</code></li>
+                    <li>Sumar días a una fecha</li>
+                    <li>Formato condicional que compara con otra celda o busca un texto</li>
+                    <li>Un gráfico de líneas</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-14-copiar-formulas-y-funciones-referencias-absolutas-y-relativas">5.14. Referencias absolutas y relativas</a> y <a href="#/Unidad-5/index?sec=5-13-funciones">5.13. Funciones</a> y <a href="#/Unidad-5/index?sec=5-15-usando-formato-condicional">5.15. Formato condicional</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-4-plantilla.xlsx" download><i class="bi bi-file-earmark-spreadsheet me-1"></i>Libro de partida (plantilla)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-4-solucion.xlsx" download><i class="bi bi-file-earmark-check me-1"></i>Solución (para comparar al terminar)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-4-ejemplo-tabla-multiplicar.xlsx" download><i class="bi bi-download me-1"></i>Ejemplo resuelto: la tabla del 11 hecha de tres maneras</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.4</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Hojas</th>
+                <td>Las seis pestañas: Coste, Multiplicar, Lanzamiento, Descuentos, Control Facturas y Faltes</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Coste: dos tarifas de transporte</h3>
+            <p>En la pestaña «Coste», dos empresas de transporte (A y B) cobran una <strong>tarifa fija</strong> más un <strong>precio por kilo</strong>. En C9:D13 calcula cuánto cuesta enviar cada peso de la columna B con cada empresa: tarifa fija + precio por kilo × peso.</p><p>El reto es escribir <strong>una sola fórmula</strong> en C9 y copiarla a todo el rango C9:D13 (hacia abajo y hacia la derecha). Para eso necesitas referencias mixtas:</p><ul><li><code>C$4</code> y <code>C$5</code>: la fila no cambia (siempre la tarifa y el precio por kilo), pero la columna sí, para pasar de la empresa A a la B.</li><li><code>$B9</code>: la columna no cambia (el peso siempre está en B), pero la fila sí.</li></ul><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Para poner los <code>$</code> rápido, haz clic en la referencia dentro de la fórmula y pulsa <kbd>F4</kbd> varias veces: va cambiando entre <code>C4</code>, <code>$C$4</code>, <code>C$4</code> y <code>$C4</code>.</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th></tr>
+                        <tr><th>2</th><td style="background-color:#00FFFF"></td><td colspan="2" style="background-color:#00FFFF;color:#0047FF"><strong>EMPRESAS</strong></td></tr>
+                        <tr><th>3</th><td style="background-color:#00FFFF"></td><td style="background-color:#00FFFF;color:#0047FF"><strong>A</strong></td><td style="background-color:#00FFFF;color:#0047FF"><strong>B</strong></td></tr>
+                        <tr><th>4</th><td style="background-color:#00FFFF;color:#0047FF"><strong>TARIFA FIJA</strong></td><td class="num" style="background-color:#00FFFF;color:#0047FF"><strong>20,00 €</strong></td><td class="num" style="background-color:#00FFFF;color:#0047FF"><strong>8,00 €</strong></td></tr>
+                        <tr><th>5</th><td style="background-color:#00FFFF;color:#0047FF"><strong>PRECIO POR KILO</strong></td><td class="num" style="background-color:#00FFFF;color:#0047FF"><strong>4,00 €</strong></td><td class="num" style="background-color:#00FFFF;color:#0047FF"><strong>6,00 €</strong></td></tr>
+                        <tr><th>6</th><td style="background-color:#00FFFF"></td><td style="background-color:#00FFFF"></td><td style="background-color:#00FFFF"></td></tr>
+                        <tr><th>7</th><td style="background-color:#00FFFF"></td><td colspan="2" style="background-color:#00FFFF;color:#0047FF"><strong>IMPORTE</strong></td></tr>
+                        <tr><th>8</th><td style="background-color:#00FFFF;color:#0047FF"><strong>PESO</strong></td><td style="background-color:#00FFFF;color:#0047FF"><strong>A</strong></td><td style="background-color:#00FFFF;color:#0047FF"><strong>B</strong></td></tr>
+                        <tr><th>9</th><td class="num" style="background-color:#00FFFF;color:#0047FF"><strong>0</strong></td><td class="num formula" style="background-color:#00FFFF;color:#0047FF"><strong>20,00 €</strong></td><td class="num formula" style="background-color:#00FFFF;color:#0047FF"><strong>8,00 €</strong></td></tr>
+                        <tr><th>10</th><td class="num" style="background-color:#00FFFF;color:#0047FF"><strong>2</strong></td><td class="num formula" style="background-color:#00FFFF;color:#0047FF"><strong>28,00 €</strong></td><td class="num formula" style="background-color:#00FFFF;color:#0047FF"><strong>20,00 €</strong></td></tr>
+                        <tr><th>11</th><td class="num" style="background-color:#00FFFF;color:#0047FF"><strong>5</strong></td><td class="num formula" style="background-color:#00FFFF;color:#0047FF"><strong>40,00 €</strong></td><td class="num formula" style="background-color:#00FFFF;color:#0047FF"><strong>38,00 €</strong></td></tr>
+                        <tr><th>12</th><td class="num" style="background-color:#00FFFF;color:#0047FF"><strong>12</strong></td><td class="num formula" style="background-color:#00FFFF;color:#0047FF"><strong>68,00 €</strong></td><td class="num formula" style="background-color:#00FFFF;color:#0047FF"><strong>80,00 €</strong></td></tr>
+                        <tr><th>13</th><td class="num" style="background-color:#00FFFF;color:#0047FF"><strong>20</strong></td><td class="num formula" style="background-color:#00FFFF;color:#0047FF"><strong>100,00 €</strong></td><td class="num formula" style="background-color:#00FFFF;color:#0047FF"><strong>128,00 €</strong></td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>C9</dt><dd><code>=C$4+C$5*$B9</code></dd>
+                    <dt>D13</dt><dd><code>=D$4+D$5*$B13</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Coste: gráfico de líneas</h3>
+            <p>Selecciona B8:D13 y crea un gráfico con <span class="ruta-menu">Insertar → Gráfico</span>. En el editor del gráfico, en <strong>Configuración</strong>, elige <strong>Gráfico de líneas</strong>. En <strong>Personalizar</strong>, pon el título «COSTE DEL TRANSPORTE» y el título «PESO» al eje horizontal. Puede que el libro de partida ya traiga un gráfico vacío con ese título: si aparece, edítalo en lugar de crear otro.</p><p>Con el gráfico se ve qué empresa conviene: hasta 6 kg es más barata la B (con 6 kg cuestan lo mismo) y, con más peso, la A.</p>
+        </li>
+        <li class="paso">
+            <h3>Multiplicar: la tabla con una sola fórmula</h3>
+            <p>En la pestaña «Multiplicar» (<em>Taula de multiplicar</em>: tabla de multiplicar) escribe los números del 1 al 10 en B3:K3 y en A4:A13. No hace falta escribirlos uno a uno: escribe 1 y 2, selecciona las dos celdas y arrastra para crear la serie.</p><p>En B4 escribe una fórmula que multiplique el número de la columna A por el de la fila 3 y cópiala a todo B4:K13. Fija con <code>$</code> la columna A y la fila 3.</p><p>Si quieres ver otro ejemplo, descarga el ejemplo resuelto de la tabla del 11 (en «Antes de empezar»).</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th><th>J</th><th>K</th></tr>
+                        <tr><th>1</th><td colspan="11" style="background-color:#FFFFCC"><strong>Taula de multiplicar</strong></td></tr>
+                        <tr><th>2</th><td style="background-color:#FFFFCC"></td><td style="background-color:#FFFFCC"></td><td style="background-color:#FFFFCC"></td><td style="background-color:#FFFFCC"></td><td style="background-color:#FFFFCC"></td><td style="background-color:#FFFFCC"></td><td style="background-color:#FFFFCC"></td><td style="background-color:#FFFFCC"></td><td style="background-color:#FFFFCC"></td><td style="background-color:#FFFFCC"></td><td style="background-color:#FFFFCC"></td></tr>
+                        <tr><th>3</th><td style="background-color:#FFFFCC"></td><td class="num" style="background-color:#FFFFCC"><strong>1</strong></td><td class="num" style="background-color:#FFFFCC"><strong>2</strong></td><td class="num" style="background-color:#FFFFCC"><strong>3</strong></td><td class="num" style="background-color:#FFFFCC"><strong>4</strong></td><td class="num" style="background-color:#FFFFCC"><strong>5</strong></td><td class="num" style="background-color:#FFFFCC"><strong>6</strong></td><td class="num" style="background-color:#FFFFCC"><strong>7</strong></td><td class="num" style="background-color:#FFFFCC"><strong>8</strong></td><td class="num" style="background-color:#FFFFCC"><strong>9</strong></td><td class="num" style="background-color:#FFFFCC"><strong>10</strong></td></tr>
+                        <tr><th>4</th><td class="num" style="background-color:#FFFFCC"><strong>1</strong></td><td class="num formula" style="background-color:#FFFFCC">1</td><td class="num formula" style="background-color:#FFFFCC">2</td><td class="num formula" style="background-color:#FFFFCC">3</td><td class="num formula" style="background-color:#FFFFCC">4</td><td class="num formula" style="background-color:#FFFFCC">5</td><td class="num formula" style="background-color:#FFFFCC">6</td><td class="num formula" style="background-color:#FFFFCC">7</td><td class="num formula" style="background-color:#FFFFCC">8</td><td class="num formula" style="background-color:#FFFFCC">9</td><td class="num formula" style="background-color:#FFFFCC">10</td></tr>
+                        <tr><th>5</th><td class="num" style="background-color:#FFFFCC"><strong>2</strong></td><td class="num formula" style="background-color:#FFFFCC">2</td><td class="num formula" style="background-color:#FFFFCC">4</td><td class="num formula" style="background-color:#FFFFCC">6</td><td class="num formula" style="background-color:#FFFFCC">8</td><td class="num formula" style="background-color:#FFFFCC">10</td><td class="num formula" style="background-color:#FFFFCC">12</td><td class="num formula" style="background-color:#FFFFCC">14</td><td class="num formula" style="background-color:#FFFFCC">16</td><td class="num formula" style="background-color:#FFFFCC">18</td><td class="num formula" style="background-color:#FFFFCC">20</td></tr>
+                        <tr><th>6</th><td class="num" style="background-color:#FFFFCC"><strong>3</strong></td><td class="num formula" style="background-color:#FFFFCC">3</td><td class="num formula" style="background-color:#FFFFCC">6</td><td class="num formula" style="background-color:#FFFFCC">9</td><td class="num formula" style="background-color:#FFFFCC">12</td><td class="num formula" style="background-color:#FFFFCC">15</td><td class="num formula" style="background-color:#FFFFCC">18</td><td class="num formula" style="background-color:#FFFFCC">21</td><td class="num formula" style="background-color:#FFFFCC">24</td><td class="num formula" style="background-color:#FFFFCC">27</td><td class="num formula" style="background-color:#FFFFCC">30</td></tr>
+                        <tr><th>7</th><td class="num" style="background-color:#FFFFCC"><strong>4</strong></td><td class="num formula" style="background-color:#FFFFCC">4</td><td class="num formula" style="background-color:#FFFFCC">8</td><td class="num formula" style="background-color:#FFFFCC">12</td><td class="num formula" style="background-color:#FFFFCC">16</td><td class="num formula" style="background-color:#FFFFCC">20</td><td class="num formula" style="background-color:#FFFFCC">24</td><td class="num formula" style="background-color:#FFFFCC">28</td><td class="num formula" style="background-color:#FFFFCC">32</td><td class="num formula" style="background-color:#FFFFCC">36</td><td class="num formula" style="background-color:#FFFFCC">40</td></tr>
+                        <tr><th>8</th><td class="num" style="background-color:#FFFFCC"><strong>5</strong></td><td class="num formula" style="background-color:#FFFFCC">5</td><td class="num formula" style="background-color:#FFFFCC">10</td><td class="num formula" style="background-color:#FFFFCC">15</td><td class="num formula" style="background-color:#FFFFCC">20</td><td class="num formula" style="background-color:#FFFFCC">25</td><td class="num formula" style="background-color:#FFFFCC">30</td><td class="num formula" style="background-color:#FFFFCC">35</td><td class="num formula" style="background-color:#FFFFCC">40</td><td class="num formula" style="background-color:#FFFFCC">45</td><td class="num formula" style="background-color:#FFFFCC">50</td></tr>
+                        <tr><th>9</th><td class="num" style="background-color:#FFFFCC"><strong>6</strong></td><td class="num formula" style="background-color:#FFFFCC">6</td><td class="num formula" style="background-color:#FFFFCC">12</td><td class="num formula" style="background-color:#FFFFCC">18</td><td class="num formula" style="background-color:#FFFFCC">24</td><td class="num formula" style="background-color:#FFFFCC">30</td><td class="num formula" style="background-color:#FFFFCC">36</td><td class="num formula" style="background-color:#FFFFCC">42</td><td class="num formula" style="background-color:#FFFFCC">48</td><td class="num formula" style="background-color:#FFFFCC">54</td><td class="num formula" style="background-color:#FFFFCC">60</td></tr>
+                        <tr><th>10</th><td class="num" style="background-color:#FFFFCC"><strong>7</strong></td><td class="num formula" style="background-color:#FFFFCC">7</td><td class="num formula" style="background-color:#FFFFCC">14</td><td class="num formula" style="background-color:#FFFFCC">21</td><td class="num formula" style="background-color:#FFFFCC">28</td><td class="num formula" style="background-color:#FFFFCC">35</td><td class="num formula" style="background-color:#FFFFCC">42</td><td class="num formula" style="background-color:#FFFFCC">49</td><td class="num formula" style="background-color:#FFFFCC">56</td><td class="num formula" style="background-color:#FFFFCC">63</td><td class="num formula" style="background-color:#FFFFCC">70</td></tr>
+                        <tr><th>11</th><td class="num" style="background-color:#FFFFCC"><strong>8</strong></td><td class="num formula" style="background-color:#FFFFCC">8</td><td class="num formula" style="background-color:#FFFFCC">16</td><td class="num formula" style="background-color:#FFFFCC">24</td><td class="num formula" style="background-color:#FFFFCC">32</td><td class="num formula" style="background-color:#FFFFCC">40</td><td class="num formula" style="background-color:#FFFFCC">48</td><td class="num formula" style="background-color:#FFFFCC">56</td><td class="num formula" style="background-color:#FFFFCC">64</td><td class="num formula" style="background-color:#FFFFCC">72</td><td class="num formula" style="background-color:#FFFFCC">80</td></tr>
+                        <tr><th>12</th><td class="num" style="background-color:#FFFFCC"><strong>9</strong></td><td class="num formula" style="background-color:#FFFFCC">9</td><td class="num formula" style="background-color:#FFFFCC">18</td><td class="num formula" style="background-color:#FFFFCC">27</td><td class="num formula" style="background-color:#FFFFCC">36</td><td class="num formula" style="background-color:#FFFFCC">45</td><td class="num formula" style="background-color:#FFFFCC">54</td><td class="num formula" style="background-color:#FFFFCC">63</td><td class="num formula" style="background-color:#FFFFCC">72</td><td class="num formula" style="background-color:#FFFFCC">81</td><td class="num formula" style="background-color:#FFFFCC">90</td></tr>
+                        <tr><th>13</th><td class="num" style="background-color:#FFFFCC"><strong>10</strong></td><td class="num formula" style="background-color:#FFFFCC">10</td><td class="num formula" style="background-color:#FFFFCC">20</td><td class="num formula" style="background-color:#FFFFCC">30</td><td class="num formula" style="background-color:#FFFFCC">40</td><td class="num formula" style="background-color:#FFFFCC">50</td><td class="num formula" style="background-color:#FFFFCC">60</td><td class="num formula" style="background-color:#FFFFCC">70</td><td class="num formula" style="background-color:#FFFFCC">80</td><td class="num formula" style="background-color:#FFFFCC">90</td><td class="num formula" style="background-color:#FFFFCC">100</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>B4</dt><dd><code>=$A4*B$3</code></dd>
+                    <dt>K13</dt><dd><code>=$A13*K$3</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Lanzamiento: medias, máximos y mínimos</h3>
+            <p>La pestaña «Lanzamiento» tiene las unidades vendidas de un artículo en siete colores (<em>Verd, Blau, Groc, Taronja, Vermell, Blanc, Negre</em>: verde, azul, amarillo, naranja, rojo, blanco y negro) de lunes a sábado.</p><ul><li>En J5:J10 (<em>Mitjana diària</em>: media diaria), la media de cada día con <code>PROMEDIO</code>.</li><li>En la fila 13 (<em>Mitjana</em>), la media de cada color; en la 14 (<em>Maxim</em>), el máximo con <code>MAX</code>, y en la 15 (<em>Minim</em>), el mínimo con <code>MIN</code>.</li></ul><p>Quita los decimales de las medias.</p><p>Después, selecciona C5:I10 y abre <span class="ruta-menu">Formato → Formato condicional</span>. Crea dos reglas: <strong>Mayor o igual que</strong> <code>=C$13</code> con el texto en rojo, y <strong>Menor que</strong> <code>=C$13</code> con el texto en azul. Así cada venta se compara con la media de su color: <code>C$13</code> fija la fila 13, pero deja cambiar la columna.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th><th>J</th></tr>
+                        <tr><th>2</th><td colspan="9" style="background-color:#FFFF00"><strong>Unitats venudes de l&#x27;article Ref H-228 durant el llançament</strong></td></tr>
+                        <tr><th>3</th><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td></tr>
+                        <tr><th>4</th><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00">Verd</td><td style="background-color:#FFFF00">Blau</td><td style="background-color:#FFFF00">Groc</td><td style="background-color:#FFFF00">Taronja</td><td style="background-color:#FFFF00">Vermell</td><td style="background-color:#FFFF00">Blanc</td><td style="background-color:#FFFF00">Negre</td><td style="background-color:#FFFF00"><strong>Mitjana diària</strong></td></tr>
+                        <tr><th>5</th><td style="background-color:#FFFF00">dilluns</td><td class="num" style="background-color:#FFFF00">24</td><td class="num" style="background-color:#FFFF00">45</td><td class="num" style="background-color:#FFFF00">32</td><td class="num" style="background-color:#FFFF00">12</td><td class="num" style="background-color:#FFFF00">256</td><td class="num" style="background-color:#FFFF00">62</td><td class="num" style="background-color:#FFFF00">45</td><td class="num formula" style="background-color:#FFFF00">68</td></tr>
+                        <tr><th>6</th><td style="background-color:#FFFF00">dimart</td><td class="num" style="background-color:#FFFF00">45</td><td class="num" style="background-color:#FFFF00">98</td><td class="num" style="background-color:#FFFF00">84</td><td class="num" style="background-color:#FFFF00">12</td><td class="num" style="background-color:#FFFF00">54</td><td class="num" style="background-color:#FFFF00">50</td><td class="num" style="background-color:#FFFF00">8</td><td class="num formula" style="background-color:#FFFF00">50,14</td></tr>
+                        <tr><th>7</th><td style="background-color:#FFFF00">dimecres</td><td class="num" style="background-color:#FFFF00">14</td><td class="num" style="background-color:#FFFF00">2</td><td class="num" style="background-color:#FFFF00">69</td><td class="num" style="background-color:#FFFF00">1</td><td class="num" style="background-color:#FFFF00">18</td><td class="num" style="background-color:#FFFF00">15</td><td class="num" style="background-color:#FFFF00">32</td><td class="num formula" style="background-color:#FFFF00">21,57</td></tr>
+                        <tr><th>8</th><td style="background-color:#FFFF00">dijous</td><td class="num" style="background-color:#FFFF00">30</td><td class="num" style="background-color:#FFFF00">32</td><td class="num" style="background-color:#FFFF00">52</td><td class="num" style="background-color:#FFFF00">33</td><td class="num" style="background-color:#FFFF00">48</td><td class="num" style="background-color:#FFFF00">21</td><td class="num" style="background-color:#FFFF00">32</td><td class="num formula" style="background-color:#FFFF00">35,43</td></tr>
+                        <tr><th>9</th><td style="background-color:#FFFF00">divendres</td><td class="num" style="background-color:#FFFF00">36</td><td class="num" style="background-color:#FFFF00">37</td><td class="num" style="background-color:#FFFF00">15</td><td class="num" style="background-color:#FFFF00">39</td><td class="num" style="background-color:#FFFF00">14</td><td class="num" style="background-color:#FFFF00">5</td><td class="num" style="background-color:#FFFF00">38</td><td class="num formula" style="background-color:#FFFF00">26,29</td></tr>
+                        <tr><th>10</th><td style="background-color:#FFFF00">dissabte</td><td class="num" style="background-color:#FFFF00">32</td><td class="num" style="background-color:#FFFF00">15</td><td class="num" style="background-color:#FFFF00">20</td><td class="num" style="background-color:#FFFF00">50</td><td class="num" style="background-color:#FFFF00">23</td><td class="num" style="background-color:#FFFF00">36</td><td class="num" style="background-color:#FFFF00">25</td><td class="num formula" style="background-color:#FFFF00">28,71</td></tr>
+                        <tr><th>11</th><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td></tr>
+                        <tr><th>12</th><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td><td style="background-color:#FFFF00"></td></tr>
+                        <tr><th>13</th><td style="background-color:#FFFF00"><strong>Mitjana</strong></td><td class="num formula" style="background-color:#FFFF00">30,17</td><td class="num formula" style="background-color:#FFFF00">38,17</td><td class="num formula" style="background-color:#FFFF00">45,33</td><td class="num formula" style="background-color:#FFFF00">24,5</td><td class="num formula" style="background-color:#FFFF00">68,83</td><td class="num formula" style="background-color:#FFFF00">31,5</td><td class="num formula" style="background-color:#FFFF00">30</td><td style="background-color:#FFFF00"></td></tr>
+                        <tr><th>14</th><td style="background-color:#FFFF00"><strong>Maxim</strong></td><td class="num formula" style="background-color:#FFFF00">45</td><td class="num formula" style="background-color:#FFFF00">98</td><td class="num formula" style="background-color:#FFFF00">84</td><td class="num formula" style="background-color:#FFFF00">50</td><td class="num formula" style="background-color:#FFFF00">256</td><td class="num formula" style="background-color:#FFFF00">62</td><td class="num formula" style="background-color:#FFFF00">45</td><td style="background-color:#FFFF00"></td></tr>
+                        <tr><th>15</th><td style="background-color:#FFFF00"><strong>Minim</strong></td><td class="num formula" style="background-color:#FFFF00">14</td><td class="num formula" style="background-color:#FFFF00">2</td><td class="num formula" style="background-color:#FFFF00">15</td><td class="num formula" style="background-color:#FFFF00">1</td><td class="num formula" style="background-color:#FFFF00">14</td><td class="num formula" style="background-color:#FFFF00">5</td><td class="num formula" style="background-color:#FFFF00">8</td><td style="background-color:#FFFF00"></td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>J5</dt><dd><code>=PROMEDIO(C5:I5)</code></dd>
+                    <dt>C13</dt><dd><code>=PROMEDIO(C5:C10)</code></dd>
+                    <dt>C14</dt><dd><code>=MAX(C5:C10)</code></dd>
+                    <dt>C15</dt><dd><code>=MIN(C5:C10)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Descuentos: SI para aplicar un descuento</h3>
+            <p>En la pestaña «Descuentos», los productos propios (los que tienen una <code>D</code> en la columna B, <em>Producte propi</em>) tienen un descuento del 1,5 % (C2).</p><ul><li>En D5 (<em>Descompte</em>: descuento), usa <code>SI</code>: si B5 es <code>"D"</code>, el descuento es el precio × C2 / 100; si no, 0. Fija la fila de C2 con <code>$</code> y copia hasta D14.</li><li>En E5 (<em>Import</em>: importe), resta el descuento al precio (<code>=C5-D5</code>) y copia hasta E14. E16 ya suma la columna.</li><li>En D18, otro <code>SI</code>: si el total es de 100 € o más, «TRANSPORTE GRATUITO»; si no, «TRANSPORTE NO GRATUITO».</li></ul><p>Por último, dale formato condicional a D18 con <strong>La fórmula personalizada es</strong>: <code>=$E$16&gt;=100</code> con el texto en azul y <code>=$E$16&lt;100</code> con el texto en rojo. El libro de partida ya trae una regla parecida en D18: revísala y ajústala.</p><div class="alert alert-light border small"><i class="bi bi-exclamation-triangle me-1"></i>C2 vale 1,5, no 1,5 %: el símbolo % es solo del formato de la celda. Por eso hay que dividir entre 100. Tu total será de 113,04 €; en la solución sale 112,48 € porque allí el precio de C12 es 21,00 € en lugar de 21,56 €.</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+                        <tr><th>4</th><td style="background-color:#83CAFF"><strong>Producte propi</strong></td><td style="background-color:#83CAFF"><strong>Preu</strong></td><td style="background-color:#83CAFF"><strong>Descompte</strong></td><td style="background-color:#83CAFF"><strong>Import</strong></td></tr>
+                        <tr><th>5</th><td>D</td><td class="num">15,23 €</td><td class="num formula">0,23 €</td><td class="num formula">15,00 €</td></tr>
+                        <tr><th>6</th><td></td><td class="num">25,23 €</td><td class="num formula">0,00 €</td><td class="num formula">25,23 €</td></tr>
+                        <tr><th>7</th><td>D</td><td class="num">8,70 €</td><td class="num formula">0,13 €</td><td class="num formula">8,57 €</td></tr>
+                        <tr><th>8</th><td></td><td class="num">11,36 €</td><td class="num formula">0,00 €</td><td class="num formula">11,36 €</td></tr>
+                        <tr><th>9</th><td>D</td><td class="num">2,25 €</td><td class="num formula">0,03 €</td><td class="num formula">2,22 €</td></tr>
+                        <tr><th>10</th><td></td><td class="num">1,15 €</td><td class="num formula">0,00 €</td><td class="num formula">1,15 €</td></tr>
+                        <tr><th>11</th><td>D</td><td class="num">3,89 €</td><td class="num formula">0,06 €</td><td class="num formula">3,83 €</td></tr>
+                        <tr><th>12</th><td></td><td class="num">21,00 €</td><td class="num formula">0,00 €</td><td class="num formula">21,00 €</td></tr>
+                        <tr><th>13</th><td>D</td><td class="num">14,37 €</td><td class="num formula">0,22 €</td><td class="num formula">14,15 €</td></tr>
+                        <tr><th>14</th><td>D</td><td class="num">10,12 €</td><td class="num formula">0,15 €</td><td class="num formula">9,97 €</td></tr>
+                        <tr><th>15</th><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>16</th><td></td><td></td><td style="background-color:#00B8FF"><strong>Total</strong></td><td class="num formula">112,48 €</td></tr>
+                        <tr><th>17</th><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>18</th><td></td><td></td><td colspan="2" class="formula"><strong>TRANSPORTE GRATUITO</strong></td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>D5</dt><dd><code>=SI(B5=&quot;D&quot;;C5*C$2/100;0)</code></dd>
+                    <dt>E16</dt><dd><code>=SUMA(E5:E14)</code></dd>
+                    <dt>D18</dt><dd><code>=SI(E16&gt;=100;&quot;TRANSPORTE GRATUITO&quot;;&quot;TRANSPORTE NO GRATUITO&quot;)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Control de facturas: fechas y SI</h3>
+            <p>En la pestaña «Control Facturas» (<em>Control pagament factures</em>: control del pago de facturas), C4 es la fecha de hoy y E4 los días que hay para pagar cada factura (<em>Venciment</em>: vencimiento).</p><ul><li>En F7 (<em>Data venciment</em>), calcula la fecha de vencimiento: fecha de emisión + los días de E4. Las fechas son números de días, así que sumar 25 a una fecha da la fecha de 25 días después. Fija la fila de E4 y copia hasta F11.</li><li>En G7 (<em>Observacions</em>), usa <code>SI</code>: si la fecha de vencimiento es anterior a la de hoy (C4), escribe «Pendent» (pendiente de pago); si no, «A temps» (a tiempo).</li></ul><p>Añade formato condicional a G7:G11: <strong>El texto contiene</strong> «Pendent» en rojo y <strong>El texto contiene</strong> «A temps» en azul. Prueba a cambiar la fecha de C4 y mira cómo cambian las observaciones.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr>
+                        <tr><th>2</th><td colspan="5" style="background-color:#CCFFFF"><strong>Control pagament factures</strong></td><td style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>3</th><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>4</th><td style="background-color:#CCFFFF"><strong>Data:</strong></td><td style="background-color:#CCFFFF">15/10/2023</td><td style="background-color:#CCFFFF"><strong>Venciment:</strong></td><td class="num" style="background-color:#CCFFFF">25</td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>5</th><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>6</th><td style="background-color:#CCFFFF"><strong>N_fra</strong></td><td style="background-color:#CCFFFF"><strong>Client</strong></td><td style="background-color:#CCFFFF"><strong>Import</strong></td><td style="background-color:#CCFFFF"><strong>Data emissió</strong></td><td style="background-color:#CCFFFF"><strong>Data venciment</strong></td><td style="background-color:#CCFFFF"><strong>Observacions</strong></td></tr>
+                        <tr><th>7</th><td class="num" style="background-color:#CCFFFF">45674</td><td style="background-color:#CCFFFF">Ofiorix</td><td class="num" style="background-color:#CCFFFF">615,00 €</td><td style="background-color:#CCFFFF">15/09/2023</td><td class="formula" style="background-color:#CCFFFF">10/10/2023</td><td class="formula" style="background-color:#CCFFFF">Pendent</td></tr>
+                        <tr><th>8</th><td class="num" style="background-color:#CCFFFF">45682</td><td style="background-color:#CCFFFF">Ofibox</td><td class="num" style="background-color:#CCFFFF">1.200,00 €</td><td style="background-color:#CCFFFF">20/09/2023</td><td class="formula" style="background-color:#CCFFFF">15/10/2023</td><td class="formula" style="background-color:#CCFFFF">A temps</td></tr>
+                        <tr><th>9</th><td class="num" style="background-color:#CCFFFF">45735</td><td style="background-color:#CCFFFF">Ofistore</td><td class="num" style="background-color:#CCFFFF">430,00 €</td><td style="background-color:#CCFFFF">01/10/2023</td><td class="formula" style="background-color:#CCFFFF">26/10/2023</td><td class="formula" style="background-color:#CCFFFF">A temps</td></tr>
+                        <tr><th>10</th><td class="num" style="background-color:#CCFFFF">45777</td><td style="background-color:#CCFFFF">Ofizona</td><td class="num" style="background-color:#CCFFFF">3.256,00 €</td><td style="background-color:#CCFFFF">14/10/2023</td><td class="formula" style="background-color:#CCFFFF">08/11/2023</td><td class="formula" style="background-color:#CCFFFF">A temps</td></tr>
+                        <tr><th>11</th><td class="num" style="background-color:#CCFFFF">45792</td><td style="background-color:#CCFFFF">Ofimpolis</td><td class="num" style="background-color:#CCFFFF">2.855,00 €</td><td style="background-color:#CCFFFF">05/11/2023</td><td class="formula" style="background-color:#CCFFFF">30/11/2023</td><td class="formula" style="background-color:#CCFFFF">A temps</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>F7</dt><dd><code>=E7+E$4</code></dd>
+                    <dt>G7</dt><dd><code>=SI(F7&lt;C$4;&quot;Pendent&quot;;&quot;A temps&quot;)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Faltas: SI con la función O</h3>
+            <p>En la pestaña «Faltes» (faltas) tienes las faltas de cada trabajador: injustificadas (<em>Injust.</em>) y justificadas (<em>Just.</em>), las que ya llevaba acumuladas (<em>Acumulades</em>) y las de este periodo (<em>Actuals</em>). Los máximos permitidos están en E4 (10 injustificadas) y E5 (25 justificadas).</p><ul><li>En G9 y H9 (<em>Totals</em>), suma las acumuladas y las actuales de cada tipo. Las celdas vacías cuentan como 0.</li><li>En I9 (<em>Accions</em>: acciones), escribe «Entrevista» si el trabajador supera <strong>cualquiera</strong> de los dos máximos, y deja la celda vacía (<code>""</code>) si no. Para «una condición u otra» se usa <code>O</code> dentro del <code>SI</code>: <code>=SI(O(condición1;condición2);"Entrevista";"")</code>.</li></ul><p>Copia hasta la fila 24 y añade formato condicional: en G9:G24, <strong>Mayor o igual que</strong> <code>=E$4</code> en rojo y <strong>Menor que</strong> <code>=E$4</code> en azul; lo mismo en H9:H24 con <code>E$5</code>; y en I9:I24, <strong>La celda no está vacía</strong> con fondo rojo y texto blanco.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th></tr>
+                        <tr><th>2</th><td colspan="8" style="background-color:#CCFFFF"><strong>Control de faltes</strong></td></tr>
+                        <tr><th>3</th><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>4</th><td style="background-color:#CCFFFF"></td><td colspan="2" style="background-color:#CCFFFF"><strong>Màxim Injust.:</strong></td><td class="num" style="background-color:#CCFFFF">10</td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>5</th><td style="background-color:#CCFFFF"></td><td colspan="2" style="background-color:#CCFFFF"><strong>Màxim Just.:</strong></td><td class="num" style="background-color:#CCFFFF">25</td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>6</th><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>7</th><td style="background-color:#CCFFFF"></td><td colspan="2" style="background-color:#CCFFFF"><strong>Acumulades</strong></td><td colspan="2" style="background-color:#CCFFFF"><strong>Actuals</strong></td><td colspan="2" style="background-color:#CCFFFF"><strong>Totals</strong></td><td style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>8</th><td style="background-color:#CCFFFF"><strong>Nom treballador</strong></td><td style="background-color:#CCFFFF"><strong>Injust.</strong></td><td style="background-color:#CCFFFF"><strong>Just.</strong></td><td style="background-color:#CCFFFF"><strong>Injust.</strong></td><td style="background-color:#CCFFFF"><strong>Just.</strong></td><td style="background-color:#CCFFFF"><strong>Injust.</strong></td><td style="background-color:#CCFFFF"><strong>Just.</strong></td><td style="background-color:#CCFFFF"><strong>Accions</strong></td></tr>
+                        <tr><th>9</th><td style="background-color:#CCFFFF">Albertí, Joan</td><td class="num" style="background-color:#CCFFFF">5</td><td class="num" style="background-color:#CCFFFF">19</td><td class="num" style="background-color:#CCFFFF">1</td><td class="num" style="background-color:#CCFFFF">7</td><td class="num formula" style="background-color:#CCFFFF">6</td><td class="num formula" style="background-color:#CCFFFF">26</td><td class="formula" style="background-color:#CCFFFF">Entrevista</td></tr>
+                        <tr><th>10</th><td style="background-color:#CCFFFF">Boada, Xavier</td><td style="background-color:#CCFFFF"></td><td class="num" style="background-color:#CCFFFF">10</td><td style="background-color:#CCFFFF"></td><td class="num" style="background-color:#CCFFFF">1</td><td class="num formula" style="background-color:#CCFFFF">0</td><td class="num formula" style="background-color:#CCFFFF">11</td><td class="formula" style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>11</th><td style="background-color:#CCFFFF">Boxh, Anna</td><td class="num" style="background-color:#CCFFFF">2</td><td style="background-color:#CCFFFF"></td><td class="num" style="background-color:#CCFFFF">2</td><td style="background-color:#CCFFFF"></td><td class="num formula" style="background-color:#CCFFFF">4</td><td class="num formula" style="background-color:#CCFFFF">0</td><td class="formula" style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>12</th><td style="background-color:#CCFFFF">Carmona, Jaume</td><td class="num" style="background-color:#CCFFFF">9</td><td class="num" style="background-color:#CCFFFF">2</td><td class="num" style="background-color:#CCFFFF">3</td><td style="background-color:#CCFFFF"></td><td class="num formula" style="background-color:#CCFFFF">12</td><td class="num formula" style="background-color:#CCFFFF">2</td><td class="formula" style="background-color:#CCFFFF">Entrevista</td></tr>
+                        <tr><th>13</th><td style="background-color:#CCFFFF">Castán, Miquel</td><td style="background-color:#CCFFFF"></td><td class="num" style="background-color:#CCFFFF">10</td><td class="num" style="background-color:#CCFFFF">1</td><td class="num" style="background-color:#CCFFFF">2</td><td class="num formula" style="background-color:#CCFFFF">1</td><td class="num formula" style="background-color:#CCFFFF">12</td><td class="formula" style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>14</th><td style="background-color:#CCFFFF">Castells, Núria</td><td class="num" style="background-color:#CCFFFF">9</td><td class="num" style="background-color:#CCFFFF">15</td><td class="num" style="background-color:#CCFFFF">9</td><td class="num" style="background-color:#CCFFFF">7</td><td class="num formula" style="background-color:#CCFFFF">18</td><td class="num formula" style="background-color:#CCFFFF">22</td><td class="formula" style="background-color:#CCFFFF">Entrevista</td></tr>
+                        <tr><th>15</th><td style="background-color:#CCFFFF">Corbella, Montse</td><td style="background-color:#CCFFFF"></td><td class="num" style="background-color:#CCFFFF">6</td><td style="background-color:#CCFFFF"></td><td style="background-color:#CCFFFF"></td><td class="num formula" style="background-color:#CCFFFF">0</td><td class="num formula" style="background-color:#CCFFFF">6</td><td class="formula" style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>16</th><td style="background-color:#CCFFFF">Dalí, irene</td><td class="num" style="background-color:#CCFFFF">5</td><td class="num" style="background-color:#CCFFFF">3</td><td style="background-color:#CCFFFF"></td><td class="num" style="background-color:#CCFFFF">2</td><td class="num formula" style="background-color:#CCFFFF">5</td><td class="num formula" style="background-color:#CCFFFF">5</td><td class="formula" style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>17</th><td style="background-color:#CCFFFF">Díaz, Josep</td><td style="background-color:#CCFFFF"></td><td class="num" style="background-color:#CCFFFF">14</td><td style="background-color:#CCFFFF"></td><td class="num" style="background-color:#CCFFFF">20</td><td class="num formula" style="background-color:#CCFFFF">0</td><td class="num formula" style="background-color:#CCFFFF">34</td><td class="formula" style="background-color:#CCFFFF">Entrevista</td></tr>
+                        <tr><th>18</th><td style="background-color:#CCFFFF">Fernández, Blai</td><td class="num" style="background-color:#CCFFFF">3</td><td class="num" style="background-color:#CCFFFF">1</td><td class="num" style="background-color:#CCFFFF">4</td><td style="background-color:#CCFFFF"></td><td class="num formula" style="background-color:#CCFFFF">7</td><td class="num formula" style="background-color:#CCFFFF">1</td><td class="formula" style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>19</th><td style="background-color:#CCFFFF">Garcia, Maria</td><td style="background-color:#CCFFFF"></td><td class="num" style="background-color:#CCFFFF">7</td><td style="background-color:#CCFFFF"></td><td class="num" style="background-color:#CCFFFF">1</td><td class="num formula" style="background-color:#CCFFFF">0</td><td class="num formula" style="background-color:#CCFFFF">8</td><td class="formula" style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>20</th><td style="background-color:#CCFFFF">González, Ferran</td><td class="num" style="background-color:#CCFFFF">3</td><td class="num" style="background-color:#CCFFFF">4</td><td class="num" style="background-color:#CCFFFF">6</td><td style="background-color:#CCFFFF"></td><td class="num formula" style="background-color:#CCFFFF">9</td><td class="num formula" style="background-color:#CCFFFF">4</td><td class="formula" style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>21</th><td style="background-color:#CCFFFF">Gutiérrez, Antoni</td><td class="num" style="background-color:#CCFFFF">7</td><td class="num" style="background-color:#CCFFFF">11</td><td class="num" style="background-color:#CCFFFF">8</td><td class="num" style="background-color:#CCFFFF">5</td><td class="num formula" style="background-color:#CCFFFF">15</td><td class="num formula" style="background-color:#CCFFFF">16</td><td class="formula" style="background-color:#CCFFFF">Entrevista</td></tr>
+                        <tr><th>22</th><td style="background-color:#CCFFFF">Muñoz, Jordi</td><td class="num" style="background-color:#CCFFFF">6</td><td class="num" style="background-color:#CCFFFF">12</td><td class="num" style="background-color:#CCFFFF">3</td><td class="num" style="background-color:#CCFFFF">9</td><td class="num formula" style="background-color:#CCFFFF">9</td><td class="num formula" style="background-color:#CCFFFF">21</td><td class="formula" style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>23</th><td style="background-color:#CCFFFF">Torres, Marina</td><td class="num" style="background-color:#CCFFFF">1</td><td style="background-color:#CCFFFF"></td><td class="num" style="background-color:#CCFFFF">1</td><td class="num" style="background-color:#CCFFFF">1</td><td class="num formula" style="background-color:#CCFFFF">2</td><td class="num formula" style="background-color:#CCFFFF">1</td><td class="formula" style="background-color:#CCFFFF"></td></tr>
+                        <tr><th>24</th><td style="background-color:#CCFFFF">Vidal, Clara</td><td class="num" style="background-color:#CCFFFF">7</td><td class="num" style="background-color:#CCFFFF">15</td><td class="num" style="background-color:#CCFFFF">7</td><td class="num" style="background-color:#CCFFFF">6</td><td class="num formula" style="background-color:#CCFFFF">14</td><td class="num formula" style="background-color:#CCFFFF">21</td><td class="formula" style="background-color:#CCFFFF">Entrevista</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>G9</dt><dd><code>=C9+E9</code></dd>
+                    <dt>H9</dt><dd><code>=D9+F9</code></dd>
+                    <dt>I9</dt><dd><code>=SI(O(G9&gt;E$4;H9&gt;E$5);&quot;Entrevista&quot;;&quot;&quot;)</code></dd>
+                </dl>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-4">
+        <li><label><input type="checkbox"><span>El libro se llama <code>ApellidoNombre_AO_Actividad5.4</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Coste: C9:D13 sale de copiar una sola fórmula con <code>$</code>, y hay un gráfico de líneas con las dos empresas.</span></label></li>
+        <li><label><input type="checkbox"><span>Multiplicar: B4:K13 sale de copiar una sola fórmula con referencias mixtas.</span></label></li>
+        <li><label><input type="checkbox"><span>Lanzamiento: hay medias, máximos y mínimos, y cada venta está en rojo o en azul según la media de su color.</span></label></li>
+        <li><label><input type="checkbox"><span>Descuentos: solo tienen descuento las filas con <code>D</code>, y D18 dice si el transporte es gratuito (en azul) o no (en rojo).</span></label></li>
+        <li><label><input type="checkbox"><span>Control Facturas: solo la factura de Ofiorix sale «Pendent», en rojo.</span></label></li>
+        <li><label><input type="checkbox"><span>Faltes: salen 6 «Entrevista» (Albertí, Carmona, Castells, Díaz, Gutiérrez y Vidal) con fondo rojo.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-3"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.3</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-5">Siguiente: 5.5. Repaso: formato, funciones y orden <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

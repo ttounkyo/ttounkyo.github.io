@@ -1,0 +1,120 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.11</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.11. Organizar datos</h1>
+    <p class="lead">Tienes la población de 243 países y regiones del mundo copiada de una web, pero toda en una sola columna. Vas a convertirla en una tabla, separar los países de las regiones y ordenarla y filtrarla.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Reorganizar datos con las funciones <code>DESREF</code> y <code>FILA</code></li>
+                    <li>Pegar solo los valores (<kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>V</kbd>)</li>
+                    <li>Ordenar un intervalo con fila de encabezado</li>
+                    <li>Crear un filtro y filtrar por condición</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-10-seleccion-tamano-de-celdas-y-series">5.10. Selección, tamaño de celdas y series</a> y <a href="#/Unidad-5/index?sec=5-13-funciones">5.13. Funciones</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-11-plantilla.xlsx" download><i class="bi bi-file-earmark-spreadsheet me-1"></i>Libro de partida (plantilla)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-11-solucion.xlsx" download><i class="bi bi-file-earmark-check me-1"></i>Solución (para comparar al terminar)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.11</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Hojas</th>
+                <td><code>Hoja 1</code> (datos originales y columnas con <code>DESREF</code>), <code>Países</code> y <code>Regiones</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Observa cómo vienen los datos</h3>
+            <p>Importa el libro de partida en Google Sheets. Todo está en la columna A de <code>Hoja 1</code>: las filas 1 a 4 son los encabezados (<em>Nombre del país</em>, <em>Año Más Reciente</em>, <em>Valor Más Reciente</em> y <em>(Miles)</em>) y, desde la fila 5, cada país ocupa <strong>tres filas seguidas</strong>: el nombre, el año y la población en miles de habitantes.</p><div class="hoja-wrap"><table class="hoja"><tr><th></th><th>A</th></tr><tr><th>5</th><td>Zimbabwe</td></tr><tr><th>6</th><td class="num">2023</td></tr><tr><th>7</th><td class="num">16340,82</td></tr><tr><th>8</th><td>Zambia</td></tr><tr><th>9</th><td class="num">2023</td></tr><tr><th>10</th><td class="num">20723,97</td></tr></table></div><p>Así no se puede ordenar ni filtrar. Necesitas una fila por país, con el nombre y la población en columnas distintas. El año es 2023 en todos, así que no hace falta pasarlo.</p>
+        </li>
+        <li class="paso">
+            <h3>Pasa los datos a dos columnas con DESREF</h3>
+            <p>La función <code>DESREF(referencia; filas; columnas)</code> devuelve la celda que está a tantas filas y columnas de la referencia. Por ejemplo, <code>=DESREF(A1;4;0)</code> devuelve el contenido de A5. Y <code>FILA()</code> devuelve el número de la fila en la que está la fórmula.</p><p>En D2 escribe una fórmula que saque el primer nombre (Zimbabwe, en A5) y en E2 otra que saque su población (A7). Después selecciona D2:E2 y arrástralas hasta la fila 244: son 243 países y regiones y el último es <em>Países de ingreso mediano bajo</em>.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>El truco está en que cada fila nueva tiene que avanzar <strong>3 filas</strong> en la columna A. En D2, <code>=DESREF(A3;(FILA()-1)*2;0)</code> baja 2 filas desde A3 y llega a A5. Al arrastrar a la fila 3, la referencia pasa a A4 (+1) y el desplazamiento a 4 (+2): llega a A8, que es Zambia.</div><details><summary>Ver la solución</summary><dl class="formulas"><dt>D2</dt><dd><code>=DESREF(A3;(FILA()-1)*2;0)</code></dd><dt>E2</dt><dd><code>=DESREF(A5;(FILA()-1)*2;0)</code></dd></dl></details>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+                        <tr><th>1</th><td>Nombre del país</td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>2</th><td>Año Más Reciente</td><td></td><td></td><td class="formula" style="color:#0000FF">Zimbabwe</td><td class="num formula">16.340,82</td></tr>
+                        <tr><th>3</th><td>Valor Más Reciente</td><td></td><td></td><td class="formula" style="color:#0000FF">Zambia</td><td class="num formula">20.723,97</td></tr>
+                        <tr><th>4</th><td>(Miles)</td><td></td><td></td><td class="formula" style="color:#0000FF">Yemen, Rep. del</td><td class="num formula">39.390,80</td></tr>
+                        <tr><th>5</th><td style="color:#0000FF">Zimbabwe</td><td></td><td></td><td class="formula" style="color:#0000FF">Viet Nam</td><td class="num formula">100.352,19</td></tr>
+                        <tr><th>6</th><td class="num">2023</td><td></td><td></td><td class="formula" style="color:#0000FF">Venezuela</td><td class="num formula">28.300,85</td></tr>
+                        <tr><th>7</th><td class="num">16.340,82</td><td></td><td></td><td class="formula" style="color:#0000FF">Vanuatu</td><td class="num formula">320,41</td></tr>
+                        <tr><th>8</th><td style="color:#0000FF">Zambia</td><td></td><td></td><td class="formula" style="color:#0000FF">Uzbekistán</td><td class="num formula">35.652,31</td></tr>
+                        <tr><th>9</th><td class="num">2023</td><td></td><td></td><td class="formula" style="color:#0000FF">Uruguay</td><td class="num formula">3.388,08</td></tr>
+                        <tr><th>10</th><td class="num">20.723,97</td><td></td><td></td><td class="formula" style="color:#0000FF">Uganda</td><td class="num formula">48.656,60</td></tr>
+                        <tr><th>11</th><td style="color:#0000FF">Yemen, Rep. del</td><td></td><td></td><td class="formula" style="color:#0000FF">Ucrania</td><td class="num formula">37.732,84</td></tr>
+                        <tr><th>12</th><td class="num">2023</td><td></td><td></td><td class="formula" style="color:#0000FF">Tuvalu</td><td class="num formula">9,82</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Copia el resultado como valores en una hoja nueva</h3>
+            <p>Crea una hoja con el botón <strong>+</strong> de abajo y llámala <code>Países</code>. Escribe los encabezados <strong>País</strong> en A1 y <strong>Población (miles)</strong> en B1.</p><p>Vuelve a <code>Hoja 1</code>, selecciona D2:E244 y cópialo (<kbd>Ctrl</kbd>+<kbd>C</kbd>). En <code>Países</code>, haz clic en A2 y pega <strong>solo los valores</strong>: <kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>V</kbd> o <span class="ruta-menu">Editar → Pegado especial → Solo valores</span>.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>¿Por qué solo valores? Las fórmulas con <code>DESREF</code> dependen de la posición de las celdas: si las ordenas, se rompen. Al pegar valores te quedas con el texto y los números. Haz clic en A2: en la barra de fórmulas debe salir <em>Zimbabwe</em>, no una fórmula.</div>
+        </li>
+        <li class="paso">
+            <h3>Separa los países de las regiones</h3>
+            <p>La lista va de Zimbabwe a Afganistán (fila 218) en orden alfabético inverso. A partir de la fila 219 ya no hay países, sino 26 agregados: <em>Mundo</em>, <em>Zona del Euro</em>, <em>Unión Europea</em>, <em>América Latina y el Caribe</em>, <em>Países de ingreso mediano bajo</em>…</p><p>Crea otra hoja llamada <code>Regiones</code> con los mismos encabezados. En <code>Países</code>, selecciona A219:B244, córtalo (<kbd>Ctrl</kbd>+<kbd>X</kbd>) y pégalo en A2 de <code>Regiones</code>. En <code>Países</code> quedan 217 países, de la fila 2 a la 218.</p>
+        </li>
+        <li class="paso">
+            <h3>Ordena los países por población</h3>
+            <p>En <code>Países</code>, selecciona A1:B218 y abre <span class="ruta-menu">Datos → Ordenar intervalo → Opciones avanzadas de ordenación de intervalos</span>. Marca <em>Los datos tienen una fila de encabezado</em> y ordena por <strong>Población (miles)</strong> de Z → A (de mayor a menor). Arriba deben quedar India (1.438.069,6), China (1.410.710) y Estados Unidos (334.914,9).</p><p>Para que la tabla se lea mejor, fija la primera fila con <span class="ruta-menu">Ver → Inmovilizar → 1 fila</span> y da a la columna B formato de número con separador de miles (<span class="ruta-menu">Formato → Número → Número</span>).</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Ordena siempre seleccionando <strong>todas las columnas</strong> de la tabla. Si ordenas solo la columna B, las poblaciones se mueven y los nombres no: cada país se quedaría con la población de otro.</div>
+        </li>
+        <li class="paso">
+            <h3>Filtra los países más poblados</h3>
+            <p>Con una celda de la tabla seleccionada, ve a <span class="ruta-menu">Datos → Crear un filtro</span>. En el encabezado de <strong>Población (miles)</strong> aparece un icono: haz clic, elige <em>Filtrar por condición → Mayor que</em> y escribe <code>100000</code> (como está en miles, son 100 millones de habitantes). Deben quedar 16 países, de India a Viet Nam.</p><p>Prueba también <em>Filtrar por valores</em> en la columna País para buscar España (48.347,91 miles) y vuelve a dejar puesto el filtro de más de 100000 antes de entregar.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-11">
+        <li><label><input type="checkbox"><span>El libro se llama <code>ApellidoNombre_AO_Actividad5.11</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>En <code>Hoja 1</code>, D2:E244 sacan con <code>DESREF</code> el nombre y la población de los 243 países y regiones.</span></label></li>
+        <li><label><input type="checkbox"><span>La hoja <code>Países</code> tiene valores, no fórmulas, con los encabezados País y Población (miles).</span></label></li>
+        <li><label><input type="checkbox"><span>Los 26 agregados (Mundo, Unión Europea…) están en <code>Regiones</code> y en <code>Países</code> quedan 217 países.</span></label></li>
+        <li><label><input type="checkbox"><span><code>Países</code> está ordenada de mayor a menor población: India, China y Estados Unidos van primero.</span></label></li>
+        <li><label><input type="checkbox"><span>Hay un filtro que muestra solo los 16 países con más de 100000 miles de habitantes.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-10"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.10</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-12">Siguiente: 5.12. Datos duplicados <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

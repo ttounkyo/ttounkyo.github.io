@@ -1,0 +1,142 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.14</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.14. Tablas dinámicas</h1>
+    <p class="lead">Vas a traer a Google Sheets, directamente desde una página web, la lista de los 1.000 municipios más poblados de España y la vas a resumir por comunidades y provincias con tres tablas dinámicas.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Importar una tabla de una página web con <code>IMPORTHTML</code></li>
+                    <li>Crear una tabla dinámica con <span class="ruta-menu">Insertar → Tabla dinámica</span></li>
+                    <li>Colocar campos en filas, columnas y valores</li>
+                    <li>Resumir con <code>SUM</code>, <code>AVERAGE</code> y <code>COUNTUNIQUE</code></li>
+                    <li>Ordenar con la función <code>SORT</code> (reto opcional)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>No hay libro de partida: crea una hoja de cálculo nueva en Google Sheets.</li>
+                    <li>Necesitas conexión a Internet: <code>IMPORTHTML</code> vuelve a leer la página cada vez que abres el libro.</li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-14-municipios.xlsx" download><i class="bi bi-download me-1"></i>Datos de los municipios, por si <code>IMPORTHTML</code> no funciona</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.14</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Hojas</th>
+                <td><code>Import-ESP</code>, <code>EJEMPLO 1</code>, <code>EJEMPLO 2</code> y <code>EJEMPLO 3</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Importa la tabla de la web con IMPORTHTML</h3>
+            <p>Crea una hoja de cálculo nueva y cambia el nombre de la primera hoja a <code>Import-ESP</code>. En A1 escribe la fórmula de la solución. <code>IMPORTHTML</code> tiene tres argumentos: la dirección de la página (entre comillas), el tipo de elemento que quieres traer (<code>"table"</code> para una tabla o <code>"list"</code> para una lista) y el número de tabla dentro de la página (<code>1</code>, la primera).</p><p>Tarda unos segundos en cargar. Tendrás ocho columnas: <strong>Municipio</strong>, <strong>Comarca</strong>, <strong>Provincia</strong>, <strong>CC.AA.</strong>, <strong>Altitud</strong>, <strong>Superficie</strong>, <strong>Población</strong> y <strong>Densidad</strong>, con un municipio por fila de la 2 a la 1001.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Si sale un error o la página ha cambiado, descarga los datos de respaldo de <em>Antes de empezar</em>, cópialos en <code>Import-ESP</code> y sigue igual. Los números de los pasos siguientes están calculados con esos datos (población de 2019): con los de la web pueden variar un poco.</div><details><summary>Ver la solución</summary><dl class="formulas"><dt>A1</dt><dd><code>=IMPORTHTML("https://15mpedia.org/wiki/Lista_de_municipios_de_Espa%C3%B1a_por_poblaci%C3%B3n";"table";1)</code></dd></dl></details>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr>
+                        <tr><th>1</th><td>Municipio</td><td>Comarca</td><td>Provincia</td><td>CC.AA.</td><td>Altitud
+(m.s.n.m.)</td><td>Superficie
+(km²)</td><td>Población
+(2019)</td><td>Densidad
+(hab./km²)</td></tr>
+                        <tr><th>2</th><td>Madrid</td><td>Área Metropolitana de Madrid
+Corredor del Henares</td><td>Provincia de Madrid</td><td>Comunidad de Madrid</td><td class="num">667</td><td class="num">605,77</td><td class="num">3.266.126</td><td class="num">5.391,69</td></tr>
+                        <tr><th>3</th><td>Barcelona</td><td>Barcelonès</td><td>Provincia de Barcelona</td><td>Cataluña</td><td class="num">9</td><td class="num">99,11</td><td class="num">1.636.762</td><td class="num">16.514,60</td></tr>
+                        <tr><th>4</th><td>Valencia</td><td>Comarca de Valencia</td><td>Provincia de València</td><td>Comunidad Valenciana</td><td class="num">15</td><td class="num">139,31</td><td class="num">794.288</td><td class="num">5.701,59</td></tr>
+                        <tr><th>5</th><td>Sevilla</td><td>Comarca Metropolitana de Sevilla</td><td>Provincia de Sevilla</td><td>Andalucía</td><td class="num">12</td><td class="num">141,59</td><td class="num">688.592</td><td class="num">4.863,28</td></tr>
+                        <tr><th>6</th><td>Zaragoza</td><td>Comarca de Zaragoza</td><td>Provincia de Zaragoza</td><td>Aragón</td><td class="num">200</td><td class="num">973,78</td><td class="num">674.997</td><td class="num">693,17</td></tr>
+                        <tr><th>7</th><td>Málaga</td><td>Málaga-Costa del Sol</td><td>Provincia de Málaga</td><td>Andalucía</td><td class="num">11</td><td class="num">395,71</td><td class="num">574.654</td><td class="num">1.452,21</td></tr>
+                        <tr><th>8</th><td>Murcia</td><td>Huerta de Murcia</td><td>Provincia de Murcia</td><td>Región de Murcia</td><td class="num">43</td><td class="num">885,11</td><td class="num">453.258</td><td class="num">512,09</td></tr>
+                        <tr><th>9</th><td>Palma de Mallorca</td><td>Palma de Mallorca</td><td>Provincia de Baleares</td><td>Islas Baleares</td><td class="num">13</td><td class="num">208,63</td><td class="num">416.065</td><td class="num">1.994,27</td></tr>
+                        <tr><th>10</th><td>Las Palmas de Gran Canaria</td><td>Gran Canaria</td><td>Provincia de Las Palmas</td><td>Canarias</td><td class="num">8</td><td class="num">103,32</td><td class="num">379.925</td><td class="num">3.677,17</td></tr>
+                        <tr><th>11</th><td>Bilbao</td><td>Gran Bilbao</td><td>Provincia de Bizkaia</td><td>País Vasco</td><td class="num">19</td><td class="num">41,39</td><td class="num">346.843</td><td class="num">8.379,87</td></tr>
+                        <tr><th>12</th><td>Alicante</td><td>Campo de Alicante</td><td>Provincia de Alicante</td><td>Comunidad Valenciana</td><td class="num">3</td><td class="num">201,27</td><td class="num">334.887</td><td class="num">1.663,87</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>EJEMPLO 1: densidad por provincia y comunidad</h3>
+            <p>Una <strong>tabla dinámica</strong> agrupa las filas que tienen el mismo valor en una columna y calcula un resumen (suma, media, recuento…) de otra. No escribes fórmulas: eliges los campos en el editor que se abre a la derecha.</p><p>Vuelve a <code>Import-ESP</code>, selecciona A1:H1001 y ve a <span class="ruta-menu">Insertar → Tabla dinámica</span>. Elige <em>Hoja nueva</em> y pulsa <strong>Crear</strong>. Cambia el nombre de la hoja a <code>EJEMPLO 1</code>.</p><p>En el editor añade: en <strong>Filas</strong>, Provincia; en <strong>Columnas</strong>, CC.AA.; y en <strong>Valores</strong>, Densidad, con <em>Resumir por</em> <code>AVERAGE</code> (media). Cada provincia tiene un valor solo en la columna de su comunidad; la última fila y la última columna son los totales.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>No tiene sentido sumar densidades (habitantes por km²) de municipios distintos: por eso aquí se usa la media. Para población o superficie, en cambio, sí se suma.</div>
+        </li>
+        <li class="paso">
+            <h3>EJEMPLO 2: población por comunidad y provincia</h3>
+            <p>Vuelve a <code>Import-ESP</code>, selecciona A1:H1001 y ve a <span class="ruta-menu">Insertar → Tabla dinámica</span>. Elige <em>Hoja nueva</em> y pulsa <strong>Crear</strong>. Cambia el nombre de la hoja a <code>EJEMPLO 2</code>.</p><p>En <strong>Filas</strong> añade primero CC.AA. y después Provincia. En <strong>Valores</strong> añade Población, con <em>Resumir por</em> <code>SUM</code>. Cada comunidad muestra sus provincias y una fila <em>Total</em> con la suma de la comunidad.</p><p>Para ver primero las comunidades con más población, en el campo CC.AA. de Filas elige <em>Ordenar por → SUM de Población</em> y orden <em>Descendente</em>. Con los datos de respaldo, las tres primeras son Andalucía (7.175.526), Cataluña (6.607.921) y la Comunidad de Madrid (6.374.334).</p>
+        </li>
+        <li class="paso">
+            <h3>EJEMPLO 3: cuántos municipios hay en cada provincia</h3>
+            <p>Vuelve a <code>Import-ESP</code>, selecciona A1:H1001 y ve a <span class="ruta-menu">Insertar → Tabla dinámica</span>. Elige <em>Hoja nueva</em> y pulsa <strong>Crear</strong>. Cambia el nombre de la hoja a <code>EJEMPLO 3</code>.</p><p>En <strong>Filas</strong> añade CC.AA. y Provincia, como antes. En <strong>Valores</strong> añade Municipio, y en <em>Resumir por</em> elige <code>COUNTUNIQUE</code>, que cuenta cuántos valores <strong>distintos</strong> hay. Así sabes cuántos municipios de la lista tiene cada provincia y, en la fila <em>Total</em>, cada comunidad.</p><p>Con los datos de respaldo, Andalucía tiene 200 municipios en la lista, Cataluña 162 y la Comunidad Valenciana 130.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Con un campo de texto como Municipio no se puede usar <code>SUM</code>. Las opciones para contar son <code>COUNTA</code> (cuenta todas las celdas con datos) y <code>COUNTUNIQUE</code> (no cuenta dos veces el mismo valor).</div>
+        </li>
+        <li class="paso">
+            <h3>Reto opcional: ordena los datos con SORT</h3>
+            <p>Además del menú <span class="ruta-menu">Datos → Ordenar intervalo</span>, puedes ordenar con una fórmula. Crea una hoja nueva, copia en la fila 1 los encabezados de <code>Import-ESP</code> y en A2 usa <code>SORT</code> para ordenar A2:H1001 por comunidad (columna 4) de la A a la Z y, dentro de cada comunidad, por población (columna 7) de mayor a menor.</p><p>La lista debe empezar por Andalucía: Sevilla, Málaga y Córdoba. Como es una fórmula, si cambian los datos importados, el orden se actualiza solo.</p><details><summary>Ver la solución</summary><dl class="formulas"><dt>A2</dt><dd><code>=SORT('Import-ESP'!A2:H1001;4;VERDADERO;7;FALSO)</code></dd></dl></details>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr>
+                        <tr><th>1</th><td>Municipio</td><td>Comarca</td><td>Provincia</td><td>CC.AA.</td><td>Altitud (m.s.n.m.)</td><td>Superficie (km²)</td><td>Población (2019)</td><td>Densidad (hab./km²)</td></tr>
+                        <tr><th>2</th><td>Sevilla</td><td>Comarca Metropolitana de Sevilla</td><td>Provincia de Sevilla</td><td>Andalucía</td><td class="num">12</td><td class="num">141,59</td><td class="num">688.592</td><td class="num">4.863,28</td></tr>
+                        <tr><th>3</th><td>Málaga</td><td>Málaga-Costa del Sol</td><td>Provincia de Málaga</td><td>Andalucía</td><td class="num">11</td><td class="num">395,71</td><td class="num">574.654</td><td class="num">1.452,21</td></tr>
+                        <tr><th>4</th><td>Córdoba</td><td></td><td>Provincia de Córdoba</td><td>Andalucía</td><td class="num">120</td><td class="num">1.254,25</td><td class="num">325.701</td><td class="num">259,68</td></tr>
+                        <tr><th>5</th><td>Granada</td><td>Vega de Granada</td><td>Provincia de Granada</td><td>Andalucía</td><td class="num">738</td><td class="num">88,11</td><td class="num">232.462</td><td class="num">2.638,32</td></tr>
+                        <tr><th>6</th><td>Jerez de la Frontera</td><td>Comarca de la Campiña de Jerez</td><td>Provincia de Cádiz</td><td>Andalucía</td><td class="num">56</td><td class="num">1.187,92</td><td class="num">212.749</td><td class="num">179,09</td></tr>
+                        <tr><th>7</th><td>Almería</td><td>Comarca Metropolitana de Almería
+Costa de Almería</td><td>Provincia de Almería</td><td>Andalucía</td><td class="num">27</td><td class="num">295,72</td><td class="num">198.533</td><td class="num">671,35</td></tr>
+                        <tr><th>8</th><td>Huelva</td><td>Comarca metropolitana de Huelva</td><td>Provincia de Huelva</td><td>Andalucía</td><td class="num">54</td><td class="num">152,03</td><td class="num">143.663</td><td class="num">944,96</td></tr>
+                        <tr><th>9</th><td>Marbella</td><td>Costa del Sol Occidental</td><td>Provincia de Málaga</td><td>Andalucía</td><td class="num">22</td><td class="num">117,15</td><td class="num">143.386</td><td class="num">1.223,95</td></tr>
+                        <tr><th>10</th><td>Dos Hermanas</td><td>Comarca Metropolitana de Sevilla</td><td>Provincia de Sevilla</td><td>Andalucía</td><td class="num">42</td><td class="num">160,15</td><td class="num">133.968</td><td class="num">836,52</td></tr>
+                        <tr><th>11</th><td>Algeciras</td><td>Comarca de Campo de Gibraltar</td><td>Provincia de Cádiz</td><td>Andalucía</td><td class="num">20</td><td class="num">87,96</td><td class="num">121.957</td><td class="num">1.386,51</td></tr>
+                        <tr><th>12</th><td>Cádiz</td><td>Comarca de la Bahía de Cádiz</td><td>Provincia de Cádiz</td><td>Andalucía</td><td class="num">11</td><td class="num">12,3</td><td class="num">116.027</td><td class="num">9.433,09</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-14">
+        <li><label><input type="checkbox"><span>El libro se llama <code>ApellidoNombre_AO_Actividad5.14</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>La hoja <code>Import-ESP</code> carga en A1 la tabla de 15mpedia con <code>IMPORTHTML</code> (o tiene los datos de respaldo).</span></label></li>
+        <li><label><input type="checkbox"><span><code>EJEMPLO 1</code>: provincias en filas, comunidades en columnas y la media de la densidad.</span></label></li>
+        <li><label><input type="checkbox"><span><code>EJEMPLO 2</code>: comunidades y provincias en filas y la suma de la población, con un total por comunidad.</span></label></li>
+        <li><label><input type="checkbox"><span><code>EJEMPLO 3</code>: comunidades y provincias en filas y el número de municipios con <code>COUNTUNIQUE</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Cada tabla dinámica está en su propia hoja, con el nombre indicado.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-13"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.13</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-15">Siguiente: 5.15. Validación de datos y control de errores <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

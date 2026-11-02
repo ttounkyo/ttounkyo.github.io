@@ -1,0 +1,160 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.1</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.1. Cesta de inversiones</h1>
+    <p class="lead">Vas a calcular cuánto dinero dan al año cuatro inversiones con distintos tipos de interés, y el total y la media de todas.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Escribir fórmulas que empiezan por <code>=</code></li>
+                    <li>Operaciones con referencias a celdas (<code>*</code>, <code>/</code>)</li>
+                    <li>La función <code>SUMA</code> y la media</li>
+                    <li>Formato de moneda (€) y de porcentaje (%)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-12-formulas-basicas">5.12. Fórmulas básicas</a> y <a href="#/Unidad-5/index?sec=5-11-formato-de-celdas">5.11. Formato de celdas</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-1-plantilla.xlsx" download><i class="bi bi-file-earmark-spreadsheet me-1"></i>Libro de partida (plantilla)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-1-solucion.xlsx" download><i class="bi bi-file-earmark-check me-1"></i>Solución (para comparar al terminar)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.1</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Abre el libro y revisa los datos</h3>
+            <p>Importa el libro de partida en Google Sheets. En la tabla tienes cuatro capitales (columna B) y el tipo de interés de cada uno (columna C). Fíjate en que la columna C ya tiene <strong>formato de porcentaje</strong>: la celda C6 muestra <code>2,25 %</code>, pero por dentro vale <code>0,0225</code>.</p>
+        </li>
+        <li class="paso">
+            <h3>Calcula los intereses de cada capital</h3>
+            <p>En D6 calcula los intereses del primer capital: capital × tipo de interés. Escribe la fórmula, pulsa <kbd>Intro</kbd> y arrástrala hacia abajo hasta D9 con el cuadradito de la esquina de la celda.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Como la columna C ya está en porcentaje, <strong>no hace falta dividir entre 100</strong>. Si lo divides, te saldrán 0,27 € en lugar de 27 €.</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th></tr>
+                        <tr><th>5</th><td style="background-color:#FFD966"><strong>Capitales</strong></td><td style="background-color:#FFD966"><strong>Tipos de interés</strong></td><td style="background-color:#FFD966"><strong>Intereses anuales</strong></td></tr>
+                        <tr><th>6</th><td class="num">1.200,00 €</td><td class="num">2,25 %</td><td class="num formula">27,00 €</td></tr>
+                        <tr><th>7</th><td class="num">3.000,00 €</td><td class="num">3,00 %</td><td class="num formula">90,00 €</td></tr>
+                        <tr><th>8</th><td class="num">4.500,00 €</td><td class="num">1,50 %</td><td class="num formula">67,50 €</td></tr>
+                        <tr><th>9</th><td class="num">1.000,00 €</td><td class="num">2,00 %</td><td class="num formula">20,00 €</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>D6</dt><dd><code>=B6*C6</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Totales con SUMA</h3>
+            <p>En B12 calcula el capital total invertido y en D12 el total de intereses. Usa la función <code>SUMA</code> con el rango de cada columna.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th></tr>
+                        <tr><th>11</th><td style="background-color:#FFD966"><strong>Capital total invertido</strong></td><td></td><td style="background-color:#FFD966"><strong>Intereses conseguidos</strong></td></tr>
+                        <tr><th>12</th><td class="num formula">9.700,00 €</td><td></td><td class="num formula">204,50 €</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>B12</dt><dd><code>=SUMA(B6:B9)</code></dd>
+                    <dt>D12</dt><dd><code>=SUMA(D6:D9)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Interés medio</h3>
+            <p>En C14 calcula el interés medio de las cuatro inversiones. Puedes sumar los cuatro tipos y dividir entre 4, o usar directamente la función <code>PROMEDIO</code>.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th></tr>
+                        <tr><th>14</th><td style="background-color:#FFD966"><strong>Interés medio</strong></td><td class="num formula">2,19 %</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>C14</dt><dd><code>=PROMEDIO(C6:C9)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Dale formato</h3>
+            <p>Aplica formato de moneda (<span class="ruta-menu">Formato → Número → Moneda</span>) a las cantidades en euros y de porcentaje a los tipos de interés. Pon el título en negrita y destaca los encabezados de la tabla.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th></tr>
+                        <tr><th>2</th><td rowspan="2" colspan="3" style="background-color:#4285F4"><strong>CESTA DE INVERSIONES</strong></td></tr>
+                        <tr><th>3</th></tr>
+                        <tr><th>4</th><td></td><td></td><td></td></tr>
+                        <tr><th>5</th><td style="background-color:#FFD966"><strong>Capitales</strong></td><td style="background-color:#FFD966"><strong>Tipos de interés</strong></td><td style="background-color:#FFD966"><strong>Intereses anuales</strong></td></tr>
+                        <tr><th>6</th><td class="num">1.200,00 €</td><td class="num">2,25 %</td><td class="num formula">27,00 €</td></tr>
+                        <tr><th>7</th><td class="num">3.000,00 €</td><td class="num">3,00 %</td><td class="num formula">90,00 €</td></tr>
+                        <tr><th>8</th><td class="num">4.500,00 €</td><td class="num">1,50 %</td><td class="num formula">67,50 €</td></tr>
+                        <tr><th>9</th><td class="num">1.000,00 €</td><td class="num">2,00 %</td><td class="num formula">20,00 €</td></tr>
+                        <tr><th>10</th><td></td><td></td><td></td></tr>
+                        <tr><th>11</th><td style="background-color:#FFD966"><strong>Capital total invertido</strong></td><td></td><td style="background-color:#FFD966"><strong>Intereses conseguidos</strong></td></tr>
+                        <tr><th>12</th><td class="num formula">9.700,00 €</td><td></td><td class="num formula">204,50 €</td></tr>
+                        <tr><th>13</th><td></td><td></td><td></td></tr>
+                        <tr><th>14</th><td style="background-color:#FFD966"><strong>Interés medio</strong></td><td colspan="2" class="num formula">2,19 %</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-1">
+        <li><label><input type="checkbox"><span>El libro se llama <code>ApellidoNombre_AO_Actividad5.1</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Los intereses de D6:D9 se calculan con una fórmula (capital × interés) y dan 27 €, 90 €, 67,50 € y 20 €.</span></label></li>
+        <li><label><input type="checkbox"><span>B12 y D12 usan <code>SUMA</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>C14 calcula el interés medio (2,19 %).</span></label></li>
+        <li><label><input type="checkbox"><span>Las cantidades tienen formato de moneda y los tipos de interés, de porcentaje.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/index"><i class="bi bi-list-check me-1"></i>Todas las actividades</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-2">Siguiente: 5.2. Calculadora y factura <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

@@ -1,0 +1,239 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.10</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.10. Clientes y facturación</h1>
+    <p class="lead">Una empresa tiene los datos de sus clientes repartidos en varias hojas. Vas a juntarlos en una sola tabla con BUSCARV, arreglar el DNI y los apellidos con funciones de texto, crear el correo de cada cliente y calcular cuánto ha facturado cada uno.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li><code>BUSCARV</code> entre hojas con columnas completas (<code>Clients1!A:D</code>)</li>
+                    <li>Funciones de texto: <code>SUSTITUIR</code>, <code>CONCATENAR</code>, <code>MINUSC</code> y <code>DIVIDIR</code></li>
+                    <li><code>SI</code> con el resultado de un <code>BUSCARV</code></li>
+                    <li><code>SUMAR.SI</code> para sumar todas las facturas de un cliente</li>
+                    <li>Arrastrar fórmulas a cientos de filas de una vez</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-13-funciones">5.13. Funciones</a> y <a href="#/Unidad-5/index?sec=5-14-copiar-formulas-y-funciones-referencias-absolutas-y-relativas">5.14. Referencias absolutas y relativas</a></li>
+                    <li>Haz antes la actividad 5.9: aquí se da por sabido cómo funciona <code>BUSCARV</code>.</li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-10-plantilla.xlsx" download><i class="bi bi-file-earmark-spreadsheet me-1"></i>Libro de partida (plantilla)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-10-solucion.xlsx" download><i class="bi bi-file-earmark-check me-1"></i>Solución (para comparar al terminar)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.10</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Hojas</th>
+                <td><em>TELÈFONS</em> y <em>CLIENTS</em> completas, con las fórmulas hasta la última fila (358).</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Conoce las hojas del libro</h3>
+            <p>Importa el libro de partida. Los datos están en catalán:</p><ul><li><em>Facturació</em> (facturación): 456 facturas, con el código del cliente en la columna A y el importe (<em>import</em>) en la K. Un cliente puede tener varias facturas.</li><li><em>Clients1</em>: código, nombre (<em>nom</em>), apellidos (<em>cognoms</em>) y NIF.</li><li><em>Clients2</em>: código postal, población (<em>poblacio</em>), dirección (<em>adreça</em>), email, teléfonos, portes (<em>ports</em>)…</li><li><em>TELÈFONS</em> y <em>CLIENTS</em>: las dos hojas que tienes que completar.</li></ul><p>La pestaña <em>IVA</em> no se usa en esta actividad.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Los códigos de cliente son texto con espacios delante (<code>"       268"</code>). <code>BUSCARV</code> los encuentra porque están escritos igual en todas las hojas: no los vuelvas a teclear ni los conviertas en números.</div>
+        </li>
+        <li class="paso">
+            <h3>Teléfonos de los clientes de Barcelona</h3>
+            <p>En la hoja <em>TELÈFONS</em> (clientes de Barcelona con transporte urgente) tienes los códigos en la columna A. Completa <em>Cognoms</em> (apellidos), <em>Nom</em> (nombre) y <em>Telèfons</em> con <code>BUSCARV</code>: los dos primeros salen de <em>Clients1</em> (columnas 3 y 2) y el teléfono, de <em>Clients2</em> (columna 7, <em>telefon2</em>, el móvil). Escribe las fórmulas en la fila 5 y arrástralas hasta la 26.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+                        <tr><th>2</th><td colspan="4"><strong>Clients de Barcelona amb transport urgent</strong></td></tr>
+                        <tr><th>3</th><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>4</th><td><strong>N</strong></td><td><strong>Cognoms</strong></td><td><strong>Nom</strong></td><td><strong>Telèfons</strong></td></tr>
+                        <tr><th>5</th><td style="color:#FF0000">       332</td><td class="formula">CASTILLA BELLOSO</td><td class="formula">JOSE LUIS</td><td class="num formula">600093447</td></tr>
+                        <tr><th>6</th><td style="color:#FF0000">       590</td><td class="formula">RAMIA LUENGO</td><td class="formula">VICTOR</td><td class="num formula">600424845</td></tr>
+                        <tr><th>7</th><td style="color:#FF0000">       588</td><td class="formula">MENESES CLIMENT</td><td class="formula">JUAN MANUEL</td><td class="num formula">600420969</td></tr>
+                        <tr><th>8</th><td style="color:#FF0000">       580</td><td class="formula">FABREGAS PADRO</td><td class="formula">JOAN</td><td class="num formula">600405465</td></tr>
+                        <tr><th>9</th><td style="color:#FF0000">       566</td><td class="formula">SERRANO EVANGELISTA</td><td class="formula">JAIME</td><td class="num formula">600382209</td></tr>
+                        <tr><th>10</th><td style="color:#FF0000">       565</td><td class="formula">SANCHEZ DELGADO</td><td class="formula">DANIEL</td><td class="num formula">600380271</td></tr>
+                        <tr><th>11</th><td style="color:#FF0000">       558</td><td class="formula">GILBERT AZNAR</td><td class="formula">ORIOL</td><td class="num formula">600366705</td></tr>
+                        <tr><th>12</th><td style="color:#FF0000">       557</td><td class="formula">SIERRA BLAZQUEZ</td><td class="formula">ILDEFONSO</td><td class="num formula">600364767</td></tr>
+                        <tr><th>13</th><td style="color:#FF0000">       554</td><td class="formula">ESTRELLS MORENO</td><td class="formula">JORDI</td><td class="num formula">600358953</td></tr>
+                        <tr><th>14</th><td style="color:#FF0000">       546</td><td class="formula">SOLANA CASTELLA</td><td class="formula">JAVIER</td><td class="num formula">600343449</td></tr>
+                        <tr><th>15</th><td style="color:#FF0000">       541</td><td class="formula">BERENGUER MORENO</td><td class="formula">ENRIQUE</td><td class="num formula">600333759</td></tr>
+                        <tr><th>16</th><td style="color:#FF0000">       534</td><td class="formula">CUADRADO BARJOLLO</td><td class="formula">CARLOS</td><td class="num formula">600324069</td></tr>
+                        <tr><th>17</th><td style="color:#FF0000">       507</td><td class="formula">GAMERO RODRIGUEZ</td><td class="formula">IVAN</td><td class="num formula">600283371</td></tr>
+                        <tr><th>18</th><td style="color:#FF0000">       498</td><td class="formula">BARRIS FOLGADO</td><td class="formula">DANIEL</td><td class="num formula">600265929</td></tr>
+                        <tr><th>19</th><td style="color:#FF0000">       488</td><td class="formula">PEREZ PEREZ</td><td class="formula">ANTONIO</td><td class="num formula">600254301</td></tr>
+                        <tr><th>20</th><td style="color:#FF0000">       481</td><td class="formula">TORRES SANCHEZ</td><td class="formula">JONATAN</td><td class="num formula">600250425</td></tr>
+                        <tr><th>21</th><td style="color:#FF0000">       464</td><td class="formula">TABERNILLA PLANA</td><td class="formula">MIGUEL</td><td class="num formula">600229107</td></tr>
+                        <tr><th>22</th><td style="color:#FF0000">       456</td><td class="formula">VALLE MARTINEZ</td><td class="formula">ALBERT</td><td class="num formula">600219417</td></tr>
+                        <tr><th>23</th><td style="color:#FF0000">       437</td><td class="formula">CORTES GONZALEZ</td><td class="formula">ANTONIO</td><td class="num formula">600207789</td></tr>
+                        <tr><th>24</th><td style="color:#FF0000">       427</td><td class="formula">VALDIVIA FONT</td><td class="formula">JOAN</td><td class="num formula">600192285</td></tr>
+                        <tr><th>25</th><td style="color:#FF0000">       366</td><td class="formula">TRUJILLO GOMEZ</td><td class="formula">PEDRO</td><td class="num formula">600124455</td></tr>
+                        <tr><th>26</th><td style="color:#FF0000">       355</td><td class="formula">MENA DELGADO</td><td class="formula">RUBEN</td><td class="num formula">600118641</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>B5</dt><dd><code>=BUSCARV(A5;Clients1!$A$1:$D$358;3;0)</code></dd>
+                    <dt>C5</dt><dd><code>=BUSCARV(A5;Clients1!$A$1:$D$358;2;0)</code></dd>
+                    <dt>D5</dt><dd><code>=BUSCARV(A5;Clients2!A:G;7;0)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>DNI sin guion y nombre</h3>
+            <p>Pasa a la hoja <em>CLIENTS</em>. En <em>DNI</em> (B) trae el NIF de <em>Clients1</em> y quítale el guion con <code>SUSTITUIR</code>, que cambia un texto por otro (aquí, <code>"-"</code> por nada, <code>""</code>). En <em>NOM</em> (C) trae el nombre. Arrastra hasta la fila 358.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Para arrastrar hasta el final sin bajar a mano, haz doble clic en el cuadradito de la esquina de la celda: la fórmula se copia hasta la última fila que tiene datos al lado.</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+                        <tr><th>1</th><td><strong>CODI CLIENT</strong></td><td><strong>DNI</strong></td><td><strong>NOM</strong></td></tr>
+                        <tr><th>2</th><td>       268</td><td class="formula">53330011G</td><td class="formula">RAMON</td></tr>
+                        <tr><th>3</th><td>       269</td><td class="formula">46805652A</td><td class="formula">JUAN JOSE</td></tr>
+                        <tr><th>4</th><td>       270</td><td class="formula">41003270Q</td><td class="formula">RAMON</td></tr>
+                        <tr><th>5</th><td>       271</td><td class="formula">47631062R</td><td class="formula">IVAN</td></tr>
+                        <tr><th>6</th><td>       273</td><td class="formula">77742006D</td><td class="formula">JORDI</td></tr>
+                        <tr><th>7</th><td>       274</td><td class="formula">77318633G</td><td class="formula">JAVIER</td></tr>
+                        <tr><th>8</th><td>       275</td><td class="formula">39362936R</td><td class="formula">MARC</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>B2</dt><dd><code>=SUSTITUIR(BUSCARV(A2;Clients1!A:D;4;0);&quot;-&quot;;&quot;&quot;)</code></dd>
+                    <dt>C2</dt><dd><code>=BUSCARV(A2;Clients1!A:D;2;0)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Separa los apellidos</h3>
+            <p>En <em>Clients1</em> los dos apellidos van juntos. Sepáralos en <em>COGNOM1</em> (D) y <em>COGNOM2</em> (E) con <code>DIVIDIR</code>. Hay un problema: apellidos como «VELA DEL NOGAL» tienen más de un espacio, y si cortas por todos los espacios salen tres trozos.</p><p>La solución es cambiar <strong>solo el primer espacio</strong> por un asterisco (el cuarto argumento de <code>SUSTITUIR</code> dice cuál cambiar) y cortar por el asterisco. Escribe la fórmula solo en D2: el segundo apellido aparece solo en E2.</p><details><summary>Ver la solución</summary><dl class="formulas"><dt>D2</dt><dd><code>=DIVIDIR(SUSTITUIR(BUSCARV(A2;Clients1!A:C;3;0);" ";"*";1);"*")</code><br><span class="small text-muted">«VELA DEL NOGAL» → VELA | DEL NOGAL</span></dd></dl></details>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+                        <tr><th>1</th><td><strong>CODI CLIENT</strong></td><td><strong>DNI</strong></td><td><strong>NOM</strong></td><td><strong>COGNOM1</strong></td><td><strong>COGNOM2</strong></td></tr>
+                        <tr><th>2</th><td>       268</td><td class="formula">53330011G</td><td class="formula">RAMON</td><td class="formula">MORENO</td><td class="formula">ADAME</td></tr>
+                        <tr><th>3</th><td>       269</td><td class="formula">46805652A</td><td class="formula">JUAN JOSE</td><td class="formula">RUIZ</td><td class="formula">LUCAS</td></tr>
+                        <tr><th>4</th><td>       270</td><td class="formula">41003270Q</td><td class="formula">RAMON</td><td class="formula">VELA</td><td class="formula">DEL NOGAL</td></tr>
+                        <tr><th>5</th><td>       271</td><td class="formula">47631062R</td><td class="formula">IVAN</td><td class="formula">RODRIGUEZ</td><td class="formula">LOPEZ</td></tr>
+                        <tr><th>6</th><td>       273</td><td class="formula">77742006D</td><td class="formula">JORDI</td><td class="formula">BAHAMONTES</td><td class="formula">CALVET</td></tr>
+                        <tr><th>7</th><td>       274</td><td class="formula">77318633G</td><td class="formula">JAVIER</td><td class="formula">BRADINERAS</td><td class="formula">CORE</td></tr>
+                        <tr><th>8</th><td>       275</td><td class="formula">39362936R</td><td class="formula">MARC</td><td class="formula">SERRASOLSAS</td><td class="formula">CLARET</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Dirección completa</h3>
+            <p>Trae de <em>Clients2</em> la dirección (F, columna 4), la población (G, columna 3) y el código postal (H, columna 2).</p><p>Después inserta una columna a la derecha de <em>CODI POSTAL</em> (<span class="ruta-menu">clic derecho en la letra H → Insertar 1 columna a la derecha</span>), llámala <em>ADREÇA 2</em> y junta los tres datos en un solo texto con <code>CONCATENAR</code>: <em>Mi, 142 Población: Vilanova i la Geltrú CP: 08800</em>.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>También puedes unir textos con <code>&amp;</code>: <code>=F2&amp;" Población: "&amp;G2&amp;" CP: "&amp;H2</code>. Fíjate en los espacios dentro de las comillas.</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>F</th><th>G</th><th>H</th><th>I</th></tr>
+                        <tr><th>1</th><td><strong>ADREÇA</strong></td><td><strong>POBLACIÓ</strong></td><td><strong>CODI POSTAL</strong></td><td><strong>ADREÇA 2</strong></td></tr>
+                        <tr><th>2</th><td class="formula">Mi, 142</td><td class="formula">Vilanova i la Geltrú</td><td class="formula">08800</td><td class="formula">Mi, 142 Población: Vilanova i la Geltrú CP: 08800</td></tr>
+                        <tr><th>3</th><td class="formula">Mi, 154</td><td class="formula">Vilanova i la Geltrú</td><td class="formula">08800</td><td class="formula">Mi, 154 Población: Vilanova i la Geltrú CP: 08800</td></tr>
+                        <tr><th>4</th><td class="formula">Mi, 160</td><td class="formula">Vilanova i la Geltrú</td><td class="formula">08800</td><td class="formula">Mi, 160 Población: Vilanova i la Geltrú CP: 08800</td></tr>
+                        <tr><th>5</th><td class="formula">Mi, 184</td><td class="formula">Vilanova i la Geltrú</td><td class="formula">08800</td><td class="formula">Mi, 184 Población: Vilanova i la Geltrú CP: 08800</td></tr>
+                        <tr><th>6</th><td class="formula">Mi, 204</td><td class="formula">Vilanova i la Geltrú</td><td class="formula">08800</td><td class="formula">Mi, 204 Población: Vilanova i la Geltrú CP: 08800</td></tr>
+                        <tr><th>7</th><td class="formula">Mi, 216</td><td class="formula">Vilanova i la Geltrú</td><td class="formula">08800</td><td class="formula">Mi, 216 Población: Vilanova i la Geltrú CP: 08800</td></tr>
+                        <tr><th>8</th><td class="formula">Mi, 220</td><td class="formula">Vilanova i la Geltrú</td><td class="formula">08800</td><td class="formula">Mi, 220 Población: Vilanova i la Geltrú CP: 08800</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>F2</dt><dd><code>=BUSCARV(A2;Clients2!A:D;4;0)</code></dd>
+                    <dt>G2</dt><dd><code>=BUSCARV(A2;Clients2!A:D;3;0)</code></dd>
+                    <dt>H2</dt><dd><code>=BUSCARV(A2;Clients2!A:D;2;0)</code></dd>
+                    <dt>I2</dt><dd><code>=CONCATENAR(F2;&quot; Población: &quot;;G2;&quot; CP: &quot;; H2)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Email, teléfono y portes</h3>
+            <p>La columna <em>email</em> de <em>Clients2</em> está vacía, así que el correo se construye: nombre + <code>@</code> + los dos apellidos + <code>.com</code>, todo en minúsculas (<code>MINUSC</code>) y sin espacios (<code>SUSTITUIR</code> de <code>" "</code> por <code>""</code>). Por ejemplo, <em>ramon@morenoadame.com</em>.</p><p>En <em>TELÈFON</em> trae el móvil de <em>Clients2</em>; si estuviera vacío, que ponga «NO TIENE TELÉFONO». En <em>PORTS</em> (portes) pon VERDADERO si el cliente paga portes («SÍ») y FALSO si no.</p><details><summary>Ver la solución</summary><dl class="formulas"><dt>J2</dt><dd><code>=MINUSC(SUSTITUIR(CONCATENAR(C2;"@";D2;E2;".COM");" ";""))</code></dd><dt>K2</dt><dd><code>=SI(BUSCARV(A2;Clients2!A:G;7;0)="";"NO TIENE TELÉFONO";BUSCARV(A2;Clients2!A:G;7;0))</code></dd><dt>L2</dt><dd><code>=SI(BUSCARV(A2;'Facturació'!A:I;9;0)="SÍ";VERDADERO;FALSO)</code><br><span class="small text-muted">Los portes se miran en la primera factura del cliente. Si los tomas de <em>Clients2</em> (columna 11) sale lo mismo, salvo en el cliente 377.</span></dd></dl><p class="small mb-0">Si quieres ver casillas en lugar de VERDADERO y FALSO, selecciona la columna y usa <span class="ruta-menu">Insertar → Casilla de verificación</span>.</p></details>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>J</th><th>K</th><th>L</th></tr>
+                        <tr><th>1</th><td><strong>EMAIL</strong></td><td><strong>TELÈFON</strong></td><td><strong>PORTS</strong></td></tr>
+                        <tr><th>2</th><td class="formula">ramon@morenoadame.com</td><td class="num formula">600000423</td><td class="formula">VERDADERO</td></tr>
+                        <tr><th>3</th><td class="formula">juanjose@ruizlucas.com</td><td class="num formula">600002361</td><td class="formula">VERDADERO</td></tr>
+                        <tr><th>4</th><td class="formula">ramon@veladelnogal.com</td><td class="num formula">600004299</td><td class="formula">VERDADERO</td></tr>
+                        <tr><th>5</th><td class="formula">ivan@rodriguezlopez.com</td><td class="num formula">600006237</td><td class="formula">VERDADERO</td></tr>
+                        <tr><th>6</th><td class="formula">jordi@bahamontescalvet.com</td><td class="num formula">600008175</td><td class="formula">VERDADERO</td></tr>
+                        <tr><th>7</th><td class="formula">javier@bradinerascore.com</td><td class="num formula">600010113</td><td class="formula">VERDADERO</td></tr>
+                        <tr><th>8</th><td class="formula">marc@serrasolsasclaret.com</td><td class="num formula">600012051</td><td class="formula">VERDADERO</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Facturación total: BUSCARV frente a SUMAR.SI</h3>
+            <p>En <em>FACTURACIÓ TOTAL</em> (M) prueba primero con <code>BUSCARV</code> la columna 11 (<em>import</em>) de <em>Facturació</em>. Después añade la columna <em>FACTURACIÓ TOTAL 2</em> (N) y calcula el total con <code>SUMAR.SI</code>, que suma los importes de <strong>todas</strong> las filas con ese código:</p><p><code>=SUMAR.SI(rango_donde_buscar; valor; rango_que_sumar)</code></p><p>Por último, en O compara las dos columnas para encontrar las diferencias.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i><code>BUSCARV</code> se queda con la primera factura que encuentra, así que solo da el total de los clientes que tienen una factura. Salen 9 filas distintas (los clientes 377, que está dos veces, 530, 586, 618, 634, 716, 736 y 739): el total bueno es el de <code>SUMAR.SI</code>.</div><details><summary>Ver la solución</summary><dl class="formulas"><dt>M2</dt><dd><code>=BUSCARV(A2;'Facturació'!A:K;11;0)</code></dd><dt>N2</dt><dd><code>=SUMAR.SI('Facturació'!A:A;A2;'Facturació'!K:K)</code><br><span class="small text-muted">Total del cliente 268: 433,59 €</span></dd><dt>O2</dt><dd><code>=SI(M2=N2;"";0)</code><br><span class="small text-muted">Deja la celda vacía si coinciden y pone 0 si no. La solución del libro usa <code>EQ(M2;N2)</code>, que es lo mismo que <code>M2=N2</code>.</span></dd></dl></details>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th><th>J</th><th>K</th><th>L</th><th>M</th><th>N</th><th>O</th></tr>
+                        <tr><th>1</th><td><strong>CODI CLIENT</strong></td><td><strong>DNI</strong></td><td><strong>NOM</strong></td><td><strong>COGNOM1</strong></td><td><strong>COGNOM2</strong></td><td><strong>ADREÇA</strong></td><td><strong>POBLACIÓ</strong></td><td><strong>CODI POSTAL</strong></td><td><strong>ADREÇA 2</strong></td><td><strong>EMAIL</strong></td><td><strong>TELÈFON</strong></td><td><strong>PORTS</strong></td><td><strong>FACTURACIÓ TOTAL</strong></td><td><strong>FACTURACIÓ TOTAL 2</strong></td><td></td></tr>
+                        <tr><th>2</th><td>       268</td><td class="formula">53330011G</td><td class="formula">RAMON</td><td class="formula">MORENO</td><td class="formula">ADAME</td><td class="formula">Mi, 142</td><td class="formula">Vilanova i la Geltrú</td><td class="formula">08800</td><td class="formula">Mi, 142 Población: Vilanova i la Geltrú CP: 08800</td><td class="formula">ramon@morenoadame.com</td><td class="num formula">600000423</td><td class="formula">VERDADERO</td><td class="num formula">433,59 €</td><td class="num formula">433,59 €</td><td class="formula"></td></tr>
+                        <tr><th>3</th><td>       269</td><td class="formula">46805652A</td><td class="formula">JUAN JOSE</td><td class="formula">RUIZ</td><td class="formula">LUCAS</td><td class="formula">Mi, 154</td><td class="formula">Vilanova i la Geltrú</td><td class="formula">08800</td><td class="formula">Mi, 154 Población: Vilanova i la Geltrú CP: 08800</td><td class="formula">juanjose@ruizlucas.com</td><td class="num formula">600002361</td><td class="formula">VERDADERO</td><td class="num formula">670,74 €</td><td class="num formula">670,74 €</td><td class="formula"></td></tr>
+                        <tr><th>4</th><td>       270</td><td class="formula">41003270Q</td><td class="formula">RAMON</td><td class="formula">VELA</td><td class="formula">DEL NOGAL</td><td class="formula">Mi, 160</td><td class="formula">Vilanova i la Geltrú</td><td class="formula">08800</td><td class="formula">Mi, 160 Población: Vilanova i la Geltrú CP: 08800</td><td class="formula">ramon@veladelnogal.com</td><td class="num formula">600004299</td><td class="formula">VERDADERO</td><td class="num formula">498,54 €</td><td class="num formula">498,54 €</td><td class="formula"></td></tr>
+                        <tr><th>5</th><td>       271</td><td class="formula">47631062R</td><td class="formula">IVAN</td><td class="formula">RODRIGUEZ</td><td class="formula">LOPEZ</td><td class="formula">Mi, 184</td><td class="formula">Vilanova i la Geltrú</td><td class="formula">08800</td><td class="formula">Mi, 184 Población: Vilanova i la Geltrú CP: 08800</td><td class="formula">ivan@rodriguezlopez.com</td><td class="num formula">600006237</td><td class="formula">VERDADERO</td><td class="num formula">194,73 €</td><td class="num formula">194,73 €</td><td class="formula"></td></tr>
+                        <tr><th>6</th><td>       273</td><td class="formula">77742006D</td><td class="formula">JORDI</td><td class="formula">BAHAMONTES</td><td class="formula">CALVET</td><td class="formula">Mi, 204</td><td class="formula">Vilanova i la Geltrú</td><td class="formula">08800</td><td class="formula">Mi, 204 Población: Vilanova i la Geltrú CP: 08800</td><td class="formula">jordi@bahamontescalvet.com</td><td class="num formula">600008175</td><td class="formula">VERDADERO</td><td class="num formula">759,42 €</td><td class="num formula">759,42 €</td><td class="formula"></td></tr>
+                        <tr><th>7</th><td>       274</td><td class="formula">77318633G</td><td class="formula">JAVIER</td><td class="formula">BRADINERAS</td><td class="formula">CORE</td><td class="formula">Mi, 216</td><td class="formula">Vilanova i la Geltrú</td><td class="formula">08800</td><td class="formula">Mi, 216 Población: Vilanova i la Geltrú CP: 08800</td><td class="formula">javier@bradinerascore.com</td><td class="num formula">600010113</td><td class="formula">VERDADERO</td><td class="num formula">189,43 €</td><td class="num formula">189,43 €</td><td class="formula"></td></tr>
+                        <tr><th>8</th><td>       275</td><td class="formula">39362936R</td><td class="formula">MARC</td><td class="formula">SERRASOLSAS</td><td class="formula">CLARET</td><td class="formula">Mi, 220</td><td class="formula">Vilanova i la Geltrú</td><td class="formula">08800</td><td class="formula">Mi, 220 Población: Vilanova i la Geltrú CP: 08800</td><td class="formula">marc@serrasolsasclaret.com</td><td class="num formula">600012051</td><td class="formula">VERDADERO</td><td class="num formula">-649,64 €</td><td class="num formula">-649,64 €</td><td class="formula"></td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-10">
+        <li><label><input type="checkbox"><span>El libro se llama <code>ApellidoNombre_AO_Actividad5.10</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>En <em>TELÈFONS</em>, el cliente 332 sale como CASTILLA BELLOSO, JOSE LUIS, 600093447, y las fórmulas llegan a la fila 26.</span></label></li>
+        <li><label><input type="checkbox"><span>En <em>CLIENTS</em>, el DNI no tiene guion (53330011G) y el cliente 270 tiene VELA en <em>COGNOM1</em> y DEL NOGAL en <em>COGNOM2</em>.</span></label></li>
+        <li><label><input type="checkbox"><span><em>ADREÇA 2</em> une dirección, población y código postal en una sola celda.</span></label></li>
+        <li><label><input type="checkbox"><span>El correo del cliente 268 es <em>ramon@morenoadame.com</em>, en minúsculas y sin espacios.</span></label></li>
+        <li><label><input type="checkbox"><span><em>FACTURACIÓ TOTAL 2</em> usa <code>SUMAR.SI</code> y la columna de comparación marca 9 filas.</span></label></li>
+        <li><label><input type="checkbox"><span>Todas las fórmulas de <em>CLIENTS</em> están copiadas hasta la fila 358.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-9"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.9</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-11">Siguiente: 5.11. Organizar datos <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

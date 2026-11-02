@@ -1,0 +1,199 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.19</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.19. Empleados por departamento</h1>
+    <p class="lead">Vas a analizar la plantilla de una empresa: la edad de cada empleado, cuántos hay en cada departamento y cuánto cobran, una hoja para filtrar por departamento, una tabla dinámica y un gráfico.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Calcular la edad exacta con <code>SIFECHA</code> y <code>HOY</code></li>
+                    <li><code>CONTAR.SI</code> y <code>SUMAR.SI</code> por departamento</li>
+                    <li><code>MAX</code>, <code>MIN</code> y <code>PROMEDIO</code> junto con <code>FILTER</code></li>
+                    <li>Desplegables con validación de datos y <code>FILTER</code></li>
+                    <li>Tabla dinámica con un campo calculado y gráfico con línea de tendencia</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-13-funciones">5.13. Funciones</a> y <a href="#/Unidad-5/index?sec=5-2-importacion-de-otras-hojas-de-calculo">5.2. Importación de otras hojas de cálculo</a></li>
+                    <li>Es una actividad de repaso: intenta resolver cada parte sin mirar la solución y compara al terminar.</li>
+                    <li>El libro de partida trae algunas celdas rellenas como ejemplo (la edad del primer empleado y la fila de Ventas en <code>Departamentos</code>). Sustituye esos números por tus fórmulas.</li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-19-plantilla.xlsx" download><i class="bi bi-file-earmark-spreadsheet me-1"></i>Libro de partida (plantilla)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-19-solucion.xlsx" download><i class="bi bi-file-earmark-check me-1"></i>Solución (para comparar al terminar)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.19</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Hojas</th>
+                <td><code>Empleados</code>, <code>Departamentos</code>, <code>Filtro departamento</code>, <code>Datos Dinámicos</code> y <code>Gráficos departamentos</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Importa los datos y calcula la edad</h3>
+            <p>Importa el libro de partida en Google Sheets (<span class="ruta-menu">Archivo → Importar → Subir</span>) y revisa la hoja <code>Empleados</code>: nombre, departamento, fecha de nacimiento, salario mensual y años de experiencia de 47 empleados. Dale el formato que creas conveniente (encabezados, moneda en el salario…).</p><p>La columna D, <em>Edad</em>, está vacía. En D2 calcula la edad exacta con <code>SIFECHA</code>: los años completos (<code>"Y"</code>) entre la fecha de nacimiento y hoy (<code>HOY()</code>). Arrástrala hasta el último empleado.</p><p>La edad cambia con la fecha, así que tus resultados pueden no coincidir del todo con los de la vista previa.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr>
+                        <tr><th>1</th><td><strong>Nombre Empleado</strong></td><td><strong>Departamento</strong></td><td><strong>Fecha Nacimiento</strong></td><td><strong>Edad</strong></td><td><strong>Salario Mensual</strong></td><td><strong>Años de Experiencia</strong></td></tr>
+                        <tr><th>2</th><td>Juan Pérez</td><td>Ventas</td><td>07/05/1989</td><td class="num formula">37</td><td class="num">3.200,00 €</td><td class="num">6</td></tr>
+                        <tr><th>3</th><td>María García</td><td>Finanzas</td><td>01/06/1996</td><td class="num formula">30</td><td class="num">2.800,00 €</td><td class="num">4</td></tr>
+                        <tr><th>4</th><td>Carlos Martínez</td><td>Ventas</td><td>18/04/1984</td><td class="num formula">42</td><td class="num">3.500,00 €</td><td class="num">8</td></tr>
+                        <tr><th>5</th><td>Ana López</td><td>Recursos Humanos</td><td>03/07/1993</td><td class="num formula">33</td><td class="num">3.000,00 €</td><td class="num">5</td></tr>
+                        <tr><th>6</th><td>Javier Sánchez</td><td>Ventas</td><td>07/03/1995</td><td class="num formula">31</td><td class="num">3.100,00 €</td><td class="num">3</td></tr>
+                        <tr><th>7</th><td>Laura Rodríguez</td><td>Marketing</td><td>10/04/1991</td><td class="num formula">35</td><td class="num">3.300,00 €</td><td class="num">7</td></tr>
+                        <tr><th>8</th><td>Marta González</td><td>Ventas</td><td>11/04/1997</td><td class="num formula">29</td><td class="num">2.850,00 €</td><td class="num">2</td></tr>
+                        <tr><th>9</th><td>David Fernández</td><td>Finanzas</td><td>22/02/1987</td><td class="num formula">39</td><td class="num">3.400,00 €</td><td class="num">9</td></tr>
+                        <tr><th>10</th><td>Sofía Díaz</td><td>Recursos Humanos</td><td>12/11/1990</td><td class="num formula">35</td><td class="num">3.100,00 €</td><td class="num">6</td></tr>
+                        <tr><th>11</th><td>Pedro Ruiz</td><td>Producción</td><td>23/07/1988</td><td class="num formula">38</td><td class="num">3.300,00 €</td><td class="num">8</td></tr>
+                        <tr><th>12</th><td>Elena Torres</td><td>Ventas</td><td>05/04/1992</td><td class="num formula">34</td><td class="num">3.000,00 €</td><td class="num">4</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>D2</dt><dd><code>=SIFECHA(C2;AHORA();&quot;Y&quot;)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Departamentos: empleados y salario total</h3>
+            <p>En la hoja <code>Departamentos</code> ya tienes los cinco departamentos sin repetir. Si empezaras de cero, los copiarías de <code>Empleados</code> y quitarías los repetidos con <span class="ruta-menu">Datos → Limpieza de datos → Quitar duplicados</span> (o con la función <code>UNIQUE</code>).</p><ul><li>En B2 cuenta los empleados de cada departamento con <code>CONTAR.SI</code>.</li><li>En C2 suma sus salarios con <code>SUMAR.SI</code>.</li></ul><p>Fija los rangos de <code>Empleados</code> con <code>$</code> y arrastra las fórmulas hasta la fila 6. La solución cuenta en toda la tabla (A2:F48), pero basta con la columna de departamentos (<code>Empleados!$B$2:$B$48</code>).</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+                        <tr><th>1</th><td>Departamento</td><td>Empleados por departamento</td><td>Salario Total por departamento</td></tr>
+                        <tr><th>2</th><td>Ventas</td><td class="num formula">12</td><td class="num formula">38.650,00 €</td></tr>
+                        <tr><th>3</th><td>Finanzas</td><td class="num formula">9</td><td class="num formula">28.800,00 €</td></tr>
+                        <tr><th>4</th><td>Recursos Humanos</td><td class="num formula">9</td><td class="num formula">27.900,00 €</td></tr>
+                        <tr><th>5</th><td>Marketing</td><td class="num formula">9</td><td class="num formula">29.150,00 €</td></tr>
+                        <tr><th>6</th><td>Producción</td><td class="num formula">8</td><td class="num formula">25.950,00 €</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>B2</dt><dd><code>=CONTAR.SI(Empleados!$A$2:$F$48;A2)</code></dd>
+                    <dt>C2</dt><dd><code>=SUMAR.SI(Empleados!$B$1:$B$48;A2;Empleados!$E$1:$E$48)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Edad y sueldo con FILTER</h3>
+            <p>Completa <code>Departamentos</code> con la edad máxima, mínima y media (D, E y F) y el sueldo máximo, mínimo y medio (G, H e I) de cada departamento. Para quedarte solo con los empleados de un departamento usa <code>FILTER</code> y, alrededor, <code>MAX</code>, <code>MIN</code> o <code>PROMEDIO</code>:</p><p><code>=MAX(FILTER(columna que quieres; columna de departamentos=A2))</code></p><p>Da formato de número sin decimales a la edad media y de moneda a los sueldos.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th></tr>
+                        <tr><th>1</th><td>Departamento</td><td>Empleados por departamento</td><td>Salario Total por departamento</td><td>Edad Max</td><td>Edad Min</td><td>Edad Promedio</td><td>Sueldo Max</td><td>Sueldo Min</td><td>Sueldo Promedio</td></tr>
+                        <tr><th>2</th><td>Ventas</td><td class="num formula">12</td><td class="num formula">38.650,00 €</td><td class="num formula">42</td><td class="num formula">29</td><td class="num formula">34,92</td><td class="num formula">3.500,00 €</td><td class="num formula">2.850,00 €</td><td class="num formula">3.220,83 €</td></tr>
+                        <tr><th>3</th><td>Finanzas</td><td class="num formula">9</td><td class="num formula">28.800,00 €</td><td class="num formula">40</td><td class="num formula">27</td><td class="num formula">34,89</td><td class="num formula">3.600,00 €</td><td class="num formula">2.800,00 €</td><td class="num formula">3.200,00 €</td></tr>
+                        <tr><th>4</th><td>Recursos Humanos</td><td class="num formula">9</td><td class="num formula">27.900,00 €</td><td class="num formula">35</td><td class="num formula">28</td><td class="num formula">32</td><td class="num formula">3.300,00 €</td><td class="num formula">2.900,00 €</td><td class="num formula">3.100,00 €</td></tr>
+                        <tr><th>5</th><td>Marketing</td><td class="num formula">9</td><td class="num formula">29.150,00 €</td><td class="num formula">41</td><td class="num formula">27</td><td class="num formula">33,33</td><td class="num formula">4.000,00 €</td><td class="num formula">2.450,00 €</td><td class="num formula">3.238,89 €</td></tr>
+                        <tr><th>6</th><td>Producción</td><td class="num formula">8</td><td class="num formula">25.950,00 €</td><td class="num formula">39</td><td class="num formula">30</td><td class="num formula">34</td><td class="num formula">3.450,00 €</td><td class="num formula">3.000,00 €</td><td class="num formula">3.243,75 €</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>D2</dt><dd><code>=MAX(FILTER(Empleados!$D$2:$D$48;Empleados!$B$2:$B$48=A2))</code></dd>
+                    <dt>E2</dt><dd><code>=MIN(FILTER(Empleados!$D$2:$D$48;Empleados!$B$2:$B$48=A2))</code></dd>
+                    <dt>F2</dt><dd><code>=PROMEDIO(FILTER(Empleados!$D$2:$D$48;Empleados!$B$2:$B$48=A2))</code></dd>
+                    <dt>G2</dt><dd><code>=MAX(FILTER(Empleados!$E$1:$E$48;Empleados!$B$1:$B$48=A2))</code></dd>
+                    <dt>H2</dt><dd><code>=MIN(FILTER(Empleados!$E$1:$E$48;Empleados!$B$1:$B$48=A2))</code></dd>
+                    <dt>I2</dt><dd><code>=PROMEDIO(FILTER(Empleados!$E$1:$E$48;Empleados!$B$1:$B$48=A2))</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Filtro por departamento</h3>
+            <p>En la hoja <code>Filtro departamento</code>:</p><ol><li>En A1 escribe «Elige un departamento».</li><li>En B1 crea un desplegable con los departamentos sin repetir: <span class="ruta-menu">Datos → Validación de datos → Añadir regla</span>, criterio <em>Desplegable (de un intervalo)</em> y el rango <code>Departamentos!A2:A6</code>. Dale el estilo que prefieras.</li><li>Debajo (en la solución, desde A4) usa <code>FILTER</code> para mostrar solo los empleados del departamento elegido en B1.</li></ol><p>Cambia el departamento de B1 y comprueba que la lista cambia sola.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr>
+                        <tr><th>1</th><td>Elige un departamento</td><td>Finanzas</td><td>Recursos Humanos</td><td></td><td></td><td></td></tr>
+                        <tr><th>2</th><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>3</th><td><strong>Nombre Empleado</strong></td><td><strong>Departamento</strong></td><td><strong>Fecha Nacimiento</strong></td><td><strong>Edad</strong></td><td><strong>Salario Mensual</strong></td><td><strong>Años de Experiencia</strong></td></tr>
+                        <tr><th>4</th><td class="formula">María García</td><td class="formula">Finanzas</td><td class="formula">01/06/1996</td><td class="num formula">30</td><td class="num formula">2.800,00 €</td><td class="num formula">4</td></tr>
+                        <tr><th>5</th><td class="formula">David Fernández</td><td class="formula">Finanzas</td><td class="formula">22/02/1987</td><td class="num formula">39</td><td class="num formula">3.400,00 €</td><td class="num formula">9</td></tr>
+                        <tr><th>6</th><td class="formula">Lucía García</td><td class="formula">Finanzas</td><td class="formula">02/12/1985</td><td class="num formula">40</td><td class="num formula">3.600,00 €</td><td class="num formula">10</td></tr>
+                        <tr><th>7</th><td class="formula">Miguel Rodríguez</td><td class="formula">Finanzas</td><td class="formula">25/06/1993</td><td class="num formula">33</td><td class="num formula">3.200,00 €</td><td class="num formula">5</td></tr>
+                        <tr><th>8</th><td class="formula">Inés Martínez</td><td class="formula">Finanzas</td><td class="formula">19/11/1992</td><td class="num formula">33</td><td class="num formula">3.300,00 €</td><td class="num formula">6</td></tr>
+                        <tr><th>9</th><td class="formula">Eva García</td><td class="formula">Finanzas</td><td class="formula">03/05/1999</td><td class="num formula">27</td><td class="num formula">2.900,00 €</td><td class="num formula">2</td></tr>
+                        <tr><th>10</th><td class="formula">Juanita Pérez</td><td class="formula">Finanzas</td><td class="formula">30/03/1986</td><td class="num formula">40</td><td class="num formula">3.400,00 €</td><td class="num formula">9</td></tr>
+                        <tr><th>11</th><td class="formula">Luisa Martínez</td><td class="formula">Finanzas</td><td class="formula">13/11/1991</td><td class="num formula">34</td><td class="num formula">3.000,00 €</td><td class="num formula">6</td></tr>
+                        <tr><th>12</th><td class="formula">Raúl López</td><td class="formula">Finanzas</td><td class="formula">15/04/1988</td><td class="num formula">38</td><td class="num formula">3.200,00 €</td><td class="num formula">8</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>A4</dt><dd><code>=FILTER(Empleados!A2:F48;Empleados!B2:B48=B1)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Tabla dinámica</h3>
+            <p>Crea la hoja <code>Datos Dinámicos</code> con una tabla dinámica de los datos de <code>Empleados</code> (selecciona A1:F48 y usa <span class="ruta-menu">Insertar → Tabla dinámica</span>):</p><ul><li><strong>Filas</strong>: <em>Departamento</em> y, dentro, <em>Nombre Empleado</em>.</li><li><strong>Valores</strong>: <em>Salario Mensual</em> resumido por <code>SUM</code>, y <em>Edad</em> y <em>Años de Experiencia</em> por <code>AVERAGE</code>.</li><li>Un <strong>campo calculado</strong> con el sueldo ganado desde que empezó en la empresa: en <em>Valores → Añadir → Campo calculado</em> escribe <code>='Salario Mensual'*'Años de Experiencia'</code> y llámalo «Sueldo por año de experiencia».</li></ul><p>Por ejemplo, David Fernández (Finanzas) cobra 3.400 € y lleva 9 años: 30.600 €. El total de salarios de Finanzas es de 28.800 € y el de toda la empresa, 150.450 €.</p>
+        </li>
+        <li class="paso">
+            <h3>Gráfico con línea de tendencia</h3>
+            <p>Crea la hoja <code>Gráficos departamentos</code> con un gráfico del gasto mensual en sueldos de cada departamento:</p><ol><li>En <code>Departamentos</code> selecciona A1:A6 y, con <kbd>Ctrl</kbd> pulsado (<kbd>⌘</kbd> en Mac), C1:C6. Usa <span class="ruta-menu">Insertar → Gráfico</span> y elige <em>Gráfico de columnas</em>. En la solución está en 3D (<span class="ruta-menu">Personalizar → Estilo del gráfico → 3D</span>).</li><li>En <span class="ruta-menu">Personalizar → Series</span> marca <em>Línea de tendencia</em> y ponla en rojo.</li><li>Ponle el título «Sueldo mensual total por departamento», etiquetas de datos con el importe y un título en el eje vertical. Los colores son libres.</li><li>Corta el gráfico y pégalo en la hoja <code>Gráficos departamentos</code>.</li></ol>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-19">
+        <li><label><input type="checkbox"><span>El libro se llama <code>ApellidoNombre_AO_Actividad5.19</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>La edad de <code>Empleados</code> se calcula con <code>SIFECHA</code> y la fecha de hoy.</span></label></li>
+        <li><label><input type="checkbox"><span><code>Departamentos</code> usa <code>CONTAR.SI</code> y <code>SUMAR.SI</code>: Ventas tiene 12 empleados y 38.650 € de salario total.</span></label></li>
+        <li><label><input type="checkbox"><span>Las edades y los sueldos máximos, mínimos y medios usan <code>FILTER</code> (sueldo medio de Ventas: 3.220,83 €).</span></label></li>
+        <li><label><input type="checkbox"><span>El desplegable de <code>Filtro departamento</code> cambia la lista de empleados.</span></label></li>
+        <li><label><input type="checkbox"><span>La tabla dinámica agrupa por departamento y empleado e incluye el campo calculado.</span></label></li>
+        <li><label><input type="checkbox"><span>El gráfico de columnas tiene la línea de tendencia en rojo.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-18"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.18</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-20">Siguiente: 5.20. Seguimiento de proyectos <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

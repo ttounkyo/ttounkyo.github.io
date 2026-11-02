@@ -1,0 +1,114 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.15</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.15. Validación de datos y control de errores</h1>
+    <p class="lead">Vas a crear desde cero un registro de las facturas emitidas en febrero de 2025. Con la validación de datos, la hoja no dejará escribir fechas, números de factura ni tipos de IVA incorrectos, y con <code>SI.ERROR</code> evitarás que aparezcan errores en las fórmulas.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Reglas de validación de fechas y números, y listas desplegables</li>
+                    <li>Un desplegable con los datos de otra hoja</li>
+                    <li><code>BUSCARV</code> y <code>SI.ERROR</code> para completar datos automáticamente</li>
+                    <li><code>CONTAR.SI</code> y <code>SUMAR.SI</code> para resumir por cliente</li>
+                    <li>Un gráfico de columnas y la protección de hojas e intervalos</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-13-funciones">5.13. Funciones</a> y <a href="#/Unidad-5/index?sec=5-11-formato-de-celdas">5.11. Formato de celdas</a></li>
+                    <li>No hay libro de partida: crea una hoja de cálculo nueva en Google Sheets.</li>
+                    <li>En el libro de ejemplos tienes otras reglas de validación (largo de un texto, correo electrónico válido, mayor de edad…) en la hoja <code>Validación</code> y los tipos de error más frecuentes en la hoja <code>Errores</code>.</li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-15-ejemplos-validacion-errores.xlsx" download><i class="bi bi-download me-1"></i>Libro de ejemplos de validación y de tipos de error</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-15-desplegables-dependientes.xlsx" download><i class="bi bi-download me-1"></i>Ejemplo de desplegables dependientes (paso 8)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.15</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Hojas</th>
+                <td><code>Facturas emitidas</code> y <code>Clientes</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea el libro y la hoja Clientes</h3>
+            <p>Crea una hoja de cálculo nueva y cambia el nombre de la primera hoja a <code>Clientes</code>. Escribe la relación de clientes con su NIF y deja vacías las columnas C y D, que rellenarás en el paso 5. En F1:F3 escribe los dos tipos de IVA permitidos, con formato de porcentaje: los usarás para el desplegable.</p><div class="hoja-wrap"><table class="hoja"><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr><tr><th>1</th><td><strong>CLIENTES</strong></td><td><strong>NIF</strong></td><td><strong>Facturas totales</strong></td><td><strong>Facturación total</strong></td><td></td><td><strong>Tipos de IVA</strong></td></tr><tr><th>2</th><td>TecnoSoluciones Innovativas S.A.</td><td>A1234567</td><td></td><td></td><td></td><td class="num">10 %</td></tr><tr><th>3</th><td>EcoFutura Energía Renovable Ltda.</td><td>B9876543</td><td></td><td></td><td></td><td class="num">21 %</td></tr><tr><th>4</th><td>Constructora Visionaria S.R.L.</td><td>C5678912</td><td></td><td></td><td></td><td></td></tr><tr><th>5</th><td>Delicias Gastronómicas del Valle S.A.</td><td>D4321567</td><td></td><td></td><td></td><td></td></tr><tr><th>6</th><td>Ramon Hernandez Fernandez</td><td>E8765432</td><td></td><td></td><td></td><td></td></tr><tr><th>7</th><td>Creatividad Publicitaria Total S.R.L.</td><td>12345678A</td><td></td><td></td><td></td><td></td></tr><tr><th>8</th><td>BioSalud Farmacéutica S.A.</td><td>98765432B</td><td></td><td></td><td></td><td></td></tr><tr><th>9</th><td>Innovación Digital Empresarial Ltda.</td><td>56789123C</td><td></td><td></td><td></td><td></td></tr><tr><th>10</th><td>Servicios Ambientales Ecológicos S.R.L.</td><td>43215678D</td><td></td><td></td><td></td><td></td></tr><tr><th>11</th><td>Construcciones Modernas Urbanas S.A.</td><td>87654321E</td><td></td><td></td><td></td><td></td></tr></table></div>
+        </li>
+        <li class="paso">
+            <h3>Crea el modelo de la hoja Facturas emitidas</h3>
+            <p>Añade una hoja llamada <code>Facturas emitidas</code> y prepara la tabla del modelo. Combina las celdas del título (A1:H1) y las de los encabezados que ocupan dos filas (A2:A3, B2:B3, E2:E3 y H2:H3), además de C2:D2 (CLIENTE) y F2:G2 (IVA), con <span class="ruta-menu">Formato → Combinar celdas</span>.</p><div class="hoja-wrap"><table class="hoja"><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th></tr><tr><th>1</th><td colspan="8" style="text-align:center"><strong>REGISTRO DE FACTURAS EMITIDAS</strong></td></tr><tr><th>2</th><td rowspan="2"><strong>FECHA</strong></td><td rowspan="2"><strong>Nº FACTURA</strong></td><td colspan="2" style="text-align:center"><strong>CLIENTE</strong></td><td rowspan="2"><strong>BASE IMPONIBLE</strong></td><td colspan="2" style="text-align:center"><strong>IVA</strong></td><td rowspan="2"><strong>TOTAL</strong></td></tr><tr><th>3</th><td><strong>NOMBRE</strong></td><td><strong>NIF</strong></td><td><strong>TIPO</strong></td><td><strong>CUOTA</strong></td></tr><tr><th>4</th><td class="num">04/02/2025</td><td class="num">1</td><td>EcoFutura Energía Renovable Ltda.</td><td class="formula">B9876543</td><td class="num">1.484,00 €</td><td class="num">10 %</td><td class="num formula">148,40 €</td><td class="num formula">1.632,40 €</td></tr><tr><th>5</th><td class="num">05/02/2025</td><td class="num">2</td><td>EcoFutura Energía Renovable Ltda.</td><td class="formula">B9876543</td><td class="num">1.671,00 €</td><td class="num">21 %</td><td class="num formula">350,91 €</td><td class="num formula">2.021,91 €</td></tr><tr><th>6</th><td class="num">06/02/2025</td><td class="num">3</td><td>Delicias Gastronómicas del Valle S.A.</td><td class="formula">D4321567</td><td class="num">343,00 €</td><td class="num">10 %</td><td class="num formula">34,30 €</td><td class="num formula">377,30 €</td></tr></table></div><p>Las facturas van de la fila 4 a la 28 (como máximo 25 al mes). Da formato de fecha a la columna A, de moneda a E, G y H y de porcentaje a F. Puedes alternar el color de las filas con <span class="ruta-menu">Formato → Colores alternos</span>. Adapta el diseño a tu gusto: lo importante es la estructura.</p>
+        </li>
+        <li class="paso">
+            <h3>Añade las reglas de validación</h3>
+            <p>Selecciona cada intervalo, ve a <span class="ruta-menu">Datos → Validación de datos → Añadir regla</span> y crea estas cuatro reglas:</p><div class="table-responsive"><table class="table table-sm table-bordered"><thead><tr><th>Intervalo</th><th>Criterio</th><th>Qué permite</th></tr></thead><tbody><tr><td>A4:A28</td><td>Fecha → está entre <code>01/02/2025</code> y <code>31/03/2025</code></td><td>Solo fechas de febrero o marzo de 2025</td></tr><tr><td>B4:B28</td><td>Está entre <code>1</code> y <code>25</code></td><td>Números de factura del 1 al 25</td></tr><tr><td>C4:C28</td><td>Desplegable (de un intervalo) → <code>=Clientes!$A$2:$A$11</code></td><td>Solo los clientes de la hoja Clientes</td></tr><tr><td>F4:F28</td><td>Desplegable (de un intervalo) → <code>=Clientes!$F$2:$F$3</code></td><td>Solo 10 % o 21 %</td></tr></tbody></table></div><p>En cada regla abre <em>Opciones avanzadas</em>, elige <strong>Rechazar la entrada</strong> en <em>Si los datos no son válidos</em> y escribe un texto de ayuda, por ejemplo: <em>Escribe una fecha de febrero o marzo de 2025</em>.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Si eliges <em>Mostrar una advertencia</em> en lugar de <em>Rechazar la entrada</em>, la hoja deja escribir el dato y solo marca la celda con un triángulo rojo.</div>
+        </li>
+        <li class="paso">
+            <h3>Completa los datos con fórmulas y SI.ERROR</h3>
+            <ul><li><strong>NIF (D4):</strong> búscalo con <code>BUSCARV</code> a partir del nombre del cliente en la hoja <code>Clientes</code>.</li><li><strong>Cuota (G4):</strong> es el importe del IVA: base imponible × tipo. Una factura de 1.484 € al 10 % tiene una cuota de 148,40 €.</li><li><strong>Total (H4):</strong> base imponible + cuota, en el ejemplo 1.632,40 €.</li></ul><p>Mete cada fórmula dentro de <code>SI.ERROR</code> para que, si falta un dato o algo falla, la celda se quede vacía en lugar de mostrar <code>#N/A</code> o <code>#VALUE!</code>. Arrastra las tres fórmulas hasta la fila 28.</p><p>Después escribe <strong>al menos 10 facturas</strong> de prueba (números del 1 al 10, fechas de febrero, varios clientes y los dos tipos de IVA). Deja algún cliente sin facturas, como BioSalud Farmacéutica S.A. Prueba también a escribir datos que no valen (una fecha de abril, la factura 30, un IVA del 4 %): la hoja tiene que rechazarlos.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Si pones algún otro control de errores, explícalo con un comentario en la celda (clic derecho → <em>Comentario</em>).</div><details><summary>Ver la solución</summary><dl class="formulas"><dt>D4</dt><dd><code>=SI.ERROR(BUSCARV(C4;Clientes!$A$2:$B$11;2;FALSO);"")</code></dd><dt>G4</dt><dd><code>=SI.ERROR(SI(E4="";"";E4*F4);"")</code></dd><dt>H4</dt><dd><code>=SI.ERROR(SI(E4="";"";E4+G4);"")</code></dd></dl></details>
+        </li>
+        <li class="paso">
+            <h3>Resume la facturación de cada cliente</h3>
+            <p>En la hoja <code>Clientes</code>, rellena las dos columnas nuevas para cada cliente y arrastra las fórmulas hasta la fila 11:</p><ul><li><strong>Facturas totales (C2):</strong> cuántas facturas tiene el cliente, con <code>CONTAR.SI</code>. Si no tiene ninguna, el texto <em>No tiene facturas</em>.</li><li><strong>Facturación total (D2):</strong> la suma del total de sus facturas, con <code>SUMAR.SI</code>. Si no tiene facturas, la celda vacía (<code>""</code>). Dale formato de moneda.</li></ul><details><summary>Ver la solución</summary><dl class="formulas"><dt>C2</dt><dd><code>=SI(CONTAR.SI('Facturas emitidas'!$C$4:$C$28;A2)=0;"No tiene facturas";CONTAR.SI('Facturas emitidas'!$C$4:$C$28;A2))</code></dd><dt>D2</dt><dd><code>=SI(CONTAR.SI('Facturas emitidas'!$C$4:$C$28;A2)=0;"";SUMAR.SI('Facturas emitidas'!$C$4:$C$28;A2;'Facturas emitidas'!$H$4:$H$28))</code></dd></dl></details>
+        </li>
+        <li class="paso">
+            <h3>Gráfico de facturación por cliente</h3>
+            <p>En <code>Clientes</code>, selecciona A1:A11 y, con <kbd>Ctrl</kbd> pulsado, D1:D11. Ve a <span class="ruta-menu">Insertar → Gráfico</span> y elige un <strong>Gráfico de columnas</strong>: una columna por cliente con su facturación total.</p><p>En <em>Personalizar</em> ponle un título, activa las <em>Etiquetas de datos</em> para ver el importe encima de cada columna y, si quieres, marca la opción <em>3D</em> en <em>Estilo del gráfico</em>, como en el modelo.</p>
+        </li>
+        <li class="paso">
+            <h3>Protege las hojas</h3>
+            <p>Si compartes el libro, otra persona podría borrar una fórmula sin querer. Ve a <span class="ruta-menu">Datos → Proteger hojas e intervalos</span> y pulsa <em>Añadir una hoja o un intervalo</em>:</p><ul><li>Pestaña <strong>Hoja</strong>, elige <code>Facturas emitidas</code> y marca <em>Excepto determinadas celdas</em>: añade A4:C28 y E4:F28, que son las que se rellenan a mano. Pulsa <em>Establecer permisos</em> y elige <em>Solo tú</em>.</li><li>Haz lo mismo con <code>Clientes</code>, dejando libres solo A2:B11 por si hay que añadir o corregir algún cliente.</li></ul><p>Comprueba que en la lista de la derecha aparecen las dos protecciones.</p>
+        </li>
+        <li class="paso">
+            <h3>Reto opcional: desplegables dependientes</h3>
+            <p>Un desplegable <strong>dependiente</strong> cambia sus opciones según lo que elijas en otro. Abre en Google Sheets el ejemplo de desplegables dependientes (usa los municipios de 15mpedia, como la actividad 5.14):</p><ul><li>En <code>DESPLEGABLE</code>, B3 es un desplegable con las comunidades autónomas (la columna D de la hoja <code>IMPORTHTML</code>).</li><li>La hoja <code>CCAA</code> tiene en A1 <code>=FILTER(IMPORTHTML!A2:D1001;IMPORTHTML!D2:D1001=DESPLEGABLE!B3)</code>, que deja solo los municipios de la comunidad elegida.</li><li>B4 es un desplegable del intervalo <code>CCAA!A:A</code>: solo ofrece esos municipios.</li><li>B5 busca la población del municipio con <code>=BUSCARV(B4;IMPORTHTML!A2:G1001;7;FALSO)</code>.</li></ul><p>Si te animas, aplica la misma idea a tu libro de facturas o a otro ejemplo que se te ocurra.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-15">
+        <li><label><input type="checkbox"><span>El libro se llama <code>ApellidoNombre_AO_Actividad5.15</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Las hojas <code>Clientes</code> (10 clientes con su NIF) y <code>Facturas emitidas</code> siguen el modelo.</span></label></li>
+        <li><label><input type="checkbox"><span>Fecha, Nº de factura, cliente y tipo de IVA tienen reglas de validación que rechazan los datos incorrectos.</span></label></li>
+        <li><label><input type="checkbox"><span>El NIF sale con <code>BUSCARV</code> dentro de <code>SI.ERROR</code>, y la cuota y el total se calculan solos.</span></label></li>
+        <li><label><input type="checkbox"><span>Hay al menos 10 facturas de prueba y ninguna celda muestra errores como <code>#N/A</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>En <code>Clientes</code>, Facturas totales y Facturación total usan <code>CONTAR.SI</code> y <code>SUMAR.SI</code>, con «No tiene facturas» cuando toca.</span></label></li>
+        <li><label><input type="checkbox"><span>Hay un gráfico de columnas con la facturación de cada cliente.</span></label></li>
+        <li><label><input type="checkbox"><span>Las dos hojas están protegidas y solo se pueden editar las celdas de datos.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-14"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.14</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-16">Siguiente: 5.16. Macros <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

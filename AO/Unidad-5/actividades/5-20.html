@@ -1,0 +1,218 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.20</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.20. Seguimiento de proyectos</h1>
+    <p class="lead">Vas a montar el control de los proyectos de una empresa: cuánto dura cada uno, qué datos se pueden escribir, resúmenes por estado, riesgos, hojas para consultar, una tabla dinámica, un gráfico y un formulario que guarda proyectos nuevos con una macro.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Diferencia entre fechas con <code>SIFECHA</code> y control de errores con <code>SI.ERROR</code></li>
+                    <li>Validación de datos con listas y fórmulas personalizadas</li>
+                    <li><code>CONTAR.SI</code>, <code>SUMAR.SI</code>, <code>SUMAR.SI.CONJUNTO</code> y <code>FILTER</code></li>
+                    <li>Desplegables, <code>BUSCARV</code> e <code>INDICE</code></li>
+                    <li>Formato condicional con fórmulas personalizadas</li>
+                    <li>Tabla dinámica, gráfico combinado y macros</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-13-funciones">5.13. Funciones</a> y <a href="#/Unidad-5/index?sec=5-15-usando-formato-condicional">5.15. Formato condicional</a> y <a href="#/Unidad-5/index?sec=5-2-importacion-de-otras-hojas-de-calculo">5.2. Importación de otras hojas de cálculo</a></li>
+                    <li>Es una actividad de repaso: intenta resolver cada parte sin mirar la solución y compara al terminar.</li>
+                    <li>El enunciado original pide importar un CSV: en su lugar, importa el libro de partida, que trae la hoja <code>Proyectos</code> con los datos.</li>
+                    <li>Algunos datos de <code>Proyectos</code> no cumplen las reglas del paso 3 (por ejemplo, «María Gómez 1» lleva un número): cuando crees las validaciones, Google Sheets los marcará.</li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-20-plantilla.xlsx" download><i class="bi bi-file-earmark-spreadsheet me-1"></i>Libro de partida (plantilla)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-20-solucion.xlsx" download><i class="bi bi-file-earmark-check me-1"></i>Solución (para comparar al terminar)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.20</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Hojas</th>
+                <td><code>Proyectos</code>, <code>Resumen Proyectos</code>, <code>Riesgos</code>, <code>Filtro Estado</code>, <code>Presupuesto Proyecto</code>, <code>Índice</code>, <code>Datos Dinámicos</code> y <code>Nuevo Proyecto</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Importa y da formato</h3>
+            <p>Importa el libro de partida y comprueba que los datos de <code>Proyectos</code> no se han desordenado: cada fila es un proyecto con sus fechas, presupuesto, estado y responsable.</p><p>Dale formato a la tabla (colores, bordes, encabezados) y haz que los proyectos con un presupuesto <strong>superior a 50.000 €</strong> salgan en negrita y en verde: selecciona A2:G6, <span class="ruta-menu">Formato → Formato condicional</span> y <em>La fórmula personalizada es</em> <code>=$E2&gt;50000</code>.</p>
+        </li>
+        <li class="paso">
+            <h3>Duración de cada proyecto</h3>
+            <p>En D2 calcula la duración en días entre la fecha de inicio y la de finalización. Puedes usar <code>SIFECHA(inicio; fin; "D")</code>, como la solución, o <code>DIAS(fin; inicio)</code>. Arrástrala hasta D6.</p><p>El resultado no puede ser negativo: si la fecha de fin es anterior a la de inicio, <code>SIFECHA</code> da el error <code>#NUM!</code>. Envuélvela en <code>SI.ERROR</code> para mostrar un aviso: <code>=SI.ERROR(SIFECHA(B2;C2;"D");"Revisa las fechas")</code>.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr>
+                        <tr><th>1</th><td><strong>Nombre del Proyecto</strong></td><td><strong>Fecha de Inicio</strong></td><td><strong>Fecha de Finalización</strong></td><td><strong>Duración (Días)</strong></td><td><strong>Presupuesto</strong></td><td><strong>Estado</strong></td><td><strong>Responsable</strong></td></tr>
+                        <tr><th>2</th><td>Proyecto A</td><td>10/04/2024</td><td>15/06/2024</td><td class="num formula">66</td><td class="num">45.000,00 €</td><td>Pendiente</td><td>Juan Pérez</td></tr>
+                        <tr><th>3</th><td>Proyecto B</td><td>05/11/2023</td><td>20/05/2024</td><td class="num formula">197</td><td class="num">120.000,00 €</td><td>En progreso</td><td>María Gómez 1</td></tr>
+                        <tr><th>4</th><td>Proyecto C</td><td>01/02/2024</td><td>30/07/2024</td><td class="num formula">180</td><td class="num">30.000,00 €</td><td>Finalizado</td><td>Luis Rodríguez</td></tr>
+                        <tr><th>5</th><td>Proyecto D</td><td>10/10/2023</td><td>01/04/2024</td><td class="num formula">174</td><td class="num">60.000,00 €</td><td>En progreso</td><td>Ana Martínez</td></tr>
+                        <tr><th>6</th><td>Proyecto E</td><td>15/03/2024</td><td>20/09/2024</td><td class="num formula">189</td><td class="num">500.000,00 €</td><td>Pendiente</td><td>Carlos Fernández</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>D2</dt><dd><code>=SIFECHA(B2;C2;&quot;d&quot;)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Validación de datos</h3>
+            <p>Crea estas reglas en <code>Proyectos</code> con <span class="ruta-menu">Datos → Validación de datos → Añadir regla</span>, desde la fila 2 hacia abajo:</p><ul><li><strong>Nombre del proyecto</strong> (A): al menos 15 caracteres, con <em>La fórmula personalizada es</em> <code>=LARGO(A2)&gt;=15</code>.</li><li><strong>Estado</strong> (F): <em>Desplegable</em> con Pendiente, En progreso y Finalizado.</li><li><strong>Fecha de inicio</strong> (B): una fecha que no sea posterior a la de fin, con <code>=Y(ESNUMERO(B2);B2&lt;=C2)</code>. La nota de B8 propone otra forma: el criterio de fecha <em>es anterior a</em> con la fecha de C2.</li><li><strong>Presupuesto</strong> (E): <em>Está entre</em> 10000 y 500000.</li><li><strong>Responsable</strong> (G): solo letras y espacios, con <code>=REGEXMATCH(G2;"^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$")</code>.</li></ul><p>Los datos que no cumplen una regla quedan marcados con un triángulo rojo. Con estas reglas verás marcados los nombres («Proyecto A» solo tiene 10 caracteres) y «María Gómez 1».</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>La solución usa <code>ESTEXTO</code> para el responsable, pero eso solo comprueba que haya texto (y además mira la columna del estado). Para «solo letras y espacios» hace falta un patrón: en <code>REGEXMATCH</code>, <code>^</code> es el principio, <code>$</code> el final y <code>[…]+</code>, «uno o más de estos caracteres».</div>
+        </li>
+        <li class="paso">
+            <h3>Resumen por estado</h3>
+            <p>Crea la hoja <code>Resumen Proyectos</code> con los tres estados en A2:A4 y calcula, para cada uno:</p><ul><li>B: cuántos proyectos hay, con <code>CONTAR.SI</code>.</li><li>C: la suma de sus presupuestos, con <code>SUMAR.SI</code>.</li><li>D, E y F: la duración máxima, mínima y media, con <code>MAX</code>, <code>MIN</code> y <code>PROMEDIO</code> sobre un <code>FILTER</code> de las duraciones de ese estado.</li></ul><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>La solución vuelve a calcular las duraciones dentro de <code>FILTER</code>, y sus rangos se mueven al arrastrar la fórmula. Es más sencillo filtrar la columna D, que ya tiene las duraciones, con rangos fijos: <code>=MAX(FILTER(Proyectos!$D$2:$D$6;Proyectos!$F$2:$F$6=A2))</code>.</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr>
+                        <tr><th>1</th><td><strong>Estado</strong></td><td><strong>Cantidad de Proyectos</strong></td><td><strong>Suma de Presupuestos</strong></td><td><strong>Duración Máxima</strong></td><td><strong>Duración Mínima</strong></td><td><strong>Duración Promedio</strong></td></tr>
+                        <tr><th>2</th><td>Pendiente</td><td class="num formula">2</td><td class="num formula">545.000,00 €</td><td class="num formula">189</td><td class="num formula">66</td><td class="num formula">127,5</td></tr>
+                        <tr><th>3</th><td>En progreso</td><td class="num formula">2</td><td class="num formula">180.000,00 €</td><td class="num formula">197</td><td class="num formula">174</td><td class="num formula">185,5</td></tr>
+                        <tr><th>4</th><td>Finalizado</td><td class="num formula">1</td><td class="num formula">30.000,00 €</td><td class="num formula">180</td><td class="num formula">180</td><td class="num formula">180</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>B2</dt><dd><code>=CONTAR.SI(Proyectos!F:F;A2)</code></dd>
+                    <dt>C2</dt><dd><code>=SUMAR.SI(Proyectos!F:F;A2;Proyectos!E:E)</code></dd>
+                    <dt>D2</dt><dd><code>=MAX(FILTER(SIFECHA(Proyectos!B2:B998; Proyectos!C2:C998; &quot;D&quot;); Proyectos!F2:F998=A2))
+</code></dd>
+                    <dt>E2</dt><dd><code>=MIN(FILTER(SIFECHA(Proyectos!B2:B998; Proyectos!C2:C998; &quot;D&quot;); Proyectos!F2:F998=A2))</code></dd>
+                    <dt>F2</dt><dd><code>=PROMEDIO(FILTER(SIFECHA(Proyectos!B2:B998; Proyectos!C2:C998; &quot;D&quot;); Proyectos!F2:F998=A2))</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Evaluación de riesgos</h3>
+            <p>Crea la hoja <code>Riesgos</code> con los nombres de los proyectos en la columna A y:</p><ol><li>En B, la duración, y en C, «Riesgo Alto» si dura más de 180 días o «Duración Normal» si no (con <code>SI</code>).</li><li>En D y E, el estado y el presupuesto de cada proyecto, traídos de <code>Proyectos</code> con <code>BUSCARV</code>. Pon <code>0</code> (o <code>FALSO</code>) como último argumento para buscar el nombre exacto: la solución usa <code>1</code>, que solo funciona bien si la lista está ordenada.</li><li>En B12 cuenta los proyectos «En progreso» con <code>CONTAR.SI</code> y en B16 suma los presupuestos de los «Pendiente» con <code>SUMAR.SI</code>. En la solución, A12 y A16 son desplegables para elegir el estado.</li><li>Suma los presupuestos de los proyectos que duran más de 180 días <strong>o</strong> tienen un presupuesto superior a 100.000 €.</li></ol><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i><code>SUMAR.SI.CONJUNTO</code> (A22) solo suma cuando se cumplen <strong>todas</strong> las condiciones (y). Para «o», usa <code>FILTER</code> con las condiciones sumadas: <code>(condición1)+(condición2)</code> vale 1 o más cuando se cumple alguna (A23). Con estos datos las dos dan 620.000 €, pero no siempre coinciden. No sumes dos <code>SUMAR.SI</code>: los proyectos que cumplen las dos condiciones se contarían dos veces.</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+                        <tr><th>1</th><td><strong>Nombre del Proyecto</strong></td><td><strong>Duración (Días)</strong></td><td><strong>Riesgo</strong></td><td><strong>Estado</strong></td><td><strong>Presupuesto</strong></td></tr>
+                        <tr><th>2</th><td>Proyecto A</td><td class="num formula">66</td><td class="formula">Duración Normal</td><td class="formula">Pendiente</td><td class="num formula">45.000,00 €</td></tr>
+                        <tr><th>3</th><td>Proyecto B</td><td class="num formula">197</td><td class="formula">Riesgo Alto</td><td class="formula">En progreso</td><td class="num formula">120.000,00 €</td></tr>
+                        <tr><th>4</th><td>Proyecto C</td><td class="num formula">180</td><td class="formula">Duración Normal</td><td class="formula">Finalizado</td><td class="num formula">30.000,00 €</td></tr>
+                        <tr><th>5</th><td>Proyecto D</td><td class="num formula">174</td><td class="formula">Duración Normal</td><td class="formula">En progreso</td><td class="num formula">60.000,00 €</td></tr>
+                        <tr><th>6</th><td>Proyecto E</td><td class="num formula">189</td><td class="formula">Riesgo Alto</td><td class="formula">Pendiente</td><td class="num formula">500.000,00 €</td></tr>
+                        <tr><th>7</th><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>8</th><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>9</th><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>10</th><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>11</th><td colspan="2" class="formula" style="background-color:#8BC34A"><strong>Cantidad de proyectos En progreso</strong></td><td></td><td></td><td></td></tr>
+                        <tr><th>12</th><td>En progreso</td><td class="num formula">2</td><td></td><td></td><td></td></tr>
+                        <tr><th>13</th><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>14</th><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>15</th><td colspan="2" class="formula" style="background-color:#8BC34A"><strong>Suma de presupuesto en estado Pendiente</strong></td><td></td><td></td><td></td></tr>
+                        <tr><th>16</th><td>Pendiente</td><td class="num formula">545.000,00 €</td><td></td><td></td><td></td></tr>
+                        <tr><th>17</th><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>18</th><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>19</th><td rowspan="3" colspan="2" style="background-color:#8BC34A"><strong>Suma de presupuesto con proyectos mayor a 180 días y con un presupuesto mayor a 100000</strong></td><td></td><td></td><td></td></tr>
+                        <tr><th>20</th><td></td><td></td><td></td></tr>
+                        <tr><th>21</th><td></td><td></td><td></td></tr>
+                        <tr><th>22</th><td colspan="2" class="num formula">620.000,00 €</td><td></td><td></td><td></td></tr>
+                        <tr><th>23</th><td colspan="2" class="num formula">620.000,00 €</td><td></td><td></td><td></td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>B2</dt><dd><code>=FILTER(SIFECHA(Proyectos!B2:B1003; Proyectos!C2:C1003; &quot;D&quot;); Proyectos!A2:A1003=A2)</code></dd>
+                    <dt>C2</dt><dd><code>=SI(FILTER(SIFECHA(Proyectos!B2:B1003; Proyectos!C2:C1003; &quot;D&quot;); Proyectos!A2:A1003=A2)&gt;180;&quot;Riesgo Alto&quot;;&quot;Duración Normal&quot;)</code></dd>
+                    <dt>B12</dt><dd><code>=CONTAR.SI(D:D;A12)</code></dd>
+                    <dt>B16</dt><dd><code>=SUMAR.SI(D:D;A16;E:E)</code></dd>
+                    <dt>A22</dt><dd><code>=SUMAR.SI.CONJUNTO(Proyectos!E2:E1003;Proyectos!D2:D1003;&quot;&gt;180&quot;;Proyectos!E2:E1003;&quot;&gt;100000&quot;)</code></dd>
+                    <dt>A23</dt><dd><code>=SUMA(FILTER(E2:E6;(B2:B6&gt;180)+(E2:E6&gt;100000)))</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Filtro, búsqueda e índice</h3>
+            <p>Crea tres hojas para consultar los datos:</p><ul><li><strong><code>Filtro Estado</code></strong>: en A1 «Selecciona un estado», en B1 un desplegable con los estados (sin repetir) y debajo un <code>FILTER</code> que muestre solo los proyectos de ese estado. Pon en rojo los que duran más de 200 días con la fórmula personalizada <code>=$D5&gt;200</code>.</li><li><strong><code>Presupuesto Proyecto</code></strong>: en A1 «Selecciona un proyecto», en B1 un desplegable con los nombres y, debajo, el presupuesto del proyecto elegido. Controla el error si el nombre no existe: <code>=SI.ERROR(BUSCARV(B1;Proyectos!A2:E6;5;0);"No existe")</code>. La solución lo resuelve con <code>FILTER</code>.</li><li><strong><code>Índice</code></strong>: en A1 escribe <code>=INDICE(Proyectos!A:G;0)</code> para traer toda la tabla. Colorea cada fila según el estado con fórmulas personalizadas: <code>=$F2="Pendiente"</code> en amarillo, <code>=$F2="En progreso"</code> en azul y <code>=$F2="Finalizado"</code> en verde. Añade otra regla que ponga en rojo los proyectos con un presupuesto superior a 300.000 € (<code>=$E2&gt;300000</code>) y colócala la primera para que se imponga a las demás.</li></ul>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr>
+                        <tr><th>1</th><td>Selecciona un estado</td><td><strong>En progreso</strong></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>2</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>3</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>4</th><td><strong>Nombre del Proyecto</strong></td><td><strong>Fecha de Inicio</strong></td><td><strong>Fecha de Finalización</strong></td><td><strong>Duración (Días)</strong></td><td><strong>Presupuesto</strong></td><td><strong>Estado</strong></td><td><strong>Responsable</strong></td></tr>
+                        <tr><th>5</th><td class="formula">Proyecto B</td><td class="formula">05/11/2023</td><td class="formula">20/05/2024</td><td class="num formula">197</td><td class="num formula">120.000,00 €</td><td class="formula">En progreso</td><td class="formula">María Gómez 1</td></tr>
+                        <tr><th>6</th><td class="formula">Proyecto D</td><td class="formula">10/10/2023</td><td class="formula">01/04/2024</td><td class="num formula">174</td><td class="num formula">60.000,00 €</td><td class="formula">En progreso</td><td class="formula">Ana Martínez</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>A5</dt><dd><code>=FILTER(Proyectos!A:G;Proyectos!F:F=B1)</code></dd>
+                    <dt>B5</dt><dd><code>=FILTER(Proyectos!E:E;Proyectos!A:A=B1)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Tabla dinámica y gráfico</h3>
+            <p>Crea la hoja <code>Datos Dinámicos</code> con una tabla dinámica de <code>Proyectos</code> (<span class="ruta-menu">Insertar → Tabla dinámica</span>):</p><ul><li><strong>Filas</strong>: <em>Estado</em>.</li><li><strong>Valores</strong>: <em>Presupuesto</em> dos veces, una resumida por <code>SUM</code> y otra por <code>AVERAGE</code>, y <em>Duración (Días)</em> resumida por <code>AVERAGE</code>.</li></ul><p>Por ejemplo, Pendiente: 545.000 € en total, 272.500 € de media y 127,5 días de media.</p><p>Después crea un gráfico de los proyectos con lo que ha durado cada uno y su presupuesto. Como son medidas muy distintas (días y euros), usa un <em>Gráfico combinado</em>: columnas para el presupuesto y una línea para la duración, con la duración en el <strong>eje derecho</strong> (<span class="ruta-menu">Personalizar → Series → Eje</span>). Puedes añadir más información: títulos, etiquetas o colores.</p>
+        </li>
+        <li class="paso">
+            <h3>Formulario con una macro</h3>
+            <p>La hoja <code>Nuevo Proyecto</code> será un formulario para dar de alta proyectos, con estos campos: nombre, fecha de inicio, fecha de finalización, estado, presupuesto y responsable.</p><ol><li>Pon los encabezados en la fila 1 y los datos en la fila 2, en el mismo orden que las columnas de <code>Proyectos</code>; en la columna de la duración, la misma fórmula que en <code>Proyectos</code>. Así la macro podrá copiar la fila de una vez.</li><li>Copia en el formulario las validaciones del paso 3 (estado con desplegable, presupuesto entre 10.000 y 500.000 €…).</li><li>Rellena el formulario con un proyecto de prueba y graba la macro: <span class="ruta-menu">Extensiones → Macros → Grabar macro</span>. Mientras graba: en <code>Proyectos</code>, clic derecho en la fila 2 → <em>Insertar 1 fila encima</em>; copia la fila 2 del formulario y pégala en A2 de <code>Proyectos</code> con <span class="ruta-menu">Edición → Pegado especial → Solo valores</span>; vuelve a <code>Nuevo Proyecto</code> y borra los datos.</li><li>Pulsa <em>Guardar</em>, llámala «Registrar proyecto» y pruébala con otro proyecto desde <span class="ruta-menu">Extensiones → Macros</span>.</li></ol><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Como la fila nueva se inserta en la fila 2, las fórmulas de otras hojas con rangos que empiezan en la fila 2 (por ejemplo <code>Proyectos!F2:F20</code>) se desplazan y dejan fuera el dato nuevo. Usa rangos que empiecen en la fila 1 o columnas completas (<code>Proyectos!F:F</code>).</div>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-20">
+        <li><label><input type="checkbox"><span>El libro se llama <code>ApellidoNombre_AO_Actividad5.20</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>La duración de <code>Proyectos</code> sale de una fórmula (66, 197, 180, 174 y 189 días) y los presupuestos de más de 50.000 € se ven en verde y negrita.</span></label></li>
+        <li><label><input type="checkbox"><span>Las cinco validaciones están creadas y marcan «María Gómez 1».</span></label></li>
+        <li><label><input type="checkbox"><span><code>Resumen Proyectos</code> usa <code>CONTAR.SI</code>, <code>SUMAR.SI</code> y <code>FILTER</code> (Pendiente: 2 proyectos y 545.000 €).</span></label></li>
+        <li><label><input type="checkbox"><span><code>Riesgos</code> marca como «Riesgo Alto» los proyectos B y E, y la suma con «o» da 620.000 €.</span></label></li>
+        <li><label><input type="checkbox"><span>Los desplegables de <code>Filtro Estado</code> y <code>Presupuesto Proyecto</code> cambian los resultados, y <code>Índice</code> colorea cada fila según el estado.</span></label></li>
+        <li><label><input type="checkbox"><span>Hay una tabla dinámica por estado y un gráfico con la duración y el presupuesto.</span></label></li>
+        <li><label><input type="checkbox"><span>La macro «Registrar proyecto» añade a <code>Proyectos</code> el proyecto del formulario.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-19"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.19</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-21">Siguiente: 5.21. Gestión de clientes <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

@@ -1,0 +1,100 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.7</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.7. La función SI.CONJUNTO</h1>
+    <p class="lead">SI.CONJUNTO comprueba varias condiciones seguidas y devuelve el valor de la primera que se cumple. Vas a usarla en 18 ejercicios repartidos en tres libros: básico, intermedio y avanzado.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>La función <code>SI.CONJUNTO</code> (<code>IFS</code> en inglés)</li>
+                    <li>Ordenar las condiciones para clasificar valores por tramos</li>
+                    <li><code>VERDADERO</code> como último caso («en cualquier otro caso»)</li>
+                    <li>Condiciones con <code>Y</code> y <code>O</code> dentro de <code>SI.CONJUNTO</code></li>
+                    <li>Calcular importes y porcentajes según el caso</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-13-funciones">5.13. Funciones</a> y <a href="#/Unidad-5/index?sec=5-9-uso-avanzado-de-la-hoja-de-calculo">5.9. Uso avanzado</a></li>
+                    <li>Conviene haber hecho antes la actividad 5.6 (la función <code>SI</code>).</li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-7-si-conjunto-basico.xlsx" download><i class="bi bi-download me-1"></i>Libro del nivel básico (10 ejercicios)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-7-si-conjunto-intermedio.xlsx" download><i class="bi bi-download me-1"></i>Libro del nivel intermedio (5 ejercicios)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-7-si-conjunto-avanzado.xlsx" download><i class="bi bi-download me-1"></i>Libro del nivel avanzado (3 ejercicios)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.7</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Libros</th>
+                <td>Tres, uno por nivel, con el nivel al final del nombre: <code>ApellidoNombre_AO_Actividad5.7_Basico</code>, <code>…_Intermedio</code> y <code>…_Avanzado</code>.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Cómo se escribe SI.CONJUNTO</h3>
+            <p><code>SI.CONJUNTO</code> recibe parejas de condición y valor:</p><p><code>=SI.CONJUNTO(condición1; valor1; condición2; valor2; …)</code></p><p>Comprueba las condiciones en orden y devuelve el valor de la <strong>primera</strong> que se cumple. Es lo mismo que varios <code>SI</code> anidados, pero más fácil de leer:</p><p><code>=SI(A2&lt;60;"Suspenso";SI(A2&lt;70;"Aprobado";"Notable"))</code> equivale a <code>=SI.CONJUNTO(A2&lt;60;"Suspenso";A2&lt;70;"Aprobado";VERDADERO;"Notable")</code>.</p><p>Si no se cumple ninguna condición, sale el error <code>#N/A</code>. Para evitarlo, pon como última condición <code>VERDADERO</code>, que siempre se cumple y hace de «en cualquier otro caso».</p><p>Importa los tres libros en Google Sheets. Cada pestaña es un ejercicio. Escribe la fórmula en la fila 2 de la columna del resultado y arrástrala hacia abajo hasta la última fila con datos. Si la columna del resultado no tiene encabezado, escríbele uno (por ejemplo, <em>Resultado</em>).</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En muchas pestañas los datos de la columna A salen de <code>ALEATORIO.ENTRE</code>: cambian cada vez que editas la hoja. Es normal y te sirve para probar tu fórmula con muchos valores. No borres esas fórmulas.</div>
+        </li>
+        <li class="paso">
+            <h3>Nivel básico: clasificar por tramos</h3>
+            <p>Libro <strong>básico</strong>. El dato está en la columna A; escribe el resultado en la columna B, de B2 a B11.</p><ul><li><strong>Ejercicio 1.</strong> <em>Calificación (0-100).</em> Menos de 60: «Suspenso»; de 60 a 69: «Aprobado»; de 70 a 89: «Notable»; 90 o más: «Sobresaliente».</li><li><strong>Ejercicio 2.</strong> <em>Estado de pedidos (días).</em> Menos de 2: «Pendiente»; de 2 a 5: «En proceso»; de 6 a 10: «Enviado»; más de 10: «Entregado».</li><li><strong>Ejercicio 3.</strong> <em>Categoría de precios.</em> Menos de 20: «Económico»; de 20 a 50: «Estándar»; de 50 a 100: «Premium»; más de 100: «Lujo».</li><li><strong>Ejercicio 4.</strong> <em>Nivel de inventario.</em> Menos de 5 unidades: «Crítico»; de 5 a 20: «Bajo»; de 21 a 50: «Normal»; más de 50: «Alto».</li><li><strong>Ejercicio 5.</strong> <em>Temperatura.</em> Menos de 0: «Congelación»; de 0 a 10: «Frío»; de 11 a 25: «Templado»; más de 25: «Calor».</li><li><strong>Ejercicio 6.</strong> <em>IMC.</em> Menos de 18,5: «Bajo peso»; de 18,5 a 24,9: «Normal»; de 25 a 29,9: «Sobrepeso»; 30 o más: «Obesidad».</li><li><strong>Ejercicio 7.</strong> <em>Encuesta (1-5).</em> 1: «Muy insatisfecho»; 2: «Insatisfecho»; 3: «Neutral»; 4: «Satisfecho»; 5: «Muy satisfecho».</li><li><strong>Ejercicio 8.</strong> <em>Estado de tareas (0-100 %).</em> 0: «No iniciada»; de 1 a 99: «En progreso»; 100: «Completada».</li><li><strong>Ejercicio 9.</strong> <em>Prioridad de tickets (días restantes).</em> 0-1: «Urgente»; 2-3: «Alta»; 4-7: «Media»; más de 7: «Baja».</li><li><strong>Ejercicio 10.</strong> <em>Semáforo de rendimiento (0-100 %).</em> Menos de 60: «Rojo»; de 60 a 80: «Amarillo»; más de 80: «Verde».</li></ul><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Si dos tramos comparten un límite (en el ejercicio 3, el 50 está en «Estándar» y en «Premium»), decide en cuál lo pones y escríbelo igual en toda la fórmula. En el ejercicio 8 los encabezados dicen <em>Encuesta</em> y <em>Respuesta</em>, pero los datos son porcentajes de tareas.</div><details><summary>Ver la solución</summary><dl class="formulas"><dt>Ej. 1</dt><dd><code>=SI.CONJUNTO(A2&lt;60;"Suspenso";A2&lt;70;"Aprobado";A2&lt;90;"Notable";A2&gt;=90;"Sobresaliente")</code><br><span class="small text-muted">59 → Suspenso · 60 → Aprobado · 90 → Sobresaliente</span></dd><dt>Ej. 2</dt><dd><code>=SI.CONJUNTO(A2&lt;2;"Pendiente";A2&lt;=5;"En proceso";A2&lt;=10;"Enviado";A2&gt;10;"Entregado")</code></dd><dt>Ej. 3</dt><dd><code>=SI.CONJUNTO(A2&lt;20;"Económico";A2&lt;=50;"Estándar";A2&lt;=100;"Premium";A2&gt;100;"Lujo")</code><br><span class="small text-muted">Aquí el 50 cuenta como Estándar y el 100 como Premium</span></dd><dt>Ej. 4</dt><dd><code>=SI.CONJUNTO(A2&lt;5;"Crítico";A2&lt;=20;"Bajo";A2&lt;=50;"Normal";A2&gt;50;"Alto")</code></dd><dt>Ej. 5</dt><dd><code>=SI.CONJUNTO(A2&lt;0;"Congelación";A2&lt;=10;"Frío";A2&lt;=25;"Templado";A2&gt;25;"Calor")</code></dd><dt>Ej. 6</dt><dd><code>=SI.CONJUNTO(A2&lt;18,5;"Bajo peso";A2&lt;25;"Normal";A2&lt;30;"Sobrepeso";A2&gt;=30;"Obesidad")</code><br><span class="small text-muted">Con <code>&lt;25</code> en lugar de <code>&lt;=24,9</code> no se escapa ningún valor como 24,95</span></dd><dt>Ej. 7</dt><dd><code>=SI.CONJUNTO(A2=1;"Muy insatisfecho";A2=2;"Insatisfecho";A2=3;"Neutral";A2=4;"Satisfecho";A2=5;"Muy satisfecho")</code><br><span class="small text-muted">Cuando cada caso es un valor exacto, <code>CAMBIAR</code> (actividad 5.8) es más corta</span></dd><dt>Ej. 8</dt><dd><code>=SI.CONJUNTO(A2=0;"No iniciada";A2&lt;100;"En progreso";A2=100;"Completada")</code><br><span class="small text-muted">Una «No iniciada» (0), una «Completada» (100) y el resto «En progreso»</span></dd><dt>Ej. 9</dt><dd><code>=SI.CONJUNTO(A2&lt;=1;"Urgente";A2&lt;=3;"Alta";A2&lt;=7;"Media";A2&gt;7;"Baja")</code><br><span class="small text-muted">0 y 1 Urgente · 2 y 3 Alta · 4 a 7 Media · 8 y 9 Baja</span></dd><dt>Ej. 10</dt><dd><code>=SI.CONJUNTO(A2&lt;60;"Rojo";A2&lt;=80;"Amarillo";A2&gt;80;"Verde")</code></dd></dl></details>
+        </li>
+        <li class="paso">
+            <h3>Nivel intermedio: importes y dos columnas</h3>
+            <p>Libro <strong>intermedio</strong>. En los ejercicios 1 a 3 el resultado va en la columna B; en el 4, en la C, y en el 5, en la D. Arrastra hasta la fila 11.</p><ul><li><strong>Ejercicio 1.</strong> <em>Nota en letras.</em> 90-100: «A»; 80-89: «B»; 70-79: «C»; 60-69: «D»; 0-59: «F».</li><li><strong>Ejercicio 2.</strong> <em>Estado de pedidos.</em> 0-1 días: «Procesando»; 2-3: «Enviado»; 4-5: «En tránsito»; 6 o más: «Entregado».</li><li><strong>Ejercicio 3.</strong> <em>Bonificación.</em> Ventas de más de 50.000 €: 10 %; de 30.000 a 50.000 €: 7 %; de 15.000 a 29.999 €: 5 %; menos de 15.000 €: sin bonificación (0). Calcula la bonificación en euros.</li><li><strong>Ejercicio 4.</strong> <em>Evaluación del empleado</em> (A: % de objetivos; B: años de antigüedad). Más del 90 %: «Excelente». Del 75 al 90 % y más de 2 años: «Bueno». Del 75 al 90 % y 2 años o menos: «Aceptable». Del 50 al 74 %: «Regular». Menos del 50 %: «Deficiente».</li><li><strong>Ejercicio 5.</strong> <em>Precio final con descuento</em> (B: precio base; C: categoría del cliente). «Premium»: 20 % de descuento. «Regular» con producto de más de 1000 €: 15 %. «Regular» con producto de 1000 € o menos: 10 %. «Nuevo» con producto de más de 500 €: 5 %. En cualquier otro caso, el precio base.</li></ul><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Dentro de <code>SI.CONJUNTO</code> una condición puede ser <code>Y(…)</code>: así compruebas a la vez la categoría y el precio. Como las condiciones se miran en orden, en el ejercicio 4 no hace falta repetir «≤ 90 %» después de haber comprobado «&gt; 90 %».</div><details><summary>Ver la solución</summary><dl class="formulas"><dt>Ej. 1 · B2</dt><dd><code>=SI.CONJUNTO(A2&gt;=90;"A";A2&gt;=80;"B";A2&gt;=70;"C";A2&gt;=60;"D";A2&lt;60;"F")</code></dd><dt>Ej. 2 · B2</dt><dd><code>=SI.CONJUNTO(A2&lt;=1;"Procesando";A2&lt;=3;"Enviado";A2&lt;=5;"En tránsito";A2&gt;=6;"Entregado")</code></dd><dt>Ej. 3 · B2</dt><dd><code>=SI.CONJUNTO(A2&gt;50000;A2*0,1;A2&gt;=30000;A2*0,07;A2&gt;=15000;A2*0,05;A2&lt;15000;0)</code><br><span class="small text-muted">40.000 € → 2.800 € · 60.000 € → 6.000 € · 20.000 € → 1.000 €</span></dd><dt>Ej. 4 · C2</dt><dd><code>=SI.CONJUNTO(A2&gt;90;"Excelente";Y(A2&gt;=75;B2&gt;2);"Bueno";A2&gt;=75;"Aceptable";A2&gt;=50;"Regular";A2&lt;50;"Deficiente")</code><br><span class="small text-muted">82 % y 3 años → Bueno · 80 % y 2 años → Aceptable · 47 % → Deficiente</span></dd><dt>Ej. 5 · D2</dt><dd><code>=SI.CONJUNTO(C2="Premium";B2*0,8;Y(C2="Regular";B2&gt;1000);B2*0,85;C2="Regular";B2*0,9;Y(C2="Nuevo";B2&gt;500);B2*0,95;VERDADERO;B2)</code><br><span class="small text-muted">1.200; 270; 150; 80; 585; 120; 144; 144; 130 y 360 €</span></dd></dl></details>
+        </li>
+        <li class="paso">
+            <h3>Nivel avanzado: SI.CONJUNTO con Y y O</h3>
+            <p>Libro <strong>avanzado</strong>. Cada pestaña tiene varias columnas de datos y la columna del resultado ya tiene encabezado (D, E y F). Combina <code>Y</code> y <code>O</code> dentro de cada condición.</p><ul><li><strong>Ejercicio 1.</strong> <em>Tipo de interés del préstamo</em> (A: importe; B: puntuación crediticia; C: años). 3,5 %: importe &lt; 100.000 € y puntuación &gt; 750 y plazo ≤ 15 años. 4,2 %: importe &lt; 100.000 € y puntuación &gt; 700 y ≤ 750 y plazo ≤ 20 años. 4,8 %: importe ≥ 100.000 € y puntuación &gt; 700 y plazo ≤ 15 años. 5,5 %: importe ≥ 150.000 € o puntuación ≤ 700 o plazo &gt; 20 años. 6,8 %: cualquier otro caso.</li><li><strong>Ejercicio 2.</strong> <em>Comisión en euros</em> (B: departamento; C: ventas; D: clientes nuevos). Tecnología: 3 % si ventas &gt; 50.000 € y ≥ 5 clientes nuevos; 2 % si ventas &gt; 30.000 € o ≥ 8 clientes; 1 % en otros casos. Hogar: 4 % si ventas &gt; 45.000 € y ≥ 7 clientes; 2,5 % si ventas &gt; 25.000 € o ≥ 5 clientes; 1,2 % en otros casos. Moda: 5 % si ventas &gt; 35.000 € y ≥ 10 clientes; 3 % si ventas &gt; 20.000 € o ≥ 6 clientes; 1,5 % en otros casos.</li><li><strong>Ejercicio 3.</strong> <em>Clasificación de productos</em> (B: precio; C: unidades vendidas; D: días de rotación; E: margen %). «Producto Estrella»: precio &gt; 500 € y ventas &gt; 100 y rotación &lt; 15 días y margen &gt; 35 %. «Alto Rendimiento»: (precio &gt; 300 € y ventas &gt; 80) o (rotación &lt; 20 días y margen &gt; 30 %). «Rendimiento Medio»: (precio &gt; 150 € y ventas &gt; 50) o (rotación &lt; 30 días y margen &gt; 25 %). «Bajo Rendimiento»: (precio &lt; 100 € o ventas &lt; 30) y (rotación &gt; 45 días o margen &lt; 20 %). «Evaluación Necesaria»: cualquier otro caso.</li></ul><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Escribe las fórmulas largas en varias líneas con <kbd>Ctrl</kbd> + <kbd>Intro</kbd> dentro de la celda: Google Sheets las acepta igual y se leen mucho mejor. En el ejercicio 3 el margen está escrito como número (40), no como porcentaje.</div><details><summary>Ver la solución</summary><dl class="formulas"><dt>Ej. 1 · D2</dt><dd><code>=SI.CONJUNTO(Y(A2&lt;100000;B2&gt;750;C2&lt;=15);0,035;Y(A2&lt;100000;B2&gt;700;B2&lt;=750;C2&lt;=20);0,042;Y(A2&gt;=100000;B2&gt;700;C2&lt;=15);0,048;O(A2&gt;=150000;B2&lt;=700;C2&gt;20);0,055;VERDADERO;0,068)</code><br><span class="small text-muted">3,5 %; 4,2 %; 4,8 %; 5,5 % y 6,8 % (formato de porcentaje)</span></dd><dt>Ej. 2 · E2</dt><dd><code>=SI.CONJUNTO(Y(B2="Tecnología";C2&gt;50000;D2&gt;=5);C2*0,03;Y(B2="Tecnología";O(C2&gt;30000;D2&gt;=8));C2*0,02;B2="Tecnología";C2*0,01;Y(B2="Hogar";C2&gt;45000;D2&gt;=7);C2*0,04;Y(B2="Hogar";O(C2&gt;25000;D2&gt;=5));C2*0,025;B2="Hogar";C2*0,012;Y(B2="Moda";C2&gt;35000;D2&gt;=10);C2*0,05;Y(B2="Moda";O(C2&gt;20000;D2&gt;=6));C2*0,03;B2="Moda";C2*0,015)</code><br><span class="small text-muted">Laura 1.650 € · Pedro 1.000 € · Ana 1.900 € · Jorge 560 € · Marta 240 €</span></dd><dt>Ej. 3 · F2</dt><dd><code>=SI.CONJUNTO(Y(B2&gt;500;C2&gt;100;D2&lt;15;E2&gt;35);"Producto Estrella";O(Y(B2&gt;300;C2&gt;80);Y(D2&lt;20;E2&gt;30));"Alto Rendimiento";O(Y(B2&gt;150;C2&gt;50);Y(D2&lt;30;E2&gt;25));"Rendimiento Medio";Y(O(B2&lt;100;C2&lt;30);O(D2&gt;45;E2&lt;20));"Bajo Rendimiento";VERDADERO;"Evaluación Necesaria")</code><br><span class="small text-muted">P001 Estrella · P002 Alto · P003 Medio · P004 Bajo · P005 Evaluación Necesaria</span></dd></dl></details>
+        </li>
+        <li class="paso">
+            <h3>Prueba los límites de cada tramo</h3>
+            <p>Una fórmula de tramos suele fallar justo en los límites. En el ejercicio 1 del nivel básico, escribe a mano en A2 los valores 59, 60, 69, 70, 89 y 90, uno detrás de otro, y comprueba que B2 cambia de «Suspenso» a «Aprobado», a «Notable» y a «Sobresaliente» en el sitio correcto. Haz lo mismo con otro ejercicio que elijas.</p><p>Al terminar, deshaz los cambios (<kbd>Ctrl</kbd> + <kbd>Z</kbd>) para recuperar la fórmula <code>ALEATORIO.ENTRE</code> de A2. Da formato de moneda a los importes y de porcentaje a los tipos de interés.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-7">
+        <li><label><input type="checkbox"><span>Los libros se llaman <code>ApellidoNombre_AO_Actividad5.7</code> con <code>_Basico</code>, <code>_Intermedio</code> y <code>_Avanzado</code> al final.</span></label></li>
+        <li><label><input type="checkbox"><span>Todos los resultados se calculan con <code>SI.CONJUNTO</code>, sin <code>SI</code> anidados.</span></label></li>
+        <li><label><input type="checkbox"><span>En el nivel básico no sale ningún <code>#N/A</code>, aunque los números aleatorios cambien.</span></label></li>
+        <li><label><input type="checkbox"><span>Intermedio, ejercicio 5: el portátil queda en 1.200 € y la tarjeta gráfica, en 585 €.</span></label></li>
+        <li><label><input type="checkbox"><span>Avanzado, ejercicio 1: salen los tipos 3,5 %, 4,2 %, 4,8 %, 5,5 % y 6,8 %, con formato de porcentaje.</span></label></li>
+        <li><label><input type="checkbox"><span>Avanzado, ejercicio 3: aparecen las cinco clasificaciones, una por producto.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-6"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.6</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-8">Siguiente: 5.8. La función CAMBIAR <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

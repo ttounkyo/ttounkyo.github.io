@@ -1,0 +1,165 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.9</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.9. BUSCARV y BUSCARH</h1>
+    <p class="lead">Vas a buscar datos en una tabla a partir de un valor: el día del año a partir del mes, la profesión, el cargo y el sueldo de cada cliente a partir de su número, y el precio y el stock de una fruta a partir de su código.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>La función <code>BUSCARV</code> con coincidencia exacta (<code>FALSO</code>) y aproximada</li>
+                    <li>Buscar en otra hoja del libro (<code>'BD 2'!A2:D80</code>)</li>
+                    <li>Referencias absolutas (<code>$</code>) en el rango de búsqueda</li>
+                    <li>La función <code>BUSCARH</code> para tablas horizontales</li>
+                    <li>Separar texto en columnas con <code>DIVIDIR</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-13-funciones">5.13. Funciones</a> y <a href="#/Unidad-5/index?sec=5-14-copiar-formulas-y-funciones-referencias-absolutas-y-relativas">5.14. Referencias absolutas y relativas</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-9-plantilla.xlsx" download><i class="bi bi-file-earmark-spreadsheet me-1"></i>Libro de partida (plantilla)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-9-dia-del-ano.xlsx" download><i class="bi bi-download me-1"></i>Libro del día del año (BUSCARV aproximado)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-9-buscarh.xlsx" download><i class="bi bi-download me-1"></i>Libro de las frutas (BUSCARH)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.9</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Libros</th>
+                <td>Tres: el de clientes con ese nombre, y los del día del año y las frutas con <code>_DiaDelAno</code> y <code>_BuscarH</code> al final.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Cómo funciona BUSCARV</h3>
+            <p><code>BUSCARV</code> busca un valor en la <strong>primera columna</strong> de una tabla y devuelve el dato que está en la misma fila, en la columna que le digas:</p><p><code>=BUSCARV(valor_buscado; tabla; número_de_columna; FALSO)</code></p><ul><li><strong>valor_buscado</strong>: lo que buscas (un número de cliente, un código…).</li><li><strong>tabla</strong>: el rango donde buscar. El valor tiene que estar en su primera columna.</li><li><strong>número_de_columna</strong>: qué columna de la tabla quieres traer (1 es la primera).</li><li><strong>FALSO</strong>: busca el valor exacto. Si lo omites o pones <code>VERDADERO</code>, busca el más cercano por debajo, y entonces la primera columna tiene que estar ordenada de menor a mayor.</li></ul><p>Ejemplo: <code>=BUSCARV(F2;'BD 2'!$A$2:$D$80;3;FALSO)</code> busca el número de F2 en la columna A de la hoja <em>BD 2</em> y devuelve lo que hay en la tercera columna (C).</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Fija la tabla con <code>$</code> (<kbd>F4</kbd> mientras escribes el rango). Si no, al arrastrar la fórmula hacia abajo la tabla también se mueve y empiezan a salir errores <code>#N/A</code>.</div>
+        </li>
+        <li class="paso">
+            <h3>Calentamiento: el día del año</h3>
+            <p>Abre el libro <strong>del día del año</strong> (pestaña <em>5.8. BuscarV</em>, en catalán). En la <em>TAULA</em> (tabla) tienes, para cada mes, sus días (columna F) y los días que han pasado antes de que empiece (columna G).</p><p>En C5 (<em>Dia de l'any</em>, día del año) calcula qué número de día del año es la fecha de C3 (día) y C4 (mes): el día más los días acumulados antes de ese mes, que sacas de la tabla con <code>BUSCARV</code>.</p><p>Con el 3 de marzo debe salir 62. Cambia el día y el mes para probar otras fechas.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>La fórmula de la solución no lleva el cuarto argumento, así que hace una búsqueda aproximada. Aquí funciona porque los meses están ordenados de 1 a 12. Si añades <code>;FALSO</code> al final da el mismo resultado.</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr>
+                        <tr><th>2</th><td colspan="2" style="background-color:#FFFFCC"><strong>CONSULTA</strong></td><td></td><td colspan="3" style="background-color:#FFFFCC"><strong>TAULA</strong></td></tr>
+                        <tr><th>3</th><td style="background-color:#FFFFCC"><strong>Dia</strong></td><td class="num" style="background-color:#FFFFCC"><strong>3</strong></td><td></td><td class="num" style="background-color:#FFFFCC"><strong>1</strong></td><td class="num" style="background-color:#FFFFCC"><strong>31</strong></td><td class="num" style="background-color:#FFFFCC"><strong>0</strong></td></tr>
+                        <tr><th>4</th><td style="background-color:#FFFFCC"><strong>Mes</strong></td><td class="num" style="background-color:#FFFFCC"><strong>3</strong></td><td></td><td class="num" style="background-color:#FFFFCC"><strong>2</strong></td><td class="num" style="background-color:#FFFFCC"><strong>28</strong></td><td class="num" style="background-color:#FFFFCC"><strong>31</strong></td></tr>
+                        <tr><th>5</th><td style="background-color:#FFFFCC"><strong>Dia de l&#x27;any</strong></td><td class="num formula" style="background-color:#FFFFCC"><strong>62</strong></td><td></td><td class="num" style="background-color:#FFFFCC"><strong>3</strong></td><td class="num" style="background-color:#FFFFCC"><strong>31</strong></td><td class="num" style="background-color:#FFFFCC"><strong>59</strong></td></tr>
+                        <tr><th>6</th><td></td><td></td><td></td><td class="num" style="background-color:#FFFFCC"><strong>4</strong></td><td class="num" style="background-color:#FFFFCC"><strong>30</strong></td><td class="num" style="background-color:#FFFFCC"><strong>90</strong></td></tr>
+                        <tr><th>7</th><td></td><td></td><td></td><td class="num" style="background-color:#FFFFCC"><strong>5</strong></td><td class="num" style="background-color:#FFFFCC"><strong>31</strong></td><td class="num" style="background-color:#FFFFCC"><strong>120</strong></td></tr>
+                        <tr><th>8</th><td></td><td></td><td></td><td class="num" style="background-color:#FFFFCC"><strong>6</strong></td><td class="num" style="background-color:#FFFFCC"><strong>30</strong></td><td class="num" style="background-color:#FFFFCC"><strong>151</strong></td></tr>
+                        <tr><th>9</th><td></td><td></td><td></td><td class="num" style="background-color:#FFFFCC"><strong>7</strong></td><td class="num" style="background-color:#FFFFCC"><strong>31</strong></td><td class="num" style="background-color:#FFFFCC"><strong>181</strong></td></tr>
+                        <tr><th>10</th><td></td><td></td><td></td><td class="num" style="background-color:#FFFFCC"><strong>8</strong></td><td class="num" style="background-color:#FFFFCC"><strong>31</strong></td><td class="num" style="background-color:#FFFFCC"><strong>212</strong></td></tr>
+                        <tr><th>11</th><td></td><td></td><td></td><td class="num" style="background-color:#FFFFCC"><strong>9</strong></td><td class="num" style="background-color:#FFFFCC"><strong>30</strong></td><td class="num" style="background-color:#FFFFCC"><strong>243</strong></td></tr>
+                        <tr><th>12</th><td></td><td></td><td></td><td class="num" style="background-color:#FFFFCC"><strong>10</strong></td><td class="num" style="background-color:#FFFFCC"><strong>31</strong></td><td class="num" style="background-color:#FFFFCC"><strong>273</strong></td></tr>
+                        <tr><th>13</th><td></td><td></td><td></td><td class="num" style="background-color:#FFFFCC"><strong>11</strong></td><td class="num" style="background-color:#FFFFCC"><strong>30</strong></td><td class="num" style="background-color:#FFFFCC"><strong>304</strong></td></tr>
+                        <tr><th>14</th><td></td><td></td><td></td><td class="num" style="background-color:#FFFFCC"><strong>12</strong></td><td class="num" style="background-color:#FFFFCC"><strong>31</strong></td><td class="num" style="background-color:#FFFFCC"><strong>334</strong></td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>C5</dt><dd><code>=C3+BUSCARV(C4;E3:G14;3)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Revisa las dos hojas de clientes</h3>
+            <p>Importa el libro de partida. La hoja <em>BD 1</em> tiene los clientes (nombre, apellidos y número de cliente en la columna F) y la hoja <em>BD 2</em>, los datos laborales de cada número de cliente: profesión, cargo y sueldo.</p><p>En <em>BD 2</em>, la columna E (<em>SUELDO ACTUAL 2</em>) está vacía: es el sueldo de la columna D dividido entre 100. Escribe la fórmula en E2, arrástrala hasta la fila 80 y dale formato de moneda.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+                        <tr><th>1</th><td style="background-color:#C0C0C0"><strong>Nº CLIENTE</strong></td><td style="background-color:#C0C0C0"><strong>PROFESION</strong></td><td style="background-color:#C0C0C0"><strong>CARGO</strong></td><td style="background-color:#C0C0C0"><strong>SUELDO ACTUAL</strong></td><td><strong>SUELDO ACTUAL 2</strong></td></tr>
+                        <tr><th>2</th><td class="num">52.111.014</td><td>Bachiller</td><td>Celador</td><td class="num">247.500,00 €</td><td class="num formula">2.475,00 €</td></tr>
+                        <tr><th>3</th><td class="num">39.654.721</td><td>Tecnico Contabilidad</td><td>Asistente</td><td class="num">545.000,00 €</td><td class="num formula">5.450,00 €</td></tr>
+                        <tr><th>4</th><td class="num">39.214.500</td><td>Tecnico Contabilidad</td><td>Auxiliar</td><td class="num">462.000,00 €</td><td class="num formula">4.620,00 €</td></tr>
+                        <tr><th>5</th><td class="num">39.654.120</td><td>Secretariado Ejecutivo</td><td>Secretaria</td><td class="num">413.875,00 €</td><td class="num formula">4.138,75 €</td></tr>
+                        <tr><th>6</th><td class="num">79.125.500</td><td>Administrador de Empresas</td><td>Asistente</td><td class="num">599.500,00 €</td><td class="num formula">5.995,00 €</td></tr>
+                        <tr><th>7</th><td class="num">79.800.321</td><td>Tecnologo de Sistemas</td><td>Auxiliar</td><td class="num">429.000,00 €</td><td class="num formula">4.290,00 €</td></tr>
+                        <tr><th>8</th><td class="num">52.478.963</td><td>Secretariado Comercial</td><td>Secretaria</td><td class="num">376.250,00 €</td><td class="num formula">3.762,50 €</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>E2</dt><dd><code>=D2/100</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Separa los dos apellidos</h3>
+            <p>En <em>BD 1</em>, la columna C tiene los dos apellidos juntos. Para separarlos en <em>APELLIDO 1</em> (D) y <em>APELLIDO 2</em> (E), usa <code>DIVIDIR</code> (<code>SPLIT</code> en inglés), que corta un texto cada vez que encuentra un separador; aquí, el espacio.</p><p>Escribe la fórmula <strong>solo en D2</strong>: el segundo apellido aparece solo en E2. Arrástrala hasta la fila 81.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Si E2 tiene algo escrito, <code>DIVIDIR</code> no puede ocuparla y da error. Deja libre la columna E.</div><details><summary>Ver la solución</summary><dl class="formulas"><dt>D2</dt><dd><code>=DIVIDIR(C2;" ")</code><br><span class="small text-muted">«Naranjo Torres» → Naranjo | Torres</span></dd></dl></details>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr>
+                        <tr><th>1</th><td style="background-color:#C0C0C0"><strong>NOMBRE</strong></td><td style="background-color:#C0C0C0"><strong>APELLIDOS</strong></td><td style="background-color:#C0C0C0"><strong>APELLIDO 1</strong></td><td style="background-color:#C0C0C0"><strong>APELLIDO 2</strong></td><td style="background-color:#C0C0C0"><strong>Nº CLIENTE</strong></td></tr>
+                        <tr><th>2</th><td>Adriana</td><td>Naranjo Torres</td><td class="formula">Naranjo</td><td class="formula">Torres</td><td class="num">52.478.963</td></tr>
+                        <tr><th>3</th><td>Alberto</td><td>Osuna Lopez</td><td class="formula">Osuna</td><td class="formula">Lopez</td><td class="num">39.654.123</td></tr>
+                        <tr><th>4</th><td>Alexander</td><td>Henandez V.</td><td class="formula">Henandez</td><td class="formula">V.</td><td class="num">39.654.789</td></tr>
+                        <tr><th>5</th><td>Alfonso</td><td>Linares Zapata</td><td class="formula">Linares</td><td class="formula">Zapata</td><td class="num">39.258.852</td></tr>
+                        <tr><th>6</th><td>Alicia</td><td>Luque Angarita</td><td class="formula">Luque</td><td class="formula">Angarita</td><td class="num">79.636.241</td></tr>
+                        <tr><th>7</th><td>Alvaro</td><td>Medina Orozco</td><td class="formula">Medina</td><td class="formula">Orozco</td><td class="num">51.451.004</td></tr>
+                        <tr><th>8</th><td>Alvaro</td><td>Sandoval Perez</td><td class="formula">Sandoval</td><td class="formula">Perez</td><td class="num">52.487.412</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Trae la profesión, el cargo y el sueldo con BUSCARV</h3>
+            <p>En <em>BD 1</em>, completa <em>PROFESION</em> (G), <em>CARGO</em> (H) y <em>SUELDO ACTUAL</em> (I) buscando el número de cliente de la columna F en la hoja <em>BD 2</em>. Las tres fórmulas son iguales; solo cambia el número de columna (2, 3 y 4). Arrástralas hasta la fila 81 y da formato de moneda al sueldo.</p><p>Comprueba: Adriana (52478963) es <em>Secretariado Comercial</em>, <em>Secretaria</em> y cobra 376.250,00 €; Alberto (39654123) es <em>Contador Público</em>, <em>Subgerente</em>, con 3.990.000,00 €.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>La tabla de <em>BD 2</em> no está ordenada, por eso hace falta <code>FALSO</code>. Una clienta (Luz Marina, fila 51) da <code>#N/A</code> porque su número no está en <em>BD 2</em>: si quieres que salga un texto en su lugar, envuelve la fórmula con <code>SI.ERROR</code>, por ejemplo <code>=SI.ERROR(BUSCARV(…);"No encontrado")</code>. Algunos números de cliente están repetidos: <code>BUSCARV</code> devuelve siempre la primera fila que encuentra.</div><details><summary>Ver la solución</summary><dl class="formulas"><dt>G2</dt><dd><code>=BUSCARV($F2;'BD 2'!$A$2:$D$80;2;FALSO)</code></dd><dt>H2</dt><dd><code>=BUSCARV($F2;'BD 2'!$A$2:$D$80;3;FALSO)</code></dd><dt>I2</dt><dd><code>=BUSCARV($F2;'BD 2'!$A$2:$D$80;4;FALSO)</code></dd></dl></details>
+        </li>
+        <li class="paso">
+            <h3>BUSCARH: la tabla de frutas</h3>
+            <p><code>BUSCARH</code> es igual que <code>BUSCARV</code>, pero para tablas que van en horizontal: busca en la <strong>primera fila</strong> y devuelve el dato de la fila que le digas.</p><p><code>=BUSCARH(valor_buscado; tabla; número_de_fila; FALSO)</code></p><p>Abre el libro <strong>de las frutas</strong>. En la hoja <em>BD 2</em> está la tabla: los códigos del 1 al 7 en la fila 3 y, debajo, la fruta, el precio y el stock. En la hoja <em>BD 1</em> escribe un código en B3 y saca con <code>BUSCARH</code> la fruta (D3), el precio (F3) y el stock (H3). Si quieres, escribe los siete códigos de B3 a B9 y arrastra las fórmulas.</p><p>Comprueba: el código 1 son <em>MANZANAS</em>, a 8, con 121 de stock; el 6, <em>ALMENDRAS</em>, a 4, con 146.</p><details><summary>Ver la solución</summary><dl class="formulas"><dt>D3</dt><dd><code>=BUSCARH($B3;'BD 2'!$C$3:$I$6;2;FALSO)</code></dd><dt>F3</dt><dd><code>=BUSCARH($B3;'BD 2'!$C$3:$I$6;3;FALSO)</code></dd><dt>H3</dt><dd><code>=BUSCARH($B3;'BD 2'!$C$3:$I$6;4;FALSO)</code></dd></dl><p class="small mb-0">La tabla empieza en C3 (el primer código). Si la empiezas en B3, también funciona: la columna B solo tiene los títulos.</p></details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-9">
+        <li><label><input type="checkbox"><span>El libro de clientes se llama <code>ApellidoNombre_AO_Actividad5.9</code>, y los otros dos, igual con <code>_DiaDelAno</code> y <code>_BuscarH</code> al final.</span></label></li>
+        <li><label><input type="checkbox"><span>El 3 de marzo da el día 62 del año, y la fórmula usa <code>BUSCARV</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>En <em>BD 1</em>, los apellidos están separados en D y E con una sola fórmula por fila.</span></label></li>
+        <li><label><input type="checkbox"><span>G, H e I de <em>BD 1</em> usan <code>BUSCARV</code> con la tabla fijada con <code>$</code> y <code>FALSO</code>, hasta la fila 81.</span></label></li>
+        <li><label><input type="checkbox"><span>Adriana sale como Secretariado Comercial, Secretaria, 376.250,00 €.</span></label></li>
+        <li><label><input type="checkbox"><span>En el libro de frutas, D3, F3 y H3 usan <code>BUSCARH</code> y cambian al cambiar el código de B3.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-8"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.8</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-10">Siguiente: 5.10. Clientes y facturación <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

@@ -1,0 +1,152 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.16</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.16. Macros</h1>
+    <p class="lead">Vas a convertir una hoja en un pequeño formulario para gestionar los datos de unas personas. Grabarás macros para que los botones GUARDAR, BUSCAR y LIMPIAR hagan solos el trabajo de copiar, buscar y borrar.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Grabar una macro con <span class="ruta-menu">Extensiones → Macros → Grabar macro</span></li>
+                    <li>Referencias absolutas y relativas en una macro</li>
+                    <li>Ejecutar una macro desde el menú o con un atajo de teclado</li>
+                    <li>Asignar una macro a un botón (un dibujo)</li>
+                    <li>Pegado especial de solo valores y <code>BUSCARV</code> dentro de una macro</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Las macros de Google Sheets se guardan como código de <strong>Apps Script</strong> dentro del libro de Google. Un archivo .xlsx <strong>no guarda las macros</strong>: los libros que descargas aquí traen los botones, pero sin ninguna macro asignada. Por eso las grabas tú.</li>
+                    <li>La primera vez que ejecutes una macro, Google te pedirá autorización: elige tu cuenta y pulsa <em>Permitir</em>.</li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-16-plantilla.xlsx" download><i class="bi bi-file-earmark-spreadsheet me-1"></i>Libro de partida (plantilla)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-16-inventario-ventas.xlsx" download><i class="bi bi-download me-1"></i>Ejemplo más completo: gestión de inventario y ventas (sin macros)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.16</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Hojas</th>
+                <td><code>Formulario</code> y <code>Datos</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Entrega</th>
+                <td>Comparte el <strong>enlace</strong> del libro de Google Sheets. No lo descargues como .xlsx: se perderían las macros.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Abre el libro y mira el formulario</h3>
+            <p>Importa el libro de partida. La hoja <code>Formulario</code> tiene:</p><ul><li>En B3, un desplegable con los ID de la hoja <code>Datos</code> y, al lado, el botón <strong>BUSCAR</strong>.</li><li>Los campos: ID (B6), CORREO (D6), NOMBRE (B8), TELÉFONO (D8), Sexo (B10, desplegable con Masculino, Femenino, Prefiero no decirlo y Otro) y FECHA (D10).</li><li>En la fila 11, los botones <strong>LIMPIAR</strong>, <strong>GUARDAR</strong>, <strong>ACTUALIZAR</strong> y <strong>ELIMINAR</strong>.</li></ul><p>La hoja <code>Datos</code> guarda una persona por fila, sin encabezados: A ID, B nombre, C sexo, D correo, E teléfono y F fecha. Ya hay un registro de ejemplo (1, Erik…). Borra el texto de prueba que hay en B6.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Si al importar no aparecen los botones, los crearás en el paso 6.</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th></tr>
+                        <tr><th>1</th><td colspan="3" style="background-color:#93C47D"><strong>FORMULARIO PARA GESTIONAR LOS DATOS</strong></td></tr>
+                        <tr><th>2</th><td style="background-color:#00FF00"></td><td style="background-color:#00FF00"></td><td style="background-color:#00FF00"></td></tr>
+                        <tr><th>3</th><td style="background-color:#38761D">ID</td><td></td><td style="background-color:#00FF00"></td></tr>
+                        <tr><th>4</th><td style="background-color:#00FF00"></td><td style="background-color:#00FF00"></td><td style="background-color:#00FF00"></td></tr>
+                        <tr><th>5</th><td style="background-color:#00FF00"></td><td style="background-color:#00FF00"></td><td style="background-color:#00FF00"></td></tr>
+                        <tr><th>6</th><td style="background-color:#38761D">ID</td><td>asdfghjk</td><td style="background-color:#38761D">CORREO</td></tr>
+                        <tr><th>7</th><td style="background-color:#00FF00"></td><td style="background-color:#00FF00"></td><td style="background-color:#00FF00"></td></tr>
+                        <tr><th>8</th><td style="background-color:#38761D">NOMBRE</td><td></td><td style="background-color:#38761D">TELÉFONO</td></tr>
+                        <tr><th>9</th><td style="background-color:#00FF00"></td><td style="background-color:#00FF00"></td><td style="background-color:#00FF00"></td></tr>
+                        <tr><th>10</th><td style="background-color:#38761D">Sexo</td><td></td><td style="background-color:#38761D">FECHA</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Prepara una fila auxiliar</h3>
+            <p>Los campos del formulario están repartidos, pero en <code>Datos</code> tienen que ir seguidos en una fila. Para que la macro los copie de una vez, en la fila 13 del <code>Formulario</code> reúnelos en el mismo orden que en <code>Datos</code>: en A13 <code>=B6</code>, en B13 <code>=B8</code>, en C13 <code>=B10</code>, en D13 <code>=D6</code>, en E13 <code>=D8</code> y en F13 <code>=D10</code>.</p><p>Rellena el formulario con una persona inventada y comprueba que la fila 13 muestra sus datos en orden. Si quieres, pon la fila en gris o escóndela más tarde.</p>
+        </li>
+        <li class="paso">
+            <h3>Graba la macro LIMPIAR</h3>
+            <p>Grabar una macro es como encender una grabadora: Google Sheets apunta todo lo que haces y después lo repite cuando quieras.</p><ol><li>Ve a <span class="ruta-menu">Extensiones → Macros → Grabar macro</span>. Abajo aparece un aviso <em>Grabando nueva macro</em> con dos opciones: elige <strong>Usar referencias absolutas</strong> (la macro trabajará siempre en las mismas celdas; con relativas, trabajaría a partir de la celda que tengas seleccionada).</li><li>Selecciona los campos B6, D6, B8, D8, B10 y D10 (mantén <kbd>Ctrl</kbd> pulsado para seleccionar varias celdas) y pulsa <kbd>Supr</kbd>.</li><li>Pulsa <strong>Guardar</strong>, ponle el nombre <code>Limpiar</code> y, si quieres, un atajo (<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Mayús</kbd>+<kbd>1</kbd>).</li></ol><p>Pruébala: escribe algo en los campos y ejecútala desde <span class="ruta-menu">Extensiones → Macros → Limpiar</span>.</p>
+        </li>
+        <li class="paso">
+            <h3>Graba la macro GUARDAR</h3>
+            <p>Rellena el formulario con otra persona (con un ID nuevo) y graba una macro nueva, también con referencias absolutas, que haga esto:</p><ol><li>Ve a <code>Datos</code>, haz clic derecho en el número de la fila 1 y elige <em>Insertar 1 fila encima</em>.</li><li>Vuelve al <code>Formulario</code>, selecciona A13:F13 y cópialo (<kbd>Ctrl</kbd>+<kbd>C</kbd>).</li><li>En <code>Datos</code>, haz clic en A1 y pega solo los valores (<kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>V</kbd>).</li><li>Vuelve al <code>Formulario</code> y borra los campos B6, D6, B8, D8, B10 y D10.</li><li>Guarda la macro con el nombre <code>Guardar</code>.</li></ol><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Hay que pegar <strong>solo los valores</strong>: si pegaras la fila tal cual, en <code>Datos</code> quedarían fórmulas como <code>=Formulario!B6</code>, y al borrar el formulario se borraría también el registro.</div>
+        </li>
+        <li class="paso">
+            <h3>Graba la macro BUSCAR</h3>
+            <p>Elige un ID en el desplegable de B3 y graba una macro nueva (referencias absolutas):</p><ol><li>En cada campo escribe un <code>BUSCARV</code> que busque el ID de B3 en <code>Datos</code> y devuelva su columna: la 1 para el ID (B6), la 2 para el nombre (B8), la 3 para el sexo (B10), la 4 para el correo (D6), la 5 para el teléfono (D8) y la 6 para la fecha (D10).</li><li>Selecciona B6:D10, cópialo y pega solo los valores encima (<kbd>Ctrl</kbd>+<kbd>Mayús</kbd>+<kbd>V</kbd>). Así los campos quedan con datos normales que puedes cambiar.</li><li>Guarda la macro con el nombre <code>Buscar</code>.</li></ol><p>Pruébala: elige otro ID en B3, ejecuta la macro y comprueba que salen sus datos. Si la fecha sale como un número, dale formato de fecha a D10.</p><details><summary>Ver la solución</summary><dl class="formulas"><dt>B6</dt><dd><code>=BUSCARV($B$3;Datos!$A:$F;1;FALSO)</code></dd><dt>B8</dt><dd><code>=BUSCARV($B$3;Datos!$A:$F;2;FALSO)</code></dd><dt>B10</dt><dd><code>=BUSCARV($B$3;Datos!$A:$F;3;FALSO)</code></dd><dt>D6</dt><dd><code>=BUSCARV($B$3;Datos!$A:$F;4;FALSO)</code></dd><dt>D8</dt><dd><code>=BUSCARV($B$3;Datos!$A:$F;5;FALSO)</code></dd><dt>D10</dt><dd><code>=BUSCARV($B$3;Datos!$A:$F;6;FALSO)</code></dd></dl></details>
+        </li>
+        <li class="paso">
+            <h3>Asigna las macros a los botones</h3>
+            <p>Haz clic en el botón <strong>LIMPIAR</strong>, abre su menú (los tres puntos de la esquina), elige <strong>Asignar secuencia de comandos</strong> y escribe el nombre de la macro: <code>Limpiar</code>. Haz lo mismo con <strong>GUARDAR</strong> (<code>Guardar</code>) y <strong>BUSCAR</strong> (<code>Buscar</code>).</p><p>Si no tienes los botones, créalos con <span class="ruta-menu">Insertar → Dibujo</span>: dibuja una forma, escribe el texto dentro, pulsa <em>Guardar y cerrar</em> y colócala en su sitio.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>El nombre que escribes es el de la función de Apps Script. Lo puedes ver en <span class="ruta-menu">Extensiones → Apps Script</span>: cada macro grabada aparece como <code>function Guardar() { … }</code> con todo lo que hiciste. Una vez asignado, el clic ejecuta la macro; para mover o editar el botón, haz clic derecho sobre él.</div>
+        </li>
+        <li class="paso">
+            <h3>Prueba el formulario completo</h3>
+            <p>Usa solo los botones: guarda al menos tres personas con GUARDAR, busca una con BUSCAR y deja el formulario vacío con LIMPIAR. Comprueba en <code>Datos</code> que cada persona ocupa una fila y que no hay fórmulas.</p><p>Los botones <strong>ACTUALIZAR</strong> y <strong>ELIMINAR</strong> necesitan localizar la fila del ID que estás viendo, y eso no se puede grabar: hay que programarlo en Apps Script. Son un reto opcional; si te animas, consúltalo en clase.</p>
+        </li>
+        <li class="paso">
+            <h3>Para ir más allá: inventario y ventas</h3>
+            <p>El ejemplo de gestión de inventario y ventas usa la misma idea con más hojas: <code>Productos</code>, <code>Clientes</code>, <code>Ventas</code>, un <code>Reporte</code> y tres formularios (<code>Formulario - Producto</code>, <code>Formulario - Clientes</code> y <code>Hoja 7</code>, para las ventas), cada uno con su botón de guardar.</p><p>Fíjate en <code>Formulario - Clientes</code>: calcula solo el código del cliente siguiente contando los que ya hay, genera el correo a partir del nombre y un teléfono al azar. En <code>Reporte</code>, <code>SUMAR.SI</code> calcula las unidades vendidas de un producto y <code>BUSCARV</code> su stock restante. Puedes grabar las macros de guardar de cada formulario igual que hiciste con GUARDAR.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+                        <tr><th>1</th><td><strong>Código Cliente</strong></td><td><strong>Nombre</strong></td><td><strong>Email</strong></td><td><strong>Teléfono</strong></td><td></td></tr>
+                        <tr><th>2</th><td class="num formula">8</td><td></td><td class="formula"></td><td class="formula"></td><td class="formula">C008</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>A2</dt><dd><code>=CONTAR(Clientes!D:D)+1</code></dd>
+                    <dt>C2</dt><dd><code>=SI(B2=&quot;&quot;;&quot;&quot;;MINUSC(CONCATENAR(B2;&quot;@gmail.com&quot;)))</code></dd>
+                    <dt>D2</dt><dd><code>=SI(B2=&quot;&quot;;&quot;&quot;;ALEATORIO.ENTRE(600000000;799999999))</code></dd>
+                    <dt>E2</dt><dd><code>=CONCATENAR(&quot;C00&quot;;A2)</code></dd>
+                </dl>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-16">
+        <li><label><input type="checkbox"><span>El libro se llama <code>ApellidoNombre_AO_Actividad5.16</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>La fila 13 del <code>Formulario</code> reúne los seis campos en el mismo orden que la hoja <code>Datos</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>En <span class="ruta-menu">Extensiones → Macros</span> están las macros <code>Limpiar</code>, <code>Guardar</code> y <code>Buscar</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>GUARDAR añade una fila arriba en <code>Datos</code> con solo valores y deja el formulario vacío.</span></label></li>
+        <li><label><input type="checkbox"><span>BUSCAR rellena los campos con los datos del ID elegido en B3.</span></label></li>
+        <li><label><input type="checkbox"><span>Los botones LIMPIAR, GUARDAR y BUSCAR tienen asignada su macro.</span></label></li>
+        <li><label><input type="checkbox"><span><code>Datos</code> tiene al menos tres personas guardadas con el formulario.</span></label></li>
+        <li><label><input type="checkbox"><span>Has entregado el enlace del libro de Google Sheets, no un archivo .xlsx.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-15"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.15</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-17">Siguiente: 5.17. Áreas, frutería, sueldos y notas <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

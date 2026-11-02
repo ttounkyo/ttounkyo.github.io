@@ -1,0 +1,118 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.12</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.12. Datos duplicados</h1>
+    <p class="lead">Tienes una lista de 51 frutas en la que muchas filas se repiten. Vas a contar cuántas veces sale cada fruta, resaltar las filas repetidas y conseguir la lista sin duplicados de dos formas: con una fórmula y con la herramienta de limpieza de Google Sheets.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Contar repeticiones con <code>CONTAR.SI</code></li>
+                    <li>Resaltar duplicados con formato condicional y una fórmula personalizada</li>
+                    <li>Sacar los valores sin repetir con <code>UNIQUE</code></li>
+                    <li>Quitar duplicados con <span class="ruta-menu">Datos → Limpieza de datos</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-15-usando-formato-condicional">5.15. Usando formato condicional</a> y <a href="#/Unidad-5/index?sec=5-13-funciones">5.13. Funciones</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-12-plantilla.xlsx" download><i class="bi bi-file-earmark-spreadsheet me-1"></i>Libro de partida (plantilla)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.12</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Hojas</th>
+                <td><code>Primera Hoja</code> (recuento, formato condicional y <code>UNIQUE</code>) y <code>Sin duplicados</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Revisa los datos</h3>
+            <p>Importa el libro de partida. En <code>Primera Hoja</code> hay 51 frutas (filas 2 a 52) con cuatro columnas: <strong>Fruta</strong>, <strong>Color</strong>, <strong>Tamaño</strong> y <strong>Estado</strong>.</p><p>Una fila está <strong>duplicada</strong> cuando coinciden las cuatro columnas. Por ejemplo, <em>Kiwi · Verde · Pequeña · Exótica</em> aparece cuatro veces (filas 14, 22, 30 y 46). En cambio, el kiwi de la fila 8 es marrón y mediano: es la misma fruta, pero no la misma fila.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th></tr>
+                        <tr><th>1</th><td>Fruta</td><td>Color</td><td>Tamaño</td><td>Estado</td></tr>
+                        <tr><th>2</th><td>Manzana</td><td>Roja</td><td>Grande</td><td>Fresca</td></tr>
+                        <tr><th>3</th><td>Naranja</td><td>Naranja</td><td>Pequeña</td><td>Jugosa</td></tr>
+                        <tr><th>4</th><td>Plátano</td><td>Amarillo</td><td>Grande</td><td>Maduro</td></tr>
+                        <tr><th>5</th><td>Manzana</td><td>Verde</td><td>Mediana</td><td>Fresca</td></tr>
+                        <tr><th>6</th><td>Uva</td><td>Morado</td><td>Pequeña</td><td>Dulce</td></tr>
+                        <tr><th>7</th><td>Naranja</td><td>Naranja</td><td>Grande</td><td>Jugosa</td></tr>
+                        <tr><th>8</th><td>Kiwi</td><td>Marrón</td><td>Mediana</td><td>Exótica</td></tr>
+                        <tr><th>9</th><td>Plátano</td><td>Amarillo</td><td>Pequeña</td><td>Maduro</td></tr>
+                        <tr><th>10</th><td>Uva</td><td>Morado</td><td>Grande</td><td>Dulce</td></tr>
+                        <tr><th>11</th><td>Fresa</td><td>Roja</td><td>Pequeña</td><td>Dulce</td></tr>
+                        <tr><th>12</th><td>Cereza</td><td>Roja</td><td>Pequeña</td><td>Dulce</td></tr>
+                        <tr><th>13</th><td>Melocotón</td><td>Naranja</td><td>Mediano</td><td>Maduro</td></tr>
+                        <tr><th>14</th><td>Kiwi</td><td>Verde</td><td>Pequeña</td><td>Exótica</td></tr>
+                        <tr><th>15</th><td>Manzana</td><td>Roja</td><td>Mediana</td><td>Fresca</td></tr>
+                        <tr><th>16</th><td>Naranja</td><td>Naranja</td><td>Mediana</td><td>Jugosa</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Cuenta cuántas veces sale cada fruta</h3>
+            <p>Escribe <strong>Repeticiones</strong> en E1. En E2 usa <code>CONTAR.SI</code> para contar cuántas veces aparece la fruta de A2 en toda la columna A, y arrastra la fórmula hasta E52. La Manzana tiene que dar 4 y el Kiwi, 5.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>El rango donde buscas tiene que ser <strong>absoluto</strong> (<code>$A$2:$A$52</code>) para que no se mueva al arrastrar. La fruta que cuentas (<code>A2</code>) sí tiene que cambiar en cada fila.</div><details><summary>Ver la solución</summary><dl class="formulas"><dt>E2</dt><dd><code>=CONTAR.SI($A$2:$A$52;A2)</code></dd></dl></details>
+        </li>
+        <li class="paso">
+            <h3>Resalta las filas repetidas con formato condicional</h3>
+            <p>Primero, resalta las frutas que salen más de una vez: selecciona A2:A52, abre <span class="ruta-menu">Formato → Formato condicional</span> y en <em>Regla de formato</em> elige <strong>La fórmula personalizada es</strong>. Escribe <code>=CONTAR.SI($A$2:$A$52;A2)&gt;1</code> y elige un color de relleno. Se colorean 42 celdas: solo nueve frutas (Piña, Limón, Nectarina, Granada, Pera, Guayaba, Mango, Melón y Pomelo) salen una sola vez.</p><p>Ahora cambia la regla para que marque <strong>filas completas repetidas</strong>: pon como intervalo A2:D52 y como fórmula la de la solución, que comprueba las cuatro columnas a la vez con <code>CONTAR.SI.CONJUNTO</code>. Deben quedar resaltadas 35 filas.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>En <code>$A2</code> el <code>$</code> va solo delante de la columna. Así, en cualquier celda de la fila 2 (A2, B2, C2 o D2) la regla mira siempre la fila 2 entera y la fila se colorea completa.</div><details><summary>Ver la solución</summary><dl class="formulas"><dt>A2:D52</dt><dd><code>=CONTAR.SI.CONJUNTO($A$2:$A$52;$A2;$B$2:$B$52;$B2;$C$2:$C$52;$C2;$D$2:$D$52;$D2)&gt;1</code></dd></dl></details>
+        </li>
+        <li class="paso">
+            <h3>Saca la lista de frutas sin repetir con UNIQUE</h3>
+            <p>Escribe <strong>Frutas distintas</strong> en G1. En G2 escribe <code>=UNIQUE(A2:A52)</code>: la función devuelve cada fruta una sola vez, en el orden en que aparecen, y ocupa las celdas de debajo (de G2 a G24). Son 23 frutas.</p><p>En I1 escribe <strong>Nº de frutas</strong> y en I2 cuenta cuántas hay con <code>=FILAS(UNIQUE(A2:A52))</code>.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i><code>UNIQUE</code> necesita espacio libre debajo. Si alguna celda de G3:G24 tiene algo escrito, saldrá un error <code>#REF!</code>. Prueba también <code>=UNIQUE(A2:D52)</code> en otra zona: devuelve las 30 filas distintas con sus cuatro columnas.</div>
+        </li>
+        <li class="paso">
+            <h3>Quita los duplicados en una copia</h3>
+            <p>La herramienta para quitar duplicados <strong>borra filas</strong>, así que trabaja en una copia. Crea una hoja llamada <code>Sin duplicados</code> y pega en A1 los datos de A1:D52 de <code>Primera Hoja</code> (solo esas cuatro columnas).</p><p>Selecciona A1:D52 y ve a <span class="ruta-menu">Datos → Limpieza de datos → Quitar duplicados</span>. Marca <em>Los datos tienen una fila de encabezado</em>, deja marcadas las cuatro columnas y pulsa <strong>Quitar duplicados</strong>. Google Sheets te avisa de que ha quitado 21 filas duplicadas y quedan 30 filas únicas.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Si en el análisis marcas solo la columna Fruta, se considera duplicada cualquier fila con la misma fruta y quedan 23 filas, las mismas frutas que te dio <code>UNIQUE</code>. Pruébalo y deshazlo con <kbd>Ctrl</kbd>+<kbd>Z</kbd>.</div>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-12">
+        <li><label><input type="checkbox"><span>El libro se llama <code>ApellidoNombre_AO_Actividad5.12</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>E2:E52 cuenta con <code>CONTAR.SI</code> las veces que sale cada fruta (Manzana 4, Kiwi 5).</span></label></li>
+        <li><label><input type="checkbox"><span>Una regla de formato condicional con fórmula personalizada resalta las 35 filas repetidas completas.</span></label></li>
+        <li><label><input type="checkbox"><span>G2 usa <code>UNIQUE</code> y muestra 23 frutas distintas; I2 las cuenta.</span></label></li>
+        <li><label><input type="checkbox"><span>La hoja <code>Sin duplicados</code> tiene el encabezado y 30 filas de datos.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-11"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.11</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-13">Siguiente: 5.13. Gráficos <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

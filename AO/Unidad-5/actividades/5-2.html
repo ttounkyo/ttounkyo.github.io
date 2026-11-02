@@ -1,0 +1,188 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.2</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.2. Calculadora y factura</h1>
+    <p class="lead">Vas a montar una calculadora que suma, resta, multiplica y divide dos números, y una factura de supermercado con el subtotal, el IVA, el total y el dinero que hay que devolver.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Fórmulas con <code>+</code>, <code>-</code>, <code>*</code> y <code>/</code></li>
+                    <li>Usar referencias a celdas en lugar de escribir los números</li>
+                    <li>Copiar una fórmula arrastrándola hacia abajo</li>
+                    <li>La función <code>SUMA</code> y el cálculo de un porcentaje (IVA)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-12-formulas-basicas">5.12. Fórmulas básicas</a> y <a href="#/Unidad-5/index?sec=5-13-funciones">5.13. Funciones</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-2-plantilla.xlsx" download><i class="bi bi-file-earmark-spreadsheet me-1"></i>Libro de partida (plantilla)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-2-solucion.xlsx" download><i class="bi bi-file-earmark-check me-1"></i>Solución (para comparar al terminar)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.2</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Hojas</th>
+                <td>«5.3. Calculadora» y «5.3. Factura»</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Calculadora: las cuatro operaciones</h3>
+            <p>En la pestaña «5.3. Calculadora» tienes dos números en <strong>D4</strong> y <strong>D5</strong>. En C7, C8, C9 y C10 calcula la suma, la resta, la multiplicación y la división de esos dos números.</p><p>Escribe siempre las <strong>celdas</strong> (<code>D4</code>, <code>D5</code>) y no los números: si escribes <code>=150+200</code>, la calculadora deja de servir en cuanto cambias un número.</p><div class="alert alert-light border small"><i class="bi bi-exclamation-triangle me-1"></i>Fíjate bien en que los números están en la columna <strong>D</strong>, no en la C. Si escribes <code>=C4+C5</code> te saldrá 0, porque C4 y C5 están vacías, y la división dará el error <code>#DIV/0!</code> (no se puede dividir entre 0).</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th></tr>
+                        <tr><th>2</th><td colspan="2" style="background-color:#00FF00">CALCULADORA</td><td></td></tr>
+                        <tr><th>3</th><td></td><td></td><td></td></tr>
+                        <tr><th>4</th><td style="background-color:#FFFF00">PRIMER NÚMERO</td><td style="background-color:#D9D9D9"></td><td class="num">150</td></tr>
+                        <tr><th>5</th><td style="background-color:#FFFF00">SEGUNDO NÚMERO</td><td style="background-color:#D9D9D9"></td><td class="num">200</td></tr>
+                        <tr><th>6</th><td></td><td></td><td></td></tr>
+                        <tr><th>7</th><td style="background-color:#00FFFF">Suma</td><td class="num formula">350</td><td></td></tr>
+                        <tr><th>8</th><td style="background-color:#00FFFF">Resta</td><td class="num formula">-50</td><td></td></tr>
+                        <tr><th>9</th><td style="background-color:#00FFFF">Multiplicación</td><td class="num formula">30000</td><td></td></tr>
+                        <tr><th>10</th><td style="background-color:#00FFFF">División</td><td class="num formula">0,75</td><td></td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>C7</dt><dd><code>=D4+D5</code></dd>
+                    <dt>C8</dt><dd><code>=D4-D5</code></dd>
+                    <dt>C9</dt><dd><code>=D4*D5</code></dd>
+                    <dt>C10</dt><dd><code>=D4/D5</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Prueba la calculadora</h3>
+            <p>Cambia el 150 de D4 y el 200 de D5 por otros números. Los cuatro resultados tienen que cambiar solos. Si alguno no cambia, es que has escrito un número en lugar de una referencia. Cuando acabes, vuelve a dejar 150 y 200.</p>
+        </li>
+        <li class="paso">
+            <h3>Factura: precio total de cada producto</h3>
+            <p>En la pestaña «5.3. Factura» calcula en F3 el precio total de la leche: cantidad × precio unitario. Después arrastra la fórmula hacia abajo hasta F17.</p><div class="alert alert-light border small"><i class="bi bi-exclamation-triangle me-1"></i>En F11 el libro trae un <code>200</code> escrito a mano. Al arrastrar la fórmula desde F3 hasta F17 se cambia por la fórmula correcta y el cereal pasa a costar 2,80 €. Un número escrito encima de donde debería ir una fórmula es un error muy típico: la factura parece que funciona, pero el total sale mal.</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr>
+                        <tr><th>2</th><td><strong>REFERENCIA</strong></td><td><strong>DESCRIPCIÓN</strong></td><td><strong>CANTIDAD</strong></td><td><strong>PRECIO UNITARIO</strong></td><td><strong>PRECIO TOTAL</strong></td></tr>
+                        <tr><th>3</th><td class="num" style="background-color:#F3F3F3">101</td><td style="background-color:#F3F3F3">Leche</td><td class="num" style="background-color:#F3F3F3">100</td><td class="num" style="background-color:#F3F3F3">1,50 €</td><td class="num formula" style="background-color:#F3F3F3">150,00 €</td></tr>
+                        <tr><th>4</th><td class="num" style="background-color:#F3F3F3">102</td><td style="background-color:#F3F3F3">Pan Integral</td><td class="num" style="background-color:#F3F3F3">0</td><td class="num" style="background-color:#F3F3F3">2,00 €</td><td class="num formula" style="background-color:#F3F3F3">0,00 €</td></tr>
+                        <tr><th>5</th><td class="num" style="background-color:#F3F3F3">103</td><td style="background-color:#F3F3F3">Yogur Natural</td><td class="num" style="background-color:#F3F3F3">1</td><td class="num" style="background-color:#F3F3F3">1,80 €</td><td class="num formula" style="background-color:#F3F3F3">1,80 €</td></tr>
+                        <tr><th>6</th><td class="num" style="background-color:#F3F3F3">104</td><td style="background-color:#F3F3F3">Pasta de Tomate</td><td class="num" style="background-color:#F3F3F3">2</td><td class="num" style="background-color:#F3F3F3">1,20 €</td><td class="num formula" style="background-color:#F3F3F3">2,40 €</td></tr>
+                        <tr><th>7</th><td class="num" style="background-color:#F3F3F3">105</td><td style="background-color:#F3F3F3">Manzanas (kg)</td><td class="num" style="background-color:#F3F3F3">1</td><td class="num" style="background-color:#F3F3F3">2,50 €</td><td class="num formula" style="background-color:#F3F3F3">2,50 €</td></tr>
+                        <tr><th>8</th><td class="num" style="background-color:#F3F3F3">106</td><td style="background-color:#F3F3F3">Papel Higiénico</td><td class="num" style="background-color:#F3F3F3">4</td><td class="num" style="background-color:#F3F3F3">0,80 €</td><td class="num formula" style="background-color:#F3F3F3">3,20 €</td></tr>
+                        <tr><th>9</th><td class="num" style="background-color:#F3F3F3">107</td><td style="background-color:#F3F3F3">Pollo (kg)</td><td class="num" style="background-color:#F3F3F3">1</td><td class="num" style="background-color:#F3F3F3">5,00 €</td><td class="num formula" style="background-color:#F3F3F3">5,00 €</td></tr>
+                        <tr><th>10</th><td class="num" style="background-color:#F3F3F3">108</td><td style="background-color:#F3F3F3">Huevos (docena)</td><td class="num" style="background-color:#F3F3F3">1</td><td class="num" style="background-color:#F3F3F3">3,50 €</td><td class="num formula" style="background-color:#F3F3F3">3,50 €</td></tr>
+                        <tr><th>11</th><td class="num" style="background-color:#F3F3F3">109</td><td style="background-color:#F3F3F3">Cereal de Avena</td><td class="num" style="background-color:#F3F3F3">1</td><td class="num" style="background-color:#F3F3F3">2,80 €</td><td class="num" style="background-color:#F3F3F3">2,80 €</td></tr>
+                        <tr><th>12</th><td class="num" style="background-color:#F3F3F3">110</td><td style="background-color:#F3F3F3">Agua Mineral (pack)</td><td class="num" style="background-color:#F3F3F3">2</td><td class="num" style="background-color:#F3F3F3">1,00 €</td><td class="num formula" style="background-color:#F3F3F3">2,00 €</td></tr>
+                        <tr><th>13</th><td class="num" style="background-color:#F3F3F3">111</td><td style="background-color:#F3F3F3">Plátanos (kg)</td><td class="num" style="background-color:#F3F3F3">1</td><td class="num" style="background-color:#F3F3F3">1,75 €</td><td class="num formula" style="background-color:#F3F3F3">1,75 €</td></tr>
+                        <tr><th>14</th><td class="num" style="background-color:#F3F3F3">112</td><td style="background-color:#F3F3F3">Galletas de Avena</td><td class="num" style="background-color:#F3F3F3">2</td><td class="num" style="background-color:#F3F3F3">2,30 €</td><td class="num formula" style="background-color:#F3F3F3">4,60 €</td></tr>
+                        <tr><th>15</th><td class="num" style="background-color:#F3F3F3">113</td><td style="background-color:#F3F3F3">Jabón de Lavandería</td><td class="num" style="background-color:#F3F3F3">1</td><td class="num" style="background-color:#F3F3F3">1,50 €</td><td class="num formula" style="background-color:#F3F3F3">1,50 €</td></tr>
+                        <tr><th>16</th><td class="num" style="background-color:#F3F3F3">114</td><td style="background-color:#F3F3F3">Tomates (kg)</td><td class="num" style="background-color:#F3F3F3">1</td><td class="num" style="background-color:#F3F3F3">2,20 €</td><td class="num formula" style="background-color:#F3F3F3">2,20 €</td></tr>
+                        <tr><th>17</th><td class="num" style="background-color:#F3F3F3">115</td><td style="background-color:#F3F3F3">Atún en Lata</td><td class="num" style="background-color:#F3F3F3">3</td><td class="num" style="background-color:#F3F3F3">1,90 €</td><td class="num formula" style="background-color:#F3F3F3">5,70 €</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>F3</dt><dd><code>=D3*E3</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Subtotal, IVA y total</h3>
+            <p>En F19 suma todos los precios totales con <code>SUMA</code>. En F20 calcula el IVA, que es el 10 % del subtotal: puedes escribir <code>10%</code> directamente en la fórmula o multiplicar por <code>0,1</code>. En F21 calcula el total: subtotal + IVA.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>E</th><th>F</th></tr>
+                        <tr><th>19</th><td style="background-color:#CCCCCC">SUBTOTAL</td><td class="num formula" style="background-color:#F3F3F3">188,95 €</td></tr>
+                        <tr><th>20</th><td style="background-color:#CCCCCC">IVA (10%)</td><td class="num formula" style="background-color:#F3F3F3">18,90 €</td></tr>
+                        <tr><th>21</th><td style="background-color:#CCCCCC">TOTAL</td><td class="num formula" style="background-color:#F3F3F3">207,85 €</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>F19</dt><dd><code>=SUMA(F3:F17)</code></dd>
+                    <dt>F20</dt><dd><code>=F19*10%</code></dd>
+                    <dt>F21</dt><dd><code>=SUMA(F19:F20)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Lo que hay que devolver</h3>
+            <p>El cliente entrega 500 € (F23). En F24 calcula la devolución: lo entregado menos el total. Comprueba que las columnas E y F tienen formato de moneda (<span class="ruta-menu">Formato → Número → Moneda</span>).</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>E</th><th>F</th></tr>
+                        <tr><th>19</th><td style="background-color:#CCCCCC">SUBTOTAL</td><td class="num formula" style="background-color:#F3F3F3">188,95 €</td></tr>
+                        <tr><th>20</th><td style="background-color:#CCCCCC">IVA (10%)</td><td class="num formula" style="background-color:#F3F3F3">18,90 €</td></tr>
+                        <tr><th>21</th><td style="background-color:#CCCCCC">TOTAL</td><td class="num formula" style="background-color:#F3F3F3">207,85 €</td></tr>
+                        <tr><th>22</th><td></td><td></td></tr>
+                        <tr><th>23</th><td style="background-color:#CCCCCC">ENTREGADO</td><td class="num">500,00 €</td></tr>
+                        <tr><th>24</th><td style="background-color:#CCCCCC">DEVOLUCIÓN</td><td class="num formula" style="background-color:#F3F3F3">292,16 €</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>F24</dt><dd><code>=F23-F21</code></dd>
+                </dl>
+            </details>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-2">
+        <li><label><input type="checkbox"><span>El libro se llama <code>ApellidoNombre_AO_Actividad5.2</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>C7:C10 usan <code>D4</code> y <code>D5</code> y dan 350, -50, 30000 y 0,75.</span></label></li>
+        <li><label><input type="checkbox"><span>Al cambiar D4 o D5, los cuatro resultados de la calculadora cambian solos.</span></label></li>
+        <li><label><input type="checkbox"><span>Todas las celdas de F3:F17 tienen fórmula, también F11 (2,80 €).</span></label></li>
+        <li><label><input type="checkbox"><span>F19 usa <code>SUMA</code> y da 188,95 €.</span></label></li>
+        <li><label><input type="checkbox"><span>F20 calcula el 10 % del subtotal, F21 suma subtotal e IVA y F24 resta el total a lo entregado.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-1"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.1</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-3">Siguiente: 5.3. Notas del alumnado <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

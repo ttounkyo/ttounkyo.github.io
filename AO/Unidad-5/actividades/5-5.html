@@ -1,0 +1,203 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-5/index">Unidad 5</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-5/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">5.5</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 5.5. Repaso: formato, funciones y orden</h1>
+    <p class="lead">Un repaso en tres ejercicios: arreglar y dar formato a una tabla de empleados, calcular los resultados de cinco estudiantes y ordenar, filtrar y resaltar una lista de calificaciones. Los enunciados están en la pestaña «Ejercicios» del libro.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Ajustar columnas y filas, quitar espacios sobrantes y mover una tabla</li>
+                    <li>Dividir texto en columnas y unir textos con <code>CONCATENAR</code></li>
+                    <li>Formato de texto, bordes y ocultar la cuadrícula</li>
+                    <li><code>SUMA</code>, <code>PROMEDIO</code>, <code>MAX</code>, <code>MIN</code>, <code>SI</code> y <code>CONTAR.SI</code></li>
+                    <li>Ordenar y filtrar una lista</li>
+                    <li>Formato condicional</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-5/index?sec=5-11-formato-de-celdas">5.11. Formato de celdas</a> y <a href="#/Unidad-5/index?sec=5-13-funciones">5.13. Funciones</a> y <a href="#/Unidad-5/index?sec=5-15-usando-formato-condicional">5.15. Formato condicional</a></li>
+                    <li>El libro trae tres pestañas que empiezan por <strong>RESUELTO</strong>: son ejemplos resueltos que puedes usar como modelo. Intenta cada ejercicio en su pestaña antes de mirarlos.</li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-5-plantilla.xlsx" download><i class="bi bi-file-earmark-spreadsheet me-1"></i>Libro de partida (plantilla)</a></li>
+                    <li><a href="../AO/Unidad-5/actividades/recursos/5-5-solucion.xlsx" download><i class="bi bi-file-earmark-check me-1"></i>Solución (para comparar al terminar)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre</th>
+                <td><code>ApellidoNombre_AO_Actividad5.5</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Hojas</th>
+                <td>«Formatos», «Funciones Básicas» y «Ordenar y Formato Condicional», resueltas en el mismo libro</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <p class="nota-version"><i class="bi bi-arrow-repeat"></i>Google Sheets se actualiza a menudo: puede que algún menú
+        tenga otro nombre o esté en otro sitio. Si no encuentras algo, busca una opción parecida o pregunta en clase.</p>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Lee los enunciados</h3>
+            <p>Abre la pestaña «Ejercicios». Hay tres ejercicios, y cada uno se hace en su pestaña: el 1 en «Formatos», el 2 en «Funciones Básicas» y el 3 en «Ordenar y Formato Condicional». Al lado de cada tarea tienes una columna <em>Check</em> para ir marcando lo que terminas.</p>
+        </li>
+        <li class="paso">
+            <h3>Ejercicio 1: ordena y limpia la tabla de empleados</h3>
+            <p>En la pestaña «Formatos»:</p><ul><li>Ajusta el ancho de las columnas para que se vea todo el contenido: haz doble clic en el borde derecho de la letra de la columna, o selecciona las columnas y usa <span class="ruta-menu">clic derecho → Cambiar tamaño de columnas → Ajustar a los datos</span>. Si hace falta, ajusta también la altura de las filas.</li><li>Elimina los espacios vacíos de sobra (por ejemplo, en «Diseñador               UX»): selecciona la tabla y usa <span class="ruta-menu">Datos → Limpieza de datos → Recortar espacios en blanco</span>.</li><li>Mueve la tabla para que los encabezados empiecen en <strong>B2</strong> (selecciónala, córtala con <kbd>Ctrl</kbd>+<kbd>X</kbd> y pégala en B2) y elimina las filas que sobren.</li></ul>
+        </li>
+        <li class="paso">
+            <h3>Ejercicio 1: separa los apellidos</h3>
+            <p>Separa «Apellidos» en dos columnas, «1º Apellido» y «2º Apellido». Primero inserta una columna vacía a la derecha de Apellidos (<span class="ruta-menu">clic derecho → Insertar 1 columna a la derecha</span>), porque al dividir se escribe en la columna de al lado. Luego selecciona los apellidos y usa <span class="ruta-menu">Datos → Dividir texto en columnas</span>, con el separador <strong>Espacio</strong>. Cambia los encabezados.</p><p><strong>Extra:</strong> en una columna nueva, «Apellido Posición», une el primer apellido y el cargo con un espacio en medio usando <code>CONCATENAR</code>.</p><div class="alert alert-light border small"><i class="bi bi-lightbulb me-1"></i>Si antes no has quitado los espacios de sobra, «Fernández                      García» no se dividirá bien.</div>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr>
+                        <tr><th>2</th><td style="color:#0000FF"><strong>Nombre</strong></td><td style="color:#0000FF"><strong>1º Apellido</strong></td><td style="color:#0000FF"><strong>2º Apellido</strong></td><td style="color:#0000FF"><strong>Posición</strong></td><td style="color:#0000FF"><strong>Departamento</strong></td><td style="color:#0000FF"><strong>Apellido Posición</strong></td></tr>
+                        <tr><th>3</th><td>Juan</td><td>Pérez</td><td>Ramírez</td><td>Ingeniero	de	Software</td><td>Desarrollo</td><td class="formula">Pérez Ingeniero	de	Software</td></tr>
+                        <tr><th>4</th><td>María</td><td>González</td><td>López</td><td>Analista	de	Datos</td><td>BI</td><td class="formula">González Analista	de	Datos</td></tr>
+                        <tr><th>5</th><td>Luis</td><td>Fernández</td><td>García</td><td>Diseñador UX</td><td>Diseño</td><td class="formula">Fernández Diseñador UX</td></tr>
+                        <tr><th>6</th><td>Ana</td><td>Martínez</td><td>Rodríguez</td><td>Gerente de Proyecto</td><td>Gestión</td><td class="formula">Martínez Gerente de Proyecto</td></tr>
+                        <tr><th>7</th><td>Sofía</td><td>López</td><td>Hernández</td><td>Desarrollador Frontend</td><td></td><td class="formula">López Desarrollador Frontend</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>G3</dt><dd><code>=CONCATENAR(C3; &quot; &quot;;E3)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Ejercicio 1: formato del texto</h3>
+            <p>Selecciona toda la tabla y pon la letra a 12 pt. Pon los encabezados en negrita y en color azul. Centra el texto de todas las celdas y aplica un borde a toda la tabla (<span class="ruta-menu">Bordes → Todos los bordes</span> en la barra de herramientas). Por último, oculta la cuadrícula con <span class="ruta-menu">Ver → Mostrar → Cuadrícula</span>.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr>
+                        <tr><th>2</th><td style="color:#0000FF"><strong>Nombre</strong></td><td style="color:#0000FF"><strong>1º Apellido</strong></td><td style="color:#0000FF"><strong>2º Apellido</strong></td><td style="color:#0000FF"><strong>Posición</strong></td><td style="color:#0000FF"><strong>Departamento</strong></td><td style="color:#0000FF"><strong>Apellido Posición</strong></td></tr>
+                        <tr><th>3</th><td>Juan</td><td>Pérez</td><td>Ramírez</td><td>Ingeniero	de	Software</td><td>Desarrollo</td><td class="formula">Pérez Ingeniero	de	Software</td></tr>
+                        <tr><th>4</th><td>María</td><td>González</td><td>López</td><td>Analista	de	Datos</td><td>BI</td><td class="formula">González Analista	de	Datos</td></tr>
+                        <tr><th>5</th><td>Luis</td><td>Fernández</td><td>García</td><td>Diseñador UX</td><td>Diseño</td><td class="formula">Fernández Diseñador UX</td></tr>
+                        <tr><th>6</th><td>Ana</td><td>Martínez</td><td>Rodríguez</td><td>Gerente de Proyecto</td><td>Gestión</td><td class="formula">Martínez Gerente de Proyecto</td></tr>
+                        <tr><th>7</th><td>Sofía</td><td>López</td><td>Hernández</td><td>Desarrollador Frontend</td><td></td><td class="formula">López Desarrollador Frontend</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Ejercicio 2: funciones básicas</h3>
+            <p>En la pestaña «Funciones Básicas» tienes las calificaciones de cinco estudiantes.</p><ul><li>Añade la columna «Aprobado» (D): con <code>SI</code>, si la calificación es <strong>mayor que 70</strong>, «Aprobado»; si no, «Rechazado». Ojo: un 70 justo es «Rechazado».</li><li>Debajo de la tabla, calcula la suma, el promedio, la calificación más alta y la más baja con <code>SUMA</code>, <code>PROMEDIO</code>, <code>MAX</code> y <code>MIN</code>. Pon una etiqueta al lado de cada resultado.</li><li>Cuenta cuántos aprobados y cuántos rechazados hay con <code>CONTAR.SI</code>, que tiene dos datos: el rango y lo que hay que contar. Por ejemplo: <code>=CONTAR.SI(D6:D10;"Aprobado")</code>.</li></ul>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th></tr>
+                        <tr><th>5</th><td style="background-color:#D9EAD3"><strong>Estudiantes</strong></td><td style="background-color:#D9EAD3"><strong>Calificaciones</strong></td><td style="background-color:#D9EAD3"><strong>Aprobado</strong></td></tr>
+                        <tr><th>6</th><td>Estudiante 1</td><td class="num">85</td><td class="formula">Aprobado</td></tr>
+                        <tr><th>7</th><td>Estudiante 2</td><td class="num">90</td><td class="formula">Aprobado</td></tr>
+                        <tr><th>8</th><td>Estudiante 3</td><td class="num">50</td><td class="formula">Rechazado</td></tr>
+                        <tr><th>9</th><td>Estudiante 4</td><td class="num">92</td><td class="formula">Aprobado</td></tr>
+                        <tr><th>10</th><td>Estudiante 5</td><td class="num">70</td><td class="formula">Rechazado</td></tr>
+                        <tr><th>11</th><td></td><td></td><td></td></tr>
+                        <tr><th>12</th><td>Suma</td><td class="num formula">387</td><td></td></tr>
+                        <tr><th>13</th><td>Promedio</td><td class="num formula">77,4</td><td></td></tr>
+                        <tr><th>14</th><td>Máximo</td><td class="num formula">92</td><td></td></tr>
+                        <tr><th>15</th><td>Mínimo</td><td class="num formula">50</td><td></td></tr>
+                        <tr><th>16</th><td></td><td></td><td></td></tr>
+                        <tr><th>17</th><td>Aprobados</td><td class="num formula">3</td><td></td></tr>
+                        <tr><th>18</th><td>Rechazados</td><td class="num formula">2</td><td></td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+            <details>
+                <summary>Ver la solución</summary>
+                <dl class="formulas">
+                    <dt>D6</dt><dd><code>=SI(C6&gt;70;&quot;Aprobado&quot;;&quot;Rechazado&quot;)</code></dd>
+                    <dt>C12</dt><dd><code>=SUMA(C6:C10)</code></dd>
+                    <dt>C13</dt><dd><code>=PROMEDIO(C6:C11)</code></dd>
+                    <dt>C14</dt><dd><code>=MAX(C6:C11)</code></dd>
+                    <dt>C15</dt><dd><code>=MIN(C6:C11)</code></dd>
+                    <dt>C17</dt><dd><code>=CONTAR.SI(D6:D10;&quot;Aprobado&quot;)</code></dd>
+                    <dt>C18</dt><dd><code>=CONTAR.SI(D6:D10;&quot;Rechazado&quot;)</code></dd>
+                </dl>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Ejercicio 3: ordena y filtra</h3>
+            <p>En la pestaña «Ordenar y Formato Condicional»:</p><ul><li>Dale formato a la tabla: copia el formato de otra tabla con <strong>Pintar formato</strong> (el rodillo de la barra de herramientas) o pon tú los colores y bordes.</li><li>Ordena la lista por nombre en orden alfabético: selecciona la tabla y usa <span class="ruta-menu">Datos → Ordenar intervalo → Opciones avanzadas de ordenación de intervalos</span>, marca que los datos tienen fila de encabezado y ordena por «Nombre» de la A a la Z.</li><li>Ordénala ahora por calificación de mayor a menor (de la Z a la A).</li><li>Crea un filtro (<span class="ruta-menu">Datos → Crear un filtro</span>) y, en «Calificación», filtra por condición <strong>Mayor que</strong> 80. Copia los estudiantes que quedan a la derecha de la tabla y luego quita el filtro (<span class="ruta-menu">Datos → Quitar filtro</span>).</li></ul><p>En la solución la tabla se ha movido a B2 y se ha dejado ordenada por nombre.</p>
+            <details>
+                <summary>Ver cómo debe quedar</summary>
+                    <div class="hoja-wrap"><table class="hoja">
+                        <tr><th></th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th></tr>
+                        <tr><th>2</th><td style="background-color:#C9DAF8"><strong>Nombre</strong></td><td style="background-color:#C9DAF8"><strong>Calificación</strong></td><td></td><td></td><td style="background-color:#C9DAF8"><strong>Nombre</strong></td><td style="background-color:#C9DAF8"><strong>Calificación</strong></td></tr>
+                        <tr><th>3</th><td>Ana</td><td class="num">85</td><td></td><td></td><td>Ana</td><td class="num">85</td></tr>
+                        <tr><th>4</th><td>Andrés</td><td class="num">80</td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>5</th><td>Beatriz</td><td class="num">87</td><td></td><td></td><td>Beatriz</td><td class="num">87</td></tr>
+                        <tr><th>6</th><td>Camila</td><td class="num">93</td><td></td><td></td><td>Camila</td><td class="num">93</td></tr>
+                        <tr><th>7</th><td>Carlos</td><td class="num">75</td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>8</th><td>Daniel</td><td class="num">65</td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>9</th><td>Diego</td><td class="num">72</td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>10</th><td>Elena</td><td class="num">95</td><td></td><td></td><td>Elena</td><td class="num">95</td></tr>
+                        <tr><th>11</th><td>Eva</td><td class="num">77</td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>12</th><td>Fernando</td><td class="num">91</td><td></td><td></td><td>Fernando</td><td class="num">91</td></tr>
+                        <tr><th>13</th><td>Gabriela</td><td class="num">89</td><td></td><td></td><td>Gabriela</td><td class="num">89</td></tr>
+                        <tr><th>14</th><td>Hugo</td><td class="num">70</td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>15</th><td>Irene</td><td class="num">94</td><td></td><td></td><td>Irene</td><td class="num">94</td></tr>
+                        <tr><th>16</th><td>Javier</td><td class="num">84</td><td></td><td></td><td>Javier</td><td class="num">84</td></tr>
+                        <tr><th>17</th><td>Juan</td><td class="num">90</td><td></td><td></td><td>Juan</td><td class="num">90</td></tr>
+                        <tr><th>18</th><td>Laura</td><td class="num">83</td><td></td><td></td><td>Laura</td><td class="num">83</td></tr>
+                        <tr><th>19</th><td>Luis</td><td class="num">78</td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>20</th><td>Marta</td><td class="num">92</td><td></td><td></td><td>Marta</td><td class="num">92</td></tr>
+                        <tr><th>21</th><td>Miguel</td><td class="num">60</td><td></td><td></td><td></td><td></td></tr>
+                        <tr><th>22</th><td>Sofía</td><td class="num">88</td><td></td><td></td><td>Sofía</td><td class="num">88</td></tr>
+                    </table></div>
+                <p class="leyenda-hoja">Las celdas con el borde azul llevan una fórmula.</p>
+            </details>
+        </li>
+        <li class="paso">
+            <h3>Ejercicio 3: formato condicional</h3>
+            <p>Selecciona las calificaciones y abre <span class="ruta-menu">Formato → Formato condicional</span>. Crea dos reglas: <strong>Mayor que</strong> 85 con fondo verde y <strong>Menor que</strong> 80 con fondo rojo. Ana (85) y Andrés (80) se quedan sin color, porque no cumplen ninguna de las dos.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="5-5">
+        <li><label><input type="checkbox"><span>El libro se llama <code>ApellidoNombre_AO_Actividad5.5</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Formatos: la tabla empieza en B2, sin espacios de más y con los apellidos en dos columnas.</span></label></li>
+        <li><label><input type="checkbox"><span>Formatos: hay una columna con el primer apellido y el cargo unidos con <code>CONCATENAR</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Formatos: letra de 12 pt, encabezados en negrita y azul, texto centrado, bordes y sin cuadrícula.</span></label></li>
+        <li><label><input type="checkbox"><span>Funciones Básicas: la columna Aprobado usa <code>SI</code> (los estudiantes 3 y 5 salen «Rechazado»).</span></label></li>
+        <li><label><input type="checkbox"><span>Funciones Básicas: suma 387, promedio 77,4, máximo 92 y mínimo 50; 3 aprobados y 2 rechazados con <code>CONTAR.SI</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Ordenar: la lista está ordenada, los 12 estudiantes con más de 80 están copiados a la derecha y no queda ningún filtro.</span></label></li>
+        <li><label><input type="checkbox"><span>Las calificaciones de más de 85 están en verde y las de menos de 80, en rojo.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-5/actividades/5-4"><i class="bi bi-arrow-left me-1"></i>Anterior: 5.4</a>
+        <a class="btn btn-primary" href="#/Unidad-5/actividades/5-6">Siguiente: 5.6. La función SI <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>
