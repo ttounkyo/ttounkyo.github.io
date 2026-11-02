@@ -1,0 +1,131 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-8/index">Unidad 8</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-8/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">8.3</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 8.3. Imágenes</h1>
+    <p class="lead">Vas a crear una página que muestra la imagen de una máquina, con un tamaño exacto, un texto
+        alternativo y un texto que aparece al pasar el ratón.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li><code>img</code> y su atributo <code>src</code> con una ruta relativa</li>
+                    <li>Los atributos <code>width</code>, <code>height</code>, <code>alt</code> y <code>title</code></li>
+                    <li>El título del documento y la codificación de caracteres</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-8/teoria-html?sec=5-imagenes">5. Imágenes</a></li>
+                    <li><a href="../AO/Unidad-8/actividades/recursos/imagen.jpg" download><i
+                                class="bi bi-file-earmark-image me-1"></i>Descarga la imagen (imagen.jpg)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Carpeta</th>
+                <td><code>ApellidoNombre_AO_Actividad8.3</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Archivos</th>
+                <td><code>index.html</code> · <code>img/imagen.jpg</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-3 text-primary">Así debe quedar</h2>
+    <figure><img src="../AO/img/Unidad-8/actividades/8-3/resultado.png"
+            alt="Navegador mostrando la imagen de una máquina para mecanizar piezas">
+        <figcaption>Resultado en el navegador</figcaption>
+    </figure>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Prepara las carpetas</h3>
+            <p>Dentro de tu carpeta de la actividad crea el archivo <code>index.html</code> y una carpeta llamada
+                <code>img</code>. Guarda dentro de <code>img</code> la imagen que has descargado, con el nombre
+                <code>imagen.jpg</code>.</p>
+            <pre><code class="language-none">ApellidoNombre_AO_Actividad8.3/
+├── index.html
+└── img/
+    └── imagen.jpg</code></pre>
+        </li>
+
+        <li class="paso">
+            <h3>Título y codificación</h3>
+            <p>En el <code>head</code>, el título del documento será <strong>Ejemplo de documento con imagen</strong>.
+                El documento debe ser compatible con los caracteres de Europa occidental:</p>
+            <pre><code class="language-html">&lt;meta charset="ISO-8859-1"&gt;
+&lt;title&gt;Ejemplo de documento con imagen&lt;/title&gt;</code></pre>
+            <div class="alert alert-light border small">
+                <i class="bi bi-exclamation-triangle me-1"></i>Si las tildes salen mal en el navegador (por ejemplo,
+                "MÃ¡quina"), el archivo está guardado con otra codificación. En Visual Studio Code pulsa
+                <span class="ruta-menu">UTF-8</span> en la barra de abajo → <span class="ruta-menu">Guardar con
+                    codificación</span> → <span class="ruta-menu">Western (ISO 8859-1)</span>.
+            </div>
+        </li>
+
+        <li class="paso">
+            <h3>Inserta la imagen</h3>
+            <p>En el <code>body</code> añade la etiqueta <code>img</code>. La ruta empieza por la carpeta
+                <code>img</code> porque la imagen está dentro de ella:</p>
+            <pre><code class="language-html">&lt;img src="img/imagen.jpg"&gt;</code></pre>
+        </li>
+
+        <li class="paso">
+            <h3>Añade los atributos</h3>
+            <p>Completa la etiqueta con estos atributos:</p>
+            <ul>
+                <li><code>width</code>: <strong>558</strong> píxeles de ancho.</li>
+                <li><code>height</code>: <strong>600</strong> píxeles de alto.</li>
+                <li><code>title</code>: <em>Máquina para mecanizar piezas</em> (se ve al pasar el ratón por encima).</li>
+                <li><code>alt</code>: <em>Imagen de una máquina para mecanizar piezas</em> (se ve si la imagen no carga).</li>
+            </ul>
+        </li>
+
+        <li class="paso">
+            <h3>Compruébalo</h3>
+            <p>Abre la página en el navegador y deja el ratón encima de la imagen: debe aparecer el texto del
+                <code>title</code>. Para probar el <code>alt</code>, cambia un momento el nombre del archivo en el
+                <code>src</code> (por ejemplo, <code>imagen2.jpg</code>): en lugar de la imagen saldrá el texto
+                alternativo. Después déjalo como estaba.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="8-3">
+        <li><label><input type="checkbox"><span>La imagen está en la carpeta <code>img</code> y se llama <code>imagen.jpg</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>El título del documento es "Ejemplo de documento con imagen".</span></label></li>
+        <li><label><input type="checkbox"><span>El documento usa la codificación de Europa occidental y las tildes se ven bien.</span></label></li>
+        <li><label><input type="checkbox"><span>La imagen mide 558 × 600 píxeles (<code>width</code> y <code>height</code>).</span></label></li>
+        <li><label><input type="checkbox"><span>Al pasar el ratón aparece "Máquina para mecanizar piezas".</span></label></li>
+        <li><label><input type="checkbox"><span>El texto alternativo es "Imagen de una máquina para mecanizar piezas".</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-8/actividades/8-2"><i class="bi bi-arrow-left me-1"></i>Anterior: 8.2</a>
+        <a class="btn btn-primary" href="#/Unidad-8/actividades/8-4">Siguiente: 8.4. Enlaces entre páginas <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

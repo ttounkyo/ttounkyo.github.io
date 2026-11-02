@@ -1,0 +1,1091 @@
+<div class="container my-5">
+    <h1 class="mb-4 text-primary">Unidad 8. HTML: la estructura de una página web</h1>
+
+    <div data-indice></div>
+
+    <div class="alert alert-primary d-flex align-items-center gap-2">
+        <i class="bi bi-list-check fs-4"></i>
+        <div>La parte de HTML tiene <strong>5 actividades</strong> y el proyecto final. <a href="#/Unidad-8/actividades/index">Ver las actividades</a></div>
+    </div>
+
+    <h2 class="mb-4 text-primary">1. ¿Qué es HTML?</h2>
+    <p><strong>HTML</strong> (HyperText Markup Language) es el lenguaje de marcado que se utiliza para
+        crear y
+        estructurar páginas web. Organiza el contenido como títulos, párrafos, imágenes, enlaces y más.
+    </p>
+
+    <h3 class="mb-4 text-primary">Ejemplo básico de HTML</h3>
+    <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Mi primera página&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;¡Hola, mundo!&lt;/h1&gt;
+        &lt;p&gt;Esta es mi primera página web en HTML.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <h4 class="mb-4 text-primary">Explicación del ejemplo:</h4>
+    <ul>
+        <li><code>&lt;!DOCTYPE html&gt;</code> define que el documento es HTML5</li>
+        <li><code>&lt;html&gt;</code> es el elemento raíz de la página</li>
+        <li><code>&lt;head&gt;</code> contiene información sobre el documento</li>
+        <li><code>&lt;title&gt;</code> establece el título del documento</li>
+        <li><code>&lt;body&gt;</code> contiene los elementos visibles</li>
+        <li><code>&lt;h1&gt;</code> define el titular de la página</li>
+        <li><code>&lt;p&gt;</code> define un párrafo</li>
+    </ul>
+
+    <h3 class="mb-4 text-primary">HTML Tags (Etiquetas HTML)</h3>
+    <p>Las etiquetas HTML se escriben entre corchetes angulares y definen los distintos elementos de una
+        página.
+    </p>
+    <pre><code class="language-html">&lt;etiqueta&gt;Contenido&lt;/etiqueta&gt;</code></pre>
+
+    <ul>
+        <li>Las etiquetas vienen en pares: <code>&lt;p&gt;</code> y <code>&lt;/p&gt;</code></li>
+        <li>La etiqueta de cierre incluye una barra: <code>&lt;/nombre&gt;</code></li>
+    </ul>
+
+    <h3 class="mb-4 text-primary">Navegadores</h3>
+    <p>Los navegadores como <strong>Chrome, Firefox, Edge</strong> o <strong>Safari</strong> leen
+        documentos
+        HTML y
+        los muestran en pantalla.</p>
+    <ul>
+        <li>No muestran las etiquetas, pero las usan para estructurar el contenido.</li>
+    </ul>
+
+    <h3 class="mb-4 text-primary">La declaración <code>&lt;!DOCTYPE&gt;</code></h3>
+    <p>Esta declaración indica al navegador que se está utilizando HTML5 y debe colocarse al principio
+        del
+        archivo
+        HTML.</p>
+    <ul>
+        <li>Aparece una sola vez, antes de la etiqueta <code>&lt;html&gt;</code></li>
+        <li>No distingue entre mayúsculas y minúsculas</li>
+        <li>Versión HTML5: <code>&lt;!DOCTYPE html&gt;</code></li>
+    </ul>
+
+    <h2 class="mb-4 text-primary">2. Elementos de estructura</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-primary">
+                <tr>
+                    <th>Elemento</th>
+                    <th>Descripción</th>
+                    <th>Ejemplo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>&lt;html&gt;</td>
+                    <td>Elemento raíz de un documento HTML.</td>
+                    <td>&lt;html lang="es"&gt;...&lt;/html&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;head&gt;</td>
+                    <td>Contiene metadatos y enlaces a recursos externos.</td>
+                    <td>&lt;head&gt;...&lt;/head&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;title&gt;</td>
+                    <td>Define el título del documento.</td>
+                    <td>&lt;title&gt;Mi página web&lt;/title&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;body&gt;</td>
+                    <td>Contiene el contenido visible del documento.</td>
+                    <td>&lt;body&gt;...&lt;/body&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;header&gt;</td>
+                    <td>Define la cabecera de una sección o página.</td>
+                    <td>&lt;header&gt;...&lt;/header&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;nav&gt;</td>
+                    <td>Define un bloque de navegación.</td>
+                    <td>&lt;nav&gt;...&lt;/nav&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;main&gt;</td>
+                    <td>Contenido principal del documento.</td>
+                    <td>&lt;main&gt;...&lt;/main&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;section&gt;</td>
+                    <td>Define una sección del documento.</td>
+                    <td>&lt;section&gt;...&lt;/section&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;article&gt;</td>
+                    <td>Define contenido independiente y autocontenido.</td>
+                    <td>&lt;article&gt;...&lt;/article&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;aside&gt;</td>
+                    <td>Define contenido secundario relacionado.</td>
+                    <td>&lt;aside&gt;...&lt;/aside&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;footer&gt;</td>
+                    <td>Define el pie de una sección o página.</td>
+                    <td>&lt;footer&gt;...&lt;/footer&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;div&gt;</td>
+                    <td>Contenedor genérico para agrupar contenido.</td>
+                    <td>&lt;div class="container"&gt;...&lt;/div&gt;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3 class="mb-4 text-primary">Ejemplo del uso de etiquetas de estructura</h3>
+    <div class="code-container">
+        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mi página web&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Bienvenidos a mi sitio&lt;/h1&gt;
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#"&gt;Acerca de&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#"&gt;Contacto&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;section&gt;
+            &lt;h2&gt;Sección principal&lt;/h2&gt;
+            &lt;p&gt;Este es el contenido principal de la página.&lt;/p&gt;
+        &lt;/section&gt;
+
+        &lt;aside&gt;
+            &lt;h3&gt;Contenido relacionado&lt;/h3&gt;
+            &lt;p&gt;Información complementaria aquí.&lt;/p&gt;
+        &lt;/aside&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&amp;copy; 2025 Mi Sitio Web&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+
+    <div class="explanation">
+        <p>En el código de arriba se ve cómo se usan estas etiquetas dentro de un documento HTML completo.</p>
+    </div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-8/actividades/8-11"><strong>Actividad 8.11</strong>. Proyecto final: tu sitio web</a></div>
+    </div>
+
+    <h2 class="mb-4 text-primary">3. Texto</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-primary">
+                <tr>
+                    <th>Elemento</th>
+                    <th>Descripción</th>
+                    <th>Ejemplo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>&lt;h1&gt; a &lt;h6&gt;</td>
+                    <td>Encabezados de diferentes niveles.</td>
+                    <td>&lt;h1&gt;Título principal&lt;/h1&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;p&gt;</td>
+                    <td>Define un párrafo.</td>
+                    <td>&lt;p&gt;Este es un párrafo.&lt;/p&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;span&gt;</td>
+                    <td>Contenedor en línea para texto.</td>
+                    <td>&lt;span class="highlight"&gt;texto destacado&lt;/span&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;strong&gt;</td>
+                    <td>Texto importante con énfasis fuerte.</td>
+                    <td>&lt;strong&gt;Texto importante&lt;/strong&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;em&gt;</td>
+                    <td>Texto enfatizado.</td>
+                    <td>&lt;em&gt;Texto enfatizado&lt;/em&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;mark&gt;</td>
+                    <td>Texto resaltado o marcado.</td>
+                    <td>&lt;mark&gt;Texto marcado&lt;/mark&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;code&gt;</td>
+                    <td>Fragmento de código.</td>
+                    <td>&lt;code&gt;var x = 5;&lt;/code&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;pre&gt;</td>
+                    <td>Texto preformateado (mantiene espacios y saltos).</td>
+                    <td>&lt;pre&gt; Texto con formato &lt;/pre&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;blockquote&gt;</td>
+                    <td>Cita en bloque.</td>
+                    <td>&lt;blockquote&gt;Cita extensa...&lt;/blockquote&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;q&gt;</td>
+                    <td>Cita corta en línea.</td>
+                    <td>&lt;q&gt;Cita corta&lt;/q&gt;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3 class="mb-4 text-primary">Ejemplo del uso de etiquetas de texto</h3>
+    <div class="code-container">
+        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Etiquetas de texto en HTML&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Encabezado de nivel 1&lt;/h1&gt;
+    &lt;h2&gt;Encabezado de nivel 2&lt;/h2&gt;
+    &lt;h3&gt;Encabezado de nivel 3&lt;/h3&gt;
+    &lt;h4&gt;Encabezado de nivel 4&lt;/h4&gt;
+    &lt;h5&gt;Encabezado de nivel 5&lt;/h5&gt;
+    &lt;h6&gt;Encabezado de nivel 6&lt;/h6&gt;
+
+    &lt;p&gt;Este es un párrafo normal. Puede contener texto &lt;strong&gt;en negrita&lt;/strong&gt; y texto &lt;em&gt;en cursiva&lt;/em&gt;.&lt;/p&gt;
+
+    &lt;p&gt;También puedes usar &lt;b&gt;negrita&lt;/b&gt; con la etiqueta b y &lt;i&gt;cursiva&lt;/i&gt; con la etiqueta i.&lt;/p&gt;
+
+    &lt;p&gt;Texto &lt;mark&gt;resaltado&lt;/mark&gt; con la etiqueta mark.&lt;/p&gt;
+
+    &lt;p&gt;Un texto &lt;small&gt;más pequeño&lt;/small&gt; con la etiqueta small.&lt;/p&gt;
+
+    &lt;p&gt;Texto &lt;del&gt;tachado&lt;/del&gt; con la etiqueta del.&lt;/p&gt;
+
+    &lt;p&gt;Texto &lt;ins&gt;subrayado&lt;/ins&gt; con la etiqueta ins.&lt;/p&gt;
+
+    &lt;p&gt;Texto &lt;sub&gt;subíndice&lt;/sub&gt; y texto &lt;sup&gt;superíndice&lt;/sup&gt;.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+        Esta es una cita de bloque con la etiqueta blockquote. Se utiliza para citar contenido de otras fuentes.
+    &lt;/blockquote&gt;
+
+    &lt;p&gt;También puedes usar &lt;q&gt;citas cortas en línea&lt;/q&gt; con la etiqueta q.&lt;/p&gt;
+
+    &lt;pre&gt;
+        Este es texto preformateado.
+        Conserva    los espacios    y
+        saltos de línea.
+    &lt;/pre&gt;
+
+    &lt;code&gt;Este es un fragmento de código&lt;/code&gt;
+
+    &lt;p&gt;Definición de &lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt; usando la etiqueta abbr.&lt;/p&gt;
+
+    &lt;address&gt;
+        Escrito por: Juan Pérez&lt;br&gt;
+        Contacto: &lt;a href="mailto:juan@ejemplo.com"&gt;juan@ejemplo.com&lt;/a&gt;
+    &lt;/address&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+
+    <div class="explanation">
+        <p>En el código de arriba se ve cómo se usan estas etiquetas dentro de un documento HTML completo.</p>
+    </div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-8/actividades/8-1"><strong>Actividad 8.1</strong>. Etiquetas de texto</a></div>
+    </div>
+
+    <h2 class="mb-4 text-primary">4. Listas</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-primary">
+                <tr>
+                    <th>Elemento</th>
+                    <th>Descripción</th>
+                    <th>Ejemplo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>&lt;ul&gt;</td>
+                    <td>Lista no ordenada.</td>
+                    <td>&lt;ul&gt; &lt;li&gt;Elemento 1&lt;/li&gt; &lt;li&gt;Elemento 2&lt;/li&gt; &lt;/ul&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;ol&gt;</td>
+                    <td>Lista ordenada.</td>
+                    <td>&lt;ol type="1" start="3"&gt; &lt;li&gt;Elemento 3&lt;/li&gt; &lt;li&gt;Elemento 4&lt;/li&gt;
+                        &lt;/ol&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;li&gt;</td>
+                    <td>Elemento de lista.</td>
+                    <td>&lt;li&gt;Elemento de lista&lt;/li&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;dl&gt;</td>
+                    <td>Lista de definiciones.</td>
+                    <td>&lt;dl&gt; &lt;dt&gt;Término&lt;/dt&gt; &lt;dd&gt;Definición&lt;/dd&gt; &lt;/dl&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;dt&gt;</td>
+                    <td>Elemento que representa un término dentro de una lista de definiciones.</td>
+                    <td>&lt;dl&gt;&lt;dt&gt;HTML&lt;/dt&gt; &lt;dd&gt;Lenguaje de marcado para la web.&lt;/dd&gt;
+                        &lt;/dl&gt;</td>
+                </tr>
+                <tr>
+                    <td>&lt;dd&gt;</td>
+                    <td>Descripción o definición del término anterior.</td>
+                    <td>&lt;dl&gt; &lt;dt&gt;CSS&lt;/dt&gt; &lt;dd&gt;Lenguaje para estilizar páginas web.&lt;/dd&gt;
+                        &lt;/dl&gt;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3 class="mb-4 text-primary">Listas no ordenadas (&lt;ul&gt;)</h3>
+    <p>La etiqueta <code>&lt;ul&gt;</code> (Unordered List) se utiliza para crear listas sin un orden específico,
+        donde cada elemento está marcado con un punto o viñeta.</p>
+    <pre><code class="language-html">&lt;ul&gt;
+    &lt;li&gt;Elemento 1&lt;/li&gt;
+    &lt;li&gt;Elemento 2&lt;/li&gt;
+    &lt;li&gt;Elemento 3&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+    <h3 class="mb-4 text-primary">Listas ordenadas (&lt;ol&gt;)</h3>
+    <p>La etiqueta <code>&lt;ol&gt;</code> (Ordered List) crea listas numeradas o con otro tipo de ordenación.
+        Puedes personalizar el tipo y el número de inicio:</p>
+    <pre><code class="language-html">&lt;ol type="1" start="3"&gt;
+    &lt;li&gt;Elemento 3&lt;/li&gt;
+    &lt;li&gt;Elemento 4&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+
+    <h4>Tipos de numeración en listas ordenadas:</h4>
+    <ul>
+        <li><code>type="1"</code>: Números (1, 2, 3...)</li>
+        <li><code>type="A"</code>: Letras mayúsculas (A, B, C...)</li>
+        <li><code>type="a"</code>: Letras minúsculas (a, b, c...)</li>
+        <li><code>type="I"</code>: Números romanos mayúsculos (I, II, III...)</li>
+        <li><code>type="i"</code>: Números romanos minúsculos (i, ii, iii...)</li>
+    </ul>
+
+    <h3 class="mb-4 text-primary">Elementos de lista (&lt;li&gt;)</h3>
+    <p>La etiqueta <code>&lt;li&gt;</code> (List Item) se usa para definir cada elemento dentro de una lista.
+        Siempre debe estar dentro de un elemento padre <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> o
+        <code>&lt;menu&gt;</code>.
+    </p>
+    <pre><code class="language-html">&lt;li&gt;Elemento de lista&lt;/li&gt;</code></pre>
+
+    <h3 class="mb-4 text-primary">Listas de definiciones (&lt;dl&gt;)</h3>
+    <p>La etiqueta <code>&lt;dl&gt;</code> (Definition List) se utiliza para crear listas de términos y sus
+        definiciones:</p>
+    <pre><code class="language-html">&lt;dl&gt;
+    &lt;dt&gt;Término&lt;/dt&gt;
+    &lt;dd&gt;Definición&lt;/dd&gt;
+    &lt;dt&gt;Otro término&lt;/dt&gt;
+    &lt;dd&gt;Otra definición&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+
+    <h4>Importante al formatear listas:</h4>
+    <ul>
+        <li>Siempre cierra cada etiqueta <code>&lt;li&gt;</code> con <code>&lt;/li&gt;</code></li>
+        <li>Asegúrate de que los elementos <code>&lt;li&gt;</code> estén siempre dentro de un elemento contenedor
+            (<code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> o <code>&lt;menu&gt;</code>)</li>
+        <li>Para las listas de definición, usa siempre <code>&lt;dt&gt;</code> para el término y
+            <code>&lt;dd&gt;</code> para la definición
+        </li>
+    </ul>
+    <h3 class="mb-4 text-primary">Ejemplo del uso de listas en HTML</h3>
+    <div class="code-container">
+        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Listas en HTML&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;h2&gt;Lista no ordenada&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Manzana&lt;/li&gt;
+        &lt;li&gt;Banana&lt;/li&gt;
+        &lt;li&gt;Cereza&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;h2&gt;Lista ordenada&lt;/h2&gt;
+    &lt;ol type="A" start="2"&gt;
+        &lt;li&gt;Segundo elemento&lt;/li&gt;
+        &lt;li&gt;Tercer elemento&lt;/li&gt;
+    &lt;/ol&gt;
+
+    &lt;h2&gt;Lista de definiciones&lt;/h2&gt;
+    &lt;dl&gt;
+        &lt;dt&gt;HTML&lt;/dt&gt;
+        &lt;dd&gt;Lenguaje de marcado de hipertexto&lt;/dd&gt;
+
+        &lt;dt&gt;CSS&lt;/dt&gt;
+        &lt;dd&gt;Hojas de estilo en cascada&lt;/dd&gt;
+
+        &lt;dt&gt;JS&lt;/dt&gt;
+        &lt;dd&gt;JavaScript, lenguaje de programación para la web&lt;/dd&gt;
+    &lt;/dl&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+
+    <div class="explanation">
+        <p>En el bloque anterior se muestran ejemplos prácticos de los tres tipos de listas en HTML:
+            <strong>&lt;ul&gt;</strong> para listas no ordenadas, <strong>&lt;ol&gt;</strong> para listas ordenadas,
+            y <strong>&lt;dl&gt;</strong> para listas de definiciones.
+        </p>
+    </div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-8/actividades/8-2"><strong>Actividad 8.2</strong>. Listas</a></div>
+    </div>
+
+    <h2 class="mb-4 text-primary">5. Imágenes</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-primary">
+                <tr>
+                    <th>Elemento</th>
+                    <th>Descripción</th>
+                    <th>Ejemplo</th>
+                    <th>Atributos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="tag-name">&lt;a&gt;</td>
+                    <td>Define un hipervínculo.</td>
+                    <td>&lt;a href="https://ejemplo.com" target="_blank"&gt;Enlace&lt;/a&gt;</td>
+                    <td>href, target, rel, download</td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;img&gt;</td>
+                    <td>Inserta una imagen.</td>
+                    <td>&lt;img src="imagen.jpg" alt="Descripción" width="300" height="200"&gt;</td>
+                    <td>src, alt, width, height, loading</td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;figure&gt;</td>
+                    <td>Contenedor para imágenes con leyenda.</td>
+                    <td>&lt;figure&gt; &lt;img src="imagen.jpg" alt="Descripción"&gt; &lt;figcaption&gt;Leyenda de la
+                        imagen&lt;/figcaption&gt; &lt;/figure&gt;</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;picture&gt;</td>
+                    <td>Contenedor para múltiples recursos de imagen.</td>
+                    <td>&lt;picture&gt; &lt;source media="(min-width: 800px)" srcset="imagen-grande.jpg"&gt; &lt;img
+                        src="imagen-pequeña.jpg" alt="Descripción"&gt; &lt;/picture&gt;</td>
+                    <td>media, srcset</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3 class="mb-4 text-primary">Etiqueta &lt;img&gt;</h3>
+    <p>La etiqueta <code>&lt;img&gt;</code> se utiliza para insertar imágenes en una página web. Es una etiqueta
+        vacía
+        (no tiene etiqueta de cierre) y debe incluir al menos el atributo <code>src</code>.</p>
+    <h4 class="text-primary">Ejemplo:</h4>
+    <pre><code class="language-html">&lt;img src="ruta/imagen.jpg" alt="Descripción de la imagen"&gt;</code></pre>
+    <h4 class="text-primary">Atributos principales de &lt;img&gt;:</h4>
+    <ul>
+        <li><strong>src:</strong> Especifica la ruta de la imagen. Puede ser relativa (ej:
+            <code>imágenes/logo.png</code>) o absoluta (ej: <code>https://ejemplo.com/logo.png</code>).
+        </li>
+        <li><strong>alt:</strong> Texto alternativo que se muestra si la imagen no se puede cargar. Es importante
+            para
+            la accesibilidad.</li>
+        <li><strong>width:</strong> Define el ancho de la imagen (en píxeles o %).</li>
+        <li><strong>height:</strong> Define la altura de la imagen.</li>
+        <li><strong>title:</strong> Texto que aparece al pasar el cursor por encima.</li>
+    </ul>
+    <h4 class="text-primary">Ejemplo completo:</h4>
+    <pre><code class="language-html">&lt;img src="imagenes/perro.jpg" alt="Un perro jugando" width="300" height="200" title="Perro feliz"&gt;</code></pre>
+    <h4 class="text-primary">Formato dentro de listas:</h4>
+    <p>Puedes usar imágenes dentro de elementos de lista:</p>
+    <pre><code class="language-html">&lt;ul&gt;
+    &lt;li&gt;
+        &lt;img src="iconos/sol.png" alt="Sol"&gt; Día soleado
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;img src="iconos/lluvia.png" alt="Lluvia"&gt; Día lluvioso
+    &lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+    <h4 class="text-primary">Imágenes como enlaces:</h4>
+    <pre><code class="language-html">&lt;a href="https://example.com"&gt; &lt;img src="boton.png" alt="Ir a ejemplo"&gt; &lt;/a&gt;</code></pre>
+    <h4 class="text-primary">Importante:</h4>
+    <ul>
+        <li>Siempre incluir el atributo <code>alt</code> para accesibilidad.</li>
+        <li>No uses imágenes decorativas sin <code>alt</code> o usa <code>alt=""</code> si no aportan información.
+        </li>
+        <li>Asegúrate de que el archivo existe en la ruta indicada.</li>
+    </ul>
+    <h3 class="mb-4 text-primary">Ejemplo del uso de imágenes en HTML</h3>
+    <div class="code-container">
+        <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Imágenes en HTML&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;h2&gt;Etiqueta &lt;a&gt; para enlaces&lt;/h2&gt;
+    &lt;a href="https://ejemplo.com" target="_blank"&gt;Visitar Ejemplo.com&lt;/a&gt;
+
+    &lt;h2&gt;Etiqueta &lt;img&gt; para insertar imágenes&lt;/h2&gt;
+    &lt;img src="imagen.jpg" alt="Descripción de la imagen" width="300" height="200"&gt;
+
+    &lt;h2&gt;Etiqueta &lt;figure&gt; con leyenda&lt;/h2&gt;
+    &lt;figure&gt;
+        &lt;img src="imagen.jpg" alt="Descripción"&gt;
+        &lt;figcaption&gt;Leyenda de la imagen&lt;/figcaption&gt;
+    &lt;/figure&gt;
+
+    &lt;h2&gt;Etiqueta &lt;picture&gt; para imágenes responsivas&lt;/h2&gt;
+    &lt;picture&gt;
+        &lt;source media="(min-width: 800px)" srcset="imagen-grande.jpg"&gt;
+        &lt;img src="imagen-pequeña.jpg" alt="Imagen alternativa"&gt;
+    &lt;/picture&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+
+    <div class="explanation">
+        <p>Este bloque muestra cómo trabajar con imágenes, enlaces y estructuras responsivas usando
+            <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;figure&gt;</code> y
+            <code>&lt;picture&gt;</code>.
+        </p>
+    </div>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-8/actividades/8-3"><strong>Actividad 8.3</strong>. Imágenes</a></div>
+    </div>
+
+    <h2 class="mb-4 text-primary">6. Enlaces</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-primary text-center">
+                <tr>
+                    <th style="width: 15%;">Elemento/Atributo</th>
+                    <th style="width: 45%;">Descripción</th>
+                    <th style="width: 40%;">Ejemplo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="tag-name">&lt;a&gt;</td>
+                    <td>Define un hipervínculo básico. <div class="notes">Atributos comunes: href, target, rel, download
+                        </div>
+                    </td>
+                    <td>&lt;a href="https://ejemplo.com"&gt;Enlace a ejemplo.com&lt;/a&gt;</td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;a target="_blank"&gt;</td>
+                    <td>Abre el enlace en una nueva pestaña o ventana. <div class="notes">Considera añadir rel="noopener
+                            noreferrer" por seguridad</div>
+                    </td>
+                    <td>&lt;a href="https://ejemplo.com" target="_blank"&gt;Abrir en nueva pestaña&lt;/a&gt;</td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;a download&gt;</td>
+                    <td>Crea un enlace para descargar un archivo. <div class="notes">El atributo download puede
+                            especificar un nombre de archivo personalizado</div>
+                    </td>
+                    <td>&lt;a href="documento.pdf" download="nombre-archivo.pdf"&gt;Descargar PDF&lt;/a&gt;</td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;a&gt; con #id</td>
+                    <td>Enlace de anclaje hacia una sección de la misma página. <div class="notes">El destino debe tener
+                            un id coincidente</div>
+                    </td>
+                    <td>
+                        &lt;a href="#seccion1"&gt;Ir a la sección 1&lt;/a&gt;<br>
+                        &lt;h2 id="seccion1"&gt;Sección 1&lt;/h2&gt;
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;a mailto:&gt;</td>
+                    <td>Crea un enlace para enviar un correo electrónico. <div class="notes">Parámetros: subject, cc,
+                            bcc, body</div>
+                    </td>
+                    <td>
+                        &lt;a href="mailto:correo@ejemplo.com"&gt;Enviar email&lt;/a&gt;<br>
+                        &lt;a href="mailto:correo@ejemplo.com?subject=Asunto&amp;body=Contenido"&gt;Email con
+                        asunto&lt;/a&gt;
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;a tel:&gt;</td>
+                    <td>Crea un enlace para llamar a un número de teléfono. <div class="notes">Funciona principalmente
+                            en móviles</div>
+                    </td>
+                    <td>&lt;a href="tel:+34123456789"&gt;Llamar ahora&lt;/a&gt;</td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;a&gt; con imagen</td>
+                    <td>Utiliza una imagen como enlace clickeable. <div class="notes">Cualquier contenido puede estar
+                            dentro de un enlace</div>
+                    </td>
+                    <td>
+                        &lt;a href="https://ejemplo.com"&gt;<br>
+                        &nbsp;&nbsp;&lt;img src="logo.png" alt="Logo de Ejemplo"&gt;<br>
+                        &lt;/a&gt;
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;nav&gt; con &lt;a&gt;</td>
+                    <td>Grupo de enlaces semánticos para navegación. <div class="notes">Ayuda a los lectores de pantalla
+                        </div>
+                    </td>
+                    <td>
+                        &lt;nav&gt;<br>
+                        &nbsp;&nbsp;&lt;a href="index.html"&gt;Inicio&lt;/a&gt;<br>
+                        &nbsp;&nbsp;&lt;a href="servicios.html"&gt;Servicios&lt;/a&gt;<br>
+                        &nbsp;&nbsp;&lt;a href="contacto.html"&gt;Contacto&lt;/a&gt;<br>
+                        &lt;/nav&gt;
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;button&gt; vs &lt;a&gt;</td>
+                    <td>Diferencia entre botones y enlaces. <div class="notes">Usa &lt;button&gt; para acciones,
+                            &lt;a&gt; para navegación</div>
+                    </td>
+                    <td>
+                        &lt;button type="button"&gt;Acción en la página&lt;/button&gt;<br>
+                        &lt;a href="otra-pagina.html"&gt;Ir a otra página&lt;/a&gt;
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tag-name">href</td>
+                    <td>Especifica la URL de destino del enlace. <div class="notes">Puede ser absoluta, relativa o
+                            anclaje</div>
+                    </td>
+                    <td>
+                        &lt;a href="https://ejemplo.com"&gt;Enlace&lt;/a&gt;<br>
+                        &lt;a href="pagina.html"&gt;Relativo&lt;/a&gt;<br>
+                        &lt;a href="#seccion"&gt;Anclaje&lt;/a&gt;
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tag-name">target</td>
+                    <td>Define dónde se abre el enlace. <div class="notes">Valores: _blank, _self, _parent, _top</div>
+                    </td>
+                    <td>
+                        &lt;a href="url" target="_blank"&gt;Nueva pestaña&lt;/a&gt;<br>
+                        &lt;a href="url" target="_self"&gt;Misma ventana&lt;/a&gt;
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tag-name">rel</td>
+                    <td>Define la relación entre páginas. <div class="notes">Valores: nofollow, noopener, noreferrer,
+                            etc.</div>
+                    </td>
+                    <td>
+                        &lt;a href="url" rel="nofollow"&gt;SEO&lt;/a&gt;<br>
+                        &lt;a href="url" rel="noopener noreferrer" target="_blank"&gt;Seguro&lt;/a&gt;
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tag-name">download</td>
+                    <td>Indica que el enlace es para descargar. <div class="notes">Puede cambiar el nombre del archivo
+                        </div>
+                    </td>
+                    <td>
+                        &lt;a href="archivo.pdf" download&gt;Descargar&lt;/a&gt;<br>
+                        &lt;a href="archivo.pdf" download="nuevo-nombre.pdf"&gt;Renombrado&lt;/a&gt;
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3 class="mb-4 text-primary">Etiqueta &lt;a&gt;</h3>
+    <p>La etiqueta <code>&lt;a&gt;</code> (anchor) se utiliza para crear enlaces en una página web. Es una etiqueta
+        que requiere una etiqueta de cierre y debe incluir al menos el atributo <code>href</code>.</p>
+    <h4 class="mb-4 text-primary">Ejemplo:</h4>
+    <pre><code class="language-html">&lt;a href="https://ejemplo.com"&gt;Texto del enlace&lt;/a&gt;</code></pre>
+    <h4 class="mb-4 text-primary">Atributos principales de &lt;a&gt;:</h4>
+    <ul>
+        <li><strong>href:</strong> Especifica la URL de destino. Puede ser relativa (ej:
+            <code>contacto.html</code>), absoluta (ej: <code>https://ejemplo.com</code>), anclaje interno (ej:
+            <code>#seccion1</code>), o protocolos especiales (ej: <code>mailto:</code>, <code>tel:</code>).
+        </li>
+        <li><strong>target:</strong> Define dónde se abrirá el enlace (<code>_blank</code>, <code>_self</code>,
+            <code>_parent</code>, <code>_top</code>).
+        </li>
+        <li><strong>rel:</strong> Establece la relación entre la página actual y la enlazada (ej:
+            <code>nofollow</code>, <code>noopener</code>, <code>noreferrer</code>).
+        </li>
+        <li><strong>download:</strong> Indica que el enlace descargará un archivo.</li>
+        <li><strong>title:</strong> Texto que aparece al pasar el cursor por encima.</li>
+    </ul>
+
+    <h4 class="mb-4 text-primary">Ejemplo completo:</h4>
+    <pre>
+<code class="language-html">&lt;a href="https://ejemplo.com" target="_blank" rel="noopener noreferrer" title="Visita nuestra página"&gt;Visitar Ejemplo.com&lt;/a&gt;</code></pre>
+
+    <h4 class="mb-4 text-primary">Tipos de enlaces:</h4>
+
+    <h5 class="mb-2 mt-4 text-secondary">1. Enlaces a páginas web:</h5>
+    <pre>
+<code class="language-html">&lt;a href="https://ejemplo.com"&gt;Visitar sitio externo&lt;/a&gt;&lt;a href="contacto.html"&gt;Ir a página de contacto&lt;/a&gt;</code>
+</pre>
+    <h5 class="mb-2 mt-4 text-secondary">2. Enlaces internos con anclajes:</h5>
+    <pre>
+<code class="language-html">&lt;a href="#seccion1"&gt;Ir a la sección 1&lt;/a&gt;
+&lt;!-- En otra parte del documento: --&gt;
+&lt;h2 id="seccion1"&gt;Sección 1&lt;/h2&gt;</code></pre>
+
+    <h5 class="mb-2 mt-4 text-secondary">3. Enlaces para correo electrónico:</h5>
+    <pre><code class="language-html">&lt;a href="mailto:info@ejemplo.com"&gt;Enviar correo&lt;/a&gt;
+&lt;a href="mailto:info@ejemplo.com?subject=Consulta&body=Hola,%20quiero%20información"&gt;Enviar consulta&lt;/a&gt;</code></pre>
+
+    <h5 class="mb-2 mt-4 text-secondary">4. Enlaces para teléfono:</h5>
+    <pre><code class="language-html">&lt;a href="tel:+34612345678"&gt;Llamar ahora: +34 612 345 678&lt;/a&gt;</code></pre>
+
+    <h5 class="mb-2 mt-4 text-secondary">5. Enlaces de descarga:</h5>
+    <pre><code class="language-html">&lt;a href="documentos/manual.pdf" download&gt;Descargar manual&lt;/a&gt;
+    &lt;a href="documentos/manual.pdf" download="manual-usuario.pdf"&gt;Descargar con nombre personalizado&lt;/a&gt;</code></pre>
+
+    <h4 class="mb-4 text-primary">Enlaces con imágenes:</h4>
+    <pre><code class="language-html">&lt;a href="https://ejemplo.com"&gt;
+    &lt;img src="logo.png" alt="Logo de Ejemplo"&gt;
+&lt;/a&gt;</code></pre>
+
+    <h4 class="mb-4 text-primary">Enlaces dentro de listas:</h4>
+    <pre><code class="language-html">&lt;ul&gt;
+    &lt;li&gt;&lt;a href="index.html"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="servicios.html"&gt;Servicios&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="contacto.html"&gt;Contacto&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+    <h4 class="mb-4 text-primary">Enlaces con atributos de seguridad:</h4>
+    <pre><code class="language-html">&lt;a href="https://sitio-externo.com" target="_blank" rel="noopener noreferrer"&gt;Sitio seguro&lt;/a&gt;</code></pre>
+
+    <h4 class="mb-4 text-primary">Importante:</h4>
+    <ul>
+        <li>Usa textos descriptivos en los enlaces, evita "haz clic aquí" o "más información".</li>
+        <li>Los enlaces deben ser visualmente distinguibles del texto normal (normalmente subrayados y en color azul
+            por defecto).</li>
+        <li>Añade <code>rel="noopener noreferrer"</code> cuando uses <code>target="_blank"</code> por seguridad.
+        </li>
+        <li>Los enlaces internos con <code>#</code> son útiles para crear menús de navegación en páginas largas.
+        </li>
+    </ul>
+
+    <h4 class="mb-4 text-primary">Ejemplo del uso de enlaces en HTML</h4>
+    <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Enlaces en HTML&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;nav&gt;
+        &lt;a href="#inicio"&gt;Inicio&lt;/a&gt;
+        &lt;a href="#servicios"&gt;Servicios&lt;/a&gt;
+        &lt;a href="#contacto"&gt;Contacto&lt;/a&gt;
+    &lt;/nav&gt;
+
+    &lt;section id="inicio"&gt;
+        &lt;h2&gt;Inicio&lt;/h2&gt;
+        &lt;p&gt;Bienvenido a nuestra página. &lt;a href="about.html"&gt;Conoce más sobre nosotros&lt;/a&gt;.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section id="servicios"&gt;
+        &lt;h2&gt;Servicios&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="diseno.html"&gt;Diseño web&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="desarrollo.html"&gt;Desarrollo&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="seo.html"&gt;SEO&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;section id="contacto"&gt;
+        &lt;h2&gt;Contacto&lt;/h2&gt;
+        &lt;p&gt;Puedes contactarnos por:&lt;/p&gt;
+        &lt;p&gt;
+            &lt;a href="mailto:info@ejemplo.com"&gt;info@ejemplo.com&lt;/a&gt;&lt;br&gt;
+            &lt;a href="tel:+34612345678"&gt;+34 612 345 678&lt;/a&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            &lt;a href="contacto.html" class="button-link"&gt;Formulario de contacto&lt;/a&gt;
+        &lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;p&gt;Descarga nuestro &lt;a href="recursos/catalogo.pdf" download&gt;catálogo completo&lt;/a&gt;.&lt;/p&gt;
+
+    &lt;p&gt;
+        &lt;a href="https://ejemplo.com" target="_blank" rel="noopener noreferrer"&gt;
+            &lt;img src="logo.png" alt="Logo de Ejemplo" width="150"&gt;
+        &lt;/a&gt;
+    &lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-8/actividades/8-4"><strong>Actividad 8.4</strong>. Enlaces entre páginas</a></div>
+    </div>
+
+    <h2 class="mb-4 text-primary">7. Tablas</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-primary">
+                <tr>
+                    <th>Elemento</th>
+                    <th>Descripción</th>
+                    <th>Ejemplo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="tag-name">&lt;table&gt;</td>
+                    <td>Define una tabla en HTML. Es el contenedor principal de las filas y columnas de datos.</td>
+                    <td>&lt;table&gt;...&lt;/table&gt;</td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;tr&gt;</td>
+                    <td>Representa una fila de la tabla, y dentro de esta fila se agrupan las celdas de la tabla.</td>
+                    <td>&lt;tr&gt;...&lt;/tr&gt;</td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;th&gt;</td>
+                    <td>Define una celda de encabezado en una tabla. Usualmente se utiliza para nombrar las columnas o
+                        filas, destacando el contenido con un formato especial (negrita y centrado por defecto).</td>
+                    <td>&lt;th scope="col"&gt;Nombre&lt;/th&gt;</td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;td&gt;</td>
+                    <td>Representa una celda de datos en una tabla. Puede incluir texto, números, imágenes, entre otros.
+                    </td>
+                    <td>&lt;td colspan="2"&gt;Datos&lt;/td&gt;</td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;thead&gt;</td>
+                    <td>Sección de la tabla que agrupa las filas del encabezado. Normalmente se utiliza para contener
+                        las celdas de encabezado de la tabla.</td>
+                    <td>&lt;thead&gt;...&lt;/thead&gt;</td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;tbody&gt;</td>
+                    <td>Sección del cuerpo de la tabla que contiene las filas con los datos principales de la tabla. Es
+                        donde se muestran los registros de información.</td>
+                    <td>&lt;tbody&gt;...&lt;/tbody&gt;</td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;tfoot&gt;</td>
+                    <td>Sección del pie de la tabla que se usa para agrupar los pies de las columnas o para colocar
+                        totales. Se suele utilizar al final de las tablas con cálculos.</td>
+                    <td>&lt;tfoot&gt;...&lt;/tfoot&gt;</td>
+                </tr>
+                <tr>
+                    <td class="tag-name">&lt;caption&gt;</td>
+                    <td>Define el título o descripción de una tabla. Se coloca antes de las secciones &lt;thead&gt;,
+                        &lt;tbody&gt; y &lt;tfoot&gt;.</td>
+                    <td>&lt;caption&gt;Título de la tabla&lt;/caption&gt;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h3 class="mb-2 mt-2 text-primary">Etiqueta <code>&lt;table&gt;</code> para crear tablas</h3>
+    <p>La etiqueta <code>&lt;table&gt;</code> se utiliza para definir una tabla en HTML. Esta etiqueta contiene otras
+        etiquetas que definen filas y celdas dentro de la tabla.</p>
+
+    <h4 class="text-primary mt-3">Ejemplo básico:</h4>
+    <pre><code class="language-html">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Encabezado 1&lt;/th&gt;
+        &lt;th&gt;Encabezado 2&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Dato 1&lt;/td&gt;
+        &lt;td&gt;Dato 2&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+    <table style="border:1px solid">
+        <tr>
+            <th>Encabezado 1</th>
+            <th>Encabezado 2</th>
+        </tr>
+        <tr>
+            <td>Dato 1</td>
+            <td>Dato 2</td>
+        </tr>
+    </table>
+
+    <h4 class="text-primary mt-3">Atributos principales de <code>&lt;table&gt;</code>:</h4>
+    <ul>
+        <li><strong>border:</strong> Define el grosor de los bordes de la tabla (en píxeles).</li>
+        <li><strong>cellspacing:</strong> Define el espacio entre las celdas.</li>
+        <li><strong>cellpadding:</strong> Define el espacio dentro de las celdas, entre el contenido y el borde.</li>
+        <li><strong>width:</strong> Define el ancho de la tabla.</li>
+    </ul>
+
+    <h4 class="text-primary mt-3">Ejemplo con bordes, espacio entre celdas y celdas con padding:</h4>
+    <pre><code class="language-html">&lt;table style="border:1px solid" cellspacing="5" cellpadding="10"&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Encabezado 1&lt;/th&gt;
+        &lt;th&gt;Encabezado 2&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Dato 1&lt;/td&gt;
+        &lt;td&gt;Dato 2&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+    <table style="border:1px solid" cellspacing="5" cellpadding="10">
+        <tr>
+            <th>Encabezado 1</th>
+            <th>Encabezado 2</th>
+        </tr>
+        <tr>
+            <td>Dato 1</td>
+            <td>Dato 2</td>
+        </tr>
+    </table>
+
+    <h3 class="mb-2 mt-2 text-primary">Etiqueta <code>&lt;tr&gt;</code> para filas</h3>
+    <p>La etiqueta <code>&lt;tr&gt;</code> define una fila dentro de la tabla.</p>
+    <p>Ejemplo:</p>
+    <pre><code class="language-html">&lt;tr&gt;
+        &lt;td&gt;Celda 1&lt;/td&gt;
+        &lt;td&gt;Celda 2&lt;/td&gt;
+    &lt;/tr&gt;</code></pre>
+
+    <h3 class="mb-2 mt-2 text-primary">Etiqueta <code>&lt;th&gt;</code> para encabezados de la tabla</h3>
+    <p>La etiqueta <code>&lt;th&gt;</code> define una celda de encabezado. Los encabezados están generalmente en negrita
+        y centrados por defecto.</p>
+    <p>Ejemplo:</p>
+    <pre><code class="language-html">&lt;th&gt;Encabezado&lt;/th&gt;</code></pre>
+
+    <h3 class="mb-2 mt-2 text-primary">Etiqueta <code>&lt;td&gt;</code> para celdas de datos</h3>
+    <p>La etiqueta <code>&lt;td&gt;</code> define una celda de datos dentro de una fila. Es el contenido principal de la
+        tabla.</p>
+    <p>Ejemplo:</p>
+    <pre><code class="language-html">&lt;td&gt;Dato&lt;/td&gt;</code></pre>
+
+    <h3 class="mb-2 mt-2 text-primary">Ejemplo completo de tabla:</h3>
+    <pre><code class="language-html">&lt;table style="border:1px solid" cellspacing="2" cellpadding="5"&gt;
+    &lt;caption&gt;Tabla de ejemplo&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Nombre&lt;/th&gt;
+            &lt;th&gt;Edad&lt;/th&gt;
+            &lt;th&gt;Ciudad&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Ana&lt;/td&gt;
+            &lt;td&gt;28&lt;/td&gt;
+            &lt;td&gt;Madrid&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Juan&lt;/td&gt;
+            &lt;td&gt;35&lt;/td&gt;
+            &lt;td&gt;Barcelona&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Pedro&lt;/td&gt;
+            &lt;td&gt;22&lt;/td&gt;
+            &lt;td&gt;Valencia&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot&gt;
+        &lt;tr&gt;
+            &lt;td colspan="3"&gt;Fin de la tabla&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+    <table style="border:1px solid" cellspacing="2" cellpadding="5">
+        <caption>Tabla de ejemplo</caption>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Ciudad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Ana</td>
+                <td>28</td>
+                <td>Madrid</td>
+            </tr>
+            <tr>
+                <td>Juan</td>
+                <td>35</td>
+                <td>Barcelona</td>
+            </tr>
+            <tr>
+                <td>Pedro</td>
+                <td>22</td>
+                <td>Valencia</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Fin de la tabla</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <h4 class="text-primary mt-3">Notas importantes:</h4>
+    <ul>
+        <li><strong>caption:</strong> Se utiliza para agregar un título a la tabla.</li>
+        <li><strong>thead, tbody y tfoot:</strong> Estas etiquetas se utilizan para agrupar las secciones de la tabla
+            (encabezado, cuerpo y pie).</li>
+        <li><strong>colspan:</strong> Atributo que permite que una celda ocupe varias columnas. Ejemplo:
+            <code>&lt;td colspan="2"&gt;Celda amplia&lt;/td&gt;</code>
+        </li>
+        <li><strong>rowspan:</strong> Atributo que permite que una celda ocupe varias filas. Ejemplo:
+            <code>&lt;td rowspan="2"&gt;Celda que ocupa dos filas&lt;/td&gt;</code>
+        </li>
+    </ul>
+
+    <div class="practica"><i class="bi bi-pencil-square"></i>
+        <div>Practica este apartado: <a href="#/Unidad-8/actividades/8-5"><strong>Actividad 8.5</strong>. Tablas</a></div>
+    </div>
+</div>

@@ -1,0 +1,158 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-8/index">Unidad 8</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-8/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">8.9</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 8.9. Formato de un texto</h1>
+    <p class="lead">Vas a copiar un diseño lo más parecido posible: fuentes, colores, fondos, sangrías y enlaces de un
+        texto sobre HTML y CSS.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li><code>font-family</code>, <code>font-size</code>, <code>font-weight</code> y
+                        <code>font-style</code></li>
+                    <li><code>color</code> y <code>background-color</code></li>
+                    <li><code>text-indent</code> (sangría de la primera línea)</li>
+                    <li>Selectores descendientes con ID y clases</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-8/teoria-css?sec=3-propiedades">3. Propiedades</a> (fuentes y texto,
+                        color y fondo)</li>
+                    <li>Teoría: <a href="#/Unidad-8/teoria-css?sec=8-selectores-descendientes-y-combinadores">8.
+                            Selectores descendientes</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Carpeta</th>
+                <td><code>ApellidoNombre_AO_Actividad8.9</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>index.html</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-3 text-primary">Así debe quedar</h2>
+    <figure><img src="../AO/img/Unidad-8/actividades/8-9/resultado.png"
+            alt="Título grande en rojo anaranjado y subrayado, un párrafo en azul y dos en gris, con sangría, palabras en cursiva con fondo negro y letra amarilla">
+        <figcaption>Resultado en el navegador</figcaption>
+    </figure>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea el documento y pega el fragmento</h3>
+            <p>Esta vez solo tienes un trozo de código. Crea un documento HTML nuevo con su estructura básica
+                (<code>!</code> + <kbd>Tab</kbd>), añade una etiqueta <code>&lt;style&gt;&lt;/style&gt;</code> en el
+                <code>head</code> y pega el fragmento dentro del <code>body</code>.</p>
+            <p class="fuente"><i class="bi bi-info-circle me-1"></i>Fuente del texto: libro <em>HTML &amp; CSS: Curso
+                    práctico avanzado</em> (Publicaciones Altaria).</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">&lt;div id="primero"&gt;
+  &lt;h1&gt;
+    &lt;a href="http://publicacionesaltaria.com/es/tienda/112-html-css-curso-practico.html"&gt;
+      HTML &amp;amp; CSS: Curso práctico avanzado
+    &lt;/a&gt;
+  &lt;/h1&gt;
+
+  &lt;p&gt;
+    Aunque los inicios de &lt;a href="https://es.wikipedia.org/wiki/Internet"&gt;Internet&lt;/a&gt; se remontan a los años
+    sesenta, no ha sido hasta los años noventa cuando, gracias a la Web, se ha extendido su uso por todo el mundo.
+    En pocos años, la Web ha evolucionado enormemente: se ha pasado de páginas sencillas, con pocas imágenes y contenidos
+    estáticos que eran visitadas por unos pocos usuarios a
+    &lt;em&gt;páginas complejas, con contenidos dinámicos que provienen de bases de datos y que son visitadas por miles
+    de usuarios al mismo tiempo&lt;/em&gt;.
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div id="segundo" class="normal"&gt;
+  &lt;p&gt;
+    Todas las páginas están internamente construidas con la misma tecnología, con el
+    &lt;em class="especial"&gt;Lenguaje de marcas de hipertexto&lt;/em&gt; (
+    &lt;span&gt;Hypertext Markup Language&lt;/span&gt;, &lt;a href="https://es.wikipedia.org/wiki/HTML"&gt;HTML&lt;/a&gt;)
+    y con las &lt;em class="especial"&gt;Hojas de estilo en cascada&lt;/em&gt; (
+    &lt;span&gt;Cascading Style Sheets&lt;/span&gt;, &lt;a href="https://es.wikipedia.org/wiki/CSS"&gt;CSS&lt;/a&gt;).
+  &lt;/p&gt;
+
+  &lt;p&gt;
+    Este libro es &lt;em&gt;adecuado para cualquiera que tenga interés en aprender a desarrollar sus propias páginas
+    web&lt;/em&gt;. No son necesarios conocimientos previos para aprender con este libro, lo único que es necesario es
+    saber utilizar un ordenador y saber navegar por la Web.
+  &lt;/p&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+        </li>
+
+        <li class="paso">
+            <h3>Fuente y enlaces de toda la página</h3>
+            <p>Empieza por lo general: la fuente de todo el texto (sin serifa, como Arial) y el color de los enlaces.
+                Así no tendrás que repetirlo en cada elemento.</p>
+        </li>
+
+        <li class="paso">
+            <h3>El bloque <code>#primero</code></h3>
+            <p>Da tamaño al título y color a los párrafos de <code>#primero</code>. Después, los <code>em</code> que
+                hay dentro de este bloque llevan un fondo amarillo claro y otro color de letra.</p>
+        </li>
+
+        <li class="paso">
+            <h3>El bloque <code>#segundo</code></h3>
+            <p>Los párrafos de <code>#segundo</code> van en gris. Los <code>em</code> de clase <code>especial</code>
+                llevan fondo negro y letra amarilla, y los <code>span</code> van en negrita.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Sangría de la primera línea</h3>
+            <p>Fíjate en que la primera línea de cada párrafo (y del título) empieza más a la derecha. Eso se consigue
+                con <code>text-indent</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Compara con el resultado</h3>
+            <p>Guarda, recarga el navegador y ajusta los colores y tamaños hasta que se parezca lo máximo posible a la
+                imagen.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="8-9">
+        <li><label><input type="checkbox"><span>El documento tiene la estructura básica y los estilos están en <code>&lt;style&gt;</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Todo el texto usa una fuente sin serifa y los enlaces tienen su color.</span></label></li>
+        <li><label><input type="checkbox"><span>Los párrafos de <code>#primero</code> y de <code>#segundo</code> tienen colores distintos.</span></label></li>
+        <li><label><input type="checkbox"><span>Los <code>em</code> de <code>#primero</code> tienen fondo amarillo claro.</span></label></li>
+        <li><label><input type="checkbox"><span>Los <code>em</code> de clase <code>especial</code> tienen fondo negro y letra amarilla.</span></label></li>
+        <li><label><input type="checkbox"><span>Los párrafos tienen sangría en la primera línea.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-8/actividades/8-8"><i class="bi bi-arrow-left me-1"></i>Anterior: 8.8</a>
+        <a class="btn btn-primary" href="#/Unidad-8/actividades/8-10">Siguiente: 8.10. Diseño con floats <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

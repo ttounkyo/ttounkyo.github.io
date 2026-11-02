@@ -1,0 +1,136 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-8/index">Unidad 8</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-8/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">8.2</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 8.2. Listas</h1>
+    <p class="lead">Vas a crear dos páginas con listas: una lista de herramientas y materiales y la receta de un
+        brownie.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li><code>ul</code>: lista no ordenada (con viñetas)</li>
+                    <li><code>ol</code>: lista ordenada (con números)</li>
+                    <li><code>li</code>: cada elemento de la lista</li>
+                    <li>Listas dentro de otras listas</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-8/teoria-html?sec=4-listas">4. Listas</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Carpeta</th>
+                <td><code>Listas</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Archivos</th>
+                <td><code>lista-no-ordenada.html</code> · <code>lista-ordenada.html</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-3 text-primary">Así debe quedar</h2>
+    <div class="capturas">
+        <figure><img src="../AO/img/Unidad-8/actividades/8-2/lista-no-ordenada.png"
+                alt="Lista con viñetas: Herramientas necesarias (destornillador Philips, alicates) y Materiales necesarios (tornillos, tuercas, arandelas)">
+            <figcaption>lista-no-ordenada.html</figcaption>
+        </figure>
+        <figure><img src="../AO/img/Unidad-8/actividades/8-2/lista-ordenada.png"
+                alt="Título Brownie con una viñeta Elaboración del bizcocho y dentro cinco pasos numerados">
+            <figcaption>lista-ordenada.html</figcaption>
+        </figure>
+    </div>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea la carpeta y los dos archivos</h3>
+            <p>Crea una carpeta que se llame <code>Listas</code> y, dentro, dos documentos HTML:
+                <code>lista-no-ordenada.html</code> y <code>lista-ordenada.html</code>. Escribe en cada uno la estructura
+                básica (<code>!</code> + <kbd>Tab</kbd> en Visual Studio Code).</p>
+        </li>
+
+        <li class="paso">
+            <h3>Lista no ordenada</h3>
+            <p>En <code>lista-no-ordenada.html</code> crea una lista <code>ul</code> con dos elementos:
+                <strong>Herramientas necesarias</strong> y <strong>Materiales necesarios</strong>.</p>
+            <p>Dentro de cada <code>li</code>, después del texto, abre <strong>otra</strong> <code>ul</code> con sus
+                elementos. El navegador cambia sola la viñeta de la lista interior (círculo vacío).</p>
+            <pre><code class="language-html">&lt;ul&gt;
+    &lt;li&gt;Herramientas necesarias:
+        &lt;ul&gt;
+            &lt;li&gt;Destornillador Philips&lt;/li&gt;
+            &lt;li&gt;Alicates&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    ...
+&lt;/ul&gt;</code></pre>
+            <p>Completa la segunda parte con <strong>Tornillos</strong>, <strong>Tuercas</strong> y
+                <strong>Arandelas</strong>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Lista ordenada</h3>
+            <p>En <code>lista-ordenada.html</code> escribe el título <strong>Brownie</strong> con un <code>h1</code>.
+                Debajo, una lista <code>ul</code> con el elemento <strong>Elaboración del bizcocho</strong> y, dentro de
+                él, una lista <code>ol</code> con los cinco pasos de la receta.</p>
+            <details>
+                <summary>Ver los pasos de la receta</summary>
+                <div class="texto-modelo" id="texto-8-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-copiar" data-copiar="texto-8-2"><i
+                            class="bi bi-clipboard"></i> Copiar</button>
+                    <p>Mezclar parte del azúcar y la mantequilla con la cobertura de chocolate y los frutos secos.</p>
+                    <p>Montar las claras</p>
+                    <p>Añadir las yemas montadas a la primera mezcla</p>
+                    <p>Mezclar harina y fécula tamizadas a las claras a última hora y añadir a la mezcla</p>
+                    <p>Poner al horno 5 min a 200 °C y después bajar a 180 °C durante 25 min más</p>
+                </div>
+            </details>
+        </li>
+
+        <li class="paso">
+            <h3>Compara con el resultado</h3>
+            <p>Abre los dos archivos en el navegador y compáralos con las imágenes de arriba. Fíjate en que la lista
+                interior queda más hacia la derecha que la exterior.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="8-2">
+        <li><label><input type="checkbox"><span>Los dos archivos están dentro de la carpeta <code>Listas</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Los dos tienen la estructura básica de un documento HTML.</span></label></li>
+        <li><label><input type="checkbox"><span>En la lista no ordenada hay una <code>ul</code> dentro de cada uno de los dos <code>li</code> principales.</span></label></li>
+        <li><label><input type="checkbox"><span>La receta tiene el título "Brownie" en un <code>h1</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Los cinco pasos de la receta están en una <code>ol</code> dentro del elemento "Elaboración del bizcocho".</span></label></li>
+        <li><label><input type="checkbox"><span>Cada <code>li</code> se cierra con <code>&lt;/li&gt;</code> y cada lista con su etiqueta de cierre.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-8/actividades/8-1"><i class="bi bi-arrow-left me-1"></i>Anterior: 8.1</a>
+        <a class="btn btn-primary" href="#/Unidad-8/actividades/8-3">Siguiente: 8.3. Imágenes <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

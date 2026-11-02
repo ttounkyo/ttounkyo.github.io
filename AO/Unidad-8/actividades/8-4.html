@@ -1,0 +1,150 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-8/index">Unidad 8</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-8/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">8.4</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 8.4. Enlaces entre páginas</h1>
+    <p class="lead">Vas a crear un pequeño sitio web con varias carpetas y a enlazar sus páginas e imágenes entre sí
+        usando rutas relativas.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li><code>a</code> y su atributo <code>href</code></li>
+                    <li>Rutas relativas: entrar en una carpeta (<code>portfolio/</code>) y salir de ella
+                        (<code>../</code>)</li>
+                    <li>Enlaces a otras páginas y a imágenes</li>
+                    <li>Organizar un sitio web en carpetas</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-8/teoria-html?sec=6-enlaces">6. Enlaces</a></li>
+                    <li>Busca dos imágenes que te gusten para los proyectos y llámalas <code>proyecto1.png</code> y
+                        <code>proyecto2.png</code>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Carpeta</th>
+                <td><code>www.misitio.com</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Archivos</th>
+                <td>Los de la imagen "Estructura": <code>indice.html</code>, la carpeta <code>portfolio</code> con sus
+                    tres páginas y la carpeta <code>imagenes</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-3 text-primary">Así debe quedar</h2>
+    <div class="capturas">
+        <figure><img src="../AO/img/Unidad-8/actividades/8-4/estructura.png"
+                alt="Carpeta www.misitio.com con las carpetas imagenes y portfolio, favicon.png e indice.html">
+            <figcaption>Estructura de carpetas y archivos</figcaption>
+        </figure>
+        <figure><img src="../AO/img/Unidad-8/actividades/8-4/indice.png"
+                alt="Página Mi sitio con un párrafo, el apartado Últimos proyectos y un enlace">
+            <figcaption>indice.html</figcaption>
+        </figure>
+        <figure><img src="../AO/img/Unidad-8/actividades/8-4/portfolio-indice.png"
+                alt="Página Últimos proyectos con enlace para volver, Proyecto 1 y Proyecto 2 con enlaces Ir y enlaces a sus imágenes">
+            <figcaption>portfolio/indice.html</figcaption>
+        </figure>
+    </div>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea las carpetas y los archivos</h3>
+            <p>Crea la carpeta <code>www.misitio.com</code> y, dentro, todo lo que aparece en la imagen "Estructura":
+                las carpetas <code>imagenes</code> y <code>portfolio</code>, el archivo <code>indice.html</code> y, si
+                quieres, un icono <code>favicon.png</code>.</p>
+            <p>Dentro de <code>portfolio</code> crea <code>indice.html</code>, <code>proyecto1.html</code> y
+                <code>proyecto2.html</code>. Guarda tus dos imágenes en <code>imagenes</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Página principal</h3>
+            <p>En el <code>indice.html</code> de la carpeta principal escribe el título <strong>Mi sitio</strong>
+                (<code>h1</code>), un párrafo, el apartado <strong>Últimos proyectos</strong> (<code>h2</code>) con
+                otro párrafo y, al final, un enlace a la página del portfolio. Como está dentro de la carpeta
+                <code>portfolio</code>, la ruta empieza por su nombre:</p>
+            <pre><code class="language-html">&lt;a href="portfolio/indice.html"&gt;Últimos proyectos&lt;/a&gt;</code></pre>
+            <div class="alert alert-light border small">
+                <i class="bi bi-lightbulb me-1"></i>Para no escribir los párrafos a mano, en Visual Studio Code escribe
+                <code>lorem</code> y pulsa <kbd>Tab</kbd>: aparece un párrafo de texto de relleno. Con
+                <code>lorem50</code> obtienes 50 palabras.
+            </div>
+        </li>
+
+        <li class="paso">
+            <h3>Página del portfolio</h3>
+            <p>En <code>portfolio/indice.html</code> el primer elemento es un enlace para volver a la página principal.
+                Ahora tienes que <strong>salir</strong> de la carpeta <code>portfolio</code>, y eso se hace con
+                <code>../</code>:</p>
+            <pre><code class="language-html">&lt;a href="../indice.html"&gt;Volver a la página principal&lt;/a&gt;</code></pre>
+            <p>Debajo, el título <strong>Últimos proyectos</strong> (<code>h1</code>) con un párrafo, y un apartado
+                para cada proyecto (<code>h2</code>) con su párrafo.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Enlaces a los proyectos y a las imágenes</h3>
+            <p>Al lado del nombre de cada proyecto pon un enlace <strong>Ir</strong> a su página. Las dos páginas están
+                en la misma carpeta, así que basta con el nombre del archivo:</p>
+            <pre><code class="language-html">&lt;h2&gt;Proyecto 1 &lt;a href="proyecto1.html"&gt;Ir&lt;/a&gt;&lt;/h2&gt;</code></pre>
+            <p>Después de cada párrafo, un enlace a la imagen del proyecto. Para llegar a la carpeta
+                <code>imagenes</code> sales de <code>portfolio</code> y entras en <code>imagenes</code>:</p>
+            <pre><code class="language-html">&lt;a href="../imagenes/proyecto1.png"&gt;Imagen proyecto 1&lt;/a&gt;</code></pre>
+        </li>
+
+        <li class="paso">
+            <h3>Páginas de cada proyecto</h3>
+            <p>En <code>proyecto1.html</code> y <code>proyecto2.html</code> pon un título, un párrafo y la imagen del
+                proyecto con <code>img</code> (la ruta es la misma que la del enlace del paso anterior). Si quieres,
+                añade también un enlace para volver al portfolio.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Prueba todos los enlaces</h3>
+            <p>Abre <code>indice.html</code> en el navegador y recorre el sitio pulsando todos los enlaces. Si alguno
+                da error, revisa la ruta: ¿tienes que entrar en una carpeta o salir de ella? Puedes añadir más
+                enlaces si quieres.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="8-4">
+        <li><label><input type="checkbox"><span>Las carpetas y los archivos son como los de la imagen "Estructura".</span></label></li>
+        <li><label><input type="checkbox"><span>Desde la página principal se llega al portfolio.</span></label></li>
+        <li><label><input type="checkbox"><span>Desde el portfolio se vuelve a la página principal (con <code>../</code>).</span></label></li>
+        <li><label><input type="checkbox"><span>Los enlaces "Ir" abren la página de cada proyecto.</span></label></li>
+        <li><label><input type="checkbox"><span>Los enlaces "Imagen proyecto 1" e "Imagen proyecto 2" abren sus imágenes.</span></label></li>
+        <li><label><input type="checkbox"><span>Cada página de proyecto muestra su imagen.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-8/actividades/8-3"><i class="bi bi-arrow-left me-1"></i>Anterior: 8.3</a>
+        <a class="btn btn-primary" href="#/Unidad-8/actividades/8-5">Siguiente: 8.5. Tablas <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

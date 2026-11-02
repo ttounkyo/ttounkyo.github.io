@@ -1,0 +1,160 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-8/index">Unidad 8</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-8/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">8.1</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 8.1. Etiquetas de texto</h1>
+    <p class="lead">Vas a crear tu primera página web: un texto sobre la exploración espacial con su título, sus
+        párrafos y algunas palabras en negrita y en cursiva.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li><code>h1</code>-<code>h6</code>: encabezados</li>
+                    <li><code>p</code>: párrafos</li>
+                    <li><code>strong</code>: texto en negrita</li>
+                    <li><code>em</code>: texto en cursiva</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-8/teoria-html?sec=1-que-es-html">1. ¿Qué es HTML?</a> y <a
+                            href="#/Unidad-8/teoria-html?sec=3-texto">3. Texto</a></li>
+                    <li>Necesitas un editor de código (por ejemplo, Visual Studio Code) y un navegador.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Carpeta</th>
+                <td><code>ApellidoNombre_AO_Actividad8.1</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>index.html</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-3 text-primary">Así debe quedar</h2>
+    <figure><img src="../AO/img/Unidad-8/actividades/8-1/resultado.png"
+            alt="Página con el título La exploración espacial y cuatro párrafos con nombres en negrita y títulos de obras en cursiva">
+        <figcaption>Resultado en el navegador</figcaption>
+    </figure>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea el documento</h3>
+            <p>Crea la carpeta <code>ApellidoNombre_AO_Actividad8.1</code> y ábrela en el editor. Dentro, crea un
+                archivo nuevo llamado <code>index.html</code>.</p>
+            <p>En Visual Studio Code puedes escribir <code>!</code> y pulsar <kbd>Tab</kbd> para que se escriba sola la
+                estructura básica. Cambia <code>lang="en"</code> por <code>lang="es"</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Pega el texto</h3>
+            <p>Copia el texto y pégalo entre <code>&lt;body&gt;</code> y <code>&lt;/body&gt;</code>. Abre el archivo en
+                el navegador: verás que todo sale seguido, en un solo bloque. Eso es porque el navegador no entiende los
+                saltos de línea; necesita etiquetas.</p>
+            <details>
+                <summary>Ver el texto</summary>
+                <div class="texto-modelo" id="texto-8-1">
+                    <button type="button" class="btn btn-sm btn-outline-secondary btn-copiar" data-copiar="texto-8-1"><i
+                            class="bi bi-clipboard"></i> Copiar</button>
+                    <p>La exploración espacial designa los esfuerzos del hombre en estudiar el espacio y sus astros desde
+                        el punto de vista científico y de su explotación económica. Estos esfuerzos pueden involucrar
+                        tanto seres humanos viajando en naves espaciales como satélites con recursos de telemetría o
+                        sondas teleguiadas enviadas a otros planetas (orbitando o aterrizando en la superficie de estos
+                        cuerpos celestes).</p>
+                    <p>Las personas que pilotan naves espaciales, o son pasajeros en ellas, se llaman astronautas (en
+                        Rusia: cosmonautas; en China: taikonautas). Técnicamente se considera astronauta a todo aquel
+                        que emprenda un vuelo sub-orbital (sin entrar en órbita) u orbital a como mínimo 100 km de
+                        altitud (considerado el límite externo de la atmósfera).</p>
+                    <p>El cielo siempre ha atraído la atención y los sueños del hombre. Ya en 1634 se publicó la que se
+                        considera primera novela de ciencia ficción, Somnium, de Johannes Kepler, que narra un hipotético
+                        viaje a la Luna. Más tarde, en 1865, en una famosa obra de ficción titulada "De la Terre à la
+                        Lune", Julio Verne escribe sobre un grupo de hombres que viajó hasta la Luna usando un gigantesco
+                        cañón.</p>
+                    <p>En Francia, Georges Méliès, uno de los pioneros del cine, tomaba la novela de Verne para crear "Le
+                        voyage dans la Lune" (1902), una de las primeras películas de ciencia ficción en la que
+                        describía un increíble viaje a la Luna. En obras como "The War of the Worlds" (1898) y "The
+                        First Men in The Moon" (1901), Herbert George Wells también se concibieron ideas de exploración
+                        del espacio y de contacto con civilizaciones extraterrestres.</p>
+                </div>
+                <p class="fuente"><i class="bi bi-info-circle me-1"></i>Fuente del texto: artículo <a
+                        href="https://es.wikipedia.org/wiki/Exploraci%C3%B3n_espacial" target="_blank"
+                        rel="noopener noreferrer">«Exploración espacial»</a> de Wikipedia (licencia CC BY-SA).</p>
+            </details>
+        </li>
+
+        <li class="paso">
+            <h3>Añade el título</h3>
+            <p>Escribe el título <strong>La exploración espacial</strong> al principio del <code>body</code> con la
+                etiqueta de encabezado más grande:</p>
+            <pre><code class="language-html">&lt;h1&gt;La exploración espacial&lt;/h1&gt;</code></pre>
+        </li>
+
+        <li class="paso">
+            <h3>Separa los párrafos</h3>
+            <p>Encierra cada uno de los cuatro párrafos entre <code>&lt;p&gt;</code> y <code>&lt;/p&gt;</code>. Guarda,
+                recarga el navegador y comprueba que ahora aparecen separados.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Pon en negrita los nombres</h3>
+            <p>Usa <code>&lt;strong&gt;</code> para destacar <strong>exploración espacial</strong> (en el primer
+                párrafo) y los nombres de las personas: <strong>Johannes Kepler</strong>, <strong>Julio Verne</strong>,
+                <strong>Georges Méliès</strong> y <strong>Herbert George Wells</strong>.</p>
+            <pre><code class="language-html">&lt;strong&gt;Julio Verne&lt;/strong&gt;</code></pre>
+        </li>
+
+        <li class="paso">
+            <h3>Pon en cursiva las palabras extranjeras y las obras</h3>
+            <p>Usa <code>&lt;em&gt;</code> para <em>cosmonautas</em>, <em>taikonautas</em> y los títulos de las obras:
+                <em>Somnium</em>, <em>De la Terre à la Lune</em>, <em>Le voyage dans la Lune</em>, <em>The War of the
+                    Worlds</em> y <em>The First Men in The Moon</em>.</p>
+            <pre><code class="language-html">&lt;em&gt;Somnium&lt;/em&gt;</code></pre>
+        </li>
+
+        <li class="paso">
+            <h3>Compara con el resultado</h3>
+            <p>Guarda, recarga el navegador y compara tu página con la imagen de arriba.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="8-1">
+        <li><label><input type="checkbox"><span>El archivo se llama <code>index.html</code> y está en la carpeta <code>ApellidoNombre_AO_Actividad8.1</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Tiene la estructura básica: <code>&lt;!DOCTYPE html&gt;</code>, <code>html</code>, <code>head</code> con <code>title</code> y <code>body</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>El título "La exploración espacial" está en un <code>h1</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Cada uno de los cuatro párrafos está dentro de su propio <code>p</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Los nombres de las personas están en <code>strong</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Las palabras extranjeras y los títulos de las obras están en <code>em</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>He abierto la página en el navegador y se parece al resultado.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-8/actividades/index"><i class="bi bi-list-check me-1"></i>Todas las actividades</a>
+        <a class="btn btn-primary" href="#/Unidad-8/actividades/8-2">Siguiente: 8.2. Listas <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

@@ -1,0 +1,142 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-8/index">Unidad 8</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-8/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">8.11</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 8.11. Proyecto final: tu sitio web</h1>
+    <p class="lead">Vas a crear un sitio web de tres páginas enlazadas mediante un menú, con todas las etiquetas que
+        has aprendido y una hoja de estilos externa común para todas.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li><code>p</code>, <code>div</code>, <code>span</code>, <code>em</code> y <code>strong</code></li>
+                    <li><code>ul</code>, <code>ol</code> y <code>li</code></li>
+                    <li><code>a</code> e <code>img</code></li>
+                    <li><code>table</code></li>
+                    <li>Una hoja de estilos externa enlazada con <code>&lt;link&gt;</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: toda la <a href="#/Unidad-8/teoria-html">teoría de HTML</a></li>
+                    <li>Teoría: <a href="#/Unidad-8/teoria-css?sec=1-introduccion-a-css">1. Introducción a CSS</a>
+                        (cómo enlazar una hoja de estilos)</li>
+                    <li>Busca al menos tres imágenes para la galería.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Carpeta</th>
+                <td><code>ApellidoNombre_AO_Actividad8.11</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Archivos</th>
+                <td><code>index.html</code> · <code>pagina2.html</code> · <code>pagina3.html</code> ·
+                    <code>estilos.css</code> · las imágenes</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-3 text-primary">Ejemplo de resultado</h2>
+    <p>Este es un sitio sencillo que cumple lo que se pide. Puedes navegar por él con su menú. El tuyo puede tener el
+        diseño que quieras.</p>
+    <iframe src="./Unidad-8/actividades/recursos/sitio-ejemplo/index.html" title="Sitio web de ejemplo"
+        class="w-100 rounded border" style="height: 32rem;"></iframe>
+    <p class="fuente"><i class="bi bi-info-circle me-1"></i>Las imágenes de la galería del ejemplo son de iStock.</p>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea los archivos</h3>
+            <p>En tu carpeta crea los tres documentos HTML (<code>index.html</code>, <code>pagina2.html</code> y
+                <code>pagina3.html</code>), la hoja de estilos <code>estilos.css</code> y una carpeta para las
+                imágenes.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Enlaza la hoja de estilos en todas las páginas</h3>
+            <p>En el <code>head</code> de <strong>cada una</strong> de las tres páginas añade:</p>
+            <pre><code class="language-html">&lt;link rel="stylesheet" href="estilos.css"&gt;</code></pre>
+            <p>No escribas estilos dentro de las páginas: todo el CSS va en <code>estilos.css</code>. Así, si cambias
+                un color, cambia en todo el sitio a la vez.</p>
+        </li>
+
+        <li class="paso">
+            <h3>El menú</h3>
+            <p>Al principio de cada página escribe el mismo menú, con un enlace a cada una de las tres páginas:</p>
+            <pre><code class="language-html">&lt;div class="menu"&gt;
+    &lt;a href="index.html"&gt;Inicio&lt;/a&gt;
+    &lt;a href="pagina2.html"&gt;Galería&lt;/a&gt;
+    &lt;a href="pagina3.html"&gt;Tabla&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+        </li>
+
+        <li class="paso">
+            <h3>Página 1: <code>index.html</code></h3>
+            <ul>
+                <li>Un título y un párrafo de bienvenida.</li>
+                <li>Un <code>div</code> con una lista ordenada y otra no ordenada.</li>
+                <li>Enlaces, y texto en cursiva (<code>em</code>) y en negrita (<code>strong</code>).</li>
+            </ul>
+        </li>
+
+        <li class="paso">
+            <h3>Página 2: <code>pagina2.html</code></h3>
+            <ul>
+                <li>Un título y un párrafo.</li>
+                <li>Una galería de al menos tres imágenes, dentro de un <code>&lt;div class="galeria"&gt;</code>.</li>
+            </ul>
+        </li>
+
+        <li class="paso">
+            <h3>Página 3: <code>pagina3.html</code></h3>
+            <ul>
+                <li>Un título y un párrafo.</li>
+                <li>Una tabla con al menos 3 columnas y 2 filas.</li>
+            </ul>
+        </li>
+
+        <li class="paso">
+            <h3>Dale estilo</h3>
+            <p>En <code>estilos.css</code> da estilo al menú, las listas, las imágenes de la galería, la tabla y todo
+                lo que quieras. Usa <code>span</code> para dar estilo a alguna palabra concreta.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="8-11">
+        <li><label><input type="checkbox"><span>Las tres páginas tienen el mismo menú y desde cualquiera se llega a las otras dos.</span></label></li>
+        <li><label><input type="checkbox"><span>Las tres páginas enlazan <code>estilos.css</code> y no tienen estilos dentro.</span></label></li>
+        <li><label><input type="checkbox"><span><code>index.html</code> tiene título, bienvenida, un <code>div</code> con una lista ordenada y otra no ordenada, enlaces, <code>em</code> y <code>strong</code>.</span></label></li>
+        <li><label><input type="checkbox"><span><code>pagina2.html</code> tiene una galería de al menos tres imágenes en <code>div class="galeria"</code>.</span></label></li>
+        <li><label><input type="checkbox"><span><code>pagina3.html</code> tiene una tabla de al menos 3 columnas y 2 filas.</span></label></li>
+        <li><label><input type="checkbox"><span>El menú, las listas, las imágenes y la tabla tienen estilo.</span></label></li>
+        <li><label><input type="checkbox"><span>Todas las imágenes se ven (he comprobado las rutas).</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-8/actividades/8-10"><i class="bi bi-arrow-left me-1"></i>Anterior: 8.10</a>
+        <a class="btn btn-primary" href="#/Unidad-8/actividades/index">Todas las actividades <i class="bi bi-list-check ms-1"></i></a>
+    </nav>
+</div>

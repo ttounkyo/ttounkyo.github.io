@@ -1,0 +1,184 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-8/index">Unidad 8</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-8/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">8.6</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 8.6. Selectores</h1>
+    <p class="lead">Tienes una página con sus estilos escritos, pero a cada regla le falta el selector. Tu trabajo es
+        escribirlo para que la página quede como en la imagen.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Selector universal (<code>*</code>)</li>
+                    <li>Selectores de etiqueta, de clase y de ID</li>
+                    <li>Selectores descendientes (un elemento dentro de otro)</li>
+                    <li>Etiqueta y clase a la vez (por ejemplo, <code>p.intro</code>)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-8/teoria-css?sec=4-selectores">4. Selectores</a> a <a
+                            href="#/Unidad-8/teoria-css?sec=8-selectores-descendientes-y-combinadores">8. Selectores
+                            descendientes</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Carpeta</th>
+                <td><code>ApellidoNombre_AO_Actividad8.6</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>index.html</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-3 text-primary">Así debe quedar</h2>
+    <figure><img src="../AO/img/Unidad-8/actividades/8-6/resultado.png"
+            alt="Página con varios párrafos de texto de relleno con colores, enlaces y palabras resaltadas">
+        <figcaption>Resultado en el navegador</figcaption>
+    </figure>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea el documento con el código</h3>
+            <p>Crea el archivo <code>index.html</code>, pulsa <strong>Copiar</strong> y pega el código completo.</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+        /* Todos los elementos de la pagina */
+        { font: 1em/1.3 Arial, Helvetica, sans-serif; }
+
+        /* Todos los parrafos de la pagina */
+        { color: #555; }
+
+        /* Todos los párrafos contenidos en #primero */
+        { color: #336699; }
+
+        /* Todos los enlaces la pagina */
+        { color: #CC3300; }
+
+        /* Los elementos "em" contenidos en #primero */
+        { background: #FFFFCC; padding: .1em; }
+
+        /* Todos los elementos "em" de clase "especial" en toda la pagina */
+        { background: #FFCC99; border: 1px solid #FF9900; padding: .1em; }
+
+        /* Elementos "span" contenidos en .normal */
+        { font-weight: bold; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id="primero"&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, &lt;a href="#"&gt;consectetuer adipiscing elit&lt;/a&gt;. Praesent
+    blandit nibh at felis. Sed nec diam in dolor vestibulum aliquet. Duis ullamcorper, nisi non facilisis
+    molestie, &lt;em&gt;lorem sem aliquam nulla&lt;/em&gt;, id lacinia velit mi vestibulum enim.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="normal"&gt;
+    &lt;p&gt;Phasellus eu velit sed lorem sodales egestas. Ut feugiat. &lt;span&gt;&lt;a href="#"&gt;Donec porttitor&lt;/a&gt;,
+    magna eu varius luctus,&lt;/span&gt; metus massa tristique massa, in imperdiet est velit vel magna. Phasellus erat. Duis
+    risus. &lt;a href="#"&gt;Maecenas dictum&lt;/a&gt;, nibh vitae pellentesque auctor, tellus velit consectetuer tellus,
+    tempor pretium felis tellus at metus.&lt;/p&gt;
+    &lt;p&gt;Cum sociis natoque &lt;em class="especial"&gt;penatibus et magnis&lt;/em&gt; dis parturient montes, nascetur ridiculus mus. Proin aliquam convallis ante. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc aliquet. Sed eu metus. Duis justo.&lt;/p&gt;
+    &lt;p&gt;Donec facilisis blandit velit. Vestibulum nisi. Proin volutpat, &lt;em class="especial"&gt;enim id iaculis congue&lt;/em&gt;, orci justo ultrices tortor, &lt;a href="#"&gt;quis lacinia eros libero in eros&lt;/a&gt;. Sed malesuada dui vel quam. Integer at eros.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+        </li>
+
+        <li class="paso">
+            <h3>Lee los comentarios</h3>
+            <p>Dentro de <code>&lt;style&gt;</code> hay siete reglas. Cada una empieza por un comentario
+                (<code>/* ... */</code>) que dice a qué elementos se aplica, pero falta el selector delante de la
+                llave <code>{</code>.</p>
+            <p>Busca en el <code>body</code> los elementos de los que habla cada comentario: ¿tienen un
+                <code>id</code>? ¿Una <code>class</code>? ¿Están dentro de otro elemento?</p>
+        </li>
+
+        <li class="paso">
+            <h3>Escribe los selectores</h3>
+            <p>Escribe el selector de cada regla. Esta tabla te ayuda a elegir el tipo:</p>
+            <div class="table-responsive">
+                <table class="table table-sm table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Si el comentario dice…</th>
+                            <th scope="col">Necesitas…</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>"Todos los elementos de la página"</td>
+                            <td>el selector universal</td>
+                        </tr>
+                        <tr>
+                            <td>"Todos los párrafos" o "todos los enlaces"</td>
+                            <td>un selector de etiqueta</td>
+                        </tr>
+                        <tr>
+                            <td>"… contenidos en #primero" o "contenidos en .normal"</td>
+                            <td>un selector descendiente: primero el contenedor, un espacio y después el elemento</td>
+                        </tr>
+                        <tr>
+                            <td>"Elementos em de clase especial"</td>
+                            <td>la etiqueta y la clase juntas, sin espacio</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </li>
+
+        <li class="paso">
+            <h3>Compara con el resultado</h3>
+            <p>Guarda, abre la página en el navegador y compárala con la imagen. Si un estilo no se aplica, revisa el
+                selector: un punto (<code>.</code>) para las clases, una almohadilla (<code>#</code>) para los ID.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="8-6">
+        <li><label><input type="checkbox"><span>Las siete reglas tienen su selector.</span></label></li>
+        <li><label><input type="checkbox"><span>Todo el texto usa la fuente Arial.</span></label></li>
+        <li><label><input type="checkbox"><span>Los párrafos de <code>#primero</code> tienen un color distinto al resto.</span></label></li>
+        <li><label><input type="checkbox"><span>Los <code>em</code> de clase <code>especial</code> tienen fondo naranja claro y borde.</span></label></li>
+        <li><label><input type="checkbox"><span>Los <code>span</code> de <code>.normal</code> están en negrita.</span></label></li>
+        <li><label><input type="checkbox"><span>La página se parece a la imagen del resultado.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-8/actividades/8-5"><i class="bi bi-arrow-left me-1"></i>Anterior: 8.5</a>
+        <a class="btn btn-primary" href="#/Unidad-8/actividades/8-7">Siguiente: 8.7. Selectores y estilos <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

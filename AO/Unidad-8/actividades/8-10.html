@@ -1,0 +1,131 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-8/index">Unidad 8</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-8/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">8.10</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 8.10. Diseño con floats</h1>
+    <p class="lead">Vas a organizar una página en bloques de colores colocados unos al lado de otros, usando
+        contenedores <code>div</code> y la propiedad <code>float</code>.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Contenedores <code>div</code> con clases</li>
+                    <li><code>float</code> y <code>clear</code></li>
+                    <li><code>width</code> en porcentaje y <code>height</code></li>
+                    <li><code>background-color</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-8/teoria-css?sec=3-propiedades">3. Propiedades</a> (dimensiones y
+                        posicionamiento: <code>float</code>)</li>
+                    <li>Teoría: <a href="#/Unidad-8/teoria-css?sec=6-selectores-de-clase">6. Selectores de clase</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Carpeta</th>
+                <td><code>ApellidoNombre_AO_Actividad8.10</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>index.html</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-3 text-primary">Así debe quedar</h2>
+    <figure><img src="../AO/img/Unidad-8/actividades/8-10/resultado.png"
+            alt="Dos composiciones de bloques de colores numerados del uno al trece, de distintos anchos y altos, colocados en filas">
+        <figcaption>Dos formas de hacer la misma estructura</figcaption>
+    </figure>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Dibuja la estructura</h3>
+            <p>Antes de escribir código, mira la imagen y cuenta las filas y los bloques de cada fila. Calcula el ancho
+                de cada bloque en <strong>porcentaje</strong> (20 %, 30 %, 40 %…): los bloques de una fila deben sumar
+                100 %.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Crea un <code>div</code> para cada bloque</h3>
+            <p>Crea el documento y escribe un <code>div</code> para cada bloque. Dentro de cada uno pon su nombre con
+                un <code>h2</code> para identificarlo.</p>
+            <pre><code class="language-html">&lt;div class="uno"&gt;&lt;h2&gt;uno&lt;/h2&gt;&lt;/div&gt;
+&lt;div class="dos"&gt;&lt;h2&gt;dos&lt;/h2&gt;&lt;/div&gt;</code></pre>
+        </li>
+
+        <li class="paso">
+            <h3>Ancho, alto y color con clases</h3>
+            <p>Usa clases para el <strong>ancho</strong>, el <strong>alto</strong> y el <strong>color de fondo</strong>
+                de cada bloque. Puedes hacerlo de dos formas:</p>
+            <ul>
+                <li>Una clase para cada bloque: <code>.uno</code>, <code>.dos</code>, <code>.tres</code>…</li>
+                <li>Clases que se combinan: <code>.w-20</code>, <code>.red</code>, <code>.blue</code>… (por ejemplo,
+                    <code>class="w-20 red"</code>).</li>
+            </ul>
+        </li>
+
+        <li class="paso">
+            <h3>Colócalos con <code>float</code></h3>
+            <p>Añade <code>float: left</code> a los bloques para que se pongan uno al lado del otro. Cuando no caben
+                más en la fila, el siguiente baja a la fila de abajo.</p>
+            <pre><code class="language-css">.uno {
+    float: left;
+    width: 20%;
+    height: 6em;
+    background-color: red;
+}</code></pre>
+        </li>
+
+        <li class="paso">
+            <h3>Bloques divididos en dos</h3>
+            <p>Para partir un bloque en dos mitades (como "tres a" y "tres b"), mete dos <code>div</code> de
+                <code>height: 3em</code> dentro de un contenedor de <code>height: 6em</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>La segunda fila y el <code>clear</code></h3>
+            <p>Haz la segunda fila respetando el orden de la imagen. Si un bloque se coloca donde no debe, limpia los
+                floats al final de la fila con la propiedad <code>clear</code> (o un <code>clearfix</code>).</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="8-10">
+        <li><label><input type="checkbox"><span>Cada bloque es un <code>div</code> con su nombre en un <code>h2</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>El ancho, el alto y el color se ponen con clases, no con <code>style</code> en cada etiqueta.</span></label></li>
+        <li><label><input type="checkbox"><span>Los anchos están en porcentaje y los de cada fila suman 100 %.</span></label></li>
+        <li><label><input type="checkbox"><span>Los bloques se colocan con <code>float</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Hay al menos un bloque dividido en dos mitades.</span></label></li>
+        <li><label><input type="checkbox"><span>La estructura se parece a la imagen del resultado.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-8/actividades/8-9"><i class="bi bi-arrow-left me-1"></i>Anterior: 8.9</a>
+        <a class="btn btn-primary" href="#/Unidad-8/actividades/8-11">Siguiente: 8.11. Tu sitio web <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

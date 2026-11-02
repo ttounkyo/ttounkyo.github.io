@@ -97,16 +97,21 @@
                             <span class="tarjeta-titulo">Imagen y vídeo</span>
                             <span class="tarjeta-meta">Próximamente</span>
                         </div>
-                        <a class="tarjeta-unidad" href="#/Unidad-8/html/index">
+                        <a class="tarjeta-unidad destacada" href="#/Unidad-8/index">
                             <span class="tarjeta-num">8</span>
                             <span class="tarjeta-titulo">HTML y CSS</span>
                             <span class="tarjeta-texto">Cómo se construye una página web con HTML y cómo se le da estilo
                                 con CSS.</span>
-                            <span class="tarjeta-meta"><i class="bi bi-list-check"></i> Teoría + actividades</span>
+                            <span class="tarjeta-meta"><i class="bi bi-list-check"></i> Teoría + 11 actividades</span>
                         </a>
                     </div>
                 </div>
             </main>
+
+            <footer class="pie-pagina">
+                Material de clase elaborado por ttounkyo. Las imágenes y las capturas son propias; cuando un texto o una
+                imagen viene de otra fuente, se indica en la propia actividad.
+            </footer>
         </div>
     </div>
 
@@ -175,9 +180,43 @@
             }
         }
 
+        const rutasAntiguas = {
+            "Unidad-8/html/index": "Unidad-8/teoria-html",
+            "Unidad-8/html/elementos": "Unidad-8/teoria-html?sec=2-elementos-de-estructura",
+            "Unidad-8/html/texto": "Unidad-8/teoria-html?sec=3-texto",
+            "Unidad-8/html/listas": "Unidad-8/teoria-html?sec=4-listas",
+            "Unidad-8/html/imagenes": "Unidad-8/teoria-html?sec=5-imagenes",
+            "Unidad-8/html/enlaces": "Unidad-8/teoria-html?sec=6-enlaces",
+            "Unidad-8/html/tablas": "Unidad-8/teoria-html?sec=7-tablas",
+            "Unidad-8/html-css/index": "Unidad-8/teoria-css",
+            "Unidad-8/html-css/elementos-importantes": "Unidad-8/teoria-css?sec=2-elementos-importantes-de-css",
+            "Unidad-8/html-css/propiedades-css": "Unidad-8/teoria-css?sec=3-propiedades",
+            "Unidad-8/html-css/selectores": "Unidad-8/teoria-css?sec=4-selectores",
+            "Unidad-8/html-css/selectores-etiquetas": "Unidad-8/teoria-css?sec=5-selectores-de-etiqueta",
+            "Unidad-8/html-css/selectores-clase": "Unidad-8/teoria-css?sec=6-selectores-de-clase",
+            "Unidad-8/html-css/selectores-id": "Unidad-8/teoria-css?sec=7-selectores-de-id",
+            "Unidad-8/html-css/selectores-descendientes": "Unidad-8/teoria-css?sec=8-selectores-descendientes-y-combinadores",
+            "Unidad-8/Actividades/misitio/prueba": "Unidad-8/actividades/8-11",
+        };
+
+        function rutaNueva(ruta) {
+            if (rutasAntiguas[ruta]) return rutasAntiguas[ruta];
+            // Actividades HTML 1-5 -> 8.1-8.5 y CSS 1-5 -> 8.6-8.10
+            const act = ruta && ruta.match(/^Unidad-8\/Actividades\/(HTML|CSS)\/Actividad-([1-5])$/);
+            if (act) return `Unidad-8/actividades/8-${Number(act[2]) + (act[1] === "CSS" ? 5 : 0)}`;
+            return null;
+        }
+
         async function mostrarPagina() {
             const { ruta, sec } = leerHash();
             cerrarPaneles();
+
+            // Enlaces antiguos de la Unidad 8 (antes de reorganizarla): llevan a la página nueva
+            const nueva = rutaNueva(ruta);
+            if (nueva) {
+                location.replace(`#/${nueva}`);
+                return;
+            }
 
             // Misma página, solo cambia el apartado: no se vuelve a descargar
             if (ruta && ruta === paginaActual) {

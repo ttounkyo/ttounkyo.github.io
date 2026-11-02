@@ -1,0 +1,192 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-8/index">Unidad 8</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-8/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">8.7</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 8.7. Selectores y estilos</h1>
+    <p class="lead">Ahora el código HTML no tiene ningún estilo. Escribes tú todo el CSS para que la página, con su
+        texto y su tabla, quede como en la imagen.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li>Escribir reglas CSS completas dentro de <code>&lt;style&gt;</code></li>
+                    <li>Selectores de etiqueta, de clase, de ID y descendientes</li>
+                    <li>Colores de texto, negrita y bordes de tabla</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-8/teoria-css?sec=4-selectores">4. Selectores</a> a <a
+                            href="#/Unidad-8/teoria-css?sec=8-selectores-descendientes-y-combinadores">8. Selectores
+                            descendientes</a></li>
+                    <li>Teoría: <a href="#/Unidad-8/teoria-css?sec=3-propiedades">3. Propiedades</a> (color, fuentes y
+                        bordes)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Carpeta</th>
+                <td><code>ApellidoNombre_AO_Actividad8.7</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Archivo</th>
+                <td><code>index.html</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-3 text-primary">Así debe quedar</h2>
+    <figure><img src="../AO/img/Unidad-8/actividades/8-7/resultado.png"
+            alt="Página con títulos en verde azulado y azul, palabras de colores en los párrafos, una tabla con bordes y texto final en verde oliva">
+        <figcaption>Resultado en el navegador</figcaption>
+    </figure>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea el documento con el código</h3>
+            <p>Crea el archivo <code>index.html</code>, pulsa <strong>Copiar</strong> y pega el código completo.
+                Después añade una etiqueta <code>&lt;style&gt;&lt;/style&gt;</code> dentro del <code>head</code>: ahí
+                escribirás todas las reglas.</p>
+            <div class="position-relative">
+                <button type="button" class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2"
+                    onclick="copiarCodigo(this)">Copiar</button>
+                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Ejercicio de selectores&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;h1 id="titulo"&gt;Lorem ipsum dolor sit amet&lt;/h1&gt;
+
+&lt;p&gt;Nulla pretium. Sed tempus nunc vitae neque. &lt;strong&gt;Suspendisse gravida&lt;/strong&gt;, metus a scelerisque sollicitudin, lacus velit
+ultricies nisl, nonummy tempus neque diam quis felis. &lt;span class="destacado"&gt;Etiam sagittis tortor&lt;/span&gt; sed arcu sagittis tristique.&lt;/p&gt;
+
+&lt;h2 id="subtitulo"&gt;Aliquam tincidunt, sem eget volutpat porta&lt;/h2&gt;
+
+&lt;p&gt;Vivamus velit dui, placerat vel, feugiat in, ornare et, urna.  &lt;a href="#"&gt;Aenean turpis metus, &lt;em&gt;aliquam non&lt;/em&gt;, tristique in&lt;/a&gt;, pretium varius,
+sapien. Proin vitae nisi.  Suspendisse &lt;span class="especial"&gt;porttitor purus ac elit&lt;/span&gt;. Suspendisse eleifend odio at dui. In in elit sed metus pretium elementum.&lt;/p&gt;
+
+&lt;table summary="Descripción de la tabla y su contenido"&gt;
+&lt;caption&gt;Título de la tabla&lt;/caption&gt;
+&lt;thead&gt;
+  &lt;tr&gt;
+    &lt;th scope="col"&gt;&lt;/th&gt;
+    &lt;th scope="col" class="especial"&gt;Título columna 1&lt;/th&gt;
+    &lt;th scope="col" class="especial"&gt;Título columna 2&lt;/th&gt;
+  &lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tfoot&gt;
+  &lt;tr&gt;
+    &lt;th scope="col"&gt;&lt;/th&gt;
+    &lt;th scope="col"&gt;Título columna 1&lt;/th&gt;
+    &lt;th scope="col"&gt;Título columna 2&lt;/th&gt;
+  &lt;/tr&gt;
+&lt;/tfoot&gt;
+
+&lt;tbody&gt;
+  &lt;tr&gt;
+    &lt;th scope="row" class="especial"&gt;Título fila 1&lt;/th&gt;
+    &lt;td&gt;Donec purus ipsum&lt;/td&gt;
+    &lt;td&gt;Curabitur &lt;em&gt;blandit&lt;/em&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;th scope="row"&gt;Título fila 2&lt;/th&gt;
+    &lt;td&gt;Donec &lt;strong&gt;purus ipsum&lt;/strong&gt;&lt;/td&gt;
+    &lt;td&gt;Curabitur blandit&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;div id="adicional"&gt;
+&lt;p&gt;Donec purus ipsum, posuere id, venenatis at, &lt;span&gt;placerat ac, lorem&lt;/span&gt;. Curabitur blandit, eros sed gravida aliquet, risus justo
+porta lorem, ut mollis lectus tortor in orci. Pellentesque nec augue.&lt;/p&gt;
+
+&lt;p&gt;Fusce nec felis eu diam pretium adipiscing. &lt;span id="especial"&gt;Nunc elit elit, vehicula vulputate&lt;/span&gt;, venenatis in,
+posuere id, lorem. Etiam sagittis, tellus in ultrices accumsan, diam nisi feugiat ante, eu congue magna mi non nisl.&lt;/p&gt;
+
+&lt;p&gt;Vivamus ultrices aliquet augue. &lt;a href="#"&gt;Donec arcu pede, pretium vitae&lt;/a&gt;, rutrum aliquet, tincidunt blandit, pede.
+Aliquam in nisi. Suspendisse volutpat. Nulla facilisi. Ut ullamcorper nisi quis mi.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+        </li>
+
+        <li class="paso">
+            <h3>Localiza los ID y las clases</h3>
+            <p>Antes de escribir, busca en el código los elementos que tienen nombre: los ID <code>titulo</code>,
+                <code>subtitulo</code>, <code>adicional</code> y <code>especial</code>, y las clases
+                <code>destacado</code> y <code>especial</code>. Fíjate en que <code>especial</code> se usa como clase y
+                también como ID: son selectores distintos (<code>.especial</code> y <code>#especial</code>).</p>
+        </li>
+
+        <li class="paso">
+            <h3>Títulos y texto</h3>
+            <p>Da color a los dos títulos usando sus ID. Después, dentro de los párrafos, da color a los
+                <code>strong</code>, a los <code>span</code> de cada clase y a los enlaces, como en la imagen.</p>
+        </li>
+
+        <li class="paso">
+            <h3>La tabla</h3>
+            <p>Pon borde a las celdas y color al título de la tabla (<code>caption</code>), a los encabezados
+                (<code>th</code>) y a las celdas de datos (<code>td</code>). Los encabezados de la parte de abajo
+                (<code>tfoot</code>) tienen otro color: usa un selector descendiente como <code>tfoot th</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>El bloque final</h3>
+            <p>Los tres últimos párrafos están dentro de <code>#adicional</code>: dales color con un selector
+                descendiente y, después, cambia el color del <code>span</code> con ID <code>especial</code> y del
+                enlace que hay dentro de este bloque.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Compara con el resultado</h3>
+            <p>Guarda, recarga el navegador y compara. Si dos reglas se aplican al mismo elemento, gana la más
+                específica: un ID gana a una clase y una clase gana a una etiqueta.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="8-7">
+        <li><label><input type="checkbox"><span>Todos los estilos están en la etiqueta <code>&lt;style&gt;</code> del <code>head</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Los dos títulos tienen color usando sus ID.</span></label></li>
+        <li><label><input type="checkbox"><span>Uso <code>.especial</code> y <code>#especial</code> para elementos distintos.</span></label></li>
+        <li><label><input type="checkbox"><span>Las celdas de la tabla tienen borde y los encabezados de arriba y de abajo tienen colores distintos.</span></label></li>
+        <li><label><input type="checkbox"><span>Los párrafos de <code>#adicional</code> tienen su propio color.</span></label></li>
+        <li><label><input type="checkbox"><span>La página se parece a la imagen del resultado.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-8/actividades/8-6"><i class="bi bi-arrow-left me-1"></i>Anterior: 8.6</a>
+        <a class="btn btn-primary" href="#/Unidad-8/actividades/8-8">Siguiente: 8.8. Estilos para una tabla <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>

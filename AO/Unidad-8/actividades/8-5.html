@@ -1,0 +1,130 @@
+<div class="container my-5 actividad">
+    <nav aria-label="Ruta">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#/Unidad-8/index">Unidad 8</a></li>
+            <li class="breadcrumb-item"><a href="#/Unidad-8/actividades/index">Actividades</a></li>
+            <li class="breadcrumb-item active" aria-current="page">8.5</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-3 text-primary">Actividad 8.5. Tablas</h1>
+    <p class="lead">Vas a crear una tabla de películas con sus directores y guionistas. Cada película lleva una imagen
+        que enlaza a su sinopsis.</p>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Lo que vas a practicar</h2>
+                <ul>
+                    <li><code>table</code>, <code>tr</code>, <code>th</code> y <code>td</code></li>
+                    <li>Combinar celdas con <code>colspan</code> y <code>rowspan</code></li>
+                    <li>Imágenes que son enlaces</li>
+                    <li>Un primer estilo CSS con la etiqueta <code>style</code></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ficha">
+                <h2>Antes de empezar</h2>
+                <ul>
+                    <li>Teoría: <a href="#/Unidad-8/teoria-html?sec=7-tablas">7. Tablas</a> y <a
+                            href="#/Unidad-8/teoria-html?sec=6-enlaces">6. Enlaces</a></li>
+                    <li>Elige las películas y busca su ficha en <a href="https://www.filmaffinity.com" target="_blank"
+                            rel="noopener noreferrer">FilmAffinity</a>.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-sm table-bordered ajustes mb-5">
+        <caption class="caption-top fw-bold">Qué entregas</caption>
+        <tbody>
+            <tr>
+                <th scope="row">Carpeta</th>
+                <td><code>ApellidoNombre_AO_Actividad8.5</code></td>
+            </tr>
+            <tr>
+                <th scope="row">Archivos</th>
+                <td>El documento HTML y las imágenes de las películas</td>
+            </tr>
+            <tr>
+                <th scope="row">Título</th>
+                <td>Películas, directores y guionistas</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mb-3 text-primary">Así debe quedar</h2>
+    <figure><img src="../AO/img/Unidad-8/actividades/8-5/resultado.png"
+            alt="Dos tablas de películas con columnas Películas, Directores y Guionistas, imágenes de carteles y celdas combinadas">
+        <figcaption>Ejemplo de resultado (no hace falta poner colores)</figcaption>
+    </figure>
+
+    <h2 class="mb-4 text-primary">Paso a paso</h2>
+    <ol class="pasos">
+        <li class="paso">
+            <h3>Crea el documento</h3>
+            <p>Crea un documento HTML con el título <strong>Películas, directores y guionistas</strong>. Guarda las
+                imágenes de las películas en la misma carpeta o en una carpeta <code>img</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Crea la tabla</h3>
+            <p>La tabla tiene como mínimo <strong>3 columnas</strong> (película, director y guionista) y
+                <strong>6 filas</strong>. Usa <code>th</code> para la fila de los encabezados y <code>td</code> para
+                los datos. Si quieres, ponle un título con <code>caption</code>.</p>
+        </li>
+
+        <li class="paso">
+            <h3>Imágenes que enlazan a la sinopsis</h3>
+            <p>En la columna de la película añade una imagen representativa. La imagen va <strong>dentro</strong> de
+                un enlace que lleva a la sinopsis de la película en FilmAffinity:</p>
+            <pre><code class="language-html">&lt;td&gt;
+    Los otros
+    &lt;a href="https://www.filmaffinity.com/es/film..." target="_blank"&gt;
+        &lt;img src="img/los-otros.jpg" alt="Cartel de Los otros" width="40"&gt;
+    &lt;/a&gt;
+&lt;/td&gt;</code></pre>
+        </li>
+
+        <li class="paso">
+            <h3>Combina celdas</h3>
+            <p>Usa <code>colspan</code> y <code>rowspan</code> en al menos una celda. Por ejemplo, si el director y el
+                guionista son la misma persona, una sola celda puede ocupar las dos columnas:</p>
+            <pre><code class="language-html">&lt;td colspan="2"&gt;Alejandro Amenábar&lt;/td&gt;</code></pre>
+        </li>
+
+        <li class="paso">
+            <h3>Añade el borde a las celdas</h3>
+            <p>Dentro del <code>head</code>, añade este código CSS para que todas las celdas tengan un borde negro:</p>
+            <pre><code class="language-html">&lt;style&gt;
+    td {
+        border: 1px solid black;
+    }
+&lt;/style&gt;</code></pre>
+            <p><strong>No es necesario</strong> poner colores en cada celda. Puedes añadir otros estilos de los que
+                hemos visto en clase.</p>
+        </li>
+    </ol>
+
+    <h2 class="mb-3 text-primary">Comprueba antes de entregar</h2>
+    <div class="progreso-actividad mb-2">
+        <div class="progress" role="progressbar" aria-label="Avance de la comprobación">
+            <div class="progress-bar bg-success" style="width: 0%"></div>
+        </div>
+        <small class="progreso-texto text-muted"></small>
+    </div>
+    <ul class="checklist" data-actividad="8-5">
+        <li><label><input type="checkbox"><span>El título del documento es "Películas, directores y guionistas".</span></label></li>
+        <li><label><input type="checkbox"><span>La tabla tiene al menos 3 columnas y 6 filas.</span></label></li>
+        <li><label><input type="checkbox"><span>Cada película tiene una imagen.</span></label></li>
+        <li><label><input type="checkbox"><span>Al pulsar cada imagen se abre su sinopsis en FilmAffinity.</span></label></li>
+        <li><label><input type="checkbox"><span>Hay al menos una celda con <code>colspan</code> y otra con <code>rowspan</code>.</span></label></li>
+        <li><label><input type="checkbox"><span>Las celdas tienen borde negro gracias a la etiqueta <code>style</code> del <code>head</code>.</span></label></li>
+    </ul>
+
+    <nav class="navegacion-actividades" aria-label="Otras actividades">
+        <a class="btn btn-outline-primary" href="#/Unidad-8/actividades/8-4"><i class="bi bi-arrow-left me-1"></i>Anterior: 8.4</a>
+        <a class="btn btn-primary" href="#/Unidad-8/actividades/8-6">Siguiente: 8.6. Selectores <i class="bi bi-arrow-right ms-1"></i></a>
+    </nav>
+</div>
