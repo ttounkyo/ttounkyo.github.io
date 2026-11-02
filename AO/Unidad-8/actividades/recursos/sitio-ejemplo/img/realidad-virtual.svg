@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">Persona con unas gafas de realidad virtual</title>
+  <rect width="400" height="300" fill="#dff1f7"/>
+  <!-- formas flotantes del mundo virtual -->
+  <g fill="none" stroke="#3aa6c9" stroke-width="4" opacity="0.7">
+    <rect x="40" y="40" width="44" height="44" rx="6" transform="rotate(-12 62 62)"/>
+    <circle cx="335" cy="70" r="24"/>
+    <path d="M300 230 l26 -44 l26 44 z"/>
+    <path d="M60 230 h40 M80 210 v40"/>
+  </g>
+  <!-- cuerpo -->
+  <path d="M120 300 c0 -60 35 -90 80 -90 s80 30 80 90 z" fill="#2f4a7a"/>
+  <!-- cuello y cabeza -->
+  <rect x="186" y="180" width="28" height="36" rx="10" fill="#e9b48f"/>
+  <circle cx="200" cy="140" r="58" fill="#e9b48f"/>
+  <path d="M142 136 c0 -44 30 -64 60 -64 s58 22 56 62 c-12 -22 -34 -34 -58 -34 s-46 12 -58 36 z" fill="#3b2a20"/>
+  <!-- gafas de realidad virtual -->
+  <rect x="134" y="118" width="132" height="54" rx="16" fill="#1d2733"/>
+  <rect x="146" y="128" width="108" height="34" rx="10" fill="#3aa6c9"/>
+  <path d="M152 140 h30 M218 150 h30" stroke="#dff1f7" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+  <rect x="124" y="134" width="12" height="22" rx="4" fill="#1d2733"/>
+  <rect x="264" y="134" width="12" height="22" rx="4" fill="#1d2733"/>
+  <!-- sonrisa -->
+  <path d="M182 186 q18 14 36 0" fill="none" stroke="#8a4b33" stroke-width="4" stroke-linecap="round"/>
+</svg>

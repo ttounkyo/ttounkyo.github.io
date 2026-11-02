@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t">
+  <title id="t">Portátil protegido por un escudo con un candado</title>
+  <rect width="400" height="300" fill="#0f2747"/>
+  <!-- estrellas de la noche -->
+  <g fill="#ffffff" opacity="0.6">
+    <circle cx="40" cy="40" r="2"/><circle cx="120" cy="24" r="1.5"/><circle cx="300" cy="36" r="2"/>
+    <circle cx="360" cy="80" r="1.5"/><circle cx="60" cy="120" r="1.5"/><circle cx="340" cy="150" r="2"/>
+  </g>
+  <!-- ceros y unos -->
+  <g fill="#3aa6c9" font-family="monospace" font-size="16" opacity="0.5">
+    <text x="30" y="200">0101</text><text x="320" y="230">1100</text><text x="40" y="250">1010</text>
+  </g>
+  <!-- portátil -->
+  <rect x="110" y="120" width="180" height="116" rx="10" fill="#5a6675"/>
+  <rect x="120" y="130" width="160" height="96" rx="4" fill="#1d2733"/>
+  <path d="M90 236 h220 l-12 16 h-196 z" fill="#8994a3"/>
+  <!-- escudo -->
+  <path d="M200 64 l64 24 v46 c0 46 -30 76 -64 92 c-34 -16 -64 -46 -64 -92 v-46 z" fill="#1b7a4f" stroke="#7ee2ae" stroke-width="4"/>
+  <!-- candado -->
+  <path d="M182 136 v-14 a18 18 0 0 1 36 0 v14" fill="none" stroke="#ffffff" stroke-width="7"/>
+  <rect x="172" y="134" width="56" height="44" rx="6" fill="#f2a516"/>
+  <circle cx="200" cy="152" r="6" fill="#0f2747"/>
+  <rect x="197" y="152" width="6" height="14" rx="2" fill="#0f2747"/>
+</svg>
